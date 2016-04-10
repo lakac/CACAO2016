@@ -32,24 +32,33 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	
 	//ce code calcule le cout de revient et le cout de evient unitaire de Nestlé France !
 	//p en euros, q en kilos
-	public static int[] CoutInts (int p, int q){ 
-		int[] CI =new int[2] ;
+	public static double[] CoutInts (double p, double q){ 
+		double[] CI =new double[2] ;
 		CI[0] = 9103370+q*(5+p);
 		CI[1] = CI[0]/q;
 		return CI;
 	}
 	
+	public static double stock (double s0, int qd, int qp) {
+		double s1 = s0 + qd - qp;
+		return s1;
+	}
+	
 	//Méthode principale de test de CoutInts, déféaire les "/*" pour l'activer
-	/*
 	    public static void main(String[] args) {
 		int p = 3;
 		int q = 30000;
-		int[] CI = CoutInts(p,q);
+		double[] CI = CoutInts(p,q);
 		System.out.println(CI.length);
 		System.out.println("le cout de revient de Nestlé France à la période t est de "+CI[0]);
 		System.out.println("le cout de revient unitaire de Nestlé France à la période t est de "+CI[1]);
+		
+		double s0 = 300.6;
+		int qd = 100;
+		int qp = 200;
+		System.out.println("le stock à l'instant t est de " + stock(s0, qd, qp));
 	}
-	*/
+
 	
 
 }

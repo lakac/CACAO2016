@@ -5,9 +5,9 @@ public class ConstantesTransfo {
 	public static final int Trans_MAX = 264423;
 	public static final int Trans_MIN = 216346;
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		System.out.print("minimum = "+Trans_MIN+", maximum = "+Trans_MAX);
 		
 	}
-
+	*/
 }
