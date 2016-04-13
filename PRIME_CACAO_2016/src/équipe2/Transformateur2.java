@@ -39,13 +39,20 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 		return CI;
 	}
 	
+	// le stosk à l'instant t dépend de la quantité demandé pour l'instant t+2 
+	//et de la quantité produite pour l'instant t+1
 	public static double stock (double s0, int qd, int qp) {
 		double s1 = s0 + qd - qp;
 		return s1;
 	}
 	
+	public static double quantitéDemandée (double qdd) {
+		double qdp = 0.6*qdd;
+		return qdp;
+	}
+	
 	//Méthode principale de test de CoutInts, déféaire les "/*" pour l'activer
-	    public static void main(String[] args) {
+	   /* public static void main(String[] args) {
 		int p = 3;
 		int q = 30000;
 		double[] CI = CoutInts(p,q);
@@ -57,8 +64,11 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 		int qd = 100;
 		int qp = 200;
 		System.out.println("le stock à l'instant t est de " + stock(s0, qd, qp));
-	}
-
+		
+		double qdd = 30000;
+		System.out.println("la quantité demandée est de "+quantitéDemandée(qdd));
+	}*/
+	
 	
 
 }
