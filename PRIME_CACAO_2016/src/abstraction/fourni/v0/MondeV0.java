@@ -32,8 +32,8 @@ public class MondeV0 extends Monde {
 
 		this.ajouterActeur(Marche.LE_MARCHE);
 		
-		Detaillant d1 = new Detaillant(Constantes.NOM_DETAILLANT_1, this, 120.0, 6000.0);
-		Detaillant d2 = new Detaillant(Constantes.NOM_DETAILLANT_2, this, 130.0, 5500.0);
+		Detaillant d1 = new Detaillant(Constantes.NOM_DETAILLANT_1, this, 120.0, 15.0);
+		Detaillant d2 = new Detaillant(Constantes.NOM_DETAILLANT_2, this, 130.0, 6000.0);
 		
 		d1.ajouterVendeur(t1);
 		d1.ajouterVendeur(t2);
