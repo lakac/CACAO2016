@@ -25,19 +25,19 @@ public class Lindt implements Acteur{
 	}
 	
 	public double marge(){
-		return 0.0;
+		return (0.0);
 	}
 	
-	public double stock_cacao(){
-		return 0.0;
+	public double stock_cacao( double stockInit, double quantiteSouhaitee, double quantiteATransformer){
+		return stockInit+quantiteSouhaitee-quantiteATransformer;
 	}
 	
-	public double stock_chocolat(){
-		return 0.0;
+	public double stock_chocolat(double stockInit, double quantiteDemandee, double quantiteTransformee){
+		return stockInit-quantiteDemandee+quantiteTransformee;
 	}
 	
 	public double coutRevient(){
-		return 0.0;
+		return ;
 	}
 	
 }
