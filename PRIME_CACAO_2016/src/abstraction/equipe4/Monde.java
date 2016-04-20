@@ -1,4 +1,4 @@
-package abstraction.fourni.v1;
+package abstraction.equipe4;
 
 import java.util.ArrayList;
 import java.util.Observable;
