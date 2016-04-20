@@ -41,16 +41,16 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	
 	// le stosk à l'instant t dépend de la quantité demandé pour l'instant t+2 
 	//et de la quantité produite pour l'instant t+1
-	public static double stock (double s0, int qd, int qp) {
-		double s1 = s0 + qd - qp;
-		return s1;
+	public static double stock_cacao (int[] T) {
+		int s = T[2] - T[1];
+		return s;
 	}
 	
 	//la quantité demandée aux producteurs est proportionnelle 
 	//à la quantité de chocolat que nous demande les distributeurs.
-	public static double quantitéDemandée (double qdd) {
+	public static double quantiteDemandee (double qdd) {
 		double qdp = 0.6*qdd;
-		return qdp;
+		return qdp;  
 	}
 	
 	//Le prix du kilo de chocolat étant fixé, tout ce que l'on peut calculer c'est la marge que l'on se fait.
