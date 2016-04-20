@@ -1,6 +1,7 @@
 package abstraction.equipe2;
 
 public class ConstantesTransfo {
+	
 	/* Constante minimales et maximales de transformation par unités de temps
 	public static final int Trans_MAX = 264423;
 	public static final int Trans_MIN = 216346;*/
