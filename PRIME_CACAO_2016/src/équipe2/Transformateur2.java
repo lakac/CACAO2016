@@ -57,6 +57,7 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	}
 	
 	public static double stock_chocolat (double []T){
+		
 		double s1 =T[1];
 		if (s1<0){
 			return -1; 
