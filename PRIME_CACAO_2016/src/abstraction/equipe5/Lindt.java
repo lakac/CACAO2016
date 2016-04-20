@@ -9,7 +9,7 @@ public class Lindt implements Acteur{
 		return "Lindt";}
 
 	public void next() {
-		/* Mettre toutes les méthodes que les autres ont créé
+		/* Mettre toutes les mï¿½thodes que les autres ont crï¿½ï¿½
 		getQuantiteDist();
 		getPrixDist();
 		
@@ -33,8 +33,11 @@ public class Lindt implements Acteur{
 		return stockInit-quantiteDemandee+quantiteTransformee;
 	}
 	
-	public double coutRevient(){
-		return 0.0;
+	public double coutRevient(double quantite, double prix){
+		int charges_fixes;
+		charges_fixes=900980; //(salaires+impÃ´ts)
+		return charges_fixes+quantite*(5+prix);		
+		
 	}
 	
 
