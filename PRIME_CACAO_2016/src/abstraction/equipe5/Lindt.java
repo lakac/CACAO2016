@@ -1,4 +1,4 @@
-package abstraction.Equipe5;
+package abstraction.equipe5;
 
 import abstraction.fourni.Acteur;
 
@@ -24,9 +24,6 @@ public class Lindt implements Acteur{
 		return(0.6*quantite);
 	}
 	
-	public double marge(){
-		return (0.0);
-	}
 	
 	public double stock_cacao( double stockInit, double quantiteSouhaitee, double quantiteATransformer){
 		return stockInit+quantiteSouhaitee-quantiteATransformer;
@@ -37,7 +34,11 @@ public class Lindt implements Acteur{
 	}
 	
 	public double coutRevient(){
-		return ;
+		return 0.0;
+	}
+	
+	public double marge(double coutRevient){
+		return (15-coutRevient);
 	}
 	
 }
