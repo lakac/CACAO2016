@@ -37,8 +37,11 @@ public class Lindt implements Acteur{
 		return 0.0;
 	}
 	
+
 	public double marge(double coutRevient, double quantite){
 		return (15*quantite-coutRevient);
+
+
 	}
 	
 }
