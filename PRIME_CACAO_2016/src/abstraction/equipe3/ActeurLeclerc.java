@@ -19,6 +19,10 @@ public class ActeurLeclerc {
 		this.quantite=commande;
 	}
 	
+	public void setPrix(double commande) {
+		this.prix=commande;
+	}
+	
 	public void commande(int step){
 		if (step==4){
 			setQte(3812.5);
