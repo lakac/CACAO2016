@@ -1,4 +1,4 @@
-package équipe2;
+package abstraction.equipe2;
 
 public class ConstantesTransfo {
 	// Constante minimales et maximales de transformation par unités de temps

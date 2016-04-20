@@ -1,4 +1,4 @@
-package équipe2;
+package abstraction.equipe2;
 
 public class AfficherLesNoms {
 	public static void main(String[] args) {

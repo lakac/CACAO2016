@@ -1,4 +1,4 @@
-package équipe2;
+package abstraction.equipe2;
 
 import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
@@ -34,7 +34,7 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	//p en euros, q en kilos
 	public static double[] CoutInts (double p, double q){ 
 		double[] CI =new double[2] ;
-		CI[0] = 9103370+q*(5+p);
+		CI[0] = 13003370+q*(5+p);
 		CI[1] = CI[0]*0.6/q; // 600g de cacao équivalent à 1kg de chocolat
 		return CI;
 	}
@@ -60,7 +60,7 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	}
 	
 	//Méthode principale de test de CoutInts, déféaire les "/*" pour l'activer
-	   /*public static void main(String[] args) {
+	    public static void main(String[] args) {
 		int p = 3;
 		int q = 1153000;
 		double[] CI = CoutInts(p,q);
@@ -79,7 +79,7 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 		System.out.println("la quantité demandée est de "+quantitéDemandée(qdd));
 		
 		
-	}*/
+	}
 	
 	
 
