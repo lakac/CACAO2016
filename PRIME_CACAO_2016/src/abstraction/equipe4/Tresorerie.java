@@ -1,17 +1,26 @@
 package abstraction.equipe4;
 
-public class Trésorerie {
+public class Tresorerie {
 	private double commande;
 	private Indicateur fond;
 	private Indicateur prix;
 	private double CoutProd;
+	private Acteur Prod;
 	
 	
-	
-	public Trésorerie(Indicateur fond, Indicateur prix, double coutProd) {
+	public Acteur getProd() {
+		return Prod;
+	}
+
+	public void setProd(Acteur prod) {
+		Prod = prod;
+	}
+
+	public Tresorerie(Indicateur fond, Indicateur prix, double coutProd,Acteur a ) {
 		this.fond = fond;
 		this.prix = prix;
 		CoutProd = coutProd;
+		this.Prod= a;
 	}
 
 	public double getCommande() {
@@ -35,7 +44,7 @@ public class Trésorerie {
 		
 	public void modiftréso(){
 		
-		this.fond.setValeur(this, this.getvente() + this.fond.getValeur()- this.CoutProd);
+		this.fond.setValeur(this.Prod, this.getvente() + this.fond.getValeur()- this.CoutProd);
 	
 	}
 		
