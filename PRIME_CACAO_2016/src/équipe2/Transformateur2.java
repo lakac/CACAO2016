@@ -1,8 +1,12 @@
 package équipe2;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
+import doudeul.Heure;
 
 public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	
@@ -39,12 +43,27 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 		return CI;
 	}
 	
+	
+	
+
 	// le stosk à l'instant t dépend de la quantité demandé pour l'instant t+2 
 	//et de la quantité produite pour l'instant t+1
-	public static double stock (double s0, int qd, int qp) {
-		double s1 = s0 + qd - qp;
+	public static int stock_cacao (int s0, int qd, int qp) {
+		int s1 = s0 + qd - qp;
+		if (s1<0){
+			return -1;
+		}
 		return s1;
 	}
+	
+	public static double stock_chocolat (double []T){
+		double s1 =T[1];
+		if (s1<0){
+			return -1; 
+		}
+		return s1;
+	}
+	
 	
 	//la quantité demandée aux producteurs est proportionnelle 
 	//à la quantité de chocolat que nous demande les distributeurs.
@@ -58,6 +77,8 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 		double M = ((15-cru)/cru)*100;
 		return M;
 	}
+	
+
 	
 	//Méthode principale de test de CoutInts, déféaire les "/*" pour l'activer
 	   /*public static void main(String[] args) {
@@ -77,9 +98,18 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 		
 		double qdd = 30000;
 		System.out.println("la quantité demandée est de "+quantitéDemandée(qdd));
+ 
 		
+		
+		
+				for(int i=0;i<3;i++){
+			T[i]=T[i+1];
+		}
+		T[3]=qdd;
 		
 	}*/
+	
+	
 	
 	
 
