@@ -1,6 +1,9 @@
 package abstraction.equipe5;
 
 import abstraction.fourni.Acteur;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Lindt implements Acteur{
 
@@ -43,9 +46,14 @@ public class Lindt implements Acteur{
 
 	public double marge(double coutRevient, double quantite){
 		return (15*quantite-coutRevient);
-
-
 	}
 	
+	/*public void historique() {
+		
+	}*/
 }
+
+
+
+
 
