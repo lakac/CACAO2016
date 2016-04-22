@@ -1,5 +1,5 @@
-package équipe2;
+package abstraction.equipe2;
 
 public interface ITransformateur2 {
-
+	
 }
