@@ -19,8 +19,8 @@ public class Compteur {
 	 }
 
 	 public void rotation_compteur(List<Double> compt) {
+		 compt.remove(4);
 		 Collections.rotate(compt, 1);
-		 compt.remove(3);
 	 }
 	 
 	 public void ajouter (double valeur) {
