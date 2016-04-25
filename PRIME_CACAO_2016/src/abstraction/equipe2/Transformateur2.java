@@ -198,6 +198,18 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 			}
 		}
 		
+		//Pour nous permettre de savoir si on a mit le bon prix pour les coûts d'achats du cacao et de vente du chocolat
+		
+		if (Marge(prixdevente,p,T)<0){
+			System.out.println("Vente à perte -> Acheter moins cher ou vendre plus cher");
+		}else{
+			if (Marge(prixdevente,p,T)<30){
+				System.out.println("Les prix d'achats du cacao et les prix de vente du chocolat sont bons ");
+			}else{
+				System.out.println("On peut baisser les prix de vente du chocolat");
+			}
+		}
+		
 		
 		
 		
