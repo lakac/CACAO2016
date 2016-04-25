@@ -54,6 +54,7 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 		S1[1]=S1[0];
 		S1[0]=stock_cacao(T);
 		return S1;
+		// A tester, j'y arrive pas
 	}
 	
 	//suivi du stock de chocolat au fil des step
@@ -61,6 +62,7 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 		S2[1]=S2[0];
 		S2[0]=stock_chocolat(T);
 		return S2;
+		//A tester, j'y arrive pas
 	}
 	
 	//evolution du tableau T au fil des step ( sert d'historique )
@@ -70,6 +72,7 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 		}
 		T[3] = qdd;
 		return T;
+		//A tester, j'y arrive pas
 	}
 	public String getNom() {
 		return "Producteur "+this.nom;
@@ -108,6 +111,7 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	public void notificationVente(double quantite) {
 		this.achats.setValeur(this, quantite);
 		this.solde.setValeur( this, this.solde.getValeur()-quantite*Marche.LE_MARCHE.getCours());
+		//Test possible ?
 	}
 
 	
@@ -123,12 +127,12 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	public static double Marge (double prixDeVente, double p, double[] T) {
 		double M = ((prixDeVente-CoutInts(p,T)[1])/(CoutInts(p,T))[1])*100;
 		return M;
-		//Test pas sur
+		//Test OK
 	}
 	
 	public static double Benefice (double []T, double prixDeVente, double p){
 		double s=0;
-		s+=T[0]*Marge(prixDeVente,p,T);
+		s+=T[0]*(Marge(prixDeVente,p,T)*prixDeVente+prixDeVente);
 		return s;
 		//Test OK
 	}
@@ -148,6 +152,9 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 		double prixdevente=15;
 		double[] CI = CoutInts(p,T);
 		System.out.println("La longueur du tableau CI est de :" + CI.length);
+		System.out.println("La longueur du tableau S1 est de :" +S1.length);
+		System.out.println("La longueur du tableau S2 est de :" +S2.length);
+
 		System.out.println("le cout de revient de Nestlé France à la période t est de "+CI[0]);
 		System.out.println("le cout de revient unitaire de Nestlé France à la période t est de "+CI[1]);
 		
