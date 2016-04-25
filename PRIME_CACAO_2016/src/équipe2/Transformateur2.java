@@ -73,8 +73,8 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	}
 	
 	//Le prix du kilo de chocolat étant fixé, tout ce que l'on peut calculer c'est la marge que l'on se fait.
-	public static double Marge (double cru) {
-		double M = ((15-cru)/cru)*100;
+	public static double Marge (double p,double[]T) {
+		double M = ((15-CoutInts(p,T))/CoutInts(p,T))*100;
 		return M;
 	}
 	
@@ -101,11 +101,6 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
  
 		
 		
-		
-				for(int i=0;i<3;i++){
-			T[i]=T[i+1];
-		}
-		T[3]=qdd;
 		
 	}*/
 	

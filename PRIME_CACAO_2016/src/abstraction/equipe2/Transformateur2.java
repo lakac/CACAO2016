@@ -50,10 +50,10 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	
 	//ce code calcule le cout de revient et le cout de revient unitaire de Nestlé France !
 	//p en euros, q en kilos
-	public static double[] CoutInts (double p, double q){ 
+	public static double[] CoutInts (double p, double []T){ 
 		double[] CI =new double[2] ;
-		CI[0] = 13003370+q*(5+p);
-		CI[1] = CI[0]*0.6/q; // 600g de cacao équivalent à 1kg de chocolat
+		CI[0] = 13003370+T[1]*(5+p);
+		CI[1] = CI[0]*0.6/T[1]; // 600g de cacao équivalent à 1kg de chocolat
 		return CI;
 	}
 	
@@ -78,12 +78,19 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	}
 	
 	//Le prix du kilo de chocolat étant fixé, tout ce que l'on peut calculer c'est la marge que l'on se fait.
-	public static double Marge (double cru) {
-		double M = ((15-cru)/cru)*100;
+	public static double Marge (double prixDeVente, double p, double[] T) {
+		double M = ((prixDeVente-CoutInts(p,T)[1])/(CoutInts(p,T))[1])*100;
 		return M;
 	}
 	
+	public static double Benefice (double []T, double prixDeVente, double p){
+		double s=0;
+		s+=T[0]*Marge(prixDeVente,p,T);
+		return s;
+	}
+	
 	//Méthode principale de test de CoutInts, déféaire les "/*" pour l'activer
+	/*
 	    public static void main(String[] args) {
 		int p = 3;
 		int q = 1153000;
@@ -102,7 +109,7 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 		System.out.println("la quantité demandée est de "+quantiteDemandee(qdd));
 		
 	}
-	
+	*/
 	
 
 }
