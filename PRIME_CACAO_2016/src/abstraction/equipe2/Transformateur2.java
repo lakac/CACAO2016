@@ -63,6 +63,7 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 		return S2;
 	}
 	
+	//evolution du tableau T au fil des step ( sert d'historique )
 	public double[] setT(double qdd) {
 		for (int i=1; i<4; i++) {
 			T[i-1]=T[i];
@@ -84,8 +85,10 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	public static double[] CoutInts (double p, double []T){ 
 		double[] CI =new double[2] ;
 		CI[0] = 13003370+T[1]*(5+p);
-		CI[1] = CI[0]*0.6/T[1]; // 600g de cacao équivalent à 1kg de chocolat
+		CI[1] = CI[0]*0.6/T[1];
+		// 600g de cacao équivalent à 1kg de chocolat
 		return CI;
+		//Test OK
 	}
 	
 	// le stosk à l'instant t dépend de la quantité demandé pour l'instant t+2 
@@ -93,11 +96,13 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	public static double stock_cacao (double[] T) {
 		double s = 0.6*T[2];
 		return s;
+		//Test OK
 	}
 	
 	public static double stock_chocolat (double[] T) {
 		double s= T[1];
 		return s;
+		//Test OK
 	}
 	
 	public void notificationVente(double quantite) {
@@ -109,46 +114,63 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	//la quantité demandée aux producteurs est proportionnelle 
 	//à la quantité de chocolat que nous demande les distributeurs.
 	public static double quantiteDemandee (double[] T) {
-		double qdp = 0.6*T[3];
-		return qdp;  
+		double qdp = T[3];
+		return qdp; 
+		//Test OK
 	}
 	
 	//Le prix du kilo de chocolat étant fixé, tout ce que l'on peut calculer c'est la marge que l'on se fait.
 	public static double Marge (double prixDeVente, double p, double[] T) {
 		double M = ((prixDeVente-CoutInts(p,T)[1])/(CoutInts(p,T))[1])*100;
 		return M;
+		//Test pas sur
 	}
 	
 	public static double Benefice (double []T, double prixDeVente, double p){
 		double s=0;
 		s+=T[0]*Marge(prixDeVente,p,T);
 		return s;
+		//Test OK
 	}
 	
 	//Méthode principale de test de CoutInts, déféaire les "/*" pour l'activer
-	/*
+	
 	    public static void main(String[] args) {
-		int p = 3;
-		int q = 1153000;
-		double[] CI = CoutInts(p,q);
-		System.out.println(CI.length);
+		double p = 3;
+		double[]T=new double[4];
+		double[]S1=new double[2];
+		double[]S2=new double[2];
+		T[0]=1000000;
+		T[1]=950000;
+		T[2]=1050000;
+		T[3]=790000;
+		double q = 1153000;
+		double prixdevente=15;
+		double[] CI = CoutInts(p,T);
+		System.out.println("La longueur du tableau CI est de :" + CI.length);
 		System.out.println("le cout de revient de Nestlé France à la période t est de "+CI[0]);
 		System.out.println("le cout de revient unitaire de Nestlé France à la période t est de "+CI[1]);
 		
-		System.out.println("la marge sur couts directs que Nestlé se fait est de : "+Marge(CI[1])+"%");
+		System.out.println("la marge sur couts directs que Nestlé se fait est de : "+Marge(prixdevente,p,T)+"%");
+		System.out.println("la quantité demandée est de "+quantiteDemandee(T) +"kg de chocolat");
 		
-		double s0 = 300.6;
-		int qd = 100;
-		int qp = 200;
+		System.out.println("la quantite de cacao achetee est "+0.6*T[2] +"kg de cacao");
+		System.out.println("la quantite de chocolat demandee par les distributeurs est"+ T[3]+"kg de chocolat");
+		System.out.println("la quantite de cacao transformee en chocolat à cet step est de "+ 0.6*T[1]+"kg");
+		System.out.println("la quantite de chocolat livre est de" +T[0] + "kg");
 		
-		double qdd = 30000;
-		System.out.println("la quantité demandée est de "+quantiteDemandee(qdd));
+		System.out.println("le stock de cacao est de :" + stock_cacao(T) + "kg");
+		System.out.println("le stock de chocolat est de :" + stock_chocolat(T)+"kg");
+		System.out.println("le bénéfice fait a cet step est de :" + Benefice(T,prixdevente,p) + "€");
+		
+		
+		
 		
 		
 		
 		
 	}
-	*/
+	
 	
 
 }
