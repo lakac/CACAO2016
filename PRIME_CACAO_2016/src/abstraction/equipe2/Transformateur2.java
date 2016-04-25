@@ -12,6 +12,8 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	private Indicateur ventes;
 	private Indicateur solde;
 	private double[] T;
+	private double[] S1;
+	private double[] S2;
 
 	public Transformateur2(String nom, Monde monde) {
 		this.nom = nom;
@@ -22,14 +24,43 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 		Monde.LE_MONDE.ajouterIndicateur( this.ventes );
 		Monde.LE_MONDE.ajouterIndicateur( this.solde );
 		this.T = new double[4];
+		this.S1=new double[2];
+		this.S2=new double[2];
 			T[0]=0;
 			T[1]=0;
 			T[2]=0;
 			T[3]=0;
+			S1[0]=0;
+			S2[0]=0;
+			S1[1]=0;
+			S2[1]=0;
+		
+	}
+	
+	public double[] getS1() {
+		return this.S1;
+	}
+	
+	public double[] getS2() {
+		return this.S2;
 	}
 	
 	public double[] getT() {
 		return this.T;
+	}
+	
+	//Suivi du stock de cacao au fil des step
+	public double[] setS1(double[] T){
+		S1[1]=S1[0];
+		S1[0]=stock_cacao(T);
+		return S1;
+	}
+	
+	//suivi du stock de chocolat au fil des step
+	public double[] setS2(double[] T){
+		S2[1]=S2[0];
+		S2[0]=stock_chocolat(T);
+		return S2;
 	}
 	
 	public double[] setT(double qdd) {
@@ -59,8 +90,13 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	
 	// le stosk à l'instant t dépend de la quantité demandé pour l'instant t+2 
 	//et de la quantité produite pour l'instant t+1
-	public static double stock_cacao (int[] T) {
-		double s = (int) 0.6*T[2];
+	public static double stock_cacao (double[] T) {
+		double s = 0.6*T[2];
+		return s;
+	}
+	
+	public static double stock_chocolat (double[] T) {
+		double s= T[1];
 		return s;
 	}
 	
@@ -107,6 +143,9 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 		
 		double qdd = 30000;
 		System.out.println("la quantité demandée est de "+quantiteDemandee(qdd));
+		
+		
+		
 		
 	}
 	*/
