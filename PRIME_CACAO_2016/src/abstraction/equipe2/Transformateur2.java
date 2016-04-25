@@ -98,7 +98,11 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	//et de la quantité produite pour l'instant t+1
 	public static double stock_cacao (double[] T) {
 		double s = 0.6*T[2];
-		return s;
+		if (s>=0){
+			return s;}
+		else{
+			return -1;
+		}
 		//Test OK
 	}
 	
@@ -132,7 +136,7 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	
 	public static double Benefice (double []T, double prixDeVente, double p){
 		double s=0;
-		s+=T[0]*(Marge(prixDeVente,p,T)*prixDeVente+prixDeVente);
+		s+=T[0]*(Marge(prixDeVente,p,T)*prixDeVente+prixDeVente) ;
 		return s;
 		//Test OK
 	}
@@ -145,8 +149,8 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 		double[]S1=new double[2];
 		double[]S2=new double[2];
 		T[0]=1000000;
-		T[1]=950000;
-		T[2]=1050000;
+		T[1]=-1;
+		T[2]=0;
 		T[3]=790000;
 		double q = 1153000;
 		double prixdevente=15;
@@ -157,7 +161,6 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 
 		System.out.println("le cout de revient de Nestlé France à la période t est de "+CI[0]);
 		System.out.println("le cout de revient unitaire de Nestlé France à la période t est de "+CI[1]);
-		
 		System.out.println("la marge sur couts directs que Nestlé se fait est de : "+Marge(prixdevente,p,T)+"%");
 		System.out.println("la quantité demandée est de "+quantiteDemandee(T) +"kg de chocolat");
 		
@@ -170,7 +173,30 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 		System.out.println("le stock de chocolat est de :" + stock_chocolat(T)+"kg");
 		System.out.println("le bénéfice fait a cet step est de :" + Benefice(T,prixdevente,p) + "€");
 		
+		if (stock_cacao(T)<0){
+			System.out.println("Erreur dans le système");
+		}else{
+			System.out.println("Le stock de cacao semble valide");
+		}
 		
+		if (stock_chocolat(T)<0) {
+			System.out.println("Erreur dans le système");
+		}else{
+			System.out.println("Le stock de chocolat semble valide");
+		}
+	
+		
+		for(int i=0;i<4;i++){
+			if (T[i]<0){
+				System.out.println("Erreur dans les valeurs du tableau des demandes");
+			}else {
+				if (T[i]==0){
+					System.out.println("Grève des distributeurs");
+				}else{
+					System.out.println("Les demandes semblent valides");
+				}
+			}
+		}
 		
 		
 		
