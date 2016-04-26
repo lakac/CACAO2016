@@ -4,16 +4,24 @@ import abstraction.fourni.Acteur;
 
 public class Lindt implements Acteur{
 	
+	Compteur compt = new Compteur();
+	Stock stock_cacao = new Stock();
+	Stock stock_chocolat = new Stock();
+	
 	public String getNom() {
 		return "Lindt";}
 
 	public void next() {
+		/*compt.ajouter(getQuantiteDist());*/
+		stock_cacao.ajouterStock(0.6*compt.valeur(2));
+		stock_chocolat.ajouterStock(compt.valeur(1));
+		stock_cacao.retirerStock(0.6*compt.valeur(1));
+		stock_chocolat.retirerStock(compt.valeur(0));
 		
 		/* Mettre toutes les m�thodes que les autres ont cr��
 		getQuantiteDist();
 		getPrixDist();
-		
-		Compteur.ajouter(getQuantiteDist()); 
+		 
 		quantiteSouhaitee(getQuantiteDist());
 		
 		getPrixProd();
@@ -21,16 +29,9 @@ public class Lindt implements Acteur{
 		
 	}
 	
-	public double quantiteSouhaitee(double quantite){
-		return(0.6*quantite);
-	}
 	
-	public double stock_cacao( double stockInit, double quantiteSouhaitee, double quantiteATransformer){
-		return stockInit+quantiteSouhaitee-quantiteATransformer;
-	}
-	
-	public double stock_chocolat(double stockInit, double quantiteDemandee, double quantiteTransformee){
-		return stockInit-quantiteDemandee+quantiteTransformee;
+	public double quantiteSouhaitee(){
+		return(0.6*compt.valeur(3));
 	}
 	
 	public double coutRevient(double quantite, double prix){
