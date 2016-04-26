@@ -20,10 +20,10 @@ public class Stock {
 	}
 	
 	public void ajouterStock(double d) {
-		setStock(getStock()+d);
+		this.setStock(getStock()+d);
 	}
 	
 	public void retirerStock(double d) {
-		setStock(getStock()-d);
+		this.setStock(getStock()-d);
 	}
 }
