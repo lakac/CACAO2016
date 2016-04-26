@@ -10,13 +10,11 @@ public class Compteur {
 	 
 	 public Compteur() {
 			this.compt = new ArrayList<Double>();
+			compt.add(0.);
+			compt.add(0.);
+			compt.add(0.);
+			compt.add(0.);
 		}
-	 
-	 public void initialisation() {
-		for (int i=0; i<4; i++) {
-			this.compt.add(0.);
-		}
-	 }
 
 	 public void rotation_compteur(List<Double> compt) {
 		 compt.remove(4);
