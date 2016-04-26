@@ -38,7 +38,7 @@ public class Lindt implements Acteur{
 		return charges_fixes + 0.6*compt.valeur(2) * (5000 /*+ ((p1.annoncePrix() + p2.annoncePrix())/2)*/); 	
 	}
 	
-	public double marge(double quantite){
+	public double marge(){
 		return (15000*compt.valeur(0)-coutRevient());
 	}
 }	 
