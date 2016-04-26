@@ -1,10 +1,6 @@
 package abstraction.equipe4;
 
-import abstraction.fourni.Acteur;
-import abstraction.fourni.Indicateur;
-import abstraction.fourni.Journal;
-import abstraction.fourni.Monde;
-import abstraction.fourni.v0.Constantes;
+import abstraction.fourni.*;;
 
 public class Producteur implements Acteur{
 	

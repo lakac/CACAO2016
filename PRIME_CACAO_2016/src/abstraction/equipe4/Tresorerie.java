@@ -1,4 +1,5 @@
 package abstraction.equipe4;
+import abstraction.fourni.*;
 
 public class Tresorerie {
 	private Indicateur fond;
