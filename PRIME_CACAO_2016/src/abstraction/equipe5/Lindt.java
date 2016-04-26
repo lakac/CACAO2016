@@ -29,16 +29,13 @@ public class Lindt implements Acteur{
 		
 	}
 	
-	
 	public double quantiteSouhaitee(){
 		return(0.6*compt.valeur(3));
 	}
 	
-	public double coutRevient(double quantite, double prix){
-		int charges_fixes;
-		charges_fixes=900980; //(salaires+impots)
-		return charges_fixes+quantite*(5+prix);		
-		
+	public double coutRevient(double prix) {
+		int charges_fixes = 900980; // salaires+impots
+		return charges_fixes + 0.6*compt.valeur(2) * (5+prix); // prix au kilo		
 	}
 	
 
