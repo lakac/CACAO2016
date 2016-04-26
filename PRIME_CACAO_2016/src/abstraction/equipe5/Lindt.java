@@ -4,6 +4,11 @@ import abstraction.fourni.Acteur;
 
 public class Lindt implements Acteur{
 	
+	Compteur compt = new Compteur();
+	private int stock_cacao;
+	
+	
+	
 	public String getNom() {
 		return "Lindt";}
 
@@ -21,19 +26,13 @@ public class Lindt implements Acteur{
 		
 	}
 	
-	public double quantiteSouhaitee(double quantite){
-		return(0.6*quantite);
+	
+	public double quantiteSouhaitee(){
+		return(0.6*compt.valeur(3));
 	}
 	
-/* si qqu sait comment je peux avoir accès aux valeurs de la liste compt de la classe 
- * Compteur dans la classe Lindt pour pouvoir faire un truc du genre pour
- * quantiteSouhaitee return (0.6*compt[0])   
- * Parce que du coup je sais qu'il fallait faire un compteur parce que le prof a dit de 
- * le faire, mais là j'ai du mal à voir l'utilité …       - Joaly
- */
-	
-	public double stock_cacao( double stockInit, double quantiteSouhaitee, double quantiteATransformer){
-		return stockInit+quantiteSouhaitee-quantiteATransformer;
+	public double stock_cacao( double stockInit, double quantiteATransformer){
+		return stockInit+quantiteSouhaitee()-quantiteATransformer;
 	}
 	
 	public double stock_chocolat(double stockInit, double quantiteDemandee, double quantiteTransformee){
