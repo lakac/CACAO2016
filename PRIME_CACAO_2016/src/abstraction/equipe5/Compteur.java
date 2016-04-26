@@ -16,7 +16,11 @@ public class Compteur {
 			compt.add(0.);
 		}
 	 
-	 public void ajouter (double valeur, List<Double> compt) {
+	 public double valeur(int i) {
+		 return compt.get(i);
+	 }
+	 
+	 public void ajouter (double valeur) {
 		 compt.add(valeur);
 		 Collections.rotate(compt, 4);
 		 compt.remove(4);

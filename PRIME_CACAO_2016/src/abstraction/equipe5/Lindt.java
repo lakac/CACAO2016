@@ -4,6 +4,11 @@ import abstraction.fourni.Acteur;
 
 public class Lindt implements Acteur{
 	
+	Compteur compt = new Compteur();
+	private int stock_cacao;
+	
+	
+	
 	public String getNom() {
 		return "Lindt";}
 
@@ -21,12 +26,13 @@ public class Lindt implements Acteur{
 		
 	}
 	
-	public double quantiteSouhaitee(double quantite){
-		return(0.6*quantite);
+	
+	public double quantiteSouhaitee(){
+		return(0.6*compt.valeur(3));
 	}
 	
-	public double stock_cacao( double stockInit, double quantiteSouhaitee, double quantiteATransformer){
-		return stockInit+quantiteSouhaitee-quantiteATransformer;
+	public double stock_cacao( double stockInit, double quantiteATransformer){
+		return stockInit+quantiteSouhaitee()-quantiteATransformer;
 	}
 	
 	public double stock_chocolat(double stockInit, double quantiteDemandee, double quantiteTransformee){
