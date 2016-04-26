@@ -15,14 +15,11 @@ public class Compteur {
 			compt.add(0.);
 			compt.add(0.);
 		}
-
-	 public void rotation_compteur(List<Double> compt) {
+	 
+	 public void ajouter (double valeur, List<Double> compt) {
+		 compt.add(valeur);
 		 Collections.rotate(compt, 4);
 		 compt.remove(4);
-	 }
-	 
-	 public void ajouter (double valeur) {
-		 compt.add(valeur);
 	 }
 }	 
 	 
