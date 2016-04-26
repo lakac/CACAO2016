@@ -5,14 +5,14 @@ import abstraction.fourni.Acteur;
 public class Lindt implements Acteur{
 	
 	Compteur compt = new Compteur();
-	private int stock_cacao;
-	
-	
+	Stock stock_cacao = new Stock();
+	Stock stock_chocolat = new Stock();
 	
 	public String getNom() {
 		return "Lindt";}
 
 	public void next() {
+		
 		
 		/* Mettre toutes les m�thodes que les autres ont cr��
 		getQuantiteDist();
