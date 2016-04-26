@@ -11,7 +11,6 @@ public class Detaillant implements Acteur {
 
 	private static final Monde LE_MONDE = null;
 	private String nom;
-	private double quantite;
 	private double prixachat;
 	private double prixvente;
 	private Indicateur solde;
@@ -32,8 +31,9 @@ public class Detaillant implements Acteur {
     	Monde.LE_MONDE.ajouterIndicateur( this.achats );
     	Monde.LE_MONDE.ajouterIndicateur( this.solde );
     	this.vendeurs = new ArrayList<IVendeur>();
-
 	}
+
+	
 	
 	
 	// Fixe la demande selon la période de l'année.
@@ -62,27 +62,23 @@ public class Detaillant implements Acteur {
 	
 	// Réglage de la quantité à acheter en fonction du transformateur (12.5% Nestlé, 3.6% Lindt et 83.9% Others)
 	
-	public void setQuantite( IVendeur t) {
-			if (((Acteur) t).getNom()=="Producteur T1. Nestle") {
-				this.quantite = 0.125*demandeperstep;
-			}
-			if (((Acteur) t).getNom()=="Producteur T2. Lindt") {
-				this.quantite = 0.036*demandeperstep;
-			}
-			if (((Acteur) t).getNom()=="Others") {
-				this.quantite = 0.839*demandeperstep;
-			}
-			else {
-				this.quantite = 10.0;
-			}
-	}
-	
-	public double getPrixAchat() {
+	public double getPrix() {
 		return this.prixachat;
 	}
-	public double getPrixVente() {
-		return this.prixvente;
+
+	public double getDemande(IVendeur t, int step) {
+		this.setdemandePerStep(step+3);
+		if (t.equals(vendeurs.get(0))) {
+			return this.demandeperstep*0.125;
+		}
+		if (t.equals(vendeurs.get(1))) {
+			return this.demandeperstep*0.036;
+		}
+		else {
+			return this.demandeperstep*0.839;
+		}
 	}
+	
 	public String getNom() {
 		return this.nom;
 	}
@@ -92,16 +88,14 @@ public class Detaillant implements Acteur {
 
 
 	public void next() {
-		this.achats.setValeur(this, 0.0);
 		setdemandePerStep( MondeV0.LE_MONDE.getStep());
 		setFraisdeDistri();
 		for (IVendeur t : this.vendeurs) {
-			setQuantite(t);
-			double q = t.acheter(this, quantite);
-			this.solde.setValeur(this, this.solde.getValeur()-q*this.getPrixAchat());
+			double q = this.getDemande(t, MondeV0.LE_MONDE.getStep()-3);
+			this.solde.setValeur(this, this.solde.getValeur()-q*this.getPrix());
 			this.achats.setValeur(this, this.achats.getValeur()+q);
 		}
-		this.solde.setValeur(this,this.solde.getValeur()+this.demandeperstep*this.getPrixVente()
+		this.solde.setValeur(this,this.solde.getValeur()+this.demandeperstep*this.prixvente
 										-this.fraisdedistri); 
 		
 		// Solde = Solde précédent + Ventes - Achats - Frais de Distribution

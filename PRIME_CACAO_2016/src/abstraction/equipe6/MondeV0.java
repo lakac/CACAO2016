@@ -20,28 +20,35 @@ public class MondeV0 extends Monde {
 		
 		Transformateur t1 = new Transformateur(Constantes.NOM_TRANSFORMATEUR_1, this);
 		Transformateur t2 = new Transformateur(Constantes.NOM_TRANSFORMATEUR_2, this);
+		Transformateur t3 = new Transformateur("Others", this);
 
 		this.ajouterActeur(t1);
 		this.ajouterActeur(t2);
+		this.ajouterActeur(t3);
 		
 		Marche.LE_MARCHE = new Marche();
 		Marche.LE_MARCHE.addProducteur(p1);
 		Marche.LE_MARCHE.addProducteur(p2);
 		Marche.LE_MARCHE.addTransformateur(t1);
 		Marche.LE_MARCHE.addTransformateur(t2);
+		Marche.LE_MARCHE.addTransformateur(t3);
 
 		this.ajouterActeur(Marche.LE_MARCHE);
 		
 		Detaillant d1 = new Detaillant(Constantes.NOM_DETAILLANT_1, this, 15 , 20, 50000);
 		Detaillant d2 = new Detaillant(Constantes.NOM_DETAILLANT_2, this, 15, 20, 50000);
 		
+		
 		d1.ajouterVendeur(t1);
 		d1.ajouterVendeur(t2);
+		d1.ajouterVendeur(t3);
 		d2.ajouterVendeur(t1);
-		// d2 n'achete pas a t2...
+		d2.ajouterVendeur(t2);
+		d2.ajouterVendeur(t3);
 		
 		this.ajouterActeur(d1);
 		this.ajouterActeur(d2);
 		
 	}
+
 }

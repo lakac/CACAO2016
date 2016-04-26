@@ -42,7 +42,7 @@ public class Transformateur implements Acteur, ITransformateur, IVendeur {
 
 	public double acheter(Detaillant d, double quantite) {
         double q = Math.min(quantite, this.achats.getValeur()-this.ventes.getValeur());
-        this.solde.setValeur(this, this.solde.getValeur()+d.getPrixAchat()*q);
+        this.solde.setValeur(this, this.solde.getValeur()+d.getPrix()*q);
         this.ventes.setValeur(this, this.ventes.getValeur()+q);
 		return q;
 	}
