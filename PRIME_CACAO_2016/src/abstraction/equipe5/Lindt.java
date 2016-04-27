@@ -18,7 +18,9 @@ public class Lindt implements Acteur, ITransformateur{
 	private Tresorerie treso;
 	private AchatProd achatProd;
 	private Indicateur venteChocolat;
-
+	private double quantiteMiseEnVenteProducteur1; 
+	private double quantiteMiseEnVenteProducteur2; 
+	
 	IProducteur P1 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1);
 	IProducteur P2 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2);
 
@@ -37,6 +39,7 @@ public class Lindt implements Acteur, ITransformateur{
 		Monde.LE_MONDE.ajouterIndicateur( this.etatStockChocolat );
 		Monde.LE_MONDE.ajouterIndicateur(venteChocolat);
 		this.treso=new Tresorerie(this.getHist());
+		this.achatProd = new AchatProd(hist, quantiteMiseEnVenteProducteur1, quantiteMiseEnVenteProducteur2);
 	}
 	
 	public String getNom() {
@@ -47,22 +50,9 @@ public class Lindt implements Acteur, ITransformateur{
 	}
 	
 	public void next() {
-<<<<<<< HEAD
-		System.out.println(D2.getDemande(this));
-		//D1.getDemande(this); //demande quantité souhaitée par les distributeurs;
-		//D2.getDemande(this);
-		P1.annonceQuantiteMiseEnVente(this);
-		
-		//P2.annonceQuantiteMiseEnVente(Lindt);
-		this.getHist().ajouter(D2.getDemande(this)); //+ D2.getDemande(this));
-		System.out.println(this.getHist().valeur(0));
-		System.out.println(this.getHist().valeur(1));
-		System.out.println(this.getHist().valeur(2));
-		System.out.println(this.getHist().valeur(3));
-		System.out.println(this.stock_cacao.getStock());
-=======
+		quantiteMiseEnVenteProducteur1 = P1.annonceQuantiteMiseEnVente(this);
+		quantiteMiseEnVenteProducteur2 = P2.annonceQuantiteMiseEnVente(this);
 		this.getHist().ajouter(D1.getDemande(this)+ D2.getDemande(this));
->>>>>>> branch 'master' of https://github.com/florianed/CACAO2016.git
 		stock_chocolat.ajouterStock(this.getHist().valeur(Constante.STEP_PRECEDENT_MOINS_2));
 		stock_chocolat.retirerStock(this.getHist().valeur(Constante.STEP_PRECEDENT_MOINS_3));
 		stock_cacao.ajouterStock(0.4 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT)); // stock lié au reste du monde
@@ -91,5 +81,4 @@ public class Lindt implements Acteur, ITransformateur{
 	public double annonceQuantiteDemandee(IProducteur p) {
 		return this.achatProd.annonceQuantiteDemandee(p);
 	}
-
 } 
