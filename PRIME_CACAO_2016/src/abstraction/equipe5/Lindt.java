@@ -1,5 +1,6 @@
 package abstraction.equipe5;
 
+import abstraction.commun.Constantes;
 import abstraction.commun.IProducteur;
 import abstraction.commun.ITransformateur;
 import abstraction.fourni.Acteur;
@@ -29,6 +30,10 @@ public class Lindt implements Acteur, ITransformateur{
 		return "Lindt";}
 
 	public void next() {
+		IProducteur P1 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1);
+		IProducteur P2 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2);
+		//P1.annonceQuantiteMiseEnVente(ITransformateur t);
+		//P2.annonceQuantiteMiseEnVente(Lindt);
 		/*compt.ajouter(getQuantiteDist());*/
 		stock_cacao.ajouterStock(0.6*compt.valeur(Compteur.STEP_PRECEDENT));
 		stock_chocolat.ajouterStock(compt.valeur(1));
