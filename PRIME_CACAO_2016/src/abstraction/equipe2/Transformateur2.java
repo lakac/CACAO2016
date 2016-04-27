@@ -145,10 +145,9 @@ public class Transformateur2 implements Acteur, ITransformateur{
 			}
 		}
 		*/
-	}
+}
 	
 	   
 
 		
 
-}

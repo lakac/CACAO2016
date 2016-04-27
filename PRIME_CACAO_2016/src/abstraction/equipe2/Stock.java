@@ -63,7 +63,6 @@ public class Stock {
 		
 		public static void main(String[] args) {
 		Stock S1=new Stock();
-		S1[0]=-1;
 		
 		}
 }
