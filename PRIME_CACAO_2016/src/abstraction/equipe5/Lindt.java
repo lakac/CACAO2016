@@ -5,6 +5,7 @@ import abstraction.commun.IDistributeur;
 import abstraction.commun.IProducteur;
 import abstraction.commun.ITransformateur;
 import abstraction.commun.MondeV1;
+import abstraction.equipe6.Carrefour;
 import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
@@ -20,6 +21,8 @@ public class Lindt implements Acteur, ITransformateur{
 	private AchatProd achatProd;
 	private Indicateur venteChocolat;
 	
+	private Carrefour ca;
+	
 	public Lindt(){
 		this.hist = new HistoriqueCommandeDist();
 		this.stock_cacao = new Stock(0);
@@ -30,6 +33,9 @@ public class Lindt implements Acteur, ITransformateur{
 		Monde.LE_MONDE.ajouterIndicateur( this.etatStockCacao );
 		Monde.LE_MONDE.ajouterIndicateur( this.etatStockChocolat );
 		this.treso=new Tresorerie(this.getHist());
+		
+		// pour les tests en interne on ajoute Carrefour 
+		
 	}
 	
 	public String getNom() {
