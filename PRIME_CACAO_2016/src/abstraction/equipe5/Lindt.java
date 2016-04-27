@@ -20,8 +20,13 @@ public class Lindt implements Acteur, ITransformateur{
 	private Tresorerie treso;
 	private AchatProd achatProd;
 	private Indicateur venteChocolat;
+
 	
-	private Carrefour ca;
+	IProducteur P1 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1);
+	IProducteur P2 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2);
+
+	IDistributeur D1= (IDistributeur)Monde.LE_MONDE.getActeur(Constantes.NOM_DETAILLANT_1);
+	IDistributeur D2= (IDistributeur)Monde.LE_MONDE.getActeur(Constantes.NOM_DETAILLANT_2);
 	
 	public Lindt(){
 		this.hist = new HistoriqueCommandeDist();
@@ -46,11 +51,7 @@ public class Lindt implements Acteur, ITransformateur{
 	}
 	
 	public void next() {
-		IProducteur P1 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1);
-		IProducteur P2 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2);
-
-		IDistributeur D1= (IDistributeur)Monde.LE_MONDE.getActeur(Constantes.NOM_DETAILLANT_1);
-		IDistributeur D2= (IDistributeur)Monde.LE_MONDE.getActeur(Constantes.NOM_DETAILLANT_2);
+		
 
 		D1.getDemande(this); //demande quantité souhaitée par les distributeurs;
 		D2.getDemande(this);
@@ -64,15 +65,8 @@ public class Lindt implements Acteur, ITransformateur{
 		
 		this.etatStockCacao.setValeur(this, this.stock_cacao.getStock());
 		this.etatStockChocolat.setValeur(this, this.stock_chocolat.getStock());
+		this.venteChocolat.setValeur(this, this.stock_chocolat.getStock());
 		
-		/* Mettre toutes les m�thodes que les autres ont cr��
-		getQuantiteDist(); mondeV0.Le_Monde.getstep(); detaillant.getDemande(this, "step")
-		getPrixDist();
-		 
-		quantiteSouhaitee(getQuantiteDist());
-		
-		getPrixProd();
-		getQuantiteProd();*/
 		
 	}
 	
