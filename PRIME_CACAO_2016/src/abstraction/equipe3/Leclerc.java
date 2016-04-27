@@ -22,6 +22,7 @@ public class Leclerc implements Acteur,IDistributeur{
 
 	
 	public Leclerc(String nom, Monde monde, double quantite, double prix) {
+		this.nom=nom;
 		this.prix=prix;		
 		this.achats = new Indicateur("Achats de "+nom, this, 0.0);
 		this.solde = new Indicateur("Solde de "+nom, this, 1000000.0);
@@ -94,12 +95,12 @@ public class Leclerc implements Acteur,IDistributeur{
 	}
 	
 	public void next() {
-	    setPrix(20.0);
+	    setPrix(15.0);
 		this.prixvente=20.0;
 		for (ITransformateur t : this.transformateurs) {
 			double q = this.getDemande(t);
 			this.solde.setValeur(this, this.solde.getValeur()-q*this.getPrix()+q*prixvente);
-			this.achats.setValeur(this, this.achats.getValeur()+q);
 		}
+		this.achats.setValeur(this,quantite);
 }
 }
