@@ -149,6 +149,13 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 		return qdp;
 	}
 	
+	// Quantitée demandée au reste du Monde
+	
+	public static double quantiteDemandeeP3 (double[] T, double p){
+		double qdp = T[3]*p;
+		return qdp;
+	}
+	
 	//Le prix du kilo de chocolat étant fixé, tout ce que l'on peut calculer c'est la marge que l'on se fait.
 	public static double Marge (double prixDeVente, double p, double[] T) {
 		double M = ((prixDeVente-CoutInts(p,T)[1])/(CoutInts(p,T))[1])*100;
