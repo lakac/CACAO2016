@@ -18,6 +18,7 @@ public class Lindt implements Acteur, ITransformateur{
 	private Indicateur etatStockChocolat;
 	private Tresorerie treso;
 	private AchatProd achatProd;
+	public static final double RATIO_CACAO_CHOCOLAT = 0.6; // pour 100g de chocolat, il faut 60g de cacao
 	
 	public Lindt(){
 		this.hist = new Historique_Commande_Dist();

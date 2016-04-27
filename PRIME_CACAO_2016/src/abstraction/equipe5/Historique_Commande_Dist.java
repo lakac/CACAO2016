@@ -7,10 +7,10 @@ import java.util.List;
 
 public class Historique_Commande_Dist {
 	 private List<Double> compt = new ArrayList<Double>();
-	 public static int STEP_COURANT = 3;
-	 public static int STEP_PRECEDENT = 2;
-	 public static int STEP_PRECEDENT_MOINS_2 = 1;
-	 public static int STEP_PRECEDENT_MOINS_3 = 0;
+	 public static final int STEP_COURANT = 3;
+	 public static final int STEP_PRECEDENT = 2;
+	 public static final int STEP_PRECEDENT_MOINS_2 = 1;
+	 public static final int STEP_PRECEDENT_MOINS_3 = 0;
 		
 	 public Historique_Commande_Dist() {
 			this.compt = new ArrayList<Double>();
