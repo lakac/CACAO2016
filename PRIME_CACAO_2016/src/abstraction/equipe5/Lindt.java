@@ -16,7 +16,7 @@ public class Lindt implements Acteur, ITransformateur{
 	
 	public Lindt(){
 
-		this.compt = new Compteur();
+		this.compt = new Historique_Commande_Dist();
 		this.stock_cacao = new Stock(120);
 		this.stock_chocolat = new Stock(110);
 		this.etatStockCacao = new Indicateur("Stock de Cacao ", this, this.stock_cacao.getStock());
@@ -30,7 +30,7 @@ public class Lindt implements Acteur, ITransformateur{
 
 	public void next() {
 		/*compt.ajouter(getQuantiteDist());*/
-		stock_cacao.ajouterStock(0.6*compt.valeur(Compteur.STEP_PRECEDENT));
+		stock_cacao.ajouterStock(0.6*compt.valeur(Historique_Commande_Dist.STEP_PRECEDENT));
 		stock_chocolat.ajouterStock(compt.valeur(1));
 		stock_cacao.retirerStock(0.6*compt.valeur(1));
 		stock_chocolat.retirerStock(compt.valeur(0));
