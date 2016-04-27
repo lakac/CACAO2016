@@ -21,7 +21,6 @@ public class Lindt implements Acteur, ITransformateur{
 	private AchatProd achatProd;
 	private Indicateur venteChocolat;
 	
-	private Carrefour ca;
 	
 	public Lindt(){
 		this.hist = new HistoriqueCommandeDist();
@@ -33,8 +32,7 @@ public class Lindt implements Acteur, ITransformateur{
 		Monde.LE_MONDE.ajouterIndicateur( this.etatStockCacao );
 		Monde.LE_MONDE.ajouterIndicateur( this.etatStockChocolat );
 		this.treso=new Tresorerie(this.getHist());
-		
-		// pour les tests en interne on ajoute Carrefour 
+	
 		
 	}
 	
