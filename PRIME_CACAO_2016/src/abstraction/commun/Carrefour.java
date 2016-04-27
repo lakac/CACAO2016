@@ -7,7 +7,7 @@ import abstraction.fourni.Indicateur;
 import abstraction.fourni.Journal;
 import abstraction.fourni.Monde;
 
-public class Carrefour implements Acteur {
+public class Carrefour implements Acteur,IDistributeur {
 
 	private static final Monde LE_MONDE = null;
 	private String nom;
@@ -66,8 +66,8 @@ public class Carrefour implements Acteur {
 		return this.prixachat;
 	}
 
-	public double getDemande(ITransformateur t, int step) {
-		this.setdemandePerStep(step+3);
+	public double getDemande(ITransformateur t) {
+		this.setdemandePerStep(MondeV1.LE_MONDE.getStep()+3);
 		if (t.equals(transformateurs.get(0))) {
 			return this.demandeperstep*0.125;
 		}
@@ -91,7 +91,7 @@ public class Carrefour implements Acteur {
 		setdemandePerStep( MondeV1.LE_MONDE.getStep());
 		setFraisdeDistri();
 		for (ITransformateur t : this.transformateurs) {
-			double q = this.getDemande(t, MondeV1.LE_MONDE.getStep()-3);
+			double q = this.getDemande(t);
 			this.solde.setValeur(this, this.solde.getValeur()-q*this.getPrix());
 		}
 		this.achats.setValeur(this, this.demandeperstep);
