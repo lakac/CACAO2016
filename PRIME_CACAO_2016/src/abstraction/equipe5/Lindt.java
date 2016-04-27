@@ -47,6 +47,7 @@ public class Lindt implements Acteur, ITransformateur{
 	}
 	
 	public void next() {
+<<<<<<< HEAD
 		System.out.println(D2.getDemande(this));
 		//D1.getDemande(this); //demande quantité souhaitée par les distributeurs;
 		//D2.getDemande(this);
@@ -59,6 +60,9 @@ public class Lindt implements Acteur, ITransformateur{
 		System.out.println(this.getHist().valeur(2));
 		System.out.println(this.getHist().valeur(3));
 		System.out.println(this.stock_cacao.getStock());
+=======
+		this.getHist().ajouter(D1.getDemande(this)+ D2.getDemande(this));
+>>>>>>> branch 'master' of https://github.com/florianed/CACAO2016.git
 		stock_chocolat.ajouterStock(this.getHist().valeur(Constante.STEP_PRECEDENT_MOINS_2));
 		stock_chocolat.retirerStock(this.getHist().valeur(Constante.STEP_PRECEDENT_MOINS_3));
 		stock_cacao.ajouterStock(0.4 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT)); // stock lié au reste du monde
