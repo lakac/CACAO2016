@@ -42,9 +42,14 @@ public class Producteur implements Acteur, IProducteur {
 		Monde.LE_MONDE.ajouterIndicateur(this.tresorerie);
 		Monde.LE_MONDE.ajouterIndicateur(this.productionCourante);
 		
+		// Pourcentages de la production annuelle effectivement produits theoriquement a chaque step.
+		// Des fluctuations autour de ces valeurs sont implementees dans la methode produire().
 		this.productionDeBase = new double[] {0.008, 0.012, 0.014, 0.017, 0.028, 0.03, 0.017, 0.014, 0.034, 0.047, 0.112,
 			0.111, 0.044, 0.036, 0.017, 0.016, 0.035, 0.043, 0.111, 0.112, 0.048, 0.035, 0.024, 0.015, 0.012, 0.008}; 
 		
+		// Afin d'eviter d'avoir une demande effective de la somme des transformateurs superieure a ce que nous pouvons
+		// mettre en vente, nous proposons a chaque transformateur une quantite specifique que nous sommes surs de pouvoir
+		// lui fournir.
 		this.quantitesProposees = new HashMap<ITransformateur,Double>();
 		for (ITransformateur t : this.getTransformateurs()) {
 			this.quantitesProposees.put(t,0.0);
@@ -57,15 +62,14 @@ public class Producteur implements Acteur, IProducteur {
 	/**
 	 * @return la quantite de cacao produite au step actuel.
 	 * 
-	 * Plus tard, on ajoutera une fluctuation autour de la quantite de base.
+	 * Pour l'instant, on sait que l'on a seulement deux clients, donc la repartition est moitie-moitie.
 	 */
 	private void produire(int step) {
 		Random fluctuations = new Random();
-		this.setProductionCourante(this.getProductionDeBase(step)*this.getProductionAnnuelle()*(0.98+0.4*fluctuations.nextDouble()));
+		this.setProductionCourante(this.getProductionDeBase(step)*this.getProductionAnnuelle()*(0.98+0.04*fluctuations.nextDouble()));
 		this.setStock(this.getStock()+this.getProductionCourante());
 		for (ITransformateur t : this.getTransformateurs()) {
 			this.quantitesProposees.put(t,this.getProductionCourante()*0.5);
-			// Pour l'instant, on a seulement deux clients
 		}
 	}
 	
@@ -89,7 +93,7 @@ public class Producteur implements Acteur, IProducteur {
 		this.tresorerie.setValeur(this,tresorerie);
 	}
 	
-	public double getCoutProduction() {
+	private double getCoutProduction() {
 		return this.coutProduction;
 	}
 	
@@ -106,7 +110,7 @@ public class Producteur implements Acteur, IProducteur {
 	}
 	
 	/**
-	 * @return la production de base de notre producteur a la periode de l'annee correspondant au step actuel.
+	 * @return la production de base (theorique) de notre producteur a la periode de l'annee correspondant au step actuel.
 	 */
 	private double getProductionDeBase(int step) {
 		return this.productionDeBase[step%26];
@@ -116,7 +120,7 @@ public class Producteur implements Acteur, IProducteur {
 		return this.productionCourante.getValeur();
 	}
 	
-	public void setProductionCourante(double valeur) {
+	private void setProductionCourante(double valeur) {
 		this.productionCourante.setValeur(this, valeur);
 	}
 	
@@ -125,14 +129,14 @@ public class Producteur implements Acteur, IProducteur {
 	}
 	
 	/**
-	 * Doublon avec getQuantiteProposee... Simplifier avec les conventions de nommage !
+	 * Methode de l'interface IProducteur
 	 */
 	public double annonceQuantiteMiseEnVente(ITransformateur t) {
 		return this.getQuantiteProposee(t);
 	}
 	
 	/**
-	 * Doublon avec getPrixVente... Simplifier avec les conventions de nommage !
+	 * Methode de l'interface IProducteur
 	 */
 	public double annoncePrix() {
 		return this.getPrixVente();
@@ -140,6 +144,9 @@ public class Producteur implements Acteur, IProducteur {
 	
 	/**
 	 * Met a jour les stocks et tresoreries du transformateur t et de notre producteur.
+	 * 
+	 * Warning : il faut absolument que les transformateurs aient bien acces a la quantite reellement vendue...
+	 * Version prochaine : passer cette quantite en argument de ITransformateur.notificationVente ?
 	 */
 	private void notificationVente(ITransformateur t) {
 		double quantiteVendue = Math.min(t.annonceQuantiteDemandee(this), this.annonceQuantiteMiseEnVente(t));
@@ -147,9 +154,11 @@ public class Producteur implements Acteur, IProducteur {
 		this.setStock(this.getStock() - quantiteVendue);
 		this.setTresorerie(this.getTresorerie() + quantiteVendue*(this.getPrixVente()-this.getCoutProduction()));
 		t.notificationVente(this);
-		// Il faudra que les transformateurs aient bien acces a la quantite reellement vendue...
 	}
 	
+	/**
+	 * @return l'ensemble des transformateurs du Monde.
+	 */
 	private List<ITransformateur> getTransformateurs() {
 		List<ITransformateur> transfos = new ArrayList<ITransformateur>();
 		for (Acteur a : Monde.LE_MONDE.getActeurs()) {
@@ -161,18 +170,16 @@ public class Producteur implements Acteur, IProducteur {
 	}
 	
 	public void next() {
-		// Partie 1 : Gestion des ventes (Transfo.notificationVente() pour T1 et T2)
+		// Partie 1 : Gestion des ventes
 		for (ITransformateur t : this.getTransformateurs()) {
 			this.notificationVente(t);
 		}
 		
-		// Partie 2 : mise a jour de la quantite disponible a la vente et du prix de vente du prochain step
-		// pour que les transfos y aient acces
+		// Partie 2 : Mise a jour de la quantite disponible a la vente (et plus tard du prix de vente) du prochain step
 		
 		this.produire(Monde.LE_MONDE.getStep());
 		this.journal.ajouter("Production de "+this.getNom()+" = <font color=\"maroon\">"+this.getProductionCourante()+"</font> au <b>step</b> "+Monde.LE_MONDE.getStep());
 		
-		// Plus tard, on ajoutera des fluctuations dans le prix de vente ; pour l'instant il est a 3000 euros par tonne
-		// [setPrixVente]
+		// Plus tard, on ajoutera des fluctuations dans le prix de vente ; pour l'instant il est a 3000 euros par tonne.
 	}
 }
