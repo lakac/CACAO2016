@@ -34,7 +34,7 @@ public class Producteur implements Acteur,IProducteur{
     }
 
 	public String getNom() {
-		return nom;
+		return this.nom;
 	}
 
 	
