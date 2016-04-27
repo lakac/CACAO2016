@@ -80,7 +80,7 @@ public class Lindt implements Acteur, ITransformateur{
 	public void notificationVente(IProducteur p){
 		stock_cacao.ajouterStock(RATIO_CACAO_CHOCOLAT*hist.valeur(Historique_Commande_Dist.STEP_PRECEDENT));
 		stock_cacao.retirerStock(RATIO_CACAO_CHOCOLAT*hist.valeur(Historique_Commande_Dist.STEP_PRECEDENT_MOINS_2));
-		
+		treso.retirerTresorerie();
 		System.out.println("Met à jour le stock et la tréso");
 	}
 

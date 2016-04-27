@@ -1,5 +1,6 @@
 
 package abstraction.equipe5;
+
 import abstraction.equipe5.Lindt;
 import abstraction.fourni.Monde;
 import abstraction.commun.Constantes;
@@ -9,17 +10,28 @@ import abstraction.commun.IProducteur;
 
 public class Tresorerie {
 	private Historique_Commande_Dist hist;
-	private double treso;
-
-	
-	
+	private double treso;	
 
 	public Tresorerie(Historique_Commande_Dist hist){
 		this.hist= hist;
-
 		this.treso = 0;
 	}
-
+	
+	public double getTresorerie() {
+		return this.treso;
+	}
+	
+	public void setTresorerie(double treso) {
+		this.treso = treso;
+	}
+	
+	public void ajouterTresorerie(double d) {
+		this.setTresorerie(this.getTresorerie()+d);
+	}
+	
+	public void retirerTresorerie(double d) {
+		this.setTresorerie(this.getTresorerie()-d);	
+	}
 
 	public double coutRevient() {
 		int chargesFixes = 900980; // salaires+impots
