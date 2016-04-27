@@ -5,8 +5,9 @@ import abstraction.fourni.Indicateur;
 import abstraction.fourni.Journal;
 import abstraction.fourni.Monde;
 import abstraction.fourni.v0.Constantes;
+import abstraction.v1.IProducteur;
 
-public class Producteur implements Acteur{
+public class Producteur implements Acteur, IProducteur{
 	
 	private String nom;
 	private Indicateur stock; 
@@ -26,5 +27,15 @@ public class Producteur implements Acteur{
     	Monde.LE_MONDE.ajouterIndicateur( this.solde );
     	Monde.LE_MONDE.ajouterIndicateur( this.pertes );
     }
+
+	@Override
+	public String getNom() {	
+		this.stock.setValeur(this, 15);
+		return null;
+	}
+
+	@Override
+	public void next() {
+	}
 	
 }
