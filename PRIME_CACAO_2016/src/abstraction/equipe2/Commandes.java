@@ -35,4 +35,8 @@ public class Commandes {
 		return qdp;
 	}
 	
+	public double quantiteDemandeeMonde (double p){
+		double qdp = this.getCommandes()[3]*0.6*p;
+		return qdp;
+	}
 }

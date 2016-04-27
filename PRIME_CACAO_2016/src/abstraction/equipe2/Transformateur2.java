@@ -30,8 +30,6 @@ public class Transformateur2 implements Acteur, ITransformateur{
 	public static final Stock stock_cacao=new Stock();
 	public static final Stock stock_chocolat=new Stock();
 	public static final Banque tresorerie=new Banque();
-	
-
 	public static final Commandes commandes = new Commandes();
 	
 
@@ -53,17 +51,10 @@ public class Transformateur2 implements Acteur, ITransformateur{
 		return prod;
 	}
 	
-	
 	public void notificationVente(double quantite) {
 		this.achats.setValeur(this, quantite);
 		this.solde.setValeur( this, this.solde.getValeur()-quantite*Marche.LE_MARCHE.getCours());
 	}
-
-	
-	//la quantité demandée aux producteurs est proportionnelle 
-
-	
-	// Quantité annoncée aux producteurs 
 	
 	public double annonceQuantiteDemandee(IProducteur p) {
 		if(MondeV1.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1)==p){
@@ -83,7 +74,6 @@ public class Transformateur2 implements Acteur, ITransformateur{
 	public void notificationVente(IProducteur p) {
 		double commande = this.annonceQuantiteDemandee(p);
 		this.solde.setValeur(this, this.solde.getValeur()-p.annoncePrix()*commande);
-		//+ ligne modification du stock //A COMPLETER
 		stock_cacao.ajout_cacao();
 	}
 	
@@ -102,35 +92,19 @@ public class Transformateur2 implements Acteur, ITransformateur{
 		stock_chocolat(T, S2);
 	}*/
 	/*    public static void main(String[] args) {
+=======
+	    /*public static void main(String[] args) {
+>>>>>>> branch 'master' of https://github.com/AlexandreMARTY/CACAO2016.git
 		double p = 3;
-		double[]T=new double[4];
-		double[]S1=new double[2];
-		double[]S2=new double[2];
-		T[0]=1000000;
-		T[1]=-1;
-		T[2]=0;
-		T[3]=790000;
-		S1[0]=500000;
-		S1[1]=800000;
-		S2[0]=600000;
-		S2[1]=400000;
 		double prixdevente=15;
-		double[] CI = CoutInts(p,T);
 		System.out.println("La longueur du tableau CI est de :" + CI.length);
-		System.out.println("La longueur du tableau S1 est de :" +S1.length);
-		System.out.println("La longueur du tableau S2 est de :" +S2.length);
 
-		System.out.println("le cout de revient de Nestlé France à la période t est de "+CI[0]);
-		System.out.println("le cout de revient unitaire de Nestlé France à la période t est de "+CI[1]);
-		System.out.println("la marge sur couts directs que Nestlé se fait est de : "+Marge(prixdevente,p,T)+"%");
-		
+
 		System.out.println("la quantite de cacao achetee est "+0.6*T[2] +"kg de cacao");
 		System.out.println("la quantite de chocolat demandee par les distributeurs est"+ T[3]+"kg de chocolat");
 		System.out.println("la quantite de cacao transformee en chocolat à cet step est de "+ 0.6*T[1]+"kg");
 		System.out.println("la quantite de chocolat livre est de" +T[0] + "kg");
 		
-		
-		System.out.println("le bénéfice fait a cet step est de :" + Benefice(T,prixdevente,p) + "€");
 		
 
 		if (stock_cacao(T,S1)<0){
@@ -170,15 +144,10 @@ public class Transformateur2 implements Acteur, ITransformateur{
 				System.out.println("On peut baisser les prix de vente du chocolat");
 			}
 		}
-		
-		
-		
-		
-		
-		
+		*/
 	}
 	
-	   */
+	   
 
 		
 
