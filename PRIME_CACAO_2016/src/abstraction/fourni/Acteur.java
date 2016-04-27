@@ -15,7 +15,7 @@ public interface Acteur {
 	public String getNom();
 	
 	/**
-	 * Methode de l'acteur invoquee suite a l'appui sur le bouton NEXT de la fenetre principale
+	 * Méthode de l'acteur invoquée suite a l'appui sur le bouton NEXT de la fenêtre principale
 	 */
 	public void next();
 }
