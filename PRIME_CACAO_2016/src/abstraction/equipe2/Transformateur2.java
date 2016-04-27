@@ -128,11 +128,26 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	
 	//la quantité demandée aux producteurs est proportionnelle 
 	//à la quantité de chocolat que nous demande les distributeurs.
-	/*public static double quantiteDemandee (double[] T) {
+	
+	public static double quantiteDemandee (double[] T) {
 		double qdp = T[3];
 		return qdp; 
 		//Test OK
-	}*/
+	}
+	
+	// Quantitée demandée au producteur 1 
+	
+	public static double quantiteDemandeeP1 (double[] T, double p){
+		double qdp = T[3]*p;
+		return qdp;
+	}
+	
+	// Quantitée demandée au producteur 2
+	
+	public static double quantiteDemandeeP2 (double[] T, double p){
+		double qdp = T[3]*p;
+		return qdp;
+	}
 	
 	//Le prix du kilo de chocolat étant fixé, tout ce que l'on peut calculer c'est la marge que l'on se fait.
 	public static double Marge (double prixDeVente, double p, double[] T) {
