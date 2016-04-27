@@ -7,7 +7,7 @@ import abstraction.fourni.Indicateur;
 import abstraction.fourni.Journal;
 import abstraction.fourni.Monde;
 
-public class Detaillant implements Acteur {
+public class Carrefour implements Acteur {
 
 	private static final Monde LE_MONDE = null;
 	private String nom;
@@ -21,7 +21,7 @@ public class Detaillant implements Acteur {
 
 	private ArrayList<IVendeur> vendeurs;
 	
-	public Detaillant(String nom, Monde monde, double prixachat, double prixvente, double demandeannuel) {
+	public Carrefour(String nom, Monde monde, double prixachat, double prixvente, double demandeannuel) {
 		this.nom = nom;
 		this.prixachat=prixachat;
 		this.prixvente=prixvente;
@@ -88,13 +88,13 @@ public class Detaillant implements Acteur {
 
 
 	public void next() {
-		setdemandePerStep( MondeV0.LE_MONDE.getStep());
+		setdemandePerStep( MondeV1.LE_MONDE.getStep());
 		setFraisdeDistri();
 		for (IVendeur t : this.vendeurs) {
-			double q = this.getDemande(t, MondeV0.LE_MONDE.getStep()-3);
+			double q = this.getDemande(t, MondeV1.LE_MONDE.getStep()-3);
 			this.solde.setValeur(this, this.solde.getValeur()-q*this.getPrix());
-			this.achats.setValeur(this, this.achats.getValeur()+q);
 		}
+		this.achats.setValeur(this, this.demandeperstep);
 		this.solde.setValeur(this,this.solde.getValeur()+this.demandeperstep*this.prixvente
 										-this.fraisdedistri); 
 		

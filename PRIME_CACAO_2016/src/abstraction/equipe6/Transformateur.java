@@ -40,7 +40,7 @@ public class Transformateur implements Acteur, ITransformateur, IVendeur {
 		this.solde.setValeur( this, this.solde.getValeur()-quantite*Marche.LE_MARCHE.getCours());
 	}
 
-	public double acheter(Detaillant d, double quantite) {
+	public double acheter(Carrefour d, double quantite) {
         double q = Math.min(quantite, this.achats.getValeur()-this.ventes.getValeur());
         this.solde.setValeur(this, this.solde.getValeur()+d.getPrix()*q);
         this.ventes.setValeur(this, this.ventes.getValeur()+q);

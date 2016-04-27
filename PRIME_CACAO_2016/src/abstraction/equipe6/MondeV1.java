@@ -2,7 +2,7 @@ package abstraction.equipe6;
 
 import abstraction.fourni.Monde;
 
-public class MondeV0 extends Monde {
+public class MondeV1 extends Monde {
 	/**
 	 * Methode appelee juste a la creation de l'unique 
 	 * instance du Monde. C'est le bon endroit pour creer 
@@ -35,8 +35,8 @@ public class MondeV0 extends Monde {
 
 		this.ajouterActeur(Marche.LE_MARCHE);
 		
-		Detaillant d1 = new Detaillant(Constantes.NOM_DETAILLANT_1, this, 15 , 20, 50000);
-		Detaillant d2 = new Detaillant(Constantes.NOM_DETAILLANT_2, this, 15, 20, 50000);
+		Carrefour d1 = new Carrefour(Constantes.NOM_DETAILLANT_1, this, 15 , 20, 50000);
+		Carrefour d2 = new Carrefour(Constantes.NOM_DETAILLANT_2, this, 15, 20, 50000);
 		
 		
 		d1.ajouterVendeur(t1);
