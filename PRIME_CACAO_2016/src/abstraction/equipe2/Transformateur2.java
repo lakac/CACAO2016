@@ -85,6 +85,10 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 		
 	}
 	
+	public double prixDeVente(){
+		return 15.0;
+	}
+	
 	
 	//ce code calcule le cout de revient et le cout de revient unitaire de Nestlé France !
 	//p en euros, q en kilos
