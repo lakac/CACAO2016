@@ -40,8 +40,7 @@ public class Tresorerie {
 	}
 	
 	public double marge(){
-		double coutAchatCacao= hist.valeur(Constante.STEP_PRECEDENT_MOINS_3)*Constante.RATIO_CACAO_CHOCOLAT*(0.3*P1.annoncePrix()+0.3*P2.annoncePrix()+0.4*3000); //coût d'achat du cacao aux 3 producteurs 
-				return (15000*hist.valeur(Constante.STEP_PRECEDENT_MOINS_3)-coutRevient()-coutAchatCacao);
+		return (15000*hist.valeur(Constante.STEP_PRECEDENT_MOINS_3)-coutRevient());
 	}
 }
 
