@@ -1,7 +1,6 @@
 package abstraction.equipe4;
 
 import abstraction.fourni.*;
-import abstraction.fourni.v0.IVendeur;
 
 import java.util.ArrayList;
 
@@ -38,18 +37,6 @@ public class Producteur implements Acteur,IProducteur{
 		return nom;
 	}
 
-	public Indicateur getStock() {
-		return stock;
-	}
-
-	public Journal getJournal() {
-		return journal;
-	}
-
-	public Indicateur getProd() {
-		return prod;
-	}
-
 	
 	public void Reduc_Stock(double value){
 		stock.setValeur(this, this.stock.getValeur()- value);
@@ -67,17 +54,19 @@ public class Producteur implements Acteur,IProducteur{
 			this.prod_tot_utilisable=this.prod.getValeur()-this.pertes.getValeur();
 			this.Augment_Stock(this.prod.getValeur()-this.pertes.getValeur());
 			this.journal.ajouter("Production de semi annuelle de " + this.prod_tot_utilisable);
+		}
 		if ((Monde.LE_MONDE.getStep()%3==0)&&(this.journal!=null)){
 			this.journal.ajouter("Stock restant de " + this.stock.getValeur());
+		}
 		if (Monde.LE_MONDE.getStep()%3==2){
 			for (ITransformateur t : this.transformateurs){
-				
+				double commande = t.annonceQuantiteDemandee(this);
+				t.notificationVente(this);
+				this.notificationVente(commande);
 			}
 		}
 		}
-		}
-	}
-	
+
 	public double annonceQuantiteMiseEnVente(ITransformateur t) {
 		return (this.prod_tot_utilisable/8);
 	}
@@ -86,10 +75,10 @@ public class Producteur implements Acteur,IProducteur{
 		return this.treso.getPrix();
 	}
 	
-	public void notificationVente(double quantite, Acteur a) {
+	public void notificationVente(double quantite) {
 		this.treso.modiftreso(quantite);
 		this.Reduc_Stock(quantite);
-		this.journal.ajouter("Vente de " + quantite + "auprès de "+ a.getNom());
+		this.journal.ajouter("Vente de " + quantite );
 	}
 
 }

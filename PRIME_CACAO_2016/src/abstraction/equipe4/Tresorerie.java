@@ -8,13 +8,20 @@ public class Tresorerie {
 	private Acteur Prod;
 	
 	
+	public Tresorerie(Acteur a, double prix, double cout) {
+		this.fond = new Indicateur("Fond de" + a.getNom(),a,0.0);
+		this.prix = prix;
+		this.CoutProd = cout;
+		this.Prod= a;
+		Monde.LE_MONDE.ajouterIndicateur( this.fond );
+	
+	}
+
+
 	public Acteur getProd() {
 		return Prod;
 	}
 
-	public void setProd(Acteur prod) {
-		Prod = prod;
-	}
 	
 	public double getCoutProd() {
 		return this.CoutProd;
@@ -23,16 +30,6 @@ public class Tresorerie {
 	public double getPrix() {
 		return this.prix;
 	}
-
-	public Tresorerie(Acteur a, double prix, double cout) {
-		this.fond = new Indicateur("Fond de" + a.getNom(),a,0.0);
-		this.prix = prix;
-		this.CoutProd = cout;
-		this.Prod= a;
-    	Monde.LE_MONDE.ajouterIndicateur( this.fond );
-
-	}
-	
 
 	public Indicateur getFond() {
 		return this.fond;
