@@ -32,7 +32,7 @@ public class Lindt implements Acteur, ITransformateur{
 	}
 	
 	public String getNom() {
-		return "Lindt";}
+		return Constantes.NOM_TRANSFORMATEUR_2;}
 	
 	public Historique_Commande_Dist getHist(){
 		return this.hist;
@@ -78,9 +78,10 @@ public class Lindt implements Acteur, ITransformateur{
 	 * Cette méthode est appelée par les producteurs.
 	 */
 	public void notificationVente(IProducteur p){
-		stock_cacao.ajouterStock(0.6*hist.valeur(Historique_Commande_Dist.STEP_PRECEDENT));
-		stock_cacao.retirerStock(0.6*hist.valeur(Historique_Commande_Dist.STEP_PRECEDENT_MOINS_2));
-		System.out.println("Met à vous le stock et la tréso");
+		stock_cacao.ajouterStock(RATIO_CACAO_CHOCOLAT*hist.valeur(Historique_Commande_Dist.STEP_PRECEDENT));
+		stock_cacao.retirerStock(RATIO_CACAO_CHOCOLAT*hist.valeur(Historique_Commande_Dist.STEP_PRECEDENT_MOINS_2));
+		
+		System.out.println("Met à jour le stock et la tréso");
 	}
 
 	public double annonceQuantiteDemandee(IProducteur p) {

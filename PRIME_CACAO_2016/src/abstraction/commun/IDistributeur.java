@@ -1,3 +1,4 @@
+
 package abstraction.commun;
 
 public interface IDistributeur {
