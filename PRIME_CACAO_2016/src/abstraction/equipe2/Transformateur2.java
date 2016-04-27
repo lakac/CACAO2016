@@ -121,8 +121,8 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	
 	//la quantité demandée aux producteurs est proportionnelle 
 	//à la quantité de chocolat que nous demande les distributeurs.
-	public static double quantiteDemandee (double[] T) {
-		double qdp = T[3];
+	public static double quantiteDemandee (double[] T, double p) {
+		double qdp = 0.6*p*T[3];
 		return qdp; 
 		//Test OK
 	}
@@ -143,7 +143,12 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	
 	//Méthode principale de test de CoutInts, déféaire les "/*" pour l'activer
 	public void next() {
-		
+		setT(qdd);
+		quantiteDemandee(T, 0.3);
+		quantiteDemandee(T, 0.3);
+		quantiteDemandee(T, 0.4);
+		stock_cacao(T);
+		stock_chocolat(T);
 	}
 	    public static void main(String[] args) {
 		double p = 3;
