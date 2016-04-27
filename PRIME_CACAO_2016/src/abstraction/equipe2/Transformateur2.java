@@ -99,7 +99,6 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 		int qp = 200;
 		
 		double qdd = 30000;
-		System.out.println("la quantité demandée est de "+quantiteDemandee(qdd));
 		
 	}
 	
