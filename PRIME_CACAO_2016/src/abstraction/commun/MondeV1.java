@@ -16,9 +16,7 @@ public class MondeV1 extends Monde {
 		Carrefour Ca = new Carrefour("Carrefour", this, 15, 20, 50000);
 		// Transformateurs
 		Transformateur2 t1 = new Transformateur2(Constantes.NOM_TRANSFORMATEUR_1, this);
-		
-		this.ajouterActeur(t1);
-		
+
 		// Producteurs
 
 		Producteur p1 = new Producteur(Constantes.NOM_PRODUCTEUR_1, 1000.0, 0.0, Monde.LE_MONDE);

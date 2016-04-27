@@ -32,7 +32,7 @@ public class Transformateur2 implements Acteur, ITransformateur{
 	
 
 	public String getNom() {
-		return "Producteur "+this.nom;
+		return this.nom;
 	}
 	
 	public double prixDeVente(){
@@ -40,13 +40,13 @@ public class Transformateur2 implements Acteur, ITransformateur{
 	}
 	
 	
-	//ce code calcule le cout de revient et le cout de revient unitaire de Nestlé France !
+	//ce code calcule le cout de revient et le cout de revient unitaire de Nestlï¿½ France !
 	//p en euros, q en kilos
 	public static double[] CoutInts (double p, double []T){ 
 		double[] CI =new double[2] ;
 		CI[0] = 13003370+T[1]*(5+p);
 		CI[1] = CI[0]*0.6/T[1];
-		// 600g de cacao équivalent à 1kg de chocolat
+		// 600g de cacao é§²uivalent ï¿½ 1kg de chocolat
 		return CI;
 		//Test OK
 	}
@@ -58,10 +58,10 @@ public class Transformateur2 implements Acteur, ITransformateur{
 	}
 
 	
-	//la quantité demandée aux producteurs est proportionnelle 
+	//la quantitï¿½ demandé¦¥ aux producteurs est proportionnelle 
 
 	
-	// Quantité annoncée aux producteurs 
+	// Quantitï¿½ annoncé¦¥ aux producteurs 
 	
 	public double annonceQuantiteDemandee(IProducteur p) {
 		if(MondeV1.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1)==p){
@@ -86,7 +86,7 @@ public class Transformateur2 implements Acteur, ITransformateur{
 	}
 	
 	
-	//Le prix du kilo de chocolat étant fixé, tout ce que l'on peut calculer c'est la marge que l'on se fait.
+	//Le prix du kilo de chocolat é¨ant fixï¿½, tout ce que l'on peut calculer c'est la marge que l'on se fait.
 	public static double Marge (double prixDeVente, double p, double[] T) {
 		double M = ((prixDeVente-CoutInts(p,T)[1])/(CoutInts(p,T))[1])*100;
 		return M;
@@ -100,7 +100,7 @@ public class Transformateur2 implements Acteur, ITransformateur{
 		//Test OK
 	}
 	
-	//Méthode principale de test de CoutInts, déféaire les "/*" pour l'activer
+	//Mé¨hode principale de test de CoutInts, dé¦­é¥Œire les "/*" pour l'activer
 	public void next() {}
 		//setT(qdd);
 		/*quantiteDemandee(T, 0.3);
@@ -130,28 +130,28 @@ public class Transformateur2 implements Acteur, ITransformateur{
 		System.out.println("La longueur du tableau S1 est de :" +S1.length);
 		System.out.println("La longueur du tableau S2 est de :" +S2.length);
 
-		System.out.println("le cout de revient de Nestlé France à la période t est de "+CI[0]);
-		System.out.println("le cout de revient unitaire de Nestlé France à la période t est de "+CI[1]);
-		System.out.println("la marge sur couts directs que Nestlé se fait est de : "+Marge(prixdevente,p,T)+"%");
+		System.out.println("le cout de revient de Nestlï¿½ France ï¿½ la pé§»iode t est de "+CI[0]);
+		System.out.println("le cout de revient unitaire de Nestlï¿½ France ï¿½ la pé§»iode t est de "+CI[1]);
+		System.out.println("la marge sur couts directs que Nestlï¿½ se fait est de : "+Marge(prixdevente,p,T)+"%");
 		
 		System.out.println("la quantite de cacao achetee est "+0.6*T[2] +"kg de cacao");
 		System.out.println("la quantite de chocolat demandee par les distributeurs est"+ T[3]+"kg de chocolat");
-		System.out.println("la quantite de cacao transformee en chocolat à cet step est de "+ 0.6*T[1]+"kg");
+		System.out.println("la quantite de cacao transformee en chocolat ï¿½ cet step est de "+ 0.6*T[1]+"kg");
 		System.out.println("la quantite de chocolat livre est de" +T[0] + "kg");
 		
 		
-		System.out.println("le bénéfice fait a cet step est de :" + Benefice(T,prixdevente,p) + "€");
+		System.out.println("le bé§­é¦­ice fait a cet step est de :" + Benefice(T,prixdevente,p) + "ï¿½");
 		
 
 	/*	if (stock_cacao(T,S1)<0){
 
-			System.out.println("Erreur dans le système");
+			System.out.println("Erreur dans le systé‘ªe");
 		}else{
 			System.out.println("Le stock de cacao semble valide");
 		}
 		
 		if (stock_chocolat(T,S2)<0) {
-			System.out.println("Erreur dans le système");
+			System.out.println("Erreur dans le systé‘ªe");
 		}else{
 			System.out.println("Le stock de chocolat semble valide");
 		}*/
@@ -162,17 +162,17 @@ public class Transformateur2 implements Acteur, ITransformateur{
 				System.out.println("Erreur dans les valeurs du tableau des demandes");
 			}else {
 				if (T[i]==0){
-					System.out.println("Grève des distributeurs");
+					System.out.println("Gré’e des distributeurs");
 				}else{
 					System.out.println("Les demandes semblent valides");
 				}
 			}
 		}
 		
-		//Pour nous permettre de savoir si on a mit le bon prix pour les coûts d'achats du cacao et de vente du chocolat
+		//Pour nous permettre de savoir si on a mit le bon prix pour les coçš¦s d'achats du cacao et de vente du chocolat
 		
 		if (Marge(prixdevente,p,T)<0){
-			System.out.println("Vente à perte -> Acheter moins cher ou vendre plus cher");
+			System.out.println("Vente ï¿½ perte -> Acheter moins cher ou vendre plus cher");
 		}else{
 			if (Marge(prixdevente,p,T)<30){
 				System.out.println("Les prix d'achats du cacao et les prix de vente du chocolat sont bons ");

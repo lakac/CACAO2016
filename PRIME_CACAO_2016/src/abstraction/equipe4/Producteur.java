@@ -18,7 +18,7 @@ public class Producteur implements Acteur,IProducteur {
 	
     public Producteur(Monde monde) {
        this.nom = Constantes.NOM_PRODUCTEUR_2;
-	   this.treso = new Tresorerie(this,2000.0,3000.0);
+	   this.treso = new Tresorerie(this,3000.0,10.0);
 	   this.stock = new Indicateur("Stock de "+ this.nom,this,0.0);
        this.prod_tot_utilisable = new Indicateur(Constantes.IND_PRODUCTION_P2, this, 0.0);
        this.journal = new Journal("Journal de "+this.nom);
@@ -26,8 +26,8 @@ public class Producteur implements Acteur,IProducteur {
        this.prod=1200000;
        this.transformateurs= new ArrayList<ITransformateur>();
        this.transformateurs.add((ITransformateur)Monde.LE_MONDE.getActeur(Constantes.NOM_TRANSFORMATEUR_1));
-       this.transformateurs.add((ITransformateur)Monde.LE_MONDE.getActeur(Constantes.NOM_TRANSFORMATEUR_2));
-    	Monde.LE_MONDE.ajouterJournal(this.journal);
+       this.transformateurs.add((ITransformateur)Monde.LE_MONDE.getActeur(Constantes.NOM_TRANSFORMATEUR_2));       
+       Monde.LE_MONDE.ajouterJournal(this.journal);
     	Monde.LE_MONDE.ajouterIndicateur( this.prod_tot_utilisable );
     	Monde.LE_MONDE.ajouterIndicateur(this.pertes);
     	Monde.LE_MONDE.ajouterIndicateur(this.stock);
