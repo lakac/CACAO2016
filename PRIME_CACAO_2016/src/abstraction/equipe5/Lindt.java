@@ -6,6 +6,7 @@ import abstraction.commun.ITransformateur;
 import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
+
 public class Lindt implements Acteur, ITransformateur, IDistributeur{
 	
 	private Historique_Commande_Dist compt;
@@ -35,9 +36,9 @@ public class Lindt implements Acteur, ITransformateur, IDistributeur{
 		//P2.annonceQuantiteMiseEnVente(Lindt);
 		/*compt.ajouter(getQuantiteDist());*/
 		//stock_cacao.ajouterStock(0.6*compt.valeur(Historique_Commande_Dist.STEP_PRECEDENT));
-		stock_chocolat.ajouterStock(compt.valeur(1));
-		stock_cacao.retirerStock(0.6*compt.valeur(1));
-		stock_chocolat.retirerStock(compt.valeur(0));
+		stock_chocolat.ajouterStock(compt.valeur(Historique_Commande_Dist.STEP_PRECEDENT_MOINS_2));
+		stock_cacao.retirerStock(0.6*compt.valeur(Historique_Commande_Dist.STEP_PRECEDENT_MOINS_2));
+		stock_chocolat.retirerStock(compt.valeur(Historique_Commande_Dist.STEP_PRECEDENT_MOINS_3));
 		//this.stock_cacao.ajouterStock(getQuantiteProd());
 		//this.stock_chocolat.retirerStock(34);
 		this.etatStockCacao.setValeur(this, this.stock_cacao.getStock());
@@ -56,18 +57,18 @@ public class Lindt implements Acteur, ITransformateur, IDistributeur{
 	
 	public double coutRevient() {
 		int charges_fixes = 900980; // salaires+impots
-		return charges_fixes + 0.6*compt.valeur(2) * (5000 /*+ ((p1.annoncePrix() + p2.annoncePrix())/2)*/); 	
+		return charges_fixes + 0.6*compt.valeur(Historique_Commande_Dist.STEP_PRECEDENT) * (5000 /*+ ((p1.annoncePrix() + p2.annoncePrix())/2)*/); 	
 	}
 	
 	public double marge(){
-		return (15000*compt.valeur(0)-coutRevient());
+		return (15000*compt.valeur(Historique_Commande_Dist.STEP_PRECEDENT_MOINS_3)-coutRevient());
 	}
 	
 	/**
 	 * Indique la quantité demandée au producteur p.
 	 */
 	public double annonceQuantiteDemandee(IProducteur p){
-		return 0.6*compt.valeur(3);
+		return 0.6*compt.valeur(Historique_Commande_Dist.STEP_COURANT);
 	}
 	/**
 	 * Met à jour l'état interne de ce transformateur
