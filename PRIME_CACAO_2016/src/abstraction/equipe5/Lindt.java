@@ -18,6 +18,8 @@ public class Lindt implements Acteur, ITransformateur{
 	private Indicateur etatStockChocolat;
 	private Tresorerie treso;
 	private AchatProd achatProd;
+	private double ratioCacao;
+	
 	
 	public Lindt(){
 		this.hist = new Historique_Commande_Dist();
@@ -28,6 +30,7 @@ public class Lindt implements Acteur, ITransformateur{
 		Monde.LE_MONDE.ajouterIndicateur( this.etatStockCacao );
 		Monde.LE_MONDE.ajouterIndicateur( this.etatStockChocolat );
 		this.treso=new Tresorerie(this.getHist());
+		this.ratioCacao=0.6;
 	}
 	
 	public String getNom() {
@@ -77,9 +80,10 @@ public class Lindt implements Acteur, ITransformateur{
 	 * Cette méthode est appelée par les producteurs.
 	 */
 	public void notificationVente(IProducteur p){
-		stock_cacao.ajouterStock(0.6*hist.valeur(Historique_Commande_Dist.STEP_PRECEDENT));
-		stock_cacao.retirerStock(0.6*hist.valeur(Historique_Commande_Dist.STEP_PRECEDENT_MOINS_2));
-		System.out.println("Met à vous le stock et la tréso");
+		stock_cacao.ajouterStock(ratioCacao*hist.valeur(Historique_Commande_Dist.STEP_PRECEDENT));
+		stock_cacao.retirerStock(ratioCacao*hist.valeur(Historique_Commande_Dist.STEP_PRECEDENT_MOINS_2));
+		
+		System.out.println("Met à jour le stock et la tréso");
 	}
 
 	public double annonceQuantiteDemandee(IProducteur p) {
