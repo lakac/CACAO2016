@@ -81,7 +81,7 @@ public class Transformateur2 implements Acteur, ITransformateur{
 	public void notificationVente(IProducteur p) {
 		double commande = this.annonceQuantiteDemandee(p);
 		this.solde.setValeur(this, this.solde.getValeur()-p.annoncePrix()*commande);
-		//+ ligne modification du stock
+		//+ ligne modification du stock //A COMPLETER
 		}
 	
 	
