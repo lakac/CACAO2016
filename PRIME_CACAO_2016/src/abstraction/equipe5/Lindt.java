@@ -60,7 +60,7 @@ public class Lindt implements Acteur, ITransformateur{
 		hist.ajouter(D1.getDemande(this) + D2.getDemande(this));
 		stock_chocolat.ajouterStock(hist.valeur(Constante.STEP_PRECEDENT_MOINS_2));
 		stock_chocolat.retirerStock(hist.valeur(Constante.STEP_PRECEDENT_MOINS_3));
-		
+		treso.ajouterTresorerie(hist.valeur(Constante.STEP_PRECEDENT_MOINS_3)*15000);
 		
 		this.etatStockCacao.setValeur(this, this.stock_cacao.getStock());
 		this.etatStockChocolat.setValeur(this, this.stock_chocolat.getStock());
