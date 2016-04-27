@@ -19,11 +19,11 @@ public class AchatProd {
 	public double annonceQuantiteDemandee(IProducteur p){
 		double quantiteTotale = 0.6*hist.valeur(Historique_Commande_Dist.STEP_COURANT);
 		if (p==MondeV1.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1)){
-			return (0.3*Math.min(quantiteTotale, this.quantiteMiseEnVente));
+			return (Math.min(0.3*quantiteTotale, this.quantiteMiseEnVente));
 		}
 		else{
 			if (p==MondeV1.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2)){
-				return (0.3*Math.min(quantiteTotale, this.quantiteMiseEnVente));
+				return (Math.min(0.3*quantiteTotale, this.quantiteMiseEnVente));
 			}
 			else{
 				return 0;
