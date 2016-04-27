@@ -74,6 +74,7 @@ public class Leclerc extends Detaillant implements ILeclerc{
 			}
 		}
 	}
+	
 	public void next() {
 		this.achats.setValeur(this, 0.0);
 		commande();
