@@ -4,7 +4,6 @@ import abstraction.equipe1.Producteur;
 import abstraction.fourni.Monde;
 import abstraction.commun.Constantes;
 import abstraction.equipe2.*;
-
 import abstraction.equipe6.Carrefour;
 
 public class MondeV1 extends Monde {
@@ -14,7 +13,7 @@ public class MondeV1 extends Monde {
 		// Distributeurs
 		Carrefour Ca = new Carrefour("Carrefour", this, 15, 20, 50000);
 		// Transformateurs
-		Transformateur2 t1 = new Transformateur2(Constantes.NOM_TRANSFORMATEUR_1, this);
+		Transformateur2 t1 = new Transformateur2(this);
 		
 		this.ajouterActeur(t1);
 		

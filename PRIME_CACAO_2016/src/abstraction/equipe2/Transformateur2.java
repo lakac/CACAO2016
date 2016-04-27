@@ -17,8 +17,8 @@ public class Transformateur2 implements Acteur, ITransformateur{
 	private Indicateur ventes;
 	private Indicateur solde;
 	
-	public Transformateur2(String nom, Monde monde) {
-		this.nom = nom;
+	public Transformateur2(Monde monde) {
+		this.nom = Constantes.NOM_TRANSFORMATEUR_1;
 		this.achats = new Indicateur("Achats de "+this.nom, this, 0.0);
 		this.ventes = new Indicateur("Ventes de "+this.nom, this, 0.0);
 		this.solde = new Indicateur("Solde de "+this.nom, this, 10000000.0);
@@ -29,7 +29,7 @@ public class Transformateur2 implements Acteur, ITransformateur{
 	
 	public static final Stock stock_cacao=new Stock();
 	public static final Stock stock_chocolat=new Stock();
-	//public static final Tresorerie banque=new Tresorerie();
+	public static final Banque tresorerie=new Banque();
 	public static final Commandes commandes = new Commandes();
 	
 
@@ -41,13 +41,23 @@ public class Transformateur2 implements Acteur, ITransformateur{
 		return 15.0;
 	}
 	
+	private List<IProducteur> getProducteurs() {
+		List<IProducteur> prod = new ArrayList<IProducteur>();
+		for (Acteur a : Monde.LE_MONDE.getActeurs()) {
+			if (a instanceof IProducteur) {
+				prod.add((IProducteur)(a));
+			}
+		}
+		return prod;
+	}
+	
 	public double annonceQuantiteDemandee(IProducteur p) {
 		if(MondeV1.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1)==p){
-			return Math.min(commandes.quantiteDemandeeP1(0.3), p.annonceQuantiteMiseEnVente(this)) ;
+			return Math.min(commandes.quantiteDemandee(0.3), p.annonceQuantiteMiseEnVente(this)) ;
 		}
 		else{
 			if(MondeV1.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2)==p){
-				return Math.min(commandes.quantiteDemandeeP1(0.3), p.annonceQuantiteMiseEnVente(this)) ;
+				return Math.min(commandes.quantiteDemandee(0.3), p.annonceQuantiteMiseEnVente(this)) ;
 			}
 			else{
 				return 0.0;
@@ -72,6 +82,10 @@ public class Transformateur2 implements Acteur, ITransformateur{
 		stock_cacao.ajout_cacao();
 	}
 	
+	
+
+	
+
 	//Méthode principale de test de CoutInts, défaire les "/*" pour l'activer
 	public void next() {
 		double qdd = 0;
@@ -86,11 +100,24 @@ public class Transformateur2 implements Acteur, ITransformateur{
 		}
 		commandes.quantiteDemandeeMonde(0.4);
 		stock_chocolat.ajout_chocolat();
-		Banque.Tresorerie(this.getProducteurs().get(0), this.getProducteurs().get(1));
+		tresorerie.Tresorerie(this.getProducteurs().get(0), this.getProducteurs().get(1));
 	}
-
-	}
+}
+	/*
+		//setT(qdd);
+		quantiteDemandee(T, 0.3);
+		quantiteDemandee(T, 0.3);
+		quantiteDemandee(T, 0.4);
+		setS1(T);
+		setS2(T);
+		stock_cacao(T, S1);
+		stock_chocolat(T, S2);
+	}*/
+	/*    public static void main(String[] args) {
+=======
+>>>>>>> branch 'master' of https://github.com/AlexandreMARTY/CACAO2016.git
 	    /*public static void main(String[] args) {
+>>>>>>> branch 'master' of https://github.com/AlexandreMARTY/CACAO2016.git
 		double p = 3;
 		double prixdevente=15;
 		System.out.println("La longueur du tableau CI est de :" + CI.length);
@@ -103,7 +130,7 @@ public class Transformateur2 implements Acteur, ITransformateur{
 		
 		
 
-	/*	if (stock_cacao(T,S1)<0){
+		if (stock_cacao(T,S1)<0){
 
 			System.out.println("Erreur dans le système");
 		}else{
@@ -141,4 +168,9 @@ public class Transformateur2 implements Acteur, ITransformateur{
 			}
 		}
 		*/
-	}
+	
+	   
+
+		
+
+
