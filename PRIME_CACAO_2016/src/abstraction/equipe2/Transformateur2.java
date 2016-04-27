@@ -58,7 +58,7 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	}
 	
 	public double prixDeVente() {
-		return 0.0;
+		return 15.0;
 	}
 	
 	//suivi du stock de chocolat au fil des step
