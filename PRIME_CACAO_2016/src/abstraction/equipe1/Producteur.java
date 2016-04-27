@@ -75,7 +75,7 @@ public class Producteur implements Acteur, IProducteur {
 	}
 	
 	public String getNom() {
-		return "Producteur "+this.nom;
+		return this.nom;
 	}
 	
 	private double getStock() {
