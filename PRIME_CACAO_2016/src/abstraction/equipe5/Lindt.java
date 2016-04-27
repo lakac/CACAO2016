@@ -7,7 +7,7 @@ import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
 
-public class Lindt implements Acteur, ITransformateur, IDistributeur{
+public class Lindt implements Acteur, ITransformateur{
 	
 	private Historique_Commande_Dist compt;
 	private Stock stock_cacao;
@@ -73,4 +73,5 @@ public class Lindt implements Acteur, ITransformateur, IDistributeur{
 	public void notificationVente(IProducteur p){
 		System.out.println("Met à vous le stock et la tréso");
 	}
+
 } 
