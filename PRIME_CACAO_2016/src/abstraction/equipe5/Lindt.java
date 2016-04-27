@@ -24,8 +24,9 @@ public class Lindt implements Acteur, ITransformateur{
 	IProducteur P1 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1);
 	IProducteur P2 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2);
 
-	IDistributeur D1= (IDistributeur)Monde.LE_MONDE.getActeur(Constantes.NOM_DETAILLANT_1);
-	IDistributeur D2= (IDistributeur)Monde.LE_MONDE.getActeur(Constantes.NOM_DETAILLANT_2);
+	IDistributeur D1 = (IDistributeur)Monde.LE_MONDE.getActeur(Constantes.NOM_DETAILLANT_1);
+	IDistributeur D2 = (IDistributeur)Monde.LE_MONDE.getActeur("Carrefour");
+	
 	
 	public Lindt(){
 		this.hist = new HistoriqueCommandeDist();
@@ -48,11 +49,17 @@ public class Lindt implements Acteur, ITransformateur{
 	}
 	
 	public void next() {
+		System.out.println(D2.getDemande(this));
 		//D1.getDemande(this); //demande quantité souhaitée par les distributeurs;
 		//D2.getDemande(this);
 		//P1.annonceQuantiteMiseEnVente(ITransformateur t);
 		//P2.annonceQuantiteMiseEnVente(Lindt);
-		this.getHist().ajouter(D1.getDemande(this) + D2.getDemande(this));
+		this.getHist().ajouter(D2.getDemande(this)); //+ D2.getDemande(this));
+		System.out.println(this.getHist().valeur(0));
+		System.out.println(this.getHist().valeur(1));
+		System.out.println(this.getHist().valeur(2));
+		System.out.println(this.getHist().valeur(3));
+		System.out.println(this.stock_cacao.getStock());
 		stock_chocolat.ajouterStock(this.getHist().valeur(Constante.STEP_PRECEDENT_MOINS_2));
 		stock_chocolat.retirerStock(this.getHist().valeur(Constante.STEP_PRECEDENT_MOINS_3));
 		treso.ajouterTresorerie(this.getHist().valeur(Constante.STEP_PRECEDENT_MOINS_3)*15000);
