@@ -12,5 +12,5 @@ public interface ITransformateur {
 	 * 
 	 * Cette méthode est appelée par les producteurs.
 	 */
-	public void notificationVente(IProducteur p);
+	public void notificationVente(IProducteur p); 
 }

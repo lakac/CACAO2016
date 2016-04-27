@@ -168,9 +168,11 @@ public class Transformateur2 implements Acteur, ITransformateur{
 
 	
 	public void notificationVente(IProducteur p) {
-		// TODO Auto-generated method stub
-		
-	}
+		double commande = this.annonceQuantiteDemandee(p);
+		this.solde.setValeur(this, this.solde.getValeur()-p.annoncePrix()*commande);
+		//+ ligne modification du stock
+		}
+	
 	
 	
 	//Le prix du kilo de chocolat étant fixé, tout ce que l'on peut calculer c'est la marge que l'on se fait.
