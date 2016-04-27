@@ -10,24 +10,31 @@ import abstraction.fourni.Monde;
 
 public class Lindt implements Acteur, ITransformateur, IDistributeur{
 	
-	private Historique_Commande_Dist compt;
+	private Historique_Commande_Dist hist;
 	private Stock stock_cacao;
 	private Stock stock_chocolat;
 	private Indicateur etatStockCacao;
 	private Indicateur etatStockChocolat;
+	private Tresorerie treso;
 	
 	public Lindt(){
-		this.compt = new Historique_Commande_Dist();
+		this.hist = new Historique_Commande_Dist();
 		this.stock_cacao = new Stock(120);
 		this.stock_chocolat = new Stock(110);
 		this.etatStockCacao = new Indicateur("Stock de Cacao ", this, this.stock_cacao.getStock());
 		this.etatStockChocolat = new Indicateur("Stock de Chocolat ", this, this.stock_chocolat.getStock());
 		Monde.LE_MONDE.ajouterIndicateur( this.etatStockCacao );
 		Monde.LE_MONDE.ajouterIndicateur( this.etatStockChocolat );
+		this.treso=new Tresorerie(this.getHist());
 	}
 	
 	public String getNom() {
 		return "Lindt";}
+	
+	public Historique_Commande_Dist getHist(){
+		return this.hist;
+	}
+	
 	public void next() {
 		IProducteur P1 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1);
 		IProducteur P2 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2);
@@ -39,9 +46,9 @@ public class Lindt implements Acteur, ITransformateur, IDistributeur{
 		//P2.annonceQuantiteMiseEnVente(Lindt);
 		/*compt.ajouter(getQuantiteDist());*/
 		//stock_cacao.ajouterStock(0.6*compt.valeur(Historique_Commande_Dist.STEP_PRECEDENT));
-		stock_chocolat.ajouterStock(compt.valeur(Historique_Commande_Dist.STEP_PRECEDENT_MOINS_2));
-		stock_cacao.retirerStock(0.6*compt.valeur(Historique_Commande_Dist.STEP_PRECEDENT_MOINS_2));
-		stock_chocolat.retirerStock(compt.valeur(Historique_Commande_Dist.STEP_PRECEDENT_MOINS_3));
+		stock_chocolat.ajouterStock(hist.valeur(Historique_Commande_Dist.STEP_PRECEDENT_MOINS_2));
+		stock_cacao.retirerStock(0.6*hist.valeur(Historique_Commande_Dist.STEP_PRECEDENT_MOINS_2));
+		stock_chocolat.retirerStock(hist.valeur(Historique_Commande_Dist.STEP_PRECEDENT_MOINS_3));
 		//this.stock_cacao.ajouterStock(getQuantiteProd());
 		//this.stock_chocolat.retirerStock(34);
 		this.etatStockCacao.setValeur(this, this.stock_cacao.getStock());
@@ -58,22 +65,14 @@ public class Lindt implements Acteur, ITransformateur, IDistributeur{
 		
 	}
 	
-	public double coutRevient() {
-		int charges_fixes = 900980; // salaires+impots
-		return charges_fixes + 0.6*compt.valeur(Historique_Commande_Dist.STEP_PRECEDENT) * (5000 /*+ ((p1.annoncePrix() + p2.annoncePrix())/2)*/); 	
-	}
 	
-
-	public double marge(){
-		return (15000*compt.valeur(Historique_Commande_Dist.STEP_PRECEDENT_MOINS_3)-coutRevient());
-	}
 
 	
 	/**
 	 * Indique la quantité demandée au producteur p.
 	 */
 	public double annonceQuantiteDemandee(IProducteur p){
-		return 0.6*compt.valeur(Historique_Commande_Dist.STEP_COURANT);
+		return 0.6*hist.valeur(Historique_Commande_Dist.STEP_COURANT);
 	}
 	/**
 	 * Met à jour l'état interne de ce transformateur
