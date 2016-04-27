@@ -6,13 +6,15 @@ import java.util.List;
 
 
 public class Compteur {
-	 private List<Double> compt = new ArrayList<Double>();
+	public static final int STEP_COURANT = 3;
+	public static final int STEP_PRECEDENT = 2;
+	 private ArrayList<Double> compt = new ArrayList<Double>();
 	 
 	 public Compteur() {
 			this.compt = new ArrayList<Double>();
-			compt.add(0.);
-			compt.add(0.);
-			compt.add(0.);
+			compt.add(100.);
+			compt.add(10.);
+			compt.add(20.);
 			compt.add(0.);
 		}
 	 
