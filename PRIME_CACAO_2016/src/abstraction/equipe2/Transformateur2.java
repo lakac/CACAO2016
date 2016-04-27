@@ -123,42 +123,17 @@ public class Transformateur2 implements Acteur, ITransformateur{
 
 	
 	//la quantité demandée aux producteurs est proportionnelle 
-	
-	//à la quantité de chocolat que nous demande les distributeurs.
-	public static double quantiteDemandee (double[] T, double p) {
-		double qdp = 0.6*p*T[3];
-		return qdp;
-	}
 
-	// Quantitée demandée au producteur 1 
 	
-	public static double quantiteDemandeeP1 (double[] T, double p){
-		double qdp = T[3]*0.6*p;
-		return qdp;
-	}
-	
-	// Quantitée demandée au producteur 2
-	
-	public static double quantiteDemandeeP2 (double[] T, double p){
-		double qdp = T[3]*0.6*p;
-		return qdp;
-	}
-	
-	// Quantitée demandée au reste du Monde
-	
-	public static double quantiteDemandeeP3 (double[] T, double p){
-		double qdp = T[3]*p;
-		return qdp;
-	}
-	
+	// Quantité annoncée aux producteurs 
 	
 	public double annonceQuantiteDemandee(IProducteur p) {
 		if(MondeV1.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1)==p){
-			return quantiteDemandeeP1(T,0.3) ;
+			return  ;
 		}
 		else{
 			if(MondeV1.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2)==p){
-				return quantiteDemandeeP2(T,0.3);
+				return ;
 			}
 			else{
 				return 0.0;
