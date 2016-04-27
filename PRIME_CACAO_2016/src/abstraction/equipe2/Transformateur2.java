@@ -37,6 +37,10 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 		
 	}
 	
+	public static final Stock stock_cacao=new Stock();
+	public static final Stock stock_chocolat=new Stock();
+	public static final Tresorerie banque=new Tresorerie();
+	
 	public double[] getS1() {
 		return this.S1;
 	}
@@ -102,23 +106,6 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 		//Test OK
 	}
 	
-	// le stosk à l'instant t dépend de la quantité demandé pour l'instant t+2 
-	//et de la quantité produite pour l'instant t+1
-	public static double stock_cacao (double[] T, double[] S1) {
-		double s = S1[1]+S1[0]-0.6*T[1];
-		if (s>=0){
-			return s;}
-		else{
-			return -1;
-		}
-		//Test OK
-	}
-	
-	public static double stock_chocolat (double[] T, double[] S2) {
-		double s= S2[1]+S2[0]-T[0];
-		return s;
-		//Test OK
-	}
 	
 	public void notificationVente(double quantite) {
 		this.achats.setValeur(this, quantite);
@@ -178,13 +165,11 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 		System.out.println("la quantite de cacao transformee en chocolat à cet step est de "+ 0.6*T[1]+"kg");
 		System.out.println("la quantite de chocolat livre est de" +T[0] + "kg");
 		
-		System.out.println("le stock de cacao est de :" + stock_cacao(T,S1) + "kg");
-		System.out.println("le stock de chocolat est de :" + stock_chocolat(T,S2)+"kg");
+		
 		System.out.println("le bénéfice fait a cet step est de :" + Benefice(T,prixdevente,p) + "€");
 		
-		if (stock_cacao(T,S1)<0){
-		double qdd = 30000;
-		if (stock_cacao(T,S1)<0){
+
+	/*	if (stock_cacao(T,S1)<0){
 
 			System.out.println("Erreur dans le système");
 		}else{
@@ -195,7 +180,7 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 			System.out.println("Erreur dans le système");
 		}else{
 			System.out.println("Le stock de chocolat semble valide");
-		}
+		}*/
 	
 		
 		for(int i=0;i<4;i++){
@@ -229,6 +214,6 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 		
 	}
 	
-	   }
+	   
 
 }
