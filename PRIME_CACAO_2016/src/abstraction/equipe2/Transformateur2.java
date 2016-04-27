@@ -111,7 +111,11 @@ public class Transformateur2 implements Acteur, ITransformateur{
 		}
 		commandes.quantiteDemandeeMonde(0.4);
 		stock_chocolat.ajout_chocolat();
-		tresorerie.Tresorerie(this.getProducteurs().get(0), this.getProducteurs().get(1));
+
+		this.achats.setValeur(this, commandes.getCommandes()[2]);
+		this.solde.setValeur(this,
+				tresorerie.Tresorerie(this.getProducteurs().get(0), this.getProducteurs().get(1)));
+		this.ventes.setValeur(this, commandes.getCommandes()[0]);
 	}
 	/*
 =======
@@ -196,7 +200,6 @@ public class Transformateur2 implements Acteur, ITransformateur{
 				System.out.println("On peut baisser les prix de vente du chocolat");
 			}
 		}
-<<<<<<< HEAD
 		*/
 		
 		
