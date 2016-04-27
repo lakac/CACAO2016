@@ -5,21 +5,19 @@ import abstraction.commun.IProducteur;
 import abstraction.commun.MondeV1;
 
 public class AchatProd {
-	private Historique_Commande_Dist hist;
+	private HistoriqueCommandeDist hist;
 	private double quantiteMiseEnVente;
-	private double ratioCacao;
 
 	
-	public AchatProd(Historique_Commande_Dist hist, double q){
+	public AchatProd(HistoriqueCommandeDist hist, double q){
 		this.hist=hist;
 		this.quantiteMiseEnVente=q;
-		this.ratioCacao=0.6;
 	}
 	/**
 	 * Indique la quantité demandée au producteur p.
 	 */
 	public double annonceQuantiteDemandee(IProducteur p){
-		double quantiteTotale = ratioCacao*hist.valeur(Historique_Commande_Dist.STEP_COURANT);
+		double quantiteTotale = Lindt.RATIO_CACAO_CHOCOLAT*hist.valeur(Constante.STEP_COURANT);
 		if (p==MondeV1.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1)){
 			return (Math.min(0.3*quantiteTotale, this.quantiteMiseEnVente));
 		}
