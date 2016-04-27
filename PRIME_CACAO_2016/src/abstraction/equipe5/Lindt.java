@@ -1,12 +1,20 @@
 package abstraction.equipe5;
 
+import abstraction.commun.IProducteur;
+import abstraction.commun.ITransformateur;
 import abstraction.fourni.Acteur;
 
-public class Lindt implements Acteur{
+public class Lindt implements Acteur, ITransformateur{
 	
-	Compteur compt = new Compteur();
-	Stock stock_cacao = new Stock();
-	Stock stock_chocolat = new Stock();
+	private Historique_Commande_Dist compt;
+	private Stock stock_cacao;
+	private Stock stock_chocolat;
+	
+	public Lindt(){
+		this.compt = new Historique_Commande_Dist();
+		this.stock_cacao = new Stock();
+		this.stock_chocolat = new Stock();
+	}
 	
 	public String getNom() {
 		return "Lindt";}
@@ -19,7 +27,7 @@ public class Lindt implements Acteur{
 		stock_chocolat.retirerStock(compt.valeur(0));
 		
 		/* Mettre toutes les m�thodes que les autres ont cr��
-		getQuantiteDist();
+		getQuantiteDist(); mondeV0.Le_Monde.getstep(); detaillant.getDemande(this, "step")
 		getPrixDist();
 		 
 		quantiteSouhaitee(getQuantiteDist());
@@ -27,10 +35,6 @@ public class Lindt implements Acteur{
 		getPrixProd();
 		getQuantiteProd();*/
 		
-	}
-	
-	public double quantiteSouhaitee(){
-		return(0.6*compt.valeur(3));
 	}
 	
 	public double coutRevient() {
@@ -41,6 +45,25 @@ public class Lindt implements Acteur{
 	public double marge(){
 		return (15000*compt.valeur(0)-coutRevient());
 	}
+	
+	/**
+	 * Indique la quantité demandée au producteur p.
+	 */
+	public double annonceQuantiteDemandee(IProducteur p){
+		return 0.6*compt.valeur(3);
+	}
+
+	/**
+	 * Met à jour l'état interne de ce transformateur
+	 * suite à une vente auprès du producteur p.
+	 * 
+	 * Cette méthode est appelée par les producteurs.
+	 */
+	public void notificationVente(IProducteur p){
+		System.out.println("Met à vous le stock et la tréso");
+	}
+
+
 }	 
 	 
 	 

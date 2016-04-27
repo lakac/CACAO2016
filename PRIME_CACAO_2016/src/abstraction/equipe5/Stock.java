@@ -20,10 +20,12 @@ public class Stock {
 	}
 	
 	public void ajouterStock(double d) {
-		this.setStock(getStock()+d);
+		this.setStock(this.getStock()+d);
 	}
 	
 	public void retirerStock(double d) {
-		this.setStock(getStock()-d);
+		if (this.getStock()-d >= 0) {
+			this.setStock(this.getStock()-d);
+		}	
 	}
 }

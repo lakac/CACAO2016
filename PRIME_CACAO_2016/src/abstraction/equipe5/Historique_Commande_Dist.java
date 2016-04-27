@@ -5,10 +5,10 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class Compteur {
+public class Historique_Commande_Dist {
 	 private List<Double> compt = new ArrayList<Double>();
 	 
-	 public Compteur() {
+	 public Historique_Commande_Dist() {
 			this.compt = new ArrayList<Double>();
 			compt.add(0.);
 			compt.add(0.);
