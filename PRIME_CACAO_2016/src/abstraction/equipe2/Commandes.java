@@ -2,7 +2,7 @@ package abstraction.equipe2;
 
 public class Commandes {
 	
-	private double[] Commandes = new double [4];
+	private double[] Commandes;
 	
 	public double[] getCommandes() {
 		return this.Commandes;
@@ -14,7 +14,11 @@ public class Commandes {
 		}
 		Commandes[3] = qdd;
 		return Commandes;
-		
+	}
+
+	
+	public Commandes() {
+		Commandes = new double[4];
 	}
 
 	// Quantitée demandée au producteur 1 
