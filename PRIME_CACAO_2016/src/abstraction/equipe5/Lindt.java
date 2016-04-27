@@ -1,12 +1,13 @@
 package abstraction.equipe5;
 
+import abstraction.commun.IDistributeur;
 import abstraction.commun.IProducteur;
 import abstraction.commun.ITransformateur;
 import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
 
-public class Lindt implements Acteur, ITransformateur{
+public class Lindt implements Acteur, ITransformateur, IDistributeur{
 	
 	private Historique_Commande_Dist compt;
 	private Stock stock_cacao;
@@ -73,7 +74,7 @@ public class Lindt implements Acteur, ITransformateur{
 	 * Cette méthode est appelée par les producteurs.
 	 */
 	public void notificationVente(IProducteur p){
-		System.out.println("Met à vous le stock et la tréso");
+		System.out.println("Met à jour le stock et la tréso");
 	}
 
 
