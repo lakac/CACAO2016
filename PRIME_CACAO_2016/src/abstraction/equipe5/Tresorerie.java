@@ -8,9 +8,7 @@ import abstraction.commun.IProducteur;
 public class Tresorerie {
 	private HistoriqueCommandeDist hist;
 	private double treso;	
-	IProducteur P1 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1);
-	IProducteur P2 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2);
-	
+
 	public Tresorerie(HistoriqueCommandeDist hist){
 		this.hist= hist;
 		this.treso = 0;
@@ -31,6 +29,7 @@ public class Tresorerie {
 	public void retirerTresorerie(double d) {
 		this.setTresorerie(this.getTresorerie()-d);	
 	}
+
 
 	public double coutRevient() {
 		int chargesFixes = 900980; // salaires+impots

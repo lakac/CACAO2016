@@ -1,3 +1,4 @@
+
 package abstraction.equipe5;
 
 import abstraction.commun.Constantes;
@@ -16,7 +17,8 @@ public class VenteDistrib {
 	}
 	
 	public double getDemandeTotale(){
-		return (getDemande((Monde.LE_MONDE.getActeur(Constantes.NOM_TRANSFORMATEUR_2)))+getDemande(Constantes.NOM_TRANSFORMATEUR_2));
+		return (Monde.LE_MONDEgetDemande((Monde.LE_MONDE.getActeur(Constantes.NOM_TRANSFORMATEUR_2)))+getDemande(Constantes.NOM_TRANSFORMATEUR_2));
 
 
 }}
+
