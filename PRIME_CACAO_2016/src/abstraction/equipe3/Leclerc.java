@@ -9,9 +9,9 @@ import abstraction.fourni.v0.IVendeur;
 import abstraction.fourni.v0.Transformateur;
 
 public class Leclerc extends Detaillant implements ILeclerc{
-	private double qteT1;
-	private double qteT2;
-	private double qteT3;
+	private double qteT1;  /** quantité achetée au transformateur Nestlé*/ 
+	private double qteT2;  /** quantité achetée au transformateur Lindt*/ 
+	private double qteT3;  /** quantité achetée au transformateur Autre*/
 	private double prixvente;
 	private Indicateur solde;
 	private Indicateur achats;
@@ -39,7 +39,7 @@ public class Leclerc extends Detaillant implements ILeclerc{
 	
 	public double getQte(){
 		return this.quantite;
-	}
+	} 
 	public double getT1(){
 		return this.qteT1;
 	}
@@ -55,19 +55,21 @@ public class Leclerc extends Detaillant implements ILeclerc{
 	public void setPrix(double prix){
 		this.prix=prix;
 	}
+
 	public void setQte(double commande){
 		this.quantite=commande;
-		this.qteT1=0.125*commande;
-		this.qteT2=0.036*commande;
-		this.qteT3=0.839*commande;
+		this.qteT1=0.125*commande;  /** 12,5% est acheté à Nestlé*/
+		this.qteT2=0.036*commande;  /** 3,6% est acheté à Lindt*/
+		this.qteT3=0.839*commande;  /** 83,9% est acheté à Autre*/
 	}
+	/** Demande selon la période de l'année*/
 	public void commande(){
 		if (Monde.LE_MONDE.getStep()==4){
-			setQte(3812.5);
+			setQte(3812.5);					/** correspond à Pâques*/
 		}
 		else{
 			if (Monde.LE_MONDE.getStep()==21){
-				setQte(6312.5);
+				setQte(6312.5);				/** correspond à Noël*/
 			}
 			else{
 				setQte(1812.5);
