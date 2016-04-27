@@ -17,7 +17,7 @@ public class AchatProd {
 	 * Indique la quantité demandée au producteur p.
 	 */
 	public double annonceQuantiteDemandee(IProducteur p){
-		double quantiteTotale = Lindt.RATIO_CACAO_CHOCOLAT*hist.valeur(Constante.STEP_COURANT);
+		double quantiteTotale = Constante.RATIO_CACAO_CHOCOLAT*hist.valeur(Constante.STEP_COURANT);
 		if (p==MondeV1.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1)){
 			return (Math.min(0.3*quantiteTotale, this.quantiteMiseEnVente));
 		}
