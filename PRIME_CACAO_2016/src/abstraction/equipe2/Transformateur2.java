@@ -92,7 +92,7 @@ public class Transformateur2 implements Acteur, ITransformateur{
 		return M;
 		//Test OK
 	}
-	
+	  
 	public static double Benefice (double []T, double prixDeVente, double p){
 		double s=0;
 		s+=T[0]*(Marge(prixDeVente,p,T)*prixDeVente+prixDeVente) ;
