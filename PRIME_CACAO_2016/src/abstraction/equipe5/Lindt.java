@@ -1,13 +1,13 @@
 package abstraction.equipe5;
 
 import abstraction.commun.Constantes;
+import abstraction.commun.IDistributeur;
 import abstraction.commun.IProducteur;
 import abstraction.commun.ITransformateur;
 import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
-
-public class Lindt implements Acteur, ITransformateur{
+public class Lindt implements Acteur, ITransformateur, IDistributeur{
 	
 	private Historique_Commande_Dist compt;
 	private Stock stock_cacao;
@@ -16,7 +16,6 @@ public class Lindt implements Acteur, ITransformateur{
 	private Indicateur etatStockChocolat;
 	
 	public Lindt(){
-
 		this.compt = new Historique_Commande_Dist();
 		this.stock_cacao = new Stock(120);
 		this.stock_chocolat = new Stock(110);
@@ -28,10 +27,13 @@ public class Lindt implements Acteur, ITransformateur{
 	
 	public String getNom() {
 		return "Lindt";}
-
 	public void next() {
 		IProducteur P1 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1);
 		IProducteur P2 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2);
+
+		IDistributeur D1= (IDistributeur)Monde.LE_MONDE.getActeur(Constantes.NOM_DETAILLANT_1);
+		IDistributeur D2= (IDistributeur)Monde.LE_MONDE.getActeur(Constantes.NOM_DETAILLANT_2);
+
 		//P1.annonceQuantiteMiseEnVente(ITransformateur t);
 		//P2.annonceQuantiteMiseEnVente(Lindt);
 		/*compt.ajouter(getQuantiteDist());*/
@@ -62,8 +64,8 @@ public class Lindt implements Acteur, ITransformateur{
 	
 	public double marge(){
 		return (15000*compt.valeur(0)-coutRevient());
-
 	}
+
 	
 	/**
 	 * Indique la quantité demandée au producteur p.
@@ -71,7 +73,6 @@ public class Lindt implements Acteur, ITransformateur{
 	public double annonceQuantiteDemandee(IProducteur p){
 		return 0.6*compt.valeur(3);
 	}
-
 	/**
 	 * Met à jour l'état interne de ce transformateur
 	 * suite à une vente auprès du producteur p.
@@ -81,9 +82,7 @@ public class Lindt implements Acteur, ITransformateur{
 	public void notificationVente(IProducteur p){
 		System.out.println("Met à vous le stock et la tréso");
 	}
-
-
-}	 
+} 
 	 
 	 
 
