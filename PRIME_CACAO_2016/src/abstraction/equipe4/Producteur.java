@@ -2,6 +2,7 @@ package abstraction.equipe4;
 
 import abstraction.fourni.*;
 
+
 import java.util.ArrayList;
 
 import abstraction.commun.*;
@@ -16,7 +17,7 @@ public class Producteur implements Acteur,IProducteur{
 	private Indicateur pertes; //perte dans la production totale
 	private Indicateur prod_tot_utilisable; //production totale sans les pertes
 	
-	private ArrayList<ITransformateur> transformateurs;
+	private ArrayList<Transformateur> transformateurs;
 	
 	//Constructeur de l'acteur Producteur 2
 	
@@ -28,11 +29,14 @@ public class Producteur implements Acteur,IProducteur{
        this.journal = new Journal("Journal de "+this.nom);
        this.pertes = new Indicateur("Pertes de "+this.nom,this,0.0);
        this.prod=0.0;
-       this.transformateurs= new ArrayList<ITransformateur>();
+       this.transformateurs= new ArrayList<Transformateur>();
+       this.transformateurs.add(Monde.LE_MONDE.getActeur(Constantes.NOM_TRANSFORMATEUR_1));
+       this.transformateurs.add(Monde.LE_MONDE.getActeur(Constantes.NOM_TRANSFORMATEUR_2));
     	Monde.LE_MONDE.ajouterJournal(this.journal);
     	Monde.LE_MONDE.ajouterIndicateur( this.prod_tot_utilisable );
     	Monde.LE_MONDE.ajouterIndicateur(this.pertes);
     	Monde.LE_MONDE.ajouterIndicateur(this.stock);
+    	this.transformateurs.
     }
 
     //return un String : le nom du producteur 2
@@ -53,7 +57,7 @@ public class Producteur implements Acteur,IProducteur{
 		stock.setValeur(this, this.stock.getValeur()+value);
 	}
 	
-	// le next de producteur
+	// le next du producteur 2
 	
 	public void next(){
 		
@@ -63,7 +67,7 @@ public class Producteur implements Acteur,IProducteur{
 			this.Augment_Stock(this.prod_tot_utilisable.getValeur());
 			this.journal.ajouter("Production de semi annuelle de " + this.prod_tot_utilisable);
 		}
-		if(Monde.LE_MONDE.getStep()==1){
+		if(Monde.LE_MONDE.getStep()==1){ //premier step sans commande
 			this.journal.ajouter("Debut des ventes et premiere production");
 		}else{
 			for (ITransformateur t : this.transformateurs){
@@ -72,16 +76,22 @@ public class Producteur implements Acteur,IProducteur{
 				this.notificationVente(commande);
 			}
 		}
-		
 		}
 
+	// return un double valant la quantité disponible 
+	//pour chaque transformateur a chaque step
+	
 	public double annonceQuantiteMiseEnVente(ITransformateur t) {
 		return (this.prod_tot_utilisable.getValeur()/24);
 	}
 	
+	//return un double valant le prix a la tonne du cacao en vente
+	
 	public double annoncePrix() {
 		return this.treso.getPrix();
 	}
+	
+	//Modification du stock et de la tresorerie suite a une vente
 	
 	public void notificationVente(double quantite) {
 		this.treso.modiftreso(quantite);
