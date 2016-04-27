@@ -50,9 +50,10 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	}
 	
 	//Suivi du stock de cacao au fil des step
+	
 	public double[] setS1(double[] T){
 		S1[1]=S1[0];
-		S1[0]=stock_cacao(T);
+		S1[0]=0.6*T[2];
 		return S1;
 		// A tester, j'y arrive pas
 	}
@@ -60,10 +61,11 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	//suivi du stock de chocolat au fil des step
 	public double[] setS2(double[] T){
 		S2[1]=S2[0];
-		S2[0]=stock_chocolat(T);
+		S2[0]=T[1];
 		return S2;
 		//A tester, j'y arrive pas
 	}
+	
 	
 	//evolution du tableau T au fil des step ( sert d'historique )
 	public double[] setT(double qdd) {
@@ -80,6 +82,7 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 
 	public void next() {
 		this.ventes.setValeur(this, 0.0);
+		
 	}
 	
 	
@@ -96,8 +99,8 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	
 	// le stosk à l'instant t dépend de la quantité demandé pour l'instant t+2 
 	//et de la quantité produite pour l'instant t+1
-	public static double stock_cacao (double[] T) {
-		double s = 0.6*T[2];
+	public static double stock_cacao (double[] T, double[] S1) {
+		double s = S1[1]+S1[0]-0.6*T[1];
 		if (s>=0){
 			return s;}
 		else{
@@ -106,8 +109,8 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 		//Test OK
 	}
 	
-	public static double stock_chocolat (double[] T) {
-		double s= T[1];
+	public static double stock_chocolat (double[] T, double[] S2) {
+		double s= S2[1]+S2[0]-T[0];
 		return s;
 		//Test OK
 	}
@@ -115,17 +118,16 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	public void notificationVente(double quantite) {
 		this.achats.setValeur(this, quantite);
 		this.solde.setValeur( this, this.solde.getValeur()-quantite*Marche.LE_MARCHE.getCours());
-		//Test possible ?
 	}
 
 	
 	//la quantité demandée aux producteurs est proportionnelle 
 	//à la quantité de chocolat que nous demande les distributeurs.
-	public static double quantiteDemandee (double[] T) {
+	/*public static double quantiteDemandee (double[] T) {
 		double qdp = T[3];
 		return qdp; 
 		//Test OK
-	}
+	}*/
 	
 	//Le prix du kilo de chocolat étant fixé, tout ce que l'on peut calculer c'est la marge que l'on se fait.
 	public static double Marge (double prixDeVente, double p, double[] T) {
@@ -152,7 +154,10 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 		T[1]=-1;
 		T[2]=0;
 		T[3]=790000;
-		double q = 1153000;
+		S1[0]=500000;
+		S1[1]=800000;
+		S2[0]=600000;
+		S2[1]=400000;
 		double prixdevente=15;
 		double[] CI = CoutInts(p,T);
 		System.out.println("La longueur du tableau CI est de :" + CI.length);
@@ -162,24 +167,23 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 		System.out.println("le cout de revient de Nestlé France à la période t est de "+CI[0]);
 		System.out.println("le cout de revient unitaire de Nestlé France à la période t est de "+CI[1]);
 		System.out.println("la marge sur couts directs que Nestlé se fait est de : "+Marge(prixdevente,p,T)+"%");
-		System.out.println("la quantité demandée est de "+quantiteDemandee(T) +"kg de chocolat");
 		
 		System.out.println("la quantite de cacao achetee est "+0.6*T[2] +"kg de cacao");
 		System.out.println("la quantite de chocolat demandee par les distributeurs est"+ T[3]+"kg de chocolat");
 		System.out.println("la quantite de cacao transformee en chocolat à cet step est de "+ 0.6*T[1]+"kg");
 		System.out.println("la quantite de chocolat livre est de" +T[0] + "kg");
 		
-		System.out.println("le stock de cacao est de :" + stock_cacao(T) + "kg");
-		System.out.println("le stock de chocolat est de :" + stock_chocolat(T)+"kg");
+		System.out.println("le stock de cacao est de :" + stock_cacao(T,S1) + "kg");
+		System.out.println("le stock de chocolat est de :" + stock_chocolat(T,S2)+"kg");
 		System.out.println("le bénéfice fait a cet step est de :" + Benefice(T,prixdevente,p) + "€");
 		
-		if (stock_cacao(T)<0){
+		if (stock_cacao(T,S1)<0){
 			System.out.println("Erreur dans le système");
 		}else{
 			System.out.println("Le stock de cacao semble valide");
 		}
 		
-		if (stock_chocolat(T)<0) {
+		if (stock_chocolat(T,S2)<0) {
 			System.out.println("Erreur dans le système");
 		}else{
 			System.out.println("Le stock de chocolat semble valide");
