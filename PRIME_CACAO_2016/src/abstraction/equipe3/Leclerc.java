@@ -55,9 +55,16 @@ public class Leclerc implements Acteur,IDistributeur{
 	public double getPrix(){
 		return this.prix;
 	}
+	public double getPrixvente(){
+		return this.prixvente;
+	}
 	public void setPrix(double prix){
 		this.prix=prix;
 	}
+	public void setPrixvente(double prixvente){
+		this.prixvente=prixvente;
+	}
+	
 
 	public void setQte(double commande){
 		this.quantite=commande;
@@ -96,11 +103,13 @@ public class Leclerc implements Acteur,IDistributeur{
 	
 	public void next() {
 	    setPrix(15.0);
+	    commande();
 		this.prixvente=20.0;
 		for (ITransformateur t : this.transformateurs) {
 			double q = this.getDemande(t);
-			this.solde.setValeur(this, this.solde.getValeur()-q*this.getPrix()+q*prixvente);
+			this.solde.setValeur(this, this.solde.getValeur()+q*this.getPrix()); //on achète au transformateur donc il reçoit de l'argent
 		}
 		this.achats.setValeur(this,quantite);
+		this.solde.setValeur(this, this.solde.getValeur()-quantite*this.getPrix()+quantite*this.getPrixvente()); //solde(step n)=solde step(n-1)+quantite(step n)*prixvente - quantite(step n)*prix
 }
 }
