@@ -12,11 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Random;
 
 public class Producteur implements Acteur, IProducteur {
 	private String nom;
 	private Indicateur stock;
 	private Indicateur tresorerie;
+	private double coutProduction;
 	private double prixVente;
 	private double productionAnnuelle;
 	private double[] productionDeBase;
@@ -31,6 +33,7 @@ public class Producteur implements Acteur, IProducteur {
 		this.nom = nom;
 		this.stock = new Indicateur("Stock de "+this.nom, this, stockInitial);
 		this.tresorerie = new Indicateur("Solde de "+this.nom, this, tresoInitiale);
+		this.coutProduction = 2100.0;
 		this.prixVente = 3000.0;
 		this.productionAnnuelle = 24000.0;
 		this.productionCourante = new Indicateur(Constantes.IND_PRODUCTION_P1, this, 100.0);
@@ -57,10 +60,11 @@ public class Producteur implements Acteur, IProducteur {
 	 * Plus tard, on ajoutera une fluctuation autour de la quantite de base.
 	 */
 	private void produire(int step) {
-		this.productionCourante.setValeur(this, this.getProductionDeBase(step)*this.getProductionAnnuelle());
-		this.setStock(this.getStock()+this.productionCourante.getValeur());
+		Random fluctuations = new Random();
+		this.setProductionCourante(this.getProductionDeBase(step)*this.getProductionAnnuelle()*(0.98+0.4*fluctuations.nextDouble()));
+		this.setStock(this.getStock()+this.getProductionCourante());
 		for (ITransformateur t : this.getTransformateurs()) {
-			this.quantitesProposees.put(t,this.getProductionCourante().getValeur()*0.5);
+			this.quantitesProposees.put(t,this.getProductionCourante()*0.5);
 			// Pour l'instant, on a seulement deux clients
 		}
 	}
@@ -85,6 +89,10 @@ public class Producteur implements Acteur, IProducteur {
 		this.tresorerie.setValeur(this,tresorerie);
 	}
 	
+	public double getCoutProduction() {
+		return this.coutProduction;
+	}
+	
 	private double getPrixVente() {
 		return this.prixVente;
 	}
@@ -104,8 +112,12 @@ public class Producteur implements Acteur, IProducteur {
 		return this.productionDeBase[step%26];
 	}
 	
-	private Indicateur getProductionCourante() {
-		return this.productionCourante;
+	private double getProductionCourante() {
+		return this.productionCourante.getValeur();
+	}
+	
+	public void setProductionCourante(double valeur) {
+		this.productionCourante.setValeur(this, valeur);
 	}
 	
 	private double getQuantiteProposee(ITransformateur t) {
@@ -133,7 +145,7 @@ public class Producteur implements Acteur, IProducteur {
 		double quantiteVendue = Math.min(t.annonceQuantiteDemandee(this), this.annonceQuantiteMiseEnVente(t));
 		
 		this.setStock(this.getStock() - quantiteVendue);
-		this.setTresorerie(this.getTresorerie() + quantiteVendue*this.getPrixVente());
+		this.setTresorerie(this.getTresorerie() + quantiteVendue*(this.getPrixVente()-this.getCoutProduction()));
 		t.notificationVente(this);
 		// Il faudra que les transformateurs aient bien acces a la quantite reellement vendue...
 	}
@@ -158,7 +170,7 @@ public class Producteur implements Acteur, IProducteur {
 		// pour que les transfos y aient acces
 		
 		this.produire(Monde.LE_MONDE.getStep());
-		this.journal.ajouter("Production de "+this.getNom()+" = <font color=\"maroon\">"+this.getProductionCourante().getValeur()+"</font> au <b>step</b> "+Monde.LE_MONDE.getStep());
+		this.journal.ajouter("Production de "+this.getNom()+" = <font color=\"maroon\">"+this.getProductionCourante()+"</font> au <b>step</b> "+Monde.LE_MONDE.getStep());
 		
 		// Plus tard, on ajoutera des fluctuations dans le prix de vente ; pour l'instant il est a 3000 euros par tonne
 		// [setPrixVente]
