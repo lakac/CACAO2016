@@ -71,7 +71,7 @@ public class Lindt implements Acteur, ITransformateur{
 	 * 
 	 * Cette méthode est appelée par les producteurs.
 	 */
-	public void notificationVente(IProducteur p){
+	public void notificationVente(IProducteur p){ // on travaille avec chaque producteur d'où le ratio de 0.3 à chaque fois
 		stock_cacao.ajouterStock(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT));
 		stock_cacao.retirerStock(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT_MOINS_2));
 		treso.retirerTresorerie(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT) * p.annoncePrix());
