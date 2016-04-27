@@ -4,17 +4,15 @@ import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
 import abstraction.fourni.v0.Marche;
+import abstraction.commun.*;;
 
-public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
+public class Transformateur2 implements Acteur, ITransformateur{
 	
 	private String nom;
 	private Indicateur achats;
 	private Indicateur ventes;
 	private Indicateur solde;
-	private double[] T;
-	private double[] S1;
-	private double[] S2;
-
+	
 	public Transformateur2(String nom, Monde monde) {
 		this.nom = nom;
 		this.achats = new Indicateur("Achats de "+this.nom, this, 0.0);
@@ -22,72 +20,19 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 		this.solde = new Indicateur("Solde de "+this.nom, this, 10000000.0);
 		Monde.LE_MONDE.ajouterIndicateur( this.achats );
 		Monde.LE_MONDE.ajouterIndicateur( this.ventes );
-		Monde.LE_MONDE.ajouterIndicateur( this.solde );
-		this.T = new double[4];
-		this.S1=new double[2];
-		this.S2=new double[2];
-			T[0]=0;
-			T[1]=0;
-			T[2]=0;
-			T[3]=0;
-			S1[0]=0;
-			S2[0]=0;
-			S1[1]=0;
-			S2[1]=0;
-		
+		Monde.LE_MONDE.ajouterIndicateur( this.solde );		
 	}
 	
 	public static final Stock stock_cacao=new Stock();
 	public static final Stock stock_chocolat=new Stock();
-	public static final Tresorerie banque=new Tresorerie();
+	//public static final Tresorerie banque=new Tresorerie();
 	
-	public double[] getS1() {
-		return this.S1;
-	}
+
+	public static final Commandes commandes = new Commandes();
 	
-	public double[] getS2() {
-		return this.S2;
-	}
-	
-	public double[] getT() {
-		return this.T;
-	}
-	
-	//Suivi du stock de cacao au fil des step
-	
-	public double[] setS1(double[] T){
-		S1[1]=S1[0];
-		S1[0]=0.6*T[2];
-		return S1;
-		// A tester, j'y arrive pas
-	}
-	
-	
-	//suivi du stock de chocolat au fil des step
-	public double[] setS2(double[] T){
-		S2[1]=S2[0];
-		S2[0]=T[1];
-		return S2;
-		//A tester, j'y arrive pas
-	}
-	
-	
-	//evolution du tableau T au fil des step ( sert d'historique )
-	public double[] setT(double qdd) {
-		for (int i=1; i<4; i++) {
-			T[i-1]=T[i];
-		}
-		T[3] = qdd;
-		return T;
-		//A tester, j'y arrive pas
-	}
+
 	public String getNom() {
 		return "Producteur "+this.nom;
-	}
-
-	public void next() {
-		this.ventes.setValeur(this, 0.0);
-		
 	}
 	
 	public double prixDeVente(){
@@ -114,12 +59,30 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 
 	
 	//la quantité demandée aux producteurs est proportionnelle 
-	//à la quantité de chocolat que nous demande les distributeurs.
-	/*public static double quantiteDemandee (double[] T) {
-		double qdp = T[3];
-		return qdp; 
-		//Test OK
-	}*/
+
+	
+	// Quantité annoncée aux producteurs 
+	
+	public double annonceQuantiteDemandee(IProducteur p) {
+		if(MondeV1.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1)==p){
+			return commandes.quantiteDemandeeP1(0.3) ;
+		}
+		else{
+			if(MondeV1.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2)==p){
+				return commandes.quantiteDemandeeP2(0.3);
+			}
+			else{
+				return 0.0;
+			}
+		}
+	}
+
+	
+	public void notificationVente(IProducteur p) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	
 	//Le prix du kilo de chocolat étant fixé, tout ce que l'on peut calculer c'est la marge que l'on se fait.
 	public static double Marge (double prixDeVente, double p, double[] T) {
@@ -136,7 +99,16 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	}
 	
 	//Méthode principale de test de CoutInts, déféaire les "/*" pour l'activer
-	
+	public void next() {}
+		//setT(qdd);
+		/*quantiteDemandee(T, 0.3);
+		quantiteDemandee(T, 0.3);
+		quantiteDemandee(T, 0.4);
+		setS1(T);
+		setS2(T);
+		stock_cacao(T, S1);
+		stock_chocolat(T, S2);
+	}*/
 	    public static void main(String[] args) {
 		double p = 3;
 		double[]T=new double[4];
@@ -215,5 +187,7 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	}
 	
 	   
+
+		
 
 }

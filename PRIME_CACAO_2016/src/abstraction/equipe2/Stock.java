@@ -49,13 +49,13 @@ public class Stock {
 		
 		public void ajout_cacao(){
 			this.getStock()[1]=this.getStock()[0];
-			//this.getStock()[0]=0.6*commandes.getCommandes()[2];
+			this.getStock()[0]=0.6*commandes.getCommandes()[2];
 		}
 		
 		
 		//suivi du stock de chocolat au fil des step
 		public void ajout_chocolat(){
 			this.getStock()[1]=this.getStock()[0];
-			//this.getStock()[0]=commandes.getCommandes()[1];
+			this.getStock()[0]=commandes.getCommandes()[1];
 		}
 }

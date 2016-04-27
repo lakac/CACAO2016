@@ -12,8 +12,8 @@ public class Banque {
 		this.tresorerie = tresorerie;
 	}
 	
-	public Tresorerie(){
-		banque=
+	public Banque(){
+		tresorerie=(double)0;
 	}
 	
 }
