@@ -4,6 +4,10 @@ import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
 import abstraction.fourni.v0.Marche;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import abstraction.commun.*;;
 
 public class Transformateur2 implements Acteur, ITransformateur{
@@ -37,11 +41,6 @@ public class Transformateur2 implements Acteur, ITransformateur{
 		return 15.0;
 	}
 	
-	public void notificationVente(double quantite) {
-		this.achats.setValeur(this, quantite);
-		this.solde.setValeur( this, this.solde.getValeur()-quantite*Marche.LE_MARCHE.getCours());
-	}
-	
 	public double annonceQuantiteDemandee(IProducteur p) {
 		if(MondeV1.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1)==p){
 			return Math.min(commandes.quantiteDemandeeP1(0.3), p.annonceQuantiteMiseEnVente(this)) ;
@@ -55,26 +54,42 @@ public class Transformateur2 implements Acteur, ITransformateur{
 			}
 		}
 	}
+	
+	private List<IDistributeur> getDistributeurs() {
+		List<IDistributeur> distributeurs = new ArrayList<IDistributeur>();
+		for (Acteur a : Monde.LE_MONDE.getActeurs()) {
+			if (a instanceof ITransformateur) {
+				distributeurs.add((IDistributeur)(a));
+			}
+		}
+		return distributeurs;
+	}
 
 	
 	public void notificationVente(IProducteur p) {
-		double commande = this.a  nnonceQuantiteDemandee(p);
+		double commande = this.annonceQuantiteDemandee(p);
 		this.solde.setValeur(this, this.solde.getValeur()-p.annoncePrix()*commande);
-		//+ ligne modification du stock //A COMPLETER
 		stock_cacao.ajout_cacao();
 	}
 	
-	//Méthode principale de test de CoutInts, déféaire les "/*" pour l'activer
-	public void next() {}
-		//setT(qdd);
-		/*quantiteDemandee(T, 0.3);
-		quantiteDemandee(T, 0.3);
-		quantiteDemandee(T, 0.4);
-		setS1(T);
-		setS2(T);
-		stock_cacao(T, S1);
-		stock_chocolat(T, S2);
-	}*/
+	//Méthode principale de test de CoutInts, défaire les "/*" pour l'activer
+	public void next() {
+		double qdd = 0;
+		for (IDistributeur d : this.getDistributeurs()) {
+		qdd += d.getDemande(this);
+		}
+		commandes.setCommandes(qdd);
+		for (IProducteur p : this.getProducteurs()) {
+			
+		commandes.quantiteDemandee (0.3);
+		notificationVente(p);
+		}
+		commandes.quantiteDemandeeMonde(0.4);
+		stock_chocolat.ajout_chocolat();
+		Banque.Tresorerie(this.getProducteurs().get(0), this.getProducteurs().get(1));
+	}
+
+	}
 	    /*public static void main(String[] args) {
 		double p = 3;
 		double prixdevente=15;
