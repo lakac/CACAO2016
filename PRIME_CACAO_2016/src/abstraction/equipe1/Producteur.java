@@ -70,7 +70,7 @@ public class Producteur implements Acteur, IProducteur {
 		this.setStock(this.getStock()+this.getProductionCourante());
 		this.setTresorerie(this.getTresorerie()-this.getCoutProduction()*this.getProductionCourante());
 		for (ITransformateur t : this.getTransformateurs()) {
-			this.quantitesProposees.put(t,this.getProductionCourante()*0.5);
+			this.quantitesProposees.put(t,this.getStock()*0.5);
 		}
 	}
 	
