@@ -1,7 +1,10 @@
-package abstraction.commun;
+package abstraction.equipe6;
 
 import java.util.ArrayList;
 
+import abstraction.commun.IDistributeur;
+import abstraction.commun.ITransformateur;
+import abstraction.commun.MondeV1;
 import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Journal;

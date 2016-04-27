@@ -2,6 +2,7 @@ package abstraction.commun;
 
 import abstraction.fourni.Monde;
 import abstraction.commun.Constantes;
+import abstraction.equipe6.Carrefour;
 
 public class MondeV1 extends Monde {
 	
