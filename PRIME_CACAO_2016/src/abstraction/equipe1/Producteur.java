@@ -60,7 +60,7 @@ public class Producteur implements Acteur, IProducteur {
 	}
 	
 	/**
-	 * @return la quantite de cacao produite au step actuel.
+	 * Modifie productionCourante, la quantite de cacao produite au step actuel.
 	 * 
 	 * Pour l'instant, on sait que l'on a seulement deux clients, donc la repartition est moitie-moitie.
 	 */
@@ -68,6 +68,7 @@ public class Producteur implements Acteur, IProducteur {
 		Random fluctuations = new Random();
 		this.setProductionCourante(Math.floor(this.getProductionDeBase(step)*this.getProductionAnnuelle()*(98+4*fluctuations.nextDouble()))/100.0);
 		this.setStock(this.getStock()+this.getProductionCourante());
+		this.setTresorerie(this.getTresorerie()-this.getCoutProduction()*this.getProductionCourante());
 		for (ITransformateur t : this.getTransformateurs()) {
 			this.quantitesProposees.put(t,this.getProductionCourante()*0.5);
 		}
@@ -129,14 +130,18 @@ public class Producteur implements Acteur, IProducteur {
 	}
 	
 	/**
-	 * Methode de l'interface IProducteur
+	 * @return la quantite mise en vente pour le transformateur t.
+	 * 
+	 * Methode de l'interface IProducteur.
 	 */
 	public double annonceQuantiteMiseEnVente(ITransformateur t) {
 		return this.getQuantiteProposee(t);
 	}
 	
 	/**
-	 * Methode de l'interface IProducteur
+	 * @return le prix de vente.
+	 * 
+	 * Methode de l'interface IProducteur.
 	 */
 	public double annoncePrix() {
 		return this.getPrixVente();
@@ -152,7 +157,7 @@ public class Producteur implements Acteur, IProducteur {
 		double quantiteVendue = Math.min(t.annonceQuantiteDemandee(this), this.annonceQuantiteMiseEnVente(t));
 		
 		this.setStock(this.getStock() - quantiteVendue);
-		this.setTresorerie(this.getTresorerie() + quantiteVendue*(this.getPrixVente()-this.getCoutProduction()));
+		this.setTresorerie(this.getTresorerie() + quantiteVendue*this.getPrixVente());
 		t.notificationVente(this);
 	}
 	
