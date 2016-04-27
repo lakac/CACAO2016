@@ -64,11 +64,11 @@ public class Leclerc extends Detaillant implements ILeclerc{
 	}
 	/** Demande selon la période de l'année*/
 	public void commande(){
-		if (Monde.LE_MONDE.getStep()==4){
+		if (Monde.LE_MONDE.getStep()%24==4){
 			setQte(3812.5);					/** correspond à Pâques*/
 		}
 		else{
-			if (Monde.LE_MONDE.getStep()==21){
+			if (Monde.LE_MONDE.getStep()%24==21){
 				setQte(6312.5);				/** correspond à Noël*/
 			}
 			else{
