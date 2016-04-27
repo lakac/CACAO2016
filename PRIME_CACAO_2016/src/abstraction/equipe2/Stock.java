@@ -65,4 +65,5 @@ public class Stock {
 		Stock S1=new Stock();
 		
 		}
+
 }

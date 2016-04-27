@@ -51,23 +51,28 @@ public class Transformateur2 implements Acteur, ITransformateur{
 		return prod;
 	}
 	
-	public void notificationVente(double quantite) {
-		this.achats.setValeur(this, quantite);
-		this.solde.setValeur( this, this.solde.getValeur()-quantite*Marche.LE_MARCHE.getCours());
-	}
-	
 	public double annonceQuantiteDemandee(IProducteur p) {
 		if(MondeV1.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1)==p){
-			return Math.min(commandes.quantiteDemandeeP1(0.3), p.annonceQuantiteMiseEnVente(this)) ;
+			return Math.min(commandes.quantiteDemandee(0.3), p.annonceQuantiteMiseEnVente(this)) ;
 		}
 		else{
 			if(MondeV1.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2)==p){
-				return Math.min(commandes.quantiteDemandeeP1(0.3), p.annonceQuantiteMiseEnVente(this)) ;
+				return Math.min(commandes.quantiteDemandee(0.3), p.annonceQuantiteMiseEnVente(this)) ;
 			}
 			else{
 				return 0.0;
 			}
 		}
+	}
+	
+	private List<IDistributeur> getDistributeurs() {
+		List<IDistributeur> distributeurs = new ArrayList<IDistributeur>();
+		for (Acteur a : Monde.LE_MONDE.getActeurs()) {
+			if (a instanceof ITransformateur) {
+				distributeurs.add((IDistributeur)(a));
+			}
+		}
+		return distributeurs;
 	}
 
 	
@@ -80,10 +85,27 @@ public class Transformateur2 implements Acteur, ITransformateur{
 	
 
 	
-	//Méthode principale de test de CoutInts, déféaire les "/*" pour l'activer
-	public void next() {}
+
+	//Méthode principale de test de CoutInts, défaire les "/*" pour l'activer
+	public void next() {
+		double qdd = 0;
+		for (IDistributeur d : this.getDistributeurs()) {
+		qdd += d.getDemande(this);
+		}
+		commandes.setCommandes(qdd);
+		for (IProducteur p : this.getProducteurs()) {
+			
+		commandes.quantiteDemandee (0.3);
+		notificationVente(p);
+		}
+		commandes.quantiteDemandeeMonde(0.4);
+		stock_chocolat.ajout_chocolat();
+		tresorerie.Tresorerie(this.getProducteurs().get(0), this.getProducteurs().get(1));
+	}
+}
+	/*
 		//setT(qdd);
-		/*quantiteDemandee(T, 0.3);
+		quantiteDemandee(T, 0.3);
 		quantiteDemandee(T, 0.3);
 		quantiteDemandee(T, 0.4);
 		setS1(T);
@@ -93,6 +115,7 @@ public class Transformateur2 implements Acteur, ITransformateur{
 	}*/
 	/*    public static void main(String[] args) {
 =======
+>>>>>>> branch 'master' of https://github.com/AlexandreMARTY/CACAO2016.git
 	    /*public static void main(String[] args) {
 >>>>>>> branch 'master' of https://github.com/AlexandreMARTY/CACAO2016.git
 		double p = 3;
@@ -145,9 +168,4 @@ public class Transformateur2 implements Acteur, ITransformateur{
 			}
 		}
 		*/
-}
-	
-	   
-
-		
 
