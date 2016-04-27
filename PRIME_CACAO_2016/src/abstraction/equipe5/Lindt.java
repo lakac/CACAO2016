@@ -4,6 +4,7 @@ import abstraction.commun.Constantes;
 import abstraction.commun.IDistributeur;
 import abstraction.commun.IProducteur;
 import abstraction.commun.ITransformateur;
+import abstraction.commun.MondeV1;
 import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
@@ -16,11 +17,12 @@ public class Lindt implements Acteur, ITransformateur{
 	private Indicateur etatStockCacao;
 	private Indicateur etatStockChocolat;
 	private Tresorerie treso;
+	private AchatProd achatProd;
 	
 	public Lindt(){
 		this.hist = new Historique_Commande_Dist();
-		this.stock_cacao = new Stock(120);
-		this.stock_chocolat = new Stock(110);
+		this.stock_cacao = new Stock(0);
+		this.stock_chocolat = new Stock(0);
 		this.etatStockCacao = new Indicateur("Stock de Cacao ", this, this.stock_cacao.getStock());
 		this.etatStockChocolat = new Indicateur("Stock de Chocolat ", this, this.stock_chocolat.getStock());
 		Monde.LE_MONDE.ajouterIndicateur( this.etatStockCacao );
@@ -48,9 +50,7 @@ public class Lindt implements Acteur, ITransformateur{
 		//P1.annonceQuantiteMiseEnVente(ITransformateur t);
 		//P2.annonceQuantiteMiseEnVente(Lindt);
 		/*compt.ajouter(getQuantiteDist());*/
-		//stock_cacao.ajouterStock(0.6*compt.valeur(Historique_Commande_Dist.STEP_PRECEDENT));
 		stock_chocolat.ajouterStock(hist.valeur(Historique_Commande_Dist.STEP_PRECEDENT_MOINS_2));
-		stock_cacao.retirerStock(0.6*hist.valeur(Historique_Commande_Dist.STEP_PRECEDENT_MOINS_2));
 		stock_chocolat.retirerStock(hist.valeur(Historique_Commande_Dist.STEP_PRECEDENT_MOINS_3));
 		//this.stock_cacao.ajouterStock(getQuantiteProd());
 		//this.stock_chocolat.retirerStock(34);
@@ -69,12 +69,7 @@ public class Lindt implements Acteur, ITransformateur{
 	}
 	
 
-	/**
-	 * Indique la quantité demandée au producteur p.
-	 */
-	public double annonceQuantiteDemandee(IProducteur p){
-		return 0.6*hist.valeur(Historique_Commande_Dist.STEP_COURANT);
-	}
+
 	/**
 	 * Met à jour l'état interne de ce transformateur
 	 * suite à une vente auprès du producteur p.
@@ -82,7 +77,13 @@ public class Lindt implements Acteur, ITransformateur{
 	 * Cette méthode est appelée par les producteurs.
 	 */
 	public void notificationVente(IProducteur p){
+		stock_cacao.ajouterStock(0.6*hist.valeur(Historique_Commande_Dist.STEP_PRECEDENT));
+		stock_cacao.retirerStock(0.6*hist.valeur(Historique_Commande_Dist.STEP_PRECEDENT_MOINS_2));
 		System.out.println("Met à vous le stock et la tréso");
+	}
+
+	public double annonceQuantiteDemandee(IProducteur p) {
+		return this.annonceQuantiteDemandee(p);
 	}
 
 } 
