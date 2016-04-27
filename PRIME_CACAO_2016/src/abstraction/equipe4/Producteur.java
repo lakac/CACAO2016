@@ -1,14 +1,9 @@
 package abstraction.equipe4;
-
 import abstraction.fourni.*;
-
-
 import java.util.ArrayList;
-
 import abstraction.commun.*;
 
-public class Producteur implements Acteur,IProducteur{
-	
+public class Producteur implements Acteur,IProducteur {
 	private String nom; 
 	private Indicateur stock; 
 	private Journal journal;
@@ -17,7 +12,7 @@ public class Producteur implements Acteur,IProducteur{
 	private Indicateur pertes; //perte dans la production totale
 	private Indicateur prod_tot_utilisable; //production totale sans les pertes
 	
-	private ArrayList<Transformateur> transformateurs;
+	private ArrayList<ITransformateur> transformateurs;
 	
 	//Constructeur de l'acteur Producteur 2
 	
@@ -28,15 +23,14 @@ public class Producteur implements Acteur,IProducteur{
        this.prod_tot_utilisable = new Indicateur(Constantes.IND_PRODUCTION_P2, this, 0.0);
        this.journal = new Journal("Journal de "+this.nom);
        this.pertes = new Indicateur("Pertes de "+this.nom,this,0.0);
-       this.prod=0.0;
-       this.transformateurs= new ArrayList<Transformateur>();
-       this.transformateurs.add(Monde.LE_MONDE.getActeur(Constantes.NOM_TRANSFORMATEUR_1));
-       this.transformateurs.add(Monde.LE_MONDE.getActeur(Constantes.NOM_TRANSFORMATEUR_2));
+       this.prod=1200000;
+       this.transformateurs= new ArrayList<ITransformateur>();
+       this.transformateurs.add((ITransformateur)Monde.LE_MONDE.getActeur(Constantes.NOM_TRANSFORMATEUR_1));
+       this.transformateurs.add((ITransformateur)Monde.LE_MONDE.getActeur(Constantes.NOM_TRANSFORMATEUR_2));
     	Monde.LE_MONDE.ajouterJournal(this.journal);
     	Monde.LE_MONDE.ajouterIndicateur( this.prod_tot_utilisable );
     	Monde.LE_MONDE.ajouterIndicateur(this.pertes);
     	Monde.LE_MONDE.ajouterIndicateur(this.stock);
-    	this.transformateurs.
     }
 
     //return un String : le nom du producteur 2
