@@ -31,7 +31,7 @@ public class Lindt implements Acteur, ITransformateur{
 	}
 	
 	public String getNom() {
-		return "Lindt";}
+		return Constantes.NOM_TRANSFORMATEUR_2;}
 	
 	public Historique_Commande_Dist getHist(){
 		return this.hist;
