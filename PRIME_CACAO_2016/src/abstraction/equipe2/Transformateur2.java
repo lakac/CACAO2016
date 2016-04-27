@@ -39,7 +39,7 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	
 	public double[] getS1() {
 		return this.S1;
-	}
+	  }
 	
 	public double[] getS2() {
 		return this.S2;
@@ -80,10 +80,6 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	}
 	public String getNom() {
 		return "Producteur "+this.nom;
-	}
-
-	public void next() {
-		this.ventes.setValeur(this, 0.0);
 	}
 	
 	
@@ -146,7 +142,9 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	}
 	
 	//Méthode principale de test de CoutInts, déféaire les "/*" pour l'activer
-	
+	public void next() {
+		
+	}
 	    public static void main(String[] args) {
 		double p = 3;
 		double[]T=new double[4];
