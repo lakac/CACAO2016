@@ -38,9 +38,6 @@ public class Lindt implements Acteur, ITransformateur{
 		Monde.LE_MONDE.ajouterIndicateur( this.etatStockCacao );
 		Monde.LE_MONDE.ajouterIndicateur( this.etatStockChocolat );
 		this.treso=new Tresorerie(this.getHist());
-		
-		// pour les tests en interne on ajoute Carrefour 
-		
 	}
 	
 	public String getNom() {
@@ -65,9 +62,7 @@ public class Lindt implements Acteur, ITransformateur{
 		
 		this.etatStockCacao.setValeur(this, this.stock_cacao.getStock());
 		this.etatStockChocolat.setValeur(this, this.stock_chocolat.getStock());
-		this.venteChocolat.setValeur(this, this.stock_chocolat.getStock());
-		
-		
+		this.venteChocolat.setValeur(this, this.stock_chocolat.getStock());	
 	}
 	
 
@@ -82,7 +77,6 @@ public class Lindt implements Acteur, ITransformateur{
 		stock_cacao.ajouterStock(Constante.RATIO_CACAO_CHOCOLAT*hist.valeur(Constante.STEP_PRECEDENT));
 		stock_cacao.retirerStock(Constante.RATIO_CACAO_CHOCOLAT*hist.valeur(Constante.STEP_PRECEDENT_MOINS_2));
 		treso.retirerTresorerie(p.annoncePrix());
-
 		System.out.println("Met à jour le stock et la tréso");
 	}
 
