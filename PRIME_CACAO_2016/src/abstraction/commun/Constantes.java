@@ -1,3 +1,4 @@
+
 package abstraction.commun;
 
 public class Constantes {
@@ -11,3 +12,4 @@ public class Constantes {
 	public static final String IND_PRODUCTION_P1 = "Production de "+NOM_PRODUCTEUR_1;
 	public static final String IND_PRODUCTION_P2 = "Production de "+NOM_PRODUCTEUR_2;
 }
+

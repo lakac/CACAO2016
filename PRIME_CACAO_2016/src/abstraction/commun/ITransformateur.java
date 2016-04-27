@@ -1,3 +1,4 @@
+
 package abstraction.commun;
 
 public interface ITransformateur {
@@ -14,3 +15,4 @@ public interface ITransformateur {
 	 */
 	public void notificationVente(IProducteur p);
 }
+
