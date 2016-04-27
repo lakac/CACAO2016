@@ -8,7 +8,7 @@ import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
 
-public class Lindt implements Acteur, ITransformateur, IDistributeur{
+public class Lindt implements Acteur, ITransformateur{
 	
 	private Historique_Commande_Dist hist;
 	private Stock stock_cacao;
@@ -42,6 +42,9 @@ public class Lindt implements Acteur, ITransformateur, IDistributeur{
 		IDistributeur D1= (IDistributeur)Monde.LE_MONDE.getActeur(Constantes.NOM_DETAILLANT_1);
 		IDistributeur D2= (IDistributeur)Monde.LE_MONDE.getActeur(Constantes.NOM_DETAILLANT_2);
 
+		D1.getDemande(this,Monde.LE_MONDE.getStep()); //demande quantité souhaitée par les distributeurs;
+		D2.getDemande(this,Monde.LE_MONDE.getStep());
+
 		//P1.annonceQuantiteMiseEnVente(ITransformateur t);
 		//P2.annonceQuantiteMiseEnVente(Lindt);
 		/*compt.ajouter(getQuantiteDist());*/
@@ -65,9 +68,7 @@ public class Lindt implements Acteur, ITransformateur, IDistributeur{
 		
 	}
 	
-	
 
-	
 	/**
 	 * Indique la quantité demandée au producteur p.
 	 */
@@ -83,4 +84,5 @@ public class Lindt implements Acteur, ITransformateur, IDistributeur{
 	public void notificationVente(IProducteur p){
 		System.out.println("Met à vous le stock et la tréso");
 	}
+
 } 
