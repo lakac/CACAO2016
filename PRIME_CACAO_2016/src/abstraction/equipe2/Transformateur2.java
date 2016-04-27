@@ -4,6 +4,10 @@ import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
 import abstraction.fourni.v0.Marche;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import abstraction.commun.*;;
 
 public class Transformateur2 implements Acteur, ITransformateur{
@@ -39,6 +43,16 @@ public class Transformateur2 implements Acteur, ITransformateur{
 		return 15.0;
 	}
 	
+	private List<IProducteur> getProducteurs() {
+		List<IProducteur> prod = new ArrayList<IProducteur>();
+		for (Acteur a : Monde.LE_MONDE.getActeurs()) {
+			if (a instanceof IProducteur) {
+				prod.add((IProducteur)(a));
+			}
+		}
+		return prod;
+	}
+	
 	
 	public void notificationVente(double quantite) {
 		this.achats.setValeur(this, quantite);
@@ -67,8 +81,10 @@ public class Transformateur2 implements Acteur, ITransformateur{
 
 	
 	public void notificationVente(IProducteur p) {
-		// TODO Auto-generated method stub
-		
+		double commande = this.annonceQuantiteDemandee(p);
+		this.solde.setValeur(this, this.solde.getValeur()-p.annoncePrix()*commande);
+		//+ ligne modification du stock //A COMPLETER
+		stock_cacao.ajout_cacao();
 	}
 	
 	
