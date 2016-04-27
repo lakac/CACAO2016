@@ -5,14 +5,10 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class Historique_Commande_Dist {
+public class HistoriqueCommandeDist {
 	 private List<Double> compt = new ArrayList<Double>();
-	 public static final int STEP_COURANT = 3;
-	 public static final int STEP_PRECEDENT = 2;
-	 public static final int STEP_PRECEDENT_MOINS_2 = 1;
-	 public static final int STEP_PRECEDENT_MOINS_3 = 0;
 		
-	 public Historique_Commande_Dist() {
+	 public HistoriqueCommandeDist() {
 			this.compt = new ArrayList<Double>();
 			compt.add(0.);
 			compt.add(0.);

@@ -11,7 +11,7 @@ import abstraction.fourni.Monde;
 
 public class Lindt implements Acteur, ITransformateur{
 	
-	private Historique_Commande_Dist hist;
+	private HistoriqueCommandeDist hist;
 	private Stock stock_cacao;
 	private Stock stock_chocolat;
 	private Indicateur etatStockCacao;
@@ -19,10 +19,9 @@ public class Lindt implements Acteur, ITransformateur{
 	private Tresorerie treso;
 	private AchatProd achatProd;
 	private Indicateur venteChocolat;
-	public static final double RATIO_CACAO_CHOCOLAT = 0.6; // pour 100g de chocolat, il faut 60g de cacao
 	
 	public Lindt(){
-		this.hist = new Historique_Commande_Dist();
+		this.hist = new HistoriqueCommandeDist();
 		this.stock_cacao = new Stock(0);
 		this.stock_chocolat = new Stock(0);
 		this.etatStockCacao = new Indicateur("Stock de Cacao ", this, this.stock_cacao.getStock());
@@ -36,7 +35,7 @@ public class Lindt implements Acteur, ITransformateur{
 	public String getNom() {
 		return Constantes.NOM_TRANSFORMATEUR_2;}
 	
-	public Historique_Commande_Dist getHist(){
+	public HistoriqueCommandeDist getHist(){
 		return this.hist;
 	}
 	
@@ -53,8 +52,8 @@ public class Lindt implements Acteur, ITransformateur{
 		//P1.annonceQuantiteMiseEnVente(ITransformateur t);
 		//P2.annonceQuantiteMiseEnVente(Lindt);
 		/*compt.ajouter(getQuantiteDist());*/
-		stock_chocolat.ajouterStock(hist.valeur(Historique_Commande_Dist.STEP_PRECEDENT_MOINS_2));
-		stock_chocolat.retirerStock(hist.valeur(Historique_Commande_Dist.STEP_PRECEDENT_MOINS_3));
+		stock_chocolat.ajouterStock(hist.valeur(Constante.STEP_PRECEDENT_MOINS_2));
+		stock_chocolat.retirerStock(hist.valeur(Constante.STEP_PRECEDENT_MOINS_3));
 		//this.stock_cacao.ajouterStock(getQuantiteProd());
 		//this.stock_chocolat.retirerStock(34);
 		this.etatStockCacao.setValeur(this, this.stock_cacao.getStock());
@@ -80,9 +79,10 @@ public class Lindt implements Acteur, ITransformateur{
 	 * Cette méthode est appelée par les producteurs.
 	 */
 	public void notificationVente(IProducteur p){
-		stock_cacao.ajouterStock(RATIO_CACAO_CHOCOLAT*hist.valeur(Historique_Commande_Dist.STEP_PRECEDENT));
-		stock_cacao.retirerStock(RATIO_CACAO_CHOCOLAT*hist.valeur(Historique_Commande_Dist.STEP_PRECEDENT_MOINS_2));
+		stock_cacao.ajouterStock(Constante.RATIO_CACAO_CHOCOLAT*hist.valeur(Constante.STEP_PRECEDENT));
+		stock_cacao.retirerStock(Constante.RATIO_CACAO_CHOCOLAT*hist.valeur(Constante.STEP_PRECEDENT_MOINS_2));
 		treso.retirerTresorerie();
+
 		System.out.println("Met à jour le stock et la tréso");
 	}
 
