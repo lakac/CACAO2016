@@ -4,8 +4,9 @@ import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
 import abstraction.fourni.v0.Marche;
+import abstraction.commun.*;;
 
-public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
+public class Transformateur2 implements Acteur, ITransformateur{
 	
 	private String nom;
 	private Indicateur achats;
@@ -122,6 +123,7 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 
 	
 	//la quantité demandée aux producteurs est proportionnelle 
+	
 	//à la quantité de chocolat que nous demande les distributeurs.
 	public static double quantiteDemandee (double[] T, double p) {
 		double qdp = 0.6*p*T[3];
@@ -147,6 +149,27 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	public static double quantiteDemandeeP3 (double[] T, double p){
 		double qdp = T[3]*p;
 		return qdp;
+	}
+	
+	
+	public double annonceQuantiteDemandee(IProducteur p) {
+		if(MondeV1.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1)==p){
+			return quantiteDemandeeP1(T,0.3) ;
+		}
+		else{
+			if(MondeV1.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2)==p){
+				return quantiteDemandeeP2(T,0.3);
+			}
+			else{
+				return 0.0;
+			}
+		}
+	}
+
+	
+	public void notificationVente(IProducteur p) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
@@ -255,5 +278,7 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 	}
 	
 	   }
+
+		
 
 }
