@@ -1,4 +1,3 @@
-
 package abstraction.equipe5;
 
 import abstraction.equipe5.Lindt;
@@ -6,12 +5,10 @@ import abstraction.fourni.Monde;
 import abstraction.commun.Constantes;
 import abstraction.commun.IProducteur;
 
-
-
 public class Tresorerie {
-	private Historique_Commande_Dist hist;
+	private HistoriqueCommandeDist hist;
 	private double treso;	
-
+	
 	public Tresorerie(Historique_Commande_Dist hist){
 		this.hist= hist;
 		this.treso = 0;
@@ -42,8 +39,8 @@ public class Tresorerie {
 	}
 	
 	public double marge(){
-		double coutAchatCacao= hist.valeur(Historique_Commande_Dist.STEP_PRECEDENT_MOINS_3)*Lindt.RATIO_CACAO_CHOCOLAT*(0.3*P1.annoncePrix()+0.3*P2.annoncePrix()+0.4*3000); //coût d'achat du cacao aux 3 producteurs 
-				return (15000*hist.valeur(Historique_Commande_Dist.STEP_PRECEDENT_MOINS_3)-coutRevient()-coutAchatCacao);
+		double coutAchatCacao= hist.valeur(Constante.STEP_PRECEDENT_MOINS_3)*Constante.RATIO_CACAO_CHOCOLAT*(0.3*P1.annoncePrix()+0.3*P2.annoncePrix()+0.4*3000); //coût d'achat du cacao aux 3 producteurs 
+				return (15000*hist.valeur(Constante.STEP_PRECEDENT_MOINS_3)-coutRevient()-coutAchatCacao);
 	}
 	
 	
