@@ -58,6 +58,7 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 		// A tester, j'y arrive pas
 	}
 	
+	
 	//suivi du stock de chocolat au fil des step
 	public double[] setS2(double[] T){
 		S2[1]=S2[0];
@@ -182,6 +183,9 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 		System.out.println("le bénéfice fait a cet step est de :" + Benefice(T,prixdevente,p) + "€");
 		
 		if (stock_cacao(T,S1)<0){
+		double qdd = 30000;
+		if (stock_cacao(T,S1)<0){
+
 			System.out.println("Erreur dans le système");
 		}else{
 			System.out.println("Le stock de cacao semble valide");
@@ -222,8 +226,9 @@ public class Transformateur2 implements Acteur, ITransformateur2, IVendeur2{
 		
 		
 		
+		
 	}
 	
-	
+	   }
 
 }
