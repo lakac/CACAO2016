@@ -25,9 +25,11 @@ public class Producteur implements Acteur,IProducteur {
        this.pertes = new Indicateur("Pertes de "+this.nom,this,0.0);
        this.prod=1200000;
        this.transformateurs= new ArrayList<ITransformateur>();
-       this.transformateurs.add((ITransformateur)Monde.LE_MONDE.getActeur(Constantes.NOM_TRANSFORMATEUR_1));
-       this.transformateurs.add((ITransformateur)Monde.LE_MONDE.getActeur(Constantes.NOM_TRANSFORMATEUR_2));       
-       Monde.LE_MONDE.ajouterJournal(this.journal);
+       for (Acteur a : Monde.LE_MONDE.getActeurs()) {
+			if (a instanceof ITransformateur) {
+				this.transformateurs.add((ITransformateur)(a));
+			}
+		}       Monde.LE_MONDE.ajouterJournal(this.journal);
     	Monde.LE_MONDE.ajouterIndicateur( this.prod_tot_utilisable );
     	Monde.LE_MONDE.ajouterIndicateur(this.pertes);
     	Monde.LE_MONDE.ajouterIndicateur(this.stock);
