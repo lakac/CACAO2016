@@ -77,11 +77,11 @@ public class Transformateur2 implements Acteur, ITransformateur{
 	
 	public double annonceQuantiteDemandee(IProducteur p) {
 		if(MondeV1.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1)==p){
-			return commandes.quantiteDemandeeP1(0.3) ;
+			return Math.min(commandes.quantiteDemandeeP1(0.3), p.annonceQuantiteMiseEnVente(this)) ;
 		}
 		else{
 			if(MondeV1.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2)==p){
-				return commandes.quantiteDemandeeP2(0.3);
+				return Math.min(commandes.quantiteDemandeeP1(0.3), p.annonceQuantiteMiseEnVente(this)) ;
 			}
 			else{
 				return 0.0;
