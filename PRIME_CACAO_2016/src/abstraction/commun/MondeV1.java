@@ -9,11 +9,11 @@ public class MondeV1 extends Monde {
 	public void peupler() {
 		// Il faut créer les acteurs et les ajouter au monde ici.
 		// Distributeurs
-		
+		Carrefour Ca = new Carrefour("Carrefour", this, 15, 20, 50000);
 		// Transformateurs
 		
 		// Producteurs
 		
-		Carrefour Ca = new Carrefour("Carrefour", this, 15, 20, 50000);
+		
 	}
 }
