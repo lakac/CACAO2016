@@ -4,8 +4,6 @@ import abstraction.commun.Constantes;
 import abstraction.commun.IDistributeur;
 import abstraction.commun.IProducteur;
 import abstraction.commun.ITransformateur;
-import abstraction.commun.MondeV1;
-import abstraction.equipe6.Carrefour;
 import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
@@ -24,7 +22,7 @@ public class Lindt implements Acteur, ITransformateur{
 	IProducteur P1 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1);
 	IProducteur P2 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2);
 
-	IDistributeur D1 = (IDistributeur)Monde.LE_MONDE.getActeur(Constantes.NOM_DETAILLANT_1);
+	IDistributeur D1 = (IDistributeur)Monde.LE_MONDE.getActeur("Leclerc");
 	IDistributeur D2 = (IDistributeur)Monde.LE_MONDE.getActeur("Carrefour");
 	
 	
@@ -52,7 +50,8 @@ public class Lindt implements Acteur, ITransformateur{
 		System.out.println(D2.getDemande(this));
 		//D1.getDemande(this); //demande quantité souhaitée par les distributeurs;
 		//D2.getDemande(this);
-		//P1.annonceQuantiteMiseEnVente(ITransformateur t);
+		P1.annonceQuantiteMiseEnVente(this);
+		
 		//P2.annonceQuantiteMiseEnVente(Lindt);
 		this.getHist().ajouter(D2.getDemande(this)); //+ D2.getDemande(this));
 		System.out.println(this.getHist().valeur(0));
