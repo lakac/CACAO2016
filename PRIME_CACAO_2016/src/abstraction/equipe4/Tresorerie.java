@@ -1,50 +1,51 @@
 package abstraction.equipe4;
+import abstraction.fourni.*;
 
 public class Tresorerie {
-	private double commande;
 	private Indicateur fond;
-	private Indicateur prix;
-	private double CoutProd;
+	// prix de vente
+	private double prix; 
+	// cout de prod
+	private double CoutProd; 
 	private Acteur Prod;
 	
 	
+	public Tresorerie(Acteur a, double prix, double cout) {
+		this.fond = new Indicateur("Fond de" + a.getNom(),a,0.0);
+		this.prix = prix;
+		this.CoutProd = cout;
+		this.Prod= a;
+		Monde.LE_MONDE.ajouterIndicateur( this.fond );
+	
+	}
+
+
 	public Acteur getProd() {
 		return Prod;
 	}
 
-	public void setProd(Acteur prod) {
-		Prod = prod;
-	}
-
-	public Tresorerie(Indicateur fond, Indicateur prix, double coutProd,Acteur a ) {
-		this.fond = fond;
-		this.prix = prix;
-		CoutProd = coutProd;
-		this.Prod= a;
-	}
-
-	public double getCommande() {
-		return this.commande;
+	
+	public double getCoutProd() {
+		return this.CoutProd;
 	}
 	
+	public double getPrix() {
+		return this.prix;
+	}
+
 	public Indicateur getFond() {
 		return this.fond;
 	}
 
-	public Indicateur getPrix() {
-		return this.prix;
+
+	public double PrixVente(double commande){
+		return commande*this.prix;
 	}
 
-	public double Vente(){
-		return this.getCommande()*this.getPrix().getValeur();
-	}
-	public double getvente(){
-		return this.Vente();
-	}
+	
+	public void modiftreso(double commande){
 		
-	public void modiftréso(){
-		
-		this.fond.setValeur(this.Prod, this.getvente() + this.fond.getValeur()- this.CoutProd);
+		this.fond.setValeur(this.Prod, PrixVente(commande) + this.fond.getValeur()- this.CoutProd);
 	
 	}
 		

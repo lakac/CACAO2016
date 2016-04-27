@@ -23,7 +23,7 @@ import control.CtrlLabelEtape;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Journal;
 import abstraction.fourni.Monde;
-import abstraction.fourni.v0.MondeV0;
+import abstraction.commun.MondeV1;
 
 /**
  * Classe modelisant la fenetre principale de l'interface.
@@ -39,7 +39,7 @@ public class FenetrePrincipale extends JFrame {
 		super("Prime CACAO");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		Monde.LE_MONDE = new MondeV0(); 
+		Monde.LE_MONDE = new MondeV1();
 		Monde.LE_MONDE.peupler();
 		this.setLayout(new BorderLayout());
 
