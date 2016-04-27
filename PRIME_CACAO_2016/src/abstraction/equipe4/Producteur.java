@@ -14,7 +14,7 @@ public class Producteur implements Acteur,IProducteur{
 	private double prod; //production semi annuelle
 	private Tresorerie treso;
 	private Indicateur pertes; //perte dans la production totale
-	private Indicateur prod_tot_utilisable;
+	private Indicateur prod_tot_utilisable; //production totale sans les pertes
 	
 	private ArrayList<ITransformateur> transformateurs;
 	
@@ -53,30 +53,30 @@ public class Producteur implements Acteur,IProducteur{
 		stock.setValeur(this, this.stock.getValeur()+value);
 	}
 	
-	// le next de producteur 2
+	// le next de producteur
 	
 	public void next(){
 		
-		if (Monde.LE_MONDE.getStep()%12==1){
+		if (Monde.LE_MONDE.getStep()%12==1){ //production semi annuelle
 			this.pertes.setValeur(this, Math.random()*200000);
 			this.prod_tot_utilisable.setValeur(this,this.prod-this.pertes.getValeur());
 			this.Augment_Stock(this.prod_tot_utilisable.getValeur());
 			this.journal.ajouter("Production de semi annuelle de " + this.prod_tot_utilisable);
 		}
-		if ((Monde.LE_MONDE.getStep()%3==0)&&(this.journal!=null)){
-			this.journal.ajouter("Stock restant de " + this.stock.getValeur());
-		}
-		if (Monde.LE_MONDE.getStep()%3==2){
+		if(Monde.LE_MONDE.getStep()==1){
+			this.journal.ajouter("Debut des ventes et premiere production");
+		}else{
 			for (ITransformateur t : this.transformateurs){
 				double commande = t.annonceQuantiteDemandee(this);
 				t.notificationVente(this);
 				this.notificationVente(commande);
 			}
 		}
+		
 		}
 
 	public double annonceQuantiteMiseEnVente(ITransformateur t) {
-		return (this.prod_tot_utilisable.getValeur()/8);
+		return (this.prod_tot_utilisable.getValeur()/24);
 	}
 	
 	public double annoncePrix() {
