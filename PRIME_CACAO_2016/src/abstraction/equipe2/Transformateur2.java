@@ -71,34 +71,9 @@ public class Transformateur2 implements Acteur, ITransformateur{
 
 	
 	//la quantité demandée aux producteurs est proportionnelle 
-	
-	//à la quantité de chocolat que nous demande les distributeurs.
-	public static double quantiteDemandee (double[] T, double p) {
-		double qdp = 0.6*p*T[3];
-		return qdp;
-	}
 
-	// Quantitée demandée au producteur 1 
 	
-	public static double quantiteDemandeeP1 (double[] T, double p){
-		double qdp = T[3]*0.6*p;
-		return qdp;
-	}
-	
-	// Quantitée demandée au producteur 2
-	
-	public static double quantiteDemandeeP2 (double[] T, double p){
-		double qdp = T[3]*0.6*p;
-		return qdp;
-	}
-	
-	// Quantitée demandée au reste du Monde
-	
-	public static double quantiteDemandeeP3 (double[] T, double p){
-		double qdp = T[3]*p;
-		return qdp;
-	}
-	
+	// Quantité annoncée aux producteurs 
 	
 	public double annonceQuantiteDemandee(IProducteur p) {
 		if(MondeV1.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1)==p){
@@ -136,16 +111,16 @@ public class Transformateur2 implements Acteur, ITransformateur{
 	}
 	
 	//Méthode principale de test de CoutInts, déféaire les "/*" pour l'activer
-	public void next() {
+	public void next() {}
 		//setT(qdd);
-		quantiteDemandee(T, 0.3);
+		/*quantiteDemandee(T, 0.3);
 		quantiteDemandee(T, 0.3);
 		quantiteDemandee(T, 0.4);
 		setS1(T);
 		setS2(T);
 		stock_cacao(T, S1);
 		stock_chocolat(T, S2);
-	}
+	}*/
 	    public static void main(String[] args) {
 		double p = 3;
 		double[]T=new double[4];
