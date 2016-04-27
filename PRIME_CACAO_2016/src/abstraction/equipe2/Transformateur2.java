@@ -13,8 +13,8 @@ public class Transformateur2 implements Acteur, ITransformateur{
 	private Indicateur ventes;
 	private Indicateur solde;
 	
-	public Transformateur2(String nom, Monde monde) {
-		this.nom = nom;
+	public Transformateur2(Monde monde) {
+		this.nom = Constantes.NOM_TRANSFORMATEUR_1;
 		this.achats = new Indicateur("Achats de "+this.nom, this, 0.0);
 		this.ventes = new Indicateur("Ventes de "+this.nom, this, 0.0);
 		this.solde = new Indicateur("Solde de "+this.nom, this, 10000000.0);
@@ -25,7 +25,7 @@ public class Transformateur2 implements Acteur, ITransformateur{
 	
 	public static final Stock stock_cacao=new Stock();
 	public static final Stock stock_chocolat=new Stock();
-	//public static final Tresorerie banque=new Tresorerie();
+	public static final Banque tresorerie=new Banque();
 	
 
 	public static final Commandes commandes = new Commandes();
@@ -35,20 +35,8 @@ public class Transformateur2 implements Acteur, ITransformateur{
 		return "Producteur "+this.nom;
 	}
 	
-	public double prixDeVente(){
+	public static double prixDeVente(){
 		return 15.0;
-	}
-	
-	
-	//ce code calcule le cout de revient et le cout de revient unitaire de Nestlé France !
-	//p en euros, q en kilos
-	public static double[] CoutInts (double p, double []T){ 
-		double[] CI =new double[2] ;
-		CI[0] = 13003370+T[1]*(5+p);
-		CI[1] = CI[0]*0.6/T[1];
-		// 600g de cacao équivalent à 1kg de chocolat
-		return CI;
-		//Test OK
 	}
 	
 	
@@ -84,19 +72,7 @@ public class Transformateur2 implements Acteur, ITransformateur{
 	}
 	
 	
-	//Le prix du kilo de chocolat étant fixé, tout ce que l'on peut calculer c'est la marge que l'on se fait.
-	public static double Marge (double prixDeVente, double p, double[] T) {
-		double M = ((prixDeVente-CoutInts(p,T)[1])/(CoutInts(p,T))[1])*100;
-		return M;
-		//Test OK
-	}
-	
-	public static double Benefice (double []T, double prixDeVente, double p){
-		double s=0;
-		s+=T[0]*(Marge(prixDeVente,p,T)*prixDeVente+prixDeVente) ;
-		return s;
-		//Test OK
-	}
+
 	
 	//Méthode principale de test de CoutInts, déféaire les "/*" pour l'activer
 	public void next() {}
@@ -109,7 +85,7 @@ public class Transformateur2 implements Acteur, ITransformateur{
 		stock_cacao(T, S1);
 		stock_chocolat(T, S2);
 	}*/
-	    public static void main(String[] args) {
+	/*    public static void main(String[] args) {
 		double p = 3;
 		double[]T=new double[4];
 		double[]S1=new double[2];
@@ -141,7 +117,7 @@ public class Transformateur2 implements Acteur, ITransformateur{
 		System.out.println("le bénéfice fait a cet step est de :" + Benefice(T,prixdevente,p) + "€");
 		
 
-	/*	if (stock_cacao(T,S1)<0){
+		if (stock_cacao(T,S1)<0){
 
 			System.out.println("Erreur dans le système");
 		}else{
@@ -152,7 +128,7 @@ public class Transformateur2 implements Acteur, ITransformateur{
 			System.out.println("Erreur dans le système");
 		}else{
 			System.out.println("Le stock de chocolat semble valide");
-		}*/
+		}
 	
 		
 		for(int i=0;i<4;i++){
@@ -186,7 +162,7 @@ public class Transformateur2 implements Acteur, ITransformateur{
 		
 	}
 	
-	   
+	   */
 
 		
 
