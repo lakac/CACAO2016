@@ -73,16 +73,15 @@ public class Carrefour implements Acteur,IDistributeur {
 
 	public double getDemande(ITransformateur t) {
 		this.setdemandePerStep(MondeV1.LE_MONDE.getStep()+3);
-//		if (t.equals(transformateurs.get(0))) {
-//			return this.demandeperstep*0.125;
-//		}
-//		if (t.equals(transformateurs.get(1))) {
-//			return this.demandeperstep*0.036;
-//		}
-//		else {
+		if (t.equals(transformateurs.get(0))) {
+			return this.demandeperstep*0.125;
+		}
+		if (t.equals(transformateurs.get(1))) {
+			return this.demandeperstep*0.036;
+		}
+		else {
 			return this.demandeperstep*0.839;
-		//}
-	}
+	}}
 	
 	public String getNom() {
 		return this.nom;
