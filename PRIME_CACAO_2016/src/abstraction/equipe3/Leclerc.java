@@ -2,13 +2,14 @@ package abstraction.equipe3;
 
 import java.util.ArrayList;
 
+import abstraction.commun.IDistributeur;
+import abstraction.commun.ITransformateur;
+import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
-import abstraction.fourni.v0.Detaillant;
-import abstraction.fourni.v0.IVendeur;
-import abstraction.fourni.v0.Transformateur;
 
-public class Leclerc extends Detaillant implements ILeclerc{
+public class Leclerc implements Acteur,IDistributeur{
+	private String nom;
 	private double qteT1;
 	private double qteT2;
 	private double qteT3;
@@ -17,11 +18,10 @@ public class Leclerc extends Detaillant implements ILeclerc{
 	private Indicateur achats;
 	private double quantite;
 	private double prix;
-	private ArrayList<IVendeur> vendeurs;
+	private ArrayList<ITransformateur> transformateurs;
 
 	
 	public Leclerc(String nom, Monde monde, double quantite, double prix) {
-		super( nom,  monde,  quantite,  prix);
 		this.prix=prix;		
 		this.achats = new Indicateur("Achats de "+nom, this, 0.0);
 		this.solde = new Indicateur("Solde de "+nom, this, 1000000.0);
@@ -29,14 +29,16 @@ public class Leclerc extends Detaillant implements ILeclerc{
     	Monde.LE_MONDE.ajouterIndicateur( this.achats );
     	Monde.LE_MONDE.ajouterIndicateur( this.solde );
         
-    	this.vendeurs = new ArrayList<IVendeur>();
+    	this.transformateurs = new ArrayList<ITransformateur>();
 
 		// TODO Auto-generated constructor stub
 	}
-	public void ajouterVendeur(Transformateur t) {
-		this.vendeurs.add(t);
+	public void ajouterVendeur(ITransformateur t) {
+		this.transformateurs.add(t);
 	}
-	
+	public String getNom(){
+		return this.nom;
+	}
 	public double getQte(){
 		return this.quantite;
 	}
@@ -74,13 +76,26 @@ public class Leclerc extends Detaillant implements ILeclerc{
 			}
 		}
 	}
-	public void next() {
-		this.achats.setValeur(this, 0.0);
+	public double getDemande(ITransformateur t){
 		commande();
+		if (t.equals(transformateurs.get(0))){
+			return qteT1;
+		}
+		else{
+			if (t.equals(transformateurs.get(1))){
+				return qteT2;
+			}
+			else{
+				return qteT3;
+			}
+		}
+	}
+	
+	public void next() {
 	    setPrix(20.0);
 		this.prixvente=20.0;
-		for (IVendeur t : this.vendeurs) {
-			double q = t.acheter(this, this.quantite);
+		for (ITransformateur t : this.transformateurs) {
+			double q = this.getDemande(t);
 			this.solde.setValeur(this, this.solde.getValeur()-q*this.getPrix()+q*prixvente);
 			this.achats.setValeur(this, this.achats.getValeur()+q);
 		}
