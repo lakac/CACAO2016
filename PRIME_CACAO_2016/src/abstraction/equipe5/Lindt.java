@@ -32,6 +32,8 @@ public class Lindt implements Acteur, ITransformateur, IDistributeur{
 		IProducteur P2 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2);
 		IDistributeur D1= (IDistributeur)Monde.LE_MONDE.getActeur(Constantes.NOM_DETAILLANT_1);
 		IDistributeur D2= (IDistributeur)Monde.LE_MONDE.getActeur(Constantes.NOM_DETAILLANT_2);
+		D1.getDemande(this,Monde.LE_MONDE.getStep()); //demande quantité souhaitée par les distributeurs;
+		D2.getDemande(this,Monde.LE_MONDE.getStep());
 		//P1.annonceQuantiteMiseEnVente(ITransformateur t);
 		//P2.annonceQuantiteMiseEnVente(Lindt);
 		/*compt.ajouter(getQuantiteDist());*/
@@ -55,15 +57,7 @@ public class Lindt implements Acteur, ITransformateur, IDistributeur{
 		
 	}
 	
-	public double coutRevient() {
-		int charges_fixes = 900980; // salaires+impots
-		return charges_fixes + 0.6*compt.valeur(Historique_Commande_Dist.STEP_PRECEDENT) * (5000 /*+ ((p1.annoncePrix() + p2.annoncePrix())/2)*/); 	
-	}
-	
-	public double marge(){
-		return (15000*compt.valeur(Historique_Commande_Dist.STEP_PRECEDENT_MOINS_3)-coutRevient());
-	}
-	
+
 	/**
 	 * Indique la quantité demandée au producteur p.
 	 */
