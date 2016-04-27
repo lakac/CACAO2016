@@ -44,8 +44,8 @@ public class Lindt implements Acteur, ITransformateur{
 		IDistributeur D1= (IDistributeur)Monde.LE_MONDE.getActeur(Constantes.NOM_DETAILLANT_1);
 		IDistributeur D2= (IDistributeur)Monde.LE_MONDE.getActeur(Constantes.NOM_DETAILLANT_2);
 
-		D1.getDemande(this,Monde.LE_MONDE.getStep()); //demande quantité souhaitée par les distributeurs;
-		D2.getDemande(this,Monde.LE_MONDE.getStep());
+		D1.getDemande(this); //demande quantité souhaitée par les distributeurs;
+		D2.getDemande(this);
 
 		//P1.annonceQuantiteMiseEnVente(ITransformateur t);
 		//P2.annonceQuantiteMiseEnVente(Lindt);
