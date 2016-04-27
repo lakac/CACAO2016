@@ -24,7 +24,6 @@ public class Carrefour implements Acteur,IDistributeur {
 
 	private ArrayList<ITransformateur> transformateurs;
 	
-	
 	public Carrefour(String nom, Monde monde, double prixachat, double prixvente, double demandeannuel) {
 		this.nom = nom;
 		this.prixachat=prixachat;
@@ -35,13 +34,12 @@ public class Carrefour implements Acteur,IDistributeur {
     	Monde.LE_MONDE.ajouterIndicateur( this.achats );
     	Monde.LE_MONDE.ajouterIndicateur( this.solde );
     	this.transformateurs = new ArrayList<ITransformateur>();
-    	
 	}
 
 	
 	
 	
-	// Fixe la demande selon la pï¿½riode de l'annï¿½e.
+	// Fixe la demande selon la période de l'année.
 	
 	public void  setdemandePerStep (int step ){
 		if (step%26 == 6 ) {
@@ -55,7 +53,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		}
 	}
 	
-	// Rï¿½glage des frais de distribution choisi arbitrairement de 2% de la demande du step en cours
+	// Réglage des frais de distribution choisi arbitrairement de 2% de la demande du step en cours
 	
 	public void setFraisdeDistri() {
 		this.fraisdedistri = 0.02*this.demandeperstep*this.prixvente;
@@ -65,7 +63,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		this.transformateurs.add(t);
 	}
 	
-	// Rï¿½glage de la quantitï¿½ ï¿½ acheter en fonction du transformateur (12.5% Nestlï¿½, 3.6% Lindt et 83.9% Others)
+	// Réglage de la quantité à acheter en fonction du transformateur (12.5% Nestlé, 3.6% Lindt et 83.9% Others)
 	
 	public double getPrix() {
 		return this.prixachat;
@@ -81,7 +79,8 @@ public class Carrefour implements Acteur,IDistributeur {
 		}
 		else {
 			return this.demandeperstep*0.839;
-	}}
+		}
+	}
 	
 	public String getNom() {
 		return this.nom;
@@ -102,7 +101,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		this.solde.setValeur(this,this.solde.getValeur()+this.demandeperstep*this.prixvente
 										-this.fraisdedistri); 
 		
-		// Solde = Solde prï¿½cï¿½dent + Ventes - Achats - Frais de Distribution
+		// Solde = Solde précédent + Ventes - Achats - Frais de Distribution
 	}
 
 }

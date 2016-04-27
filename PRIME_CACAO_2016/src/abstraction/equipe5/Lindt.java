@@ -20,12 +20,10 @@ public class Lindt implements Acteur, ITransformateur{
 	private AchatProd achatProd;
 	private double quantiteMiseEnVenteProducteur1; 
 	private double quantiteMiseEnVenteProducteur2; 
-	
-	IProducteur P1 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1);
-	IProducteur P2 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2);
-
-	IDistributeur D1 = (IDistributeur)Monde.LE_MONDE.getActeur("Leclerc");
-	IDistributeur D2 = (IDistributeur)Monde.LE_MONDE.getActeur("Carrefour");
+	private IProducteur P1;
+	private IProducteur P2;
+	private IDistributeur D1;
+	private IDistributeur D2;
 	
 	
 	public Lindt(){
@@ -40,6 +38,8 @@ public class Lindt implements Acteur, ITransformateur{
 		Monde.LE_MONDE.ajouterIndicateur(venteChocolat);
 		this.treso=new Tresorerie(this.getHist());
 		this.achatProd = new AchatProd(hist, quantiteMiseEnVenteProducteur1, quantiteMiseEnVenteProducteur2);
+
+		
 	}
 	
 	public String getNom() {
@@ -51,6 +51,10 @@ public class Lindt implements Acteur, ITransformateur{
 	
 
 	public void next() {
+		P1 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1);
+		P2 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2);
+		D1 = (IDistributeur)Monde.LE_MONDE.getActeur("Carrefour");
+		D2 = (IDistributeur)Monde.LE_MONDE.getActeur("Leclerc");
 		quantiteMiseEnVenteProducteur1 = P1.annonceQuantiteMiseEnVente(this);
 		quantiteMiseEnVenteProducteur2 = P2.annonceQuantiteMiseEnVente(this);
 		this.getHist().ajouter(D1.getDemande(this)+ D2.getDemande(this));
