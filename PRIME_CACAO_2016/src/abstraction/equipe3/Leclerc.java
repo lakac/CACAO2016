@@ -66,15 +66,15 @@ public class Leclerc implements Acteur,IDistributeur{
 	}
 	/** Demande selon la période de l'année*/
 	public void commande(){
-		if (Monde.LE_MONDE.getStep()%24==4){
-			setQte(3812.5);					/** correspond à Pâques*/
+		if (Monde.LE_MONDE.getStep()%26==6){
+			setQte(3673.08);					/** correspond à Pâques*/
 		}
 		else{
-			if (Monde.LE_MONDE.getStep()%24==21){
-				setQte(6312.5);				/** correspond à Noël*/
+			if (Monde.LE_MONDE.getStep()%26==23){
+				setQte(6173.08);				/** correspond à Noël*/
 			}
 			else{
-				setQte(1812.5);
+				setQte(1673.08);
 			}
 		}
 	}
