@@ -57,11 +57,11 @@ public class Lindt implements Acteur, ITransformateur{
 
 		//P1.annonceQuantiteMiseEnVente(ITransformateur t);
 		//P2.annonceQuantiteMiseEnVente(Lindt);
-		/*compt.ajouter(getQuantiteDist());*/
+		hist.ajouter(D1.getDemande(this) + D2.getDemande(this));
 		stock_chocolat.ajouterStock(hist.valeur(Constante.STEP_PRECEDENT_MOINS_2));
 		stock_chocolat.retirerStock(hist.valeur(Constante.STEP_PRECEDENT_MOINS_3));
-		//this.stock_cacao.ajouterStock(getQuantiteProd());
-		//this.stock_chocolat.retirerStock(34);
+		
+		
 		this.etatStockCacao.setValeur(this, this.stock_cacao.getStock());
 		this.etatStockChocolat.setValeur(this, this.stock_chocolat.getStock());
 		
@@ -87,7 +87,7 @@ public class Lindt implements Acteur, ITransformateur{
 	public void notificationVente(IProducteur p){
 		stock_cacao.ajouterStock(Constante.RATIO_CACAO_CHOCOLAT*hist.valeur(Constante.STEP_PRECEDENT));
 		stock_cacao.retirerStock(Constante.RATIO_CACAO_CHOCOLAT*hist.valeur(Constante.STEP_PRECEDENT_MOINS_2));
-		treso.retirerTresorerie();
+		treso.retirerTresorerie(p.annoncePrix());
 
 		System.out.println("Met à jour le stock et la tréso");
 	}
