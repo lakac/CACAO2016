@@ -12,6 +12,8 @@ import abstraction.commun.Constantes;
 
 import abstraction.equipe3.Leclerc;
 import abstraction.equipe2.*;
+import abstraction.equipe6.Carrefour;
+
 import abstraction.equipe4.*;
 import abstraction.equipe6.Carrefour;
 
@@ -31,7 +33,7 @@ public class MondeV1 extends Monde {
 
 		this.ajouterActeur(Ca);
 		// Transformateurs
-		Transformateur2 t1 = new Transformateur2(Constantes.NOM_TRANSFORMATEUR_1, this);
+		Transformateur2 t1 = new Transformateur2(this);
 		this.ajouterActeur(t1);
 		Lindt lindt = new Lindt();
 		ajouterActeur(lindt);
@@ -42,6 +44,7 @@ public class MondeV1 extends Monde {
 		abstraction.equipe4.Producteur p2 = new abstraction.equipe4.Producteur(Monde.LE_MONDE);
 		this.ajouterActeur(p1);
 		this.ajouterActeur(p2);
+		//Ca.ajouterVendeur(lindt);
 		Le.ajouterVendeur(t1);
 		Le.ajouterVendeur(lindt);
 		Ca.ajouterVendeur(t1);
