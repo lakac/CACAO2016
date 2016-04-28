@@ -7,8 +7,8 @@ import abstraction.commun.IProducteur;
 public class Tresorerie {
 	private HistoriqueCommandeDist hist;
 	private double treso;	
-	IProducteur P1 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1);
-	IProducteur P2 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2);
+	private IProducteur P1;
+	private IProducteur P2;
 
 	public Tresorerie(HistoriqueCommandeDist hist){
 		this.hist= hist;
@@ -32,6 +32,8 @@ public class Tresorerie {
 	}
 
 	public double coutRevient() {
+		P1 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1);
+		P2 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2);
 		int chargesFixes = 900980; // salaires+impots
 		double quantiteCacaoAchetee = Constante.RATIO_CACAO_CHOCOLAT*hist.valeur(Constante.STEP_PRECEDENT);
 		return chargesFixes + quantiteCacaoAchetee * 5000 + (P1.annoncePrix()*0.3 + P2.annoncePrix()*0.3 + 3000*0.4);	
