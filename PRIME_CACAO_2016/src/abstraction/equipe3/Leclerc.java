@@ -10,9 +10,9 @@ import abstraction.fourni.Monde;
 
 public class Leclerc implements Acteur,IDistributeur{
 	private String nom;
-	private double qteT1;  /** quantité achetée au transformateur Nestlé*/ 
-	private double qteT2;  /** quantité achetée au transformateur Lindt*/ 
-	private double qteT3;  /** quantité achetée au transformateur Autre*/
+	private double qteT1;  /** quantité achetée au transformateur Nestlé */ 
+	private double qteT2;  /** quantité achetée au transformateur Lindt */ 
+	private double qteT3;  /** quantité achetée au transformateur Autre */
 	private double prixvente;
 	private Indicateur solde;
 	private Indicateur achats;
@@ -108,9 +108,9 @@ public class Leclerc implements Acteur,IDistributeur{
 		this.prixvente=20.0;
 		for (ITransformateur t : this.transformateurs) {
 			double q = this.getDemande(t);
-			this.solde.setValeur(this, this.solde.getValeur()+q*this.getPrix()); //on ach�te au transformateur donc il re�oit de l'argent
+			this.solde.setValeur(this, this.solde.getValeur()-q*this.getPrix()); 
 		}
 		this.achats.setValeur(this,quantite);
-		this.solde.setValeur(this, this.solde.getValeur()-quantite*this.getPrix()+quantite*this.getPrixvente()); //solde(step n)=solde step(n-1)+quantite(step n)*prixvente - quantite(step n)*prix
+		this.solde.setValeur(this, this.solde.getValeur()+quantite*this.getPrixvente()); //solde(step n)=solde step(n-1)+quantite(step n)*prixvente - quantite(step n)*prix
 }
 }
