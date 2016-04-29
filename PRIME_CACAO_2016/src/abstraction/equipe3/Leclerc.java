@@ -88,7 +88,7 @@ public class Leclerc implements Acteur,IDistributeur{
 	}
 	public double getDemande(ITransformateur t){
 		commande();
-		if (t.equals(transformateurs.get(0))){
+		if (t.equals(transformateurs.get(0))) {
 			return qteT1;
 		}
 		else{

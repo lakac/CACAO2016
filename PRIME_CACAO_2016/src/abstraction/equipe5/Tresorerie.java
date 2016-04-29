@@ -19,17 +19,20 @@ public class Tresorerie {
 		return this.treso;
 	}
 	
-	private void setTresorerie(double treso) {
-		this.treso = treso;
+	private void setTresorerie(double treso) { 
+			this.treso = treso;
 	}
 	
-	public void depotTresorerie(double d) {
-		
-		this.setTresorerie(this.getTresorerie()+d);
+
+	public void depot(double d) {
+		if (d > 0) {
+			this.setTresorerie(this.getTresorerie()+d);}
 	}
 	
-	public void retraitTresorerie(double d) {
-		this.setTresorerie(this.getTresorerie()-d);	
+	public void retrait(double d) {
+		if (d > 0) {
+			this.setTresorerie(this.getTresorerie()-d);	
+		}
 	}
 
 	public double coutRevient() {
