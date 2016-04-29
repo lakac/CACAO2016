@@ -3,7 +3,7 @@ import abstraction.fourni.Indicateur;
 import abstraction.equipe5.Lindt;
 
 public class Stock {
-	private  Indicateur stock;
+	private Indicateur stock;
 	private Lindt lindt;
 	
 	public Stock (double d, Lindt lindt) {
