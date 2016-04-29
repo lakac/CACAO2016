@@ -7,6 +7,7 @@ import abstraction.commun.ITransformateur;
 import abstraction.commun.MondeV1;
 import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
+import abstraction.fourni.Journal;
 import abstraction.fourni.Monde;
 
 public class Carrefour implements Acteur,IDistributeur {
