@@ -8,10 +8,10 @@ public class Stock {
 	private Lindt lindt;
 	private String nom;
 	
-	public Stock (double d, String nom, Lindt lindt) {
+	public Stock  (String nom, Lindt lindt,double d) {
 		this.lindt=lindt;
 		this.nom=nom;
-		this.stock = new Indicateur("stock de "+ this.nom +"de Lindt", this.lindt, d);
+		this.stock = new Indicateur("stock de "+ this.nom +"de Lindt", this.lindt,d);
 		Monde.LE_MONDE.ajouterIndicateur(this.stock);
 	}
 	

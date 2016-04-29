@@ -14,8 +14,6 @@ public class Lindt implements Acteur, ITransformateur{
 	private HistoriqueCommandeDist hist;
 	private Stock stockCacao;
 	private Stock stockChocolat;
-	private Indicateur etatStockChocolat;
-	private Indicateur etatStockCacao;
 	private Indicateur venteChocolat;
 	private Tresorerie treso;
 	private AchatProd achatProd;
@@ -29,14 +27,10 @@ public class Lindt implements Acteur, ITransformateur{
 	
 	public Lindt(){
 		this.hist = new HistoriqueCommandeDist();
-		this.stockCacao = new Stock(0);
-		this.stockChocolat = new Stock(0);
-		this.etatStockCacao = new Indicateur("Stock de Cacao Lindt", this, this.stockCacao.getStock());
-		this.etatStockChocolat = new Indicateur("Stock de Chocolat Lindt", this, this.stockChocolat.getStock());
+		this.stockCacao = new Stock("cacao",this,0.0);
+		this.stockChocolat = new Stock("chocolat",this,0.0);
 		this.venteChocolat = new Indicateur("quantité de chocolat vendue Lindt", this, this.stockChocolat.getStock());
 		this.treso = new Tresorerie(this.getHist(), this);
-		Monde.LE_MONDE.ajouterIndicateur( this.etatStockCacao );
-		Monde.LE_MONDE.ajouterIndicateur( this.etatStockChocolat );
 		Monde.LE_MONDE.ajouterIndicateur(venteChocolat);
 		P1 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1);
 		P2 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2);
@@ -71,9 +65,6 @@ public class Lindt implements Acteur, ITransformateur{
 		stockCacao.retirerStock(0.4 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT_MOINS_2)); // stock lié au reste du monde
 		treso.depot(treso.marge());
 		treso.retrait(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT) * 3000); // achat cacao au reste du monde
-		
-		this.etatStockCacao.setValeur(this, this.stockCacao.getStock());
-		this.etatStockChocolat.setValeur(this, this.stockChocolat.getStock());
 		this.venteChocolat.setValeur(this, this.stockChocolat.getStock());	
 	}
 
