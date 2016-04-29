@@ -19,15 +19,16 @@ public class Tresorerie {
 		return this.treso;
 	}
 	
-	public void setTresorerie(double treso) {
+	private void setTresorerie(double treso) {
 		this.treso = treso;
 	}
 	
-	public void ajouterTresorerie(double d) {
+	public void depotTresorerie(double d) {
+		
 		this.setTresorerie(this.getTresorerie()+d);
 	}
 	
-	public void retirerTresorerie(double d) {
+	public void retraitTresorerie(double d) {
 		this.setTresorerie(this.getTresorerie()-d);	
 	}
 
