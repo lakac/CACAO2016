@@ -3,21 +3,21 @@ import java.util.LinkedList;
 
 public class Stock {
 
-  /**
-   * Nombre de steps avant que le cacao ne soit perime
-   */
-  private final int PEREMPTION = 10;
+	/**
+	 * Nombre de steps avant que le cacao ne soit perime
+	 */
+	private final int PEREMPTION = 10;
   
-  /**
-   * Quantite totale de cacao presente dans le stock
-   */
-  private double quantite;
+	/**
+	 * Quantite totale de cacao presente dans le stock
+	 */
+	private double quantite;
   
-  /**
-   * Repartition du stock selon la date de peremption
-   * 
-   * Les feves les plus anciennes sont en tête de la pile
-   */
+	/**
+	 * Repartition du stock selon la date de peremption
+	 * 
+	 * Les feves les plus anciennes sont en tête de la pile
+	 */
 	private LinkedList<Double> stockParStep;
 	
 	/**
@@ -38,7 +38,9 @@ public class Stock {
 		return this.quantite;
 	}
 
-	
+	public void ajouterProd(double production) {
+		
+	}
 // Retirer et ajouter du stock (avec quantite>=0)
 // Si des fèves sont périmées, les retirer du stock (ici on part sur 5 mois soit 10 steps, mais 
 // Modifiable avec des infos valides
