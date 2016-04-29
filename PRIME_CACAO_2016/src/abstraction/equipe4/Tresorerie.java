@@ -14,7 +14,6 @@ public class Tresorerie {
 		this.CoutProd = cout;
 		this.Prod= a;
 		Monde.LE_MONDE.ajouterIndicateur( this.fond );
-	
 	}
 
 
