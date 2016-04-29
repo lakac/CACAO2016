@@ -25,6 +25,7 @@ public class Producteur implements Acteur, IProducteur {
 	private Map<ITransformateur,Double> quantitesProposees;
 	private Indicateur productionCourante;
 	private Journal journal;
+	private List<ITransformateur> transformateurs;
 	
 	/**
 	 * Initialise notre producteur a partir d'un stock et d'une tresorerie initiaux.
@@ -57,6 +58,10 @@ public class Producteur implements Acteur, IProducteur {
 		
 		this.journal = new Journal("Journal de "+this.nom);
 		Monde.LE_MONDE.ajouterJournal(this.journal);
+		
+		this.transformateurs = new ArrayList<ITransformateur>();
+		this.transformateurs.add((ITransformateur)(Monde.LE_MONDE.getActeur(Constantes.NOM_TRANSFORMATEUR_1)));
+		this.transformateurs.add((ITransformateur)(Monde.LE_MONDE.getActeur(Constantes.NOM_TRANSFORMATEUR_2)));
 	}
 	
 	/**
@@ -64,9 +69,9 @@ public class Producteur implements Acteur, IProducteur {
 	 * 
 	 * Pour l'instant, on sait que l'on a seulement deux clients, donc la repartition est moitie-moitie.
 	 */
-	private void produire(int step) {
+	private void produire() {
 		Random fluctuations = new Random();
-		this.setProductionCourante(Math.floor(this.getProductionDeBase(step)*this.getProductionAnnuelle()*(98+4*fluctuations.nextDouble()))/100.0);
+		this.setProductionCourante(Math.floor(this.getProductionDeBase(Monde.LE_MONDE.getStep())*this.getProductionAnnuelle()*(98+4*fluctuations.nextDouble()))/100.0);
 		this.setStock(this.getStock()+this.getProductionCourante());
 		this.setTresorerie(this.getTresorerie()-this.getCoutProduction()*this.getProductionCourante());
 		for (ITransformateur t : this.getTransformateurs()) {
@@ -153,7 +158,7 @@ public class Producteur implements Acteur, IProducteur {
 	 * Warning : il faut absolument que les transformateurs aient bien acces a la quantite reellement vendue...
 	 * Version prochaine : passer cette quantite en argument de ITransformateur.notificationVente ?
 	 */
-	private void notificationVente(ITransformateur t) {
+	private void vendre(ITransformateur t) {
 		double quantiteVendue = Math.min(t.annonceQuantiteDemandee(this), this.annonceQuantiteMiseEnVente(t));
 		
 		this.setStock(this.getStock() - quantiteVendue);
@@ -165,24 +170,18 @@ public class Producteur implements Acteur, IProducteur {
 	 * @return l'ensemble des transformateurs du Monde.
 	 */
 	private List<ITransformateur> getTransformateurs() {
-		List<ITransformateur> transfos = new ArrayList<ITransformateur>();
-		for (Acteur a : Monde.LE_MONDE.getActeurs()) {
-			if (a instanceof ITransformateur) {
-				transfos.add((ITransformateur)(a));
-			}
-		}
-		return transfos;
+		return this.transformateurs;
 	}
 	
 	public void next() {
 		// Partie 1 : Gestion des ventes
 		for (ITransformateur t : this.getTransformateurs()) {
-			this.notificationVente(t);
+			this.vendre(t);
 		}
 		
 		// Partie 2 : Mise a jour de la quantite disponible a la vente (et plus tard du prix de vente) du prochain step
 		
-		this.produire(Monde.LE_MONDE.getStep());
+		this.produire();
 		this.journal.ajouter("Production de "+this.getNom()+" = <font color=\"maroon\">"+this.getProductionCourante()+"</font> au <b>step</b> "+Monde.LE_MONDE.getStep());
 		
 		// Plus tard, on ajoutera des fluctuations dans le prix de vente ; pour l'instant il est a 3000 euros par tonne.
