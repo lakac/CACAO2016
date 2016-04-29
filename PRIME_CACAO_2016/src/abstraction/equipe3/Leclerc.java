@@ -73,12 +73,12 @@ public class Leclerc implements Acteur,IDistributeur{
 		this.qteT3=0.839*commande;  /** 83,9% est acheté à Autre*/
 	}
 	/** Demande selon la période de l'année*/
-	public void commande(){
-		if (Monde.LE_MONDE.getStep()%26==6){
+	public void commande(int step){
+		if (step%26==3){
 			setQte(3673.08);					/** correspond à Pâques*/
 		}
 		else{
-			if (Monde.LE_MONDE.getStep()%26==23){
+			if (step%26==23){
 				setQte(6173.08);				/** correspond à Noël*/
 			}
 			else{
@@ -87,7 +87,21 @@ public class Leclerc implements Acteur,IDistributeur{
 		}
 	}
 	public double getDemande(ITransformateur t){
-		commande();
+		commande(Monde.LE_MONDE.getStep());
+		if (t.equals(transformateurs.get(0))) {
+			return qteT1;
+		}
+		else{
+			if (t.equals(transformateurs.get(1))){
+				return qteT2;
+			}
+			else{
+				return qteT3;
+			}
+		}
+	}
+	public double getVente(ITransformateur t){
+		commande(Monde.LE_MONDE.getStep()-3);
 		if (t.equals(transformateurs.get(0))) {
 			return qteT1;
 		}
@@ -103,13 +117,15 @@ public class Leclerc implements Acteur,IDistributeur{
 	
 	public void next() {
 	    setPrix(15.0);
-	    commande();
+	    commande(Monde.LE_MONDE.getStep());
+		this.achats.setValeur(this,quantite);
 		this.prixvente=20.0;
 		for (ITransformateur t : this.transformateurs) {
-			double q = this.getDemande(t);
+			double q = this.getVente(t);
 			this.solde.setValeur(this, this.solde.getValeur()-q*this.getPrix()); 
 		}
-		this.achats.setValeur(this,quantite);
-		this.solde.setValeur(this, this.solde.getValeur()+quantite*this.getPrixvente()); //solde(step n)=solde step(n-1)+quantite(step n)*prixvente - quantite(step n)*prix
+
+		this.solde.setValeur(this, this.solde.getValeur()+quantite*this.getPrixvente());
+		 //solde(step n)=solde step(n-1)+quantite(step n)*prixvente - quantite(step n)*prix
 }
 }
