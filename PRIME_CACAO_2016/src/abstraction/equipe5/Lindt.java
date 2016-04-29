@@ -57,10 +57,10 @@ public class Lindt implements Acteur, ITransformateur{
 		P1.annonceQuantiteMiseEnVente(this);
 		P2.annonceQuantiteMiseEnVente(this);
 		this.getHist().ajouter(D1.getDemande(this)+ D2.getDemande(this));
-		stockChocolat.ajouterStock(this.getHist().valeur(Constante.STEP_PRECEDENT_MOINS_2));
-		stockChocolat.retirerStock(this.getHist().valeur(Constante.STEP_PRECEDENT_MOINS_3));
+		stockChocolat.ajouterStock(this.getHist().valeur(Constante.STEP_2));
+		stockChocolat.retirerStock(this.getHist().valeur(Constante.STEP_3));
 		stockCacao.ajouterStock(0.4 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT)); // stock lié au reste du monde
-		stockCacao.retirerStock(0.4 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT_MOINS_2)); // stock lié au reste du monde
+		stockCacao.retirerStock(0.4 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_2)); // stock lié au reste du monde
 		treso.depot(treso.marge());
 		treso.retrait(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT) * 3000); // achat cacao au reste du monde
 		this.venteChocolat.setValeur(this, this.stockChocolat.getStock());	
@@ -74,7 +74,7 @@ public class Lindt implements Acteur, ITransformateur{
 	 */
 	public void notificationVente(IProducteur p){ // on travaille avec chaque producteur d'où le ratio de 0.3 à chaque fois
 		stockCacao.ajouterStock(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT));
-		stockCacao.retirerStock(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT_MOINS_2));
+		stockCacao.retirerStock(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_2));
 		treso.retrait(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT) * p.annoncePrix());
 	}
 
