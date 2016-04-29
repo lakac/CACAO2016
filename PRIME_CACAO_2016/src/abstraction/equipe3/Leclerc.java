@@ -72,7 +72,9 @@ public class Leclerc implements Acteur,IDistributeur{
 		this.qteT2=0.036*commande;  /** 3,6% est acheté à Lindt*/
 		this.qteT3=0.839*commande;  /** 83,9% est acheté à Autre*/
 	}
+	
 	/** Demande selon la période de l'année*/
+	
 	public void commande(){
 		if (Monde.LE_MONDE.getStep()%26==6){
 			setQte(3673.08);					/** correspond à Pâques*/
@@ -101,6 +103,8 @@ public class Leclerc implements Acteur,IDistributeur{
 			}
 		}
 	}
+	
+	
 	
 	public void next() {
 	    setPrix(15.0);
