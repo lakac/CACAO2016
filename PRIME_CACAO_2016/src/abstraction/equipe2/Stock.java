@@ -10,7 +10,7 @@ public class Stock {
 			if(this.getStock()[1]<0){
 				return -1;
 			}else{
-			double s = this.getStock()[1]+this.getStock()[0]-0.6*Transformateur2.commandes.getCommandes()[1];
+			double s = this.getStock()[1]+this.getStock()[0]-0.6*Nestle.commandes.getCommandes()[1];
 			if (s>=0){
 				return s;}
 			else{
@@ -49,16 +49,16 @@ public class Stock {
 		
 		public void ajout_cacao(){
 			this.getStock()[1]+=this.getStock()[0];
-			this.getStock()[1]-=0.6*Transformateur2.commandes.getCommandes()[1];
-			this.getStock()[0]=0.6*Transformateur2.commandes.getCommandes()[2];
+			this.getStock()[1]-=0.6*Nestle.commandes.getCommandes()[1];
+			this.getStock()[0]=0.6*Nestle.commandes.getCommandes()[2];
 		}
 		
 		
 		//suivi du stock de chocolat au fil des step
 		public void ajout_chocolat(){
 			this.getStock()[1]+=this.getStock()[0];
-			this.getStock()[1]-=0.6*Transformateur2.commandes.getCommandes()[0];
-			this.getStock()[0]=Transformateur2.commandes.getCommandes()[1];
+			this.getStock()[1]-=0.6*Nestle.commandes.getCommandes()[0];
+			this.getStock()[0]=Nestle.commandes.getCommandes()[1];
 		}
 		
 		public static void main(String[] args) {
