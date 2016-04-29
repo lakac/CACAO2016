@@ -20,11 +20,6 @@ public class Tresorerie {
 	}
 
 
-	public Acteur getProd() {
-		return Prod;
-	}
-
-	
 	public double getCoutProd() {
 		return this.CoutProd;
 	}
@@ -33,9 +28,6 @@ public class Tresorerie {
 		return this.prix;
 	}
 
-	public Indicateur getFond() {
-		return this.fond;
-	}
 
 
 	public double PrixVente(double commande){
