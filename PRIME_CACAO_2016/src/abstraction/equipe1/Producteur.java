@@ -71,7 +71,7 @@ public class Producteur implements Acteur, IProducteur {
 	 */
 	private void produire() {
 		Random fluctuations = new Random();
-		this.setProductionCourante(Math.floor(this.getProductionDeBase(Monde.LE_MONDE.getStep())*this.getProductionAnnuelle()*(98+4*fluctuations.nextDouble()))/100.0);
+		this.setProductionCourante(Math.floor(this.getProductionDeBaseCourante()*this.getProductionAnnuelle()*(98+4*fluctuations.nextDouble()))/100.0);
 		this.setStock(this.getStock()+this.getProductionCourante());
 		this.setTresorerie(this.getTresorerie()-this.getCoutProduction()*this.getProductionCourante());
 		for (ITransformateur t : this.getTransformateurs()) {
@@ -118,8 +118,8 @@ public class Producteur implements Acteur, IProducteur {
 	/**
 	 * @return la production de base (theorique) de notre producteur a la periode de l'annee correspondant au step actuel.
 	 */
-	private double getProductionDeBase(int step) {
-		return this.productionDeBase[step%26];
+	private double getProductionDeBaseCourante() {
+		return this.productionDeBase[Monde.LE_MONDE.getStep()%26];
 	}
 	
 	private double getProductionCourante() {
