@@ -10,7 +10,7 @@ import abstraction.fourni.Monde;
 public class MarcheDistributeur implements Acteur{
 
 		public static MarcheDistributeur LE_MARCHE_DISTRIBUTEUR;	
-		public static final double COURS_CHOCOLAT = 3000.0;
+		public static final double COURS_CHOCOLAT = 15000.0;
 		
 		private double quantiteMiseEnVente;
 
