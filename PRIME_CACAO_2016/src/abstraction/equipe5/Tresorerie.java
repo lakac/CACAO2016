@@ -23,7 +23,7 @@ public class Tresorerie {
 		this.treso = treso;
 	}
 	
-	public void ajouterTresorerie(double d) {
+	public void ajouterTresorerie(double d)/*depot et retrait**/ {
 		this.setTresorerie(this.getTresorerie()+d);
 	}
 	

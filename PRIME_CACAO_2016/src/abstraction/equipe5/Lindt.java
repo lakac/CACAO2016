@@ -32,14 +32,20 @@ public class Lindt implements Acteur, ITransformateur{
 		this.stock_chocolat = new Stock(0);
 		this.etatStockCacao = new Indicateur("Stock de Cacao Lindt", this, this.stock_cacao.getStock());
 		this.etatStockChocolat = new Indicateur("Stock de Chocolat Lindt", this, this.stock_chocolat.getStock());
-		this.venteChocolat = new Indicateur("quantit√© de chocolat vendue Lindt", this, this.stock_chocolat.getStock());
+		this.venteChocolat = new Indicateur("quantitÈ de chocolat vendue Lindt", this, this.stock_chocolat.getStock());
 		Monde.LE_MONDE.ajouterIndicateur( this.etatStockCacao );
 		Monde.LE_MONDE.ajouterIndicateur( this.etatStockChocolat );
 		Monde.LE_MONDE.ajouterIndicateur(venteChocolat);
 		this.treso=new Tresorerie(this.getHist());
 		this.achatProd = new AchatProd(hist, quantiteMiseEnVenteProducteur1, quantiteMiseEnVenteProducteur2);
-
+		P1 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1);
+		P2 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2);
+		D1 = (IDistributeur)Monde.LE_MONDE.getActeur("Carrefour");
+		D2 = (IDistributeur)Monde.LE_MONDE.getActeur("Leclerc");
 		
+	}
+	public IProducteur setProducteur(IProducteur p){
+		return p;
 	}
 	
 	public String getNom() {
@@ -51,10 +57,6 @@ public class Lindt implements Acteur, ITransformateur{
 	
 
 	public void next() {
-		P1 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1);
-		P2 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2);
-		D1 = (IDistributeur)Monde.LE_MONDE.getActeur("Carrefour");
-		D2 = (IDistributeur)Monde.LE_MONDE.getActeur("Leclerc");
 		quantiteMiseEnVenteProducteur1 = P1.annonceQuantiteMiseEnVente(this);
 		quantiteMiseEnVenteProducteur2 = P2.annonceQuantiteMiseEnVente(this);
 		this.getHist().ajouter(D1.getDemande(this)+ D2.getDemande(this));
@@ -71,10 +73,10 @@ public class Lindt implements Acteur, ITransformateur{
 	}
 
 	/**
-	 * Met √† jour l'√©tat interne de ce transformateur
-	 * suite √† une vente aupr√®s du producteur p.
+	 * Met a† jour l'Ètat interne de ce transformateur
+	 * suite a† une vente auprËs du producteur p.
 	 * 
-	 * Cette m√©thode est appel√©e par les producteurs.
+	 * Cette mÈthode est appelÈe par les producteurs.
 	 */
 	public void notificationVente(IProducteur p){ // on travaille avec chaque producteur d'o√π le ratio de 0.3 √† chaque fois
 		stock_cacao.ajouterStock(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT));

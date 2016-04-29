@@ -15,7 +15,7 @@ public class AchatProd {
 		this.quantiteMiseEnVenteProducteur1 = q2;
 	}
 	/**
-	 * Indique la quantitÃ© demandÃ©e au producteur p.
+	 * Indique la quantité demandée au producteur p.
 	 */
 	public double annonceQuantiteDemandee(IProducteur p){ // le reste du monde est pris en compte manuellement dans le next
 		double quantiteTotale = Constante.RATIO_CACAO_CHOCOLAT*hist.valeur(Constante.STEP_COURANT);
