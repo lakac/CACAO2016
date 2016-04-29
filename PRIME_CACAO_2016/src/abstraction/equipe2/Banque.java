@@ -31,11 +31,11 @@ public class Banque {
 						+Nestle.commandes.quantiteDemandeeMonde(0.4)*(5+3000);			//Prix d'achat au monde :3000€ la tonne
 						;			//Prix d'achat au monde :3000€ la tonne
 		CI[1] = CI[0]*0.6/Nestle.commandes.getCommandes()[1];
-			CI[0] = 13003370+Transformateur2.commandes.quantiteDemandee(0.3)*(5+p1.annoncePrix())
-						+Transformateur2.commandes.quantiteDemandee(0.3)*(5+p2.annoncePrix());
+			CI[0] = 13003370+Nestle.commandes.quantiteDemandee(0.3)*(5+p1.annoncePrix())
+						+Nestle.commandes.quantiteDemandee(0.3)*(5+p2.annoncePrix());
 						//+Transformateur2.commandes.quantiteDemandeeMonde(0.4)*(5+3000)
-		if (Transformateur2.commandes.getCommandes()[1] != 0) {;			//Prix d'achat au monde :3000€ la tonne
-			CI[1] = CI[0]*0.6/Transformateur2.commandes.getCommandes()[1];
+		if (Nestle.commandes.getCommandes()[1] != 0) {;			//Prix d'achat au monde :3000€ la tonne
+			CI[1] = CI[0]*0.6/Nestle.commandes.getCommandes()[1];
 		// 600g de cacao équivalent à 1kg de chocolat
 		return CI;
 		//Test OK
@@ -55,7 +55,7 @@ public class Banque {
 	//Le prix du kilo de chocolat étant fixé, tout ce que l'on peut calculer c'est la marge que l'on se fait.
 	public static double Marge (IProducteur p1,IProducteur p2) {
 		if (CoutIntermediaires(p1,p2)[1] != 0) {
-		double M = ((Transformateur2.prixDeVente()
+		double M = ((Nestle.prixDeVente()
 				-CoutIntermediaires(p1,p2)[1]
 				/(CoutIntermediaires(p1,p2)[1])*100));
 		return M;
