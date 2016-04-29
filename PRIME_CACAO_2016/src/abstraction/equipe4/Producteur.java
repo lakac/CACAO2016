@@ -18,7 +18,7 @@ public class Producteur implements Acteur,IProducteur{
 	
     public Producteur(Monde monde) {
        this.nom = Constantes.NOM_PRODUCTEUR_2;
-	   this.treso = new Tresorerie(this,3000.0,10.0);
+	   this.treso = new Tresorerie(this,3000.0,1000.0);
 	   this.stock = new Indicateur("Stock de "+ this.nom,this,0.0);
        this.prod_tot_utilisable = new Indicateur(Constantes.IND_PRODUCTION_P2, this, 0.0);
        this.journal = new Journal("Journal de "+this.nom);
