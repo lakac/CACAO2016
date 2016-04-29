@@ -8,7 +8,7 @@ public class Stock {
 	private Lindt lindt;
 	private String nom;
 	
-	public Stock (double d, Lindt lindt, String nom) {
+	public Stock (double d, String nom, Lindt lindt) {
 		this.lindt=lindt;
 		this.nom=nom;
 		this.stock = new Indicateur("stock de "+ this.nom +"de Lindt", this.lindt, d);
