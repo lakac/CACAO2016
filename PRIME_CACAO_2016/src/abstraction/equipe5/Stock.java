@@ -1,14 +1,18 @@
 package abstraction.equipe5;
 import abstraction.fourni.Indicateur;
+import abstraction.fourni.Monde;
 import abstraction.equipe5.Lindt;
 
 public class Stock {
-	private  Indicateur stock;
+	private Indicateur stock;
 	private Lindt lindt;
+	private String nom;
 	
-	public Stock (double d, Lindt lindt) {
+	public Stock  (String nom, Lindt lindt,double d) {
 		this.lindt=lindt;
-		this.stock = new Indicateur("Stock de Lindt", this.lindt, d);
+		this.nom=nom;
+		this.stock = new Indicateur("stock de "+ this.nom +"de Lindt", this.lindt,d);
+		Monde.LE_MONDE.ajouterIndicateur(this.stock);
 	}
 	
 	public double getStock() {
