@@ -2,8 +2,8 @@ package abstraction.equipe4;
 import abstraction.fourni.*;
 import java.util.ArrayList;
 import abstraction.commun.*;
+public class Producteur implements Acteur,IProducteur{
 
-public class Producteur implements Acteur,IProducteur {
 	private String nom; 
 	private Indicateur stock; 
 	private Journal journal;
@@ -34,6 +34,7 @@ public class Producteur implements Acteur,IProducteur {
     	Monde.LE_MONDE.ajouterIndicateur(this.pertes);
     	Monde.LE_MONDE.ajouterIndicateur(this.stock);
     }
+
 
     //return un String : le nom du producteur 2
     

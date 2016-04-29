@@ -3,8 +3,10 @@ import abstraction.fourni.*;
 
 public class Tresorerie {
 	private Indicateur fond;
-	private double prix;
-	private double CoutProd;
+	// prix de vente
+	private double prix; 
+	// cout de prod
+	private double CoutProd; 
 	private Acteur Prod;
 	
 	
