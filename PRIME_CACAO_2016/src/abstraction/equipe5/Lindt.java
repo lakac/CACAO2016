@@ -1,7 +1,6 @@
 package abstraction.equipe5;
 
 import java.util.ArrayList;
-
 import abstraction.commun.Constantes;
 import abstraction.commun.IDistributeur;
 import abstraction.commun.IProducteur;
