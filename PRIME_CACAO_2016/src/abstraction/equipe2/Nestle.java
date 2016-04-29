@@ -116,6 +116,7 @@ public class Nestle implements Acteur, ITransformateur{
 		this.solde.setValeur(this, tresorerie.getTresorerie());
 		this.ventes.setValeur(this, commandes.getCommandes()[0]);
 	}		
+	
 }
 
 
