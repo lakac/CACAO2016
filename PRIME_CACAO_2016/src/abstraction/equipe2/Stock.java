@@ -6,11 +6,11 @@ public class Stock {
 	
 	// le stosk à l'instant t dépend de la quantité demandé pour l'instant t+2 
 		//et de la quantité produite pour l'instant t+1
-		public double stock_cacao (double[] T, Stock S1) {	
+		public double stock_cacao (Stock S1) {	
 			if(this.getStock()[1]<0){
 				return -1;
 			}else{
-			double s = this.getStock()[1]+this.getStock()[0]-0.6*T[1];
+			double s = this.getStock()[1]+this.getStock()[0]-0.6*Transformateur2.commandes.getCommandes()[1];
 			if (s>=0){
 				return s;}
 			else{
