@@ -1,7 +1,6 @@
 package abstraction.equipe5;
 
 import java.util.ArrayList;
-
 import abstraction.commun.Constantes;
 import abstraction.commun.IDistributeur;
 import abstraction.commun.IProducteur;
@@ -35,10 +34,10 @@ public class Lindt implements Acteur, ITransformateur{
 		this.etatStockCacao = new Indicateur("Stock de Cacao Lindt", this, this.stockCacao.getStock());
 		this.etatStockChocolat = new Indicateur("Stock de Chocolat Lindt", this, this.stockChocolat.getStock());
 		this.venteChocolat = new Indicateur("quantitÃ© de chocolat vendue Lindt", this, this.stockChocolat.getStock());
+		this.treso = new Tresorerie(this.getHist(), this);
 		Monde.LE_MONDE.ajouterIndicateur( this.etatStockCacao );
 		Monde.LE_MONDE.ajouterIndicateur( this.etatStockChocolat );
 		Monde.LE_MONDE.ajouterIndicateur(venteChocolat);
-		this.treso=new Tresorerie(this.getHist());
 		P1 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1);
 		P2 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2);
 		D1 = (IDistributeur)Monde.LE_MONDE.getActeur("Carrefour");
@@ -50,7 +49,7 @@ public class Lindt implements Acteur, ITransformateur{
 		return p;
 	}
 	
-	// Pour ajouter les distributeurs et producteurs à nos listes
+	// Pour ajouter les distributeurs et producteurs ï¿½ nos listes
 	public void ajouterDistributeur(IDistributeur t) {
 		this.distributeurs.add(t);
 	}
@@ -83,10 +82,10 @@ public class Lindt implements Acteur, ITransformateur{
 	}
 
 	/**
-	 * Met a  jour l'état interne de ce transformateur
-	 * suite a  une vente auprès du producteur p.
+	 * Met aï¿½ jour l'ï¿½tat interne de ce transformateur
+	 * suite aï¿½ une vente auprï¿½s du producteur p.
 	 * 
-	 * Cette méthode est appelée par les producteurs.
+	 * Cette mï¿½thode est appelï¿½e par les producteurs.
 	 */
 	public void notificationVente(IProducteur p){ // on travaille avec chaque producteur d'oÃ¹ le ratio de 0.3 Ã  chaque fois
 		stockCacao.ajouterStock(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT));

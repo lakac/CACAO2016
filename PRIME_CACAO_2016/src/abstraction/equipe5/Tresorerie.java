@@ -3,24 +3,29 @@ package abstraction.equipe5;
 import abstraction.fourni.Monde;
 import abstraction.commun.Constantes;
 import abstraction.commun.IProducteur;
+import abstraction.fourni.Indicateur;
+import abstraction.equipe5.Lindt;
 
 public class Tresorerie {
 	private HistoriqueCommandeDist hist;
-	private double treso;	
+	private Indicateur treso;	
 	private IProducteur P1;
 	private IProducteur P2;
+	private Lindt lindt;
 
-	public Tresorerie(HistoriqueCommandeDist hist){
+	public Tresorerie(HistoriqueCommandeDist hist, Lindt lindt){
 		this.hist= hist;
-		this.treso = 0;
+		this.lindt = lindt;
+		this.treso = new Indicateur("Trésorerie Lindt", lindt, 100000);
+		Monde.LE_MONDE.ajouterIndicateur(this.treso);
 	}
 	
 	public double getTresorerie() {
-		return this.treso;
+		return this.treso.getValeur();
 	}
 	
 	private void setTresorerie(double treso) { 
-			this.treso = treso;
+			this.treso.setValeur(this.lindt, treso);
 	}
 	
 
