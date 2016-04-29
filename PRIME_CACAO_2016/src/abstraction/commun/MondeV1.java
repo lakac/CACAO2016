@@ -33,12 +33,18 @@ public class MondeV1 extends Monde {
 		this.ajouterActeur(t1);
 		Lindt lindt = new Lindt();
 		ajouterActeur(lindt);
+		lindt.ajouterDistributeur(Ca);
+		lindt.ajouterDistributeur(Le);
 		
 		// Producteurs
 		Producteur p1 = new Producteur(Constantes.NOM_PRODUCTEUR_1, 1000.0, 0.0, Monde.LE_MONDE);
 		abstraction.equipe4.Producteur p2 = new abstraction.equipe4.Producteur(Monde.LE_MONDE);
 		this.ajouterActeur(p1);
 		this.ajouterActeur(p2);
+		
+		lindt.ajouterProducteur(p1);
+		lindt.ajouterProducteur(p2);
+		
 		Le.ajouterVendeur(t1);
 		Le.ajouterVendeur(lindt);
 		Ca.ajouterVendeur(t1);
