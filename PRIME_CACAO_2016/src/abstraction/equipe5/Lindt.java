@@ -90,4 +90,7 @@ public class Lindt implements Acteur, ITransformateur{
 	public double annonceQuantiteDemandee(IProducteur p) {
 		return this.achatProd.annonceQuantiteDemandee(p, p.annonceQuantiteMiseEnVente(this));
 	}
+	public double annonceQuantiteMiseEnVente(IDistributeur d){
+		return 0.0 ;// Return notre stock :) 
+	}
 }

@@ -24,12 +24,6 @@ package abstraction.commun;
 			this.quantiteMiseEnVente = 0.0;
 		}
 		
-		public void addProducteur(IProducteur p) {
-			this.producteurs.add(p);
-		}
-		public void addTransformateur(ITransformateur t) {
-			this.transformateurs.add(t);
-		}
 		public double getCours() {
 			return Marche.COURS;
 		}
@@ -55,47 +49,47 @@ package abstraction.commun;
 			for (IDistributeur d : this.distributeurs) {
 				int i =0;
 				for (ITransformateur t : this.transformateurs){
-//					quantitesEnVenteT[i] =+ t.annonceQuantiteMiseEnVente(d);
+					quantitesEnVenteT[i] =+ t.annonceQuantiteMiseEnVente(d);
 					i++;
-//					totalQuantitesEnVenteT+=t.annonceQuantiteMiseEnVente(d);
+					totalQuantitesEnVenteT+=t.annonceQuantiteMiseEnVente(d);
 			}}
 
-//			double[] quantitesDemandees = new double[this.transformateurs.size()];
-//			for (int i=0; i<this.transformateurs.size(); i++) {
-//				quantitesDemandees[i] = this.transformateurs.get(i).quantiteSouhaitee();
-//			}
-//			double totalQuantitesDemandees =0.0;
-//			for (double d : quantitesDemandees) {
-//				totalQuantitesDemandees+=d;
-//			}
-//			double[] quantitesReellementAchettes  = new double[this.transformateurs.size()]; 
-//			double[] quantitesReellementVendues  = new double[this.producteurs.size()]; 
-//			if (totalQuantitesDemandees>totalQuantitesEnVente) { // demande > offre
-//				for (int i=0; i<this.transformateurs.size(); i++) {
-//					quantitesReellementAchettes[i]=quantitesDemandees[i]*totalQuantitesEnVente/totalQuantitesDemandees;
-//				}
-//				for (int i=0; i<this.producteurs.size(); i++) {
-//					quantitesReellementVendues[i]=quantitesEnVente[i];
-//				}
-//				
-//			} else {// offre >= demande
-//				for (int i=0; i<this.transformateurs.size(); i++) {
-//					quantitesReellementAchettes[i]=quantitesDemandees[i];
-//				}
-//				for (int i=0; i<this.producteurs.size(); i++) {
-//					quantitesReellementVendues[i]=quantitesEnVente[i]*totalQuantitesDemandees/totalQuantitesEnVente;
-//				}
-//			}
-//			
-//			for (int i=0; i<this.transformateurs.size(); i++) {
-//				this.transformateurs.get(i).notificationVente(quantitesReellementAchettes[i]);
-//			}
-//			for (int i=0; i<this.producteurs.size(); i++) {
-//				this.producteurs.get(i).notificationVente(quantitesReellementVendues[i]);
-//			}
-//			
-//			
-//		}
+			double[] quantitesDemandees = new double[this.transformateurs.size()];
+			for (int i=0; i<this.transformateurs.size(); i++) {
+				quantitesDemandees[i] = this.transformateurs.get(i).quantiteSouhaitee();
+			}
+			double totalQuantitesDemandees =0.0;
+			for (double d : quantitesDemandees) {
+				totalQuantitesDemandees+=d;
+			}
+			double[] quantitesReellementAchettes  = new double[this.transformateurs.size()]; 
+			double[] quantitesReellementVendues  = new double[this.producteurs.size()]; 
+			if (totalQuantitesDemandees>totalQuantitesEnVente) { // demande > offre
+				for (int i=0; i<this.transformateurs.size(); i++) {
+					quantitesReellementAchettes[i]=quantitesDemandees[i]*totalQuantitesEnVente/totalQuantitesDemandees;
+				}
+				for (int i=0; i<this.producteurs.size(); i++) {
+					quantitesReellementVendues[i]=quantitesEnVente[i];
+				}
+				
+			} else {// offre >= demande
+				for (int i=0; i<this.transformateurs.size(); i++) {
+					quantitesReellementAchettes[i]=quantitesDemandees[i];
+				}
+				for (int i=0; i<this.producteurs.size(); i++) {
+					quantitesReellementVendues[i]=quantitesEnVente[i]*totalQuantitesDemandees/totalQuantitesEnVente;
+				}
+			}
+			
+			for (int i=0; i<this.transformateurs.size(); i++) {
+				this.transformateurs.get(i).notificationVente(quantitesReellementAchettes[i]);
+			}
+			for (int i=0; i<this.producteurs.size(); i++) {
+				this.producteurs.get(i).notificationVente(quantitesReellementVendues[i]);
+			}
+			
+			
+		}
 	}	
 
 
