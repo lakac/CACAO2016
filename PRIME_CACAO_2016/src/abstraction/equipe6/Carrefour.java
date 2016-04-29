@@ -45,11 +45,13 @@ public class Carrefour implements Acteur,IDistributeur {
 		if (step%26 == 6 ) {
 			this.demandeperstep = 0.06*this.getDemandeAnnuel();
 		}
-		if (step%26 == 25) {
-			this.demandeperstep = 0.12*this.getDemandeAnnuel();
-		}
 		else {
-			this.demandeperstep = 0.03416*this.getDemandeAnnuel();
+			if (step%26 == 25) {
+				this.demandeperstep = 0.12*this.getDemandeAnnuel();
+			}
+			else {
+				this.demandeperstep = 0.03416*this.getDemandeAnnuel();
+			}
 		}
 	}
 	
@@ -81,6 +83,18 @@ public class Carrefour implements Acteur,IDistributeur {
 			return this.demandeperstep*0.839;
 		}
 	}
+	public double getVente(ITransformateur t) {
+		this.setdemandePerStep(MondeV1.LE_MONDE.getStep());
+		if (t.equals(transformateurs.get(0))) {
+			return this.demandeperstep*0.125;
+		}
+		if (t.equals(transformateurs.get(1))) {
+			return this.demandeperstep*0.036;
+		}
+		else {
+			return this.demandeperstep*0.839;
+		}
+	}
 	
 	public String getNom() {
 		return this.nom;
@@ -91,10 +105,10 @@ public class Carrefour implements Acteur,IDistributeur {
 
 
 	public void next() {
-		setdemandePerStep( MondeV1.LE_MONDE.getStep());
+		setdemandePerStep(MondeV1.LE_MONDE.getStep());
 		setFraisdeDistri();
 		for (ITransformateur t : this.transformateurs) {
-			double q = this.getDemande(t);
+			double q = this.getVente(t);
 			this.solde.setValeur(this, this.solde.getValeur()-q*this.getPrix());
 		}
 		this.achats.setValeur(this, this.demandeperstep);
