@@ -7,40 +7,33 @@ package abstraction.commun;
 	import abstraction.fourni.Acteur;
 	import abstraction.fourni.Monde;
 
-	public class Marche implements Acteur {
-		public static Marche LE_MARCHE;	
-		public static final double COURS = 3000.0;
+	public class MarcheProducteur implements Acteur {
+		public static MarcheProducteur LE_MARCHE;	
+		public static final double COURS_CACAO = 3000.0;
 		
 		private double quantiteMiseEnVente;
 
 		private ArrayList<IProducteur> producteurs;
 		private ArrayList<ITransformateur> transformateurs;
-		private ArrayList<IDistributeur> distributeurs;
 
-		public Marche() {
+		public MarcheProducteur() {
 			this.producteurs = new ArrayList<IProducteur>();
 			this.transformateurs = new ArrayList<ITransformateur>();
-			this.distributeurs = new ArrayList<IDistributeur>();
 			this.quantiteMiseEnVente = 0.0;
 		}
 		
-		public void addProducteur(IProducteur p) {
-			this.producteurs.add(p);
-		}
-		public void addTransformateur(ITransformateur t) {
-			this.transformateurs.add(t);
-		}
 		public double getCours() {
-			return Marche.COURS;
+			return MarcheProducteur.COURS_CACAO;
 		}
 		public double vendre(double quantite) {
 			this.quantiteMiseEnVente += quantite;
-			return quantite*Marche.COURS;
+			return quantite*MarcheProducteur.COURS_CACAO;
 		}
 		public String getNom() {
 			return "Marche du cacao";
 		}
 		public void next() {
+		// Toutes les quantites mise en vente
 			double[] quantitesEnVenteP = new double[this.producteurs.size()];
 			double totalQuantitesEnVenteP =0.0;
 			for (ITransformateur t : this.transformateurs) {
@@ -50,29 +43,21 @@ package abstraction.commun;
 					i++;
 					totalQuantitesEnVenteP+=p.annonceQuantiteMiseEnVente(t);
 			}}
-			double[] quantitesEnVenteT = new double[this.transformateurs.size()];
-			double totalQuantitesEnVenteT =0.0;
-			for (IDistributeur d : this.distributeurs) {
+			// Toutes les quantites demandees
+			double[] quantitesDemandeesT = new double[this.transformateurs.size()];
+			double totalQuantitesDemandeesT =0.0;
+			for (ITransformateur t0: this.transformateurs) {
 				int i =0;
-				for (ITransformateur t : this.transformateurs){
-//					quantitesEnVenteT[i] =+ t.annonceQuantiteMiseEnVente(d);
+				for (IProducteur p0: this.producteurs){
+					quantitesDemandeesT[i] = t0.annonceQuantiteDemandee(p0);
 					i++;
-//					totalQuantitesEnVenteT+=t.annonceQuantiteMiseEnVente(d);
-			}}
-
-//			double[] quantitesDemandees = new double[this.transformateurs.size()];
-//			for (int i=0; i<this.transformateurs.size(); i++) {
-//				quantitesDemandees[i] = this.transformateurs.get(i).quantiteSouhaitee();
-//			}
-//			double totalQuantitesDemandees =0.0;
-//			for (double d : quantitesDemandees) {
-//				totalQuantitesDemandees+=d;
-//			}
-//			double[] quantitesReellementAchettes  = new double[this.transformateurs.size()]; 
+					totalQuantitesDemandeesT+=t0.annonceQuantiteDemandee(p0);
+				}}
+//			double[] quantitesReellementAchetees  = new double[this.transformateurs.size()]; 
 //			double[] quantitesReellementVendues  = new double[this.producteurs.size()]; 
-//			if (totalQuantitesDemandees>totalQuantitesEnVente) { // demande > offre
+//			if (totalQuantitesDemandeesT>totalQuantitesEnVente) { // demande > offre
 //				for (int i=0; i<this.transformateurs.size(); i++) {
-//					quantitesReellementAchettes[i]=quantitesDemandees[i]*totalQuantitesEnVente/totalQuantitesDemandees;
+//					quantitesReellementAchetees[i]=quantitesDemandeesT[i]*totalQuantitesEnVente/totalQuantitesDemandeesT;
 //				}
 //				for (int i=0; i<this.producteurs.size(); i++) {
 //					quantitesReellementVendues[i]=quantitesEnVente[i];
@@ -80,24 +65,24 @@ package abstraction.commun;
 //				
 //			} else {// offre >= demande
 //				for (int i=0; i<this.transformateurs.size(); i++) {
-//					quantitesReellementAchettes[i]=quantitesDemandees[i];
+//					quantitesReellementAchetees[i]=quantitesDemandeesT[i];
 //				}
 //				for (int i=0; i<this.producteurs.size(); i++) {
-//					quantitesReellementVendues[i]=quantitesEnVente[i]*totalQuantitesDemandees/totalQuantitesEnVente;
+//					quantitesReellementVendues[i]=quantitesEnVente[i]*totalQuantitesDemandeesT/totalQuantitesEnVente;
 //				}
 //			}
-//			
+//			//////////////////////////////////////////////
 //			for (int i=0; i<this.transformateurs.size(); i++) {
-//				this.transformateurs.get(i).notificationVente(quantitesReellementAchettes[i]);
+//				this.transformateurs.get(i).notificationVente(quantitesReellementAchetees[i]);
 //			}
 //			for (int i=0; i<this.producteurs.size(); i++) {
 //				this.producteurs.get(i).notificationVente(quantitesReellementVendues[i]);
 //			}
 //			
 //			
-//		}
+		}
 	}	
 
 
 
-}
+

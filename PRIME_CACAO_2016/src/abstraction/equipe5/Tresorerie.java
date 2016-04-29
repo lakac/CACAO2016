@@ -51,7 +51,7 @@ public class Tresorerie {
 	}
 	
 	public double marge(){
-		return (15000*hist.valeur(Constante.STEP_PRECEDENT_MOINS_3)-coutRevient());
+		return (15000*hist.valeur(Constante.STEP_3)-coutRevient());
 	}
 }
 
