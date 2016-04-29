@@ -45,16 +45,12 @@ public class Lindt implements Acteur, ITransformateur{
 		this.achatProd = new AchatProd(hist);		
 	}
 	
-	public IProducteur setProducteur(IProducteur p){
-		return p;
-	}
-	
-	// Pour ajouter les distributeurs et producteurs � nos listes
-	public void ajouterDistributeur(IDistributeur t) {
-		this.distributeurs.add(t);
-	}
 	public void ajouterProducteur(IProducteur t) {
 		this.producteurs.add(t);
+	}
+	
+	public void ajouterDistributeur(IDistributeur t) {
+		this.distributeurs.add(t);
 	}
 	
 	public String getNom() {

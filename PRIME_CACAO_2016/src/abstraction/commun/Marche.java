@@ -1,4 +1,4 @@
-package abstraction.equipe5;
+package abstraction.commun;
 	
 	import java.util.ArrayList;
 	import abstraction.commun.IDistributeur;
@@ -50,14 +50,14 @@ package abstraction.equipe5;
 					i++;
 					totalQuantitesEnVenteP+=p.annonceQuantiteMiseEnVente(t);
 			}}
-			double[] quantitesEnVenteD = new double[this.producteurs.size()];
-			double totalQuantitesEnVenteD =0.0;
+			double[] quantitesEnVenteT = new double[this.transformateurs.size()];
+			double totalQuantitesEnVenteT =0.0;
 			for (IDistributeur d : this.distributeurs) {
 				int i =0;
 				for (ITransformateur t : this.transformateurs){
-//					quantitesEnVenteD[i] =+ t.annonceQuantiteMiseEnVente(d);
+//					quantitesEnVenteT[i] =+ t.annonceQuantiteMiseEnVente(d);
 					i++;
-//					totalQuantitesEnVenteD+=t.annonceQuantiteMiseEnVente(d);
+//					totalQuantitesEnVenteT+=t.annonceQuantiteMiseEnVente(d);
 			}}
 
 //			double[] quantitesDemandees = new double[this.transformateurs.size()];
