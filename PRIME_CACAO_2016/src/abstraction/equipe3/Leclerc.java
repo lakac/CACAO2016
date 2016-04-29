@@ -2,13 +2,14 @@ package abstraction.equipe3;
 
 import java.util.ArrayList;
 
+import abstraction.commun.IDistributeur;
+import abstraction.commun.ITransformateur;
+import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
-import abstraction.fourni.v0.Detaillant;
-import abstraction.fourni.v0.IVendeur;
-import abstraction.fourni.v0.Transformateur;
 
-public class Leclerc extends Detaillant implements ILeclerc{
+public class Leclerc implements Acteur,IDistributeur{
+	private String nom;
 	private double qteT1;  /** quantité achetée au transformateur Nestlé*/ 
 	private double qteT2;  /** quantité achetée au transformateur Lindt*/ 
 	private double qteT3;  /** quantité achetée au transformateur Autre*/
@@ -17,11 +18,11 @@ public class Leclerc extends Detaillant implements ILeclerc{
 	private Indicateur achats;
 	private double quantite;
 	private double prix;
-	private ArrayList<IVendeur> vendeurs;
+	private ArrayList<ITransformateur> transformateurs;
 
 	
 	public Leclerc(String nom, Monde monde, double quantite, double prix) {
-		super( nom,  monde,  quantite,  prix);
+		this.nom=nom;
 		this.prix=prix;		
 		this.achats = new Indicateur("Achats de "+nom, this, 0.0);
 		this.solde = new Indicateur("Solde de "+nom, this, 1000000.0);
@@ -29,14 +30,16 @@ public class Leclerc extends Detaillant implements ILeclerc{
     	Monde.LE_MONDE.ajouterIndicateur( this.achats );
     	Monde.LE_MONDE.ajouterIndicateur( this.solde );
         
-    	this.vendeurs = new ArrayList<IVendeur>();
+    	this.transformateurs = new ArrayList<ITransformateur>();
 
 		// TODO Auto-generated constructor stub
 	}
-	public void ajouterVendeur(Transformateur t) {
-		this.vendeurs.add(t);
+	public void ajouterVendeur(ITransformateur t) {
+		this.transformateurs.add(t);
 	}
-	
+	public String getNom(){
+		return this.nom;
+	}
 	public double getQte(){
 		return this.quantite;
 	} 
@@ -52,9 +55,16 @@ public class Leclerc extends Detaillant implements ILeclerc{
 	public double getPrix(){
 		return this.prix;
 	}
+	public double getPrixvente(){
+		return this.prixvente;
+	}
 	public void setPrix(double prix){
 		this.prix=prix;
 	}
+	public void setPrixvente(double prixvente){
+		this.prixvente=prixvente;
+	}
+	
 
 	public void setQte(double commande){
 		this.quantite=commande;
@@ -64,28 +74,43 @@ public class Leclerc extends Detaillant implements ILeclerc{
 	}
 	/** Demande selon la période de l'année*/
 	public void commande(){
-		if (Monde.LE_MONDE.getStep()==4){
-			setQte(3812.5);					/** correspond à Pâques*/
+		if (Monde.LE_MONDE.getStep()%26==6){
+			setQte(3673.08);					/** correspond à Pâques*/
 		}
 		else{
-			if (Monde.LE_MONDE.getStep()==21){
-				setQte(6312.5);				/** correspond à Noël*/
+			if (Monde.LE_MONDE.getStep()%26==23){
+				setQte(6173.08);				/** correspond à Noël*/
 			}
 			else{
-				setQte(1812.5);
+				setQte(1673.08);
+			}
+		}
+	}
+	
+	public double getDemande(ITransformateur t){
+		commande();
+		if (t.equals(transformateurs.get(0))){
+			return qteT1;
+		}
+		else{
+			if (t.equals(transformateurs.get(1))){
+				return qteT2;
+			}
+			else{
+				return qteT3;
 			}
 		}
 	}
 	
 	public void next() {
-		this.achats.setValeur(this, 0.0);
-		commande();
-	    setPrix(20.0);
+	    setPrix(15.0);
+	    commande();
 		this.prixvente=20.0;
-		for (IVendeur t : this.vendeurs) {
-			double q = t.acheter(this, this.quantite);
-			this.solde.setValeur(this, this.solde.getValeur()-q*this.getPrix()+q*prixvente);
-			this.achats.setValeur(this, this.achats.getValeur()+q);
+		for (ITransformateur t : this.transformateurs) {
+			double q = this.getDemande(t);
+			this.solde.setValeur(this, this.solde.getValeur()+q*this.getPrix()); //on ach�te au transformateur donc il re�oit de l'argent
 		}
+		this.achats.setValeur(this,quantite);
+		this.solde.setValeur(this, this.solde.getValeur()-quantite*this.getPrix()+quantite*this.getPrixvente()); //solde(step n)=solde step(n-1)+quantite(step n)*prixvente - quantite(step n)*prix
 }
 }
