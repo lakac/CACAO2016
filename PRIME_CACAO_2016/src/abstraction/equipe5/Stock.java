@@ -1,23 +1,24 @@
 package abstraction.equipe5;
+import abstraction.fourni.Indicateur;
+import abstraction.equipe5.Lindt;
 
 public class Stock {
-	private double stock;
+	private  Indicateur stock;
+	private Lindt lindt;
 	
-	public Stock (double d) {
-		this.stock = d;
+	public Stock (double d, Lindt lindt) {
+		this.lindt=lindt;
+		this.stock = new Indicateur("Stock de Lindt", this.lindt, d);
 	}
 	
-	public Stock() {
-		this.stock = 0;
-	}
-
 	public double getStock() {
-		return stock;
+		return this.stock.getValeur();
 	}
 
 	public void setStock(double stock) {
-		this.stock = stock;
+		this.stock.setValeur(this.lindt, stock); 
 	}
+	
 	
 	public void ajouterStock(double d) {
 		this.setStock(this.getStock()+d);

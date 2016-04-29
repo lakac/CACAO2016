@@ -13,8 +13,8 @@ public class Lindt implements Acteur, ITransformateur{
 	private HistoriqueCommandeDist hist;
 	private Stock stockCacao;
 	private Stock stockChocolat;
-	private Indicateur etatStockCacao;
 	private Indicateur etatStockChocolat;
+	private Indicateur etatStockCacao;
 	private Indicateur venteChocolat;
 	private Tresorerie treso;
 	private AchatProd achatProd;
