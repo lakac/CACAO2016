@@ -32,10 +32,8 @@ public class Lindt implements Acteur, ITransformateur{
 		this.venteChocolat = new Indicateur("quantité de chocolat vendue Lindt", this, this.stockChocolat.getStock());
 		this.treso = new Tresorerie(this.getHist(), this);
 		Monde.LE_MONDE.ajouterIndicateur(venteChocolat);
-		P1 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1);
-		P2 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2);
-		D1 = (IDistributeur)Monde.LE_MONDE.getActeur("Carrefour");
-		D2 = (IDistributeur)Monde.LE_MONDE.getActeur("Leclerc");
+		this.producteurs = new ArrayList<IProducteur>();
+		this.distributeurs = new ArrayList<IDistributeur>();
 		this.achatProd = new AchatProd(hist);		
 	}
 	
