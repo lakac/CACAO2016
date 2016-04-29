@@ -7,13 +7,13 @@ import abstraction.fourni.Indicateur;
 import abstraction.equipe5.Lindt;
 
 public class Tresorerie {
-	private HistoriqueCommandeDist hist;
+	private HistoriqueCommande hist;
 	private Indicateur treso;	
 	private IProducteur P1;
 	private IProducteur P2;
 	private Lindt lindt;
 
-	public Tresorerie(HistoriqueCommandeDist hist, Lindt lindt){
+	public Tresorerie(HistoriqueCommande hist, Lindt lindt){
 		this.hist= hist;
 		this.lindt = lindt;
 		this.treso = new Indicateur("Trésorerie Lindt", lindt, 100000);

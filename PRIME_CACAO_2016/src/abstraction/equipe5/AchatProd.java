@@ -5,13 +5,13 @@ import abstraction.commun.IProducteur;
 import abstraction.commun.MondeV1;
 
 public class AchatProd {
-	private HistoriqueCommandeDist hist;
+	private HistoriqueCommande hist;
 
-	public AchatProd(HistoriqueCommandeDist hist){
+	public AchatProd(HistoriqueCommande hist){
 		this.hist=hist;
 	}
 	/**
-	 * Indique la quantité demandée au producteur p.
+	 * Indique la quantitï¿½ demandï¿½e au producteur p.
 	 */
 	public double annonceQuantiteDemandee(IProducteur p, double quantiteMiseEnVente){ // le reste du monde est pris en compte manuellement dans le next
 		double quantiteTotale = Constante.RATIO_CACAO_CHOCOLAT*hist.valeur(Constante.STEP_COURANT);

@@ -12,4 +12,16 @@ public class Commande {
 		this.quantite = quantite;
 		this.prixTonne = prixTonne;
 	}
+	
+	public Acteur getActeur() {
+		return this.acteur;
+	}
+	
+	public double getQuantite(){
+		return this.quantite;
+	}
+	
+	public double getPrixTonne() {
+		return this.prixTonne;
+	}
 }

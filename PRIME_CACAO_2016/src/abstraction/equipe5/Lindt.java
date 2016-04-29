@@ -11,7 +11,7 @@ import abstraction.fourni.Monde;
 
 public class Lindt implements Acteur, ITransformateur{
 	
-	private HistoriqueCommandeDist hist;
+	private HistoriqueCommande hist;
 	private Stock stockCacao;
 	private Stock stockChocolat;
 	private Indicateur venteChocolat;
@@ -26,7 +26,7 @@ public class Lindt implements Acteur, ITransformateur{
 	
 	
 	public Lindt(){
-		this.hist = new HistoriqueCommandeDist();
+		this.hist = new HistoriqueCommande();
 		this.stockCacao = new Stock("cacao",this,0.0);
 		this.stockChocolat = new Stock("chocolat",this,0.0);
 		this.venteChocolat = new Indicateur("quantité de chocolat vendue Lindt", this, this.stockChocolat.getStock());
@@ -48,7 +48,7 @@ public class Lindt implements Acteur, ITransformateur{
 	public String getNom() {
 		return Constantes.NOM_TRANSFORMATEUR_2;}
 	
-	public HistoriqueCommandeDist getHist(){
+	public HistoriqueCommande getHist(){
 		return this.hist;
 	}
 	
