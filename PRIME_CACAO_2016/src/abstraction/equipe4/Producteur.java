@@ -1,12 +1,7 @@
 package abstraction.equipe4;
-
-
 import abstraction.fourni.*;
-
-
 import java.util.ArrayList;
 import abstraction.commun.*;
-
 public class Producteur implements Acteur,IProducteur{
 
 	private String nom; 
