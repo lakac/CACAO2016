@@ -11,7 +11,8 @@ import abstraction.fourni.Monde;
 
 public class Lindt implements Acteur, ITransformateur{
 	
-	private HistoriqueCommande hist;
+	private HistoriqueCommande histCommandeDistrib;
+	private HistoriqueCommande histCommandeProduc;
 	private Stock stockCacao;
 	private Stock stockChocolat;
 	private Indicateur venteChocolat;
@@ -26,7 +27,8 @@ public class Lindt implements Acteur, ITransformateur{
 	
 	
 	public Lindt(){
-		this.hist = new HistoriqueCommande();
+		this.histCommandeDistrib = new HistoriqueCommande();
+		this.histCommandeProduc = new HistoriqueCommande();
 		this.stockCacao = new Stock("cacao",this,0.0);
 		this.stockChocolat = new Stock("chocolat",this,0.0);
 		this.venteChocolat = new Indicateur("quantité de chocolat vendue Lindt", this, this.stockChocolat.getStock());
@@ -34,15 +36,15 @@ public class Lindt implements Acteur, ITransformateur{
 		Monde.LE_MONDE.ajouterIndicateur(venteChocolat);
 		this.producteurs = new ArrayList<IProducteur>();
 		this.distributeurs = new ArrayList<IDistributeur>();
-		this.achatProd = new AchatProd(hist);		
+		this.achatProd = new AchatProd(histCommandeProduc);		
 	}
 	
-	public void ajouterProducteur(IProducteur t) {
-		this.producteurs.add(t);
+	public void ajouterProducteur(IProducteur p) {
+		this.producteurs.add(p);
 	}
 	
-	public void ajouterDistributeur(IDistributeur t) {
-		this.distributeurs.add(t);
+	public void ajouterDistributeur(IDistributeur d) {
+		this.distributeurs.add(d);
 	}
 	
 	public String getNom() {
@@ -83,5 +85,9 @@ public class Lindt implements Acteur, ITransformateur{
 	}
 	public double annonceQuantiteMiseEnVente(IDistributeur d){
 		return 0.0 ;// Return notre stock :) 
+	}
+	
+	public void arriveeCommandeDirtri(IDistributeur d) {
+		CommandeDistrib nouvelleCommande = new CommandeDistrib(d, d.getDemande(this),15000); // faire méthode qui donne le prix de vente
 	}
 }
