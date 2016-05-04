@@ -34,26 +34,26 @@ public class MarcheDistributeur implements Acteur{
 			return "Marche du chocolat";
 		}
 		public void next() {
-//		// Toutes les quantites mise en vente
-//			double[] quantitesEnVenteT = new double[this.transformateurs.size()];
-//			double totalQuantitesEnVenteT =0.0;
-//			for (IDistributeur d : this.distributeurs) {
-//				int i =0;
-//				for (ITransformateur t : this.transformateurs){
-//					quantitesEnVenteT[i] =+ t.annonceQuantiteMiseEnVente(d);
-//					i++;
-//					totalQuantitesEnVenteT+=t.annonceQuantiteMiseEnVente(d);
-//			}}
-//			// Toutes les quantites demandees
-//			double[] quantitesDemandeesD = new double[this.distributeurs.size()];
-//			double totalQuantitesDemandeesD =0.0;
-//			for (IDistributeur d0 : this.distributeurs) {
-//			int j =0;
-//			for (ITransformateur t0 : this.transformateurs){
-//				quantitesDemandeesD[j] = d0.getDemande(t0);
-//				j++;
-//				totalQuantitesDemandeesD+=d0.getDemande(t0);
-//				}
+		// Toutes les quantites mise en vente
+			double[] quantitesEnVenteT = new double[this.transformateurs.size()];
+			double totalQuantitesEnVenteT =0.0;
+			for (IDistributeur d : this.distributeurs) {
+				int i =0;
+				for (ITransformateur t : this.transformateurs){
+					quantitesEnVenteT[i] =+ t.annonceQuantiteMiseEnVente(d);
+					i++;
+					totalQuantitesEnVenteT+=t.annonceQuantiteMiseEnVente(d);
+			}}
+			// Toutes les quantites demandees
+			double[] quantitesDemandeesD = new double[this.distributeurs.size()];
+			double totalQuantitesDemandeesD =0.0;
+			for (IDistributeur d0 : this.distributeurs) {
+			int j =0;
+			for (ITransformateur t0 : this.transformateurs){
+				quantitesDemandeesD[j] = d0.getDemande(t0);
+				j++;
+				totalQuantitesDemandeesD+=d0.getDemande(t0);
+				}
 			
 //			double[] quantitesReellementAchetees  = new double[this.transformateurs.size()]; 
 //			double[] quantitesReellementVendues  = new double[this.producteurs.size()]; 
