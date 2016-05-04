@@ -21,7 +21,7 @@ public class Producteur implements Acteur,IProducteur{
 	
     public Producteur(Monde monde) {
        this.nom = Constantes.NOM_PRODUCTEUR_2;
-	   this.treso = new Tresorerie(this,3000.0,10.0);
+	   this.treso = new Tresorerie(this);
 	   this.stock = new Indicateur("Stock de "+ this.nom,this,0.0);
        this.prodTotaleUtilisable = new Indicateur(Constantes.IND_PRODUCTION_P2, this, 0.0);
        this.journal = new Journal("Journal de "+this.nom);
@@ -106,16 +106,13 @@ public class Producteur implements Acteur,IProducteur{
 		return (this.getProdTotaleUtilisable().getValeur()/24);
 	}
 	
-	//return un double valant le prix a la tonne du cacao en vente	
-	public double annoncePrix() {
-		return this.getTreso().getPrix();
-	}
-	
+
 	//Modification du stock et de la tresorerie suite a une vente
 	public void notificationVente(double qtVendue) {
 		this.getTreso().setFond(qtVendue);
 		this.reductionStock(qtVendue);
 		this.journal.ajouter("Vente de " + qtVendue );
 	}
+
 
 }
