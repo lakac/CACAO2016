@@ -34,17 +34,17 @@ package abstraction.commun;
 		public void next() {
 		// Toutes les quantites mise en vente
 			double[] quantitesEnVenteP = new double[this.producteurs.size()];
-			double totalQuantitesEnVenteP =0.0;
+			double totalQuantitesEnVenteP = 0.0;
 			for (ITransformateur t : this.transformateurs) {
 				int i =0;
 				for (IProducteur p : this.producteurs){
-					quantitesEnVenteP[i] =+ p.annonceQuantiteMiseEnVente(t);
+					quantitesEnVenteP[i] = p.annonceQuantiteMiseEnVente(t);
 					i++;
 					totalQuantitesEnVenteP+=p.annonceQuantiteMiseEnVente(t);
 			}}
 			// Toutes les quantites demandees
 			double[] quantitesDemandeesT = new double[this.transformateurs.size()];
-			double totalQuantitesDemandeesT =0.0;
+			double totalQuantitesDemandeesT = 0.0;
 			for (ITransformateur t0: this.transformateurs) {
 				int i =0;
 				for (IProducteur p0: this.producteurs){
