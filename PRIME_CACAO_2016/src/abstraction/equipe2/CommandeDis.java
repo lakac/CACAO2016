@@ -20,7 +20,6 @@ public class CommandeDis {
 			System.out.println("la commande du distributeur est de : " + CommandeD.getCommandeDis());
 		}else{
 			System.out.println("la commande du distributeur est à la bonne valeur :" + CommandeD.getCommandeDis());
-
 		}
 	}
 }
