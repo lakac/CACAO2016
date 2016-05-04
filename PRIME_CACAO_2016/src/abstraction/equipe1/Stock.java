@@ -38,11 +38,38 @@ public class Stock {
 		return this.quantite;
 	}
 
-	public void ajouterProd(double production) {
-		
+	public void setQuantite(double quantite) {
+		this.quantite = quantite;
 	}
-// Retirer et ajouter du stock (avec quantite>=0)
-// Si des fèves sont périmées, les retirer du stock (ici on part sur 5 mois soit 10 steps, mais 
-// Modifiable avec des infos valides
 	
+	/**
+	 * Met à jour la quantite totale du stock
+	 * Enleve le stock perime de la pile
+	 * Ajoute la production du step a la pile
+	 * @param production
+	 */
+	public void ajouterProd(double production) {
+		this.setQuantite(this.quantite-this.stockParStep.peek()+production);
+		this.stockParStep.remove();
+		this.stockParStep.add(production);
+	}
+	
+	/**
+	 * Met a jour la pile des stocks apres une vente
+	 * Ne teste pas si la quantite vendue est acceptable : on suppose que les tests ont ete effectues auparavant
+	 * @param quantiteVendue
+	 */
+	public void retirerVente(double quantiteVendue) {
+		double qte = quantiteVendue;
+		int i=0;
+		while (qte>0) {
+			if (this.stockParStep.get(i)>qte) {
+				this.stockParStep.set(i, this.stockParStep.get(i)-qte);
+				qte = 0;
+			} else {
+				qte -= this.stockParStep.get(i);
+				this.stockParStep.set(i, 0.0);
+			}
+		}
+	}	
 }
