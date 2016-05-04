@@ -1,6 +1,10 @@
 package abstraction.equipe1;
 import java.util.LinkedList;
 
+import abstraction.fourni.Acteur;
+import abstraction.fourni.Indicateur;
+import abstraction.fourni.Monde;
+
 public class Stock {
 
 	/**
@@ -11,7 +15,7 @@ public class Stock {
 	/**
 	 * Quantite totale de cacao presente dans le stock
 	 */
-	private double quantite;
+	private Indicateur quantite;
   
 	/**
 	 * Repartition du stock selon la date de peremption
@@ -27,16 +31,19 @@ public class Stock {
 	 * 
 	 * Cette quantite initiale est repartie equitablement dans la pile entre les differents steps
 	 */
-	public Stock(int stockInitial) {
-		this.quantite = stockInitial;
+	public Stock(Acteur createur, double stockInitial) {
+		this.quantite = new Indicateur("Stock de "+createur.getNom(), createur);
+		Monde.LE_MONDE.ajouterIndicateur(this.quantite);
+		this.quantite.setValeur(createur, stockInitial);
+		
 		this.stockParStep = new LinkedList<Double>();
 		for (int i=1;i<=this.PEREMPTION;i++) {
-			this.stockParStep.add(this.quantite/this.PEREMPTION);
+			this.stockParStep.add(stockInitial/this.PEREMPTION);
 		}
 	}
 	
 	public double getQuantite() {
-		return this.quantite;
+		return this.quantite.getValeur();
 	}
 	
 	/**
@@ -46,17 +53,18 @@ public class Stock {
 	 * @param production
 	 */
 	public void ajouterProd(double production) {
-		this.quantite += production - this.stockParStep.remove();
+		this.quantite.setValeur(this.quantite.getCreateur(), this.getQuantite() + production - this.stockParStep.remove());
 		this.stockParStep.add(production);
 	}
 	
 	/**
 	 * Met a jour la pile des stocks apres une vente
 	 * Ne teste pas si la quantite vendue est acceptable : on suppose que les tests ont ete effectues auparavant
+	 * @param acheteur
 	 * @param quantiteVendue
 	 */
-	public void retirerVente(double quantiteVendue) {
-		this.quantite -= quantiteVendue;
+	public void retirerVente(Acteur acheteur, double quantiteVendue) {
+		this.quantite.setValeur(acheteur, this.quantite.getValeur() - quantiteVendue);
 		double qte = quantiteVendue;
 		int i=0;
 		while (qte>0) {
@@ -72,7 +80,7 @@ public class Stock {
 	}
 	
 	public String toString() {
-		String res = "Nous possedons "+this.quantite+" tonnes de cacao reparties ainsi : [";
+		String res = "Nous possedons "+this.getQuantite()+" tonnes de cacao reparties ainsi : [";
 		for (int i=0;i<this.PEREMPTION-1;i++) {
 			res += this.stockParStep.get(i) + ", ";
 		}
