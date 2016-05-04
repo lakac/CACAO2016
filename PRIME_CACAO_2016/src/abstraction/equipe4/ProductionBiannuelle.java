@@ -23,8 +23,6 @@ public class ProductionBiannuelle {
 		return this.perteProduction;
 	}
 	
-	
-	
 	public double getProductionFinale() {
 		return this.productionFinale;
 	}
@@ -42,13 +40,14 @@ public class ProductionBiannuelle {
 	}
 	
 	public void setProductionFinale() {
-		this.productionFinale=this.getCapaciteMaximale()-this.getPertesMensuelles();
+		this.productionFinale=this.getCapaciteMaximale()-this.getPerteProduction();
 	}	
 	
 	public double perteAleatoire() { //méthode renvoyant une perte aléatoire comprise entre 0% et 10%
 		double PerteAleatoire = Math.random()*0.1;
 		return PerteAleatoire;	
 	}
+
 	
 	public void production(){
 		this.setPerteProduction();
@@ -56,6 +55,4 @@ public class ProductionBiannuelle {
 		this.prod.getStock().augmentationStock(this.getProductionFinale());
 	}
 	
-	
-
 }

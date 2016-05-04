@@ -1,36 +1,33 @@
 package abstraction.equipe4;
 import abstraction.fourni.*;
-import java.util.ArrayList;
 import abstraction.commun.*;
+import java.util.ArrayList;
+
 public class Producteur implements Acteur,IProducteur{
 
 	private String nom; 
 	private Stock stock; 
 	private Journal journal;
-	//production semi annuelle
-	private double prod; 
 	private Tresorerie treso;
-	private ProductionBiannuelle prodBiannu; 
+	private ProductionBiannuelle prodBiannu;
+	private MarcheProducteur marche;
 	
 	private ArrayList<ITransformateur> transformateurs;
 	
 	//Constructeur de l'acteur Producteur 2
-	
     public Producteur(Monde monde) {
        this.nom = Constantes.NOM_PRODUCTEUR_2;
 	   this.treso = new Tresorerie(this);
 	   this.stock = new Stock(this);
-       this.prodBiannu = new ProductionBiannuelle(1200000);
        this.journal = new Journal("Journal de "+this.nom);
-       this.prod=1200000;
        this.transformateurs= new ArrayList<ITransformateur>();
        for (Acteur a : Monde.LE_MONDE.getActeurs()) {
 			if (a instanceof ITransformateur) {
 				this.transformateurs.add((ITransformateur)(a));
 			}
-		}       
+		}
+       this.marche=new MarcheProducteur();
        Monde.LE_MONDE.ajouterJournal(this.journal);
-       Monde.LE_MONDE.ajouterIndicateur(this.pertes);
     }
 
 
@@ -46,10 +43,6 @@ public class Producteur implements Acteur,IProducteur{
 	}
     
 
-    public double getProd() {
-		return this.prod;
-	}
-    
     public ProductionBiannuelle getProdBiannu() {
 		return this.prodBiannu;
 	}
@@ -66,6 +59,10 @@ public class Producteur implements Acteur,IProducteur{
 		return this.treso;
 	}
 
+    public MarcheProducteur getMarche() {
+		return this.marche;
+	}
+    
 	// le next du producteur 2	
 	public void next(){
 		
@@ -89,7 +86,7 @@ public class Producteur implements Acteur,IProducteur{
 	// return un double valant la quantité disponible 
 	//pour chaque transformateur a chaque step
 	public double annonceQuantiteMiseEnVente(ITransformateur t) {
-		return (this.stock.getStock().getValeur()/(13-Monde.LE_MONDE.getStep()%12));
+		return (this.stock.getStockCacao().getValeur()/(13-Monde.LE_MONDE.getStep()%12));
 	}
 	
 
@@ -105,5 +102,7 @@ public class Producteur implements Acteur,IProducteur{
 	
 	public void venteResteMonde(){
 		double alea = Math.random()*(0.9-0.87)+0.87;
+	}
 		
 }
+	

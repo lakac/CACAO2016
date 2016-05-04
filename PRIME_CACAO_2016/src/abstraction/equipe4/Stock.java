@@ -4,50 +4,56 @@ import abstraction.fourni.*;
 
 public class Stock {
 	
-	private Indicateur stock;
+	private Indicateur stockCacao;
 	private double perteStock;
 	private Producteur prod;
+	private double coutStock;
 	
 	public Stock(Producteur p) {
-		this.stock = new Indicateur("Stock de "+ p.getNom(),p,0.0);
-    	Monde.LE_MONDE.ajouterIndicateur(this.stock);
+		this.stockCacao = new Indicateur("Stock de "+ p.getNom(),p,0.0);
+    	Monde.LE_MONDE.ajouterIndicateur(this.stockCacao);
     	this.perteStock=0.0;
     	this.prod=p;
+    	this.coutStock=0.001;
 
 	}
 
-	public Indicateur getStock() {
-		return this.stock;
+	public Indicateur getStockCacao() {
+		return this.stockCacao;
 	}
 
 	public double getPerteStock() {
 		return this.perteStock;
 	}
 
-	public Acteur getProd() {
+	public Producteur getProd() {
 		return this.prod;
+	}
+	
+	public double getCoutStock() {
+		return this.coutStock;
 	}
 
 	public void setPerteStock() {
-		this.perteStock = this.getStock().getValeur()*Math.random()*0.05;
+		this.perteStock = this.getStockCacao().getValeur()*Math.random()*0.05;
 	}
 	
 	//Réduction du stock d'une valeur de value
 	public void reductionStock(double value){
 		if (value>0){
-		this.getStock().setValeur(this.prod, this.getStock().getValeur()- value);	
+		this.getStockCacao().setValeur(this.prod, this.getStockCacao().getValeur()- value);	
 		}
 	}
 	
 	//Augmentation du stock d'une valeur de value
 	public void augmentationStock(double value){
 		if (value>0){
-			this.getStock().setValeur(this.prod, this.getStock().getValeur()+value);
+			this.getStockCacao().setValeur(this.prod, this.getStockCacao().getValeur()+value);
 		}
 	}
 
 	public void perteDeStock(){
-		this.stock.setValeur(this.prod,this.stock.getValeur()-this.perteStock);
+		this.stockCacao.setValeur(this.prod,this.stockCacao.getValeur()-this.perteStock);
 	}
 	
 
