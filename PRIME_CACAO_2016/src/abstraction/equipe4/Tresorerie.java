@@ -37,7 +37,7 @@ public class Tresorerie {
 		return this.fond;
 	}
 
-	// calcule du résultat de la vente
+	// calcule du resultat de la vente
 	public double PrixVente(double commande){
 		return commande*this.getPrix();
 	}
