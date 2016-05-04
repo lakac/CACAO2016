@@ -16,7 +16,7 @@ import java.util.Random;
 
 public class Producteur implements Acteur, IProducteur {
 	private String nom;
-	private Indicateur stock;
+	private Stock stock;
 	private Indicateur tresorerie;
 	private double coutProduction;
 	private double prixVente;
@@ -32,14 +32,13 @@ public class Producteur implements Acteur, IProducteur {
 	 */
 	public Producteur(String nom, double stockInitial, double tresoInitiale, Monde monde) {
 		this.nom = nom;
-		this.stock = new Indicateur("Stock de "+this.nom, this, stockInitial);
+		this.stock = new Stock(this, stockInitial);
 		this.tresorerie = new Indicateur("Solde de "+this.nom, this, tresoInitiale);
 		this.coutProduction = 2100.0;
 		this.prixVente = 3000.0;
 		this.productionAnnuelle = 24000.0;
 		this.productionCourante = new Indicateur(Constantes.IND_PRODUCTION_P1, this, 100.0);
 		
-		Monde.LE_MONDE.ajouterIndicateur(this.stock);
 		Monde.LE_MONDE.ajouterIndicateur(this.tresorerie);
 		Monde.LE_MONDE.ajouterIndicateur(this.productionCourante);
 		
@@ -72,7 +71,7 @@ public class Producteur implements Acteur, IProducteur {
 	private void produire() {
 		Random fluctuations = new Random();
 		this.setProductionCourante(Math.floor(this.getProductionDeBaseCourante()*this.getProductionAnnuelle()*(98+4*fluctuations.nextDouble()))/100.0);
-		this.setStock(this.getStock()+this.getProductionCourante());
+		this.stock.ajouterProd(this.getProductionCourante());
 		this.setTresorerie(this.getTresorerie()-this.getCoutProduction()*this.getProductionCourante());
 		for (ITransformateur t : this.getTransformateurs()) {
 			this.quantitesProposees.put(t,this.getStock()*0.5);
@@ -84,11 +83,7 @@ public class Producteur implements Acteur, IProducteur {
 	}
 	
 	private double getStock() {
-		return this.stock.getValeur();
-	}
-	
-	private void setStock(double stock) {
-		this.stock.setValeur(this, stock);
+		return this.stock.getQuantite();
 	}
 	
 	private double getTresorerie() {
@@ -161,7 +156,7 @@ public class Producteur implements Acteur, IProducteur {
 	private void vendre(ITransformateur t) {
 		double quantiteVendue = Math.min(t.annonceQuantiteDemandee(this), this.annonceQuantiteMiseEnVente(t));
 		
-		this.setStock(this.getStock() - quantiteVendue);
+		this.stock.retirerVente((Acteur)t, quantiteVendue);
 		this.setTresorerie(this.getTresorerie() + quantiteVendue*this.getPrixVente());
 		t.notificationVente(this);
 	}
