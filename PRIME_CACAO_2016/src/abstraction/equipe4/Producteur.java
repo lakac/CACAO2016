@@ -1,4 +1,4 @@
-package abstraction.equipe4;	
+package abstraction.equipe4;
 import abstraction.fourni.*;
 import java.util.ArrayList;
 import abstraction.commun.*;
@@ -39,7 +39,7 @@ public class Producteur implements Acteur,IProducteur{
     }
 
 
-    //return un String : le nom du producteur 2
+    // getter
     
 	public String getNom() {
 		return this.nom;
@@ -106,8 +106,7 @@ public class Producteur implements Acteur,IProducteur{
 		return (this.getProdTotaleUtilisable().getValeur()/24);
 	}
 	
-	//return un double valant le prix a la tonne du cacao en vente
-	
+	//return un double valant le prix a la tonne du cacao en vente	
 	public double annoncePrix() {
 		return this.getTreso().getPrix();
 	}
