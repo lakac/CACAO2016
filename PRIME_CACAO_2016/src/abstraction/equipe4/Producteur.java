@@ -5,7 +5,7 @@ import abstraction.commun.*;
 public class Producteur implements Acteur,IProducteur{
 
 	private String nom; 
-	private Indicateur stock; 
+	private Stock stock; 
 	private Journal journal;
 	//production semi annuelle
 	private double prod; 
@@ -13,7 +13,7 @@ public class Producteur implements Acteur,IProducteur{
 	 //perte dans la production totale
 	private Indicateur pertes;
 	//production totale sans les pertes
-	private Indicateur prodTotaleUtilisable; 
+	private ProductionBiannuelle prodBiannu; 
 	
 	private ArrayList<ITransformateur> transformateurs;
 	
@@ -22,8 +22,8 @@ public class Producteur implements Acteur,IProducteur{
     public Producteur(Monde monde) {
        this.nom = Constantes.NOM_PRODUCTEUR_2;
 	   this.treso = new Tresorerie(this);
-	   this.stock = new Indicateur("Stock de "+ this.nom,this,0.0);
-       this.prodTotaleUtilisable = new Indicateur(Constantes.IND_PRODUCTION_P2, this, 0.0);
+	   this.stock = new Stock(this);
+       this.prodBiannu = new ProductionBiannuelle(1200000);
        this.journal = new Journal("Journal de "+this.nom);
        this.pertes = new Indicateur("Pertes de "+this.nom,this,0.0);
        this.prod=1200000;
@@ -32,30 +32,48 @@ public class Producteur implements Acteur,IProducteur{
 			if (a instanceof ITransformateur) {
 				this.transformateurs.add((ITransformateur)(a));
 			}
-		}       Monde.LE_MONDE.ajouterJournal(this.journal);
-    	Monde.LE_MONDE.ajouterIndicateur( this.prodTotaleUtilisable );
-    	Monde.LE_MONDE.ajouterIndicateur(this.pertes);
-    	Monde.LE_MONDE.ajouterIndicateur(this.stock);
+		}       
+       Monde.LE_MONDE.ajouterJournal(this.journal);
+       Monde.LE_MONDE.ajouterIndicateur(this.pertes);
     }
 
 
     // getter
     
-	public String getNom() {
+    
+    public Journal getJournal() {
+		return this.journal;
+	}
+    
+    public String getNom() {
 		return this.nom;
 	}
-	
-	public Indicateur getPertes(){
+    
+    public Indicateur getPertes() {
 		return this.pertes;
 	}
-	
-	public Indicateur getProdTotaleUtilisable(){
-		return this.prodTotaleUtilisable;
+    
+    public double getProd() {
+		return this.prod;
 	}
-	
-	public Tresorerie getTreso(){
+    
+    public ProductionBiannuelle getProdBiannu() {
+		return this.prodBiannu;
+	}
+    
+    public Stock getStock() {
+		return this.stock;
+	}
+    
+    public ArrayList<ITransformateur> getTransformateurs() {
+		return this.transformateurs;
+	}
+    
+    public Tresorerie getTreso() {
 		return this.treso;
 	}
+
+    
 	
 	// le next du producteur 2	
 	public void next(){
@@ -82,14 +100,14 @@ public class Producteur implements Acteur,IProducteur{
 	// return un double valant la quantité disponible 
 	//pour chaque transformateur a chaque step
 	public double annonceQuantiteMiseEnVente(ITransformateur t) {
-		return (this.getProdTotaleUtilisable().getValeur()/24);
+		return (this.stock.getStock().getValeur()/(13-Monde.LE_MONDE.getStep()%12));
 	}
 	
 
 	//Modification du stock et de la tresorerie suite a une vente
 	public void notificationVente(double qtVendue) {
 		this.getTreso().setFond(qtVendue);
-		this.reductionStock(qtVendue);
+		this.stock.reductionStock(qtVendue);
 		this.journal.ajouter("Vente de " + qtVendue );
 	}
 
