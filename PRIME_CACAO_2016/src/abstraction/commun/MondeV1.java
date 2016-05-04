@@ -44,6 +44,10 @@ public class MondeV1 extends Monde {
 		abstraction.equipe4.Producteur p2 = new abstraction.equipe4.Producteur(Monde.LE_MONDE);
 		this.ajouterActeur(p1);
 		this.ajouterActeur(p2);
+		
+		p1.ajouterTransformateur(t1);
+		p1.ajouterTransformateur(lindt);
+		
 		//Ca.ajouterVendeur(lindt);
 		Le.ajouterVendeur(t1);
 		Le.ajouterVendeur(lindt);

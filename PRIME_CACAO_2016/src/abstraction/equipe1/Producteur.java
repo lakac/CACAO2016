@@ -51,16 +51,16 @@ public class Producteur implements Acteur, IProducteur {
 		// mettre en vente, nous proposons a chaque transformateur une quantite specifique que nous sommes surs de pouvoir
 		// lui fournir.
 		this.quantitesProposees = new HashMap<ITransformateur,Double>();
-		for (ITransformateur t : this.getTransformateurs()) {
-			this.quantitesProposees.put(t,0.0);
-		}
 		
 		this.journal = new Journal("Journal de "+this.nom);
 		Monde.LE_MONDE.ajouterJournal(this.journal);
 		
 		this.transformateurs = new ArrayList<ITransformateur>();
-		this.transformateurs.add((ITransformateur)(Monde.LE_MONDE.getActeur(Constantes.NOM_TRANSFORMATEUR_1)));
-		this.transformateurs.add((ITransformateur)(Monde.LE_MONDE.getActeur(Constantes.NOM_TRANSFORMATEUR_2)));
+	}
+	
+	public void ajouterTransformateur(ITransformateur transformateur) {
+		this.transformateurs.add(transformateur);
+		this.quantitesProposees.put(transformateur, 0.0);
 	}
 	
 	/**
