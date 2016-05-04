@@ -16,7 +16,7 @@ public class Stock {
 	/**
 	 * Repartition du stock selon la date de peremption
 	 * 
-	 * Les feves les plus anciennes sont en t�te de la pile
+	 * Les feves les plus anciennes sont en tete de la pile
 	 */
 	private LinkedList<Double> stockParStep;
 	
@@ -39,7 +39,7 @@ public class Stock {
 	}
 	
 	/**
-	 * Met � jour la quantite totale du stock
+	 * Met a jour la quantite totale du stock
 	 * Enleve le stock perime de la pile
 	 * Ajoute la production du step a la pile
 	 * @param production
