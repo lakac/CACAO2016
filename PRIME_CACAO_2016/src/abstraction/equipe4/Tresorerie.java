@@ -38,12 +38,13 @@ public class Tresorerie {
 	}
 
 	// calcule du résultat de la vente
-	public double PrixVente(double commande){
-		return commande*this.getPrix();
+	public double resultatVente(double qtVendu){
+		return qtVendu*this.getPrix();
 	}
-
-	public void setFond(double commande){		
-		this.getFond().setValeur(this.getProd(), PrixVente(commande) + this.getFond().getValeur()- this.getCoutProd());
+	
+	
+	public void setFond(double qtVendu){		
+		this.getFond().setValeur(this.getProd(), this.resultatVente(qtVendu) + this.getFond().getValeur()- this.getCoutProd());
 		
 	}
 		
