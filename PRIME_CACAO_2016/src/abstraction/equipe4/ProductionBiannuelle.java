@@ -10,6 +10,7 @@ public class ProductionBiannuelle {
 		this.pertesMensuelles = new double[6]; //tableau vide à six éléments
 		for (int i=0; i<6; i++) {
 			pertesMensuelles[i] = this.PerteAleatoire(); //on remplit les pertes mensuelles de façon aléatoire (voir méthode plus bas)
+
 		}
 		this.productionFinale = capaciteMaximale;
 		for (int i=0; i<6; i++) {

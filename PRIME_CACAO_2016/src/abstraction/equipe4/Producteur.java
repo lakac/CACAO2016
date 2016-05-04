@@ -1,4 +1,4 @@
-package abstraction.equipe4;
+package abstraction.equipe4;	
 import abstraction.fourni.*;
 import java.util.ArrayList;
 import abstraction.commun.*;
@@ -91,7 +91,7 @@ public class Producteur implements Acteur,IProducteur{
 	//Modification du stock et de la tresorerie suite a une vente
 	
 	public void notificationVente(double quantite) {
-		this.treso.modiftreso(quantite);
+		this.treso.setFond(quantite);
 		this.Reduc_Stock(quantite);
 		this.journal.ajouter("Vente de " + quantite );
 	}
