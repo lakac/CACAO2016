@@ -57,27 +57,6 @@ public class Producteur implements Acteur,IProducteur{
 		return this.treso;
 	}
 	
-	
-	public Indicateur getStock(){
-		return this.stock;
-	}
-	
-	//Réduction du stock d'une valeur de value
-	public void reductionStock(double value){
-		if (value>0){
-		this.getStock().setValeur(this, this.getStock().getValeur()- value);	
-		}
-	}
-	
-	
-	//Augmentation du stock d'une valeur de value
-	public void augmentationStock(double value){
-		if (value>0){
-			this.getStock().setValeur(this, this.getStock().getValeur()+value);
-		}
-	}
-	
-
 	// le next du producteur 2	
 	public void next(){
 		
