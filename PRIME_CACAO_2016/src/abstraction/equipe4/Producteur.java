@@ -114,4 +114,11 @@ public class Producteur implements Acteur,IProducteur{
 		this.journal.ajouter("Vente de " + qtVendue );
 	}
 
+
+	@Override
+	public double annoncePrix() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
