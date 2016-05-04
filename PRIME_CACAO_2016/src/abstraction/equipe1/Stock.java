@@ -29,6 +29,7 @@ public class Stock {
 	 */
 	public Stock(int stockInitial) {
 		this.quantite = stockInitial;
+		this.stockParStep = new LinkedList<Double>();
 		for (int i=1;i<=this.PEREMPTION;i++) {
 			this.stockParStep.add(this.quantite/this.PEREMPTION);
 		}
@@ -55,6 +56,7 @@ public class Stock {
 	 * @param quantiteVendue
 	 */
 	public void retirerVente(double quantiteVendue) {
+		this.quantite -= quantiteVendue;
 		double qte = quantiteVendue;
 		int i=0;
 		while (qte>0) {
@@ -67,5 +69,15 @@ public class Stock {
 			}
 			i++;
 		}
+	}
+	
+	public String toString() {
+		String res = "Nous possedons "+this.quantite+" tonnes de cacao reparties ainsi : [";
+		for (int i=0;i<this.PEREMPTION-1;i++) {
+			res += this.stockParStep.get(i) + ", ";
+		}
+		res += this.stockParStep.peekLast() +"]";
+		return res;
 	}	
 }
+
