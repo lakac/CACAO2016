@@ -10,7 +10,6 @@ public class ProductionBiannuelle {
 		this.pertesMensuelles = setPertesMensuelles();
 		this.productionFinale = setProductionFinale();
 	}
-	
 	public int getCapaciteMaximale() {
 		return capaciteMaximale;
 	}
@@ -35,10 +34,10 @@ public class ProductionBiannuelle {
 			this.productionFinale = this.productionFinale - this.pertesMensuelles[i]*this.capaciteMaximale; //on calcule de façon récursive la production finale, en prenant en compte les pertes mensuelles
 		}
 		return this.productionFinale;
-	}
+	}	
 	public double perteAleatoire() { //méthode renvoyant une perte aléatoire comprise entre 0% et 10%
-		double perteAleatoire = Math.random()*0.1;
-		return perteAleatoire;	
+		double PerteAleatoire = Math.random()*0.1;
+		return PerteAleatoire;	
 	}		
 	
 	
