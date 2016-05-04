@@ -1,4 +1,4 @@
-package abstraction.equipe2;
+package OldV1transformateur;
 
 public class CommandeProd {
 	
