@@ -29,7 +29,7 @@ public class Nestle implements Acteur, ITransformateur{
 	public static final Stock stock_cacao=new Stock();
 	public static final Stock stock_chocolat=new Stock();
 	public static final Banque tresorerie=new Banque();
-	public static final Commandes commandes = new Commandes();
+	public static final CommandesDis commandes = new CommandesDis();
 	
 
 	public String getNom() {

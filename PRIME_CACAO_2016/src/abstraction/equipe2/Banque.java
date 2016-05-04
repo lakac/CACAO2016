@@ -38,7 +38,7 @@ public class Banque {
 			CI[1] = CI[0]*0.6/Nestle.commandes.getCommandes()[1];
 		// 600g de cacao équivalent à 1kg de chocolat
 		return CI;
-		//Test OK
+		//Test OK 
 		}
 		else {
 			CI[1] = 0;
