@@ -5,18 +5,18 @@ public class Tresorerie {
 	// argent totale dans la cagnote
 	private Indicateur fond;
 	// nous
-	private Acteur producteurEquipe4;
+	private Producteur prod;
 	
 	
-	public Tresorerie(Acteur a) {
-		this.fond = new Indicateur("Fond de" + a.getNom(),a,0.0);
-		this.producteurEquipe4= a;
+	public Tresorerie(Producteur p) {
+		this.fond = new Indicateur("Fond de" + p.getNom(),p,0.0);
+		this.prod= p;
 		Monde.LE_MONDE.ajouterIndicateur( this.fond );
 	}
 	
 	
 	public Acteur getProd(){
-		return this.producteurEquipe4;
+		return this.prod;
 	}
 
 

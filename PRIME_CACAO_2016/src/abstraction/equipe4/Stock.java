@@ -6,13 +6,13 @@ public class Stock {
 	
 	private Indicateur stock;
 	private double perteStock;
-	private Acteur prod;
+	private Producteur prod;
 	
-	public Stock(Acteur a) {
-		this.stock = new Indicateur("Stock de "+ a.getNom(),a,0.0);
+	public Stock(Producteur p) {
+		this.stock = new Indicateur("Stock de "+ p.getNom(),p,0.0);
     	Monde.LE_MONDE.ajouterIndicateur(this.stock);
     	this.perteStock=0.0;
-    	this.prod=a;
+    	this.prod=p;
 
 	}
 
@@ -20,27 +20,17 @@ public class Stock {
 		return this.stock;
 	}
 
-	public void setStock(Indicateur stock) {
-		this.stock = stock;
-	}
-
 	public double getPerteStock() {
 		return this.perteStock;
 	}
 
-	public void setPerteStock(double perteStock) {
-		this.perteStock = perteStock;
-	}
-	
-	
 	public Acteur getProd() {
 		return this.prod;
 	}
 
-	public void setProd(Acteur prod) {
-		this.prod = prod;
+	public void setPerteStock() {
+		this.perteStock = this.getStock().getValeur()*Math.random()*0.05;
 	}
-	
 	
 	//Réduction du stock d'une valeur de value
 	public void reductionStock(double value){
@@ -49,12 +39,15 @@ public class Stock {
 		}
 	}
 	
-	
 	//Augmentation du stock d'une valeur de value
 	public void augmentationStock(double value){
 		if (value>0){
 			this.getStock().setValeur(this.prod, this.getStock().getValeur()+value);
 		}
+	}
+
+	public void perteDeStock(){
+		this.stock.setValeur(this.prod,this.stock.getValeur()-this.perteStock);
 	}
 	
 
