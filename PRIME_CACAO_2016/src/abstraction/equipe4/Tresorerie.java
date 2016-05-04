@@ -4,39 +4,19 @@ import abstraction.fourni.*;
 public class Tresorerie {
 	private Indicateur fond;
 	// prix de vente
-	private double prix; 
-	// cout de prod
-	private double CoutProd; 
-	private Acteur Prod;
+	private Acteur producteur;
 	
 	
-	public Tresorerie(Acteur a, double prix, double cout) {
+	public Tresorerie(Acteur a) {
 		this.fond = new Indicateur("Fond de" + a.getNom(),a,0.0);
-		this.prix = prix;
-		this.CoutProd = cout;
-		this.Prod= a;
+		this.producteur= a;
 		Monde.LE_MONDE.ajouterIndicateur( this.fond );
 	}
 
 
-	public double getCoutProd() {
-		return this.CoutProd;
-	}
-	
-	public double getPrix() {
-		return this.prix;
-	}
-
-
-
-	public double PrixVente(double commande){
-		return commande*this.prix;
-	}
-
-	
-	public void modiftreso(double commande){
+	public void ModifTresorerie(double quantiteVendue){
 		
-		this.fond.setValeur(this.Prod, PrixVente(commande) + this.fond.getValeur()- this.CoutProd);
+		this.fond.setValeur(this.producteur, PrixVente(quantiteVendue) + this.fond.getValeur() - CoutProduction(QuantiteVendue));
 	
 	}
 		
