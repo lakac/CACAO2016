@@ -11,13 +11,13 @@ public class ProductionBiannuelle {
 		this.productionFinale = setProductionFinale();
 	}
 	public int getCapaciteMaximale() {
-		return capaciteMaximale;
+		return this.capaciteMaximale;
 	}
 	public void setCapaciteMaximale(int capaciteMaximale) {
 		this.capaciteMaximale = capaciteMaximale;
 	}
 	public double[] getPertesMensuelles() {
-		return pertesMensuelles;
+		return this.pertesMensuelles;
 	}
 	public double[] setPertesMensuelles() {
 		this.pertesMensuelles = new double[6]; //tableau vide à six éléments
@@ -27,16 +27,16 @@ public class ProductionBiannuelle {
 		return this.pertesMensuelles;
 	}
 	public double getProductionFinale() {
-		return productionFinale;
+		return this.productionFinale;
 	}
 	public double setProductionFinale() {
 		for (int i=0; i<6; i++) {
-			this.productionFinale = this.productionFinale - this.pertesMensuelles[i]*this.capaciteMaximale; //on calcule de façon récursive la production finale, en prenant en compte les pertes mensuelles
+			this.productionFinale = this.getProductionFinale() - this.getPertesMensuelles()[i]*this.getCapaciteMaximale(); //on calcule de façon récursive la production finale, en prenant en compte les pertes mensuelles
 		}
 		return this.productionFinale;
 	}	
 	public double perteAleatoire() { //méthode renvoyant une perte aléatoire comprise entre 0% et 10%
-		double PerteAleatoire = Math.random()*0.1;
+		double PerteAleatoire = Math.random()*0.2+0.2;
 		return PerteAleatoire;	
 	}		
 	
