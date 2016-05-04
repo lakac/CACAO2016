@@ -124,7 +124,6 @@ public class Leclerc implements Acteur,IDistributeur{
 	}
 	
 	
-	
 	public void next() {
 	    setPrix(15.0);
 	    commande(Monde.LE_MONDE.getStep());
@@ -138,4 +137,5 @@ public class Leclerc implements Acteur,IDistributeur{
 		this.solde.setValeur(this, this.solde.getValeur()+quantite*this.getPrixvente());
 		 //solde(step n)=solde step(n-1)+quantite(step n)*prixvente - quantite(step n)*prix
 }
+
 }
