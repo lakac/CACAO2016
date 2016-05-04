@@ -13,10 +13,6 @@ public class Banque {
 	public double getTresorerie() {
 		return tresorerie;
 	}
-
-	public void setTresorerie(double tresorerie) {
-		this.tresorerie = tresorerie;
-	}
 	
 	public Banque(){
 		tresorerie=(double)1000000;
@@ -75,7 +71,6 @@ public class Banque {
 	}
 	
 	public static void main(String[] args) {
-		Banque Treso=new Banque();
 	}
 	
 }

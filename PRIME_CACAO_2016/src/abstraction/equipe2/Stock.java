@@ -47,7 +47,7 @@ public class Stock {
 		
 		//Suivi du stock de cacao au fil des step
 		
-		public void ajout_cacao(){
+		public void ajoutCacao(){
 			this.getStock()[1]+=this.getStock()[0];
 			this.getStock()[1]-=0.6*Nestle.commandes.getCommandes()[1];
 			this.getStock()[0]=0.6*Nestle.commandes.getCommandes()[2];
@@ -55,7 +55,7 @@ public class Stock {
 		
 		
 		//suivi du stock de chocolat au fil des step
-		public void ajout_chocolat(){
+		public void ajoutChocolat(){
 			this.getStock()[1]+=this.getStock()[0];
 			this.getStock()[1]-=0.6*Nestle.commandes.getCommandes()[0];
 			this.getStock()[0]=Nestle.commandes.getCommandes()[1];

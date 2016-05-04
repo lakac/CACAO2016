@@ -29,7 +29,7 @@ public class Nestle implements Acteur, ITransformateur{
 	public static final Stock stock_cacao=new Stock();
 	public static final Stock stock_chocolat=new Stock();
 	public static final Banque tresorerie=new Banque();
-	public static final Commandes commandes = new Commandes();
+	public static final CommandeProd commandes = new CommandeProd();
 	
 
 	public String getNom() {
@@ -93,7 +93,7 @@ public class Nestle implements Acteur, ITransformateur{
 	public void notificationVente(IProducteur p) {
 		double commande = this.annonceQuantiteDemandee(p);
 		this.solde.setValeur(this, this.solde.getValeur()-p.annoncePrix()*commande);
-		stock_cacao.ajout_cacao();
+		stock_cacao.ajoutCacao();
 	}
 	
 	
@@ -109,8 +109,8 @@ public class Nestle implements Acteur, ITransformateur{
 		notificationVente(p);
 		}
 		commandes.quantiteDemandeeMonde(0.4);
-		stock_chocolat.ajout_chocolat();
-		tresorerie.setTresorerie(tresorerie.Tresorerie(this.getProducteurs().get(0), this.getProducteurs().get(1)));
+		stock_chocolat.ajoutChocolat();
+		//tresorerie.setTresorerie(tresorerie.Tresorerie(this.getProducteurs().get(0), this.getProducteurs().get(1)));
 		
 		this.achats.setValeur(this, commandes.getCommandes()[2]);
 		this.solde.setValeur(this, tresorerie.getTresorerie());

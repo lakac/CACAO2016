@@ -1,6 +1,6 @@
 package abstraction.equipe2;
 
-public class Commandes {
+public class CommandeProd {
 	
 	private double[] Commandes;
 	
@@ -17,7 +17,7 @@ public class Commandes {
 	}
 
 	
-	public Commandes() {
+	public CommandeProd() {
 		Commandes = new double[4];
 	}
 	
@@ -32,4 +32,6 @@ public class Commandes {
 		double qdp = this.getCommandes()[3]*0.6*p;
 		return qdp;
 	}
+	
+
 }
