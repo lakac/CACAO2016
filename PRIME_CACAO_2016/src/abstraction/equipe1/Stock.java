@@ -16,7 +16,7 @@ public class Stock {
 	/**
 	 * Repartition du stock selon la date de peremption
 	 * 
-	 * Les feves les plus anciennes sont en tête de la pile
+	 * Les feves les plus anciennes sont en tï¿½te de la pile
 	 */
 	private LinkedList<Double> stockParStep;
 	
@@ -37,20 +37,15 @@ public class Stock {
 	public double getQuantite() {
 		return this.quantite;
 	}
-
-	public void setQuantite(double quantite) {
-		this.quantite = quantite;
-	}
 	
 	/**
-	 * Met à jour la quantite totale du stock
+	 * Met ï¿½ jour la quantite totale du stock
 	 * Enleve le stock perime de la pile
 	 * Ajoute la production du step a la pile
 	 * @param production
 	 */
 	public void ajouterProd(double production) {
-		this.setQuantite(this.quantite-this.stockParStep.peek()+production);
-		this.stockParStep.remove();
+		this.quantite += production - this.stockParStep.remove();
 		this.stockParStep.add(production);
 	}
 	
@@ -70,6 +65,7 @@ public class Stock {
 				qte -= this.stockParStep.get(i);
 				this.stockParStep.set(i, 0.0);
 			}
+			i++;
 		}
 	}	
 }
