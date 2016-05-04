@@ -13,7 +13,7 @@ public class AchatProd {
 	/**
 	 * Indique la quantit� demand�e au producteur p.
 	 */
-	public double annonceQuantiteDemandee(IProducteur p, double quantiteMiseEnVente){ // le reste du monde est pris en compte manuellement dans le next
+	/*public double annonceQuantiteDemandee(IProducteur p, double quantiteMiseEnVente){ // le reste du monde est pris en compte manuellement dans le next
 		double quantiteTotale = Constante.RATIO_CACAO_CHOCOLAT*hist.valeur(Constante.STEP_COURANT);
 		if (p==MondeV1.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1)) {
 			return (Math.min(0.3*quantiteTotale, quantiteMiseEnVente));
@@ -21,5 +21,5 @@ public class AchatProd {
 		else {
 			return (Math.min(0.3*quantiteTotale, quantiteMiseEnVente));
 		}	
-	}
+	}*/
 }

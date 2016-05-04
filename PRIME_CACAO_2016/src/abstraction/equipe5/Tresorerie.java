@@ -40,7 +40,7 @@ public class Tresorerie {
 		}
 	}
 
-	public double coutRevient() {
+	/*public double coutRevient() {
 		P1 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1);
 		P2 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2);
 		int chargesFixes = 900980; // salaires+impots
@@ -52,6 +52,6 @@ public class Tresorerie {
 	
 	public double marge(){
 		return (15000*hist.valeur(Constante.STEP_3)-coutRevient());
-	}
+	}*/
 }
 

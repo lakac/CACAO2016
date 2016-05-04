@@ -1,5 +1,10 @@
 package abstraction.commun;
 
+/**
+ * Classe modelisant le marché du côté distributeur
+ * 
+ * @author Floriane Dahman
+ */
 
 import java.util.ArrayList;
 import abstraction.commun.IDistributeur;
