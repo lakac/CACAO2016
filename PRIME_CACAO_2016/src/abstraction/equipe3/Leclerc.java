@@ -10,6 +10,7 @@ import abstraction.fourni.Monde;
 
 public class Leclerc implements Acteur,IDistributeur{
 	private String nom;
+	/* Thomas */
 	private double qteT1;  /** quantité achetée au transformateur Nestlé */ 
 	private double qteT2;  /** quantité achetée au transformateur Lindt */ 
 	private double qteT3;  /** quantité achetée au transformateur Autre */
