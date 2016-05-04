@@ -2,6 +2,7 @@ package abstraction.equipe4;
 import abstraction.fourni.*;
 
 public class Tresorerie {
+	// argent totale dans la cagnote
 	private Indicateur fond;
 	// prix de vente
 	private double prix; 
@@ -17,7 +18,11 @@ public class Tresorerie {
 		this.Prod= a;
 		Monde.LE_MONDE.ajouterIndicateur( this.fond );
 	}
-
+	
+	
+	public Acteur getProd(){
+		return this.Prod;
+	}
 
 	public double getCoutProd() {
 		return this.CoutProd;
@@ -27,17 +32,19 @@ public class Tresorerie {
 		return this.prix;
 	}
 
-
+	public Indicateur getFond(){
+		return this.fond;
+	}
 
 	public double PrixVente(double commande){
-		return commande*this.prix;
+		return commande*this.getPrix();
 	}
 
 	
 	public void modiftreso(double commande){
 		
-		this.fond.setValeur(this.Prod, PrixVente(commande) + this.fond.getValeur()- this.CoutProd);
-	
+		this.getFond().setValeur(this.getProd(), PrixVente(commande) + this.getFond().getValeur()- this.getCoutProd());
+		
 	}
 		
 	}

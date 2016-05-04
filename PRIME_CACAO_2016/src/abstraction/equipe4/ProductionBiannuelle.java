@@ -8,7 +8,7 @@ public class ProductionBiannuelle {
 	public ProductionBiannuelle(int capaciteMaximale) {
 		this.capaciteMaximale = capaciteMaximale;
 		this.pertesMensuelles = new double[6];
-		(int i=0, i<6, i++) {
+		for (int i=0; i<6; i++) {
 			
 		}
 	}
