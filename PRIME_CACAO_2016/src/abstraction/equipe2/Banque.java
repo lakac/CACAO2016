@@ -26,8 +26,8 @@ public class Banque {
 	//p en euros, q en kilos
 	public static double[] CoutIntermediaires (IProducteur p1, IProducteur p2){ 
 		double[] CI =new double[2] ;
-			CI[0] = 13003370+Transformateur2.commandes.quantiteDemandee(0.3)*(5+p1.annoncePrix())
-						+Transformateur2.commandes.quantiteDemandee(0.3)*(5+p2.annoncePrix());
+//			CI[0] = 13003370+Transformateur2.commandes.quantiteDemandee(0.3)*(5+p1.annoncePrix())
+	//					+Transformateur2.commandes.quantiteDemandee(0.3)*(5+p2.annoncePrix());
 						//+Transformateur2.commandes.quantiteDemandeeMonde(0.4)*(5+3000)
 		if (Transformateur2.commandes.getCommandes()[1] != 0) {;			//Prix d'achat au monde :3000€ la tonne
 			CI[1] = CI[0]*0.6/Transformateur2.commandes.getCommandes()[1];
