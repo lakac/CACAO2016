@@ -7,25 +7,26 @@ public class Tresorerie {
 	// prix de vente
 	private double prix; 
 	// cout de prod
-	private double CoutProd; 
-	private Acteur Prod;
+	private double coutProd; 
+	// nous
+	private Acteur producteurEquipe4;
 	
 	
 	public Tresorerie(Acteur a, double prix, double cout) {
 		this.fond = new Indicateur("Fond de" + a.getNom(),a,0.0);
 		this.prix = prix;
-		this.CoutProd = cout;
-		this.Prod= a;
+		this.coutProd = cout;
+		this.producteurEquipe4= a;
 		Monde.LE_MONDE.ajouterIndicateur( this.fond );
 	}
 	
 	
 	public Acteur getProd(){
-		return this.Prod;
+		return this.producteurEquipe4;
 	}
 
 	public double getCoutProd() {
-		return this.CoutProd;
+		return this.coutProd;
 	}
 	
 	public double getPrix() {
@@ -36,16 +37,15 @@ public class Tresorerie {
 		return this.fond;
 	}
 
+	// calcule du résultat de la vente
 	public double PrixVente(double commande){
 		return commande*this.getPrix();
 	}
 
-	
-	public void modiftreso(double commande){
-		
+	public void setFond(double commande){		
 		this.getFond().setValeur(this.getProd(), PrixVente(commande) + this.getFond().getValeur()- this.getCoutProd());
 		
 	}
 		
-	}
+}
 	
