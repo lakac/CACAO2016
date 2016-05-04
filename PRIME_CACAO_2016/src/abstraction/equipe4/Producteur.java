@@ -73,7 +73,7 @@ public class Producteur implements Acteur,IProducteur{
 				this.notificationVente(commande);
 			}
 		}
-		}
+	}
 
 	// return un double valant la quantité disponible 
 	//pour chaque transformateur a chaque step
