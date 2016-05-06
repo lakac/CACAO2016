@@ -8,11 +8,13 @@ import abstraction.commun.ITransformateur;
 import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
+import abstraction.commun.CommandeDistri;
+import abstraction.commun.CommandeProduc;
 
 public class Lindt implements Acteur, ITransformateur{
 	
-	private HistoriqueCommande histCommandeDistrib;
-	private HistoriqueCommande histCommandeProduc;
+	private HistoriqueCommandeDistri histCommandeDistri;
+	private HistoriqueCommandeProduc histCommandeProduc;
 	private Stock stockCacao;
 	private Stock stockChocolat;
 	private Indicateur venteChocolat;
@@ -26,17 +28,18 @@ public class Lindt implements Acteur, ITransformateur{
 	private ArrayList<IDistributeur> distributeurs;
 	
 	
+	
 	public Lindt(){
-		this.histCommandeDistrib = new HistoriqueCommande();
-		this.histCommandeProduc = new HistoriqueCommande();
+		this.histCommandeDistri = new HistoriqueCommandeDistri();
+		this.histCommandeProduc = new HistoriqueCommandeProduc();
 		this.stockCacao = new Stock("cacao",this,0.0);
 		this.stockChocolat = new Stock("chocolat",this,0.0);
 		this.venteChocolat = new Indicateur("quantité de chocolat vendue Lindt", this, this.stockChocolat.getStock());
-		//this.treso = new Tresorerie(this.getHist(), this);
+		this.treso = new Tresorerie(this.histCommandeDistri, this.histCommandeProduc, this);
 		Monde.LE_MONDE.ajouterIndicateur(venteChocolat);
 		this.producteurs = new ArrayList<IProducteur>();
 		this.distributeurs = new ArrayList<IDistributeur>();
-		this.achatProd = new AchatProd(histCommandeProduc);		
+		this.achatProd = new AchatProd(this.histCommandeProduc);		
 	}
 	
 	public void ajouterProducteur(IProducteur p) {
@@ -81,10 +84,15 @@ public class Lindt implements Acteur, ITransformateur{
 		return 0.0;
 	}
 	public double annonceQuantiteMiseEnVente(IDistributeur d){
-		return 0.0 ;// Return notre stock :) 
+		return this.stockCacao.getStock();
 	}
 	
-	public void arriveeCommandeDirtri(IDistributeur d) {
-		//Commande nouvelleCommande = new Commande(d, this, d.getDemande(this),15000); // faire méthode qui donne le prix de vente
+	public void arriveeCommandeDistri(IDistributeur d) {
+		//CommandeDistri nouvelleCommande = new CommandeDistri(d, this, d.getDemande(this),15000); // faire méthode qui donne le prix de vente
+	}
+	
+	public void arriveeCommandeProduc(IProducteur p) {
+		CommandeProduc nouvelleCommande = new CommandeProduc(this, p, annonceQuantiteDemandee(p), p.annoncePrix());
+		this.histCommandeProduc.ajouter(nouvelleCommande);
 	}
 }

@@ -7,14 +7,16 @@ import abstraction.fourni.Indicateur;
 import abstraction.equipe5.Lindt;
 
 public class Tresorerie {
-	private HistoriqueCommande hist;
+	private HistoriqueCommandeDistri histDistri;
+	private HistoriqueCommandeProduc histProduc;
 	private Indicateur treso;	
 	private IProducteur P1;
 	private IProducteur P2;
 	private Lindt lindt;
 
-	public Tresorerie(HistoriqueCommande hist, Lindt lindt){
-		this.hist= hist;
+	public Tresorerie(HistoriqueCommandeDistri histDistri, HistoriqueCommandeProduc histProduc, Lindt lindt){
+		this.histDistri = histDistri;
+		this.histProduc = histProduc;
 		this.lindt = lindt;
 		this.treso = new Indicateur("Trésorerie Lindt", lindt, 100000);
 		Monde.LE_MONDE.ajouterIndicateur(this.treso);

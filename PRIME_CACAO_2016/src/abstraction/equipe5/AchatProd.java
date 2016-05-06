@@ -5,11 +5,12 @@ import abstraction.commun.IProducteur;
 import abstraction.commun.MondeV1;
 
 public class AchatProd {
-	private HistoriqueCommande hist;
+	private HistoriqueCommandeProduc hist;
 
-	public AchatProd(HistoriqueCommande hist){
-		this.hist=hist;
+	public AchatProd(HistoriqueCommandeProduc hist){
+		this.hist = hist;
 	}
+	
 	/**
 	 * Indique la quantit� demand�e au producteur p.
 	 */
