@@ -50,6 +50,8 @@ public class Tresorerie {
 		return chargesFixes + quantiteCacaoAchetee * 5000 + (P1.annoncePrix()*0.3 + P2.annoncePrix()*0.3 + 3000*0.4);	
 		//cout de revient d'une tonne= charges fixes+ ratioCacao*quantité demandée par les distributeurs* cout de transformation d'une tonne.
 		//Cout de transformation d'une tonne= 5000+quantité de cacao demandée à chaque producteur multiplié par leur prix
+	
+	return 0.0;
 	}
 	
 	public double marge(){

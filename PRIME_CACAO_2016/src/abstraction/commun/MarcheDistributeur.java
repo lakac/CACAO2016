@@ -59,6 +59,7 @@ public class MarcheDistributeur implements Acteur{
 				j++;
 				totalQuantitesDemandeesD+=d0.getDemande(t0);
 				}
+			
 //			double[] quantitesReellementAchetees  = new double[this.transformateurs.size()]; 
 //			double[] quantitesReellementVendues  = new double[this.producteurs.size()]; 
 //			if (totalQuantitesDemandeesT>totalQuantitesEnVente) { // demande > offre
@@ -84,9 +85,8 @@ public class MarcheDistributeur implements Acteur{
 //			for (int i=0; i<this.producteurs.size(); i++) {
 //				this.producteurs.get(i).notificationVente(quantitesReellementVendues[i]);
 //			}
-			
-			
-		}
+//			
+//		}
 	}	
 
 
