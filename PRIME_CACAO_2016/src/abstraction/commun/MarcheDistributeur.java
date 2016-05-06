@@ -45,9 +45,9 @@ public class MarcheDistributeur implements Acteur{
 			for (IDistributeur d : this.distributeurs) {
 				int i =0;
 				for (ITransformateur t : this.transformateurs){
-					quantitesEnVenteT[i] =+ t.annonceQuantiteMiseEnVente(d);
+					//quantitesEnVenteT[i] =+ t.annonceQuantiteMiseEnVente(d);
 					i++;
-					totalQuantitesEnVenteT+=t.annonceQuantiteMiseEnVente(d);
+					//totalQuantitesEnVenteT+=t.annonceQuantiteMiseEnVente(d);
 			}}
 			// Toutes les quantites demandees
 			double[] quantitesDemandeesD = new double[this.distributeurs.size()];
@@ -87,9 +87,10 @@ public class MarcheDistributeur implements Acteur{
 //			}
 //			
 //		}
-	}	
-
-
-
+	}}
 }
+
+
+
+
 
