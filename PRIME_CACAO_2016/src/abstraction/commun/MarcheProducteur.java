@@ -5,6 +5,7 @@ import abstraction.commun.IProducteur;
 import abstraction.commun.ITransformateur;
 import abstraction.equipe1.Producteur;
 import abstraction.fourni.Acteur;
+import abstraction.fourni.Historique;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
 
@@ -34,12 +35,12 @@ public class MarcheProducteur implements Acteur {
 		return coursCacao.getValeur();
 	}
 
-	public Indicateur getCoursCacao(){
-		return coursCacao;
+	public Historique getCoursCacao(){
+		return coursCacao.getHistorique();
 	}
 	
 	public String getNom() {
-		return this.getCoursCacao().getNom();
+		return "Marche Cacao";
 	}
 
 	public void next() {
