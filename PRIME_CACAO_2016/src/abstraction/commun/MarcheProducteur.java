@@ -28,14 +28,23 @@ public class MarcheProducteur implements Acteur {
 		this.producteurs = new ArrayList<IProducteur>();
 		this.transformateurs = new ArrayList<ITransformateur>();
 		this.coursCacao = new Indicateur("Cours Cacao",this,PRIX_DE_BASE);
+		Monde.LE_MONDE.ajouterIndicateur(this.coursCacao);
 	}
-
+	
+	public void ajouterTransformateur(ITransformateur transformateur){
+		this.transformateurs.add(transformateur);
+	}
+	
+	public void ajouterProducteur(IProducteur producteur){
+		this.producteurs.add(producteur);
+	}
+	
 	//Renvoie la valeur actuelle du cout du cacao
 	public double getCours() {
 		return coursCacao.getValeur();
 	}
 
-	public Historique getCoursCacao(){
+	public Historique getHistorique(){
 		return coursCacao.getHistorique();
 	}
 	
