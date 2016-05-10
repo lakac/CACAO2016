@@ -42,6 +42,14 @@ public class Lindt implements Acteur, ITransformateur{
 		this.achatProd = new AchatProd(this.histCommandeProduc);		
 	}
 	
+	public HistoriqueCommandeDistri getHistCommandeDistri() {
+		return histCommandeDistri;
+	}
+
+	public HistoriqueCommandeProduc getHistCommandeProduc() {
+		return histCommandeProduc;
+	}
+	
 	public void ajouterProducteur(IProducteur p) {
 		this.producteurs.add(p);
 	}
@@ -93,6 +101,6 @@ public class Lindt implements Acteur, ITransformateur{
 	
 	public void arriveeCommandeProduc(IProducteur p) {
 		CommandeProduc nouvelleCommande = new CommandeProduc(this, p, annonceQuantiteDemandee(p), p.annoncePrix());
-		this.histCommandeProduc.ajouter(nouvelleCommande);
+		this.getHistCommandeProduc().ajouter(nouvelleCommande);
 	}
 }
