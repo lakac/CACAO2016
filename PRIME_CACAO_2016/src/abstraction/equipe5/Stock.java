@@ -28,9 +28,4 @@ public class Stock {
 		this.setStock(this.getStock()+d);
 	}
 	
-	public void retirerStock(double d) {
-		if (this.getStock()-d >= 0) {
-			this.setStock(this.getStock()-d);
-		}	
-	}
 }

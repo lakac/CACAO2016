@@ -5,6 +5,6 @@ public class Constante {
 	 public static final int STEP_PRECEDENT = 2;
 	 public static final int STEP_2 = 1;
 	 public static final int STEP_3 = 0;
-	 public static final double RATIO_CACAO_CHOCOLAT = 0.6; // pour 100g de chocolat, il faut 60g de cacao
+	 public static final double[] RATIO_CACAO_CHOCOLAT = {0.7,0.8,0.9}; // pour 100g de chocolat, il faut 60g de cacao
 
 }
