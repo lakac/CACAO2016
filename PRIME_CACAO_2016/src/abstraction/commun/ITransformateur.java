@@ -5,9 +5,7 @@ public interface ITransformateur {
 	 * Indique la quantité demandée au producteur p.
 	 */
 	public double annonceQuantiteDemandee(IProducteur p);
-	//A Rajouter par l'équipe 2 :)
-	//public double annonceQuantiteMiseEnVente(IDistributeur d);
-	
+	// Rajouter une annonce de prix Transformateur
 	/**
 	 * Met à jour l'état interne de ce transformateur
 	 * suite à une vente auprès du producteur p.

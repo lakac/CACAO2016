@@ -69,10 +69,10 @@ public class Lindt implements Acteur, ITransformateur{
 	}
 
 	/**
-	 * Met a� jour l'�tat interne de ce transformateur
-	 * suite a� une vente aupr�s du producteur p.
+	 * Met a jour l'etat interne de ce transformateur
+	 * suite a une vente aupres du producteur p.
 	 * 
-	 * Cette m�thode est appel�e par les producteurs.
+	 * Cette methode est appelee par les producteurs.
 	 */
 	public void notificationVente(IProducteur p){ // on travaille avec chaque producteur d'où le ratio de 0.3 à chaque fois
 		stockCacao.ajouterStock(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT));
