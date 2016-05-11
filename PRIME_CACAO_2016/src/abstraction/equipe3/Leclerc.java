@@ -118,7 +118,7 @@ public class Leclerc implements Acteur,IDistributeur{
 	public void next() {
 	    setPrix(15.0);
 	    commande(Monde.LE_MONDE.getStep());
-		this.achats.setValeur(this,quantite);
+		this.achats.setValeur(this,this.getQte());
 		this.prixvente=20.0;
 		for (ITransformateur t : this.transformateurs) {
 			double q = this.getVente(t);
