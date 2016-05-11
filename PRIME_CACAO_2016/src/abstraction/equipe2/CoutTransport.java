@@ -1,7 +1,6 @@
 package abstraction.equipe2;
 import java.util.HashMap;
 
-import OldV1transformateur.CommandeProd;
 import abstraction.commun.*;
 import abstraction.equipe1.Producteur;
 import abstraction.fourni.*;
