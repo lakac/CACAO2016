@@ -9,22 +9,22 @@ package abstraction.commun;
 public class CommandeDistri {
 	private IDistributeur acheteur;
 	private ITransformateur vendeur;
-	private String produit; // A changer!!!
+	private Produit produit;
 	private double quantite;
 	private double prixTonne;
 
-	public CommandeDistri(IDistributeur acheteur, ITransformateur vendeur, String produit, double quantite) {
+	public CommandeDistri(IDistributeur acheteur, ITransformateur vendeur, Produit produit, double quantite) {
 		this.acheteur = acheteur;
 		this.vendeur = vendeur;
 		this.produit = produit;
 		this.quantite = quantite;
 	}
 
-	public String getProduit() {
+	public Produit getProduit() {
 		return this.produit;
 	}
 
-	public void setProduit(String produit) {
+	public void setProduit(Produit produit) {
 		this.produit = produit;
 	}
 
