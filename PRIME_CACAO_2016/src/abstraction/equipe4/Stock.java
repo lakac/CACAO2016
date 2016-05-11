@@ -37,23 +37,24 @@ public class Stock {
 	//Réduction du stock d'une valeur value
 	public void reductionStock(double value){
 		if (value>0){
-		this.getStockCacao().setValeur(this.prod, this.getStockCacao().getValeur()- value);	
+		this.getStockCacao().setValeur(this.getProd(), this.getStockCacao().getValeur()- value);	
 		}
 	}
 	
 	//Augmentation du stock d'une valeur value
 	public void augmentationStock(double value){
 		if (value>0){
-			this.getStockCacao().setValeur(this.prod, this.getStockCacao().getValeur()+value);
+			this.getStockCacao().setValeur(this.getProd(), this.getStockCacao().getValeur()+value);
 		}
 	}
-
+	
+	// Perte de stock 
 	public void perteDeStock(){
-		this.stockCacao.setValeur(this.prod,this.stockCacao.getValeur()-this.perteStock);
+		this.getStockCacao().setValeur(this.getProd(),this.getStockCacao().getValeur()-this.getPerteStock());
 	}
 	
 	public void coutStock(){
-		this.getProd().getTreso().getFond().setValeur(this.prod, this.getProd().getTreso().getFond().getValeur()-Couts.COUTSTOCK*this.getProd().getStock().getStockCacao().getValeur());
+		this.getProd().getTreso().getFond().setValeur(this.getProd(), this.getProd().getTreso().getFond().getValeur()-Couts.COUTSTOCK*this.getProd().getStock().getStockCacao().getValeur());
 	}
 	
 
