@@ -8,32 +8,29 @@ import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
 
-public class Leclerc implements Acteur,IDistributeur{
+public class Leclerc implements Acteur,IDistributeur{ 
 	private String nom;
-	private double prixvente;
+	private double prixAchat;
+	private double prixVente;
 	private Indicateur solde;
 	private Indicateur achats;
+	private ArrayList<Double> stock;
 	private ArrayList<Double> quantite;
-	private double prixAchat;
 	private ArrayList<ITransformateur> transformateurs;
-	private double demande;
 	private ArrayList<Double> ratio;
-	private double stock;
+
 	
-	public Leclerc(String nom, Monde monde, double prixAchat, double demande) {
+	public Leclerc(String nom, Monde monde, double prixAchat) {
 		this.nom=nom;
-		this.prixAchat=prixAchat;	
-		this.demande=demande;
+		this.prixAchat=prixAchat;		
 		this.achats = new Indicateur("Achats de "+nom, this, 0.0);
 		this.solde = new Indicateur("Solde de "+nom, this, 1000000.0);
+		this.stock = new ArrayList<Double>();
 		this.quantite = new ArrayList<Double>();
-		this.ratio=new ArrayList<Double>();
+		this.ratio = new ArrayList<Double>();
     	Monde.LE_MONDE.ajouterIndicateur( this.achats );
     	Monde.LE_MONDE.ajouterIndicateur( this.solde );
-        
-    	this.transformateurs = new ArrayList<ITransformateur>();
-
-		// TODO Auto-generated constructor stub
+    	this.transformateurs = new ArrayList<ITransformateur>();	
 	}
 	public void ajouterVendeur(ITransformateur t) {
 		this.transformateurs.add(t);
@@ -41,112 +38,104 @@ public class Leclerc implements Acteur,IDistributeur{
 	public String getNom(){
 		return this.nom;
 	}
-	public double getQte(int i){
-		return this.quantite.get(i);
-	} 
 	public double getPrixAchat(){
 		return this.prixAchat;
 	}
-	public double getPrixvente(){
-		return this.prixvente;
+	public double getPrixVente(){
+		return this.prixVente;
 	}
-	public double getDemande() {
-		return this.demande;
-	}
-	public void setPrix(double prixAchat){
+	public void setPrixAchat(double prixAchat){
 		this.prixAchat=prixAchat;
 	}
-	public void setPrixvente(double prixvente){
-		this.prixvente=prixvente;
+	public void setPrixVente(double prixVente){
+		this.prixVente=prixVente;
 	}
-	public void setDemande(double demande){
-		this.demande=demande-this.stock;
-	}
-	public void setDemandeStep() {
-		if (Monde.LE_MONDE.getStep()%26==3) {
-			this.demande=3673.08;
-		}
-		else {
-			if (Monde.LE_MONDE.getStep()%26==23) {
-				this.demande=6173.08;
-			}
-			else {
-				this.demande=1673.08;
-			}
+	public void initialiseStock(){
+		this.stock = new ArrayList<Double>();
+		for (int i=0;i<this.transformateurs.size();i++){
+			this.stock.add(0.0);
 		}
 	}
-	public ArrayList<Double> defRatio(){
-		
-		
+	public void setRatio (Double[] ratio) {
+		double x = 1;
+		this.ratio=new ArrayList<Double>();
+		for (double i : ratio) { 
+			this.ratio.add(i);
+			x-=i;
+		} this.ratio.add(x); //On rajoute un transformateur en plus qui couvre le reste du march�
 	}
-	public void setRatio(ArrayList<Double> ratio) {
-		this.ratio = new ArrayList<Double>();
-		for (double r : ratio) {
-			this.ratio.add(r);
-			
+	public void setQtepartransformateur(double commande){
+		this.quantite = new ArrayList<Double>();
+		for (int i=0; i<this.ratio.size(); i++) {
+			this.quantite.add(this.ratio.get(i)*commande);
 		}
 	}
-
-	public void setQte(double commande){
-		for (ITransformateur t : this.transformateurs) {
-			
-		}
+	public double getQteTotal() {
+		double y = 0;
+		for (double q : this.quantite) {
+			y+=q;
+		} return y;
 	}
-	/** Demande selon la période de l'année*/
 	public void commande(int step){
-		int n=this.transformateurs.size();
 		if (step%26==3){
-			setQte(3673.08);					/** correspond à Pâques*/
+
+			setQtepartransformateur(3673.08);		/** correspond à Pâques*/
 		}
 		else{
 			if (step%26==23){
-				setQte(6173.08);				/** correspond à Noël*/
+				setQtepartransformateur(6173.08);	/** correspond à Noël*/
 			}
 			else{
-				setQte(1673.08);
+				setQtepartransformateur(1673.08);
 			}
 		}
 	}
 	public double getDemande(ITransformateur t){
+		double x = 0;
 		commande(Monde.LE_MONDE.getStep());
-		if (t.equals(transformateurs.get(0))) {
-			return qteT1;
-		}
-		else{
-			if (t.equals(transformateurs.get(1))){
-				return qteT2;
+		for (int i=0; i<this.transformateurs.size();i++) {
+			if (t.equals(this.transformateurs.get(i))) {
+				x = this.quantite.get(i);
 			}
-			else{
-				return qteT3;
-			}
-		}
+		} return x;
 	}
 	public double getVente(ITransformateur t){
+		double x = 0;
 		commande(Monde.LE_MONDE.getStep()-3);
-		if (t.equals(transformateurs.get(0))) {
-			return qteT1;
-		}
-		else{
-			if (t.equals(transformateurs.get(1))){
-				return qteT2;
+		for (int i=0; i<this.transformateurs.size();i++) {
+			if (t.equals(this.transformateurs.get(i))) {
+				x = this.quantite.get(i);
 			}
-			else{
-				return qteT3;
+		} return x;
+	}
+	public double getStock (ITransformateur t) {
+		double s = 0;
+		double x = 0;
+		for (int i=0;i<this.transformateurs.size();i++){
+			if (t.equals(this.transformateurs.get(i))){
+				x=this.stock.get(i);
+				x += this.getDemande(t)-this.getVente(t);
+				this.stock.remove(i);
+				this.stock.add(i, x);
+				s=this.stock.get(i);
 			}
-		}
+		} return s;
 	}
 	
 	public void next() {
-	    setPrix(15.0);
+	    setPrixAchat(15.0);
+	    Double[] ratio = {0.125, 0.036};
+	    setRatio(ratio);
 	    commande(Monde.LE_MONDE.getStep());
-		this.achats.setValeur(this,quantite);
-		this.prixvente=20.0;
+		this.achats.setValeur(this,this.getQteTotal());
+		this.setPrixVente(20);
 		for (ITransformateur t : this.transformateurs) {
 			double q = this.getVente(t);
 			this.solde.setValeur(this, this.solde.getValeur()-q*this.getPrixAchat()); 
 		}
 
-		this.solde.setValeur(this, this.solde.getValeur()+quantite*this.getPrixvente());
-		 //solde(step n)=solde step(n-1)+quantite(step n)*prixvente - quantite(step n)*prix
+		this.solde.setValeur(this, this.solde.getValeur()+this.getQteTotal()*this.getPrixVente());
+		 //solde(step n)=solde step(n-1)+quantite(step n)*prixvente
 }
+
 }
