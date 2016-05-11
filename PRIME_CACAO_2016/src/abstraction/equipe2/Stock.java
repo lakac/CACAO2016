@@ -28,11 +28,11 @@ public class Stock {
 		return stockprecedents;
 	}
 	
-	public void MiseAJourHistorique(int etape) {
-		this.stockprecedents.ajouter(Nestle, etape, this.stock);
-	}
+	//public void MiseAJourHistorique(int etape) {
+	//	this.stockprecedents.ajouter(Nestle, etape, this.stock);
+	//}
 	//Ne connaît pas encore Nestlé
-	public CoutStock() {
+	public double CoutStock() {
 		return COUTSTOCKUNITAIRE*this.getStock();
 	}
 	

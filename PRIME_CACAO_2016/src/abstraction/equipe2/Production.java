@@ -12,7 +12,7 @@ public class Production {
 		return production;
 	}
 
-	public void setProduction(CommandeDis CommandeDis) {
+	public void setProduction(CommandeDis CommandeDis)  {
 		this.production = Math.min(PRODUCTION_MAX,CommandeDis.getCommandeDis());
 	}
 }

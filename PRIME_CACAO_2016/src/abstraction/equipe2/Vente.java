@@ -23,9 +23,9 @@ public class Vente {
 		return historiqueventes;
 	}
 	
-	public void MiseAJourHistorique(int etape) {
-		this.historiqueventes.ajouter(Nestle, etape, this.dernierecommandevendue);
-	}
+	//public void MiseAJourHistorique(int etape) {
+	//	this.historiqueventes.ajouter(Nestle, etape, this.dernierecommandevendue);
+	//}
 	//Ne connaît pas encore Nestlé
 	
 	
