@@ -56,6 +56,9 @@ public class MondeV1 extends Monde {
 		Ca.ajouterVendeur(t1);
 		Ca.ajouterVendeur(lindt);
 		
+		p1.ajouterTransformateur(t1);
+		p1.ajouterTransformateur(lindt);
+		
 		marcheProducteur.ajouterProducteur(p1);
 		marcheProducteur.ajouterProducteur(p2);
 		marcheProducteur.ajouterTransformateur(t1);
