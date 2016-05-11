@@ -99,7 +99,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		}
 		this.achats.setValeur(this, this.demandeperstep);
 		this.solde.setValeur(this,this.solde.getValeur()+this.demandeperstep*this.prixvente
-				-this.fraisdedistri); 
+										-this.fraisdedistri); 
 		
 		// Solde = Solde précédent + Ventes - Achats - Frais de Distribution
 	}

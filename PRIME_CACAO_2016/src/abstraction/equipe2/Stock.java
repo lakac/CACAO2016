@@ -3,6 +3,7 @@ package abstraction.equipe2;
 import abstraction.fourni.Historique;
 
 public class Stock {
+	public static final double COUTSTOCKUNITAIRE = 18.0;
 	private double stock;
 	private Historique stockprecedents;
 	
@@ -19,23 +20,32 @@ public static final double COUT_STOCK = 18;
 	}
 	
 	public void AjouterStockAchat(Achat achat) {
-		this.stock = this.stock + achat.getDernierecommandeachetee().getCommandesProd();
+		this.stock = this.stock + achat.getDernierecommandeachetee().getCommandesProd()
+				   - (0.2+Math.random()*0.1)* achat.getDernierecommandeachetee().getCommandesProd();
 	}
 	
 	public void AjouterStockProduction(Production production){
 		this.stock = this.stock + production.getProduction();
 	}
 	
-	public void RetirerStockVentes(Vente ventes) {
+	public void RetirerStockProduction(Production production) {
+		this.stock = this.stock + production.getProduction();
+	}
+	
+	public void RetirerStockVente(Vente ventes) {
 		this.stock -= ventes.getDernierecommandevendue().getCommandeDis();
 	}
 	public Historique getStockprecedents() {
 		return stockprecedents;
 	}
 	
-	public void MiseAJourHistorique(int etape) {
-		this.stockprecedents.ajouter(Nestle, etape, this.stock);
-	}
+	//public void MiseAJourHistorique(int etape) {
+	//	this.stockprecedents.ajouter(Nestle, etape, this.stock);
+	//}
 	//Ne connaît pas encore Nestlé
+	public double CoutStock() {
+		return COUTSTOCKUNITAIRE*this.getStock();
+	}
+	
 
 }
