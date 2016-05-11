@@ -3,32 +3,43 @@ package abstraction.equipe5;
 import abstraction.fourni.Monde;
 import abstraction.commun.Constantes;
 import abstraction.commun.IProducteur;
+import abstraction.fourni.Indicateur;
+import abstraction.equipe5.Lindt;
 
 public class Tresorerie {
-	private HistoriqueCommandeDist hist;
-	private double treso;	
+	private HistoriqueCommandeDistri histDistri;
+	private HistoriqueCommandeProduc histProduc;
+	private Indicateur treso;	
 	private IProducteur P1;
 	private IProducteur P2;
+	private Lindt lindt;
 
-	public Tresorerie(HistoriqueCommandeDist hist){
-		this.hist= hist;
-		this.treso = 0;
+	public Tresorerie(HistoriqueCommandeDistri histDistri, HistoriqueCommandeProduc histProduc, Lindt lindt){
+		this.histDistri = histDistri;
+		this.histProduc = histProduc;
+		this.lindt = lindt;
+		this.treso = new Indicateur("Trﾃｩsorerie Lindt", lindt, 100000);
+		Monde.LE_MONDE.ajouterIndicateur(this.treso);
 	}
 	
 	public double getTresorerie() {
-		return this.treso;
+		return this.treso.getValeur();
 	}
 	
-	public void setTresorerie(double treso) {
-		this.treso = treso;
+	private void setTresorerie(double treso) { 
+			this.treso.setValeur(this.lindt, treso);
 	}
 	
-	public void ajouterTresorerie(double d) {
-		this.setTresorerie(this.getTresorerie()+d);
+
+	public void depot(double d) {
+		if (d > 0) {
+			this.setTresorerie(this.getTresorerie()+d);}
 	}
 	
-	public void retirerTresorerie(double d) {
-		this.setTresorerie(this.getTresorerie()-d);	
+	public void retrait(double d) {
+		if (d > 0) {
+			this.setTresorerie(this.getTresorerie()-d);	
+		}
 	}
 
 	/*public double coutRevient() {
@@ -37,13 +48,15 @@ public class Tresorerie {
 		int chargesFixes = 900980; // salaires+impots
 		double quantiteCacaoAchetee = Constante.RATIO_CACAO_CHOCOLAT*hist.valeur(Constante.STEP_PRECEDENT);
 	//	return chargesFixes + quantiteCacaoAchetee * 5000 + (P1.annoncePrix()*0.3 + P2.annoncePrix()*0.3 + 3000*0.4);	
-		//cout de revient d'une tonne= charges fixes+ ratioCacao*quantité demandée par les distributeurs* cout de transformation d'une tonne.
-		//Cout de transformation d'une tonne= 5000+quantité de cacao demandée à chaque producteur multiplié par leur prix
+		//cout de revient d'une tonne= charges fixes+ ratioCacao*quantitﾃｩ demandﾃｩe par les distributeurs* cout de transformation d'une tonne.
+		//Cout de transformation d'une tonne= 5000+quantitﾃｩ de cacao demandﾃｩe ﾃ� chaque producteur multipliﾃｩ par leur prix
+	
+	return 0.0;
 	}
-	*/
-/*	public double marge(){
-		return (15000*hist.valeur(Constante.STEP_PRECEDENT_MOINS_3)-coutRevient());
-	}
-*/
+
+	
+	public double marge(){
+		return (15000*hist.valeur(Constante.STEP_3)-coutRevient());
+	}*/
 }
 
