@@ -29,8 +29,6 @@ public class MondeV1 extends Monde {
 		Carrefour Ca = new Carrefour("Carrefour", this, 15, 20, 50000);
 		
 		this.ajouterActeur(Le);
-
-
 		this.ajouterActeur(Ca);
 		// Transformateurs
 		Transformateur2 t1 = new Transformateur2(this);
