@@ -7,14 +7,12 @@ public class Stock {
 	private Indicateur stockCacao;
 	private double perteStock;
 	private Producteur prod;
-	private double coutStock;
 	
 	public Stock(Producteur p) {
 		this.stockCacao = new Indicateur("Stock de "+ p.getNom(),p,0.0);
     	Monde.LE_MONDE.ajouterIndicateur(this.stockCacao);
     	this.perteStock=0.0;
     	this.prod=p;
-    	this.coutStock=0.001;
 
 	}
 
@@ -30,9 +28,6 @@ public class Stock {
 		return this.prod;
 	}
 	
-	public double getCoutStock() {
-		return this.coutStock;
-	}
 
 	public void setPerteStock() {
 		this.perteStock = this.getStockCacao().getValeur()*Math.random()*0.05;
@@ -54,6 +49,10 @@ public class Stock {
 
 	public void perteDeStock(){
 		this.stockCacao.setValeur(this.prod,this.stockCacao.getValeur()-this.perteStock);
+	}
+	
+	public void coutStock(){
+		this.getProd().getTreso().getFond().setValeur(this.prod, this.getProd().getTreso().getFond().getValeur()-Couts.coutStock*this.getProd().getStock().getStockCacao().getValeur());
 	}
 	
 

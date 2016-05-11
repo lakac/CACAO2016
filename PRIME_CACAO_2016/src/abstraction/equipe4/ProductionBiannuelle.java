@@ -1,7 +1,5 @@
 package abstraction.equipe4;
 
-import abstraction.fourni.*;
-
 public class ProductionBiannuelle {
 	private int capaciteMaximale; //Capacité maximale de production mensuelle, sans prendre en compte les aléas
 	private double perteProduction; //tableau retournant les pertes sur les six mois de la production
@@ -48,11 +46,16 @@ public class ProductionBiannuelle {
 		return PerteAleatoire;	
 	}
 
+	public void coutProd(){
+		this.getProd().getTreso().getFond().setValeur(this.getProd(), this.getProd().getTreso().getFond().getValeur()- Couts.coutProd*this.getProductionFinale());
+	}
 	
 	public void production(){
 		this.setPerteProduction();
 		this.setProductionFinale();
+		this.coutProd();
 		this.prod.getStock().augmentationStock(this.getProductionFinale());
 	}
-	
+
+
 }

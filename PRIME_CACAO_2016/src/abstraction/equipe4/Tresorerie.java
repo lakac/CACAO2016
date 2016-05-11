@@ -22,16 +22,7 @@ public class Tresorerie {
 
 	public Indicateur getFond(){
 		return this.fond;
-	}
-
-	public void coutStock(){
-		this.fond.setValeur(this.prod, this.getFond().getValeur()-this.getProd().getStock().getCoutStock()*this.getProd().getStock().getStockCacao().getValeur());
-	}
-	
-	
-	public void vente(double qtVendue){		
-		this.fond.setValeur(prod, this.getFond().getValeur()+ qtVendue*this.getProd().getMarche().getCours());
-	}
+	}	
 		
 }
 	

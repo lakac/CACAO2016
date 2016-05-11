@@ -68,13 +68,13 @@ public class Producteur implements Acteur,IProducteur{
 		
 		//production semi annuelle
 		if (Monde.LE_MONDE.getStep()%12==1){ 
-			this.getProdTotaleUtilisable().setValeur(this,this.prod-this.pertes.getValeur());
-			this.augmentationStock(this.getProdTotaleUtilisable().getValeur());
-			this.journal.ajouter("Production de semi annuelle de " + this.getProdTotaleUtilisable());
+			this.getProdBiannu().production();
+			this.journal.ajouter("Production de semi annuelle de " + this.getProdBiannu().getProductionFinale() + " en comptant les pertes de "+ this.getProdBiannu().getPerteProduction());
 		}
 		//Commandes			
-		this.stock.setPerteStock();
-		this.stock.perteDeStock();
+		this.getStock().setPerteStock();
+		this.getStock().perteDeStock();
+		this.stock
 		for (ITransformateur t : this.transformateurs){
 			double qtVendu = t.annonceQuantiteDemandee(this);
 			t.notificationVente(this);
@@ -97,7 +97,12 @@ public class Producteur implements Acteur,IProducteur{
 		this.journal.ajouter("Vente de " + qtVendue+" auprès de " + a.getNom() + " au step numéro "+ Monde.LE_MONDE.getStep());
 	}
 
+	public void vente(double qtVendue){		
+		this.getTreso().getFond().setValeur(this, this.getTreso().getFond().getValeur()+ qtVendue*this.getMarche().getCours());
+	}
 
+	
+	
 	//Ventes réalisées auprès du transformateur "Le reste du Monde"
 	
 	public void venteResteMonde(){
