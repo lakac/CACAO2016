@@ -3,12 +3,9 @@ package abstraction.equipe2;
 import abstraction.fourni.Historique;
 
 public class Stock {
-	public static final double COUTSTOCKUNITAIRE = 18.0;
 	private double stock;
 	private Historique stockprecedents;
-	
-public static final double COUT_STOCK = 18;
-	
+		
 	
 	public double getStock() {
 		return stock;
@@ -44,7 +41,7 @@ public static final double COUT_STOCK = 18;
 	//}
 	//Ne connaît pas encore Nestlé
 	public double CoutStock() {
-		return COUTSTOCKUNITAIRE*this.getStock();
+		return Constante.COUT_STOCK_UNITAIRE*this.getStock();
 	}
 	
 
