@@ -6,9 +6,9 @@ package abstraction.commun;
 
 public class Produit {
 	private String produit;
-	private int ratioCacao;
+	private double ratioCacao;
 	
-	public Produit(String produit, int ratio) {
+	public Produit(String produit, double ratio) {
 		this.produit = produit;
 		this.ratioCacao = ratio;
 	}
@@ -17,7 +17,7 @@ public class Produit {
 		return this.produit;
 	}
 	
-	public int getRatioCacao() {
+	public double getRatioCacao() {
 		return this.ratioCacao;
 	}
 	
