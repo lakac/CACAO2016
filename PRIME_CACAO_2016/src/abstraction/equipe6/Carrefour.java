@@ -39,23 +39,21 @@ public class Carrefour implements Acteur,IDistributeur {
 	
 	// Fixe la demande selon la p�riode de l'ann�e.
 	
-	public void  setDemandePerStep (int step ){
-		if (step%26 == 7 ) {
+	public void setdemandePerStep (int step ){
+		if (step%26 == 6 ) {
 			this.demandeperstep = 0.06*this.getDemandeAnnuel();
 		}
+		if (step%26 == 25) {
+			this.demandeperstep = 0.12*this.getDemandeAnnuel();
+		}
 		else {
-			if (step%26 == 25) {
-				this.demandeperstep = 0.12*this.getDemandeAnnuel();
-			}
-			else {
-				this.demandeperstep = 0.03416*this.getDemandeAnnuel();
-			}
+			this.demandeperstep = 0.03416*this.getDemandeAnnuel();
 		}
 	}
 	
 	// Reglage des frais de distribution choisi arbitrairement de 2% de la demande du step en cours
 	
-	public void setFraisDeDistri() {
+	public void setFraisdeDistri() {
 		this.fraisdedistri = 0.02*this.demandeperstep*this.prixvente;
 	}
 
@@ -70,7 +68,7 @@ public class Carrefour implements Acteur,IDistributeur {
 	}
 
 	public double getDemande(ITransformateur t) {
-		this.setDemandePerStep(MondeV1.LE_MONDE.getStep()+3);
+		this.setdemandePerStep(MondeV1.LE_MONDE.getStep()+3);
 		if (t.equals(transformateurs.get(0))) {
 			return this.demandeperstep*0.125;
 		}
@@ -80,30 +78,6 @@ public class Carrefour implements Acteur,IDistributeur {
 		else {
 			return this.demandeperstep*0.839;
 		}
-	}
-	public double getVente(ITransformateur t) {
-		this.setDemandePerStep(MondeV1.LE_MONDE.getStep());
-		if (t.equals(transformateurs.get(0))) {
-			return this.demandeperstep*0.125;
-		}
-		if (t.equals(transformateurs.get(1))) {
-			return this.demandeperstep*0.036;
-		}
-		else {
-			return this.demandeperstep*0.839;
-		}
-	}
-	
-	public double getDemandePerStep() {
-		return this.demandeperstep;
-	}
-	
-	public double getFraisDeDistri() {
-		return this.fraisdedistri;
-	}
-	
-	public double getPrixVente() {
-		return this.prixvente;
 	}
 	
 	public String getNom() {
@@ -115,15 +89,15 @@ public class Carrefour implements Acteur,IDistributeur {
 
 
 	public void next() {
-		setDemandePerStep(MondeV1.LE_MONDE.getStep());
-		getFraisDeDistri();
+		setdemandePerStep( MondeV1.LE_MONDE.getStep());
+		setFraisdeDistri();
 		for (ITransformateur t : this.transformateurs) {
-			double q = this.getVente(t);
+			double q = this.getDemande(t);
 			this.solde.setValeur(this, this.solde.getValeur()-q*this.getPrix());
 		}
-		this.achats.setValeur(this, this.getDemandePerStep());
-		this.solde.setValeur(this,this.solde.getValeur()+this.getDemandePerStep()*this.getPrix()
-										-this.getFraisDeDistri()); 
+		this.achats.setValeur(this, this.demandeperstep);
+		this.solde.setValeur(this,this.solde.getValeur()+this.demandeperstep*this.prixvente
+										-this.fraisdedistri); 
 		
 		// Solde = Solde precedent + Ventes - Achats - Frais de Distribution
 	}
