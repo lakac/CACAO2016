@@ -6,10 +6,6 @@ import abstraction.commun.*;
 
 public class Banque {
 	
-	public static final double CHARGES_FIXES=13003370;
-	public static final double RATIO_TRANSFORMATION=0.6;
-	public static final double TRESORERIE_INITIALE=300000;
-	public static final double COUT_DE_TRANSFORMATION=5000;
 	private double banque;
 	private HashMap<IProducteur,Double> prixdevente;	
 	
@@ -31,12 +27,12 @@ public class Banque {
 	}
 
 	public void setBanque(double banque) {
-		this.banque = TRESORERIE_INITIALE;
+		this.banque = Constante.TRESORERIE_INITIALE;
 	}
 	
 	public static double CoutIntermediaireUnitaire (Produit produit, Achat achat, Tarif tarif){
-		return CHARGES_FIXES + achat.getDernierecommandeachetee().getCommandesProd()
-				*(COUT_DE_TRANSFORMATION /* + Cout d'achat */);
+		return Constante.CHARGES_FIXES + achat.getDernierecommandeachetee().getCommandesProd()
+				*(Constante.COUT_DE_TRANSFORMATION /* + Cout d'achat */);
 	}
 	
 }

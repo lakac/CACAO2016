@@ -11,8 +11,6 @@ public class Stock {
 	private List<Double> stock;
 	private Historique stockprecedents;
 	
-	
-	
 	public List<Double> getStock() {
 		return stock;
 	}
@@ -65,4 +63,8 @@ public class Stock {
 	//	this.stockprecedents.ajouter(Nestle, etape, this.stock);
 	//}
 	//Ne connaît pas encore Nestlé
+	
+	public double CoutStock() {
+		return Constante.COUT_STOCK_UNITAIRE*this.getStock().get(0);
+	}
 }
