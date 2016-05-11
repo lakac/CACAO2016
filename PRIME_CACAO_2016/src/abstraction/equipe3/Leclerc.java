@@ -58,15 +58,18 @@ public class Leclerc implements Acteur,IDistributeur{
 	}
 	public void setRatio (Double[] ratio) {
 		double x = 1;
+		double l = this.transformateurs.size()-2;
 		this.ratio=new ArrayList<Double>();
 		for (double i : ratio) { 
 			this.ratio.add(i);
 			x-=i;
-		} this.ratio.add(x); //On rajoute un transformateur en plus qui couvre le reste du march�
+		} for (int i=2; i<this.transformateurs.size();i++){
+			this.ratio.add(x/l);
+		}
 	}
 	public void setQtepartransformateur(double commande){
 		this.quantite = new ArrayList<Double>();
-		for (int i=0; i<this.ratio.size(); i++) {
+		for (int i=0; i<this.transformateurs.size(); i++) {
 			this.quantite.add(this.ratio.get(i)*commande);
 		}
 	}
