@@ -48,6 +48,7 @@ import abstraction.fourni.*;
 public class Stock {
 	
 	private Indicateur stockCacao;
+	// pertes de stock bi-mensuelle.
 	private double perteStock;
 	private Producteur prod;
 	
@@ -71,31 +72,32 @@ public class Stock {
 		return this.prod;
 	}
 	
-
+	// perte de stock semi-mensuelle (à chaque step on perd du stock)
 	public void setPerteStock() {
 		this.perteStock = this.getStockCacao().getValeur()*Math.random()*0.05;
 	}
 	
-	//Réduction du stock d'une valeur de value
+	//Réduction du stock d'une valeur value
 	public void reductionStock(double value){
 		if (value>0){
-		this.getStockCacao().setValeur(this.prod, this.getStockCacao().getValeur()- value);	
+		this.getStockCacao().setValeur(this.getProd(), this.getStockCacao().getValeur()- value);	
 		}
 	}
 	
-	//Augmentation du stock d'une valeur de value
+	//Augmentation du stock d'une valeur value
 	public void augmentationStock(double value){
 		if (value>0){
-			this.getStockCacao().setValeur(this.prod, this.getStockCacao().getValeur()+value);
+			this.getStockCacao().setValeur(this.getProd(), this.getStockCacao().getValeur()+value);
 		}
 	}
-
+	
+	// Perte de stock 
 	public void perteDeStock(){
-		this.stockCacao.setValeur(this.prod,this.stockCacao.getValeur()-this.perteStock);
+		this.getStockCacao().setValeur(this.getProd(),this.getStockCacao().getValeur()-this.getPerteStock());
 	}
 	
 	public void coutStock(){
-		this.getProd().getTreso().getFond().setValeur(this.prod, this.getProd().getTreso().getFond().getValeur()-Couts.COUTSTOCK*this.getProd().getStock().getStockCacao().getValeur());
+		this.getProd().getTreso().getFond().setValeur(this.getProd(), this.getProd().getTreso().getFond().getValeur()-Couts.COUTSTOCK*this.getProd().getStock().getStockCacao().getValeur());
 	}
 	
 
