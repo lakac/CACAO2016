@@ -29,8 +29,8 @@ public class Restemonde implements Acteur,ITransformateur {
 	}
 	
 	public void venteResteMonde (double demande){
-		this.Fond.setFond(this.getFond()+this.setDemande()*getCours());
-		this.stockCacao.getStock().perteDeStock(this.demande);
+		this.getP().getTreso().getFond().setFond(this.getP().getTreso().getFond()+this.getDemande()*marcheProducteur.getCours());
+		this.getP().getStock().reductionStock(demande);
 	}
 
 
@@ -45,7 +45,8 @@ public class Restemonde implements Acteur,ITransformateur {
 	}
 
 	public double annonceQuantiteDemandee(IProducteur p) {
-		return this.stockCacao/12*85/100;
+		return (this.getP().getTransformateurs().get(1).annonceQuantiteDemandee(this.getP())
+				+this.getP().getTransformateurs().get(2).annonceQuantiteDemandee(this.getP()))*(82.0+Math.random()*2.0)/14.0;
 	}
 
 	@Override
