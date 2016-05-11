@@ -1,35 +1,56 @@
 package abstraction.equipe2;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import abstraction.commun.Produit;
 import abstraction.fourni.Historique;
 
 public class Stock {
-	public static final double COUTSTOCKUNITAIRE = 18.0;
-	private double stock;
+	public static final double COUT_STOCK_UNITAIRE = 18.0;
+	private List<Double> stock;
 	private Historique stockprecedents;
+	  
 	
-	
-	public double getStock() {
+	public List<Double> getStock() {
 		return stock;
 	}
 	
-	public Stock () {
-		this.stock = 0.0;
+	public Stock() {
+		this.stock = new ArrayList<Double>();
 		this.stockprecedents = new Historique();
 	}
 	
-	public void AjouterStockAchat(Achat achat) {
-		this.stock = this.stock + achat.getDernierecommandeachetee().getCommandesProd();
+	public void AjouterStockProduit(Produit p, Production prod) {
+		if (p.equals(produit1)) {
+			this.stock.set(1,this.stock.get(1)+prod.getProduction());
+		}
+		else if (p.equals(produit2)) {
+			this.stock.set(2,this.stock.get(2)+prod.getProduction());
+		}
+		else if (p.equals(produit3)) {
+			this.stock.set(3,this.stock.get(3)+prod.getProduction());
+		}
 	}
 	
-	public void RetirerStockProduction(Production production) {
-		this.stock = this.stock + production.getProduction();
+	public void RetirerStockProduit(Produit p, Vente vente) {
+		if (p.equals(produit1)) {
+			this.stock.set(1,this.stock.get(1)-vente.getDernierecommandevendue().getCommandeDis());
+		}
+		else if (p.equals(produit2)) {
+			this.stock.set(2,this.stock.get(2)-vente.getDernierecommandevendue().getCommandeDis());
+		}
+		else if (p.equals(produit3)) {
+			this.stock.set(3,this.stock.get(3)-vente.getDernierecommandevendue().getCommandeDis());
+		}
 	}
 	
-	public void RetirerStockVente(Vente ventes) {
-		this.stock -= ventes.getDernierecommandevendue().getCommandeDis();
+	public void AjouterStockCacao(Achat achat) {
+		this.stock.set(0, this.stock.get(0)+achat.getDernierecommandeachetee().getCommandesProd());
 	}
-	public Historique getStockprecedents() {
-		return stockprecedents;
+	
+	public void RetirerStockCacao(Production Production) {
+		this.stock.set(0, this.stock.get(0)+vente.getDernierecommandevendue().getCommandeDis());
 	}
 	
 	//public void MiseAJourHistorique(int etape) {
