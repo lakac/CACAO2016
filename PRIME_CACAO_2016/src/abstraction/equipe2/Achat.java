@@ -8,7 +8,7 @@ public class Achat {
 	private Historique historiqueachats;
 	
 	
-	public CommandesProd getDerniereommandeachetee() {
+	public CommandesProd getDernierecommandeachetee() {
 		return dernierecommandeachetee;
 	}
 	

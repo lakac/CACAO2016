@@ -31,7 +31,9 @@ public class Stock {
 		this.stockprecedents.ajouter(Nestle, etape, this.stock);
 	}
 	//Ne connaît pas encore Nestlé
-	
+	public CoutDeStock() {
+		
+	}
 	
 
 }
