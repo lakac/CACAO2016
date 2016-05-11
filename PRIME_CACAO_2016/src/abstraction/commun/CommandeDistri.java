@@ -3,7 +3,7 @@ package abstraction.commun;
 /**
  * Classe modelisant les commandes entre distributeur et transformateur
  * 
- * @author Joaly Magloire
+ *
  */
 
 public class CommandeDistri {

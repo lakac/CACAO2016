@@ -2,8 +2,7 @@ package abstraction.commun;
 
 /**
  * Classe modelisant les produits
- * 
- * @author Joaly Magloire
+ *
  */
 
 public class Produit {
