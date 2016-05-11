@@ -3,6 +3,8 @@ package abstraction.equipe2;
 public class CommandesProd {
 	
 	private double commandesprod;
+	public static final double PERTE_MINIMALE = 0.2;
+	public static final double VARIATION_PERTE=0.1;
 
 	
 	
@@ -16,7 +18,7 @@ public class CommandesProd {
 	}
 	
 	public void SetCommandesProd(CommandeDis commandedis, Stock stock) {
-		double margedesecurite = 0.2+Math.random()*0.1;
+		double margedesecurite = PERTE_MINIMALE + Math.random()*VARIATION_PERTE;
 		this.commandesprod = (commandedis.getCommandeDis()-stock.getStock())*(1+margedesecurite);
 	}
 	public static void main(String[] args) {

@@ -6,6 +6,8 @@ public class Stock {
 	private double stock;
 	private Historique stockprecedents;
 	
+public static final double COUT_STOCK = 18;
+	
 	
 	public double getStock() {
 		return stock;
@@ -16,11 +18,15 @@ public class Stock {
 		this.stockprecedents = new Historique();
 	}
 	
-	public void AjouterStock(Achat achat) {
-		this.stock = this.stock + achat.getDerniereommandeachetee().getCommandesProd();
+	public void AjouterStockAchat(Achat achat) {
+		this.stock = this.stock + achat.getDernierecommandeachetee().getCommandesProd();
 	}
 	
-	public void RetirerStock(Vente ventes) {
+	public void AjouterStockProduction(Production production){
+		this.stock = this.stock + production.getProduction();
+	}
+	
+	public void RetirerStockVentes(Vente ventes) {
 		this.stock -= ventes.getDernierecommandevendue().getCommandeDis();
 	}
 	public Historique getStockprecedents() {
@@ -31,9 +37,5 @@ public class Stock {
 		this.stockprecedents.ajouter(Nestle, etape, this.stock);
 	}
 	//Ne connaît pas encore Nestlé
-	public CoutDeStock() {
-		
-	}
-	
 
 }
