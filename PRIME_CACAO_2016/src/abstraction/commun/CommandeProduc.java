@@ -5,7 +5,7 @@ public class CommandeProduc {
 	/**
 	 * Classe modelisant les commandes entre producteur et transformateur
 	 * 
-	 * @author Joaly Magloire
+	 *
 	 */
 	
 	private ITransformateur acheteur;

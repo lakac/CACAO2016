@@ -3,13 +3,13 @@ package abstraction.commun;
 /**
  * Classe modelisant les commandes entre distributeur et transformateur
  * 
- * @author Joaly Magloire
+ *
  */
 
 public class CommandeDistri {
 	private IDistributeur acheteur;
 	private ITransformateur vendeur;
-	private String produit;
+	private String produit; // A changer!!!
 	private double quantite;
 	private double prixTonne;
 

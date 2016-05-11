@@ -2,8 +2,7 @@ package abstraction.commun;
 
 /**
  * Classe modelisant les produits
- * 
- */
+**/
 
 public class Produit {
 	private String produit;
