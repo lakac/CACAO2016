@@ -47,6 +47,7 @@ public class ProductionBiannuelle {
 		return PerteAleatoire;	
 	}
 
+	// modification de la tréso à cause des couts de productions
 	public void coutProd(){
 		this.getProd().getTreso().getFond().setValeur(this.getProd(), this.getProd().getTreso().getFond().getValeur()- Couts.COUTPROD*this.getProductionFinale());
 	}
@@ -55,7 +56,7 @@ public class ProductionBiannuelle {
 		this.setPerteProduction();
 		this.setProductionFinale();
 		this.coutProd();
-		this.prod.getStock().augmentationStock(this.getProductionFinale());
+		this.getProd().getStock().augmentationStock(this.getProductionFinale());
 	}
 
 
