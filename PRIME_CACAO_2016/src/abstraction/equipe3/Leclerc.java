@@ -8,7 +8,7 @@ import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
 
-public class Leclerc implements Acteur,IDistributeur{ //kjuijgtytkhukj
+public class Leclerc implements Acteur,IDistributeur{ 
 	private String nom;
 	private double prixAchat;
 	private double prixVente;
@@ -141,5 +141,10 @@ public class Leclerc implements Acteur,IDistributeur{ //kjuijgtytkhukj
 		this.solde.setValeur(this, this.solde.getValeur()+this.getQteTotal()*this.getPrixVente());
 		 //solde(step n)=solde step(n-1)+quantite(step n)*prixvente
 }
+	@Override
+	public double getPrix() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 }

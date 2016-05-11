@@ -5,25 +5,22 @@ import abstraction.commun.IProducteur;
 import abstraction.commun.MondeV1;
 
 public class AchatProd {
-	private HistoriqueCommandeDist hist;
-	private double quantiteMiseEnVenteProducteur1;
-	private double quantiteMiseEnVenteProducteur2;
+	private HistoriqueCommandeProduc hist;
 
-	public AchatProd(HistoriqueCommandeDist hist, double q1, double q2){
-		this.hist=hist;
-		this.quantiteMiseEnVenteProducteur1 = q1;
-		this.quantiteMiseEnVenteProducteur1 = q2;
+	public AchatProd(HistoriqueCommandeProduc hist){
+		this.hist = hist;
 	}
+	
 	/**
-	 * Indique la quantité demandée au producteur p.
+	 * Indique la quantit� demand�e au producteur p.
 	 */
-	public double annonceQuantiteDemandee(IProducteur p){ // le reste du monde est pris en compte manuellement dans le next
+	/*public double annonceQuantiteDemandee(IProducteur p, double quantiteMiseEnVente){ // le reste du monde est pris en compte manuellement dans le next
 		double quantiteTotale = Constante.RATIO_CACAO_CHOCOLAT*hist.valeur(Constante.STEP_COURANT);
 		if (p==MondeV1.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1)) {
-			return (Math.min(0.3*quantiteTotale, this.quantiteMiseEnVenteProducteur1));
+			return (Math.min(0.3*quantiteTotale, quantiteMiseEnVente));
 		}
 		else {
-			return (Math.min(0.3*quantiteTotale, this.quantiteMiseEnVenteProducteur2));
+			return (Math.min(0.3*quantiteTotale, quantiteMiseEnVente));
 		}	
-	}
+	}*/
 }
