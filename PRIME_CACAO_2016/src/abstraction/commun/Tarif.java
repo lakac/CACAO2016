@@ -1,22 +1,20 @@
 package abstraction.commun;
+import java.util.List;
 
 /**
  * Classe modelisant les tarifs
  * On a une variable d'instance prix et 3 variables d'instance pour avoir des plages de valeurs où l'on fixe un rabais
  * 
- * @author Joaly Magloire
  */
 
 public class Tarif {
 	private double prixTonne;
-	private double quantiteMin;
-	private double quantiteMax;
-	private double rabais;
+	private List<Plage> plage;
 	
-	public Tarif(double quantiteMin, double quantiteMax, double rabais) {
-		this.quantiteMin = quantiteMin;
-		this.quantiteMax = quantiteMax;
-		this.rabais = rabais;
+	
+	public Tarif(double prixTonne, List<Plage> plage) {
+		this.prixTonne = prixTonne;
+		this.plage = plage;
 	}
 	
 	public double getPrixTonne() {
@@ -27,30 +25,20 @@ public class Tarif {
 		this.prixTonne = d;
 	}
 
-	public double getQuantiteMin() {
-		return quantiteMin;
+	public List<Plage> getPlage() {
+		return plage;
 	}
 
-	public void setQuantiteMin(double quantiteMin) {
-		this.quantiteMin = quantiteMin;
+	public void setPlage(List<Plage> plage) {
+		this.plage = plage;
 	}
-
-	public double getQuantiteMax() {
-		return quantiteMax;
-	}
-
-	public void setQuantiteMax(double quantiteMax) {
-		this.quantiteMax = quantiteMax;
-	}
-
-	public double getRabais() {
-		return rabais;
-	}
-
-	public void setRabais(double rabais) {
-		this.rabais = rabais;
-	}
-
-
 	
+	public double prixDeVente(double quantite) {
+		for (Plage p : this.getPlage()) {
+			if (p.quantiteDansPlage(quantite)) {
+				return (quantite*this.getPrixTonne() - p.getRabais()*this.getPrixTonne()*quantite);
+			}
+		}
+		return quantite*this.getPrixTonne();
+	}
 }
