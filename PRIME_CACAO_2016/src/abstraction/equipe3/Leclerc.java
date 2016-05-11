@@ -8,7 +8,7 @@ import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
 
-public class Leclerc implements Acteur,IDistributeur{ //kjuijgtytkhukj
+public class Leclerc implements Acteur,IDistributeur{ 
 	private String nom;
 	private double prixAchat;
 	private double prixVente;
@@ -128,7 +128,7 @@ public class Leclerc implements Acteur,IDistributeur{ //kjuijgtytkhukj
 	    setRatio(ratio);
 	    commande(Monde.LE_MONDE.getStep());
 		this.achats.setValeur(this,this.getQteTotal());
-		this.prixVente=20.0;
+		this.setPrixVente(20);
 		for (ITransformateur t : this.transformateurs) {
 			double q = this.getVente(t);
 			this.solde.setValeur(this, this.solde.getValeur()-q*this.getPrixAchat()); 
