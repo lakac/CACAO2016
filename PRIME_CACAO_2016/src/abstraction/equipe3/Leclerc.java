@@ -130,8 +130,8 @@ public class Leclerc implements Acteur,IDistributeur{ //kjuijgtytkhukj
 
 		this.achats.setValeur(this,this.getQteTotal());
 
-
 		this.achats.setValeur(this,this.getQteTotal());
+		this.setPrixVente(20.0);
 
 		for (ITransformateur t : this.transformateurs) {
 			double q = this.getVente(t);
