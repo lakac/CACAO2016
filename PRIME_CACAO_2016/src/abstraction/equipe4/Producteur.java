@@ -10,7 +10,6 @@ public class Producteur implements Acteur,IProducteur{
 	private Journal journal;
 	private Tresorerie treso;
 	private ProductionBiannuelle prodBiannu;
-	private MarcheProducteur marche;
 	
 	private ArrayList<ITransformateur> transformateurs;
 	
@@ -20,16 +19,10 @@ public class Producteur implements Acteur,IProducteur{
 	   this.treso = new Tresorerie(this);
 	   this.stock = new Stock(this);
        this.journal = new Journal("Journal de "+this.nom);
-
+       this.prodBiannu=new ProductionBiannuelle(this,1200000);
+       
        this.transformateurs= new ArrayList<ITransformateur>();
-
-       for (Acteur a : Monde.LE_MONDE.getActeurs()) {
-			if (a instanceof ITransformateur) {
-				this.transformateurs.add((ITransformateur)(a));
-
-			}
-		}
-       this.marche=new MarcheProducteur();
+       
        Monde.LE_MONDE.ajouterJournal(this.journal);
 
     }
@@ -63,9 +56,16 @@ public class Producteur implements Acteur,IProducteur{
 		return this.treso;
 	}
 
-    public MarcheProducteur getMarche() {
-		return this.marche;
-	}
+    
+    //Ajout des clients a la liste transformateurs
+    
+    
+    public void ajoutClient(Acteur a){
+    	if (this.transformateurs.contains(((ITransformateur)a))){
+    		this.transformateurs.add((ITransformateur)a);
+    	}
+    	
+    }
     
 	// le next du producteur 2	
 	public void next(){
