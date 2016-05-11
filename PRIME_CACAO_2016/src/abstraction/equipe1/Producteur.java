@@ -7,6 +7,7 @@ import abstraction.fourni.Monde;
 import abstraction.commun.IProducteur;
 import abstraction.commun.ITransformateur;
 import abstraction.commun.Constantes;
+import abstraction.commun.MarcheProducteur;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,29 +17,27 @@ import java.util.Random;
 
 public class Producteur implements Acteur, IProducteur {
 	private String nom;
-	private Indicateur stock;
+	private Stock stock;
 	private Indicateur tresorerie;
 	private double coutProduction;
-	private double prixVente;
 	private double productionAnnuelle;
 	private double[] productionDeBase;
 	private Map<ITransformateur,Double> quantitesProposees;
 	private Indicateur productionCourante;
 	private Journal journal;
+	private List<ITransformateur> transformateurs;
 	
 	/**
 	 * Initialise notre producteur a partir d'un stock et d'une tresorerie initiaux.
 	 */
 	public Producteur(String nom, double stockInitial, double tresoInitiale, Monde monde) {
 		this.nom = nom;
-		this.stock = new Indicateur("Stock de "+this.nom, this, stockInitial);
+		this.stock = new Stock(this, stockInitial);
 		this.tresorerie = new Indicateur("Solde de "+this.nom, this, tresoInitiale);
 		this.coutProduction = 2100.0;
-		this.prixVente = 3000.0;
 		this.productionAnnuelle = 24000.0;
 		this.productionCourante = new Indicateur(Constantes.IND_PRODUCTION_P1, this, 100.0);
 		
-		Monde.LE_MONDE.ajouterIndicateur(this.stock);
 		Monde.LE_MONDE.ajouterIndicateur(this.tresorerie);
 		Monde.LE_MONDE.ajouterIndicateur(this.productionCourante);
 		
@@ -51,12 +50,16 @@ public class Producteur implements Acteur, IProducteur {
 		// mettre en vente, nous proposons a chaque transformateur une quantite specifique que nous sommes surs de pouvoir
 		// lui fournir.
 		this.quantitesProposees = new HashMap<ITransformateur,Double>();
-		for (ITransformateur t : this.getTransformateurs()) {
-			this.quantitesProposees.put(t,0.0);
-		}
 		
 		this.journal = new Journal("Journal de "+this.nom);
 		Monde.LE_MONDE.ajouterJournal(this.journal);
+		
+		this.transformateurs = new ArrayList<ITransformateur>();
+	}
+	
+	public void ajouterTransformateur(ITransformateur transformateur) {
+		this.transformateurs.add(transformateur);
+		this.quantitesProposees.put(transformateur, 0.0);
 	}
 	
 	/**
@@ -64,10 +67,10 @@ public class Producteur implements Acteur, IProducteur {
 	 * 
 	 * Pour l'instant, on sait que l'on a seulement deux clients, donc la repartition est moitie-moitie.
 	 */
-	private void produire(int step) {
+	private void produire() {
 		Random fluctuations = new Random();
-		this.setProductionCourante(Math.floor(this.getProductionDeBase(step)*this.getProductionAnnuelle()*(98+4*fluctuations.nextDouble()))/100.0);
-		this.setStock(this.getStock()+this.getProductionCourante());
+		this.setProductionCourante(Math.floor(this.getProductionDeBaseCourante()*this.getProductionAnnuelle()*(98+4*fluctuations.nextDouble()))/100.0);
+		this.stock.ajouterProd(this.getProductionCourante());
 		this.setTresorerie(this.getTresorerie()-this.getCoutProduction()*this.getProductionCourante());
 		for (ITransformateur t : this.getTransformateurs()) {
 			this.quantitesProposees.put(t,this.getStock()*0.5);
@@ -79,11 +82,7 @@ public class Producteur implements Acteur, IProducteur {
 	}
 	
 	private double getStock() {
-		return this.stock.getValeur();
-	}
-	
-	private void setStock(double stock) {
-		this.stock.setValeur(this, stock);
+		return this.stock.getQuantite();
 	}
 	
 	private double getTresorerie() {
@@ -99,11 +98,7 @@ public class Producteur implements Acteur, IProducteur {
 	}
 	
 	private double getPrixVente() {
-		return this.prixVente;
-	}
-	
-	private void setPrixVente(double prixVente) {
-		this.prixVente = prixVente;
+		return MarcheProducteur.LE_MARCHE.getCours();
 	}
 	
 	private double getProductionAnnuelle() {
@@ -113,8 +108,8 @@ public class Producteur implements Acteur, IProducteur {
 	/**
 	 * @return la production de base (theorique) de notre producteur a la periode de l'annee correspondant au step actuel.
 	 */
-	private double getProductionDeBase(int step) {
-		return this.productionDeBase[step%26];
+	private double getProductionDeBaseCourante() {
+		return this.productionDeBase[Monde.LE_MONDE.getStep()%26];
 	}
 	
 	private double getProductionCourante() {
@@ -153,10 +148,10 @@ public class Producteur implements Acteur, IProducteur {
 	 * Warning : il faut absolument que les transformateurs aient bien acces a la quantite reellement vendue...
 	 * Version prochaine : passer cette quantite en argument de ITransformateur.notificationVente ?
 	 */
-	private void notificationVente(ITransformateur t) {
+	private void vendre(ITransformateur t) {
 		double quantiteVendue = Math.min(t.annonceQuantiteDemandee(this), this.annonceQuantiteMiseEnVente(t));
 		
-		this.setStock(this.getStock() - quantiteVendue);
+		this.stock.retirerVente((Acteur)t, quantiteVendue);
 		this.setTresorerie(this.getTresorerie() + quantiteVendue*this.getPrixVente());
 		t.notificationVente(this);
 	}
@@ -165,24 +160,18 @@ public class Producteur implements Acteur, IProducteur {
 	 * @return l'ensemble des transformateurs du Monde.
 	 */
 	private List<ITransformateur> getTransformateurs() {
-		List<ITransformateur> transfos = new ArrayList<ITransformateur>();
-		for (Acteur a : Monde.LE_MONDE.getActeurs()) {
-			if (a instanceof ITransformateur) {
-				transfos.add((ITransformateur)(a));
-			}
-		}
-		return transfos;
+		return this.transformateurs;
 	}
 	
 	public void next() {
 		// Partie 1 : Gestion des ventes
 		for (ITransformateur t : this.getTransformateurs()) {
-			this.notificationVente(t);
+			this.vendre(t);
 		}
 		
 		// Partie 2 : Mise a jour de la quantite disponible a la vente (et plus tard du prix de vente) du prochain step
 		
-		this.produire(Monde.LE_MONDE.getStep());
+		this.produire();
 		this.journal.ajouter("Production de "+this.getNom()+" = <font color=\"maroon\">"+this.getProductionCourante()+"</font> au <b>step</b> "+Monde.LE_MONDE.getStep());
 		
 		// Plus tard, on ajoutera des fluctuations dans le prix de vente ; pour l'instant il est a 3000 euros par tonne.

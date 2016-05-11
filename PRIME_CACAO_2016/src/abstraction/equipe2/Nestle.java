@@ -9,14 +9,14 @@ import abstraction.commun.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Transformateur2 implements Acteur, ITransformateur{
+public class Nestle implements Acteur, ITransformateur{
 	
 	private String nom;
 	private Indicateur achats;
 	private Indicateur ventes;
 	private Indicateur solde;
 	
-	public Transformateur2(Monde monde) {
+	public Nestle(Monde monde) {
 		this.nom = Constantes.NOM_TRANSFORMATEUR_1;
 		this.achats = new Indicateur("Achats de "+this.nom, this, 0.0);
 		this.ventes = new Indicateur("Ventes de "+this.nom, this, 0.0);
@@ -26,10 +26,11 @@ public class Transformateur2 implements Acteur, ITransformateur{
 		Monde.LE_MONDE.ajouterIndicateur( this.solde );		
 	}
 	
-	public static final Stock stock_cacao=new Stock();
+	/*public static final Stock stock_cacao=new Stock();
 	public static final Stock stock_chocolat=new Stock();
 	public static final Banque tresorerie=new Banque();
-	public static final Commandes commandes = new Commandes();
+	public static final CommandesDis commandes = new CommandesDis();
+	public static final CommandeProd commandes = new CommandeProd();*/
 	
 
 	public String getNom() {
@@ -68,16 +69,18 @@ public class Transformateur2 implements Acteur, ITransformateur{
 	// Quantité annoncée aux producteurs 
 	
 	public double annonceQuantiteDemandee(IProducteur p) {
-		if(MondeV1.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1)==p){
-			return Math.min(commandes.quantiteDemandee(0.3), p.annonceQuantiteMiseEnVente(this)) ;
+		return 0.0;
+	}
+		/*if(MondeV1.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1)==p){
+			//return Math.min(commandes.quantiteDemandee(0.3), p.annonceQuantiteMiseEnVente(this)) ;
 		}
 		else if (MondeV1.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2)==p){
-				return Math.min(commandes.quantiteDemandee(0.3), p.annonceQuantiteMiseEnVente(this)) ;
+				//return Math.min(commandes.quantiteDemandee(0.3), p.annonceQuantiteMiseEnVente(this)) ;
 			}
 			else{
 				return 0.0;
 			}
-		}
+		}*/
 	
 	public List<IDistributeur> getDistributeurs() {
 		List<IDistributeur> distributeurs = new ArrayList<IDistributeur>();
@@ -93,13 +96,15 @@ public class Transformateur2 implements Acteur, ITransformateur{
 	public void notificationVente(IProducteur p) {
 		double commande = this.annonceQuantiteDemandee(p);
 		this.solde.setValeur(this, this.solde.getValeur()-p.annoncePrix()*commande);
-		stock_cacao.ajout_cacao();
+		//stock_cacao.ajoutCacao();
 	}
 	
 	
 
 	public void next() {
-		double qdd = 0;
+		}
+	}
+		/*double qdd = 0;
 		for (IDistributeur d : this.getDistributeurs()) {
 		qdd += d.getDemande(this);
 		}
@@ -109,13 +114,14 @@ public class Transformateur2 implements Acteur, ITransformateur{
 		notificationVente(p);
 		}
 		commandes.quantiteDemandeeMonde(0.4);
-		stock_chocolat.ajout_chocolat();
-		tresorerie.setTresorerie(tresorerie.Tresorerie(this.getProducteurs().get(0), this.getProducteurs().get(1)));
+		stock_chocolat.ajoutChocolat();
+		//tresorerie.setTresorerie(tresorerie.Tresorerie(this.getProducteurs().get(0), this.getProducteurs().get(1)));
 		
 		this.achats.setValeur(this, commandes.getCommandes()[2]);
 		this.solde.setValeur(this, tresorerie.getTresorerie());
 		this.ventes.setValeur(this, commandes.getCommandes()[0]);
 	}		
-}
+	
+}*/
 
 
