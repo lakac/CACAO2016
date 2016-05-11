@@ -47,7 +47,7 @@ public class ProductionBiannuelle {
 	}
 
 	public void coutProd(){
-		this.getProd().getTreso().getFond().setValeur(this.getProd(), this.getProd().getTreso().getFond().getValeur()- Couts.coutProd*this.getProductionFinale());
+		this.getProd().getTreso().getFond().setValeur(this.getProd(), this.getProd().getTreso().getFond().getValeur()- Couts.COUTPROD*this.getProductionFinale());
 	}
 	
 	public void production(){

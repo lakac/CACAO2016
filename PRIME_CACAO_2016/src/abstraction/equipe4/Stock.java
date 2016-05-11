@@ -52,7 +52,7 @@ public class Stock {
 	}
 	
 	public void coutStock(){
-		this.getProd().getTreso().getFond().setValeur(this.prod, this.getProd().getTreso().getFond().getValeur()-Couts.coutStock*this.getProd().getStock().getStockCacao().getValeur());
+		this.getProd().getTreso().getFond().setValeur(this.prod, this.getProd().getTreso().getFond().getValeur()-Couts.COUTSTOCK*this.getProd().getStock().getStockCacao().getValeur());
 	}
 	
 

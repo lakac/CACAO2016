@@ -2,8 +2,11 @@ package abstraction.equipe4;
 
 public class Couts {
 
-	public static final double coutProd=0.0005;
-	public static final double coutStock=0.001;
+	
+	//Couts de production par tonne de cacao récoltée
+	public static final double COUTPROD=0.0005; 
+	//Cout de stock par tonne crée
+	public static final double COUTSTOCK=0.001;
 
 	
 }

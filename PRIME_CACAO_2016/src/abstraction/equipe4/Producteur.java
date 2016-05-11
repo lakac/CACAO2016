@@ -74,7 +74,6 @@ public class Producteur implements Acteur,IProducteur{
 		//Commandes			
 		this.getStock().setPerteStock();
 		this.getStock().perteDeStock();
-		this.stock
 		for (ITransformateur t : this.transformateurs){
 			double qtVendu = t.annonceQuantiteDemandee(this);
 			t.notificationVente(this);
