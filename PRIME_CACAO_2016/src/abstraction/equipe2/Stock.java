@@ -17,11 +17,15 @@ public class Stock {
 		this.stockprecedents = new Historique();
 	}
 	
-	public void AjouterStock(Achat achat) {
+	public void AjouterStockAchat(Achat achat) {
 		this.stock = this.stock + achat.getDernierecommandeachetee().getCommandesProd();
 	}
 	
-	public void RetirerStock(Vente ventes) {
+	public void RetirerStockProduction(Production production) {
+		this.stock = this.stock + production.getProduction();
+	}
+	
+	public void RetirerStockVente(Vente ventes) {
 		this.stock -= ventes.getDernierecommandevendue().getCommandeDis();
 	}
 	public Historique getStockprecedents() {
