@@ -65,7 +65,7 @@ public class Carrefour implements Acteur,IDistributeur {
 	
 	// Réglage de la quantité à acheter en fonction du transformateur (12.5% Nestlé, 3.6% Lindt et 83.9% Others)
 	
-	public double getPrix() {
+	public double getPrixAchat() {
 		return this.prixachat;
 	}
 
@@ -95,7 +95,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		setFraisdeDistri();
 		for (ITransformateur t : this.transformateurs) {
 			double q = this.getDemande(t);
-			this.solde.setValeur(this, this.solde.getValeur()-q*this.getPrix());
+			this.solde.setValeur(this, this.solde.getValeur()-q*this.getPrixAchat());
 		}
 		this.achats.setValeur(this, this.demandeperstep);
 		this.solde.setValeur(this,this.solde.getValeur()+this.demandeperstep*this.prixvente

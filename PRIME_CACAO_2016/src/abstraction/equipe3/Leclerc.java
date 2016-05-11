@@ -11,10 +11,10 @@ import abstraction.fourni.Monde;
 public class Leclerc implements Acteur,IDistributeur{
 	private String nom;
 	private double prixAchat;
-	private double prixvente;
-	private double stock;
+	private double prixVente;
 	private Indicateur solde;
 	private Indicateur achats;
+	private ArrayList<Double> stock;
 	private ArrayList<Double> quantite;
 	private ArrayList<ITransformateur> transformateurs;
 	private ArrayList<Double> ratio;
@@ -25,11 +25,11 @@ public class Leclerc implements Acteur,IDistributeur{
 		this.prixAchat=prixAchat;		
 		this.achats = new Indicateur("Achats de "+nom, this, 0.0);
 		this.solde = new Indicateur("Solde de "+nom, this, 1000000.0);
+		this.stock = new ArrayList<Double>();
 		this.quantite = new ArrayList<Double>();
 		this.ratio = new ArrayList<Double>();
     	Monde.LE_MONDE.ajouterIndicateur( this.achats );
     	Monde.LE_MONDE.ajouterIndicateur( this.solde );
-        
     	this.transformateurs = new ArrayList<ITransformateur>();	
 	}
 	public void ajouterVendeur(ITransformateur t) {
@@ -41,20 +41,20 @@ public class Leclerc implements Acteur,IDistributeur{
 	public double getPrixAchat(){
 		return this.prixAchat;
 	}
-	public double getPrixvente(){
-		return this.prixvente;
+	public double getPrixVente(){
+		return this.prixVente;
 	}
-	public double getStock(){
-		return this.stock;
-	}
-	public void setStock(double stock){
-		this.stock=stock;
-	}
-	public void setPrixachat(double prixAchat){
+	public void setPrixAchat(double prixAchat){
 		this.prixAchat=prixAchat;
 	}
-	public void setPrixvente(double prixvente){
-		this.prixvente=prixvente;
+	public void setPrixVente(double prixVente){
+		this.prixVente=prixVente;
+	}
+	public void initialiseStock(){
+		this.stock = new ArrayList<Double>();
+		for (int i=0;i<this.transformateurs.size();i++){
+			this.stock.add(0.0);
+		}
 	}
 	public void setRatio (Double[] ratio) {
 		double x = 1;
@@ -62,7 +62,7 @@ public class Leclerc implements Acteur,IDistributeur{
 		for (double i : ratio) { 
 			this.ratio.add(i);
 			x-=i;
-		} this.ratio.add(x); /*On rajoute un transformateur en plus qui couvre le reste du march�*/
+		} this.ratio.add(x); //On rajoute un transformateur en plus qui couvre le reste du march�
 	}
 	public void setQtepartransformateur(double commande){
 		this.quantite = new ArrayList<Double>();
@@ -79,11 +79,11 @@ public class Leclerc implements Acteur,IDistributeur{
 	public void commande(int step){
 		if (step%26==3){
 
-			setQtepartransformateur(3673.08);					/** correspond à Pâques*/
+			setQtepartransformateur(3673.08);		/** correspond à Pâques*/
 		}
 		else{
 			if (step%26==23){
-				setQtepartransformateur(6173.08);				/** correspond à Noël*/
+				setQtepartransformateur(6173.08);	/** correspond à Noël*/
 			}
 			else{
 				setQtepartransformateur(1673.08);
@@ -94,7 +94,7 @@ public class Leclerc implements Acteur,IDistributeur{
 		double x = 0;
 		commande(Monde.LE_MONDE.getStep());
 		for (int i=0; i<this.transformateurs.size();i++) {
-			if (t.equals(transformateurs.get(i))) {
+			if (t.equals(this.transformateurs.get(i))) {
 				x = this.quantite.get(i);
 			}
 		} return x;
@@ -103,27 +103,39 @@ public class Leclerc implements Acteur,IDistributeur{
 		double x = 0;
 		commande(Monde.LE_MONDE.getStep()-3);
 		for (int i=0; i<this.transformateurs.size();i++) {
-			if (t.equals(transformateurs.get(i))) {
+			if (t.equals(this.transformateurs.get(i))) {
 				x = this.quantite.get(i);
 			}
 		} return x;
 	}
-	
+	public double getStock (ITransformateur t) {
+		double s = 0;
+		double x = 0;
+		for (int i=0;i<this.transformateurs.size();i++){
+			if (t.equals(this.transformateurs.get(i))){
+				x=this.stock.get(i);
+				x += this.getDemande(t)-this.getVente(t);
+				this.stock.remove(i);
+				this.stock.add(i, x);
+				s=this.stock.get(i);
+			}
+		} return s;
+	}
 	
 	public void next() {
-	    setPrixachat(15.0);
+	    setPrixAchat(15.0);
 	    Double[] ratio = {0.125, 0.036};
 	    setRatio(ratio);
 	    commande(Monde.LE_MONDE.getStep());
 		this.achats.setValeur(this,this.getQteTotal());
-		this.prixvente=20.0;
+		this.prixVente=20.0;
 		for (ITransformateur t : this.transformateurs) {
 			double q = this.getVente(t);
 			this.solde.setValeur(this, this.solde.getValeur()-q*this.getPrixAchat()); 
 		}
 
-		this.solde.setValeur(this, this.solde.getValeur()+this.getQteTotal()*this.getPrixvente());
-		 //solde(step n)=solde step(n-1)+quantite(step n)*prixvente - quantite(step n)*prix
+		this.solde.setValeur(this, this.solde.getValeur()+this.getQteTotal()*this.getPrixVente());
+		 //solde(step n)=solde step(n-1)+quantite(step n)*prixvente
 }
 
 }
