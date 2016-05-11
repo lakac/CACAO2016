@@ -43,22 +43,24 @@ public class Tresorerie {
 			this.setTresorerie(this.getTresorerie()-d);	
 		}
 	}
-
-//	public double coutRevient() {
-//		P1 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1);
-//		P2 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2);
-//		int chargesFixes = 900980; // salaires+impots
-//		double quantiteCacaoAchetee = this.histProduc.commande(-1).getQuantite(); //quantité de cacao commandée au step précédent	
-//		//return chargesFixes + quantiteCacaoAchetee * 5000 + (P1.annoncePrix()*0.3 + P2.annoncePrix()*0.3 + MarcheProducteur.getCours() *0.4);	
-//		
-//		//cout de revient d'une tonne= charges fixes+ quantité de cacao commandé aux producteurs* cout de transformation d'une tonne.
-//		//Cout de transformation d'une tonne= 5000+quantité de cacao demandée à chaque producteur multiplié par leur prix
-//	
-//	
-//	}
-//	
-//	public double marge(){
-//	return (15000*hist.valeur(Constante.STEP_3)-coutRevient());
-//	}
+	// dire aux producteurs que meme si ils ont rien ils doivent mettre 0 dans commande
+	public double coutRevient() {
+		P1 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1);
+		P2 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2);
+		int chargesFixes = 900980; // salaires+impots
+		double quantiteCacaoAchetee = this.histProduc.commande(-1).getQuantite() + this.histProduc.commande(-2).getQuantite() + this.histProduc.commande(-3).getQuantite(); //quantité de cacao commandée au step précédent	
+		double 
+		
+		return chargesFixes + quantiteCacaoAchetee * 5000 + (*this.histProduc.commande(-1).getPrixTonne() + P2.annoncePrix()*0.3 + getCours() *0.4);	
+		
+		//cout de revient d'une tonne= charges fixes+ quantité de cacao commandé aux producteurs* cout de transformation d'une tonne.
+		//Cout de transformation d'une tonne= 5000+quantité de cacao demandée à chaque producteur multiplié par leur prix
+	
+	
+	}
+	
+	public double marge(){
+	return (15000*hist.valeur(Constante.STEP_3)-coutRevient());
+	}
 }
 

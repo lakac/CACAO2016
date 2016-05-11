@@ -63,6 +63,7 @@ public class Lindt implements Acteur, ITransformateur{
 		return Constantes.NOM_TRANSFORMATEUR_2;
 		}
 
+	// Ne pas oublier d'acheter 30% de plus à cause des pertes!!!!!!
 	public void next() {
 		//P1.annonceQuantiteMiseEnVente(this);
 		//P2.annonceQuantiteMiseEnVente(this);
