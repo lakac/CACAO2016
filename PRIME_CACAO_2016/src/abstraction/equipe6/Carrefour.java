@@ -104,4 +104,13 @@ public class Carrefour implements Acteur,IDistributeur {
 		// Solde = Solde précédent + Ventes - Achats - Frais de Distribution
 	}
 
+
+
+
+	@Override
+	public double getPrix() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

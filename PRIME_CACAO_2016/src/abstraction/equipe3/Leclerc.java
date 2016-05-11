@@ -130,8 +130,12 @@ public class Leclerc implements Acteur,IDistributeur{
 	    Double[] ratio = {0.125, 0.036};
 	    setRatio(ratio);
 	    commande(Monde.LE_MONDE.getStep());
+
 		this.achats.setValeur(this,this.getQteTotal());
-		this.setPrixVente(20);
+
+		this.achats.setValeur(this,this.getQteTotal());
+		this.setPrixVente(20.0);
+
 		for (ITransformateur t : this.transformateurs) {
 			double q = this.getVente(t);
 			this.solde.setValeur(this, this.solde.getValeur()-q*this.getPrixAchat()); 
@@ -140,5 +144,10 @@ public class Leclerc implements Acteur,IDistributeur{
 		this.solde.setValeur(this, this.solde.getValeur()+this.getQteTotal()*this.getPrixVente());
 		 //solde(step n)=solde step(n-1)+quantite(step n)*prixvente
 }
+	@Override
+	public double getPrix() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 }
