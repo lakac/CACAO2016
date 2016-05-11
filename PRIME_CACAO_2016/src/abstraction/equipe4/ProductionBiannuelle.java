@@ -32,11 +32,13 @@ public class ProductionBiannuelle {
 	public void setCapaciteMaximale(int capaciteMaximale) {
 		this.capaciteMaximale = capaciteMaximale;
 	}
-	
+
 	public void setPerteProduction() {
 	this.perteProduction = this.getCapaciteMaximale()*this.perteAleatoire();
 	}
- void setProductionFinale() {
+
+	
+	public void setProductionFinale() {
 		this.productionFinale=this.getCapaciteMaximale()-this.getPerteProduction();
 	}	
 	

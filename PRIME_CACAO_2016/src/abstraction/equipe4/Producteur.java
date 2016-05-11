@@ -20,14 +20,18 @@ public class Producteur implements Acteur,IProducteur{
 	   this.treso = new Tresorerie(this);
 	   this.stock = new Stock(this);
        this.journal = new Journal("Journal de "+this.nom);
+
        this.transformateurs= new ArrayList<ITransformateur>();
+
        for (Acteur a : Monde.LE_MONDE.getActeurs()) {
 			if (a instanceof ITransformateur) {
 				this.transformateurs.add((ITransformateur)(a));
+
 			}
 		}
        this.marche=new MarcheProducteur();
        Monde.LE_MONDE.ajouterJournal(this.journal);
+
     }
 
 
@@ -73,7 +77,8 @@ public class Producteur implements Acteur,IProducteur{
 		}
 		//Commandes			
 		this.getStock().setPerteStock();
-		this.getStock().perteDeStock();
+		this.getStock().perteDeStock();	
+		this.getStock().coutStock();
 		for (ITransformateur t : this.transformateurs){
 			double qtVendu = t.annonceQuantiteDemandee(this);
 			t.notificationVente(this);
@@ -91,11 +96,12 @@ public class Producteur implements Acteur,IProducteur{
 
 	//Modification du stock et de la tresorerie suite a une vente
 	public void venteRealisee(double qtVendue,Acteur a) {
-		this.getTreso().setFond(qtVendue);
+		this.vente(qtVendue);
 		this.stock.reductionStock(qtVendue);
 		this.journal.ajouter("Vente de " + qtVendue+" auprès de " + a.getNom() + " au step numéro "+ Monde.LE_MONDE.getStep());
 	}
 
+	
 	public void vente(double qtVendue){		
 		this.getTreso().getFond().setValeur(this, this.getTreso().getFond().getValeur()+ qtVendue*this.getMarche().getCours());
 	}
