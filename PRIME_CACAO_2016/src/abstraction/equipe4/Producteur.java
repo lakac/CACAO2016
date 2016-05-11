@@ -30,7 +30,6 @@ public class Producteur implements Acteur,IProducteur{
 
     // getter
     
-    
     public Journal getJournal() {
 		return this.journal;
 	}
@@ -113,4 +112,5 @@ public class Producteur implements Acteur,IProducteur{
 	}
 		
 }
+	
 	
