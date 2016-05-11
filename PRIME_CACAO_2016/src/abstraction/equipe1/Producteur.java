@@ -7,6 +7,7 @@ import abstraction.fourni.Monde;
 import abstraction.commun.IProducteur;
 import abstraction.commun.ITransformateur;
 import abstraction.commun.Constantes;
+import abstraction.commun.MarcheProducteur;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,6 @@ public class Producteur implements Acteur, IProducteur {
 	private Stock stock;
 	private Indicateur tresorerie;
 	private double coutProduction;
-	private double prixVente;
 	private double productionAnnuelle;
 	private double[] productionDeBase;
 	private Map<ITransformateur,Double> quantitesProposees;
@@ -35,7 +35,6 @@ public class Producteur implements Acteur, IProducteur {
 		this.stock = new Stock(this, stockInitial);
 		this.tresorerie = new Indicateur("Solde de "+this.nom, this, tresoInitiale);
 		this.coutProduction = 2100.0;
-		this.prixVente = 3000.0;
 		this.productionAnnuelle = 24000.0;
 		this.productionCourante = new Indicateur(Constantes.IND_PRODUCTION_P1, this, 100.0);
 		
@@ -99,11 +98,7 @@ public class Producteur implements Acteur, IProducteur {
 	}
 	
 	private double getPrixVente() {
-		return this.prixVente;
-	}
-	
-	private void setPrixVente(double prixVente) {
-		this.prixVente = prixVente;
+		return MarcheProducteur.LE_MARCHE.getCours();
 	}
 	
 	private double getProductionAnnuelle() {
