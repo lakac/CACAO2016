@@ -63,8 +63,8 @@ public class Lindt implements Acteur, ITransformateur{
 		}
 
 	public void next() {
-		P1.annonceQuantiteMiseEnVente(this);
-		P2.annonceQuantiteMiseEnVente(this);
+		//P1.annonceQuantiteMiseEnVente(this);
+		//P2.annonceQuantiteMiseEnVente(this);
 		//this.hist.ajouter(D1.getDemande(this)+ D2.getDemande(this));
 		//stockChocolat.ajouterStock(this.getHist().valeur(Constante.STEP_2));
 		//stockChocolat.retirerStock(this.getHist().valeur(Constante.STEP_3));
@@ -72,7 +72,7 @@ public class Lindt implements Acteur, ITransformateur{
 		//stockCacao.retirerStock(0.4 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_2)); // stock lié au reste du monde
 		//treso.depot(treso.marge());
 		//treso.retrait(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT) * 3000); // achat cacao au reste du monde
-		this.venteChocolat.setValeur(this, this.stockChocolat.getStock());	
+		//this.venteChocolat.setValeur(this, this.stockChocolat.getStock());	
 	}
 
 	/**
