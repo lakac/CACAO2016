@@ -38,16 +38,27 @@ public class MondeV1 extends Monde {
 		Lindt lindt = new Lindt();
 		ajouterActeur(lindt);
 		
+		// Marché Producteur
+		MarcheProducteur marcheProducteur = new MarcheProducteur();
+		MarcheProducteur.LE_MARCHE = marcheProducteur;
+		this.ajouterActeur(marcheProducteur);
+		
 		// Producteurs
 
 		Producteur p1 = new Producteur(Constantes.NOM_PRODUCTEUR_1, 1000.0, 0.0, Monde.LE_MONDE);
 		abstraction.equipe4.Producteur p2 = new abstraction.equipe4.Producteur(Monde.LE_MONDE);
 		this.ajouterActeur(p1);
 		this.ajouterActeur(p2);
-		//Ca.ajouterVendeur(lindt);
+		
+		// Ajout des acteurs dans les listes des acteurs
 		Le.ajouterVendeur(t1);
 		Le.ajouterVendeur(lindt);
 		Ca.ajouterVendeur(t1);
 		Ca.ajouterVendeur(lindt);
+		
+		marcheProducteur.ajouterProducteur(p1);
+		marcheProducteur.ajouterProducteur(p2);
+		marcheProducteur.ajouterTransformateur(t1);
+		marcheProducteur.ajouterTransformateur(lindt);
 	}
 }
