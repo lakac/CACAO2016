@@ -3,6 +3,7 @@ package abstraction.equipe2;
 import abstraction.fourni.Historique;
 
 public class Stock {
+	public static final double COUTSTOCKUNITAIRE = 18.0;
 	private double stock;
 	private Historique stockprecedents;
 	
@@ -17,7 +18,7 @@ public class Stock {
 	}
 	
 	public void AjouterStock(Achat achat) {
-		this.stock = this.stock + achat.getDerniereommandeachetee().getCommandesProd();
+		this.stock = this.stock + achat.getDernierecommandeachetee().getCommandesProd();
 	}
 	
 	public void RetirerStock(Vente ventes) {
@@ -31,8 +32,8 @@ public class Stock {
 		this.stockprecedents.ajouter(Nestle, etape, this.stock);
 	}
 	//Ne connaît pas encore Nestlé
-	public CoutDeStock() {
-		
+	public CoutStock() {
+		return COUTSTOCKUNITAIRE*this.getStock();
 	}
 	
 
