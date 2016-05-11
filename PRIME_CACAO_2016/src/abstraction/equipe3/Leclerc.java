@@ -8,7 +8,7 @@ import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
 
-public class Leclerc implements Acteur,IDistributeur{
+public class Leclerc implements Acteur,IDistributeur{ //kjuijgtytkhukj
 	private String nom;
 	private double prixAchat;
 	private double prixVente;
