@@ -56,12 +56,6 @@ public class Leclerc implements Acteur,IDistributeur{
 	public void setPrixVente(double prixVente){
 		this.prixVente=prixVente;
 	}
-	public void initialiseStock(){
-		this.stock = new ArrayList<Double>();
-		for (int i=0;i<this.transformateurs.size();i++){
-			this.stock.add(0.0);
-		}
-	}
 	public void setRatio (Double[] ratio) {
 		double x = 1;
 		double l = this.transformateurs.size()-2;
@@ -117,20 +111,6 @@ public class Leclerc implements Acteur,IDistributeur{
 			}
 		} return x;
 	}
-	public double getStock (ITransformateur t) {
-		double s = 0;
-		double x = 0;
-		for (int i=0;i<this.transformateurs.size();i++){
-			if (t.equals(this.transformateurs.get(i))){
-				x=this.stock.get(i);
-				x += this.getDemande(t)-this.getVente(t);
-				this.stock.remove(i);
-				this.stock.add(i, x);
-				s=this.stock.get(i);
-			}
-		} return s;
-	}
-	
 	public void next() {
 	    setPrixAchat(15.0);
 	    Double[] ratio = {0.125, 0.036};
