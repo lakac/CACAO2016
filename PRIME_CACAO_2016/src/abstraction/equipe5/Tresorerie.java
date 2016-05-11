@@ -31,18 +31,19 @@ public class Tresorerie {
 		this.setTresorerie(this.getTresorerie()-d);	
 	}
 
-	public double coutRevient() {
+	/*public double coutRevient() {
 		P1 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1);
 		P2 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2);
 		int chargesFixes = 900980; // salaires+impots
 		double quantiteCacaoAchetee = Constante.RATIO_CACAO_CHOCOLAT*hist.valeur(Constante.STEP_PRECEDENT);
-		return chargesFixes + quantiteCacaoAchetee * 5000 + (P1.annoncePrix()*0.3 + P2.annoncePrix()*0.3 + 3000*0.4);	
+	//	return chargesFixes + quantiteCacaoAchetee * 5000 + (P1.annoncePrix()*0.3 + P2.annoncePrix()*0.3 + 3000*0.4);	
 		//cout de revient d'une tonne= charges fixes+ ratioCacao*quantité demandée par les distributeurs* cout de transformation d'une tonne.
 		//Cout de transformation d'une tonne= 5000+quantité de cacao demandée à chaque producteur multiplié par leur prix
 	}
-	
-	public double marge(){
+	*/
+/*	public double marge(){
 		return (15000*hist.valeur(Constante.STEP_PRECEDENT_MOINS_3)-coutRevient());
 	}
+*/
 }
 
