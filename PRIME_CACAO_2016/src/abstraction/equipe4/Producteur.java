@@ -63,12 +63,11 @@ public class Producteur implements Acteur,IProducteur{
 	}
 
     
-    //Ajout des clients et du marche a la liste transformateurs
-    
-    
+
+    //Ajout des clients a la liste transformateurs
     public void ajoutClient(Acteur a){
-    	if (this.transformateurs.contains(((ITransformateur)a))){
-    		this.transformateurs.add((ITransformateur)a);
+    	if (this.getTransformateurs().contains(((ITransformateur)a))){
+    		this.getTransformateurs().add((ITransformateur)a);
     	}
     	
     }
@@ -83,11 +82,11 @@ public class Producteur implements Acteur,IProducteur{
 		//production semi annuelle
 		if (Monde.LE_MONDE.getStep()%12==1){ 
 			this.getProdBiannu().production();
-			this.journal.ajouter("Production de semi annuelle de " + this.getProdBiannu().getProductionFinale() + " en comptant les pertes de "+ this.getProdBiannu().getPerteProduction());
+			this.getJournal().ajouter("Production de semi annuelle de " + this.getProdBiannu().getProductionFinale() + " en comptant les pertes de "+ this.getProdBiannu().getPerteProduction());
 		}
 		//Commandes			
 		this.getStock().setPerteStock();
-		this.getStock().perteDeStock();	
+		this.getStock().perteDeStock();
 		this.getStock().coutStock();
 		for (ITransformateur t : this.transformateurs){
 			double qtVendu = t.annonceQuantiteDemandee(this);
@@ -100,15 +99,15 @@ public class Producteur implements Acteur,IProducteur{
 	// return un double valant la quantité disponible 
 	//pour chaque transformateur a chaque step
 	public double annonceQuantiteMiseEnVente(ITransformateur t) {
-		return (this.stock.getStockCacao().getValeur()/(13-Monde.LE_MONDE.getStep()%12));
+		return (this.getStock().getStockCacao().getValeur()/(13-Monde.LE_MONDE.getStep()%12));
 	}
 	
 
 	//Modification du stock et de la tresorerie suite a une vente
 	public void venteRealisee(double qtVendue,Acteur a) {
 		this.vente(qtVendue);
-		this.stock.reductionStock(qtVendue);
-		this.journal.ajouter("Vente de " + qtVendue+" auprès de " + a.getNom() + " au step numéro "+ Monde.LE_MONDE.getStep());
+		this.getStock().reductionStock(qtVendue);
+		this.getJournal().ajouter("Vente de " + qtVendue+" auprès de " + a.getNom() + " au step numéro "+ Monde.LE_MONDE.getStep());
 	}
 
 	
@@ -121,7 +120,7 @@ public class Producteur implements Acteur,IProducteur{
 	//Ventes réalisées auprès du transformateur "Le reste du Monde"
 	
 	public void venteResteMonde(){
-		double alea = Math.random()*(0.9-0.87)+0.87;
+	//	double alea = Math.random()*(0.9-0.87)+0.87;
 	}
 		
 }
