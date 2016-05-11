@@ -1,31 +1,23 @@
 package abstraction.equipe3;
 
-import java.util.ArrayList;
-
-import abstraction.commun.ITransformateur;
-
-//public class Stock {
+public class Stock {
 	
-	//private ArrayList<Double> stock;
+	private double[] stock;
 	
-	/*public Stock(){
-		this.stock = new ArrayList<Double>();
-		for (int i=0;i<this.transformateurs.size();i++){
-			this.stock.add(0.0);
-		}
+	public Stock(double[] stock){
+		this.stock=stock;
+	}
+	public double getStock(int i){
+		return this.stock[i];
+	}
+	public void setStock(int i, double stock){
+		this.stock[i]=stock;
+	}
+	public void ajouterStock(int i, double stock){
+		this.setStock(i, stock+this.getStock(i));
+	}
+	public void retirerStock(int i, double stock){
+		this.setStock(i, stock-this.getStock(i));
 	}
 	
-	public void setStock(ITransformateur t){
-		double s = 0;
-		double x = 0;
-		for (int i=0;i<this.transformateurs.size();i++){
-			if (t.equals(this.transformateurs.get(i))){
-				x=this.stock.get(i);
-				x += this.getDemande(t)-this.getVente(t);
-				this.stock.remove(i);
-				this.stock.add(i, x);
-				s=this.stock.get(i);
-			}
-		} return s;
-	}
-}*/
+}
