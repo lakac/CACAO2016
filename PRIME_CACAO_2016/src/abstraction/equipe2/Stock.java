@@ -10,7 +10,8 @@ public class Stock {
 	public static final double COUT_STOCK_UNITAIRE = 18.0;
 	private List<Double> stock;
 	private Historique stockprecedents;
-	  
+	
+	
 	
 	public List<Double> getStock() {
 		return stock;
@@ -31,7 +32,6 @@ public class Stock {
 		else if (p.equals(produit3)) {
 			this.stock.set(3,this.stock.get(3)+prod.getProduction());
 		}
-	}
 	
 	public void RetirerStockProduit(Produit p, Vente vente) {
 		if (p.equals(produit1)) {
@@ -46,20 +46,23 @@ public class Stock {
 	}
 	
 	public void AjouterStockCacao(Achat achat) {
-		this.stock.set(0, this.stock.get(0)+achat.getDernierecommandeachetee().getCommandesProd());
+		this.stock.set(0, this.stock.get(0)+achat.getDernierecommandeachetee().getCommandesProd()*(1- (0.2+Math.random()*0.1)));
 	}
 	
-	public void RetirerStockCacao(Production Production) {
-		this.stock.set(0, this.stock.get(0)+vente.getDernierecommandevendue().getCommandeDis());
+	public void RetirerStockCacao(Produit p, Production production) {
+		if (p.equals(produit1)) {
+			this.stock.set(0,this.stock.get(0)-0.5*production.getProduction());
+		}
+		else if (p.equals(produit2)) {
+			this.stock.set(0,this.stock.get(0)-0.6*production.getProduction());
+		}
+		else if (p.equals(produit3)) {
+			this.stock.set(0,this.stock.get(0)-0.7*production.getProduction());
+		}
 	}
 	
 	//public void MiseAJourHistorique(int etape) {
 	//	this.stockprecedents.ajouter(Nestle, etape, this.stock);
 	//}
 	//Ne connaît pas encore Nestlé
-	public double CoutStock() {
-		return COUTSTOCKUNITAIRE*this.getStock();
-	}
-	
-
 }
