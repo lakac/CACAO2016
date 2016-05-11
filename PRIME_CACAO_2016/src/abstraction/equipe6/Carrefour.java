@@ -41,8 +41,8 @@ public class Carrefour implements Acteur,IDistributeur {
 	
 	// Fixe la demande selon la période de l'année.
 	
-	public void  setdemandePerStep (int step ){
-		if (step%26 == 6 ) {
+	public void  setDemandePerStep (int step ){
+		if (step%26 == 7 ) {
 			this.demandeperstep = 0.06*this.getDemandeAnnuel();
 		}
 		else {
@@ -57,7 +57,7 @@ public class Carrefour implements Acteur,IDistributeur {
 	
 	// Réglage des frais de distribution choisi arbitrairement de 2% de la demande du step en cours
 	
-	public void setFraisdeDistri() {
+	public void setFraisDeDistri() {
 		this.fraisdedistri = 0.02*this.demandeperstep*this.prixvente;
 	}
 
@@ -72,7 +72,7 @@ public class Carrefour implements Acteur,IDistributeur {
 	}
 
 	public double getDemande(ITransformateur t) {
-		this.setdemandePerStep(MondeV1.LE_MONDE.getStep()+3);
+		this.setDemandePerStep(MondeV1.LE_MONDE.getStep()+3);
 		if (t.equals(transformateurs.get(0))) {
 			return this.demandeperstep*0.125;
 		}
@@ -84,7 +84,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		}
 	}
 	public double getVente(ITransformateur t) {
-		this.setdemandePerStep(MondeV1.LE_MONDE.getStep());
+		this.setDemandePerStep(MondeV1.LE_MONDE.getStep());
 		if (t.equals(transformateurs.get(0))) {
 			return this.demandeperstep*0.125;
 		}
@@ -96,6 +96,18 @@ public class Carrefour implements Acteur,IDistributeur {
 		}
 	}
 	
+	public double getDemandePerStep() {
+		return this.demandeperstep;
+	}
+	
+	public double getFraisDeDistri() {
+		return this.fraisdedistri;
+	}
+	
+	public double getPrixVente() {
+		return this.prixvente;
+	}
+	
 	public String getNom() {
 		return this.nom;
 	}
@@ -105,15 +117,15 @@ public class Carrefour implements Acteur,IDistributeur {
 
 
 	public void next() {
-		setdemandePerStep(MondeV1.LE_MONDE.getStep());
-		setFraisdeDistri();
+		setDemandePerStep(MondeV1.LE_MONDE.getStep());
+		getFraisDeDistri();
 		for (ITransformateur t : this.transformateurs) {
 			double q = this.getVente(t);
 			this.solde.setValeur(this, this.solde.getValeur()-q*this.getPrix());
 		}
-		this.achats.setValeur(this, this.demandeperstep);
-		this.solde.setValeur(this,this.solde.getValeur()+this.demandeperstep*this.prixvente
-										-this.fraisdedistri); 
+		this.achats.setValeur(this, this.getDemandePerStep());
+		this.solde.setValeur(this,this.solde.getValeur()+this.getDemandePerStep()*this.getPrix()
+										-this.getFraisDeDistri()); 
 		
 		// Solde = Solde précédent + Ventes - Achats - Frais de Distribution
 	}
