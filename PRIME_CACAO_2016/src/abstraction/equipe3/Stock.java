@@ -1,23 +1,45 @@
 package abstraction.equipe3;
 
+import java.util.ArrayList;
+
+import abstraction.commun.ITransformateur;
+import abstraction.equipe3.Leclerc;
+
 public class Stock {
 	
-	private double[] stock;
+	private ArrayList<Double> stock;
+	private Leclerc leclerc;
 	
-	public Stock(double[] stock){
+	public Stock(Leclerc leclerc, ArrayList<Double> stock){
+		this.leclerc=leclerc;
 		this.stock=stock;
 	}
-	public double getStock(int i){
-		return this.stock[i];
+	
+	public void initialiseStock(){
+		this.stock = new ArrayList<Double>();
+		for (int i=0;i<this.leclerc.nombreTransformateur();i++){
+			this.stock.add(0.0);
+		}
 	}
-	public void setStock(int i, double stock){
-		this.stock[i]=stock;
+	
+	public double getStock(ITransformateur t){
+		double stock=0;
+		for (int i=0;i<this.leclerc.nombreTransformateur();i++){
+			if (t.equals(this.leclerc.getTransformateurs(i))){
+				stock=this.stock.get(i);
+			}
+		} return stock;
 	}
-	public void ajouterStock(int i, double stock){
-		this.setStock(i, stock+this.getStock(i));
-	}
-	public void retirerStock(int i, double stock){
-		this.setStock(i, stock-this.getStock(i));
+	
+	public void setStock (ITransformateur t) {
+		double x = this.getStock(t);
+		x+=this.leclerc.getDemande(t)-this.leclerc.getVente(t);
+		for (int i=0;i<this.leclerc.nombreTransformateur();i++){
+			if (t.equals(this.leclerc.getTransformateurs(i))){
+				this.stock.remove(i);
+				this.stock.add(i, x);
+			}
+		} 
 	}
 	
 }

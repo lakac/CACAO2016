@@ -35,6 +35,12 @@ public class Leclerc implements Acteur,IDistributeur{
 	public void ajouterVendeur(ITransformateur t) {
 		this.transformateurs.add(t);
 	}
+	public ITransformateur getTransformateurs(int i){
+		return this.transformateurs.get(i);
+	}
+	public int nombreTransformateur(){
+		return this.transformateurs.size();
+	}
 	public String getNom(){
 		return this.nom;
 	}
