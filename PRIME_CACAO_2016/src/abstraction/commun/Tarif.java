@@ -4,7 +4,6 @@ package abstraction.commun;
  * Classe modelisant les tarifs
  * On a une variable d'instance prix et 3 variables d'instance pour avoir des plages de valeurs où l'on fixe un rabais
  * 
- * @author Joaly Magloire
  */
 
 public class Tarif {
@@ -44,7 +43,7 @@ public class Tarif {
 	}
 
 	public double getRabais() {
-		return rabais;
+		return this.rabais;
 	}
 
 	public void setRabais(double rabais) {
