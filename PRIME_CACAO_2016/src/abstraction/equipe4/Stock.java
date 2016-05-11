@@ -29,7 +29,7 @@ public class Stock {
 		return this.prod;
 	}
 	
-	// perte de stock semi-mensuelle (à chaque step on perd du stock)
+	// définition des perte de stock semi-mensuelle (à chaque step on perd du stock)
 	public void setPerteStock() {
 		this.perteStock = this.getStockCacao().getValeur()*Math.random()*0.05;
 	}
@@ -48,7 +48,7 @@ public class Stock {
 		}
 	}
 	
-	// Perte de stock 
+	// Modification du stock en enlevant les pertes de stock
 	public void perteDeStock(){
 		this.getStockCacao().setValeur(this.getProd(),this.getStockCacao().getValeur()-this.getPerteStock());
 	}
