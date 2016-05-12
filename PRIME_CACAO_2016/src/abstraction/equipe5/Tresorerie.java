@@ -43,24 +43,28 @@ public class Tresorerie {
 			this.setTresorerie(this.getTresorerie()-d);	
 		}
 	}
+
 	// dire aux producteurs que meme si ils ont rien ils doivent mettre 0 dans commande
+	// ATTENTION changer commande(-3).getQuantite avec l'intermédiaire car le 3eme producteur ne passe pas de commande
+	// vérifier l'ordre P1,P2 et des commandes
 	public double coutRevient() {
 		P1 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1);
 		P2 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2);
 		int chargesFixes = 900980; // salaires+impots
-		double quantiteCacaoAchetee = this.histProduc.commande(-1).getQuantite() + this.histProduc.commande(-2).getQuantite() + this.histProduc.commande(-3).getQuantite(); //quantité de cacao commandée au step précédent	
-		double 
+		double quantiteDemandeeP1= this.histProduc.commande(-1).getQuantite();
+		double quantiteDemandeeP2= this.histProduc.commande(-2).getQuantite();
+		double quantiteDemandeeP3= 0.0; //voir avec l'intermediaire
+		double quantiteCacaoAchetee = quantiteDemandeeP1 + quantiteDemandeeP2 + quantiteDemandeeP3; //quantité de cacao commandée au step précédent	
+		return chargesFixes + quantiteCacaoAchetee * 5000 + (this.histProduc.commande(-1).getPrixTonne()*quantiteDemandeeP1+ this.histProduc.commande(-2).getPrixTonne()*quantiteDemandeeP2 + MarcheProducteur.LE_MARCHE.getCours()*quantiteDemandeeP3)/quantiteCacaoAchetee;	
 		
-		return chargesFixes + quantiteCacaoAchetee * 5000 + (*this.histProduc.commande(-1).getPrixTonne() + P2.annoncePrix()*0.3 + getCours() *0.4);	
-		
-		//cout de revient d'une tonne= charges fixes+ quantité de cacao commandé aux producteurs* cout de transformation d'une tonne.
-		//Cout de transformation d'une tonne= 5000+quantité de cacao demandée à chaque producteur multiplié par leur prix
+		//cout de revient d'une tonne= charges fixes+ quantité de cacao commandé aux producteurs * cout de transformation d'une tonne.
+		//Cout de transformation d'une tonne= 5000+pourcentage de quantité de cacao demandée à chaque producteur multiplié par leur prix, afin d'avoir un prix de transfo d'environ 8000€/t
 	
 	
 	}
-	
-	public double marge(){
-	return (15000*hist.valeur(Constante.STEP_3)-coutRevient());
-	}
-}
+//	
+//	public double marge(){
+//	return (15000*hist.valeur(Constante.STEP_3)-coutRevient());
+//	}
 
+}

@@ -101,8 +101,8 @@ public class Lindt implements Acteur, ITransformateur{
 		//CommandeDistri nouvelleCommandeeDistri = new CommandeDistri(d, this, d.getDemande(this)); // faire méthode qui donne le prix de vente
 	}
 	
-	//public void arriveeCommandeProduc(IProducteur p) {
-		//CommandeProduc nouvelleCommandeProduc = new CommandeProduc(this, p, annonceQuantiteDemandee(p), MarcheProducteur.getCours());
-		//this.getHistCommandeProduc().ajouter(nouvelleCommandeProduc);
-	//}
+	public void arriveeCommandeProduc(IProducteur p) {
+		CommandeProduc nouvelleCommandeProduc = new CommandeProduc(this, p, annonceQuantiteDemandee(p), MarcheProducteur.LE_MARCHE.getCours());
+		this.getHistCommandeProduc().ajouter(nouvelleCommandeProduc);
+	}
 }
