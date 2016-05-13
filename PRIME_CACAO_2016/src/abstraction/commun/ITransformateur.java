@@ -1,5 +1,7 @@
 package abstraction.commun;
 
+import java.util.List;
+
 public interface ITransformateur {
 	/**
 	 * Indique la quantité demandée au producteur p.
@@ -14,6 +16,11 @@ public interface ITransformateur {
 	 */
 	public void notificationVente(IProducteur p); 
 	
+	
+	
+	public Catalogue getCatalogue();
+	
+	public List<CommandeDistri> Offre (List<CommandeDistri> o);
 	
 	
 }
