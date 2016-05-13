@@ -1,20 +1,10 @@
 package abstraction.equipe5;
 
 import java.util.ArrayList;
-import abstraction.commun.Constantes;
-import abstraction.commun.IDistributeur;
-import abstraction.commun.IProducteur;
-import abstraction.commun.ITransformateur;
-import abstraction.fourni.Acteur;
-import abstraction.fourni.Indicateur;
-import abstraction.fourni.Monde;
-import abstraction.commun.CommandeDistri;
-import abstraction.commun.CommandeProduc;
-import abstraction.commun.MarcheProducteur;
-import abstraction.commun.Catalogue;
-import abstraction.commun.Produit;
-import abstraction.commun.Plage;
-import abstraction.commun.Tarif;
+import abstraction.commun.*;
+import abstraction.fourni.*;
+import java.util.List;
+
 
 public class Lindt implements Acteur, ITransformateur{
 	
@@ -86,7 +76,7 @@ public class Lindt implements Acteur, ITransformateur{
 		//treso.retrait(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT) * 3000); // achat cacao au reste du monde
 		//this.venteChocolat.setValeur(this, this.stockChocolat.getStock());
 		//treso.retrait(18*(this.stockChocolat.getStock() + this.stockCacao.getStock())); //cout de stock (18€ la tonne/step)
-		//treso.retrait(0.01*(5000*quantiteDemandeeP1+9000*quantiteDemandeeP2+6000*quantiteDemandeeP3)); //cout de livraison côté producteur (0,01€/km et P1 à 5000km et P2 à 9000km)
+		//treso.retrait(0.01*(5000*quantiteDemandeeP1+9000*quantiteDemandeeP2+5000*quantiteDemandeeP3)); //cout de livraison côté producteur (0,01€/km et P1 à 5000km et P2 à 9000km)
 	}
 
 	/**
@@ -119,8 +109,19 @@ public class Lindt implements Acteur, ITransformateur{
 		//this.getHistCommandeProduc().ajouter(nouvelleCommandeProduc);
 	//}
 	
-	//public Catalogue getCatalogue() {
+	public Catalogue getCatalogue() {
+		List<Plage> listePlage = new ArrayList<Plage>();
+		listePlage.add(new Plage(100, 150, 0.05));
+		listePlage.add(new Plage(151, 200, 0.07));
+		listePlage.add(new Plage(201, 600, 0.12));
+		this.catalogue.add(new Produit("50%", 0.5), new Tarif(15000, listePlage));
+		this.catalogue.add(new Produit("60%", 0.6), new Tarif(20000, listePlage));
+		this.catalogue.add(new Produit("70%", 0.5), new Tarif(25000, listePlage));
+		return this.catalogue;
+	}
+	
+	public double prixProduit(Produit p) {
 		
-	//}
+	}
 	
 }
