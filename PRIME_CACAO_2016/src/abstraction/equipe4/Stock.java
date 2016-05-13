@@ -4,9 +4,11 @@ import abstraction.fourni.*;
 
 public class Stock {
 	
+	// notre stock de cacao actuelle
 	private Indicateur stockCacao;
 	// pertes de stock bi-mensuelle.
 	private double perteStock;
+	// Nous
 	private Producteur prod;
 	
 	public Stock(Producteur p) {
