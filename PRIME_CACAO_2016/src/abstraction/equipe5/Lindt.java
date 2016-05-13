@@ -1,6 +1,8 @@
 package abstraction.equipe5;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import abstraction.commun.Constantes;
 import abstraction.commun.IDistributeur;
 import abstraction.commun.IProducteur;
@@ -8,6 +10,7 @@ import abstraction.commun.ITransformateur;
 import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
+import abstraction.commun.Catalogue;
 import abstraction.commun.CommandeDistri;
 import abstraction.commun.CommandeProduc;
 import abstraction.commun.MarcheProducteur;
@@ -112,5 +115,17 @@ public class Lindt implements Acteur, ITransformateur{
 	public void arriveeCommandeProduc(IProducteur p) {
 		CommandeProduc nouvelleCommandeProduc = new CommandeProduc(this, p, annonceQuantiteDemandee(p), MarcheProducteur.LE_MARCHE.getCours());
 		this.getHistCommandeProduc().ajouter(nouvelleCommandeProduc);
+	}
+
+	@Override
+	public Catalogue getCatalogue() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
