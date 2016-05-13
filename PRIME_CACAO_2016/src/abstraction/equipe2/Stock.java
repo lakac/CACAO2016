@@ -7,7 +7,6 @@ import abstraction.commun.Produit;
 import abstraction.fourni.Historique;
 
 public class Stock {
-	public static final double COUT_STOCK_UNITAIRE = 18.0;
 	private List<Double> stock;
 	private Historique stockprecedents;
 	
@@ -30,6 +29,7 @@ public class Stock {
 		else if (p.equals(produit3)) {
 			this.stock.set(3,this.stock.get(3)+prod.getProduction());
 		}
+	}
 	
 	public void RetirerStockProduit(Produit p, Vente vente) {
 		if (p.equals(produit1)) {

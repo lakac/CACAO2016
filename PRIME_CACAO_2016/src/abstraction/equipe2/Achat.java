@@ -1,19 +1,19 @@
 package abstraction.equipe2;
 
 import abstraction.fourni.Historique;
+import abstraction.commun.*;
 
 public class Achat {
-
-	private CommandesProd dernierecommandeachetee;
+	private double cacaoachete;
 	private Historique historiqueachats;
 	
 	
-	public CommandesProd getDernierecommandeachetee() {
-		return dernierecommandeachetee;
+	public double getCacaoachete() {
+		return cacaoachete;
 	}
-	
-	public void setDernierecommandeachetee(CommandesProd dernierecommandeachetee) {
-		this.dernierecommandeachetee = dernierecommandeachetee;
+
+	public void setCacaoAchete(IProducteur p) {
+		this.cacaoachete = Math.min(p.annonceQuantiteMiseEnVente(Nestle), Nestle.annonceQuantiteDemandee(p));
 	}
 
 	public Historique getHistoriqueachats() {
@@ -21,7 +21,7 @@ public class Achat {
 	}
 	
 	public Achat() {
-		this.dernierecommandeachetee = new CommandesProd(0.0);
+		this.cacaoachete = 0.0;
 		this.historiqueachats = new Historique();
 	}
 	

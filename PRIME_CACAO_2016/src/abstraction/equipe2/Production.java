@@ -1,29 +1,21 @@
 package abstraction.equipe2;
+import java.util.HashMap;
+
 import abstraction.commun.*;
 
 public class Production {
-	private double production;
+	private HashMap<Produit,Double> production;
 	
-	public Production(double prod){
-		this.production=prod;
-	}
-
-	public double getProduction() {
+	public HashMap<Produit, Double> getProduction() {
 		return production;
 	}
 	
-	
-
-	public void setProduction(CommandeDis CommandeDis, Produit produit) {
-		if (Stock.getstock()>=CommandeDis.getCommandeDis()/2){
-			this.production=CommandeDis.getCommandeDis();
-			
-		}
-		else{
-			this.production = CommandeDis.getCommandeDis()
-							+ CommandeDis.getCommandeDis()/2
-							- Stock.getstock();
-			
-		}
+	public void add(Produit p) {
+		this.production.put(p, 0.0);
 	}
+
+	public void setProduction(CommandeDistri commandedistri) {
+		if (commandeistri.getProduit())
+	}
+	
 }

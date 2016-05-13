@@ -1,27 +1,24 @@
 package abstraction.equipe2;
-
-import abstraction.fourni.Historique;
+import java.util.HashMap;
+import abstraction.commun.*;
+import abstraction.fourni.*;
 
 public class Vente {
-	private CommandeDis dernierecommandevendue;
-	private Historique historiqueventes;
+	private HashMap<Produit, Double> quantitevendue;
 	
 	public Vente() {
-		this.dernierecommandevendue = new CommandeDis(0.0);
-		this.historiqueventes = new Historique();
+		this.ventes = new HashMap<Produit, Double>();
 	}
 	
-	public void setDernierecommandevendue(CommandeDis dernierecommandevendue) {
-		this.dernierecommandevendue = dernierecommandevendue;
+	public HashMap<Produit, Double> getVentes() {
+		return ventes;
 	}
 
-	public CommandeDis getDernierecommandevendue() {
-		return dernierecommandevendue;
-	}
+
+	public void setquantitevendue(IDistributeur d, Produit p) {
+		this.quantitevendue.put(p, Math.min(d.getDemande(Nestle)))
 	
-	public Historique getHistoriqueventes() {
-		return historiqueventes;
-	}
+	
 	
 	//public void MiseAJourHistorique(int etape) {
 	//	this.historiqueventes.ajouter(Nestle, etape, this.dernierecommandevendue);

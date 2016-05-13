@@ -16,9 +16,6 @@ public class CommandesProd {
 	
 	public void SetCommandesProd(CommandeDis commandedis, Stock stock) {
 
-		double margedesecurite = PERTE_MINIMALE + Math.random()*VARIATION_PERTE;
-		this.commandesprod = (commandedis.getCommandeDis()-stock.getStock().get(0))*(1+margedesecurite);
-
 		this.commandesprod = (commandedis.getCommandeDis()-stock.getStock())*(1+Constante.MARGE_DE_SECURITE);
 
 	}
