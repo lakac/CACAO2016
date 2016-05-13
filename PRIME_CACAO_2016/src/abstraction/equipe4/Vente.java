@@ -30,13 +30,20 @@ public class Vente {
 		return this.getProducteur().getStock();
 	}
 
-	public void setStock() {
-		this.stock = stock;
-	}
-
-	//Retourne la moyenne des prix de vente sur les (12?) dernières step
+	//AUTRES MÉTHODES
+	//Retourne la moyenne des prix de vente sur les (12?) dernières step.
 	public double moyennePrixDeVente () {
 		return 0.0;
+	}
+	//Retourne le stock disponible divisé par le nombre de steps restantes avant le nouvel arrivage de production.
+	public double venteAPriori () {
+		//nombre de steps restantes avant l'arrivage de la nouvelle production
+		int n=12-this.getStep()%12;
+		return this.getStock().getStockCacao().getValeur()/n;
+	}
+	//Retourne une sorte d'indicateur d'intérêt de vendre ou non.
+	public double indicInteretVente () {
+		
 	}
 	
 	
