@@ -14,7 +14,7 @@ public class Leclerc implements Acteur,IDistributeur{
 	private double prixVente;
 	private Indicateur solde;
 	private Indicateur achats;
-	private ArrayList<Double> stock;
+	private Stock stock;
 	private ArrayList<Double> quantite;
 	private ArrayList<ITransformateur> transformateurs;
 	private ArrayList<Double> ratio;
@@ -25,7 +25,7 @@ public class Leclerc implements Acteur,IDistributeur{
 		this.prixAchat=prixAchat;		
 		this.achats = new Indicateur("Achats de "+nom, this, 0.0);
 		this.solde = new Indicateur("Solde de "+nom, this, 1000000.0);
-		this.stock = new ArrayList<Double>();
+		this.stock.initialiseStock();
 		this.quantite = new ArrayList<Double>();
 		this.ratio = new ArrayList<Double>();
     	Monde.LE_MONDE.ajouterIndicateur( this.achats );
@@ -116,23 +116,17 @@ public class Leclerc implements Acteur,IDistributeur{
 	    Double[] ratio = {0.125, 0.036};
 	    setRatio(ratio);
 	    commande(Monde.LE_MONDE.getStep());
-
 		this.achats.setValeur(this,this.getQteTotal());
-
 		this.achats.setValeur(this,this.getQteTotal());
 		this.setPrixVente(20.0);
-
 		for (ITransformateur t : this.transformateurs) {
 			double q = this.getVente(t);
 			this.solde.setValeur(this, this.solde.getValeur()-q*this.getPrixAchat()); 
 		}
-
 		this.solde.setValeur(this, this.solde.getValeur()+this.getQteTotal()*this.getPrixVente());
 		 //solde(step n)=solde step(n-1)+quantite(step n)*prixvente
 }
-	@Override
 	public double getPrix() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

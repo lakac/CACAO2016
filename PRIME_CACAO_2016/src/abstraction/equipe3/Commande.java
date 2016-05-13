@@ -10,7 +10,6 @@ public class Commande {
 
 	public Commande() {
 		this.commande = new ArrayList<Double>();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public double getCommande(Produit p){
