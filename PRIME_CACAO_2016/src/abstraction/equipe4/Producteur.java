@@ -23,7 +23,8 @@ public class Producteur implements Acteur,IProducteur{
        this.prodBiannu=new ProductionBiannuelle(this,1200000);
        
        this.transformateurs= new ArrayList<ITransformateur>();
-       
+       this.getTransformateurs().add(new ResteMonde(this));
+       Monde.LE_MONDE.ajouterActeur((Acteur)(this.getTransformateurs().get(0)));
        
        Monde.LE_MONDE.ajouterJournal(this.journal);
 
