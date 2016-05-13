@@ -1,5 +1,10 @@
 package abstraction.equipe2;
 
+import java.util.ArrayList;
+
+import abstraction.commun.*;
+
+
 public class CommandeDis {
 	
 	private double commande;
@@ -10,6 +15,14 @@ public class CommandeDis {
 
 	public double getCommandeDis() {
 		return this.commande;
+	}
+	
+	public double CacaoDemande(ArrayList<CommandeDistri> l){
+		double quantite;
+		for(CommandeDistri c: l){
+			quantite=quantite+c.getQuantite()*c.getProduit().getRatioCacao();
+		}
+		return quantite;
 	}
 	
 	//Classe finit, test à faire
