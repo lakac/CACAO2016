@@ -115,6 +115,24 @@ public class Transformateur2 implements Acteur, ITransformateur{
 		this.achats.setValeur(this, commandes.getCommandes()[2]);
 		this.solde.setValeur(this, tresorerie.getTresorerie());
 		this.ventes.setValeur(this, commandes.getCommandes()[0]);
+	}
+
+	@Override
+	public CommandeProduc annonceQuantiteDemandeeV2(IProducteur p) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Catalogue getCatalogue() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
+		// TODO Auto-generated method stub
+		return null;
 	}		
 }
 

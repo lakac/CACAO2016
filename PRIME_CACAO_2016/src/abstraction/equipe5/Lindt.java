@@ -46,7 +46,7 @@ public class Lindt implements Acteur, ITransformateur{
 		this.treso = new Tresorerie(this.histCommandeDistri, this.histCommandeProduc, this);
 		this.producteurs = new ArrayList<IProducteur>();
 		this.distributeurs = new ArrayList<IDistributeur>();
-		this.achatProd = new AchatProd(this.histCommandeProduc);	
+		//this.achatProd = new AchatProd(this.histCommandeProduc);	
 		this.catalogue = new Catalogue();
 	}
 	
