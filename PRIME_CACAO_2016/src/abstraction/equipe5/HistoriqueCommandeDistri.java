@@ -15,7 +15,7 @@ public class HistoriqueCommandeDistri {
 		return this.hist;
 	}
 
-	public CommandeDistri valeur(int i) {
+	public CommandeDistri commande(int i) {
 		return this.getHist().get(i);
 	}
 
