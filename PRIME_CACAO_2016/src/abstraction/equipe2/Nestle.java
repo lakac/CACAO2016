@@ -102,7 +102,13 @@ public class Nestle implements Acteur, ITransformateur{
 	
 
 	public void next() {
-		}
+		Stock stock= new Stock();
+		Banque banque=new Banque(300000);
+		CommandeDis commandelec = new CommandeDis(Leclerc.getCommandeDis());
+		CommandeDis commandecar = new CommandeDis(Carrefour.getCommandeCar());
+		
+	}
+	
 	}
 		/*double qdd = 0;
 		for (IDistributeur d : this.getDistributeurs()) {

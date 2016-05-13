@@ -4,15 +4,15 @@ import abstraction.fourni.Historique;
 
 public class Achat {
 
-	private CommandesProd dernierecommandeachetee;
+	private CommandeProd dernierecommandeachetee;
 	private Historique historiqueachats;
 	
 	
-	public CommandesProd getDernierecommandeachetee() {
+	public CommandeProd getDernierecommandeachetee() {
 		return dernierecommandeachetee;
 	}
 	
-	public void setDernierecommandeachetee(CommandesProd dernierecommandeachetee) {
+	public void setDernierecommandeachetee(CommandeProd dernierecommandeachetee) {
 		this.dernierecommandeachetee = dernierecommandeachetee;
 	}
 
@@ -21,7 +21,7 @@ public class Achat {
 	}
 	
 	public Achat() {
-		this.dernierecommandeachetee = new CommandesProd(0.0);
+		this.dernierecommandeachetee = new CommandeProd(0.0);
 		this.historiqueachats = new Historique();
 	}
 	

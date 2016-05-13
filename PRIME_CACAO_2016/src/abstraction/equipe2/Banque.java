@@ -26,13 +26,13 @@ public class Banque {
 		return banque;
 	}
 
-	public void setBanque(double banque) {
+/* void setBanque(double banque) {
 		this.banque = Constante.TRESORERIE_INITIALE;
-	}
+	} Sert a rien ?*/ 
 	
 	public static double CoutIntermediaireUnitaire (Produit produit, Achat achat, Tarif tarif){
 		return Constante.CHARGES_FIXES + achat.getDernierecommandeachetee().getCommandesProd()
-				*(Constante.COUT_DE_TRANSFORMATION /* + Cout d'achat */);
+				*(Constante.COUT_DE_TRANSFORMATION   /* + Cout d'achat */)// + cout stock;
 	}
 	
 }

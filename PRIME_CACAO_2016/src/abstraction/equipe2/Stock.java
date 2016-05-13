@@ -7,7 +7,6 @@ import abstraction.commun.Produit;
 import abstraction.fourni.Historique;
 
 public class Stock {
-	public static final double COUT_STOCK_UNITAIRE = 18.0;
 	private List<Double> stock;
 	private Historique stockprecedents;
 	
@@ -44,7 +43,7 @@ public class Stock {
 	}
 	
 	public void AjouterStockCacao(Achat achat) {
-		this.stock.set(0, this.stock.get(0)+achat.getDernierecommandeachetee().getCommandesProd()*(1- (0.2+Math.random()*0.1)));
+		this.stock.set(0, this.stock.get(0)+achat.getDernierecommandeachetee().getCommandesProd()*(1- Constante.MARGE_DE_SECURITE));
 	}
 	
 	public void RetirerStockCacao(Produit p, Production production) {
@@ -65,6 +64,10 @@ public class Stock {
 	//Ne connaît pas encore Nestlé
 	
 	public double CoutStock() {
-		return Constante.COUT_STOCK_UNITAIRE*this.getStock().get(0);
+		double cout_stock = 0;
+		for (int i=0;i<this.getStock().size();i++){
+			cout_stock += Constante.COUT_STOCK_UNITAIRE*this.getStock().get(i);
+		}
+		return cout_stock;
 	}
 }
