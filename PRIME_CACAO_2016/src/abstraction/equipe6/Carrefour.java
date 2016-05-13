@@ -107,10 +107,5 @@ public class Carrefour implements Acteur,IDistributeur {
 
 
 
-	@Override
-	public double getPrix() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 }

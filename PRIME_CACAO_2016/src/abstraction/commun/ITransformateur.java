@@ -14,6 +14,4 @@ public interface ITransformateur {
 	 */
 	public void notificationVente(IProducteur p); 
 	
-	
-	
 }
