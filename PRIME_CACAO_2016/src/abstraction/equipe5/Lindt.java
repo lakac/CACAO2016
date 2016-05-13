@@ -10,6 +10,7 @@ import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
 import abstraction.commun.CommandeDistri;
 import abstraction.commun.CommandeProduc;
+import abstraction.commun.MarcheProducteur;
 
 public class Lindt implements Acteur, ITransformateur{
 	
@@ -98,11 +99,12 @@ public class Lindt implements Acteur, ITransformateur{
 	}
 	
 	public void arriveeCommandeDistri(IDistributeur d) {
-		//CommandeDistri nouvelleCommande = new CommandeDistri(d, this, d.getDemande(this),15000); // faire mﾃｩthode qui donne le prix de vente
+
+		//CommandeDistri nouvelleCommandeeDistri = new CommandeDistri(d, this, d.getDemande(this)); // faire méthode qui donne le prix de vente
 	}
 	
-	public void arriveeCommandeProduc(IProducteur p) {
-		CommandeProduc nouvelleCommande = new CommandeProduc(this, p, annonceQuantiteDemandee(p), p.annoncePrix());
-		this.getHistCommandeProduc().ajouter(nouvelleCommande);
-	}
+	//public void arriveeCommandeProduc(IProducteur p) {
+		//CommandeProduc nouvelleCommandeProduc = new CommandeProduc(this, p, annonceQuantiteDemandee(p), MarcheProducteur.getCours());
+		//this.getHistCommandeProduc().ajouter(nouvelleCommandeProduc);
+	//}
 }
