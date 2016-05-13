@@ -60,6 +60,12 @@ public class Stock {
 		this.getProd().getTreso().getFond().setValeur(this.getProd(), this.getProd().getTreso().getFond().getValeur()-Couts.COUTSTOCK*this.getProd().getStock().getStockCacao().getValeur());
 	}
 	
-
+	// actualise des variables liées au stock :
+	// Diminution des stock à cause des pertes naturelles et diminution de la trésorerie à cause des couts de stock
+	public void gererLesStock(){
+		this.setPerteStock();
+		this.perteDeStock();
+		this.coutStock();
+	}
 	
 }
