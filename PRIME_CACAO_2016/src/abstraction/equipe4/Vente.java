@@ -14,10 +14,17 @@ public class Vente {
 	private int maximumStockAutorise;
 	private Producteur producteur;
 	private double prixMarche;
+	private double[] demande;
+	
 	
 	//Constructeurs
 	public Vente () {
 		this.stock = stock;
+		this.demande = new double[3];
+		for (int i=0; i<3; i++) {
+			this.demande[i] = this.getProducteur().getTransformateurs().get(i).annonceQuantiteDemandee(this.getProducteur());
+		}
+		
 	}
 
 	//GETTERS AND SETTERS
@@ -35,6 +42,7 @@ public class Vente {
 	public double getPrixMarche() {
 		return MarcheProducteur.LE_MARCHE.coursCacao.getValeur();
 	}
+
 
 	//AUTRES MÉTHODES
 	//Retourne la moyenne des prix de vente sur les précédentes step.
@@ -56,16 +64,40 @@ public class Vente {
 		return this.getStock().getStockCacao().getValeur()/n;
 	}
 	
-	//Retourne une sorte d'indicateur d'intérêt de vendre ou non.
-	public double indicInteretVente () {
-		double coeffPrix = this.getPrixMarche()/4000;
-		double 
-		
+	//Retourne notre offre totale.
+	public double offreTotale () {
+		double coeff = this.getPrixMarche()/4000;
+		if (coeff>=0) {
+			return this.venteAPriori()*(1+coeff);
+		}
+		else {
+			return this.venteAPriori()*(1+coeff/2);
+		}
 	}
-	
-	
-	
-	public venteStep () {
 		
+	//Vente effective aux transformateurs et notifications de celles-ci
+	public double[] ventesStep () {
+		double[] R = new double[3];
+		double offreRestante = 0.0;
+		//vente à notre meilleur client (équipe 2)
+		if (this.demande[1]<=this.offreTotale()) {
+			R[1] = this.demande[1];
+			offreRestante = this.offreTotale()-R[1];
+			if (this.demande[0]<=offreRestante) {
+				R[0] = this.demande[0];
+				offreRestante = offreRestante - R[0];
+				R[2] = Math.min(offreRestante, this.demande[2]);
+			}
+			else {
+				R[0] = offreRestante;
+				R[2] = 0.0;
+			}
+		}
+		else {
+			R[1] = this.offreTotale();
+			R[0] = 0.0;
+			R[2] = 0.0;
+		}
+		return R;
 	}
 }
