@@ -67,6 +67,7 @@ public class MondeV1 extends Monde {
 		
 		p2.ajoutClient(t1);
 		p2.ajoutClient(lindt);
+		p2.setMarche(marcheProducteur);
 	
 	}
 }
