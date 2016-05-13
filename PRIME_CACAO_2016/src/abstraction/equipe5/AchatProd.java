@@ -1,18 +1,18 @@
-//package abstraction.equipe5;
-//
-//import java.util.List;
-//
-//import abstraction.commun.Constantes;
-//import abstraction.commun.IProducteur;
-//import abstraction.commun.MondeV1;
-//
-//public class AchatProd {
-//	private HistoriqueCommandeProduc hist;
-//
-//	public AchatProd(HistoriqueCommandeProduc hist){
-//		this.hist = hist;
-//	}
-//	
+package abstraction.equipe5;
+
+import java.util.List;
+
+import abstraction.commun.Constantes;
+import abstraction.commun.IProducteur;
+import abstraction.commun.MondeV1;
+
+public class AchatProd {
+	private HistoriqueCommandeProduc hist;
+
+	public AchatProd(HistoriqueCommandeProduc hist){
+		this.hist = hist;
+	}
+	
 //	
 //	// Création d'une fonction qui calcule la quantité demandée en comparant les 2prods
 //	public double calculQuantiteDemandee(List listeCommandesDist){
@@ -36,4 +36,4 @@
 //		}
 //		
 //	}
-//}
+}
