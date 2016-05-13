@@ -44,7 +44,6 @@ public class Tresorerie {
 		}
 	}
 
-	// dire aux producteurs que meme si ils ont rien ils doivent mettre 0 dans commande
 	// ATTENTION changer commande(-3).getQuantite avec l'intermédiaire car le 3eme producteur ne passe pas de commande
 	// vérifier l'ordre P1,P2 et des commandes
 	public double coutRevient() {
@@ -56,6 +55,7 @@ public class Tresorerie {
 		double quantiteDemandeeP3= 0.0; //voir avec l'intermediaire
 		double quantiteCacaoAchetee = quantiteDemandeeP1 + quantiteDemandeeP2 + quantiteDemandeeP3; //quantité de cacao commandée au step précédent	
 		return chargesFixes + quantiteCacaoAchetee * 5000 + (this.histProduc.commande(-1).getPrixTonne()*quantiteDemandeeP1+ this.histProduc.commande(-2).getPrixTonne()*quantiteDemandeeP2 + MarcheProducteur.LE_MARCHE.getCours()*quantiteDemandeeP3)/quantiteCacaoAchetee;	
+		
 		
 		//cout de revient d'une tonne= charges fixes+ quantité de cacao commandé aux producteurs * cout de transformation d'une tonne.
 		//Cout de transformation d'une tonne= 5000+pourcentage de quantité de cacao demandée à chaque producteur multiplié par leur prix, afin d'avoir un prix de transfo d'environ 8000€/t

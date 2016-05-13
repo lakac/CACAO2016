@@ -155,9 +155,6 @@ public class Lindt implements Acteur, ITransformateur{
 		return this.catalogue;
 	}
 	
-	public double prixProduit(Produit p) {
-		return 0.0;
-	}
 
 
 	public double annonceQuantiteDemandee(IProducteur p) {
