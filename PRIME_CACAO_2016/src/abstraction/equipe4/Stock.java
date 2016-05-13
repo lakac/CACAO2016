@@ -4,9 +4,11 @@ import abstraction.fourni.*;
 
 public class Stock {
 	
+	// notre stock de cacao actuelle
 	private Indicateur stockCacao;
 	// pertes de stock bi-mensuelle.
 	private double perteStock;
+	// Nous
 	private Producteur prod;
 	
 	public Stock(Producteur p) {
@@ -53,6 +55,7 @@ public class Stock {
 		this.getStockCacao().setValeur(this.getProd(),this.getStockCacao().getValeur()-this.getPerteStock());
 	}
 	
+	// Modification de la tréso en enlevant les couts de stock
 	public void coutStock(){
 		this.getProd().getTreso().getFond().setValeur(this.getProd(), this.getProd().getTreso().getFond().getValeur()-Couts.COUTSTOCK*this.getProd().getStock().getStockCacao().getValeur());
 	}
