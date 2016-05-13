@@ -22,10 +22,6 @@ public class Lindt implements Acteur, ITransformateur{
 	private Stock stockChocolat70;
 	private Tresorerie treso;
 	private AchatProd achatProd;
-	private IProducteur P1;
-	private IProducteur P2;
-	private IDistributeur D1;
-	private IDistributeur D2;
 	private ArrayList<IProducteur> producteurs;
 	private ArrayList<IDistributeur> distributeurs;
 	
