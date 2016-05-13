@@ -121,6 +121,7 @@ public class Lindt implements Acteur, ITransformateur{
 	}
 	
 	public double prixProduit(Produit p) {
+		return coutRevient(p)*
 		
 	}
 	
