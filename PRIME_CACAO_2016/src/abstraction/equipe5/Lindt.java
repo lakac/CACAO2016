@@ -17,14 +17,11 @@ public class Lindt implements Acteur, ITransformateur{
 	private HistoriqueCommandeDistri histCommandeDistri;
 	private HistoriqueCommandeProduc histCommandeProduc;
 	private Stock stockCacao;
-	private Stock stockChocolat;
-	private Indicateur venteChocolat;
+	private Stock stockChocolat50;
+	private Stock stockChocolat60;
+	private Stock stockChocolat70;
 	private Tresorerie treso;
 	private AchatProd achatProd;
-	private IProducteur P1;
-	private IProducteur P2;
-	private IDistributeur D1;
-	private IDistributeur D2;
 	private ArrayList<IProducteur> producteurs;
 	private ArrayList<IDistributeur> distributeurs;
 	
@@ -34,10 +31,10 @@ public class Lindt implements Acteur, ITransformateur{
 		this.histCommandeDistri = new HistoriqueCommandeDistri();
 		this.histCommandeProduc = new HistoriqueCommandeProduc();
 		this.stockCacao = new Stock("cacao",this,0.0);
-		this.stockChocolat = new Stock("chocolat",this,0.0);
-		this.venteChocolat = new Indicateur("quantité de chocolat vendue Lindt", this, this.stockChocolat.getStock());
+		this.stockChocolat50 = new Stock(Constante.listeProduit[0].getNomProduit(),this,0.0);
+		this.stockChocolat60 = new Stock(Constante.listeProduit[1].getNomProduit(),this,0.0);
+		this.stockChocolat70 = new Stock(Constante.listeProduit[2].getNomProduit(),this,0.0);
 		this.treso = new Tresorerie(this.histCommandeDistri, this.histCommandeProduc, this);
-		Monde.LE_MONDE.ajouterIndicateur(venteChocolat);
 		this.producteurs = new ArrayList<IProducteur>();
 		this.distributeurs = new ArrayList<IDistributeur>();
 		this.achatProd = new AchatProd(this.histCommandeProduc);		
@@ -67,11 +64,20 @@ public class Lindt implements Acteur, ITransformateur{
 	public void next() {
 		//P1.annonceQuantiteMiseEnVente(this);
 		//P2.annonceQuantiteMiseEnVente(this);
+		
 		//this.hist.ajouter(D1.getDemande(this)+ D2.getDemande(this));
-		//stockChocolat.ajouterStock(this.getHist().valeur(Constante.STEP_2));
-		//stockChocolat.retirerStock(this.getHist().valeur(Constante.STEP_3));
+		
+		//stockChocolat50.ajouterStock(this.getHist().valeur(Constante.STEP_2));
+		//stockChocolat60.ajouterStock(this.getHist().valeur(Constante.STEP_2));
+		//stockChocolat70.ajouterStock(this.getHist().valeur(Constante.STEP_2));
+		
+		//stockChocolat50.retirerStock(this.getHist().valeur(Constante.STEP_3));
+		//stockChocolat60.retirerStock(this.getHist().valeur(Constante.STEP_3));
+		//stockChocolat70.retirerStock(this.getHist().valeur(Constante.STEP_3));
+		
 		//stockCacao.ajouterStock(0.4 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT)); // stock lié au reste du monde
 		//stockCacao.retirerStock(0.4 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_2)); // stock lié au reste du monde
+		
 		//treso.depot(treso.marge());
 		//treso.retrait(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT) * 3000); // achat cacao au reste du monde
 		//this.venteChocolat.setValeur(this, this.stockChocolat.getStock());
