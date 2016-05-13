@@ -20,7 +20,6 @@ public class Lindt implements Acteur, ITransformateur{
 	private Stock stockChocolat50;
 	private Stock stockChocolat60;
 	private Stock stockChocolat70;
-	private Indicateur stockChocolat;
 	private Tresorerie treso;
 	private AchatProd achatProd;
 	private IProducteur P1;
@@ -36,13 +35,10 @@ public class Lindt implements Acteur, ITransformateur{
 		this.histCommandeDistri = new HistoriqueCommandeDistri();
 		this.histCommandeProduc = new HistoriqueCommandeProduc();
 		this.stockCacao = new Stock("cacao",this,0.0);
-		this.stockChocolat50 = new Stock("chocolat",this,0.0);
-		this.stockChocolat60 = new Stock("chocolat",this,0.0);
-		this.stockChocolat70 = new Stock("chocolat",this,0.0);
-		this.stockChocolat = new Indicateur("quantite de chocolat vendue Lindt",this, 
-				this.stockChocolat50.getStock()+this.stockChocolat60.getStock()+this.stockChocolat70.getStock());
+		this.stockChocolat50 = new Stock(Constante.listeProduit[0].getNomProduit(),this,0.0);
+		this.stockChocolat60 = new Stock(Constante.listeProduit[1].getNomProduit(),this,0.0);
+		this.stockChocolat70 = new Stock(Constante.listeProduit[2].getNomProduit(),this,0.0);
 		this.treso = new Tresorerie(this.histCommandeDistri, this.histCommandeProduc, this);
-		Monde.LE_MONDE.ajouterIndicateur(stockChocolat);
 		this.producteurs = new ArrayList<IProducteur>();
 		this.distributeurs = new ArrayList<IDistributeur>();
 		this.achatProd = new AchatProd(this.histCommandeProduc);		
