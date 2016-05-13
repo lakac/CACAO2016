@@ -15,17 +15,19 @@ public class Producteur implements Acteur,IProducteur{
 	private ArrayList<ITransformateur> transformateurs;
 
 	//Constructeur de l'acteur Producteur 2
-	public Producteur(Monde monde) {
-		this.nom = Constantes.NOM_PRODUCTEUR_2;
-		this.treso = new Tresorerie(this);
-		this.stock = new Stock(this);
-		this.journal = new Journal("Journal de "+this.nom);
-		this.prodBiannu=new ProductionBiannuelle(this,1200000);
 
-		this.transformateurs= new ArrayList<ITransformateur>();
-
-
-		Monde.LE_MONDE.ajouterJournal(this.journal);
+    public Producteur(Monde monde) {
+       this.nom = Constantes.NOM_PRODUCTEUR_2;
+	   this.treso = new Tresorerie(this);
+	   this.stock = new Stock(this);
+       this.journal = new Journal("Journal de "+this.nom);
+       this.prodBiannu=new ProductionBiannuelle(this,1200000);
+       
+       this.transformateurs= new ArrayList<ITransformateur>();
+       this.getTransformateurs().add(new ResteMonde(this));
+       Monde.LE_MONDE.ajouterActeur((Acteur)(this.getTransformateurs().get(0)));
+       
+       Monde.LE_MONDE.ajouterJournal(this.journal);
 
 	}
 
