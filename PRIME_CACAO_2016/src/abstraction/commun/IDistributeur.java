@@ -9,4 +9,5 @@ public interface IDistributeur {
 	// Rajouter une variable delais de livraisons
 	public double getPrix();
 
+	
 }
