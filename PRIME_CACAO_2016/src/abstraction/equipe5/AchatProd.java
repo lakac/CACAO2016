@@ -15,17 +15,20 @@ public class AchatProd {
 	}
 	
 	
-	// Création d'une fonction qui calcule la quantité demandée en comparant les 2prods
-	public double calculQuantiteDemandee(List<CommandeDistri> listeCommandesDist){
-		double quantiteTotale=0;
-		for (CommandeDistri c : listeCommandesDist){
-			quantiteTotale += c.getQuantite();
-		}
-		for (IProducteur p: )
-		if ( <= quantiteTotale)
-		
-		return 0.0;
-	}
+//	// Création d'une fonction qui calcule la quantité demandée en comparant les 2prods
+//	public double calculQuantiteDemandee(List<CommandeDistri> listeCommandesDist){
+//		double quantiteTotale=0;
+//		for (CommandeDistri c : listeCommandesDist){
+//			quantiteTotale += c.getQuantite();
+//		}
+//		double quantiteEnVente = 0;
+//		for (IProducteur p: getProducteurs()){
+//			quantiteEnVente += p.annonceQuantiteMiseEnVente(Lindt);
+//		}
+//		if ( <= quantiteTotale)
+//		
+//		return 0.0;
+//	}
 	
 	/**
 	 * Indique la quantite demandee au producteur p.
