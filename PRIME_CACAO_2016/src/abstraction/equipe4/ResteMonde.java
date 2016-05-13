@@ -4,7 +4,7 @@ import abstraction.fourni.*;
 import abstraction.commun.*;
 
 
-public class ResteMonde implements Acteur,ITransformateur {
+public class ResteMonde implements Acteur, ITransformateur {
 	private String nom;
 	private double demande;
 	private Producteur p;
@@ -16,7 +16,7 @@ public class ResteMonde implements Acteur,ITransformateur {
 	}
 
 	public double getDemande() {
-		return demande;
+		return this.demande;
 	}
 
 	public Producteur getP() {
@@ -46,7 +46,7 @@ public class ResteMonde implements Acteur,ITransformateur {
 
 	public double annonceQuantiteDemandee(IProducteur p) {
 		return (this.getP().getTransformateurs().get(1).annonceQuantiteDemandee(this.getP())
-				+this.getP().getTransformateurs().get(2).annonceQuantiteDemandee(this.getP()))*(82.0+Math.random()*2.0)/14.0;
+				+this.getP().getTransformateurs().get(2).annonceQuantiteDemandee(this.getP()))*(82.0+Math.random()*2.0)/17.0;
 	}
 
 	public void notificationVente(IProducteur p) {
