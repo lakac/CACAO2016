@@ -11,6 +11,7 @@ public class Producteur implements Acteur,IProducteur{
 	private Tresorerie treso;
 	private ProductionBiannuelle prodBiannu;
 	
+	private MarcheProducteur marche;
 	private ArrayList<ITransformateur> transformateurs;
 	
 	//Constructeur de l'acteur Producteur 2
@@ -22,6 +23,7 @@ public class Producteur implements Acteur,IProducteur{
        this.prodBiannu=new ProductionBiannuelle(this,1200000);
        
        this.transformateurs= new ArrayList<ITransformateur>();
+       
        
        Monde.LE_MONDE.ajouterJournal(this.journal);
 
@@ -54,14 +56,23 @@ public class Producteur implements Acteur,IProducteur{
     public Tresorerie getTreso() {
 		return this.treso;
 	}
+    
+    public MarcheProducteur getMarche() {
+		return this.marche;
+	}
 
     
+
     //Ajout des clients a la liste transformateurs
     public void ajoutClient(Acteur a){
     	if (this.getTransformateurs().contains(((ITransformateur)a))){
     		this.getTransformateurs().add((ITransformateur)a);
     	}
     	
+    }
+    
+    public void setMarche(MarcheProducteur m){
+    	this.marche=m;
     }
     
 	// le next du producteur 2	
