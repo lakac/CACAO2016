@@ -115,7 +115,7 @@ public class Lindt implements Acteur, ITransformateur{
 		//treso.retrait(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT) * p.annoncePrix());
 	}
 
-	public CommandeProduc annonceQuantiteDemandee(IProducteur p) {
+	public CommandeProduc annonceQuantiteDemandeeV2(IProducteur p) {
 		//return this.achatProd.annonceQuantiteDemandee(p, p.annonceQuantiteMiseEnVente(this));
 		return null;
 	}
@@ -158,5 +158,12 @@ public class Lindt implements Acteur, ITransformateur{
 	public double prixProduit(Produit p) {
 		return 0.0;
 	}
+
+
+	public double annonceQuantiteDemandee(IProducteur p) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 }
