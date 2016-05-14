@@ -27,13 +27,19 @@ public class PrixVente {
 	}
 
 
-	public void setPrix ( List<CommandeDistri> t1, List<CommandeDistri> t2, List<CommandeDistri> tautres, double PrixVenteLeclerc ) {
-	    int c = 0;
-		for (Double d : this.prixparproduits){
-	        d=1.25*(t1.get(c).getQuantite()*t1.get(c).getPrixTonne()+t2.get(c).getQuantite()*t2.get(c).getPrixTonne()+
-	        		tautres.get(c).getQuantite()*tautres.get(c).getPrixTonne())/
-	        		(t1.get(c).getQuantite()+t2.get(c).getQuantite()+tautres.get(c).getQuantite());
-	        c++;
+	public void setPrix ( List<CommandeDistri> t1, List<CommandeDistri> t2, List<CommandeDistri> tautres, List<Double> PrixVenteLeclerc ) {
+		for (int i=0;i<=24;i++) {
+			int c = 0;
+			for (Double d : this.prixparproduits){
+		        d=1.25*(t1.get(c).getQuantite()*t1.get(c).getPrixTonne()+t2.get(c).getQuantite()*t2.get(c).getPrixTonne()+
+		        		tautres.get(c).getQuantite()*tautres.get(c).getPrixTonne())/
+		        		(t1.get(c).getQuantite()+t2.get(c).getQuantite()+tautres.get(c).getQuantite());
+		        c++;
+			}
+			
+	
+		}
+		
 		/*if (prixréf>1.2*p2) {
 			this.prix = (prixréf - p2);			
 		}
@@ -41,7 +47,7 @@ public class PrixVente {
 			this.prix = prixréf+0.05*p2;
 		}*/
 		
-		}
+		
 	
 	}
 	

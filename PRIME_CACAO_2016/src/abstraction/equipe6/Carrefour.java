@@ -1,6 +1,7 @@
 package abstraction.equipe6;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import abstraction.commun.IDistributeur;
 import abstraction.commun.ITransformateur;
@@ -15,7 +16,7 @@ public class Carrefour implements Acteur,IDistributeur {
 	private static final Monde LE_MONDE = null;
 	private String nom;
 	private double prixachat;
-	private double prixvente;
+	private PrixVente prixvente;
 	private Indicateur solde;
 	private Indicateur achats;
 	private double demandeannuel;
@@ -24,13 +25,13 @@ public class Carrefour implements Acteur,IDistributeur {
 
 	private ArrayList<ITransformateur> transformateurs;
 	
-	public Carrefour(String nom, Monde monde, double prixachat, double prixvente, double demandeannuel) {
+	public Carrefour(String nom, Monde monde, double prixachat, PrixVente prixvente, double demandeannuel) {
 		this.nom = nom;
 		this.prixachat=prixachat;
 		this.prixvente=prixvente;
 		this.achats = new Indicateur("Achats de "+this.nom, this, 0.0);
 		this.solde = new Indicateur("Solde de "+this.nom, this, 1000000.0);
-		this.demandeannuel=demandeannuel;
+		this.demandeannuel = demandeannuel;
     	Monde.LE_MONDE.ajouterIndicateur( this.achats );
     	Monde.LE_MONDE.ajouterIndicateur( this.solde );
     	this.transformateurs = new ArrayList<ITransformateur>();
@@ -38,28 +39,31 @@ public class Carrefour implements Acteur,IDistributeur {
 
 	
 	// Fixe la demande selon la p�riode de l'ann�e.
+
+
+	
 	
 	public void setdemandePerStep (int step ){
 		if (step%26 == 6 ) {
-			this.demandeperstep = 0.06*this.getDemandeAnnuel();
+			this.demandeperstep = (0.06*(1+(Math.random()-0.5)*0.2))*this.getDemandeAnnuel();
 		}
 		if (step%26 == 25) {
-			this.demandeperstep = 0.12*this.getDemandeAnnuel();
+			this.demandeperstep = (0.12*(1+(Math.random()-0.5)*0.2))*this.getDemandeAnnuel();
 		}
 		else {
-			this.demandeperstep = 0.03416*this.getDemandeAnnuel();
+			this.demandeperstep = (0.03416*(1+(Math.random()-0.5)*0.2))*this.getDemandeAnnuel();
 		}
 	}
 	
 	// Reglage des frais de distribution choisi arbitrairement de 2% de la demande du step en cours
 	
-	public void setFraisdeDistri() {
+	/*public void setFraisdeDistri() {
 		this.fraisdedistri = 0.02*this.demandeperstep*this.prixvente;
 	}
 
 	public void ajouterVendeur(ITransformateur t) {
 		this.transformateurs.add(t);
-	}
+	}*/
 	
 	// Reglage de la quantite a acheter en fonction du transformateur (12.5% Nestle, 3.6% Lindt et 83.9% Others)
 	
@@ -88,7 +92,7 @@ public class Carrefour implements Acteur,IDistributeur {
 	}
 
 
-	public void next() {
+	/*public void next() {
 		setdemandePerStep( MondeV1.LE_MONDE.getStep());
 		setFraisdeDistri();
 		for (ITransformateur t : this.transformateurs) {
@@ -101,5 +105,6 @@ public class Carrefour implements Acteur,IDistributeur {
 		
 		// Solde = Solde precedent + Ventes - Achats - Frais de Distribution
 	}
+	*/
 
 }
