@@ -115,6 +115,24 @@ public class MarcheProducteur implements Acteur {
 		}
 	}
 	
+	private void ajouterCommande(ITransformateur t, IProducteur p, double quantite) {
+		this.commandesPassees.get(t).put(p,this.commandesPassees.get(t).get(p)+quantite);
+		this.quantitesDisponibles.get(p).put(t,this.quantitesDisponibles.get(p).get(t)-quantite);
+	}
+	
+	private void repartirCommandes(ITransformateur t) {
+		double q = 0;
+		double besoinEffectif = t.annonceQuantiteDemandee()-this.getCommandeTotale(t);
+		double vendeursDisponibles = this.getNombreVendeursDisponibles(t);
+		
+		int i = 0;
+		while (i<MarcheProducteur.producteurs.size() && !this.satisfait(t)) {
+			q = Math.min(this.quantitesDisponibles.get(MarcheProducteur.producteurs.get(i)).get(t),besoinEffectif/vendeursDisponibles);
+			this.ajouterCommande(t,MarcheProducteur.producteurs.get(i),q);
+			i++;
+		}
+	}
+	
 	public void next() {
 		// Toutes les quantites mises en vente
 		double totalQuantitesEnVenteP = 0.0;
