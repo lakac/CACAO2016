@@ -24,7 +24,7 @@ public interface ITransformateur {
 	/**
 	 * Indique le prix d'achat proposé pour ce transformateur. Fluctue donc logiquement autour du cours du marché du cacao.
 	 */
-	public double prixPropose();
+	public double annoncePrix();
 	
 	/**
 	 * Met à jour l'état interne de ce transformateur suite à une vente auprès d'un producteur.

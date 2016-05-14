@@ -133,7 +133,7 @@ public class MarcheProducteur implements Acteur {
 		}
 	}
 	
-	public void prevoirCommandes() {
+	private void prevoirCommandes() {
 		List<Boolean> attente = creerListeAttente();
 		int i = 0;
 		while (attente.contains(false)) {
@@ -144,6 +144,16 @@ public class MarcheProducteur implements Acteur {
 					attente.set(i,this.satisfait(MarcheProducteur.transformateurs.get(i)));
 				}
 				i++;
+			}
+		}
+	}
+	
+	private void effectuerCommandes() {
+		for (ITransformateur t : MarcheProducteur.transformateurs) {
+			for (IProducteur p : MarcheProducteur.producteurs) {
+				CommandeProduc c = new CommandeProduc(t,p,this.commandesPassees.get(t).get(p),t.annoncePrix());
+				t.notificationVente(c);
+				p.notificationVente(c);
 			}
 		}
 	}
