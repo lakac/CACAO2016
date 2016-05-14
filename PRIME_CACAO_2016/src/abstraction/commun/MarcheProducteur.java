@@ -133,6 +133,21 @@ public class MarcheProducteur implements Acteur {
 		}
 	}
 	
+	public void prevoirCommandes() {
+		List<Boolean> attente = creerListeAttente();
+		int i = 0;
+		while (attente.contains(false)) {
+			i = 0;
+			while (attente.contains(false) && i < MarcheProducteur.transformateurs.size()) {
+				if (!this.satisfait(MarcheProducteur.transformateurs.get(i))) {
+					this.repartirCommandes(MarcheProducteur.transformateurs.get(i));
+					attente.set(i,this.satisfait(MarcheProducteur.transformateurs.get(i)));
+				}
+				i++;
+			}
+		}
+	}
+	
 	public void next() {
 		// Toutes les quantites mises en vente
 		double totalQuantitesEnVenteP = 0.0;
