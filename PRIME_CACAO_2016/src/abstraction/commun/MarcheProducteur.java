@@ -74,7 +74,29 @@ public class MarcheProducteur implements Acteur {
 	public String getNom() {
 		return "Marche Cacao";
 	}
-
+	
+	private double getCommandeTotale(ITransformateur t) {
+		double quantite = 0;
+		for (IProducteur p : MarcheProducteur.producteurs) {
+			quantite += this.commandesPassees.get(t).get(p);
+		}
+		return quantite;
+	}
+	
+	private int getNombreVendeursDisponibles(ITransformateur t) {
+		int n = 0;
+		for (IProducteur p : MarcheProducteur.producteurs) {
+			if (this.quantitesDisponibles.get(p).get(t) > 0) {
+				n += 1;
+			}
+		}
+		return n;
+	}
+	
+	private boolean satisfait(ITransformateur t) {
+		return (this.getCommandeTotale(t) == t.annonceQuantiteDemandee()) || (this.getNombreVendeursDisponibles(t) == 0);
+	}
+	
 	public void next() {
 		// Toutes les quantites mises en vente
 		double totalQuantitesEnVenteP = 0.0;
