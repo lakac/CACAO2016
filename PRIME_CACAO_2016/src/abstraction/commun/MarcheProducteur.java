@@ -2,6 +2,7 @@
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import abstraction.commun.IProducteur;
 import abstraction.commun.ITransformateur;
@@ -95,6 +96,23 @@ public class MarcheProducteur implements Acteur {
 	
 	private boolean satisfait(ITransformateur t) {
 		return (this.getCommandeTotale(t) == t.annonceQuantiteDemandee()) || (this.getNombreVendeursDisponibles(t) == 0);
+	}
+
+	private List<Boolean> creerListeAttente() {
+		List<Boolean> resultat = new ArrayList<Boolean>();
+		for (ITransformateur t : MarcheProducteur.transformateurs) {
+			resultat.add(this.satisfait(t));
+		}
+		return resultat;
+	}
+
+	private void actualiserStocksEtCommandes() {
+		for (IProducteur p : MarcheProducteur.producteurs) {
+			for (ITransformateur t : MarcheProducteur.transformateurs) {
+				this.quantitesDisponibles.get(p).put(t, p.annonceQuantiteMiseEnVente(t));
+				this.commandesPassees.get(t).put(p,0.0);
+			}
+		}
 	}
 	
 	public void next() {
