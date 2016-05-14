@@ -20,22 +20,22 @@ public class MarcheProducteur implements Acteur {
 	public static final double PRIX_MINIMUM = 2000;
 	public static final double PRIX_MAXIMUM = 4000;
 
-	private ArrayList<IProducteur> producteurs;
-	private ArrayList<ITransformateur> transformateurs;
+	private static ArrayList<IProducteur> producteurs;
+	private static ArrayList<ITransformateur> transformateurs;
 
 	public MarcheProducteur() {
-		this.producteurs = new ArrayList<IProducteur>();
-		this.transformateurs = new ArrayList<ITransformateur>();
+		MarcheProducteur.producteurs = new ArrayList<IProducteur>();
+		MarcheProducteur.transformateurs = new ArrayList<ITransformateur>();
 		this.coursCacao = new Indicateur("Cours Cacao",this,PRIX_DE_BASE);
 		Monde.LE_MONDE.ajouterIndicateur(this.coursCacao);
 	}
 
 	public void ajouterTransformateur(ITransformateur transformateur){
-		this.transformateurs.add(transformateur);
+		MarcheProducteur.transformateurs.add(transformateur);
 	}
 
 	public void ajouterProducteur(IProducteur producteur){
-		this.producteurs.add(producteur);
+		MarcheProducteur.producteurs.add(producteur);
 	}
 
 	//Renvoie la valeur actuelle du cout du cacao
@@ -54,27 +54,27 @@ public class MarcheProducteur implements Acteur {
 	public void next() {
 		// Toutes les quantites mises en vente
 		double totalQuantitesEnVenteP = 0.0;
-		for (ITransformateur t : this.transformateurs) {
-			for (IProducteur p : this.producteurs){
+		for (ITransformateur t : MarcheProducteur.transformateurs) {
+			for (IProducteur p : MarcheProducteur.producteurs){
 				totalQuantitesEnVenteP+=p.annonceQuantiteMiseEnVente(t);
 			}
 		}
 		// Toutes les quantites demandees
 		double totalQuantitesDemandeesT = 0.0;
-		for (ITransformateur t: this.transformateurs) {
-			for (IProducteur p: this.producteurs){
+		for (ITransformateur t: MarcheProducteur.transformateurs) {
+			for (IProducteur p: MarcheProducteur.producteurs){
 				totalQuantitesDemandeesT+=t.annonceQuantiteDemandee(p);
 			}
 		}
-		// Si l'offre est superieur a la demande
+		// Si l'offre est superieure a la demande
 		if (totalQuantitesEnVenteP > totalQuantitesDemandeesT){
 			coursCacao.setValeur(this, Math.max(coursCacao.getValeur()*(1-VARIATION_PRIX),PRIX_MINIMUM));
 		}
-		//Si l'offre est inferieur a la demande
+		// Si l'offre est inferieure a la demande
 		else if (totalQuantitesEnVenteP < totalQuantitesDemandeesT){
 			coursCacao.setValeur(this,Math.min(coursCacao.getValeur()*(1+VARIATION_PRIX),PRIX_MAXIMUM));
 		}
-		//Si l'offre est exactement la meme que la demande
+		// Si l'offre est exactement la meme que la demande
 		else {
 			coursCacao.setValeur(this, coursCacao.getValeur()); //On affecte une valeur pour actualiser l'historique
 		}
