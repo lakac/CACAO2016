@@ -71,7 +71,36 @@ public class MarcheProducteur implements Acteur {
 	public Historique getHistorique(){
 		return coursCacao.getHistorique();
 	}
-
+	
+	private void actualiserCours() {
+		// Toutes les quantites mises en vente
+		double totalQuantitesEnVenteP = 0.0;
+		for (ITransformateur t : MarcheProducteur.transformateurs) {
+			for (IProducteur p : MarcheProducteur.producteurs){
+				totalQuantitesEnVenteP+=p.annonceQuantiteMiseEnVente(t);
+			}
+		}
+		// Toutes les quantites demandees
+		double totalQuantitesDemandeesT = 0.0;
+		for (ITransformateur t: MarcheProducteur.transformateurs) {
+			for (IProducteur p: MarcheProducteur.producteurs){
+				totalQuantitesDemandeesT+=t.annonceQuantiteDemandee(p);
+			}
+		}
+		// Si l'offre est superieure a la demande
+		if (totalQuantitesEnVenteP > totalQuantitesDemandeesT){
+			coursCacao.setValeur(this, Math.max(coursCacao.getValeur()*(1-VARIATION_PRIX),PRIX_MINIMUM));
+		}
+		// Si l'offre est inferieure a la demande
+		else if (totalQuantitesEnVenteP < totalQuantitesDemandeesT){
+			coursCacao.setValeur(this,Math.min(coursCacao.getValeur()*(1+VARIATION_PRIX),PRIX_MAXIMUM));
+		}
+		// Si l'offre est exactement la meme que la demande
+		else {
+			coursCacao.setValeur(this, coursCacao.getValeur()); //On affecte une valeur pour actualiser l'historique
+		}
+	}
+	
 	public String getNom() {
 		return "Marche Cacao";
 	}
@@ -159,31 +188,6 @@ public class MarcheProducteur implements Acteur {
 	}
 	
 	public void next() {
-		// Toutes les quantites mises en vente
-		double totalQuantitesEnVenteP = 0.0;
-		for (ITransformateur t : MarcheProducteur.transformateurs) {
-			for (IProducteur p : MarcheProducteur.producteurs){
-				totalQuantitesEnVenteP+=p.annonceQuantiteMiseEnVente(t);
-			}
-		}
-		// Toutes les quantites demandees
-		double totalQuantitesDemandeesT = 0.0;
-		for (ITransformateur t: MarcheProducteur.transformateurs) {
-			for (IProducteur p: MarcheProducteur.producteurs){
-				totalQuantitesDemandeesT+=t.annonceQuantiteDemandee(p);
-			}
-		}
-		// Si l'offre est superieure a la demande
-		if (totalQuantitesEnVenteP > totalQuantitesDemandeesT){
-			coursCacao.setValeur(this, Math.max(coursCacao.getValeur()*(1-VARIATION_PRIX),PRIX_MINIMUM));
-		}
-		// Si l'offre est inferieure a la demande
-		else if (totalQuantitesEnVenteP < totalQuantitesDemandeesT){
-			coursCacao.setValeur(this,Math.min(coursCacao.getValeur()*(1+VARIATION_PRIX),PRIX_MAXIMUM));
-		}
-		// Si l'offre est exactement la meme que la demande
-		else {
-			coursCacao.setValeur(this, coursCacao.getValeur()); //On affecte une valeur pour actualiser l'historique
-		}
+		
 	}
 }
