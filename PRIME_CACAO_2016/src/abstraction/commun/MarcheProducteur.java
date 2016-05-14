@@ -188,6 +188,9 @@ public class MarcheProducteur implements Acteur {
 	}
 	
 	public void next() {
-		
+		this.actualiserStocksEtCommandes();
+		this.prevoirCommandes();
+		this.effectuerCommandes();
+		this.actualiserCours();
 	}
 }
