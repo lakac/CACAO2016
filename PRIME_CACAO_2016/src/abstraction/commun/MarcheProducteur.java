@@ -1,6 +1,8 @@
  package abstraction.commun;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import abstraction.commun.IProducteur;
 import abstraction.commun.ITransformateur;
 import abstraction.fourni.Acteur;
@@ -22,12 +24,19 @@ public class MarcheProducteur implements Acteur {
 
 	private static ArrayList<IProducteur> producteurs;
 	private static ArrayList<ITransformateur> transformateurs;
-
+	
+	// Quantites de cacao proposees a chaque ITransformateur par chaque IProducteur
+	private HashMap<IProducteur,HashMap<ITransformateur,Double>> quantitesDisponibles;
+	// Quantites de cacao commandees a chaque IProducteur par chaque ITransformateur
+	private HashMap<ITransformateur,HashMap<IProducteur,Double>> commandesPassees;
+	
 	public MarcheProducteur() {
 		MarcheProducteur.producteurs = new ArrayList<IProducteur>();
 		MarcheProducteur.transformateurs = new ArrayList<ITransformateur>();
 		this.coursCacao = new Indicateur("Cours Cacao",this,PRIX_DE_BASE);
 		Monde.LE_MONDE.ajouterIndicateur(this.coursCacao);
+		this.commandesPassees = new HashMap<ITransformateur,HashMap<IProducteur,Double>>();
+		this.quantitesDisponibles = new HashMap<IProducteur,HashMap<ITransformateur,Double>>();
 	}
 
 	public void ajouterTransformateur(ITransformateur transformateur){
@@ -37,7 +46,22 @@ public class MarcheProducteur implements Acteur {
 	public void ajouterProducteur(IProducteur producteur){
 		MarcheProducteur.producteurs.add(producteur);
 	}
-
+	
+	public void initialiserCommandes() {
+		for (ITransformateur t : MarcheProducteur.transformateurs) {
+			this.commandesPassees.put(t, new HashMap<IProducteur,Double>());
+			for (IProducteur p : MarcheProducteur.producteurs) {
+				this.commandesPassees.get(t).put(p, 0.0);
+			}
+		}
+		for (IProducteur p : MarcheProducteur.producteurs) {
+			this.quantitesDisponibles.put(p, new HashMap<ITransformateur,Double>());
+			for (ITransformateur t : MarcheProducteur.transformateurs) {
+				this.quantitesDisponibles.get(p).put(t, 0.0);
+			}
+		}
+	}
+	
 	//Renvoie la valeur actuelle du cout du cacao
 	public double getCours() {
 		return coursCacao.getValeur();
