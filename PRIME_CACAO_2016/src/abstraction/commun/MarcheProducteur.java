@@ -83,9 +83,7 @@ public class MarcheProducteur implements Acteur {
 		// Toutes les quantites demandees
 		double totalQuantitesDemandeesT = 0.0;
 		for (ITransformateur t: MarcheProducteur.transformateurs) {
-			for (IProducteur p: MarcheProducteur.producteurs){
-				totalQuantitesDemandeesT+=t.annonceQuantiteDemandee(p);
-			}
+			totalQuantitesDemandeesT+=t.annonceQuantiteDemandee();
 		}
 		// Si l'offre est superieure a la demande
 		if (totalQuantitesEnVenteP > totalQuantitesDemandeesT){
