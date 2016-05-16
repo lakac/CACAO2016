@@ -1,4 +1,4 @@
-  package abstraction.commun;
+package abstraction.commun;
 
 public interface IProducteur {
 	/**
@@ -14,9 +14,10 @@ public interface IProducteur {
 	 */
 	public void notificationVente(CommandeProduc c);
 	
-	// Méthode obsolète --- à supprimer une fois que tout le monde sera passé sur la nouvelle structure d'échanges
 	/**
 	 * Indique le prix de vente par tonne.
+	 * 
+	 * @deprecated Le prix est désormais choisi par les transformateurs.
 	 */
 	public double annoncePrix();
 }

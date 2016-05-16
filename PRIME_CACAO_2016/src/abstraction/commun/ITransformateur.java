@@ -1,21 +1,21 @@
 package abstraction.commun;
 
 public interface ITransformateur {
-	// Méthodes obsolètes --- à supprimer une fois que tout le monde sera passé sur la nouvelle structure d'échanges
 	/**
 	 * Indique la quantité demandée au producteur p.
+	 * 
+	 * @deprecated Remplacé par {@link #annonceQuantiteDemandee()}.
 	 */
 	public double annonceQuantiteDemandee(IProducteur p);
-	// Rajouter une annonce de prix Transformateur
+	
 	/**
 	 * Met à jour l'état interne de ce transformateur
 	 * suite à une vente auprès du producteur p.
 	 * 
-	 * Cette méthode est appelée par les producteurs.
+	 * @deprecated Remplacé par {@link #notificationVente(CommandeProduc)}.
 	 */
 	public void notificationVente(IProducteur p); 
 	
-	// Méthodes actuelles --- celles-ci doivent absolument être implémentées
 	/**
 	 * Indique la quantité demandée au marché du cacao.
 	 */
