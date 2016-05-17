@@ -48,6 +48,11 @@ public class MarcheProducteur implements Acteur {
 		MarcheProducteur.producteurs.add(producteur);
 	}
 	
+	/*
+	 * Initialise les HashMaps commandesPassees et quantitesDisponibles : tous les transformateurs sont associés à tous
+	 * les producteurs dans commandesPassees (mais chaque commande est à zéro) et tous les producteurs sont associés à
+	 * tous les transformateurs dans quantitesDisponibles (mais chaque quantité est à zéro).
+	 */
 	public void initialiserCommandes() {
 		for (ITransformateur t : MarcheProducteur.transformateurs) {
 			this.commandesPassees.put(t, new HashMap<IProducteur,Double>());
@@ -72,6 +77,9 @@ public class MarcheProducteur implements Acteur {
 		return coursCacao.getHistorique();
 	}
 	
+	/*
+	 * Modifie le cours du cacao selon l'offre et la demande du step courant.
+	 */
 	private void actualiserCours() {
 		// Toutes les quantites mises en vente
 		double totalQuantitesEnVenteP = 0.0;
@@ -103,6 +111,9 @@ public class MarcheProducteur implements Acteur {
 		return "Marche Cacao";
 	}
 	
+	/*
+	 * Renvoie la somme des quantités commandées durant le step courant par le transformateur t à tous les producteurs.
+	 */
 	private double getCommandeTotale(ITransformateur t) {
 		double quantite = 0;
 		for (IProducteur p : MarcheProducteur.producteurs) {
@@ -111,6 +122,10 @@ public class MarcheProducteur implements Acteur {
 		return quantite;
 	}
 	
+	/*
+	 * Renvoie le nombre de producteurs auxquels le transformateur t a pour l'instant passé une commande strictement
+	 * inférieure à la quantité qu'ils proposaient (individuellement).
+	 */
 	private int getNombreVendeursDisponibles(ITransformateur t) {
 		int n = 0;
 		for (IProducteur p : MarcheProducteur.producteurs) {
@@ -121,10 +136,20 @@ public class MarcheProducteur implements Acteur {
 		return n;
 	}
 	
+	/*
+	 * Renvoie true uniquement si la demande du transformateur t est satisfaite (la somme de ses commandes étant alors
+	 * égale à sa demande initiale) ou s'il a déjà commandé absolument tout le cacao qui lui était proposé par l'ensemble
+	 * des producteurs.
+	 */
 	private boolean satisfait(ITransformateur t) {
 		return (this.getCommandeTotale(t) == t.annonceQuantiteDemandee()) || (this.getNombreVendeursDisponibles(t) == 0);
 	}
-
+	
+	/*
+	 * Crée une liste contenant tous les transformateurs non satisfaits au début de la phase d'échange. Autrement dit,
+	 * seuls les transformateurs qui ne commandent rien ou ceux à qui aucun producteur ne propose de cacao ne seront pas
+	 * dans cette liste.
+	 */
 	private List<Boolean> creerListeAttente() {
 		List<Boolean> resultat = new ArrayList<Boolean>();
 		for (ITransformateur t : MarcheProducteur.transformateurs) {
@@ -132,7 +157,11 @@ public class MarcheProducteur implements Acteur {
 		}
 		return resultat;
 	}
-
+	
+	/*
+	 * Méthode appelée au tout début d'une phase d'échange : toutes les commandes sont remises à zéro et toutes les
+	 * quantités disponibles sont récupérées auprès des producteurs.
+	 */
 	private void actualiserStocksEtCommandes() {
 		for (IProducteur p : MarcheProducteur.producteurs) {
 			for (ITransformateur t : MarcheProducteur.transformateurs) {
@@ -142,11 +171,30 @@ public class MarcheProducteur implements Acteur {
 		}
 	}
 	
+	/*
+	 * Modifie les deux HashMaps en fonction de la quantité commandée par le transformateur t auprès du producteur p.
+	 * Ainsi commandesPassees ajoute cette quantité à celle qu'elle avait déjà en mémoire, et quantitesDisponibles retire
+	 * cette quantité à celle qu'elle avait déjà en mémoire.
+	 */
 	private void ajouterCommande(ITransformateur t, IProducteur p, double quantite) {
 		this.commandesPassees.get(t).put(p,this.commandesPassees.get(t).get(p)+quantite);
 		this.quantitesDisponibles.get(p).put(t,this.quantitesDisponibles.get(p).get(t)-quantite);
 	}
 	
+	/*
+	 * Méthode permettant de répartir équitablement les commandes d'un transformateur auprès des producteurs.
+	 * Elle doit être appelée plusieurs fois par une autre méthode (prevoirCommandes) pour arriver à la répartition finale.
+	 * 
+	 * Lors d'un appel, elle détermine le besoin effectif du transformateur (sa demande initiale moins ce qu'il a déjà
+	 * commandé lors des appels précédents) et le nombre de producteurs disposant encore de cacao pouvant être acheté par
+	 * ce transformateur.
+	 * Dans le while :
+	 * En théorie, le transformateur devrait commander besoinEffectif/vendeursDisponibles à chaque producteur : dans un cas
+	 * idéal, les stocks disponibles permettent de répondre totalement à la demande.
+	 * Dans le cas contraire, tant que le transformateur n'est pas satisfait (et que tous les producteurs n'ont pas été
+	 * passés en revue), il commande le minimum entre ce qui est disponible chez le producteur actuel (accessible via
+	 * MarcheProducteur.producteurs.get(i)) et la commande théorique (besoinEffectif/vendeursDisponibles).
+	 */
 	private void repartirCommandes(ITransformateur t) {
 		double q = 0;
 		double besoinEffectif = t.annonceQuantiteDemandee()-this.getCommandeTotale(t);
@@ -160,6 +208,11 @@ public class MarcheProducteur implements Acteur {
 		}
 	}
 	
+	/*
+	 * Méthode principale gérant les échanges au sein du marché. Tant qu'il existe des transformateurs non "satisfaits"
+	 * (voir la méthode satisfait(ITransformateur t)), donc présents dans la liste d'attente, ceux-ci passent des commandes
+	 * via la méthode repartirCommandes. Une fois un transformateur satisfait, il quitte la liste d'attente.
+	 */
 	private void prevoirCommandes() {
 		List<Boolean> attente = creerListeAttente();
 		int i = 0;
@@ -175,6 +228,10 @@ public class MarcheProducteur implements Acteur {
 		}
 	}
 	
+	/*
+	 * Méthode appelée à la fin de la phase d'échange, donc une fois que tous les transformateurs sont "satisfaits".
+	 * Notifie chaque ITransformateur et chaque IProducteur des commandes qui le concernent. 
+	 */
 	private void effectuerCommandes() {
 		for (ITransformateur t : MarcheProducteur.transformateurs) {
 			for (IProducteur p : MarcheProducteur.producteurs) {
@@ -185,6 +242,12 @@ public class MarcheProducteur implements Acteur {
 		}
 	}
 	
+	/*
+	 * Méthode appelée par le monde, au même niveau que les nexts des autres Acteurs.
+	 * Le marché réinitialise ses commandes et récupère les quantités proposées par les producteurs aux transformateurs,
+	 * puis décide de la répartition des commandes entre les producteurs, puis notifie chaque acteur des commandes qui le
+	 * concernent, puis actualise le cours du cacao.
+	 */
 	public void next() {
 		this.actualiserStocksEtCommandes();
 		this.prevoirCommandes();
