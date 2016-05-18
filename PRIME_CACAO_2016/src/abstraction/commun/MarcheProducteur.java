@@ -25,7 +25,7 @@ public class MarcheProducteur implements Acteur {
 	public static MarcheProducteur LE_MARCHE;
 	
 	/** Historique du prix du marché */
-	public Indicateur coursCacao;
+	private Indicateur coursCacao;
 	
 	/** Variation du coût par step */
 	public static final double VARIATION_PRIX = 0.02; 
