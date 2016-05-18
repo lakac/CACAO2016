@@ -64,6 +64,5 @@ public class MondeV1 extends Monde {
 		marcheProducteur.ajouterProducteur(p2);
 		marcheProducteur.ajouterTransformateur(t1);
 		marcheProducteur.ajouterTransformateur(lindt);
-		marcheProducteur.initialiserCommandes();
 	}
 }

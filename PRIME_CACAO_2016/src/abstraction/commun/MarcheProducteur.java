@@ -42,29 +42,17 @@ public class MarcheProducteur implements Acteur {
 
 	public void ajouterTransformateur(ITransformateur transformateur){
 		MarcheProducteur.transformateurs.add(transformateur);
+		this.commandesPassees.put(transformateur, new HashMap<IProducteur,Double>());
+		for (IProducteur p : MarcheProducteur.producteurs) {
+			this.commandesPassees.get(transformateur).put(p, 0.0);
+		}
 	}
 
 	public void ajouterProducteur(IProducteur producteur){
 		MarcheProducteur.producteurs.add(producteur);
-	}
-	
-	/*
-	 * Initialise les HashMaps commandesPassees et quantitesDisponibles : tous les transformateurs sont associés à tous
-	 * les producteurs dans commandesPassees (mais chaque commande est à zéro) et tous les producteurs sont associés à
-	 * tous les transformateurs dans quantitesDisponibles (mais chaque quantité est à zéro).
-	 */
-	public void initialiserCommandes() {
+		this.quantitesDisponibles.put(producteur, new HashMap<ITransformateur,Double>());
 		for (ITransformateur t : MarcheProducteur.transformateurs) {
-			this.commandesPassees.put(t, new HashMap<IProducteur,Double>());
-			for (IProducteur p : MarcheProducteur.producteurs) {
-				this.commandesPassees.get(t).put(p, 0.0);
-			}
-		}
-		for (IProducteur p : MarcheProducteur.producteurs) {
-			this.quantitesDisponibles.put(p, new HashMap<ITransformateur,Double>());
-			for (ITransformateur t : MarcheProducteur.transformateurs) {
-				this.quantitesDisponibles.get(p).put(t, 0.0);
-			}
+			this.quantitesDisponibles.get(producteur).put(t, 0.0);
 		}
 	}
 	
