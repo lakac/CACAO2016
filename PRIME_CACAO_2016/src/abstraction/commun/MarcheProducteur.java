@@ -1,4 +1,4 @@
- package abstraction.commun;
+package abstraction.commun;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,24 +11,37 @@ import abstraction.fourni.Historique;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
 
+/**
+ * Acteur gérant l'évolution du cours du cacao et réalisant les échanges entre
+ * producteurs et transformateurs.
+ * 
+ * @author équipe 1
+ */
 public class MarcheProducteur implements Acteur {
-	//Prix initial avant toute transaction
+	/** Prix initial avant toute transaction */
 	public static final double PRIX_DE_BASE = 3000.0;
+	
+	/** Reference statique de l'unique instance du marché du cacao */
 	public static MarcheProducteur LE_MARCHE;
-	//Historique du prix du marché
+	
+	/** Historique du prix du marché */
 	public Indicateur coursCacao;
-	//Variation du coût par step
+	
+	/** Variation du coût par step */
 	public static final double VARIATION_PRIX = 0.02; 
+	
 	//Extrema des prix du marche
+	/** Prix minimum du cacao sur le marche */
 	public static final double PRIX_MINIMUM = 2000;
+	/** Prix maximum du cacao sur le marche */
 	public static final double PRIX_MAXIMUM = 4000;
 
 	private static ArrayList<IProducteur> producteurs;
 	private static ArrayList<ITransformateur> transformateurs;
 	
-	// Quantites de cacao proposees a chaque ITransformateur par chaque IProducteur
+	/** Quantites de cacao proposees a chaque ITransformateur par chaque IProducteur */
 	private HashMap<IProducteur,HashMap<ITransformateur,Double>> quantitesDisponibles;
-	// Quantites de cacao commandees a chaque IProducteur par chaque ITransformateur
+	/** Quantites de cacao commandees a chaque IProducteur par chaque ITransformateur */
 	private HashMap<ITransformateur,HashMap<IProducteur,Double>> commandesPassees;
 	
 	public MarcheProducteur() {
@@ -56,7 +69,9 @@ public class MarcheProducteur implements Acteur {
 		}
 	}
 	
-	//Renvoie la valeur actuelle du cout du cacao
+	/**
+	 * Renvoie la valeur actuelle du cout du cacao
+	 */
 	public double getCours() {
 		return coursCacao.getValeur();
 	}
@@ -65,7 +80,7 @@ public class MarcheProducteur implements Acteur {
 		return coursCacao.getHistorique();
 	}
 	
-	/*
+	/**
 	 * Modifie le cours du cacao selon l'offre et la demande du step courant.
 	 */
 	private void actualiserCours() {
@@ -99,7 +114,7 @@ public class MarcheProducteur implements Acteur {
 		return "Marche Cacao";
 	}
 	
-	/*
+	/**
 	 * Renvoie la somme des quantités commandées durant le step courant par le transformateur t à tous les producteurs.
 	 */
 	private double getCommandeTotale(ITransformateur t) {
@@ -110,7 +125,7 @@ public class MarcheProducteur implements Acteur {
 		return quantite;
 	}
 	
-	/*
+	/**
 	 * Renvoie le nombre de producteurs auxquels le transformateur t a pour l'instant passé une commande strictement
 	 * inférieure à la quantité qu'ils proposaient (individuellement).
 	 */
@@ -124,7 +139,7 @@ public class MarcheProducteur implements Acteur {
 		return n;
 	}
 	
-	/*
+	/**
 	 * Renvoie true uniquement si la demande du transformateur t est satisfaite (la somme de ses commandes étant alors
 	 * égale à sa demande initiale) ou s'il a déjà commandé absolument tout le cacao qui lui était proposé par l'ensemble
 	 * des producteurs.
@@ -133,7 +148,7 @@ public class MarcheProducteur implements Acteur {
 		return (this.getCommandeTotale(t) == t.annonceQuantiteDemandee()) || (this.getNombreVendeursDisponibles(t) == 0);
 	}
 	
-	/*
+	/**
 	 * Crée une liste contenant tous les transformateurs non satisfaits au début de la phase d'échange. Autrement dit,
 	 * seuls les transformateurs qui ne commandent rien ou ceux à qui aucun producteur ne propose de cacao ne seront pas
 	 * dans cette liste.
@@ -146,7 +161,7 @@ public class MarcheProducteur implements Acteur {
 		return resultat;
 	}
 	
-	/*
+	/**
 	 * Méthode appelée au tout début d'une phase d'échange : toutes les commandes sont remises à zéro et toutes les
 	 * quantités disponibles sont récupérées auprès des producteurs.
 	 */
@@ -159,7 +174,7 @@ public class MarcheProducteur implements Acteur {
 		}
 	}
 	
-	/*
+	/**
 	 * Modifie les deux HashMaps en fonction de la quantité commandée par le transformateur t auprès du producteur p.
 	 * Ainsi commandesPassees ajoute cette quantité à celle qu'elle avait déjà en mémoire, et quantitesDisponibles retire
 	 * cette quantité à celle qu'elle avait déjà en mémoire.
@@ -169,7 +184,7 @@ public class MarcheProducteur implements Acteur {
 		this.quantitesDisponibles.get(p).put(t,this.quantitesDisponibles.get(p).get(t)-quantite);
 	}
 	
-	/*
+	/**
 	 * Méthode permettant de répartir équitablement les commandes d'un transformateur auprès des producteurs.
 	 * Elle doit être appelée plusieurs fois par une autre méthode (prevoirCommandes) pour arriver à la répartition finale.
 	 * 
@@ -196,7 +211,7 @@ public class MarcheProducteur implements Acteur {
 		}
 	}
 	
-	/*
+	/**
 	 * Méthode principale gérant les échanges au sein du marché. Tant qu'il existe des transformateurs non "satisfaits"
 	 * (voir la méthode satisfait(ITransformateur t)), donc présents dans la liste d'attente, ceux-ci passent des commandes
 	 * via la méthode repartirCommandes. Une fois un transformateur satisfait, il quitte la liste d'attente.
@@ -216,7 +231,7 @@ public class MarcheProducteur implements Acteur {
 		}
 	}
 	
-	/*
+	/**
 	 * Méthode appelée à la fin de la phase d'échange, donc une fois que tous les transformateurs sont "satisfaits".
 	 * Notifie chaque ITransformateur et chaque IProducteur des commandes qui le concernent. 
 	 */
@@ -230,7 +245,7 @@ public class MarcheProducteur implements Acteur {
 		}
 	}
 	
-	/*
+	/**
 	 * Méthode appelée par le monde, au même niveau que les nexts des autres Acteurs.
 	 * Le marché réinitialise ses commandes et récupère les quantités proposées par les producteurs aux transformateurs,
 	 * puis décide de la répartition des commandes entre les producteurs, puis notifie chaque acteur des commandes qui le
