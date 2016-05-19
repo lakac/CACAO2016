@@ -15,7 +15,22 @@ public class Nestle implements Acteur, ITransformateur{
 	private Indicateur achats;
 	private Indicateur ventes;
 	private Indicateur solde;
+	private StockChocolats stockchocolats;
+	private StockCacao stockcacao;
+	private Production prod;
 	
+	public Production getProd() {
+		return prod;
+	}
+
+	public StockChocolats getStockchocolats() {
+		return stockchocolats;
+	}
+
+	public StockCacao getStockcacao() {
+		return stockcacao;
+	}
+
 	public Nestle(Monde monde) {
 		this.nom = Constantes.NOM_TRANSFORMATEUR_1;
 		this.achats = new Indicateur("Achats de "+this.nom, this, 0.0);
