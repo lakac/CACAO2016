@@ -12,8 +12,8 @@ public class Achat {
 		return cacaoachete;
 	}
 
-	public void setCacaoAchete(IProducteur p) {
-		this.cacaoachete = Math.min(p.annonceQuantiteMiseEnVente(Nestle), Nestle.annonceQuantiteDemandee(p));
+	public void setCacaoAchete(ITransformateur t, IProducteur p) {
+		this.cacaoachete = Math.min(p.annonceQuantiteMiseEnVente(t), t.annonceQuantiteDemandee(p));
 	}
 
 	public Historique getHistoriqueachats() {
