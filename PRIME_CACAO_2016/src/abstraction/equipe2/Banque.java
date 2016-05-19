@@ -26,14 +26,9 @@ public class Banque {
 		return banque;
 	}
 
-	public void setBanque(double banque) {
+/* void setBanque(double banque) {
 		this.banque = Constante.TRESORERIE_INITIALE;
-	}
+	} Sert a rien ?*/ 
 	
-	public static double CoutTransformation (Achat)
-	public static double CoutIntermediaireUnitaire (Produit produit, Achat achat, Tarif tarif){
-		double Cacaoachete = achat.getCacaoachete();
-		
-	}
 	
 }

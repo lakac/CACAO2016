@@ -117,7 +117,10 @@ public class Nestle implements Acteur, ITransformateur{
 	
 
 	public void next() {
-		}
+		Banque banque=new Banque(300000);
+		
+	}
+	
 	}
 		/*double qdd = 0;
 		for (IDistributeur d : this.getDistributeurs()) {

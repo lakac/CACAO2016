@@ -4,12 +4,17 @@ import abstraction.fourni.Historique;
 import abstraction.commun.*;
 
 public class Achat {
+
 	private double cacaoachete;
 	private Historique historiqueachats;
 	
-	
-	public double getCacaoachete() {
+
+		public double getCacaoachete() {
 		return cacaoachete;
+	}
+
+	public void setCacaoAchete(Nestle nestle, IProducteur p) {
+		this.cacaoachete = Math.min(p.annonceQuantiteMiseEnVente(nestle), nestle.annonceQuantiteDemandee(p));
 	}
 
 	public void setCacaoAchete(ITransformateur t, IProducteur p) {

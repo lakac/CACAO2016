@@ -5,9 +5,9 @@ import abstraction.fourni.*;
 
 public class Vente {
 	private HashMap<Produit, Double> quantitevendue;
-	private Historique historiquedesventes50;
-	private Historique historiquedesventes60;
-	private Historique historiquedesventes70;
+	private Historique historiquedesventesproduit1;
+	private Historique historiquedesventesproduit2;
+	private Historique historiquedesventesproduit3;
 	
 	public void add(Produit p) {
 		this.quantitevendue.put(p, 0.0);
@@ -15,9 +15,9 @@ public class Vente {
 	
 	public Vente() {
 		this.quantitevendue = new HashMap<Produit, Double>();
-		this.historiquedesventes50 = new Historique();
-		this.historiquedesventes60 = new Historique();
-		this.historiquedesventes70 = new Historique();
+		this.historiquedesventesproduit1 = new Historique();
+		this.historiquedesventesproduit2 = new Historique();
+		this.historiquedesventesproduit3 = new Historique();
 	}
 	
 	
@@ -32,15 +32,15 @@ public class Vente {
 	
 	
 	public void MiseAJourHistorique50(Nestle nestle, int etape) {
-		this.historiquedesventes50.ajouter(nestle, etape, this.quantitevendue.get(50));
+		this.historiquedesventesproduit1.ajouter(nestle, etape, this.quantitevendue.get(50));
 	}
 		
 	public void MiseAJourHistorique60(Nestle nestle, int etape) {
-		this.historiquedesventes60.ajouter(nestle, etape, this.quantitevendue.get(60));
+		this.historiquedesventesproduit2.ajouter(nestle, etape, this.quantitevendue.get(60));
 	}
 			
 	public void MiseAJourHistorique70(Nestle nestle, int etape) {
-		this.historiquedesventes70.ajouter(nestle, etape, this.quantitevendue.get(70));
+		this.historiquedesventesproduit3.ajouter(nestle, etape, this.quantitevendue.get(70));
 	}
 				
 	//}
