@@ -23,7 +23,15 @@ public class StockChocolats {
 	}
 
 	public void RetirerStockProduit(Produit p, Vente vente) {
-		this.stockschocolats.put(p, -vente.getDernierecommandevendue().getCommandes().get(p)+this.stockschocolats.get(p));
+		this.stockschocolats.put(p, -vente.getVentes().get(p)+this.stockschocolats.get(p));
+	}
+	
+	public double CoutStock() {
+		double resultat = 0;
+		for (Double stock : this.getStockschocolats().values()) {
+			resultat +=stock;
+		}
+		return resultat;
 	}
 
 }
