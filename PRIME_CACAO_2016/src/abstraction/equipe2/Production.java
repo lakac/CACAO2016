@@ -33,4 +33,8 @@ public class Production {
 		
 	}
 	
+	public static double CoutTransformation(Achat achat) {
+		return -1;
+	}
+	
 }

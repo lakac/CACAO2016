@@ -30,9 +30,10 @@ public class Banque {
 		this.banque = Constante.TRESORERIE_INITIALE;
 	}
 	
+	public static double CoutTransformation (Achat)
 	public static double CoutIntermediaireUnitaire (Produit produit, Achat achat, Tarif tarif){
-		return Constante.CHARGES_FIXES + achat.getDernierecommandeachetee().getCommandesProd()
-				*(Constante.COUT_DE_TRANSFORMATION /* + Cout d'achat */);
+		double Cacaoachete = achat.getCacaoachete();
+		
 	}
 	
 }

@@ -25,6 +25,9 @@ public class Achat {
 		this.historiqueachats = new Historique();
 	}
 	
+	public static double CoutAchat (IProducteur p, Achat achat) {
+		return p.annoncePrix()*achat.getCacaoachete();
+	}
 	//public void MiseAJourHistorique(int etape) {
 	//	this.historiqueachats.ajouter(Nestle, etape, this.dernierecommandeachetee);
 	//}
