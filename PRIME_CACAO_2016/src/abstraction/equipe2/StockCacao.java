@@ -10,7 +10,7 @@ public class StockCacao {
 	} 
 	
 	public void AjouterStockCacao(Achat achat) {
-		this.stockcacao += achat.getDernierecommandeachetee().getCommandesProd();
+		this.stockcacao += achat.getCacaoachete();
 	}
 	
 	public void RetirerStockCacao(Produit p, Production production) {
@@ -24,5 +24,8 @@ public class StockCacao {
 			this.stockcacao -= 0.7*production.getProduction().get(p);
 		}
 	}
-
+	
+	public double CoutStock() {
+		return Constante.COUT_STOCK_UNITAIRE*this.getStockcacao();
+	}
 }

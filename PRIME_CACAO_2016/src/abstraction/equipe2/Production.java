@@ -19,16 +19,16 @@ public class Production {
 		this.production = new HashMap<Produit, Double>();
 	}
 
-	public void setProduction(CommandeDistri commandedistri) {
-		if (Nestle.getStockchocolats().get(commandedistri.getProduit())>commandedistri.getQuantite()/2) {
+	public void setProduction(Nestle nestle, CommandeDistri commandedistri) {
+		if (nestle.getStockchoc().getStockschocolats().get(commandedistri.getProduit())>commandedistri.getQuantite()/2) {
 			this.production.put(commandedistri.getProduit(),commandedistri.getProduit().getRatioCacao()*Math.min(
-					Nestle.getStockchocolats().get(commandedistri.getProduit()), 
+					nestle.getStockchoc().getStockschocolats().get(commandedistri.getProduit()), 
 					commandedistri.getQuantite()));
 		}
 		else {
 			this.production.put(commandedistri.getProduit(),commandedistri.getProduit().getRatioCacao()
-					*Math.min(commandedistri.getQuantite()*(3/2)-Nestle.getStockchocolats().get(commandedistri.getProduit())
-							,Nestle.getStockchocolats().get(commandedistri.getProduit())));
+					*Math.min(commandedistri.getQuantite()*(3/2)-nestle.getStockchoc().getStockschocolats().get(commandedistri.getProduit())
+							,nestle.getStockchoc().getStockschocolats().get(commandedistri.getProduit())));
 		}
 		
 	}

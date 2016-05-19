@@ -30,7 +30,7 @@ public class CoutTransport {
 	}
 
 	public void setCouttransport(IProducteur p, Achat achat) {
-		this.couttransport=Constante.COUT_UNITAIRE_TRANSPORT*this.distances.get(p)*achat.getDernierecommandeachetee().getCommandesProd();
+		this.couttransport=Constante.COUT_UNITAIRE_TRANSPORT*this.distances.get(p)*achat.getCacaoachete();
 	}
 	
 	/*public static void main(String[] args) {
