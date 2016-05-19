@@ -29,6 +29,7 @@ public class Stock {
 		else if (p.equals(produit3)) {
 			this.stock.set(3,this.stock.get(3)+prod.getProduction());
 		}
+	}
 	
 	public void RetirerStockProduit(Produit p, Vente vente) {
 		if (p.equals(produit1)) {

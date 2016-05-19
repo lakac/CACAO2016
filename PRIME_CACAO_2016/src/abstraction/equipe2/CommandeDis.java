@@ -1,18 +1,26 @@
 package abstraction.equipe2;
+import java.util.HashMap;
+import abstraction.commun.Produit;
 
 public class CommandeDis {
 	
-	private double commande;
+	private HashMap<Produit,Double> commandes;
 	
-	public CommandeDis(double commande){
-		this.commande=commande;
+	public HashMap<Produit, Double> getCommandes() {
+		return commandes;
+	}
+	
+	public void add(Produit p) {
+		this.commandes.put(p,0.0);
 	}
 
 	public double getCommandeDis() {
-		return this.commande;
+		return this.commandes;
 	}
 	
-	//Classe finit, test à faire
+	public double setCommandeDis(
+	
+	//Classe finie, test à faire
 	public static void main(String[] args) {
 		double comm=200.0;
 		CommandeDis CommandeD = new CommandeDis(comm);
