@@ -10,19 +10,22 @@ public class StockCacao {
 	} 
 	
 	public void AjouterStockCacao(Achat achat) {
-		this.stockcacao += achat.getDernierecommandeachetee().getCommandesProd();
+		this.stockcacao += achat.getCacaoachete();
 	}
 	
 	public void RetirerStockCacao(Produit p, Production production) {
-		if (p.equals(50%)) {
+		if (p.equals(50)) {
 			this.stockcacao -= 0.5*production.getProduction().get(p);
 		}
-		else if (p.equals(60%)) {
+		else if (p.equals(60)) {
 			this.stockcacao -= 0.6*production.getProduction().get(p);
 		}
-		else if (p.equals(70%)) {
+		else if (p.equals(70)) {
 			this.stockcacao -= 0.7*production.getProduction().get(p);
 		}
 	}
-
+	
+	public double CoutStock() {
+		return Constante.COUT_STOCK_UNITAIRE*this.getStockcacao();
+	}
 }
