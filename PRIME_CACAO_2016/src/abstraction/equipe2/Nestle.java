@@ -23,7 +23,7 @@ public class Nestle implements Acteur, ITransformateur{
 		return prod;
 	}
 
-	public StockChocolats getStockchocolats() {
+	public StockChocolats getStockchoc() {
 		return stockchocolats;
 	}
 

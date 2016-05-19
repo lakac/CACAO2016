@@ -27,20 +27,20 @@ public class Vente {
 
 
 	public void setquantitevendue(Nestle t, IDistributeur d, Produit p) {
-		this.quantitevendue.put(p, Math.min(d.getDemande(t), t.getStockchocolats().getStockschocolats().get(p)+t.getProd().getProduction().get(p)));
+		this.quantitevendue.put(p, Math.min(d.getDemande(t), t.getStockchoc().getStockschocolats().get(p)+t.getProd().getProduction().get(p)));
 	}
 	
 	
-	public void MiseAJourHistorique50(int etape) {
-		this.historiquedesventes50.ajouter(Nestle, etape, this.quantitevendue.get(50%));
+	public void MiseAJourHistorique50(Nestle nestle, int etape) {
+		this.historiquedesventes50.ajouter(nestle, etape, this.quantitevendue.get(50));
 	}
 		
-	public void MiseAJourHistorique60(int etape) {
-		this.historiquedesventes60.ajouter(Nestle, etape, this.quantitevendue.get(60%));
+	public void MiseAJourHistorique60(Nestle nestle, int etape) {
+		this.historiquedesventes60.ajouter(nestle, etape, this.quantitevendue.get(60));
 	}
 			
-	public void MiseAJourHistorique70(int etape) {
-		this.historiquedesventes70.ajouter(Nestle, etape, this.quantitevendue.get(70%));
+	public void MiseAJourHistorique70(Nestle nestle, int etape) {
+		this.historiquedesventes70.ajouter(nestle, etape, this.quantitevendue.get(70));
 	}
 				
 	//}
