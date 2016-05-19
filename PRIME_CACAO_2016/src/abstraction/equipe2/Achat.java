@@ -14,7 +14,7 @@ public class Achat {
 	}
 
 	public void setCacaoAchete(Nestle nestle, IProducteur p) {
-		this.cacaoachete = Math.min(p.annonceQuantiteMiseEnVente(nestle), nestle.annonceQuantiteDemandee(p));
+		this.cacaoachete = Math.min(p.annonceQuantiteMiseEnVente(nestle), nestle.annonceQuantiteDemandee(p)*(Constante.ACHAT_SANS_PERTE+Constante.MARGE_DE_SECURITE));
 	}
 
 	public void setCacaoAchete(ITransformateur t, IProducteur p) {
@@ -33,10 +33,11 @@ public class Achat {
 	public static double CoutAchat (IProducteur p, Achat achat) {
 		return p.annoncePrix()*achat.getCacaoachete();
 	}
-	//public void MiseAJourHistorique(int etape) {
-	//	this.historiqueachats.ajouter(Nestle, etape, this.dernierecommandeachetee);
-	//}
-	//Ne connaît pas encore Nestlé
+	
+	
+	public void MiseAJourHistorique(Nestle nestle, int etape) {
+		this.historiqueachats.ajouter(nestle, etape, this.cacaoachete);
+	}
 	
 	
 	

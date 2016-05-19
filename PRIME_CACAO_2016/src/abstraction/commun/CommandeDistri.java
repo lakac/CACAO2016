@@ -16,7 +16,7 @@ public class CommandeDistri {
 	public CommandeDistri(IDistributeur acheteur, ITransformateur vendeur, Produit produit, double quantite) {
 		this.acheteur = acheteur;
 		this.vendeur = vendeur;
-		this.produit = produit; //Cange string en produit 19/05 A.MARTY
+		this.produit = produit; //Change string en produit 19/05 A.MARTY
 		this.quantite = quantite;
 	}
 

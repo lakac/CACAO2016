@@ -5,20 +5,26 @@ import abstraction.fourni.*;
 
 public class Vente {
 	private HashMap<Produit, Double> quantitevendue;
-	private Historique historiquedesventesproduit1;
-	private Historique historiquedesventesproduit2;
-	private Historique historiquedesventesproduit3;
+	private Historique historiquedesventesproduit50;
+	private Historique historiquedesventesproduit60;
+	private Historique historiquedesventesproduit70;
 	
-	public void add(Produit p) {
+	private HashMap<IProducteur,Double> prixdevente;
+	
+	public void addProduit(Produit p) {
 		this.quantitevendue.put(p, 0.0);
 	}
 	
 	public Vente() {
 		this.quantitevendue = new HashMap<Produit, Double>();
-		this.historiquedesventesproduit1 = new Historique();
-		this.historiquedesventesproduit2 = new Historique();
-		this.historiquedesventesproduit3 = new Historique();
+		this.historiquedesventesproduit50 = new Historique();
+		this.historiquedesventesproduit60 = new Historique();
+		this.historiquedesventesproduit70 = new Historique();
 	}
+	
+	public HashMap<IProducteur, Double> getPrixdevente() {
+		return prixdevente;
+	}	
 	
 	
 	public HashMap<Produit, Double> getVentes() {
@@ -32,20 +38,19 @@ public class Vente {
 	
 	
 	public void MiseAJourHistorique50(Nestle nestle, int etape) {
-		this.historiquedesventesproduit1.ajouter(nestle, etape, this.quantitevendue.get(50));
+		this.historiquedesventesproduit50.ajouter(nestle, etape, this.quantitevendue.get(50));
 	}
 		
 	public void MiseAJourHistorique60(Nestle nestle, int etape) {
-		this.historiquedesventesproduit2.ajouter(nestle, etape, this.quantitevendue.get(60));
+		this.historiquedesventesproduit60.ajouter(nestle, etape, this.quantitevendue.get(60));
 	}
 			
 	public void MiseAJourHistorique70(Nestle nestle, int etape) {
-		this.historiquedesventesproduit3.ajouter(nestle, etape, this.quantitevendue.get(70));
+		this.historiquedesventesproduit70.ajouter(nestle, etape, this.quantitevendue.get(70));
 	}
-				
+	
+	//public double Prixdevente(Produit p) { à faire !
+	//	
 	//}
-	//Ne connaît pas encore Nestlé
-	
-	
 
 }
