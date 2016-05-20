@@ -126,4 +126,19 @@ public class Leclerc implements Acteur,IDistributeur{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public List<CommandeDistri> demande(ITransformateur t, Catalogue c) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<CommandeDistri> contreDemande(List<CommandeDistri> cd) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<CommandeDistri> commandeFinale(List<CommandeDistri> list) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
