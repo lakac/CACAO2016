@@ -39,18 +39,14 @@ public class Production {
 		
 	}
 	
-	public double PrixdeventeDeBase(Production prod, Produit p) {
-		return (1+Constante.MARGE)*prod.CoutTransformation(p);
+	public double PrixdeventeDeBase(Produit p) {
+		return (1+Constante.MARGE)*this.CoutTransformation(p);
 	} 
 	
 	public double CoutTransformation(Produit p) {
 		double couttransformation = 0.0;
 		couttransformation+=this.getProduction().get(Constante.PRODUIT_50);
 		return couttransformation;
-	}
-	
-	public double PrixdeventeDeBase(Produit p) {
-		return (1+Constante.MARGE)*this.CoutTransformation(p);
 	}
 	
 }
