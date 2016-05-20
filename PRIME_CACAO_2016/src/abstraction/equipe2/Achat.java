@@ -28,8 +28,8 @@ public class Achat {
 		this.historiqueachats = new Historique();
 	}
 	
-	public static double CoutAchat (IProducteur p, Achat achat) {
-		return p.annoncePrix()*achat.getCacaoachete();
+	public static double CoutAchat () {
+		return MarcheProducteur.LE_MARCHE.getCours();
 	}
 	
 	
@@ -45,6 +45,5 @@ public class Achat {
 		}
 		return quantite;
 	}
-	
 
 }
