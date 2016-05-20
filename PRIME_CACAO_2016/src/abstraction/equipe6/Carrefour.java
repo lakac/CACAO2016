@@ -29,10 +29,10 @@ public class Carrefour implements Acteur,IDistributeur {
 
 	private ArrayList<ITransformateur> transformateurs;
 	
-	public Carrefour(String nom, Monde monde, double prixachat, PrixVente prixvente, double demandeannuel) {
+	public Carrefour(String nom, Monde monde, double prixachat, int i, double demandeannuel) {
 		this.nom = nom;
 		this.prixachat=prixachat;
-		this.prixvente=prixvente;
+		this.prixvente=i;
 		this.achats = new Indicateur("Achats de "+this.nom, this, 0.0);
 		this.solde = new Indicateur("Solde de "+this.nom, this, 1000000.0);
 		this.demandeannuel = demandeannuel;

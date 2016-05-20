@@ -141,11 +141,11 @@ public class MarcheDistributeur implements Acteur {
 			while (marcheValide(NegoDistri) == false) {
 				NegoTransfo = this.RenvoiDistri(NegoDistri);
 				for (ITransformateur t : this.getLesTransfos()) {
-					NegoTransfo.(t, t.offre(NegoTransfo.get(t)));
+					NegoTransfo.replace(t, t.offre(NegoTransfo.get(t)));
 				}
 				NegoDistri = this.RenvoiTransfo(NegoTransfo);
 				for (IDistributeur d1 : this.getLesDitris()) {
-					NegoDistri.(d1, d1.contreDemande(NegoDistri.get(d1)));
+					NegoDistri.replace(d1, d1.contreDemande(NegoDistri.get(d1)));
 				}
 			}
 			NegoTransfo = this.RenvoiDistri(NegoDistri);
