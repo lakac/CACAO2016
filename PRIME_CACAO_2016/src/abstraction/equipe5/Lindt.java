@@ -135,7 +135,6 @@ public class Lindt implements Acteur, ITransformateur{
 
 
 	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -172,14 +171,6 @@ public class Lindt implements Acteur, ITransformateur{
 	
 
 	// Ne plus coder celles la, elle va disparaitre!
-	public double annonceQuantiteDemandee(IProducteur p) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	public void notificationVente(IProducteur p){ // on travaille avec chaque producteur d'où le ratio de 0.3 à chaque fois
-		//stockCacao.ajouterStock(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT));
-		//stockCacao.retirerStock(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_2));
-		//treso.retrait(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT) * p.annoncePrix());
-	}
-
+	public double annonceQuantiteDemandee(IProducteur p) {	return 0;	}
+	public void notificationVente(IProducteur p){ 	}
 }
