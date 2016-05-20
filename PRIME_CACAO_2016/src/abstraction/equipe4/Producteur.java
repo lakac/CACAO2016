@@ -123,5 +123,10 @@ public class Producteur implements Acteur,IProducteur{
 	}
 */
 	
-}
 
+	public void notificationVente(CommandeProduc c) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}
