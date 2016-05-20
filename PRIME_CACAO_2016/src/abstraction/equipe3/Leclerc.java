@@ -10,14 +10,13 @@ import abstraction.fourni.Monde;
 
 public class Leclerc implements Acteur,IDistributeur{ 
 	private String nom;
-	private double prixAchat;
-	private double prixVente;
+	private double[][] prixAchat;
+	private double[] prixVente;
 	private Indicateur solde;
 	private Indicateur achats;
 	private Stock stock;
-	private ArrayList<Double> quantite;
+	private ArrayList<Double[]> quantites;
 	private ArrayList<ITransformateur> transformateurs;
-	private ArrayList<Double> ratio;
 
 	
 	public Leclerc(String nom, Monde monde, double prixAchat) {
@@ -26,8 +25,7 @@ public class Leclerc implements Acteur,IDistributeur{
 		this.achats = new Indicateur("Achats de "+nom, this, 0.0);
 		this.solde = new Indicateur("Solde de "+nom, this, 1000000.0);
 		this.stock.initialiseStock();
-		this.quantite = new ArrayList<Double>();
-		this.ratio = new ArrayList<Double>();
+		this.quantites = new ArrayList<Double[]>();
     	Monde.LE_MONDE.ajouterIndicateur( this.achats );
     	Monde.LE_MONDE.ajouterIndicateur( this.solde );
     	this.transformateurs = new ArrayList<ITransformateur>();	
@@ -47,8 +45,8 @@ public class Leclerc implements Acteur,IDistributeur{
 	public double getPrixAchat(){
 		return this.prixAchat;
 	}
-	public double getPrixVente(){
-		return this.prixVente;
+	public double getPrixVente(int indexproduit){
+		return this.prixVente[indexproduit];
 	}
 	public void setPrixAchat(double prixAchat){
 		this.prixAchat=prixAchat;
