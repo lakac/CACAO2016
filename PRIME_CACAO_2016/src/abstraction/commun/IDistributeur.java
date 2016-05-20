@@ -1,8 +1,9 @@
 package abstraction.commun;
 import java.util.HashMap;
 import java.util.List;
+import java.util.List;
 
-public interface IDistributeur {
+public interface IDistributeur {	
 	
 	/** 
 	 * @deprecated
@@ -16,12 +17,13 @@ public interface IDistributeur {
 	 */
 	public double getPrix();
 	
+	public List<CommandeDistri> LivraisonEffective(List<CommandeDistri> liste);
+
 	public List<CommandeDistri> Demande (HashMap<ITransformateur, Catalogue > d);
 	
 	public List<CommandeDistri> ContreDemande (List<CommandeDistri> cd);
-	
-	public List<CommandeDistri> LivraisonEffective (List<CommandeDistri> cd);
-	
+
 	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf);
 	
+
 }
