@@ -126,4 +126,13 @@ public class Carrefour implements Acteur,IDistributeur {
 		return null;
 	}
 
+
+
+
+	@Override
+	public List<CommandeDistri> LivraisonEffective(List<CommandeDistri> liste) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
