@@ -25,6 +25,9 @@ public class Vente {
 		for (int i=0; i<3; i++) {
 			this.demande[i] = this.getProducteur().getTransformateurs().get(i).annonceQuantiteDemandee(this.getProducteur());
 		}
+		this.prixDemandés = new double[3];
+		for (int i=0; i<3; i++) {
+			this.prixDemandés[i] = this.getProducteur().getTransformateurs().get(i).annoncePrix();
 		
 	}
 
@@ -40,13 +43,13 @@ public class Vente {
 	}
 	//Retourne le prix actuel du marché.
 	public double getPrixMarche() {
-		return MarcheProducteur.LE_MARCHE.coursCacao.getValeur();
+		return MarcheProducteur.LE_MARCHE.getCours();
 	}
 
 	//AUTRES MÉTHODES
 	//Retourne la moyenne des prix de vente sur les précédentes step.
 	public double moyennePrixDeVente () {
-		Historique coursCacao = MarcheProducteur.LE_MARCHE.coursCacao.getHistorique();
+		Historique coursCacao = MarcheProducteur.LE_MARCHE.getHistorique();
 		//longueur du tableau regroupant les précédents prix de vente
 		int l = coursCacao.getTaille();
 		double M = coursCacao.get(0).getValeur();
@@ -62,10 +65,12 @@ public class Vente {
 		int n=12-this.getStep()%12;
 		return this.getStock().getStockCacao().getValeur()/n;
 	}
+
+	
 	
 	//Retourne notre offre totale.
 	public double offreTotale () {
-		double coeff = this.getPrixMarche()/4000;
+		double coeff = (this.getPrixMarche()-3000)/1000;
 		if (coeff>=0) {
 			return this.venteAPriori()*(1+coeff);
 		}
@@ -74,7 +79,7 @@ public class Vente {
 		}
 	}
 		
-	//Vente effective aux transformateurs et notifications de celles-ci
+	//Intention de vente aux différents transformateurs
 	public double[] ventesStep () {
 		double[] R = new double[3];
 		double offreRestante = 0.0;

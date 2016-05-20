@@ -2,6 +2,7 @@ package presentation;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -49,23 +50,21 @@ public class FenetrePrincipale extends JFrame {
 		this.add(labelEtape, BorderLayout.NORTH);
 
 		// Indicateurs
-		JPanel pGauche = new JPanel();
-		pGauche.setLayout(new BoxLayout(pGauche, BoxLayout.Y_AXIS));
-		pGauche.add(Box.createVerticalGlue());
-		ArrayList<Indicateur> indicateurs = Monde.LE_MONDE.getIndicateurs();
-
 		JPanel pLab = new JPanel();
 		pLab.setLayout(new BoxLayout(pLab, BoxLayout.Y_AXIS));
-		pLab.add(Box.createRigidArea(new Dimension(10,9)));
+		JPanel pGauche = new JPanel();
+		pGauche.setLayout(new BoxLayout(pGauche, BoxLayout.Y_AXIS));
+
+		ArrayList<Indicateur> indicateurs = Monde.LE_MONDE.getIndicateurs();
 		for (Indicateur i : indicateurs){
 			JPanel pIndic = new JPanel();
+			pIndic.setLayout(new FlowLayout(FlowLayout.RIGHT));
+
 			// Nom de l'indicateur
 			JLabel lIndic = new JLabel( i.getNom());
-			pIndic.setLayout(new BorderLayout());
 			lIndic.setAlignmentX(RIGHT_ALIGNMENT);
-			pLab.add(lIndic);
-			pLab.add(Box.createVerticalGlue());
-			JPanel pReste = new JPanel();
+			pIndic.add(lIndic);
+			
 			// Case a cocher "Graphique" permettant d'afficher/cacher le graphique de l'indicateur
 			JCheckBox cGraphiqueIndic = new JCheckBox("Graphique"); 
 			FenetreGraphique graphique = new FenetreGraphique(i.getNom(), 800, 600);
@@ -78,7 +77,7 @@ public class FenetrePrincipale extends JFrame {
 			cGraphiqueIndic.addActionListener(ctg);
 			graphique.addWindowListener(ctg);
 			cGraphiqueIndic.setAlignmentX(RIGHT_ALIGNMENT);
-			pReste.add(cGraphiqueIndic);
+			pIndic.add(cGraphiqueIndic);
 			
 			// Case a cocher "Historique" permettant d'afficher/cacher l'historique de l'indicateur
 			JCheckBox cHistorique = new JCheckBox("Historique");
@@ -88,7 +87,7 @@ public class FenetrePrincipale extends JFrame {
 			i.getHistorique().addObserver(cth);
 			cHistorique.addActionListener(cth);
 			cHistorique.setAlignmentX(RIGHT_ALIGNMENT);
-			pReste.add(cHistorique);
+			pIndic.add(cHistorique);
 			
 			// Champ de saisie permettant de modifier la valeur de l'indicateur
 			JTextField tIndic = new JTextField(20);
@@ -96,13 +95,12 @@ public class FenetrePrincipale extends JFrame {
 			CtrlJTextField controlJTextField = new CtrlJTextField(tIndic, i);
 			tIndic.addActionListener(controlJTextField);
 			i.addObserver(controlJTextField);
-			tIndic.setMinimumSize(new Dimension(400,tIndic.getSize().height));
 			tIndic.setAlignmentX(RIGHT_ALIGNMENT);
-			pReste.add(tIndic);
-			pIndic.add(pReste, BorderLayout.EAST);
 
-			pGauche.add(Box.createVerticalGlue());
-			pGauche.add(pIndic);
+			pIndic.setMinimumSize(new Dimension(300,20));
+			tIndic.setMinimumSize(new Dimension(300,20));
+			pLab.add(pIndic);
+			pGauche.add(tIndic);
 		}
 		JPanel pIndicateurs = new JPanel();
 		pIndicateurs.setBorder(BorderFactory.createTitledBorder("Indicateurs"));

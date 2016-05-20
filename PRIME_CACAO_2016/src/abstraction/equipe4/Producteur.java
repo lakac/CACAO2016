@@ -102,8 +102,6 @@ public class Producteur implements Acteur,IProducteur{
 	public double annonceQuantiteMiseEnVente(ITransformateur t) {
 		return (this.getStock().getStockCacao().getValeur()/(13-Monde.LE_MONDE.getStep()%12));
 	}
-	*/
-
 
 	//Modification du stock et de la tresorerie suite a une vente
 	public void venteRealisee(double qtVendue,Acteur a) {
@@ -125,5 +123,17 @@ public class Producteur implements Acteur,IProducteur{
 	}
 */
 	
-}
 
+	public void notificationVente(CommandeProduc c) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public double annoncePrix() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}
