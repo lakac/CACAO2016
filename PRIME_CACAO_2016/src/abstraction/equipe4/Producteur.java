@@ -10,8 +10,6 @@ public class Producteur implements Acteur,IProducteur{
 	private Journal journal;
 	private Tresorerie treso;
 	private ProductionBiannuelle prodBiannu;
-
-	private MarcheProducteur marche;
 	private ArrayList<ITransformateur> transformateurs;
 
 	//Constructeur de l'acteur Producteur 2
@@ -24,7 +22,6 @@ public class Producteur implements Acteur,IProducteur{
 		this.prodBiannu=new ProductionBiannuelle(this,1200000);
 
 		this.transformateurs= new ArrayList<ITransformateur>();
-		this.getTransformateurs().add(new ResteMonde(this));
 		Monde.LE_MONDE.ajouterActeur((Acteur)(this.getTransformateurs().get(0)));
 
 		Monde.LE_MONDE.ajouterJournal(this.journal);
@@ -59,21 +56,12 @@ public class Producteur implements Acteur,IProducteur{
 		return this.treso;
 	}
 
-	public MarcheProducteur getMarche() {
-		return this.marche;
-	}
-
-
 
 	//Ajout des clients à la liste transformateurs
 	public void ajoutClient(Acteur a){
 		if (!this.getTransformateurs().contains(((ITransformateur)a))){
 			this.getTransformateurs().add((ITransformateur)a);
 		}
-	}
-
-	public void setMarche(MarcheProducteur m){
-		this.marche=m;
 	}
 
 	// le next du producteur 2	
@@ -89,7 +77,7 @@ public class Producteur implements Acteur,IProducteur{
 		this.getStock().gererLesStock();
 	}
 
-
+	
 	// retourne un double valant la quantité disponible 
 	// pour chaque transformateur a chaque step
 	public double annonceQuantiteMiseEnVente(ITransformateur t) {
@@ -99,8 +87,11 @@ public class Producteur implements Acteur,IProducteur{
 
 	//Modification du stock et de la tresorerie suite a une vente
 	public void venteRealisee(CommandeProduc c) {
+		// modifie la tresorerie
 		this.vente(c.getQuantite(), c.getPrixTonne());
+		// modife les stocks
 		this.getStock().reductionStock(c.getQuantite());
+		// le note dans le journal
 		this.getJournal().ajouter("Vente de " + c.getQuantite()+" auprès de " + ((Acteur)c.getAcheteur()).getNom() + " au step numéro "+ Monde.LE_MONDE.getStep());
 	}
 
@@ -113,8 +104,9 @@ public class Producteur implements Acteur,IProducteur{
 		this.venteRealisee(c);
 
 	}
-
-
+	
+	
+	// POUR LA V3
 	@Override
 	public double annoncePrix() {
 		// TODO Auto-generated method stub

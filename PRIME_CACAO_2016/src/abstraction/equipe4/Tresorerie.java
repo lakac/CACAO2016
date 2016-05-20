@@ -8,12 +8,15 @@ public class Tresorerie {
 	// nous
 	private Producteur prod;
 	
+	
+	//constructeur
 	public Tresorerie(Producteur p) {
 		this.fond = new Indicateur("Fond de" + p.getNom(),p,0.0);
 		this.prod= p;
 		Monde.LE_MONDE.ajouterIndicateur( this.fond );
 	}
 	
+	//geter
 	
 	public Producteur getProd(){
 		return this.prod;
