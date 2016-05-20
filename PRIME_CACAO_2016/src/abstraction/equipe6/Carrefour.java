@@ -1,8 +1,10 @@
 package abstraction.equipe6;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import abstraction.commun.Catalogue;
 import abstraction.commun.IDistributeur;
 import abstraction.commun.ITransformateur;
 import abstraction.commun.MondeV1;
@@ -21,7 +23,8 @@ public class Carrefour implements Acteur,IDistributeur {
 	private Indicateur achats;
 	private double demandeannuel;
 	private double demandeperstep;
-	private double fraisdedistri; 
+	private double fraisdedistri;
+	private List<Double> quantitesouhaite;
 
 	private ArrayList<ITransformateur> transformateurs;
 	
@@ -91,7 +94,9 @@ public class Carrefour implements Acteur,IDistributeur {
 		return this.demandeannuel;
 	}
 
-
+	public List<CommandeDistri> demandeDistri(HashMap<ITransformateur, Catalogue> cat) {
+		
+	}
 	/*public void next() {
 		setdemandePerStep( MondeV1.LE_MONDE.getStep());
 		setFraisdeDistri();

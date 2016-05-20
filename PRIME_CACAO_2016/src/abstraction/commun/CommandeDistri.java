@@ -23,6 +23,7 @@ public class CommandeDistri {
 	public Produit getProduit() {
 		return this.produit;
 	}
+	
 
 	public void setProduit(Produit produit) {
 		this.produit = produit;
