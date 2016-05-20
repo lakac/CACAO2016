@@ -20,4 +20,8 @@ public interface IDistributeur {
 	
 	public List<CommandeDistri> ContreDemande (List<CommandeDistri> cd);
 	
+	public List<CommandeDistri> LivraisonEffective (List<CommandeDistri> cd);
+	
+	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf);
+	
 }

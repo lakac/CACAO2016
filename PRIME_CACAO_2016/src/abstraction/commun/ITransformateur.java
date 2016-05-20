@@ -26,6 +26,6 @@ public interface ITransformateur {
 	public Catalogue getCatalogue();
 	
 	public List<CommandeDistri> Offre (List<CommandeDistri> o);
-	
+	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf);
 	
 }
