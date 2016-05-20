@@ -119,11 +119,6 @@ public class Nestle implements Acteur, ITransformateur{
 		
 	}
 
-	@Override
-	public CommandeProduc annonceQuantiteDemandeeV2(IProducteur p) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public Catalogue getCatalogue() {
