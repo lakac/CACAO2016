@@ -129,4 +129,11 @@ public class Producteur implements Acteur,IProducteur{
 		
 	}
 
+
+	@Override
+	public double annoncePrix() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
