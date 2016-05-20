@@ -38,7 +38,7 @@ public class Banque {
 		this.banque-=production.CoutTransformation();
 		this.banque-=cacao.CoutStockCacao();
 		this.banque-=chocolats.CoutStockChocolat();
-		this.banque+=
+		this.banque++;
 	}
 	
 	
