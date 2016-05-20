@@ -67,7 +67,7 @@ public class Producteur implements Acteur,IProducteur{
 
 	//Ajout des clients à la liste transformateurs
 	public void ajoutClient(Acteur a){
-		if (this.getTransformateurs().contains(((ITransformateur)a))){
+		if (!this.getTransformateurs().contains(((ITransformateur)a))){
 			this.getTransformateurs().add((ITransformateur)a);
 		}
 	}
