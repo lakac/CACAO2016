@@ -35,7 +35,6 @@ public class Carrefour implements Acteur,IDistributeur {
 		this.prixvente=prixvente;
 		this.achats = new Indicateur("Achats de "+this.nom, this, 0.0);
 		this.solde = new Indicateur("Solde de "+this.nom, this, 1000000.0);
-		this.demandeannuel = demandeannuel;
     	Monde.LE_MONDE.ajouterIndicateur( this.achats );
     	Monde.LE_MONDE.ajouterIndicateur( this.solde );
     	this.transformateurs = new ArrayList<ITransformateur>();
