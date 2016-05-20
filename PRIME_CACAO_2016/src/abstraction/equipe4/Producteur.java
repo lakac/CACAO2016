@@ -16,18 +16,18 @@ public class Producteur implements Acteur,IProducteur{
 
 	//Constructeur de l'acteur Producteur 2
 
-    public Producteur(Monde monde) {
-       this.nom = Constantes.NOM_PRODUCTEUR_2;
-	   this.treso = new Tresorerie(this);
-	   this.stock = new Stock(this);
-       this.journal = new Journal("Journal de "+this.nom);
-       this.prodBiannu=new ProductionBiannuelle(this,1200000);
-       
-       this.transformateurs= new ArrayList<ITransformateur>();
-       this.getTransformateurs().add(new ResteMonde(this));
-       Monde.LE_MONDE.ajouterActeur((Acteur)(this.getTransformateurs().get(0)));
-       
-       Monde.LE_MONDE.ajouterJournal(this.journal);
+	public Producteur(Monde monde) {
+		this.nom = Constantes.NOM_PRODUCTEUR_2;
+		this.treso = new Tresorerie(this);
+		this.stock = new Stock(this);
+		this.journal = new Journal("Journal de "+this.nom);
+		this.prodBiannu=new ProductionBiannuelle(this,1200000);
+
+		this.transformateurs= new ArrayList<ITransformateur>();
+		this.getTransformateurs().add(new ResteMonde(this));
+		Monde.LE_MONDE.ajouterActeur((Acteur)(this.getTransformateurs().get(0)));
+
+		Monde.LE_MONDE.ajouterJournal(this.journal);
 
 	}
 
@@ -87,12 +87,6 @@ public class Producteur implements Acteur,IProducteur{
 		}
 		// modifications des stocks pour causes naturelles et prise en compte des couts de stock
 		this.getStock().gererLesStock();
-		// Comandes
-		for (ITransformateur t : this.transformateurs){
-			double qtVendu = t.annonceQuantiteDemandee(this);
-			t.notificationVente(this);
-			this.venteRealisee(qtVendu, (Acteur)t);
-		}
 	}
 
 
@@ -104,29 +98,20 @@ public class Producteur implements Acteur,IProducteur{
 	}
 
 	//Modification du stock et de la tresorerie suite a une vente
-	public void venteRealisee(double qtVendue,Acteur a) {
-		this.vente(qtVendue);
-		this.getStock().reductionStock(qtVendue);
-		this.getJournal().ajouter("Vente de " + qtVendue+" auprès de " + a.getNom() + " au step numéro "+ Monde.LE_MONDE.getStep());
+	public void venteRealisee(CommandeProduc c) {
+		this.vente(c.getQuantite(), c.getPrixTonne());
+		this.getStock().reductionStock(c.getQuantite());
+		this.getJournal().ajouter("Vente de " + c.getQuantite()+" auprès de " + ((Acteur)c.getAcheteur()).getNom() + " au step numéro "+ Monde.LE_MONDE.getStep());
 	}
 
 	// ajout de le somme récolté à la trésorerie après une vente
-	public void vente(double qtVendue){		
-		this.getTreso().getFond().setValeur(this, this.getTreso().getFond().getValeur()+ qtVendue*this.getMarche().getCours());
+	public void vente(double qtVendue, double prix){		
+		this.getTreso().getFond().setValeur(this, this.getTreso().getFond().getValeur()+ qtVendue*prix);
 	}
-
-// à modifier
-/*
-	//Ventes réalisées auprès du transformateur "Le reste du Monde"
-	public void venteResteMonde(){
-		//	double alea = Math.random()*(0.9-0.87)+0.87;
-	}
-*/
-	
 
 	public void notificationVente(CommandeProduc c) {
-		// TODO Auto-generated method stub
-		
+		this.venteRealisee(c);
+
 	}
 
 
@@ -135,5 +120,7 @@ public class Producteur implements Acteur,IProducteur{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
 
 }
