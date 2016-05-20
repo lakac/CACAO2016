@@ -97,6 +97,7 @@ public class Carrefour implements Acteur,IDistributeur {
 	public List<CommandeDistri> demandeDistri(HashMap<ITransformateur, Catalogue> cat) {
 		
 	}
+	
 	/*public void next() {
 		setdemandePerStep( MondeV1.LE_MONDE.getStep());
 		setFraisdeDistri();
@@ -107,6 +108,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		this.achats.setValeur(this, this.demandeperstep);
 		this.solde.setValeur(this,this.solde.getValeur()+this.demandeperstep*this.prixvente
 										-this.fraisdedistri); 
+		
 		
 		// Solde = Solde precedent + Ventes - Achats - Frais de Distribution
 	}
