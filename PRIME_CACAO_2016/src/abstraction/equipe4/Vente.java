@@ -4,26 +4,23 @@ import abstraction.commun.MarcheProducteur;
 import abstraction.fourni.*;
 
 public class Vente {
-	//vente pour chacun des trois transformateurs
-	private int[] ventes;
 	//stock disponible
 	private Stock stock;
-	//numéro de la step
-	private int step;
 	//on choisit de ne pas dépasser un certain stock, dans la mesure du possible. C'est-à-dire que si notre stock est supérieur à cette valeur, on veut le plus possible.
-	private int maximumStockAutorise;
 	private Producteur producteur;
 	private double prixMarche;
 	private double[] prixDemandes;
 	private double offreTotale;
 	
 	//Constructeurs
-	public Vente () {
+	public Vente (Stock stock, Producteur producteur) {
 		this.stock = stock;
 		this.prixDemandes = new double[3];
 		for (int i=0; i<3; i++) {
 			this.prixDemandes[i] = this.getProducteur().getTransformateurs().get(i).annoncePrix();
 		}
+		this.producteur = producteur;
+		this.prixMarche = this.getPrixMarche();
 	}
 
 	//GETTERS AND SETTERS

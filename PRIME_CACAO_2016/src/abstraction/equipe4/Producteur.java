@@ -11,6 +11,7 @@ public class Producteur implements Acteur,IProducteur{
 	private Tresorerie treso;
 	private ProductionBiannuelle prodBiannu;
 	private ArrayList<ITransformateur> transformateurs;
+	private Vente vente;
 
 	//Constructeur de l'acteur Producteur 2
 
@@ -25,7 +26,7 @@ public class Producteur implements Acteur,IProducteur{
 		Monde.LE_MONDE.ajouterActeur((Acteur)(this.getTransformateurs().get(0)));
 
 		Monde.LE_MONDE.ajouterJournal(this.journal);
-
+		this.vente = new Vente(this.stock, this);
 	}
 
 
@@ -55,6 +56,10 @@ public class Producteur implements Acteur,IProducteur{
 	public Tresorerie getTreso() {
 		return this.treso;
 	}
+	
+	public Vente getVente() {
+		return this.vente;
+	}
 
 
 	//Ajout des clients à la liste transformateurs
@@ -80,7 +85,16 @@ public class Producteur implements Acteur,IProducteur{
 	// retourne un double valant la quantité disponible 
 	// pour chaque transformateur a chaque step
 	public double annonceQuantiteMiseEnVente(ITransformateur t) {
-		return (this.getStock().getStockCacao().getValeur()/(13-Monde.LE_MONDE.getStep()%12));
+		if (((Acteur)t).getNom().equals(((Acteur)this.getTransformateurs().get(0)).getNom())) {
+			return this.vente.ventesStep()[0];
+		}
+		if (((Acteur)t).getNom().equals(((Acteur)this.getTransformateurs().get(1)).getNom())) {
+			return this.vente.ventesStep()[1];
+		}
+		if (((Acteur)t).getNom().equals(((Acteur)this.getTransformateurs().get(2)).getNom())) {
+			return this.vente.ventesStep()[2];
+		}
+		return 0.0;
 	}
 
 	//Modification du stock et de la tresorerie suite a une vente
