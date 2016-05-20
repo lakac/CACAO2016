@@ -87,12 +87,6 @@ public class Producteur implements Acteur,IProducteur{
 		}
 		// modifications des stocks pour causes naturelles et prise en compte des couts de stock
 		this.getStock().gererLesStock();
-		// Comandes
-		for (ITransformateur t : this.transformateurs){
-			double qtVendu = t.annonceQuantiteDemandee(this);
-			t.notificationVente(this);
-			this.venteRealisee(qtVendu, (Acteur)t);
-		}
 	}
 
 
