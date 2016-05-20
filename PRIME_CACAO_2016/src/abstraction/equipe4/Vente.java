@@ -15,6 +15,7 @@ public class Vente {
 	private Producteur producteur;
 	private double prixMarche;
 	private double[] demande;
+	private double[] prixDemandés;
 	
 	
 	//Constructeurs
@@ -28,7 +29,6 @@ public class Vente {
 	}
 
 	//GETTERS AND SETTERS
-	//numéro de la step
 	public int getStep() {
 		return Monde.LE_MONDE.getStep();
 	}
@@ -42,7 +42,6 @@ public class Vente {
 	public double getPrixMarche() {
 		return MarcheProducteur.LE_MARCHE.coursCacao.getValeur();
 	}
-
 
 	//AUTRES MÉTHODES
 	//Retourne la moyenne des prix de vente sur les précédentes step.
