@@ -19,7 +19,7 @@ public class CommandeDistri {
 	public CommandeDistri(IDistributeur acheteur, ITransformateur vendeur, Produit produit, double quantite, double prix, int stepLivraison, boolean validation) {
 		this.acheteur = acheteur;
 		this.vendeur = vendeur;
-		this.produit = produit;
+		this.produit = produit; //Change string en produit 19/05 A.MARTY
 		this.quantite = quantite;
 		this.prix=prix;
 		this.stepLivraison = stepLivraison;
@@ -29,7 +29,6 @@ public class CommandeDistri {
 	public Produit getProduit() {
 		return this.produit;
 	}
-
 	public void setProduit(Produit produit) {
 		this.produit = produit;
 	}
