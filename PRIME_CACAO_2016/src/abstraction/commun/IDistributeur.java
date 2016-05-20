@@ -4,20 +4,10 @@ import java.util.List;
 
 public interface IDistributeur {
 	
-	/** 
-	 * @deprecated
-	 */
-	public double getDemande(ITransformateur t);
-	// Rajouter une variable delais de livraisons
+	public List<CommandeDistri> demande (ITransformateur t, Catalogue c);
+	
+	public List<CommandeDistri> contreDemande (List<CommandeDistri> cd);
 
-	/**
-	 * @deprecated
-	 * @return
-	 */
-	public double getPrix();
-	
-	public List<CommandeDistri> Demande (HashMap<ITransformateur, Catalogue > d);
-	
-	public List<CommandeDistri> ContreDemande (List<CommandeDistri> cd);
+	public List<CommandeDistri> commandeFinale(List<CommandeDistri> list);
 	
 }
