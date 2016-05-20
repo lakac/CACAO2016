@@ -40,7 +40,13 @@ public class Achat {
 	}
 	
 	
-	
+	public double CacaoDemande(ArrayList<CommandeDistri> l){
+		double quantite;
+		for(CommandeDistri c: l){
+			quantite=quantite+c.getQuantite()*c.getProduit().getRatioCacao();
+		}
+		return quantite;
+	}
 	
 
 }
