@@ -72,9 +72,9 @@ public class AchatProd {
 	 */
 	// TODO Ne pas oublier de faire un methode permettant de recup la listeCommande...
 	public double annonceQuantiteDemandee(){ 
-		return this.calculQuantiteDemandee(listeCommandesDist).getQuantite();
+		return 0.0;//this.calculQuantiteDemandee(listeCommandesDist).getQuantite();
 	}
 	public double getPrix(){
-		return this.calculQuantiteDemandee(listeCommandesDist).getPrix();
+		return 0.0; //this.calculQuantiteDemandee(listeCommandesDist).getPrix();
 	}
 }
