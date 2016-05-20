@@ -36,6 +36,7 @@ public class Lindt implements Acteur, ITransformateur{
 	private ArrayList<IDistributeur> distributeurs;
 	private Catalogue catalogue;
 	
+
 	public Lindt(){
 		this.histCommandeDistri = new HistoriqueCommandeDistri();
 		this.histCommandeProduc = new HistoriqueCommandeProduc();
@@ -72,6 +73,18 @@ public class Lindt implements Acteur, ITransformateur{
 	public String getNom() {
 		return Constantes.NOM_TRANSFORMATEUR_2;
 		}
+	public Stock getStockCacao() {
+		return this.stockCacao;
+	}
+	public Stock getStockChocolat50() {
+		return this.stockChocolat50;
+	}
+	public Stock getStockChocolat60() {
+		return this.stockChocolat60;
+	}
+	public Stock getStockChocolat70() {
+		return this.stockChocolat70;
+	}
 	
 
 	// Ne pas oublier d'acheter 30% de plus à cause des pertes!!!!!!

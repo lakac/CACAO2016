@@ -39,7 +39,9 @@ public class AchatProd {
 				if (c.getProduit().getNomProduit()==Constante.listeProduit[i].getNomProduit())
 					besoinCacao += c.getQuantite()*Constante.listeProduit[i].getRatioCacao();
 		}}
-		
+		if (lindt.getStockCacao()<besoinCacao){
+			
+		}
 		double quantiteEnVente = 0;
 		for (IProducteur p: lindt.getProducteurs()){
 			quantiteEnVente += p.annonceQuantiteMiseEnVente(lindt);
