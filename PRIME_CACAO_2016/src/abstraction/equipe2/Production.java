@@ -26,12 +26,12 @@ public class Production {
 	public void setProduction(Nestle nestle, CommandeDistri commandedistri) {
 		if (nestle.getStockchoc().getStockschocolats().get(commandedistri.getProduit())>commandedistri.getQuantite()/2) {
 			this.production.put(commandedistri.getProduit(),commandedistri.getProduit().getRatioCacao()*Math.min(
-					nestle.getStockchoc().getStockschocolats().get(commandedistri.getProduit()), 
+					nestle.getStockcac().getStockcacao(), 
 					commandedistri.getQuantite()));
 		}
 		else {
 			this.production.put(commandedistri.getProduit(),commandedistri.getProduit().getRatioCacao()
-					*Math.min(commandedistri.getQuantite()*(3/2)-nestle.getStockchoc().getStockschocolats().get(commandedistri.getProduit())
+					*Math.min(commandedistri.getQuantite()*(3/2)-nestle.getStockcac().getStockcacao()
 							,nestle.getStockchoc().getStockschocolats().get(commandedistri.getProduit())));
 		}
 		

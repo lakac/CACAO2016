@@ -15,22 +15,10 @@ public class Nestle implements Acteur, ITransformateur{
 	private Indicateur achats;
 	private Indicateur ventes;
 	private Indicateur solde;
-	private StockChocolats stockchocolats;
-	private StockCacao stockcacao;
-	private Production prod;
 	
-	public Production getProd() {
-		return prod;
-	}
-
-	public StockChocolats getStockchoc() {
-		return stockchocolats;
-	}
-
-	public StockCacao getStockcacao() {
-		return stockcacao;
-	}
-
+	private StockCacao cacao;
+	private StockChocolats chocolats;
+	
 	public Nestle(Monde monde) {
 		this.nom = Constantes.NOM_TRANSFORMATEUR_1;
 		this.achats = new Indicateur("Achats de "+this.nom, this, 0.0);
@@ -41,12 +29,25 @@ public class Nestle implements Acteur, ITransformateur{
 		Monde.LE_MONDE.ajouterIndicateur( this.solde );		
 	}
 	
-	/*public static final Stock stock_cacao=new Stock();
-	public static final Stock stock_chocolat=new Stock();
-	public static final Banque tresorerie=new Banque();
-	public static final CommandesDis commandes = new CommandesDis();
-	public static final CommandeProd commandes = new CommandeProd();*/
 	
+	
+	
+
+	public StockCacao getStockcac() {
+		return cacao;
+	}
+
+
+
+
+
+	public StockChocolats getStockchoc() {
+		return chocolats;
+	}
+
+
+
+
 
 	public String getNom() {
 		return "Producteur "+this.nom;
@@ -113,8 +114,6 @@ public class Nestle implements Acteur, ITransformateur{
 		this.solde.setValeur(this, this.solde.getValeur()-p.annoncePrix()*commande);
 		//stock_cacao.ajoutCacao();
 	}
-	
-	
 
 	public void next() {
 		StockCacao stockcacao= new StockCacao();
@@ -125,9 +124,23 @@ public class Nestle implements Acteur, ITransformateur{
 		//setTarifproduit(Constante.PRODUIT_70, );
 		
 	}
-	
+
+	public double annonceQuantiteDemandee() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
-		/*double qdd = 0;
+
+	public double annoncePrix() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public void notificationVente(CommandeProduc c) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	/*double qdd = 0;
 		for (IDistributeur d : this.getDistributeurs()) {
 		qdd += d.getDemande(this);
 		}
@@ -146,5 +159,6 @@ public class Nestle implements Acteur, ITransformateur{
 	}		
 	
 }*/
+}
 
 
