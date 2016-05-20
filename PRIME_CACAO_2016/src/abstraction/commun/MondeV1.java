@@ -59,6 +59,7 @@ public class MondeV1 extends Monde {
 		
 		p1.ajouterTransformateur(t1);
 		p1.ajouterTransformateur(lindt);
+		p1.creerIntelligenceEconomique();
 		
 		marcheProducteur.ajouterProducteur(p1);
 		marcheProducteur.ajouterProducteur(p2);
