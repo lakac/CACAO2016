@@ -103,6 +103,34 @@ public class Nestle implements Acteur, ITransformateur{
 
 	public void next() {
 		}
+
+	public double annonceQuantiteDemandee() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public double annoncePrix() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public void notificationVente(CommandeProduc c) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public Catalogue getCatalogue() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	}
 		/*double qdd = 0;
 		for (IDistributeur d : this.getDistributeurs()) {

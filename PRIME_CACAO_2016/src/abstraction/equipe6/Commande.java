@@ -46,14 +46,19 @@ public class Commande {
 					}
 				}
 				d = d*(1+(Math.random()*0.2 - 0.1)); // fluctuation al�atoire de 10% de la commandeparstep
-			    if ( d > 0.5*I.get(c).getValeur()){
-			    	d=0.75*d;
+			    
+				if (d>I.get(c).getValeur()){
+					d=d;
+					
+				}else{
+				if ( d >= 0.5*I.get(c).getValeur() && d<I.get(c).getValeur()){
+			    	d=0.80*d;
 			    }else{
-			    	d=0.5*d;
+			    	d=0.65*d;
 			    	
 			    }
 			    c++;
 			}
-			
-	}	
+			}
+	}
 }

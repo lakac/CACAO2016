@@ -1,7 +1,11 @@
 package abstraction.equipe3;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
+import abstraction.commun.Catalogue;
+import abstraction.commun.CommandeDistri;
 import abstraction.commun.IDistributeur;
 import abstraction.commun.ITransformateur;
 import abstraction.fourni.Acteur;
@@ -112,4 +116,14 @@ public class Leclerc implements Acteur,IDistributeur{
 		this.achats.setValeur(this,quantite);
 		this.solde.setValeur(this, this.solde.getValeur()-quantite*this.getPrix()+quantite*this.getPrixvente()); //solde(step n)=solde step(n-1)+quantite(step n)*prixvente - quantite(step n)*prix
 }
+	@Override
+	public List<CommandeDistri> Demande(HashMap<ITransformateur, Catalogue> d) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<CommandeDistri> ContreDemande(List<CommandeDistri> cd) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
