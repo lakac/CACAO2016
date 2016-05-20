@@ -20,8 +20,7 @@ public class Leclerc implements Acteur,IDistributeur{
 
 	
 	public Leclerc(String nom, Monde monde, double prixAchat) {
-		this.nom=nom;
-		this.prixAchat=prixAchat;		
+		this.nom=nom;		
 		this.achats = new Indicateur("Achats de "+nom, this, 0.0);
 		this.solde = new Indicateur("Solde de "+nom, this, 1000000.0);
 		this.stock.initialiseStock();
@@ -33,6 +32,9 @@ public class Leclerc implements Acteur,IDistributeur{
 	public void ajouterVendeur(ITransformateur t) {
 		this.transformateurs.add(t);
 	}
+	public ArrayList<ITransformateur> getTransformateurs(){
+		return this.transformateurs;
+	}
 	public ITransformateur getTransformateurs(int i){
 		return this.transformateurs.get(i);
 	}
@@ -42,19 +44,28 @@ public class Leclerc implements Acteur,IDistributeur{
 	public String getNom(){
 		return this.nom;
 	}
-	public double getPrixAchat(){
-		return this.prixAchat;
+	public double getPrixAchat(int indexproduit, ITransformateur t){
+		double x = 0;
+		for (int i=0; i<this.transformateurs.size(); i++){
+			if (t.equals(this.transformateurs.get(i))){
+				x = this.prixAchat[i][indexproduit];
+			}
+		} return x;
 	}
 	public double getPrixVente(int indexproduit){
 		return this.prixVente[indexproduit];
 	}
-	public void setPrixAchat(double prixAchat){
-		this.prixAchat=prixAchat;
+	public void setPrixAchat(double prixAchat, int indexproduit, ITransformateur t){
+		for (int i=0; i<this.transformateurs.size();i++){
+			if (t.equals(this.transformateurs.get(i))){
+				this.prixAchat[i][indexproduit]=prixAchat;
+			}
+		}
 	}
-	public void setPrixVente(double prixVente){
-		this.prixVente=prixVente;
+	public void setPrixVente(double prixVente, int indexproduit){
+		this.prixVente[indexproduit]=prixVente;
 	}
-	public void setRatio (Double[] ratio) {
+	/*public void setRatio (Double[] ratio) {  //fonction utilisée dans la V1, mais plus dans les versions suivantes.
 		double x = 1;
 		double l = this.transformateurs.size()-2;
 		this.ratio=new ArrayList<Double>();
@@ -64,16 +75,16 @@ public class Leclerc implements Acteur,IDistributeur{
 		} for (int i=2; i<this.transformateurs.size();i++){
 			this.ratio.add(x/l);
 		}
-	}
+	}*/
 	public void setQtepartransformateur(double commande){
-		this.quantite = new ArrayList<Double>();
+		this.quantites = new ArrayList<Double[]>();
 		for (int i=0; i<this.transformateurs.size(); i++) {
-			this.quantite.add(this.ratio.get(i)*commande);
+			this.quantites.add(this.ratio.get(i)*commande);
 		}
 	}
 	public double getQteTotal() {
 		double y = 0;
-		for (double q : this.quantite) {
+		for (double q : this.quantites) {
 			y+=q;
 		} return y;
 	}
@@ -91,21 +102,21 @@ public class Leclerc implements Acteur,IDistributeur{
 			}
 		}
 	}
-	public double getDemande(ITransformateur t){
+	public double getDemande(ITransformateur t, int indexproduit){
 		double x = 0;
 		commande(Monde.LE_MONDE.getStep());
 		for (int i=0; i<this.transformateurs.size();i++) {
 			if (t.equals(this.transformateurs.get(i))) {
-				x = this.quantite.get(i);
+				x = this.quantites.get(i)[indexproduit];
 			}
 		} return x;
 	}
-	public double getVente(ITransformateur t){
+	public double getVente(ITransformateur t, int indexproduit){
 		double x = 0;
 		commande(Monde.LE_MONDE.getStep()-3);
 		for (int i=0; i<this.transformateurs.size();i++) {
 			if (t.equals(this.transformateurs.get(i))) {
-				x = this.quantite.get(i);
+				x = this.quantites.get(i)[indexproduit];
 			}
 		} return x;
 	}

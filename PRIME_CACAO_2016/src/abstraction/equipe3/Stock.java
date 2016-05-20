@@ -9,10 +9,20 @@ public class Stock {
 	
 	private ArrayList<Double[]> stock;
 	private Leclerc leclerc;
+	private double fraisDeStock;
 	
 	public Stock(Leclerc leclerc, ArrayList<Double[]> stock){
 		this.leclerc=leclerc;
 		this.stock=stock;
+	}
+	
+	public double getFraisDeStockTotal(double fraisDeStock){
+		this.fraisDeStock = 0.0;
+		for (ITransformateur t : this.leclerc.getTransformateurs()){
+			for (int i=0; i<3;i++){
+				this.fraisDeStock += this.getStock(t,i)*fraisDeStock;
+			}
+		} return this.fraisDeStock;
 	}
 	
 	public void initialiseStock(){

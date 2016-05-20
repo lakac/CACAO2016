@@ -9,10 +9,12 @@ public class Commande {
 	
 	private ArrayList<Double[]> commande;
 	private Leclerc leclerc;
+	private Stock stock;
 
 	public Commande(Leclerc leclerc) {
 		this.commande = new ArrayList<Double[]>();
 		this.leclerc = leclerc;
+		this.stock = stock;
 	}
 	
 	public double getCommande(ITransformateur t, Produit p){
@@ -32,13 +34,11 @@ public class Commande {
 					}
 				}
 			}
-		} return x;
-		
-		
+		} return x;	
 	}
 	
-	public void setCommande(ArrayList<Double[]> commande){
-		this.commande=commande;		
+	public void setCommande(Stock stock){
+		
 	}
 
 }
