@@ -23,6 +23,8 @@ public class Production {
 		
 	}
 
+	
+	
 	public void setProduction(Nestle nestle, CommandeDistri commandedistri) {
 		if (nestle.getStockchoc().getStockschocolats().get(commandedistri.getProduit())>commandedistri.getQuantite()/2) {
 			this.production.put(commandedistri.getProduit(),commandedistri.getProduit().getRatioCacao()*Math.min(
@@ -45,6 +47,10 @@ public class Production {
 		double couttransformation = 0.0;
 		couttransformation+=this.getProduction().get(Constante.PRODUIT_50);
 		return couttransformation;
+	}
+	
+	public double PrixdeventeDeBase(Produit p) {
+		return (1+Constante.MARGE)*this.CoutTransformation(p);
 	}
 	
 }
