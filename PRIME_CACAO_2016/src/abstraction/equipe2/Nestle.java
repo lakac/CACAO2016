@@ -109,6 +109,7 @@ public class Nestle implements Acteur, ITransformateur{
 	}
 
 	public void next() {
+		// Initialisation
 		StockCacao stockcacao= new StockCacao();
 		StockChocolats stockchocolat = new StockChocolats();
 		Banque banque=new Banque();
@@ -125,7 +126,12 @@ public class Nestle implements Acteur, ITransformateur{
 		plageinterne.setTarifproduit(Constante.PRODUIT_50,listplageproduit);
 		plageinterne.setTarifproduit(Constante.PRODUIT_60,listplageproduit);
 		plageinterne.setTarifproduit(Constante.PRODUIT_70,listplageproduit);
+		Tarif tarifproduit1 = new Tarif()
+		CatalogueInterne catalogue = new CatalogueInterne ();
 		
+		
+		// A faire à chaque step
+
 	}
 
 	public double annonceQuantiteDemandee() {
