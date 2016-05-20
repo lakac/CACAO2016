@@ -1,6 +1,5 @@
 package abstraction.equipe1;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,7 +12,9 @@ public class IntelligenceEconomique {
 	private double envieVendre;
 	private double besoinVendre;
 	private Stock stock;
-	private double quantiteMiseEnVente;
+	private double offreTotale;
+	private HashMap<ITransformateur,Double> quantitesMisesEnVente;
+	
 	private final double[] coeffPerissabilite = {0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0};
 	
 	public IntelligenceEconomique(List<ITransformateur> t, Stock s) {
@@ -22,7 +23,13 @@ public class IntelligenceEconomique {
 		this.envieVendre = 0;
 		this.besoinVendre = 0;
 		this.stock = s;
-		this.quantiteMiseEnVente = 0;
+		this.offreTotale = 0;
+		this.quantitesMisesEnVente = new HashMap<ITransformateur,Double>();
+		
+		for (ITransformateur tr : this.transformateurs) {
+			this.importanceTransformateurs.put(tr, 0.0);
+			this.quantitesMisesEnVente.put(tr, 0.0);
+		}
 	}
 	
 	private void actualiserEnvieVendre() {
@@ -34,6 +41,10 @@ public class IntelligenceEconomique {
 		for (int i = 0; i<this.coeffPerissabilite.length; i++) {
 			this.besoinVendre += this.coeffPerissabilite[i]*this.stock.getStockParStep(i);
 		}
+	}
+	
+	private void actualiserOffreTotale() {
+		this.offreTotale = this.besoinVendre*(1-this.envieVendre) + this.stock.getQuantite()*this.envieVendre;
 	}
 	
 	private void actualiserImportanceTransformateurs() {
@@ -49,19 +60,28 @@ public class IntelligenceEconomique {
 		}
 	}
 	
-	private void actualiserQuantiteMiseEnVente() {
-		this.quantiteMiseEnVente = this.besoinVendre*(1-this.envieVendre) + this.stock.getQuantite()*this.envieVendre;
+	private void actualiserQuantitesMisesEnVente() {
+		double importance = 0;
+		for (ITransformateur t : this.transformateurs) {
+			importance += this.importanceTransformateurs.get(t);
+		}
+		
+		double valeur = 0;
+		for (ITransformateur t : this.transformateurs) {
+			valeur = this.offreTotale*this.importanceTransformateurs.get(t)/importance;
+			this.quantitesMisesEnVente.put(t, valeur);
+		}
 	}
 	
 	public void actualiser() {
 		this.actualiserEnvieVendre();
 		this.actualiserBesoinVendre();
+		this.actualiserOffreTotale();
 		this.actualiserImportanceTransformateurs();
-		this.actualiserQuantiteMiseEnVente();
+		this.actualiserQuantitesMisesEnVente();
 	}
 	
-	public double donnerQuantiteMiseEnVente() {
-		this.actualiser();
-		return this.quantiteMiseEnVente;
+	public double donnerQuantiteMiseEnVente(ITransformateur t) {
+		return this.quantitesMisesEnVente.get(t);
 	}
 }

@@ -8,7 +8,6 @@ import abstraction.commun.CommandeProduc;
 import abstraction.commun.IProducteur;
 import abstraction.commun.ITransformateur;
 import abstraction.commun.Constantes;
-import abstraction.commun.MarcheProducteur;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +27,7 @@ public class Producteur implements Acteur, IProducteur {
 	private Indicateur productionCourante;
 	private Journal journal;
 	private List<ITransformateur> transformateurs;
+	private IntelligenceEconomique intelligenceEconomique;
 	
 	/**
 	 * Initialise notre producteur a partir d'un stock et d'une tresorerie initiaux.
@@ -56,6 +56,7 @@ public class Producteur implements Acteur, IProducteur {
 		Monde.LE_MONDE.ajouterJournal(this.journal);
 		
 		this.transformateurs = new ArrayList<ITransformateur>();
+		this.intelligenceEconomique = new IntelligenceEconomique(this.transformateurs,this.stock);
 	}
 	
 	// Méthodes de l'interface Acteur
@@ -65,6 +66,7 @@ public class Producteur implements Acteur, IProducteur {
 	}
 	
 	public void next() {
+		this.intelligenceEconomique.actualiser();
 		this.produire();
 		this.repartirQuantites();
 		this.journal.ajouter("Production de "+this.getNom()+" = <font color=\"maroon\">"+this.getProductionCourante()+"</font> au <b>step</b> "+Monde.LE_MONDE.getStep());
@@ -116,7 +118,7 @@ public class Producteur implements Acteur, IProducteur {
 	
 	private void repartirQuantites() {
 		for (ITransformateur t : this.getTransformateurs()) {
-			this.quantitesProposees.put(t,this.getStock()*0.5);
+			this.quantitesProposees.put(t,this.intelligenceEconomique.donnerQuantiteMiseEnVente(t));
 		}
 	}
 	
