@@ -48,4 +48,7 @@ public interface ITransformateur {
 
 	public List<CommandeDistri> commandeFinale(List<CommandeDistri> list);
 
+
+	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> list);
+
 }

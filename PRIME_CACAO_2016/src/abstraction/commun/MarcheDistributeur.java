@@ -158,7 +158,7 @@ public class MarcheDistributeur implements Acteur {
 			}
 
 
-			// Livraisons effectives chez les distributeurs et paiements.
+			/* Livraisons effectives chez les distributeurs et paiements.
 			HashMap<ITransformateur, List<CommandeDistri>> livraisonglobale = new HashMap<ITransformateur, List<CommandeDistri>> ();
 			for (ITransformateur t : this.getLesTransfos()) {
 				livraisonglobale.put(t, new ArrayList<CommandeDistri>());
@@ -170,19 +170,9 @@ public class MarcheDistributeur implements Acteur {
 				}
 				livraisonglobale.replace(t,t.livraisonEffective(livraisonglobale.get(t)));
 
-			}
-			for (IDistributeur d3 : this.getLesDitris()) {
-				List<CommandeDistri> livraisondistri = new ArrayList<CommandeDistri>();
-				for (CommandeDistri cd : livraison) {
-					if (cd.getAcheteur() == d3) {
-						livraisondistri.add(cd);
-					}
-				}
-				
-			}
+			} */
+	
 			
-			
-
 		}	
 
 
