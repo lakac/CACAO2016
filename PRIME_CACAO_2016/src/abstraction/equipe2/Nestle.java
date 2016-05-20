@@ -112,9 +112,19 @@ public class Nestle implements Acteur, ITransformateur{
 		StockCacao stockcacao= new StockCacao();
 		StockChocolats stockchocolat = new StockChocolats();
 		Banque banque=new Banque();
-		//setTarifproduit(Constante.PRODUIT_50, );
-		//setTarifproduit(Constante.PRODUIT_60, );
-		//setTarifproduit(Constante.PRODUIT_70, );
+		List<Plage> listplageproduit = new ArrayList<Plage>();
+		Plage plage1= new Plage(0,200,0);
+		Plage plage2= new Plage(200.1,500,0.03);
+		Plage plage3= new Plage(500.1,1000,0.07);
+		Plage plage4= new Plage(1000.1,0.10);
+		listplageproduit.add(plage1);
+		listplageproduit.add(plage2);
+		listplageproduit.add(plage3);
+		listplageproduit.add(plage4);
+		PlageInterne plageinterne = new PlageInterne();
+		plageinterne.setTarifproduit(Constante.PRODUIT_50,listplageproduit);
+		plageinterne.setTarifproduit(Constante.PRODUIT_60,listplageproduit);
+		plageinterne.setTarifproduit(Constante.PRODUIT_70,listplageproduit);
 		
 	}
 
@@ -131,6 +141,18 @@ public class Nestle implements Acteur, ITransformateur{
 	public void notificationVente(CommandeProduc c) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Catalogue getCatalogue() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	/*double qdd = 0;

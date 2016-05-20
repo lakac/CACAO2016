@@ -34,10 +34,10 @@ public class Banque {
 	public void  MiseAJourBanque(Achat achatp1, Achat achatp2, Production production, 
 			StockCacao cacao, StockChocolats chocolats, Vente vented1, Vente vented2,
 			IProducteur p1, IProducteur p2, IDistributeur d1, IDistributeur d2) {
-		this.banque-=production.CoutTransformation();
+		//this.banque-=production.CoutTransformation();
 		this.banque-=cacao.CoutStockCacao();
 		this.banque-=chocolats.CoutStockChocolat();
-		this.banque+=;
+		//this.banque+=;
 	}
 	
 }
