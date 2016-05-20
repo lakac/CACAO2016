@@ -1,6 +1,7 @@
 package abstraction.commun;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import abstraction.fourni.Acteur;
@@ -17,6 +18,13 @@ import abstraction.fourni.Acteur;
 public class ResteDesTransformateursMondiaux implements Acteur, ITransformateur {
 
 	private List<ITransformateur> transformateurs;
+	
+	
+	
+	public ResteDesTransformateursMondiaux(){
+		this.transformateurs = new ArrayList<ITransformateur>();
+		
+	}
 
 	/**
 	 * Ajoute un transformateur réels à la liste des transformateurs
