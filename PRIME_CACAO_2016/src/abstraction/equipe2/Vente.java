@@ -49,8 +49,8 @@ public class Vente {
 		this.historiquedesventesproduit70.ajouter(nestle, etape, this.quantitevendue.get(70));
 	}
 	
-	//public double Prixdevente(Produit p) { à faire !
-	//	
-	//}
+	public double Prixdevente(Produit p, PlageInterne plage, double quantite) {
+		
+	}
 
 }

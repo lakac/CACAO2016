@@ -7,7 +7,7 @@ public class PlageInterne {
 	
 	private HashMap<Produit,List<Plage>> tarifproduit;
 
-	public PlageInterne(){
+	public PlageInterne() {
 	this.tarifproduit=new HashMap<Produit,List<Plage>>();
 	}
 
@@ -23,7 +23,4 @@ public class PlageInterne {
 	public void add(Produit p, List<Plage> listplage){
 		this.tarifproduit.put(p, listplage);
 	}
-	
-	
-	
 }

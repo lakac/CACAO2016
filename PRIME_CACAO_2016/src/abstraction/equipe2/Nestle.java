@@ -18,6 +18,7 @@ public class Nestle implements Acteur, ITransformateur{
 	
 	private StockCacao cacao;
 	private StockChocolats chocolats;
+	private Production production;
 	
 	public Nestle(Monde monde) {
 		this.nom = Constantes.NOM_TRANSFORMATEUR_1;
@@ -28,26 +29,18 @@ public class Nestle implements Acteur, ITransformateur{
 		Monde.LE_MONDE.ajouterIndicateur( this.ventes );
 		Monde.LE_MONDE.ajouterIndicateur( this.solde );		
 	}
-	
-	
-	
-	
 
 	public StockCacao getStockcac() {
 		return cacao;
 	}
 
-
-
-
-
 	public StockChocolats getStockchoc() {
 		return chocolats;
 	}
-
-
-
-
+	
+	public Production getProd() {
+		return production;
+	}
 
 	public String getNom() {
 		return "Producteur "+this.nom;
