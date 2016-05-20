@@ -17,11 +17,12 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class Producteur implements Acteur, IProducteur {
+	private static final double productionAnnuelle = 24000;
+	
 	private String nom;
 	private Stock stock;
 	private Indicateur tresorerie;
 	private double coutProduction;
-	private double productionAnnuelle;
 	private double[] productionDeBase;
 	private Map<ITransformateur,Double> quantitesProposees;
 	private Indicateur productionCourante;
@@ -36,7 +37,6 @@ public class Producteur implements Acteur, IProducteur {
 		this.stock = new Stock(this, stockInitial);
 		this.tresorerie = new Indicateur("Solde de "+this.nom, this, tresoInitiale);
 		this.coutProduction = 2100.0;
-		this.productionAnnuelle = 24000.0;
 		this.productionCourante = new Indicateur(Constantes.IND_PRODUCTION_P1, this, 100.0);
 		
 		Monde.LE_MONDE.ajouterIndicateur(this.tresorerie);
