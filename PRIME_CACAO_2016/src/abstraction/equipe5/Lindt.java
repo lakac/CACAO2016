@@ -152,7 +152,7 @@ public class Lindt implements Acteur, ITransformateur{
 		List<Plage> listePlage = new ArrayList<Plage>();
 		listePlage.add(new Plage(100, 150, 0.05));
 		listePlage.add(new Plage(151, 200, 0.07));
-		listePlage.add(new Plage(201, 600, 0.12));
+		listePlage.add(new Plage(201, 900, 0.12));
 		this.catalogue.add(new Produit("50%", 0.5), new Tarif(15000, listePlage));
 		this.catalogue.add(new Produit("60%", 0.6), new Tarif(20000, listePlage));
 		this.catalogue.add(new Produit("70%", 0.5), new Tarif(25000, listePlage));
