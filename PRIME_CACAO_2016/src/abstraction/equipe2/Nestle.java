@@ -122,16 +122,16 @@ public class Nestle implements Acteur, ITransformateur{
 		listplageproduit.add(plage2);
 		listplageproduit.add(plage3);
 		listplageproduit.add(plage4);
+		this.production = new Production();
 		PlageInterne plageinterne = new PlageInterne();
 		plageinterne.setTarifproduit(Constante.PRODUIT_50,listplageproduit);
 		plageinterne.setTarifproduit(Constante.PRODUIT_60,listplageproduit);
 		plageinterne.setTarifproduit(Constante.PRODUIT_70,listplageproduit);
-		Tarif tarifproduit1 = new Tarif(this.getProd().PrixdeventeDeBase(Constante.PRODUIT_50),listplageproduit );
-		Tarif tarifproduit2 = new Tarif(this.getProd().PrixdeventeDeBase(Constante.PRODUIT_60),listplageproduit );
-		Tarif tarifproduit3 = new Tarif(this.getProd().PrixdeventeDeBase(Constante.PRODUIT_70),listplageproduit );
-		CatalogueInterne catalogueinterne = new CatalogueInterne ();
+		Tarif tarifproduit1 = new Tarif(this.getProd().PrixdeventeDeBase(Constante.PRODUIT_50),listplageproduit);
+		Tarif tarifproduit2 = new Tarif(this.getProd().PrixdeventeDeBase(Constante.PRODUIT_60),listplageproduit);
+		Tarif tarifproduit3 = new Tarif(this.getProd().PrixdeventeDeBase(Constante.PRODUIT_70),listplageproduit);
+		CatalogueInterne catalogueinterne = new CatalogueInterne();
 		catalogueinterne.setCatalogueinterne(tarifproduit1, tarifproduit2, tarifproduit3);
-		
 		
 		// A faire à chaque step
 

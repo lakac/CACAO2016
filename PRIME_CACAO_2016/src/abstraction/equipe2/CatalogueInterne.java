@@ -1,12 +1,12 @@
 package abstraction.equipe2;
 import abstraction.commun.*;
 
-public class CatalogueInterne extends Catalogue {
+public class CatalogueInterne {
 
 	private Catalogue catalogueinterne;
 
 	public CatalogueInterne() {
-		super();
+		this.catalogueinterne = new Catalogue();
 	}
 	
 	
