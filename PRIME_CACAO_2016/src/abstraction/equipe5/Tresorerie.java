@@ -14,14 +14,14 @@ public class Tresorerie {
 	private HistoriqueCommandeDistri histDistri;
 	private HistoriqueCommandeProduc histProduc;
 	private Indicateur treso;	
-	private ArrayList<IProducteur> P;
+	private ArrayList<IProducteur> listeProducteurs;
 	private Lindt lindt;
 
 	public Tresorerie(HistoriqueCommandeDistri histDistri, HistoriqueCommandeProduc histProduc, Lindt lindt, ArrayList<IProducteur> P){
 		this.histDistri = histDistri;
 		this.histProduc = histProduc;
 		this.lindt = lindt;
-		this.P=P;
+		this.listeProducteurs=P;
 		this.treso = new Indicateur("Tresorerie Lindt", lindt, 100000);
 		Monde.LE_MONDE.ajouterIndicateur(this.treso);
 	}
@@ -48,19 +48,24 @@ public class Tresorerie {
 
 	// ATTENTION changer commande(-3).getQuantite avec l'intermédiaire car le 3eme producteur ne passe pas de commande
 	// verifier l'ordre P1,P2 et des commandes
+	// TODO Constante (expliquer ce que represente 5000);
 	public double coutRevient() {
-		IProducteur P1 = this.P[0];
-		IProducteur P2 = this.P[1];
+		double quantiteCacaoAchetee=0;
+		double prix=0;
 		int chargesFixes = 900980; // salaires+impots
-		double quantiteDemandeeP1= this.histProduc.commande(-1).getQuantite();
-		double quantiteDemandeeP2= this.histProduc.commande(-2).getQuantite();
-		double quantiteDemandeeP3= 0.0; //voir avec l'intermediaire
-		double quantiteCacaoAchetee = quantiteDemandeeP1 + quantiteDemandeeP2 + quantiteDemandeeP3; //quantité de cacao commandée au step précédent	
-		return chargesFixes + quantiteCacaoAchetee * 5000 + (this.histProduc.commande(-1).getPrixTonne()*quantiteDemandeeP1+ this.histProduc.commande(-2).getPrixTonne()*quantiteDemandeeP2 + MarcheProducteur.LE_MARCHE.getCours()*quantiteDemandeeP3)/quantiteCacaoAchetee;	
+		for (int i = 0; i<listeProducteurs.size() ; i++){
+			double quantiteDemandee= this.histProduc.commande(this.histProduc.getHist().size()-i-1).getQuantite();
+			quantiteCacaoAchetee += quantiteDemandee; //quantite de cacao commandee au step precedent
+			prix += this.histProduc.commande(this.histProduc.getHist().size()-i-1).getQuantite()*this.histProduc.commande(this.histProduc.getHist().size()-i-1).getPrixTonne();
+		}
+		double quantiteDemandeeP3= 0.0; //voir avec le reste du monde
+		quantiteCacaoAchetee += quantiteDemandeeP3;
+		return chargesFixes + quantiteCacaoAchetee * 5000 + 
+				(prix + MarcheProducteur.LE_MARCHE.getCours()*quantiteDemandeeP3)/quantiteCacaoAchetee;	
 		
 		
-		//cout de revient d'une tonne= charges fixes+ quantité de cacao commandé aux producteurs * cout de transformation d'une tonne.
-		//Cout de transformation d'une tonne= 5000+pourcentage de quantité de cacao demandée à chaque producteur multiplié par leur prix, afin d'avoir un prix de transfo d'environ 8000€/t
+		//cout de revient d'une tonne= charges fixes+ quantite de cacao commandé aux producteurs * cout de transformation d'une tonne.
+		//Cout de transformation d'une tonne= 5000+pourcentage de quantite de cacao demandee a� chaque producteur multiplie par leur prix, afin d'avoir un prix de transfo d'environ 8000€/t
 	
 	
 	}

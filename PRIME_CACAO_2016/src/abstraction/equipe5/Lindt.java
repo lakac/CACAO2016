@@ -148,6 +148,8 @@ public class Lindt implements Acteur, ITransformateur{
 		//CommandeProduc nouvelleCommandeProduc = new CommandeProduc(this, p, annonceQuantiteDemandee(p), MarcheProducteur.LE_MARCHE.getCours());
 		//this.getHistCommandeProduc().ajouter(nouvelleCommandeProduc);
 	//}
+	
+	// Fonctions finies
 	public double annonceQuantiteDemandee() {
 		return this.achatProd.annonceQuantiteDemandee();
 	}
