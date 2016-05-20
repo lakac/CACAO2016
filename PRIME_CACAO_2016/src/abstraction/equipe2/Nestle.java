@@ -1,9 +1,6 @@
 package abstraction.equipe2;
 
-import abstraction.fourni.Acteur;
-import abstraction.fourni.Indicateur;
-import abstraction.fourni.Monde;
-import abstraction.fourni.v0.Marche;
+import abstraction.fourni.*;
 import abstraction.commun.*;
 
 import java.util.ArrayList;
@@ -16,9 +13,10 @@ public class Nestle implements Acteur, ITransformateur{
 	private Indicateur ventes;
 	private Indicateur solde;
 	
-	private StockCacao cacao;
-	private StockChocolats chocolats;
+	private StockCacao stockcacao;
+	private StockChocolats stockchocolats;
 	private Production production;
+	private Banque banque;
 	
 	public Nestle(Monde monde) {
 		this.nom = Constantes.NOM_TRANSFORMATEUR_1;
@@ -27,15 +25,18 @@ public class Nestle implements Acteur, ITransformateur{
 		this.solde = new Indicateur("Solde de "+this.nom, this, 10000000.0);
 		Monde.LE_MONDE.ajouterIndicateur( this.achats );
 		Monde.LE_MONDE.ajouterIndicateur( this.ventes );
-		Monde.LE_MONDE.ajouterIndicateur( this.solde );		
+		Monde.LE_MONDE.ajouterIndicateur( this.solde );
+		this.banque =new Banque();
+		this.stockcacao = new StockCacao ();
+		this.stockchocolats = new StockChocolats ();
 	}
 
 	public StockCacao getStockcac() {
-		return cacao;
+		return stockcacao;
 	}
 
 	public StockChocolats getStockchoc() {
-		return chocolats;
+		return stockchocolats;
 	}
 	
 	public Production getProd() {
@@ -110,9 +111,6 @@ public class Nestle implements Acteur, ITransformateur{
 
 	public void next() {
 		// Initialisation
-		StockCacao stockcacao= new StockCacao();
-		StockChocolats stockchocolat = new StockChocolats();
-		Banque banque=new Banque();
 		List<Plage> listplageproduit = new ArrayList<Plage>();
 		Plage plage1= new Plage(0,200,0);
 		Plage plage2= new Plage(200.1,500,0.03);
