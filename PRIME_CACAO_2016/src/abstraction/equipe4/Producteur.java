@@ -90,7 +90,7 @@ public class Producteur implements Acteur,IProducteur{
 	}
 
 
-	/*
+
 	// retourne un double valant la quantité disponible 
 	// pour chaque transformateur a chaque step
 	public double annonceQuantiteMiseEnVente(ITransformateur t) {

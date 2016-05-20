@@ -14,21 +14,16 @@ public class Vente {
 	private int maximumStockAutorise;
 	private Producteur producteur;
 	private double prixMarche;
-	private double[] demande;
-	private double[] prixDemandés;
-	
+	private double[] prixDemandes;
+	private double offreTotale;
 	
 	//Constructeurs
 	public Vente () {
 		this.stock = stock;
-		this.demande = new double[3];
+		this.prixDemandes = new double[3];
 		for (int i=0; i<3; i++) {
-			this.demande[i] = this.getProducteur().getTransformateurs().get(i).annonceQuantiteDemandee(this.getProducteur());
+			this.prixDemandes[i] = this.getProducteur().getTransformateurs().get(i).annoncePrix();
 		}
-		this.prixDemandés = new double[3];
-		for (int i=0; i<3; i++) {
-			this.prixDemandés[i] = this.getProducteur().getTransformateurs().get(i).annoncePrix();
-		
 	}
 
 	//GETTERS AND SETTERS
@@ -45,6 +40,10 @@ public class Vente {
 	public double getPrixMarche() {
 		return MarcheProducteur.LE_MARCHE.getCours();
 	}
+	public double[] getPrixDemandes() {
+		return this.prixDemandes;
+	}
+
 
 	//AUTRES MÉTHODES
 	//Retourne la moyenne des prix de vente sur les précédentes step.
@@ -70,16 +69,39 @@ public class Vente {
 	
 	//Retourne notre offre totale.
 	public double offreTotale () {
+		//Premier ajustement de notre offre totale, en fonction du cours de cacao fixé par le marché.
 		double coeff = (this.getPrixMarche()-3000)/1000;
+		double offreTotale = 0.0;
 		if (coeff>=0) {
-			return this.venteAPriori()*(1+coeff);
+			offreTotale = this.venteAPriori()*(1+coeff);
 		}
 		else {
-			return this.venteAPriori()*(1+coeff/2);
+			offreTotale = this.venteAPriori()*(1+coeff/2);
 		}
+		//Moyenne des prix fixés par chaque transformateur.
+		double moyennePrixDemandes = (this.getPrixDemandes()[0]+this.getPrixDemandes()[1]+this.getPrixDemandes()[2])/3;
+		//Deuxième ajustement de notre offre totale, en fonction des prix fixés par les transformateurs eux-mêmes.
+		if (moyennePrixDemandes<=this.getPrixMarche()) {
+			offreTotale = offreTotale*moyennePrixDemandes/this.getPrixMarche();
+		}
+		else {
+			offreTotale = offreTotale*(1+moyennePrixDemandes/this.getPrixMarche());
+		}
+		return offreTotale;
 	}
 		
 	//Intention de vente aux différents transformateurs
+	public double[] ventesStep() {
+		double[] ventesStep = new double[3];
+		ventesStep[2] = 0.04*this.offreTotale()+((this.getPrixDemandes()[2]-this.prixMarche)/this.prixMarche)*this.offreTotale();
+		ventesStep[1] = 0.13*this.offreTotale();
+		ventesStep[0] = this.offreTotale()-ventesStep[1]-ventesStep[2];
+		return ventesStep;
+	}
+	
+	
+	/*
+	 * NE PAS EFFACER LA SUITE (PEUT ÊTRE UTILE DANS LA V3)
 	public double[] ventesStep () {
 		double[] R = new double[3];
 		double offreRestante = 0.0;
@@ -104,4 +126,5 @@ public class Vente {
 		}
 		return R;
 	}
+	*/
 }
