@@ -17,6 +17,10 @@ public class Production {
 	
 	public Production() {
 		this.production = new HashMap<Produit, Double>();
+		this.add(Constante.PRODUIT_50);
+		this.add(Constante.PRODUIT_60);
+		this.add(Constante.PRODUIT_70);
+		
 	}
 
 	public void setProduction(Nestle nestle, CommandeDistri commandedistri) {
@@ -31,6 +35,14 @@ public class Production {
 							,nestle.getStockchoc().getStockschocolats().get(commandedistri.getProduit())));
 		}
 		
+	}
+	
+	public double CoutTransformation() {
+		double couttransformation = 0.0;
+		couttransformation+=this.getProduction().get(Constante.PRODUIT_50);
+		couttransformation+=this.getProduction().get(Constante.PRODUIT_60);
+		couttransformation+=this.getProduction().get(Constante.PRODUIT_70);
+		return couttransformation;
 	}
 	
 }

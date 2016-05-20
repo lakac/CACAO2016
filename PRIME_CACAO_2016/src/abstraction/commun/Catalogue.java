@@ -12,7 +12,6 @@ public class Catalogue {
 	
 	public void add(Produit p, Tarif t) {
 		this.cata.put(p, t);
-
 	}
 
 	public HashMap<Produit, Tarif> getCata() {

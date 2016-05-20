@@ -10,7 +10,7 @@ public class StockCacao {
 	} 
 	
 	public void AjouterStockCacao(Achat achat) {
-		this.stockcacao += achat.getCacaoachete();
+		this.stockcacao += achat.getCacaoachete()*(Constante.ACHAT_SANS_PERTE-(Constante.PERTE_MINIMALE + Math.random()*(Constante.VARIATION_PERTE)));
 	}
 	
 	public void RetirerStockCacao(Produit p, Production production) {
@@ -25,7 +25,7 @@ public class StockCacao {
 		}
 	}
 	
-	public double CoutStock() {
+	public double CoutStockCacao() {
 		return Constante.COUT_STOCK_UNITAIRE*this.getStockcacao();
 	}
 }

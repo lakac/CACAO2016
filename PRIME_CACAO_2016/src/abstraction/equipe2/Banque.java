@@ -3,32 +3,43 @@ package abstraction.equipe2;
 import java.util.HashMap;
 
 import abstraction.commun.*;
+import abstraction.fourni.Historique;
 
 public class Banque {
 	
 	private double banque;
-	private HashMap<IProducteur,Double> prixdevente;	
+	private Historique tresorerie;
+		
 	
-	public Banque(double banque){
-	this.banque=banque;
-	this.prixdevente=new HashMap<IProducteur, Double>();
+	public Banque() {
+	this.banque=Constante.TRESORERIE_INITIALE;;
+	this.tresorerie = new Historique();
 	}
 	
-	public void addPrixdevente(IProducteur p, Double prix) {
-		this.prixdevente.put(p,prix);
+	public void MiseAJourHistorique(Nestle nestle, int etape) {
+		this.tresorerie.ajouter(nestle, etape, this.banque);
 	}
-	
-	public HashMap<IProducteur, Double> getPrixdevente() {
-		return prixdevente;
-	}	
 	
 	public double getBanque() {
 		return banque;
 	}
-
-/* void setBanque(double banque) {
-		this.banque = Constante.TRESORERIE_INITIALE;
-	} Sert a rien ?*/ 
+	
+	
+	
+	
+	public double CoutsFixes() {
+		return Constante.CHARGES_FIXES;
+	}
+	
+	public void  MiseAJourBanque(Achat achatp1, Achat achatp2, Production production, 
+			StockCacao cacao, StockChocolats chocolats, Vente vented1, Vente vented2,
+			IProducteur p1, IProducteur p2, IDistributeur d1, IDistributeur d2) {
+		this.banque-=(achatp1.CoutAchat(p1, achatp1)+achatp2.CoutAchat(p2, achatp2));
+		this.banque-=production.CoutTransformation();
+		this.banque-=cacao.CoutStockCacao();
+		this.banque-=chocolats.CoutStockChocolat();
+		this.banque+=
+	}
 	
 	public static double CoutIntermediaireUnitaire (Produit produit, Achat achat, Tarif tarif){
 		return Constante.CHARGES_FIXES + achat.getDernierecommandeachetee().getCommandesProd()

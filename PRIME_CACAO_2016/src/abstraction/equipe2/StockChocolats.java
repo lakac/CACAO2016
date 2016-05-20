@@ -26,7 +26,7 @@ public class StockChocolats {
 		this.stockschocolats.put(p, -vente.getVentes().get(p)+this.stockschocolats.get(p));
 	}
 	
-	public double CoutStock() {
+	public double CoutStockChocolat() {
 		double resultat = 0;
 		for (Double stock : this.getStockschocolats().values()) {
 			resultat +=stock;
