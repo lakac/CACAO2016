@@ -42,7 +42,7 @@ public class Achat {
 	//public void MiseAJourHistorique(int etape) {
 	//	this.historiqueachats.ajouter(Nestle, etape, this.dernierecommandeachetee);
 	//}
-	//Ne connaît pas encore Nestlé
+	//Ne connaît pas encore Nestlé 
 	
 	
 	
