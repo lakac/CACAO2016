@@ -49,4 +49,12 @@ public class Production {
 		return couttransformation;
 	}
 	
+	public double CoutTransformationGlobal() {
+		double Couttot = 0.0;
+		for (Produit p : this.production.keySet()) {
+			Couttot+=this.CoutTransformation(p);
+		}
+		return Couttot;
+	}
+	
 }

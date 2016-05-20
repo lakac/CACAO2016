@@ -19,6 +19,7 @@ public class Nestle implements Acteur, ITransformateur{
 	private StockCacao cacao;
 	private StockChocolats chocolats;
 	private Production production;
+	private Banque banque;
 	
 	public Nestle(Monde monde) {
 		this.nom = Constantes.NOM_TRANSFORMATEUR_1;
