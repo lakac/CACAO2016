@@ -121,4 +121,6 @@ public class Producteur implements Acteur,IProducteur{
 		return 0;
 	}
 
+
+
 }
