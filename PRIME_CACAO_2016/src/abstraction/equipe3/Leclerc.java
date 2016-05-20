@@ -1,7 +1,11 @@
 package abstraction.equipe3;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
+import abstraction.commun.Catalogue;
+import abstraction.commun.CommandeDistri;
 import abstraction.commun.IDistributeur;
 import abstraction.commun.ITransformateur;
 import abstraction.fourni.Acteur;
@@ -19,7 +23,7 @@ public class Leclerc implements Acteur,IDistributeur{
 	private ArrayList<ITransformateur> transformateurs;
 	private ArrayList<Double> ratio;
 
-	
+
 	public Leclerc(String nom, Monde monde, double prixAchat) {
 		this.nom=nom;
 		this.prixAchat=prixAchat;		
@@ -28,9 +32,9 @@ public class Leclerc implements Acteur,IDistributeur{
 		this.stock.initialiseStock();
 		this.quantite = new ArrayList<Double>();
 		this.ratio = new ArrayList<Double>();
-    	Monde.LE_MONDE.ajouterIndicateur( this.achats );
-    	Monde.LE_MONDE.ajouterIndicateur( this.solde );
-    	this.transformateurs = new ArrayList<ITransformateur>();	
+		Monde.LE_MONDE.ajouterIndicateur( this.achats );
+		Monde.LE_MONDE.ajouterIndicateur( this.solde );
+		this.transformateurs = new ArrayList<ITransformateur>();	
 	}
 	public void ajouterVendeur(ITransformateur t) {
 		this.transformateurs.add(t);
@@ -112,10 +116,10 @@ public class Leclerc implements Acteur,IDistributeur{
 		} return x;
 	}
 	public void next() {
-	    setPrixAchat(15.0);
-	    Double[] ratio = {0.125, 0.036};
-	    setRatio(ratio);
-	    commande(Monde.LE_MONDE.getStep());
+		setPrixAchat(15.0);
+		Double[] ratio = {0.125, 0.036};
+		setRatio(ratio);
+		commande(Monde.LE_MONDE.getStep());
 		this.achats.setValeur(this,this.getQteTotal());
 		this.achats.setValeur(this,this.getQteTotal());
 		this.setPrixVente(20.0);
@@ -124,8 +128,23 @@ public class Leclerc implements Acteur,IDistributeur{
 			this.solde.setValeur(this, this.solde.getValeur()-q*this.getPrixAchat()); 
 		}
 		this.solde.setValeur(this, this.solde.getValeur()+this.getQteTotal()*this.getPrixVente());
-		 //solde(step n)=solde step(n-1)+quantite(step n)*prixvente
+		//solde(step n)=solde step(n-1)+quantite(step n)*prixvente
+	}
+
+	@Override
+	public List<CommandeDistri> Demande(HashMap<ITransformateur, Catalogue> d) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<CommandeDistri> ContreDemande(List<CommandeDistri> cd) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public double getPrix() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
 
-
-}
