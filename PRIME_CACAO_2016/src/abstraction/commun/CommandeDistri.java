@@ -9,7 +9,7 @@ package abstraction.commun;
 public class CommandeDistri {
 	private IDistributeur acheteur;
 	private ITransformateur vendeur;
-	private Produit produit; // Change A.Marty 19/05
+	private Produit produit;
 	private double quantite;
 	private double prixTonne;
 
@@ -23,8 +23,7 @@ public class CommandeDistri {
 	public Produit getProduit() {
 		return this.produit;
 	}
-
-	public void setProduit(Produit produit) { //Change string-->produit A.MARTY g2 19/05
+	public void setProduit(Produit produit) {
 		this.produit = produit;
 	}
 

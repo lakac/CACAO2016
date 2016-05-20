@@ -15,7 +15,7 @@ public class HistoriqueCommandeProduc {
 		return this.hist;
 	}
 
-	public CommandeProduc valeur(int i) {
+	public CommandeProduc commande(int i) {
 		return this.getHist().get(i);
 	}
 

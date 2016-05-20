@@ -120,7 +120,21 @@ public class Nestle implements Acteur, ITransformateur{
 		Banque banque=new Banque();
 		
 	}
-	
+
+	public double annonceQuantiteDemandee() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public double annoncePrix() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public void notificationVente(CommandeProduc c) {
+		// TODO Auto-generated method stub
+		
+	}
 	}
 		/*double qdd = 0;
 		for (IDistributeur d : this.getDistributeurs()) {

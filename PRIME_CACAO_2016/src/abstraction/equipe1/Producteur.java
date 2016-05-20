@@ -4,6 +4,7 @@ import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Journal;
 import abstraction.fourni.Monde;
+import abstraction.commun.CommandeProduc;
 import abstraction.commun.IProducteur;
 import abstraction.commun.ITransformateur;
 import abstraction.commun.Constantes;
@@ -72,6 +73,9 @@ public class Producteur implements Acteur, IProducteur {
 		this.setProductionCourante(Math.floor(this.getProductionDeBaseCourante()*this.getProductionAnnuelle()*(98+4*fluctuations.nextDouble()))/100.0);
 		this.stock.ajouterProd(this.getProductionCourante());
 		this.setTresorerie(this.getTresorerie()-this.getCoutProduction()*this.getProductionCourante());
+	}
+	
+	private void repartirQuantites() {
 		for (ITransformateur t : this.getTransformateurs()) {
 			this.quantitesProposees.put(t,this.getStock()*0.5);
 		}
@@ -148,12 +152,9 @@ public class Producteur implements Acteur, IProducteur {
 	 * Warning : il faut absolument que les transformateurs aient bien acces a la quantite reellement vendue...
 	 * Version prochaine : passer cette quantite en argument de ITransformateur.notificationVente ?
 	 */
-	private void vendre(ITransformateur t) {
-		double quantiteVendue = Math.min(t.annonceQuantiteDemandee(this), this.annonceQuantiteMiseEnVente(t));
-		
-		this.stock.retirerVente((Acteur)t, quantiteVendue);
-		this.setTresorerie(this.getTresorerie() + quantiteVendue*this.getPrixVente());
-		t.notificationVente(this);
+	public void notificationVente(CommandeProduc c) {
+		this.stock.retirerVente((Acteur)c.getAcheteur(), c.getQuantite());
+		this.setTresorerie(this.getTresorerie() + c.getQuantite()*c.getPrixTonne());
 	}
 	
 	/**
@@ -164,16 +165,8 @@ public class Producteur implements Acteur, IProducteur {
 	}
 	
 	public void next() {
-		// Partie 1 : Gestion des ventes
-		for (ITransformateur t : this.getTransformateurs()) {
-			this.vendre(t);
-		}
-		
-		// Partie 2 : Mise a jour de la quantite disponible a la vente (et plus tard du prix de vente) du prochain step
-		
 		this.produire();
+		this.repartirQuantites();
 		this.journal.ajouter("Production de "+this.getNom()+" = <font color=\"maroon\">"+this.getProductionCourante()+"</font> au <b>step</b> "+Monde.LE_MONDE.getStep());
-		
-		// Plus tard, on ajoutera des fluctuations dans le prix de vente ; pour l'instant il est a 3000 euros par tonne.
 	}
 }

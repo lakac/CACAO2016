@@ -17,10 +17,6 @@ public class Achat {
 		this.cacaoachete = Math.min(p.annonceQuantiteMiseEnVente(nestle), nestle.annonceQuantiteDemandee(p)*(Constante.ACHAT_SANS_PERTE+Constante.MARGE_DE_SECURITE));
 	}
 
-	public void setCacaoAchete(ITransformateur t, IProducteur p) {
-		this.cacaoachete = Math.min(p.annonceQuantiteMiseEnVente(t), t.annonceQuantiteDemandee(p));
-	}
-
 	public Historique getHistoriqueachats() {
 		return this.historiqueachats;
 	}
