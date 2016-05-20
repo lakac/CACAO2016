@@ -12,7 +12,6 @@ public interface ITransformateur {
 
 	public double annonceQuantiteDemandee(IProducteur p);
 
-	public CommandeProduc annonceQuantiteDemandeeV2(IProducteur p);
 
 	/**
 	 * Met à jour l'état interne de ce transformateur
@@ -28,7 +27,6 @@ public interface ITransformateur {
 	 * Indique la quantité demandée au marché du cacao.
 	 */
 	public double annonceQuantiteDemandee();
-	
 	/**
 	 * Indique le prix d'achat proposé pour ce transformateur. Fluctue donc logiquement autour du cours du marché du cacao.
 	 */

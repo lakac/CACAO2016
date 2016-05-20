@@ -106,11 +106,6 @@ public class Lindt implements Acteur, ITransformateur{
 	 * Cette methode est appelee par les producteurs.
 	 */
 	
-
-	public CommandeProduc annonceQuantiteDemandeeV2(IProducteur p) {
-		//return this.achatProd.annonceQuantiteDemandee(p, p.annonceQuantiteMiseEnVente(this));
-		return null;
-	}
 	
 	public double annonceQuantiteMiseEnVente(IDistributeur d){
 		return this.stockCacao.getStock();

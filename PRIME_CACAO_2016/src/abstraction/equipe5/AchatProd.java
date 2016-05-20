@@ -31,11 +31,7 @@ public class AchatProd {
 			quantiteEnVente += p.annonceQuantiteMiseEnVente(lindt);
 		}
 		if (besoinCacao <= quantiteEnVente){
-			for (CommandeDistri c : listeCommandesDist){
-				for (int i=0; i<lindt.getProducteurs().size(); i++){
-					
-				}
-			}
+			
 		}
 		
 		return 0.0;
@@ -45,14 +41,6 @@ public class AchatProd {
 	 * Indique la quantite demandee au producteur p.
 	 */
 	public double annonceQuantiteDemandee(IProducteur p,double annoncePrix, double annonceQuantiteMiseEnVente){ 
-//	 // le reste du monde est pris en compte manuellement dans le next
-//		double quantiteTotale = Constante.RATIO_CACAO_CHOCOLAT*hist.valeur(Constante.STEP_COURANT);
-//		if (p==MondeV1.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1)) {
-//			return (Math.min(0.3*quantiteTotale, annonceQuantiteMiseEnVente));
-//		}
-//		else {
-//			return (Math.min(0.3*quantiteTotale, annonceQuantiteMiseEnVente));
-//		}
 		return 0.0;
 	}
 }
