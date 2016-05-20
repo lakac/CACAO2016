@@ -50,33 +50,29 @@ public class Lindt implements Acteur, ITransformateur{
 		this.catalogue = new Catalogue();
 	}
 	
+	// Voil� tout les getters !
 	public HistoriqueCommandeDistri getHistCommandeDistri() {
 		return histCommandeDistri;
 	}
-
 	public HistoriqueCommandeProduc getHistCommandeProduc() {
 		return histCommandeProduc;
 	}
-	
 	public void ajouterProducteur(IProducteur p) {
 		this.producteurs.add(p);
 	}
-	
 	public void ajouterDistributeur(IDistributeur d) {
 		this.distributeurs.add(d);
 	}
-	
 	public ArrayList<IProducteur> getProducteurs() {
 		return this.producteurs;
 	}
-
 	public ArrayList<IDistributeur> getDistributeurs() {
 		return this.distributeurs;
 	}
-	
 	public String getNom() {
 		return Constantes.NOM_TRANSFORMATEUR_2;
 		}
+	
 
 	// Ne pas oublier d'acheter 30% de plus à cause des pertes!!!!!!
 	public void next() {
@@ -109,16 +105,7 @@ public class Lindt implements Acteur, ITransformateur{
 	 * 
 	 * Cette methode est appelee par les producteurs.
 	 */
-	public void notificationVente(IProducteur p){ // on travaille avec chaque producteur d'où le ratio de 0.3 à chaque fois
-		//stockCacao.ajouterStock(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT));
-		//stockCacao.retirerStock(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_2));
-		//treso.retrait(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT) * p.annoncePrix());
-	}
-
-	public CommandeProduc annonceQuantiteDemandeeV2(IProducteur p) {
-		//return this.achatProd.annonceQuantiteDemandee(p, p.annonceQuantiteMiseEnVente(this));
-		return null;
-	}
+	
 	
 	public double annonceQuantiteMiseEnVente(IDistributeur d){
 		return this.stockCacao.getStock();
@@ -139,6 +126,23 @@ public class Lindt implements Acteur, ITransformateur{
 		return null;
 	}
 
+
+	public double annonceQuantiteDemandee() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public double annoncePrix() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public void notificationVente(CommandeProduc c) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+
 	//public void arriveeCommandeProduc(IProducteur p) {
 		//CommandeProduc nouvelleCommandeProduc = new CommandeProduc(this, p, annonceQuantiteDemandee(p), MarcheProducteur.LE_MARCHE.getCours());
 		//this.getHistCommandeProduc().ajouter(nouvelleCommandeProduc);
@@ -148,7 +152,7 @@ public class Lindt implements Acteur, ITransformateur{
 		List<Plage> listePlage = new ArrayList<Plage>();
 		listePlage.add(new Plage(100, 150, 0.05));
 		listePlage.add(new Plage(151, 200, 0.07));
-		listePlage.add(new Plage(201, 600, 0.12));
+		listePlage.add(new Plage(201, 900, 0.12));
 		this.catalogue.add(new Produit("50%", 0.5), new Tarif(15000, listePlage));
 		this.catalogue.add(new Produit("60%", 0.6), new Tarif(20000, listePlage));
 		this.catalogue.add(new Produit("70%", 0.5), new Tarif(25000, listePlage));
@@ -156,11 +160,15 @@ public class Lindt implements Acteur, ITransformateur{
 	}
 	
 
-
+	// Ne plus coder celles la, elle va disparaitre!
 	public double annonceQuantiteDemandee(IProducteur p) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	public void notificationVente(IProducteur p){ // on travaille avec chaque producteur d'où le ratio de 0.3 à chaque fois
+		//stockCacao.ajouterStock(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT));
+		//stockCacao.retirerStock(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_2));
+		//treso.retrait(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT) * p.annoncePrix());
+	}
 
 }
