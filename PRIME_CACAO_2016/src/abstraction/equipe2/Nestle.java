@@ -142,6 +142,18 @@ public class Nestle implements Acteur, ITransformateur{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public Catalogue getCatalogue() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	/*double qdd = 0;
 =======
