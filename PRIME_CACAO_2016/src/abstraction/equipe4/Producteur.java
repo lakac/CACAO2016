@@ -95,4 +95,9 @@ public class Producteur implements Acteur,IProducteur {
 		this.journal.ajouter("Vente de " + quantite );
 	}
 
+	public void notificationVente(CommandeProduc c) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
