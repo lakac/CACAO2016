@@ -41,5 +41,9 @@ public class Banque {
 		this.banque++;
 	}
 	
+	public static double CoutIntermediaireUnitaire (Produit produit, Achat achat, Tarif tarif){
+		return Constante.CHARGES_FIXES + achat.getDernierecommandeachetee().getCommandesProd()
+				*(Constante.COUT_DE_TRANSFORMATION   /* + Cout d'achat */)// + cout stock;
+	}
 	
 }

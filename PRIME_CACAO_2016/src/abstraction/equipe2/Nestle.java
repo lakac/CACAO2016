@@ -114,10 +114,14 @@ public class Nestle implements Acteur, ITransformateur{
 		this.solde.setValeur(this, this.solde.getValeur()-p.annoncePrix()*commande);
 		//stock_cacao.ajoutCacao();
 	}
-	
 
 	public void next() {
+		StockCacao stockcacao= new StockCacao();
+		StockChocolats stockchocolat = new StockChocolats();
 		Banque banque=new Banque();
+		//setTarifproduit(Constante.PRODUIT_50, );
+		//setTarifproduit(Constante.PRODUIT_60, );
+		//setTarifproduit(Constante.PRODUIT_70, );
 		
 	}
 

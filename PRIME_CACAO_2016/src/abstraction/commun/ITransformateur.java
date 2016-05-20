@@ -7,6 +7,7 @@ public interface ITransformateur {
 	 * @deprecated Remplacé par {@link #annonceQuantiteDemandee()}.
 	 */
 	public double annonceQuantiteDemandee(IProducteur p);
+
 	
 	/**
 	 * Met à jour l'état interne de ce transformateur
