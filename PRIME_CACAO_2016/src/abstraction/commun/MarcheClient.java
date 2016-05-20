@@ -4,10 +4,18 @@ public class MarcheClient {
 	
 	private double demandeannuelle;
 	private double demandeperstep;
+	private ITransformateur transformateur;
+	private Produit nomproduit;
+	
 	
 	
 	public MarcheClient(int demandeannuelle) {
       	this.demandeannuelle = demandeannuelle;
+	}
+	
+	
+	public double getDemandeAnnuel() {
+		return this.demandeannuelle;
 	}
 	
 	
