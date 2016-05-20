@@ -77,13 +77,11 @@ public class Producteur implements Acteur,IProducteur{
 		this.getStock().gererLesStock();
 	}
 
-	
 	// retourne un double valant la quantité disponible 
 	// pour chaque transformateur a chaque step
 	public double annonceQuantiteMiseEnVente(ITransformateur t) {
 		return (this.getStock().getStockCacao().getValeur()/(13-Monde.LE_MONDE.getStep()%12));
 	}
-
 
 	//Modification du stock et de la tresorerie suite a une vente
 	public void venteRealisee(CommandeProduc c) {
