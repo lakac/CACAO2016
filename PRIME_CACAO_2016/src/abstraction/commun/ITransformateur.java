@@ -1,4 +1,4 @@
-package abstraction.commun;
+  package abstraction.commun;
 
 import java.util.List;
 
@@ -11,8 +11,6 @@ public interface ITransformateur {
 	 */
 
 	public double annonceQuantiteDemandee(IProducteur p);
-
-
 	/**
 	 * Met à jour l'état interne de ce transformateur
 	 * suite à une vente auprès du producteur p.
