@@ -34,16 +34,10 @@ public class Banque {
 	public void  MiseAJourBanque(Achat achatp1, Achat achatp2, Production production, 
 			StockCacao cacao, StockChocolats chocolats, Vente vented1, Vente vented2,
 			IProducteur p1, IProducteur p2, IDistributeur d1, IDistributeur d2) {
-		this.banque-=(achatp1.CoutAchat(p1, achatp1)+achatp2.CoutAchat(p2, achatp2));
 		this.banque-=production.CoutTransformation();
 		this.banque-=cacao.CoutStockCacao();
 		this.banque-=chocolats.CoutStockChocolat();
-		this.banque++;
-	}
-	
-	public static double CoutIntermediaireUnitaire (Produit produit, Achat achat, Tarif tarif){
-		return Constante.CHARGES_FIXES + achat.getDernierecommandeachetee().getCommandesProd()
-				*(Constante.COUT_DE_TRANSFORMATION   /* + Cout d'achat */)// + cout stock;
+		this.banque+=;
 	}
 	
 }
