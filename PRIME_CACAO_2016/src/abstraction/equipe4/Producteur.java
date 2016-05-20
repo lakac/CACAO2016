@@ -98,10 +98,10 @@ public class Producteur implements Acteur,IProducteur{
 
 
 	//Modification du stock et de la tresorerie suite a une vente
-	public void venteRealisee(double qtVendue,Acteur a,double prix) {
-		this.vente(qtVendue, prix);
-		this.getStock().reductionStock(qtVendue);
-		this.getJournal().ajouter("Vente de " + qtVendue+" auprès de " + a.getNom() + " au step numéro "+ Monde.LE_MONDE.getStep());
+	public void venteRealisee(CommandeProduc c) {
+		this.vente(c.getQuantite(), c.getPrixTonne());
+		this.getStock().reductionStock(c.getQuantite());
+		this.getJournal().ajouter("Vente de " + c.getQuantite()+" auprès de " + ((Acteur)c.getAcheteur()).getNom() + " au step numéro "+ Monde.LE_MONDE.getStep());
 	}
 
 	// ajout de le somme récolté à la trésorerie après une vente
@@ -110,7 +110,7 @@ public class Producteur implements Acteur,IProducteur{
 	}
 
 	public void notificationVente(CommandeProduc c) {
-		this.venteRealisee(c.getQuantite(), (Acteur)c.getAcheteur(), c.getPrixTonne());
+		this.venteRealisee(c);
 
 	}
 
