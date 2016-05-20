@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import abstraction.commun.Catalogue;
+import abstraction.commun.CommandeDistri;
 import abstraction.commun.IDistributeur;
 import abstraction.commun.ITransformateur;
 import abstraction.commun.MondeV1;
@@ -111,5 +112,23 @@ public class Carrefour implements Acteur,IDistributeur {
 		// Solde = Solde precedent + Ventes - Achats - Frais de Distribution
 	}
 	*/
+
+
+
+
+	@Override
+	public List<CommandeDistri> Demande(HashMap<ITransformateur, Catalogue> d) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+
+	@Override
+	public List<CommandeDistri> ContreDemande(List<CommandeDistri> cd) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
