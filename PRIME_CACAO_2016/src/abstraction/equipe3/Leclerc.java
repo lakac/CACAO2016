@@ -111,7 +111,7 @@ public class Leclerc implements Acteur,IDistributeur{
 		this.prixvente=20.0;
 		for (ITransformateur t : this.transformateurs) {
 			double q = this.getDemande(t);
-			this.solde.setValeur(this, this.solde.getValeur()+q*this.getPrix()); //on achète au transformateur donc il reçoit de l'argent
+			this.solde.setValeur(this, this.solde.getValeur()+q*this.getPrix()); //on achï¿½te au transformateur donc il reï¿½oit de l'argent
 		}
 		this.achats.setValeur(this,quantite);
 		this.solde.setValeur(this, this.solde.getValeur()-quantite*this.getPrix()+quantite*this.getPrixvente()); //solde(step n)=solde step(n-1)+quantite(step n)*prixvente - quantite(step n)*prix
@@ -128,6 +128,11 @@ public class Leclerc implements Acteur,IDistributeur{
 	}
 	@Override
 	public List<CommandeDistri> LivraisonEffective(List<CommandeDistri> liste) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
 		// TODO Auto-generated method stub
 		return null;
 	}
