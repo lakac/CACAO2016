@@ -5,6 +5,8 @@ import abstraction.commun.Constantes;
 import abstraction.commun.IProducteur;
 import abstraction.fourni.Indicateur;
 import abstraction.equipe5.Lindt;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import abstraction.commun.MarcheProducteur;
 
@@ -12,15 +14,15 @@ public class Tresorerie {
 	private HistoriqueCommandeDistri histDistri;
 	private HistoriqueCommandeProduc histProduc;
 	private Indicateur treso;	
-	private IProducteur P1;
-	private IProducteur P2;
+	private ArrayList<IProducteur> P;
 	private Lindt lindt;
 
-	public Tresorerie(HistoriqueCommandeDistri histDistri, HistoriqueCommandeProduc histProduc, Lindt lindt){
+	public Tresorerie(HistoriqueCommandeDistri histDistri, HistoriqueCommandeProduc histProduc, Lindt lindt, ArrayList<IProducteur> P){
 		this.histDistri = histDistri;
 		this.histProduc = histProduc;
 		this.lindt = lindt;
-		this.treso = new Indicateur("Trésorerie Lindt", lindt, 100000);
+		this.P=P;
+		this.treso = new Indicateur("Tresorerie Lindt", lindt, 100000);
 		Monde.LE_MONDE.ajouterIndicateur(this.treso);
 	}
 	
@@ -45,10 +47,10 @@ public class Tresorerie {
 	}
 
 	// ATTENTION changer commande(-3).getQuantite avec l'intermédiaire car le 3eme producteur ne passe pas de commande
-	// vérifier l'ordre P1,P2 et des commandes
+	// verifier l'ordre P1,P2 et des commandes
 	public double coutRevient() {
-		P1 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1);
-		P2 = (IProducteur)Monde.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2);
+		IProducteur P1 = this.P[0];
+		IProducteur P2 = this.P[1];
 		int chargesFixes = 900980; // salaires+impots
 		double quantiteDemandeeP1= this.histProduc.commande(-1).getQuantite();
 		double quantiteDemandeeP2= this.histProduc.commande(-2).getQuantite();

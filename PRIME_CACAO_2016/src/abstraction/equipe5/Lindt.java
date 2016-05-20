@@ -44,7 +44,7 @@ public class Lindt implements Acteur, ITransformateur{
 		this.stockChocolat50 = new Stock(Constante.listeProduit[0].getNomProduit(),this,0.0);
 		this.stockChocolat60 = new Stock(Constante.listeProduit[1].getNomProduit(),this,0.0);
 		this.stockChocolat70 = new Stock(Constante.listeProduit[2].getNomProduit(),this,0.0);
-		this.treso = new Tresorerie(this.histCommandeDistri, this.histCommandeProduc, this);
+		this.treso = new Tresorerie(this.histCommandeDistri, this.histCommandeProduc, this, this.getProducteurs());
 		this.producteurs = new ArrayList<IProducteur>();
 		this.distributeurs = new ArrayList<IDistributeur>();
 		this.achatProd = new AchatProd(this.histCommandeProduc, this);	
@@ -111,7 +111,7 @@ public class Lindt implements Acteur, ITransformateur{
 		//treso.retrait(18*(this.stockChocolat.getStock() + this.stockCacao.getStock())); //cout de stock (18€ la tonne/step)
 		//treso.retrait(0.01*(5000*quantiteDemandeeP1+9000*quantiteDemandeeP2+5000*quantiteDemandeeP3)); //cout de livraison côté producteur (0,01€/km et P1 à 5000km et P2 à 9000km)
 	}
-
+	//TODO Fonctions a finir!!
 	/**
 	 * Met a jour l'etat interne de ce transformateur
 	 * suite a une vente aupres du producteur p.
@@ -121,7 +121,7 @@ public class Lindt implements Acteur, ITransformateur{
 	
 	
 	public double annonceQuantiteMiseEnVente(IDistributeur d){
-		return this.stockCacao.getStock();
+		return this.stockCacao.getStock(); // Euh.. on leur donne notre quantite de Cacao? 
 	}
 	
 	public void arriveeCommandeDistri(IDistributeur d) {
@@ -138,15 +138,6 @@ public class Lindt implements Acteur, ITransformateur{
 		return null;
 	}
 
-
-	public double annonceQuantiteDemandee() {
-		return this.achatProd.annonceQuantiteDemandee();
-	}
-
-	public double annoncePrix() {
-		return this.achatProd.getPrix();
-	}
-
 	public void notificationVente(CommandeProduc c) {
 		// TODO Auto-generated method stub
 		
@@ -157,7 +148,13 @@ public class Lindt implements Acteur, ITransformateur{
 		//CommandeProduc nouvelleCommandeProduc = new CommandeProduc(this, p, annonceQuantiteDemandee(p), MarcheProducteur.LE_MARCHE.getCours());
 		//this.getHistCommandeProduc().ajouter(nouvelleCommandeProduc);
 	//}
-	
+	public double annonceQuantiteDemandee() {
+		return this.achatProd.annonceQuantiteDemandee();
+	}
+
+	public double annoncePrix() {
+		return this.achatProd.getPrix();
+	}
 	public Catalogue getCatalogue() {
 		List<Plage> listePlage = new ArrayList<Plage>();
 		listePlage.add(new Plage(100, 150, 0.05));
