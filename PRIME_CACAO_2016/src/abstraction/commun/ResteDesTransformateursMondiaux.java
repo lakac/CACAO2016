@@ -83,7 +83,7 @@ public class ResteDesTransformateursMondiaux implements Acteur, ITransformateur 
 
 	@Override
 	public void notificationVente(IProducteur p) {
-		// On ne simule aucun état concernant le reste du monde		
+		// On ne simule aucun état concernant le reste du monde	
 	}
 
 	@Override
