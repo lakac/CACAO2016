@@ -46,14 +46,17 @@ public class IntelligenceEconomique {
 	}
 	
 	private void actualiserImportanceTransformateurs() {
-		double beneficeTotal = 0;
+		double totalDemandes = 0.0;
 		for (ITransformateur t : this.transformateurs) {
-			beneficeTotal += t.annoncePrix()*t.annonceQuantiteDemandee();
+			totalDemandes += t.annoncePrix()*t.annonceQuantiteDemandee();
 		}
 		
-		for (ITransformateur t : this.transformateurs) {
-			double valeur = this.importanceTransformateurs.get(t)*0.8 + t.annoncePrix()*t.annonceQuantiteDemandee()*0.2/beneficeTotal;
-			this.importanceTransformateurs.put(t, valeur);
+		if(totalDemandes != 0.0) {
+			for (ITransformateur t : this.transformateurs) {
+				double valeur = t.annoncePrix()*t.annonceQuantiteDemandee()/totalDemandes;
+				double valeurAmortie = this.importanceTransformateurs.get(t)*0.8 + valeur*0.2;
+				this.importanceTransformateurs.put(t, valeurAmortie);
+			}
 		}
 	}
 	
