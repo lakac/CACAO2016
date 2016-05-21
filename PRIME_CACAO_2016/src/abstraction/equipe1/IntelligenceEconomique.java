@@ -21,7 +21,7 @@ public class IntelligenceEconomique {
 		this.quantitesMisesEnVente = new HashMap<ITransformateur,Double>();
 		
 		for (ITransformateur tr : this.transformateurs) {
-			this.importanceTransformateurs.put(tr, 0.0);
+			this.importanceTransformateurs.put(tr, 1.0/this.transformateurs.size());
 			this.quantitesMisesEnVente.put(tr, 0.0);
 		}
 	}
@@ -61,14 +61,9 @@ public class IntelligenceEconomique {
 	}
 	
 	private void actualiserQuantitesMisesEnVente() {
-		double importance = 0.0;
-		for (ITransformateur t : this.transformateurs) {
-			importance += this.importanceTransformateurs.get(t);
-		}
-		
 		double offreTotale = calculerOffreTotale();
 		for (ITransformateur t : this.transformateurs) {
-			double valeur = offreTotale*this.importanceTransformateurs.get(t)/importance;
+			double valeur = offreTotale*this.importanceTransformateurs.get(t);
 			this.quantitesMisesEnVente.put(t, valeur);
 		}
 	}
