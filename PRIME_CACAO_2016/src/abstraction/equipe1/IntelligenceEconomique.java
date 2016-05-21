@@ -15,7 +15,7 @@ public class IntelligenceEconomique {
 	private double offreTotale;
 	private HashMap<ITransformateur,Double> quantitesMisesEnVente;
 	
-	private final double[] coeffPerissabilite = {0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0};
+	private final double[] coeffPerissabilite = {1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1};
 	
 	public IntelligenceEconomique(List<ITransformateur> t, Stock s) {
 		this.transformateurs = t;
