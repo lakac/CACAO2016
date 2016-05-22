@@ -51,4 +51,7 @@ public interface ITransformateur {
 
 	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> list);
 
+
+	List<CommandeDistri> Offre(List<CommandeDistri> o);
+
 }
