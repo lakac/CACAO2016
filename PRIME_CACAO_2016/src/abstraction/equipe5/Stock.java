@@ -24,7 +24,6 @@ public class Stock {
 		this.stock.setValeur(this.lindt, stock); 
 	}
 	
-	
 	public void ajouterStock(double d) {
 		double perte=(20+10*Math.random())/100;
 		this.setStock(this.getStock()+d*this.getStock()*perte);
@@ -34,16 +33,16 @@ public class Stock {
 		return Constante.listeProduit[i];
 	}
 
-	// Variation du stock en fonction du chocolat command�
-	public void retirerStock(Produit p, double quantite){
+	// Variation du stock en fonction du chocolat commandé
+	public void retirerStock(Produit p, double quantite){		
 		int i=0;
 		for (Produit h:Constante.listeProduit){	
 			if (p.equals(h)){
 				if (this.getStock()-quantite*Constante.RATIO_CACAO_CHOCOLAT[i] >= 0) {
 					this.setStock(this.getStock()-quantite*Constante.RATIO_CACAO_CHOCOLAT[i]);
-						}}
+				}}
 			i++;
 		}}
-	
+
 
 }
