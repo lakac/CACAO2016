@@ -1,7 +1,11 @@
 package abstraction.equipe6;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
+import abstraction.commun.Catalogue;
+import abstraction.commun.CommandeDistri;
 import abstraction.commun.IDistributeur;
 import abstraction.commun.ITransformateur;
 import abstraction.commun.MondeV1;
@@ -39,7 +43,7 @@ public class Carrefour implements Acteur,IDistributeur {
 	
 	
 	
-	// Fixe la demande selon la période de l'année.
+	// Fixe la demande selon la pï¿½riode de l'annï¿½e.
 	
 	public void  setdemandePerStep (int step ){
 		if (step%26 == 6 ) {
@@ -53,7 +57,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		}
 	}
 	
-	// Réglage des frais de distribution choisi arbitrairement de 2% de la demande du step en cours
+	// Rï¿½glage des frais de distribution choisi arbitrairement de 2% de la demande du step en cours
 	
 	public void setFraisdeDistri() {
 		this.fraisdedistri = 0.02*this.demandeperstep*this.prixvente;
@@ -63,7 +67,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		this.transformateurs.add(t);
 	}
 	
-	// Réglage de la quantité à acheter en fonction du transformateur (12.5% Nestlé, 3.6% Lindt et 83.9% Others)
+	// Rï¿½glage de la quantitï¿½ ï¿½ acheter en fonction du transformateur (12.5% Nestlï¿½, 3.6% Lindt et 83.9% Others)
 	
 	public double getPrix() {
 		return this.prixachat;
@@ -101,7 +105,43 @@ public class Carrefour implements Acteur,IDistributeur {
 		this.solde.setValeur(this,this.solde.getValeur()+this.demandeperstep*this.prixvente
 										-this.fraisdedistri); 
 		
-		// Solde = Solde précédent + Ventes - Achats - Frais de Distribution
+		// Solde = Solde prï¿½cï¿½dent + Ventes - Achats - Frais de Distribution
+	}
+
+
+
+
+	@Override
+	public List<CommandeDistri> Demande(HashMap<ITransformateur, Catalogue> d) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+
+	@Override
+	public List<CommandeDistri> ContreDemande(List<CommandeDistri> cd) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+
+	@Override
+	public List<CommandeDistri> LivraisonEffective(List<CommandeDistri> liste) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+
+	@Override
+	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

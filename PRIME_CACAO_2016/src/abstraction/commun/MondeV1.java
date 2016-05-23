@@ -29,7 +29,7 @@ public class MondeV1 extends Monde {
 		this.ajouterActeur(Ca);
 		
 		// Transformateurs
-		Transformateur2 t1 = new Transformateur2(this);
+		Nestle t1 = new Nestle(this);
 		this.ajouterActeur(t1);
 		Lindt lindt = new Lindt();
 		ajouterActeur(lindt);
@@ -59,6 +59,7 @@ public class MondeV1 extends Monde {
 		
 		p1.ajouterTransformateur(t1);
 		p1.ajouterTransformateur(lindt);
+		p1.creerIntelligenceEconomique();
 		
 		marcheProducteur.ajouterProducteur(p1);
 		marcheProducteur.ajouterProducteur(p2);
