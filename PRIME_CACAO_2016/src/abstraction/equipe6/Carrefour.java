@@ -154,8 +154,7 @@ public class Carrefour implements Acteur,IDistributeur {
 
 
 
-<<<<<<< HEAD
-=======
+
 	@Override
 	public List<CommandeDistri> Demande(HashMap<ITransformateur, Catalogue> d) {
 		// TODO Auto-generated method stub
@@ -187,7 +186,6 @@ public class Carrefour implements Acteur,IDistributeur {
 	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
 		// TODO Auto-generated method stub
 		return null;
+	
 	}
-
 }
->>>>>>> refs/remotes/choose_remote_name/master

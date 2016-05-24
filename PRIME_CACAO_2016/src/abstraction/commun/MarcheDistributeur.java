@@ -65,7 +65,7 @@ public class MarcheDistributeur implements Acteur {
 
 
 	public String getNom() {
-		return "marché du chocolat";
+		return "marchï¿½ du chocolat";
 	}
 
 	public boolean distriValide( List<CommandeDistri> cd) {
@@ -124,7 +124,7 @@ public class MarcheDistributeur implements Acteur {
 
 	public void next() {
 
-		// Discussions concernant les livraisons à venir.
+		// Discussions concernant les livraisons ï¿½ venir.
 
 		HashMap<IDistributeur, List<CommandeDistri> > NegoDistri = new HashMap<IDistributeur, List<CommandeDistri>>();
 		HashMap<ITransformateur, List<CommandeDistri> > NegoTransfo = new HashMap<ITransformateur, List<CommandeDistri>>();
@@ -154,7 +154,7 @@ public class MarcheDistributeur implements Acteur {
 				this.addCommandeToHistorique(NegoTransfo.get(t));
 			}
 			for (IDistributeur d2 : this.getLesDitris()) {
-				d2.commandeFinale(NegoDistri.get(d2));
+				d2.CommandeFinale(NegoDistri.get(d2));
 			}
 
 
