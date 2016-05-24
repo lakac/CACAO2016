@@ -16,6 +16,10 @@ public class Nestle implements Acteur, ITransformateur{
 	private Indicateur ventes;
 	private Indicateur solde;
 	
+	private StockCacao cacao;
+	private StockChocolats chocolats;
+	private Production production;
+	
 	public Nestle(Monde monde) {
 		this.nom = Constantes.NOM_TRANSFORMATEUR_1;
 		this.achats = new Indicateur("Achats de "+this.nom, this, 0.0);
@@ -25,13 +29,18 @@ public class Nestle implements Acteur, ITransformateur{
 		Monde.LE_MONDE.ajouterIndicateur( this.ventes );
 		Monde.LE_MONDE.ajouterIndicateur( this.solde );		
 	}
+
+	public StockCacao getStockcac() {
+		return cacao;
+	}
+
+	public StockChocolats getStockchoc() {
+		return chocolats;
+	}
 	
-	/*public static final Stock stock_cacao=new Stock();
-	public static final Stock stock_chocolat=new Stock();
-	public static final Banque tresorerie=new Banque();
-	public static final CommandesDis commandes = new CommandesDis();
-	public static final CommandeProd commandes = new CommandeProd();*/
-	
+	public Production getProd() {
+		return production;
+	}
 
 	public String getNom() {
 		return "Producteur "+this.nom;
@@ -98,11 +107,35 @@ public class Nestle implements Acteur, ITransformateur{
 		this.solde.setValeur(this, this.solde.getValeur()-p.annoncePrix()*commande);
 		//stock_cacao.ajoutCacao();
 	}
-	
-	
 
 	public void next() {
-		}
+		// Initialisation
+		StockCacao stockcacao= new StockCacao();
+		StockChocolats stockchocolat = new StockChocolats();
+		Banque banque=new Banque();
+		List<Plage> listplageproduit = new ArrayList<Plage>();
+		Plage plage1= new Plage(0,200,0);
+		Plage plage2= new Plage(200.1,500,0.03);
+		Plage plage3= new Plage(500.1,1000,0.07);
+		Plage plage4= new Plage(1000.1,0.10);
+		listplageproduit.add(plage1);
+		listplageproduit.add(plage2);
+		listplageproduit.add(plage3);
+		listplageproduit.add(plage4);
+		this.production = new Production();
+		PlageInterne plageinterne = new PlageInterne();
+		plageinterne.setTarifproduit(Constante.PRODUIT_50,listplageproduit);
+		plageinterne.setTarifproduit(Constante.PRODUIT_60,listplageproduit);
+		plageinterne.setTarifproduit(Constante.PRODUIT_70,listplageproduit);
+		Tarif tarifproduit1 = new Tarif(this.getProd().PrixdeventeDeBase(Constante.PRODUIT_50),listplageproduit);
+		Tarif tarifproduit2 = new Tarif(this.getProd().PrixdeventeDeBase(Constante.PRODUIT_60),listplageproduit);
+		Tarif tarifproduit3 = new Tarif(this.getProd().PrixdeventeDeBase(Constante.PRODUIT_70),listplageproduit);
+		CatalogueInterne catalogueinterne = new CatalogueInterne();
+		catalogueinterne.setCatalogueinterne(tarifproduit1, tarifproduit2, tarifproduit3);
+		
+		// A faire � chaque step
+
+	}
 
 	public double annonceQuantiteDemandee() {
 		// TODO Auto-generated method stub
@@ -118,6 +151,27 @@ public class Nestle implements Acteur, ITransformateur{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public Catalogue getCatalogue() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/*double qdd = 0;
+=======
 
 
 	@Override
@@ -151,6 +205,7 @@ public class Nestle implements Acteur, ITransformateur{
 	}
 	}
 		/*double qdd = 0;
+>>>>>>> refs/remotes/choose_remote_name/master
 		for (IDistributeur d : this.getDistributeurs()) {
 		qdd += d.getDemande(this);
 		}
@@ -169,5 +224,6 @@ public class Nestle implements Acteur, ITransformateur{
 	}		
 	
 }*/
+}
 
 

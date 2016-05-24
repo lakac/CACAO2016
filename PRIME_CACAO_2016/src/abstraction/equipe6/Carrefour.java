@@ -46,7 +46,11 @@ public class Carrefour implements Acteur,IDistributeur {
 
 	
 	
-	public void setdemandePerStep (int step ){
+
+	// Fixe la demande selon la p�riode de l'ann�e.
+	
+	public void  setdemandePerStep (int step ){
+
 		if (step%26 == 6 ) {
 			this.demandeperstep = (0.06*(1+(Math.random()-0.5)*0.2))*this.getDemandeAnnuel();
 		}
@@ -58,15 +62,16 @@ public class Carrefour implements Acteur,IDistributeur {
 		}
 	}
 	
+
 	// Reglage des frais de distribution choisi arbitrairement de 2% de la demande du step en cours
-	
 
 	public void ajouterVendeur(ITransformateur t) {
 		this.transformateurs.add(t);
 	}
 	
+
 	// Reglage de la quantite a acheter en fonction du transformateur (12.5% Nestle, 3.6% Lindt et 83.9% Others)
-	
+
 	public double getPrix() {
 		return this.prixachat;
 	}
@@ -124,7 +129,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		
 	}
 	
-}
+
 	
 	/*public void next() {
 		setdemandePerStep( MondeV1.LE_MONDE.getStep());
@@ -137,11 +142,52 @@ public class Carrefour implements Acteur,IDistributeur {
 		this.solde.setValeur(this,this.solde.getValeur()+this.demandeperstep*this.prixvente
 										-this.fraisdedistri); 
 		
+<<<<<<< HEAD
 		
 		// Solde = Solde precedent + Ventes - Achats - Frais de Distribution
+=======
+		// Solde = Solde pr�c�dent + Ventes - Achats - Frais de Distribution
+>>>>>>> refs/remotes/choose_remote_name/master
 	}
 	*/
 
 
 
 
+<<<<<<< HEAD
+=======
+	@Override
+	public List<CommandeDistri> Demande(HashMap<ITransformateur, Catalogue> d) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+
+	@Override
+	public List<CommandeDistri> ContreDemande(List<CommandeDistri> cd) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+
+	@Override
+	public List<CommandeDistri> LivraisonEffective(List<CommandeDistri> liste) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+
+	@Override
+	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
+>>>>>>> refs/remotes/choose_remote_name/master

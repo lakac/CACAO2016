@@ -1,33 +1,57 @@
 package abstraction.equipe2;
-
-import abstraction.fourni.Historique;
+import java.util.HashMap;
+import abstraction.commun.*;
+import abstraction.fourni.*;
 
 public class Vente {
-	private CommandeDis dernierecommandevendue;
-	private Historique historiqueventes;
+	private HashMap<Produit, Double> quantitevendue;
+	private Historique historiquedesventesproduit50;
+	private Historique historiquedesventesproduit60;
+	private Historique historiquedesventesproduit70;
+	
+	private HashMap<IProducteur,Double> prixdevente;
+	
+	public void addProduit(Produit p) {
+		this.quantitevendue.put(p, 0.0);
+	}
 	
 	public Vente() {
-		this.dernierecommandevendue = new CommandeDis(0.0);
-		this.historiqueventes = new Historique();
+		this.quantitevendue = new HashMap<Produit, Double>();
+		this.historiquedesventesproduit50 = new Historique();
+		this.historiquedesventesproduit60 = new Historique();
+		this.historiquedesventesproduit70 = new Historique();
 	}
 	
-	public void setDernierecommandevendue(CommandeDis dernierecommandevendue) {
-		this.dernierecommandevendue = dernierecommandevendue;
+	public HashMap<IProducteur, Double> getPrixdevente() {
+		return prixdevente;
+	}	
+	
+	
+	public HashMap<Produit, Double> getVentes() {
+		return this.quantitevendue;
 	}
 
-	public CommandeDis getDernierecommandevendue() {
-		return dernierecommandevendue;
+
+	public void setquantitevendue(Nestle t, IDistributeur d, Produit p) {
+		//this.quantitevendue.put(p, Math.min(d t.getStockchoc().getStockschocolats().get(p)+t.getProd().getProduction().get(p)));
 	}
 	
-	public Historique getHistoriqueventes() {
-		return historiqueventes;
+	
+	public void MiseAJourHistorique50(Nestle nestle, int etape) {
+		this.historiquedesventesproduit50.ajouter(nestle, etape, this.quantitevendue.get(50));
+	}
+		
+	public void MiseAJourHistorique60(Nestle nestle, int etape) {
+		this.historiquedesventesproduit60.ajouter(nestle, etape, this.quantitevendue.get(60));
+	}
+			
+	public void MiseAJourHistorique70(Nestle nestle, int etape) {
+		this.historiquedesventesproduit70.ajouter(nestle, etape, this.quantitevendue.get(70));
 	}
 	
-	//public void MiseAJourHistorique(int etape) {
-	//	this.historiqueventes.ajouter(Nestle, etape, this.dernierecommandevendue);
-	//}
-	//Ne connaît pas encore Nestlé
-	
-	
+	public double Prixdevente(Production prod, Produit p, PlageInterne plage, double quantite) {
+		Tarif tarif = new Tarif(prod.PrixdeventeDeBase (p), plage.getTarifproduit().get(p));
+		return tarif.prixDeVente(quantite);
+	}
 
 }

@@ -86,6 +86,9 @@ public class Stock {
 		}
 		res += this.stockParStep.peekLast() +"]";
 		return res;
-	}	
+	}
+	
+	public double getStockParStep(int i) {
+		return this.stockParStep.get(i);
+	}
 }
-
