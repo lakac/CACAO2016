@@ -42,7 +42,7 @@ public class VenteDist {
 		for (int i=0; i<3 ; i++){
 			double quantiteProduit=0.0;
 			for (CommandeDistri c : listeCommandesDist ){
-				if (Constante.listeProduit[i].getNomProduit()==c.getProduit().getNomProduit()) {
+				if (Constante.LISTE_PRODUIT[i].getNomProduit()==c.getProduit().getNomProduit()) {
 					quantiteProduit += c.getQuantite();
 				}
 			}
@@ -64,7 +64,7 @@ public class VenteDist {
 			else{
 				double quantiteRepartie=lindt.getStocksChocolat().get(i).getStock()/lindt.getDistributeurs().size()+1; //Répartition équitable, donc si 3 dist, on divise la quantité totale par 3)
 				for (CommandeDistri c : listeCommandesDist){
-					if(c.getProduit().getNomProduit()==Constante.listeProduit[i].getNomProduit()){
+					if(c.getProduit().getNomProduit()==Constante.LISTE_PRODUIT[i].getNomProduit()){
 						c.setQuantite(quantiteRepartie);
 					}
 				}

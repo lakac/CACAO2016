@@ -30,13 +30,13 @@ public class Stock {
 	}
 	
 		public Produit getProduit(int i) {
-		return Constante.listeProduit[i];
+		return Constante.LISTE_PRODUIT[i];
 	}
 
 	// Variation du stock en fonction du chocolat commandé
 	public void retirerStock(Produit p, double quantite){		
 		int i=0;
-		for (Produit h:Constante.listeProduit){	
+		for (Produit h:Constante.LISTE_PRODUIT){	
 			if (p.equals(h)){
 				if (this.getStock()-quantite*Constante.RATIO_CACAO_CHOCOLAT[i] >= 0) {
 					this.setStock(this.getStock()-quantite*Constante.RATIO_CACAO_CHOCOLAT[i]);
