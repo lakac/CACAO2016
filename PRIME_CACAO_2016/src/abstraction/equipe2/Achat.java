@@ -28,7 +28,7 @@ public class Achat {
 		this.historiqueachats = new Historique();
 	}
 	
-	public static double CoutAchat() {
+	public double CoutAchat() {
 		return MarcheProducteur.LE_MARCHE.getCours();
 	}
 	
