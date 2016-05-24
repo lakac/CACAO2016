@@ -26,6 +26,10 @@ public class Nestle implements Acteur, ITransformateur{
 	private Production production;
 	private Banque banque;
 	
+	private ArrayList<IDistributeur> clients;
+	private ArrayList<IProducteur> fournisseurs;
+	
+	
 	public Nestle(Monde monde) {
 		this.nom = Constantes.NOM_TRANSFORMATEUR_1;
 		this.historiqueachats = new Indicateur("Achats de "+this.nom, this, 0.0);
@@ -103,7 +107,9 @@ public class Nestle implements Acteur, ITransformateur{
 		CatalogueInterne catalogueinterne = new CatalogueInterne();
 		catalogueinterne.setCatalogueinterne(tarifproduit1, tarifproduit2, tarifproduit3);
 		
-		// A faire � chaque step
+		this.getCatalogue();
+		//demande distrib
+		this.Offre()
 
 	}
 

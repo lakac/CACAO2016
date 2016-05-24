@@ -70,6 +70,11 @@ public class Indicateur extends Observable {
 	public double getValeur() {
 		return this.historique.getValeur();
 	}
+	
+	// ajout d'un setter d'historique
+	public void setHistorique(Historique historique) {
+		this.historique = historique;
+	}
 	/**
 	 * Affecte la valeur valeur a l'indicateur en precisant
 	 * que c'est auteur qui est a l'origine de ce changement.
@@ -82,4 +87,5 @@ public class Indicateur extends Observable {
 		this.setChanged();
 		this.notifyObservers("setValeur");
 	}
+	
 }

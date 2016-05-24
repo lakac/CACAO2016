@@ -24,9 +24,10 @@ public class Banque {
 		return banque;
 	}
 	
-	
-	
-	
+	public Historique getTresorerie() {
+		return tresorerie;
+	}
+
 	public double CoutsFixes() {
 		return Constante.CHARGES_FIXES;
 	}
