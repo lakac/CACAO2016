@@ -31,13 +31,18 @@ public class Banque {
 		return Constante.CHARGES_FIXES;
 	}
 	
-	public void  MiseAJourBanque(Achat achatp1, Achat achatp2, Production production, 
+	public void  MiseAJourBanque(Nestle nestle, Achat achatp1, Achat achatp2, Production production, 
 			StockCacao cacao, StockChocolats chocolats, Vente vented1, Vente vented2,
-			IProducteur p1, IProducteur p2, IDistributeur d1, IDistributeur d2) {
-		//this.banque-=production.CoutTransformation();
+			PlageInterne plage) {
+		this.banque-=achatp1.getCacaoachete()*nestle.annoncePrix();
+		this.banque-=achatp2.getCacaoachete()*nestle.annoncePrix();	
+		this.banque-=production.CoutTransformationGlobal();
 		this.banque-=cacao.CoutStockCacao();
 		this.banque-=chocolats.CoutStockChocolat();
-		//this.banque+=;
+		this.banque+= vented1.TotalVentes(production, plage);
+		this.banque+=vented2.TotalVentes(production, plage);
 	}
+	
+	
 	
 }

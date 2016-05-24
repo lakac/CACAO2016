@@ -32,8 +32,8 @@ public class Vente {
 	}
 
 
-	public void setquantitevendue(Nestle t, IDistributeur d, Produit p) {
-		//this.quantitevendue.put(p, Math.min(d t.getStockchoc().getStockschocolats().get(p)+t.getProd().getProduction().get(p)));
+	public void setquantitevendue(Nestle nestle, CommandeDistri d, Produit p) {
+		this.quantitevendue.put(p, Math.min(d.getQuantite(), nestle.getStockchoc().getStockschocolats().get(p)+nestle.getProd().getProduction().get(p)));
 	}
 	
 	
@@ -50,8 +50,16 @@ public class Vente {
 	}
 	
 	public double Prixdevente(Production prod, Produit p, PlageInterne plage, double quantite) {
-		Tarif tarif = new Tarif(prod.PrixdeventeDeBase (p), plage.getTarifproduit().get(p));
+		Tarif tarif = new Tarif(prod.PrixdeventeDeBase(p), plage.getTarifproduit().get(p));
 		return tarif.prixDeVente(quantite);
+	}
+	
+	public double TotalVentes(Production prod, PlageInterne plage) {
+		double total = 0.0;
+		for (Produit p : this.getVentes().keySet()) {
+			total+=this.Prixdevente(prod, p, plage, this.getPrixdevente().get(p));
+		}
+		return total;
 	}
 
 }

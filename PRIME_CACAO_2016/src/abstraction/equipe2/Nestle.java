@@ -4,15 +4,23 @@ import abstraction.fourni.*;
 import abstraction.commun.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Nestle implements Acteur, ITransformateur{
 	
 	private String nom;
-	private Indicateur achats;
-	private Indicateur ventes;
-	private Indicateur solde;
+	private Indicateur historiqueachats;
+	private Indicateur historiqueventes;
+	private Indicateur balance;
+
+	private HashMap<IDistributeur,List<CommandeDistri>> commandesdistri;
+	private List<CommandeProduc> commandeproduc;
 	
+	private CatalogueInterne catalogue;
+	
+	private HashMap<IProducteur, Achat> achats;
+	private HashMap<IDistributeur, Vente> ventes;
 	private StockCacao stockcacao;
 	private StockChocolats stockchocolats;
 	private Production production;
@@ -20,12 +28,12 @@ public class Nestle implements Acteur, ITransformateur{
 	
 	public Nestle(Monde monde) {
 		this.nom = Constantes.NOM_TRANSFORMATEUR_1;
-		this.achats = new Indicateur("Achats de "+this.nom, this, 0.0);
-		this.ventes = new Indicateur("Ventes de "+this.nom, this, 0.0);
-		this.solde = new Indicateur("Solde de "+this.nom, this, 10000000.0);
-		Monde.LE_MONDE.ajouterIndicateur( this.achats );
-		Monde.LE_MONDE.ajouterIndicateur( this.ventes );
-		Monde.LE_MONDE.ajouterIndicateur( this.solde );
+		this.historiqueachats = new Indicateur("Achats de "+this.nom, this, 0.0);
+		this.historiqueventes = new Indicateur("Ventes de "+this.nom, this, 0.0);
+		this.balance = new Indicateur("Solde de "+this.nom, this, 10000000.0);
+		Monde.LE_MONDE.ajouterIndicateur( this.historiqueachats );
+		Monde.LE_MONDE.ajouterIndicateur( this.historiqueventes );
+		Monde.LE_MONDE.ajouterIndicateur( this.balance );
 		this.banque =new Banque();
 		this.stockcacao = new StockCacao ();
 		this.stockchocolats = new StockChocolats ();
@@ -47,66 +55,30 @@ public class Nestle implements Acteur, ITransformateur{
 		return "Producteur "+this.nom;
 	}
 	
-	public static double prixDeVente(){
-		return 15.0;
-	}
-	
-	
-	//ce code calcule le cout de revient et le cout de revient unitaire de Nestlé France !
-	//p en euros, q en kilos
-	public static double[] CoutInts (double p, double []T){ 
-		double[] CI =new double[2] ;
-		CI[0] = 13003370+T[1]*(5+p);
-		CI[1] = CI[0]*0.6/T[1];
-		// 600g de cacao équivalent à 1kg de chocolat
-		return CI;
-	}
-	
-	private List<IProducteur> getProducteurs() {
-		List<IProducteur> prod = new ArrayList<IProducteur>();
-		for (Acteur a : Monde.LE_MONDE.getActeurs()) {
-			if (a instanceof IProducteur) {
-				prod.add((IProducteur)(a));
-			}
-		}
-		return prod;
+
+	public HashMap<IDistributeur, List<CommandeDistri>> getCommandesdistri() {
+		return commandesdistri;
 	}
 
-	
-	//la quantité demandée aux producteurs est proportionnelle 
-
-	
-	// Quantité annoncée aux producteurs 
-	
-	public double annonceQuantiteDemandee(IProducteur p) {
-		return 0.0;
+	public List<CommandeProduc> getCommandeproduc() {
+		return commandeproduc;
 	}
-		/*if(MondeV1.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_1)==p){
-			//return Math.min(commandes.quantiteDemandee(0.3), p.annonceQuantiteMiseEnVente(this)) ;
-		}
-		else if (MondeV1.LE_MONDE.getActeur(Constantes.NOM_PRODUCTEUR_2)==p){
-				//return Math.min(commandes.quantiteDemandee(0.3), p.annonceQuantiteMiseEnVente(this)) ;
-			}
-			else{
-				return 0.0;
-			}
-		}*/
 	
-	public List<IDistributeur> getDistributeurs() {
-		List<IDistributeur> distributeurs = new ArrayList<IDistributeur>();
-		for (Acteur a : Monde.LE_MONDE.getActeurs()) {
-			if (a instanceof IDistributeur) {
-				distributeurs.add((IDistributeur)(a));
-			}
-		}
-		return distributeurs;
+
+	public HashMap<IProducteur, Achat> getAchats() {
+		return achats;
 	}
 
+	public HashMap<IDistributeur, Vente> getVentes() {
+		return ventes;
+	}
+
+	public Banque getBanque() {
+		return banque;
+	}
 	
-	public void notificationVente(IProducteur p) {
-		double commande = this.annonceQuantiteDemandee(p);
-		this.solde.setValeur(this, this.solde.getValeur()-p.annoncePrix()*commande);
-		//stock_cacao.ajoutCacao();
+	public void setAchats(IProducteur p, Achat achat) {
+		this.achats.put(p, achat);
 	}
 
 	public void next() {
@@ -131,73 +103,69 @@ public class Nestle implements Acteur, ITransformateur{
 		CatalogueInterne catalogueinterne = new CatalogueInterne();
 		catalogueinterne.setCatalogueinterne(tarifproduit1, tarifproduit2, tarifproduit3);
 		
-		// A faire � chaque step
+		
+		// A faire a chaque step
+		
+		
+		
 
 	}
 
 	public double annonceQuantiteDemandee() {
-		// TODO Auto-generated method stub
-		return 0;
+		double resultat = 0.0;
+		for (IDistributeur d : this.getCommandesdistri().keySet()) {
+			for (CommandeDistri c : this.getCommandesdistri().get(d)) {
+				resultat+=c.getQuantite()*c.getProduit().getRatioCacao();
+			}
+		}
+		return resultat;
 	}
 
 	public double annoncePrix() {
-		// TODO Auto-generated method stub
+			return MarcheProducteur.LE_MARCHE.getCours()*(1+0.1*Math.random());
+		}
+
+	public void notificationVente(CommandeProduc c) {
+		Achat achat = new Achat(c.getQuantite());
+		this.setAchats(c.getVendeur(), achat);
+	}
+
+	@Override
+	public Catalogue getCatalogue() {
+		return this.catalogue.getCatalogueinterne();
+	}
+
+	@Override
+	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
+		ArrayList<CommandeDistri> Offre = new ArrayList<CommandeDistri>();
+		for (int i=0; i<=o.size(); i++) {
+			CommandeDistri C = o.get(i);
+			if (this.getStockchoc().getStockschocolats().get(o.get(i).getProduit())
+					>=o.get(i).getQuantite()/2) {
+				o.add(i, o.get(i));
+			}
+			else {
+				o.get(i).setQuantite(o.get(i).getQuantite()/2+
+						this.getStockchoc().getStockschocolats().get(C.getProduit()));
+				Offre.add(i,C);
+			}
+		}
+		return Offre;
+	}
+
+	@Override
+	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
+		return Offre(cf);
+	}
+
+	@Override
+	public double annonceQuantiteDemandee(IProducteur p) {
 		return 0;
 	}
 
-	public void notificationVente(CommandeProduc c) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
-	public Catalogue getCatalogue() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	/*double qdd = 0;
-=======
-
-
-	@Override
-	public Catalogue getCatalogue() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	}
-		/*double qdd = 0;
->>>>>>> refs/remotes/choose_remote_name/master
-		for (IDistributeur d : this.getDistributeurs()) {
-		qdd += d.getDemande(this);
-		}
-		commandes.setCommandes(qdd);
-		for (IProducteur p : this.getProducteurs()) {	
-		commandes.quantiteDemandee (0.3);
-		notificationVente(p);
-		}
-		commandes.quantiteDemandeeMonde(0.4);
-		stock_chocolat.ajoutChocolat();
-		//tresorerie.setTresorerie(tresorerie.Tresorerie(this.getProducteurs().get(0), this.getProducteurs().get(1)));
-		
-		this.achats.setValeur(this, commandes.getCommandes()[2]);
-		this.solde.setValeur(this, tresorerie.getTresorerie());
-		this.ventes.setValeur(this, commandes.getCommandes()[0]);
-	}		
-	
-}*/
+	public void notificationVente(IProducteur p){
+	}	
 }
 
 
