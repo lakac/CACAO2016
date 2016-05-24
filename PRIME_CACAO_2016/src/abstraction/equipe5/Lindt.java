@@ -20,6 +20,7 @@ public class Lindt implements Acteur, ITransformateur{
 	private ArrayList<IDistributeur> distributeurs;
 	private Catalogue catalogue;
 	private ArrayList<Stock> stocksChocolat;
+	private IProducteur producteur3;
 	//private HashMap<Produit, Stock>stocks;
 	
 
@@ -85,9 +86,15 @@ public class Lindt implements Acteur, ITransformateur{
 	public ArrayList<Stock> getStocksChocolat(){
 		return this.stocksChocolat;
 	}
+	public Tresorerie getTreso() {
+		return this.treso;
+	}
 
-	// Ne pas oublier d'acheter 30% de plus à cause des pertes!!!!!!
 	public void next() {
+		
+		// mise à jour de l'état interne de Lindt dû au troisième producteur A FAIRE
+		
+		
 		
 		//P1.annonceQuantiteMiseEnVente(this);
 		//P2.annonceQuantiteMiseEnVente(this);
@@ -129,19 +136,15 @@ public class Lindt implements Acteur, ITransformateur{
 		//CommandeDistri nouvelleCommandeeDistri = new CommandeDistri(d, this, d.getDemande(this)); // faire méthode qui donne le prix de vente
 	}
 	
-	public void arriveeCommandeProduc(IProducteur p) {
-		//CommandeProduc nouvelleCommandeProduc = new CommandeProduc(this, p, annonceQuantiteDemandee(p), MarcheProducteur.LE_MARCHE.getCours());
-		//this.getHistCommandeProduc().ajouter(nouvelleCommandeProduc);
-	}
-
-
 	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
 		return null;
 	}
 
+	// Fonctions finies
 	public void notificationVente(CommandeProduc c) {
-		// TODO Auto-generated method stub
-		
+		this.getHistCommandeProduc().ajouter(c);
+		this.getStockCacao().ajouterStock(c.getQuantite());
+		this.getTreso().retrait(c.getPrixTonne());
 	}
 	
 	
