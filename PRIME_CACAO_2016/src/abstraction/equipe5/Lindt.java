@@ -20,7 +20,7 @@ public class Lindt implements Acteur, ITransformateur{
 	private ArrayList<IDistributeur> distributeurs;
 	private Catalogue catalogue;
 	private ArrayList<Stock> stocksChocolat;
-	private HashMap<Produit, Stock>stocks;
+	//private HashMap<Produit, Stock>stocks;
 	
 
 	public Lindt(){
@@ -39,14 +39,14 @@ public class Lindt implements Acteur, ITransformateur{
 		this.stocksChocolat.add(new Stock(Constante.listeProduit[0].getNomProduit(),this,0.0));
 		this.stocksChocolat.add(new Stock(Constante.listeProduit[1].getNomProduit(),this,0.0));
 		this.stocksChocolat.add( new Stock(Constante.listeProduit[2].getNomProduit(),this,0.0));
-		this.stocks.put(Constante.listeProduit[0], this.stockChocolat50);
-		this.stocks.put(Constante.listeProduit[1], this.stockChocolat60);
-		this.stocks.put(Constante.listeProduit[2], this.stockChocolat70);
+		//this.stocks.put(Constante.listeProduit[0], this.stockChocolat50);
+		//this.stocks.put(Constante.listeProduit[1], this.stockChocolat60);
+		//this.stocks.put(Constante.listeProduit[2], this.stockChocolat70);
 	}
 	
-	public HashMap<Produit, Stock>getStocks() {
-		return this.stocks;
-	}
+	//public HashMap<Produit, Stock>getStocks() {
+		//return this.stocks;
+	//}
 	
 	// Voilà tout les getters !
 	public HistoriqueCommandeDistri getHistCommandeDistri() {
