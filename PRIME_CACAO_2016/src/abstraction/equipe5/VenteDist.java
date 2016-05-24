@@ -44,6 +44,7 @@ public class VenteDist {
 				//ok on peut fournir aux distrib la quantité de chocolat de 50% qu'ils demandent
 				
 				
+				
 			}
 			else{
 				double quantiteRepartie=lindt.getStocksChocolat().get(i).getStock()/3; //Répartition équitable, donc si 3 dist, on divise la quantité totale par 3)
