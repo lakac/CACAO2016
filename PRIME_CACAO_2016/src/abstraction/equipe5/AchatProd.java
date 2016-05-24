@@ -40,12 +40,12 @@ public class AchatProd {
 		double besoinCacao=0;
 		for (CommandeDistri c : listeCommandesDist){
 			for (int i=0; i<3 ; i++){
-				if (c.getProduit().equals(Constante.listeProduit[i]))
-					besoinCacao += c.getQuantite()*Constante.listeProduit[i].getRatioCacao();
+				if (c.getProduit().equals(Constante.LISTE_PRODUIT[i]))
+					besoinCacao += c.getQuantite()*Constante.LISTE_PRODUIT[i].getRatioCacao();
 		}}
 		double stockCacao=lindt.getStockCacao().getStock();
 		if (stockCacao<besoinCacao){
-			besoinCacao=besoinCacao-stockCacao;
+			besoinCacao=besoinCacao-stockCacao - Constante.STOCK_MINIMAL;
 		}
 		double quantiteEnVente = 0;
 		for (IProducteur p: lindt.getProducteurs()){
@@ -76,8 +76,8 @@ public class AchatProd {
 	 */
 	// TODO Ne pas oublier de faire un methode permettant de recup la listeCommande...
 	public double annonceQuantiteDemandee(){ 
-		return 0.0;//this.calculQuantiteDemandee(listeCommandesDist).getQuantite();
-	}
+		return 0.0;//0.6*this.calculQuantiteDemandee(listeCommandesDist).getQuantite();
+	}// On met *0.6 car on prend 60% au prod et 40% au reste du monde
 	public double getPrix(){
 		return 0.0; //this.calculQuantiteDemandee(listeCommandesDist).getPrix();
 	}

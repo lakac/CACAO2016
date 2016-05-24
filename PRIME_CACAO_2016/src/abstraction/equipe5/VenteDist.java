@@ -26,7 +26,7 @@ public class VenteDist {
 		for (int i=0; i<3 ; i++){
 			double quantiteProduit=0.0;
 			for (CommandeDistri c : listeCommandesDist ){
-				if (Constante.listeProduit[i].getNomProduit()==c.getProduit().getNomProduit()) {
+				if (Constante.LISTE_PRODUIT[i].getNomProduit()==c.getProduit().getNomProduit()) {
 					quantiteProduit += c.getQuantite();
 				}
 			}
