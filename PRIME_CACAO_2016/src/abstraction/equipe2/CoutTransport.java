@@ -8,12 +8,12 @@ import abstraction.fourni.*;
 
 public class CoutTransport {
 	
-	private double couttransport;
+	private double couttransportglobal;
 	private HashMap<IProducteur,Double> distances;
 	
 	
 	public CoutTransport(double couttransp){
-		this.couttransport=couttransp;
+		this.couttransportglobal=couttransp;
 		this.distances=new HashMap<IProducteur, Double>();
 	}
 
@@ -26,11 +26,17 @@ public class CoutTransport {
 	}
 	
 	public double getCouttransport() {
-		return couttransport;
+		return couttransportglobal;
+	}
+	
+	public double CouttransportGlobal(Achat achatp1, Achat achatp2, Achat ResteDuMonde) {
+		this.setCouttransportglobal((achatp1.getCacaoachete()+achatp2.getCacaoachete()+ResteDuMonde.getCacaoachete())
+				*Constante.COUT_UNITAIRE_TRANSPORT);
+		return this.getCouttransport();
 	}
 
-	public void setCouttransport(IProducteur p, Achat achat) {
-		this.couttransport=Constante.COUT_UNITAIRE_TRANSPORT*this.distances.get(p)*achat.getCacaoachete();
+	public void setCouttransportglobal(double couttransportglobal) {
+		this.couttransportglobal = couttransportglobal;
 	}
 	
 	/*public static void main(String[] args) {
