@@ -131,7 +131,7 @@ public class Nestle implements Acteur, ITransformateur{
 		CatalogueInterne catalogueinterne = new CatalogueInterne();
 		catalogueinterne.setCatalogueinterne(tarifproduit1, tarifproduit2, tarifproduit3);
 		
-		// A faire à chaque step
+		// A faire ï¿½ chaque step
 
 	}
 
@@ -158,6 +158,12 @@ public class Nestle implements Acteur, ITransformateur{
 
 	@Override
 	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -22,4 +22,8 @@ public interface IDistributeur {
 	public List<CommandeDistri> Demande (HashMap<ITransformateur, Catalogue > d);
 	
 	public List<CommandeDistri> ContreDemande (List<CommandeDistri> cd);
+
+	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf);
+	
+
 }
