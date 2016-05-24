@@ -27,9 +27,9 @@ public class Lindt implements Acteur, ITransformateur{
 		this.histCommandeDistri = new HistoriqueCommandeDistri();
 		this.histCommandeProduc = new HistoriqueCommandeProduc();
 		for (IProducteur p : this.getProducteurs()) {
-			this.getHistCommandeProduc().ajouter(new CommandeProduc(this, p, 100.0, MarcheProducteur.LE_MARCHE.getCours()));
-		}
+			this.getHistCommandeProduc().ajouter(new CommandeProduc(this, p, 100.0, MarcheProducteur.LE_MARCHE.getCours()));}
 		this.stockCacao = new Stock("cacao",this,0.0);
+
 		this.stockChocolat50 = new Stock(Constante.LISTE_PRODUIT[0].getNomProduit(),this,0.0);
 		this.stockChocolat60 = new Stock(Constante.LISTE_PRODUIT[1].getNomProduit(),this,0.0);
 		this.stockChocolat70 = new Stock(Constante.LISTE_PRODUIT[2].getNomProduit(),this,0.0);
@@ -46,10 +46,12 @@ public class Lindt implements Acteur, ITransformateur{
 //		this.stocks.put(Constante.listeProduit[1], this.stockChocolat60);
 //		this.stocks.put(Constante.listeProduit[2], this.stockChocolat70);
 	}
+
 	
 	//public HashMap<Produit, Stock>getStocks() {
-		//return this.stocks;
-	//}
+		//return this.stocks;}
+
+
 	
 	// Voila� tout les getters !
 	public HistoriqueCommandeDistri getHistCommandeDistri() {
@@ -93,12 +95,14 @@ public class Lindt implements Acteur, ITransformateur{
 	}
 
 	public void next() {
+
 		
 		// mise a� jour de l'etat interne de Lindt du au troisieme producteur A FAIRE
 		
 		
 		
 		//P1.annonceQuantiteMiseEnVente(this);
+
 		//P2.annonceQuantiteMiseEnVente(this);
 		
 		//this.hist.ajouter(D1.getDemande(this)+ D2.getDemande(this));
@@ -128,10 +132,12 @@ public class Lindt implements Acteur, ITransformateur{
 	 * 
 	 * Cette methode est appelee par les producteurs.
 	 */
+
 	
 	
 	
 	public void arriveeCommandeDistri(IDistributeur d) {
+
 		//CommandeDistri nouvelleCommandeeDistri = new CommandeDistri(d, this, d.getDemande(this)); // faire méthode qui donne le prix de vente
 	}
 	

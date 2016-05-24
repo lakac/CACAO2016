@@ -21,6 +21,7 @@ public class Tresorerie {
 		this.histDistri = histDistri;
 		this.histProduc = histProduc;
 		this.lindt = lindt;
+
 		this.listeProducteurs=P;
 		this.treso = new Indicateur("Tresorerie Lindt", lindt, 100000);
 		Monde.LE_MONDE.ajouterIndicateur(this.treso);
@@ -46,6 +47,7 @@ public class Tresorerie {
 		}
 	}
 
+
 	// ATTENTION changer commande(-3).getQuantite avec l'intermédiaire car le 3eme producteur ne passe pas de commande
 	// verifier l'ordre P1,P2 et des commandes
 	// TODO Constante (expliquer ce que represente 5000);
@@ -66,7 +68,9 @@ public class Tresorerie {
 		
 		//cout de revient d'une tonne= charges fixes+ quantite de cacao commandé aux producteurs * cout de transformation d'une tonne.
 		//Cout de transformation d'une tonne= 5000+pourcentage de quantite de cacao demandee a� chaque producteur multiplie par leur prix, afin d'avoir un prix de transfo d'environ 8000€/t
+
 		}
+
 	
 	public double coutLivraison(){
 		double coutLivraison=0;
