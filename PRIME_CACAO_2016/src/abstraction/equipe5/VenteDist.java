@@ -35,32 +35,36 @@ public class VenteDist {
 		return quantiteTotale;
 	}
 
-
-	//Creation d'une fonction qui calcule la quantité que l'on vend d'un produit 
-	public double repartitionChocolat(List<CommandeDistri> listeCommandesDist){
+	//Creation d'une fonction qui calcule la quantité de chocolat à mettre dans chaque commande pour le 1er échange (offre) 
+	public List<CommandeDistri> Offre (List<CommandeDistri> listeCommandesDist){
 
 		for(int i=0; i<3; i++){
 			if(this.QuantiteDemandeeProduit(listeCommandesDist).get(i).doubleValue() <= lindt.getStocksChocolat().get(i).getStock()){
-				//ok on peut fournir aux distrib la quantité de chocolat de 50% qu'ils demandent
-				
-				
+				//ok on peut fournir aux distrib la quantité de chocolats i qu'ils demandent donc on ne modifie pas ces commandes
+				 
 			}
 			else{
-				double quantiteRepartie=lindt.getStocksChocolat().get(i).getStock()/3; //Répartition équitable, donc si 3 dist, on divise la quantité totale par 3)
+				double quantiteRepartie=lindt.getStocksChocolat().get(i).getStock()/lindt.getDistributeurs().size()+1; //Répartition équitable, donc si 3 dist, on divise la quantité totale par 3)
+				for (CommandeDistri c : listeCommandesDist){
+					if(c.getProduit().getNomProduit()==Constante.listeProduit[i].getNomProduit()){
+						c.setQuantite(quantiteRepartie);
+					}
+				}
 			}
-			}
-		
+		}return listeCommandesDist; //liste de commandes pour le premier echange => offre
+	}
+	
+	
+	
+	
+	
+	
     //exemple avec une hashmap
 	//	for (abstraction.commun.Produit p : Constante.listeProduit) {
 	//		if(this.QuantiteDemandeeProduit(listeCommandesDist).get(0).doubleValue() <= lindt.getStocks().get(p).getStock()){
 				//ok on peut fournir les distrib la quantité de chocolat de 50% qu'ils demandent
 	//		}
+}
+			
+
 	
-
-
-			return 0.0;
-
-		}
-
-
-	}
