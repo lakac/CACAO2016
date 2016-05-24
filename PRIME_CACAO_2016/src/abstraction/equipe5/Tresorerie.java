@@ -66,10 +66,14 @@ public class Tresorerie {
 		
 		//cout de revient d'une tonne= charges fixes+ quantite de cacao commandé aux producteurs * cout de transformation d'une tonne.
 		//Cout de transformation d'une tonne= 5000+pourcentage de quantite de cacao demandee a� chaque producteur multiplie par leur prix, afin d'avoir un prix de transfo d'environ 8000€/t
-
-	
 	
 	}
+
+	public double coutRevientParProduit(){ //pas réaliste mais on dit que le cout de revient pour transformer un type de produit est le cout de revient/3
+		return coutRevient()/3;
+	}
+	
+	
 //	
 //	public double marge(){
 //	return (15000*hist.valeur(Constante.STEP_3)-coutRevient());
