@@ -20,13 +20,15 @@ public class Lindt implements Acteur, ITransformateur{
 	private ArrayList<IDistributeur> distributeurs;
 	private Catalogue catalogue;
 	private ArrayList<Stock> stocksChocolat;
-	private IProducteur producteur3;
 	//private HashMap<Produit, Stock>stocks;
 	
 
 	public Lindt(){
 		this.histCommandeDistri = new HistoriqueCommandeDistri();
 		this.histCommandeProduc = new HistoriqueCommandeProduc();
+		for (IProducteur p : this.getProducteurs()) {
+			this.getHistCommandeProduc().ajouter(new CommandeProduc(this, p, 100.0, MarcheProducteur.LE_MARCHE.getCours()));
+		}
 		this.stockCacao = new Stock("cacao",this,0.0);
 		this.stockChocolat50 = new Stock(Constante.LISTE_PRODUIT[0].getNomProduit(),this,0.0);
 		this.stockChocolat60 = new Stock(Constante.LISTE_PRODUIT[1].getNomProduit(),this,0.0);
@@ -49,7 +51,7 @@ public class Lindt implements Acteur, ITransformateur{
 		//return this.stocks;
 	//}
 	
-	// Voila  tout les getters !
+	// Voilaï¿½ tout les getters !
 	public HistoriqueCommandeDistri getHistCommandeDistri() {
 		return histCommandeDistri;
 	}
@@ -92,7 +94,7 @@ public class Lindt implements Acteur, ITransformateur{
 
 	public void next() {
 		
-		// mise a  jour de l'etat interne de Lindt du au troisieme producteur A FAIRE
+		// mise aï¿½ jour de l'etat interne de Lindt du au troisieme producteur A FAIRE
 		
 		
 		
@@ -166,7 +168,6 @@ public class Lindt implements Acteur, ITransformateur{
 		this.catalogue.add(new Produit("70%", 0.5), new Tarif(25000, listePlage));
 		return this.catalogue;
 	}
-
 
 	// Ne plus coder celles la, elles vont disparaitre!
 	public double annonceQuantiteDemandee(IProducteur p) {	return 0;	}
