@@ -30,12 +30,11 @@ public class Stock {
 		this.setStock(this.getStock()+d*this.getStock()*perte);
 	}
 	
-	// Qui a codé cette fonction? a quoi sert-elle?
-	public Produit getProduit(int i) {
+		public Produit getProduit(int i) {
 		return Constante.listeProduit[i];
 	}
 
-	// Variation du stock en fonction du chocolat commandé
+	// Variation du stock en fonction du chocolat commandï¿½
 	public void retirerStock(Produit p, double quantite){
 		int i=0;
 		for (Produit h:Constante.listeProduit){	
