@@ -31,11 +31,11 @@ public class Banque {
 		return Constante.CHARGES_FIXES;
 	}
 	
-	public void  MiseAJourBanque(Achat achatp1, Achat achatp2, Production production, 
+	public void  MiseAJourBanque(Nestle nestle, Achat achatp1, Achat achatp2, Production production, 
 			StockCacao cacao, StockChocolats chocolats, Vente vented1, Vente vented2,
 			PlageInterne plage) {
-		this.banque-=achatp1.getCacaoachete()*achatp1.CoutAchat();
-		this.banque-=achatp2.getCacaoachete()*achatp2.CoutAchat();	
+		this.banque-=achatp1.getCacaoachete()*nestle.annoncePrix();
+		this.banque-=achatp2.getCacaoachete()*nestle.annoncePrix();	
 		this.banque-=production.CoutTransformationGlobal();
 		this.banque-=cacao.CoutStockCacao();
 		this.banque-=chocolats.CoutStockChocolat();

@@ -28,22 +28,11 @@ public class Achat {
 		this.historiqueachats = new Historique();
 	}
 	
-	public double CoutAchat() {
-		return MarcheProducteur.LE_MARCHE.getCours();
-	}
-	
+	public Achat(double quantite) {
+		this.cacaoachete = quantite;
+	}//
 	
 	public void MiseAJourHistorique(Nestle nestle, int etape) {
 		this.historiqueachats.ajouter(nestle, etape, this.cacaoachete);
 	}
-	
-	
-	public double CacaoDemande(ArrayList<CommandeDistri> l){
-		double quantite=0.0;
-		for(CommandeDistri c: l){
-			quantite=quantite+c.getQuantite()*c.getProduit().getRatioCacao();
-		}
-		return quantite;
-	}
-
 }
