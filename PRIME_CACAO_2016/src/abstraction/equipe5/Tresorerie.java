@@ -54,9 +54,9 @@ public class Tresorerie {
 		double prix=0;
 		int chargesFixes = 900980; // salaires+impots
 		for (int i = 0; i<listeProducteurs.size() ; i++){
-			double quantiteDemandee= this.histProduc.commande(this.histProduc.getHist().size()-i-1).getQuantite();
+			double quantiteDemandee= this.histProduc.getCommande(this.histProduc.getHist().size()-i-1).getQuantite();
 			quantiteCacaoAchetee += quantiteDemandee; //quantite de cacao commandee au step precedent
-			prix += this.histProduc.commande(this.histProduc.getHist().size()-i-1).getQuantite()*this.histProduc.commande(this.histProduc.getHist().size()-i-1).getPrixTonne();
+			prix += this.histProduc.getCommande(this.histProduc.getHist().size()-i-1).getQuantite()*this.histProduc.getCommande(this.histProduc.getHist().size()-i-1).getPrixTonne();
 		}
 		double quantiteDemandeeP3= 0.0; //voir avec le reste du monde
 		quantiteCacaoAchetee += quantiteDemandeeP3;
@@ -65,7 +65,8 @@ public class Tresorerie {
 		
 		
 		//cout de revient d'une tonne= charges fixes+ quantite de cacao commandé aux producteurs * cout de transformation d'une tonne.
-		//Cout de transformation d'une tonne= 5000+pourcentage de quantite de cacao demandee a� chaque producteur multiplie par leur prix, afin d'avoir un prix de transfo d'environ 8000€/t
+		//Cout de transformation d'une tonne= 5000+pourcentage de quantite de cacao demandee a� chaque producteur multiplie par leur prix, afin d'avoir un prix de transfo d'environ 8000€/t
+
 	
 	
 	}

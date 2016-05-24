@@ -2,27 +2,9 @@ package abstraction.equipe5;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import abstraction.commun.Constantes;
-import abstraction.commun.IDistributeur;
-import abstraction.commun.IProducteur;
-import abstraction.commun.ITransformateur;
-import abstraction.fourni.Acteur;
-import abstraction.fourni.Indicateur;
-import abstraction.fourni.Monde;
-import abstraction.commun.Catalogue;
-import abstraction.commun.CommandeDistri;
-import abstraction.commun.CommandeProduc;
-import abstraction.commun.MarcheProducteur;
-import abstraction.commun.Catalogue;
-import abstraction.commun.Produit;
-import abstraction.commun.Plage;
-import abstraction.commun.Tarif;
 import abstraction.commun.*;
 import abstraction.fourni.*;
 import java.util.List;
-
-
 
 public class Lindt implements Acteur, ITransformateur{
 	
@@ -57,14 +39,16 @@ public class Lindt implements Acteur, ITransformateur{
 		this.stocksChocolat.add(new Stock(Constante.listeProduit[0].getNomProduit(),this,0.0));
 		this.stocksChocolat.add(new Stock(Constante.listeProduit[1].getNomProduit(),this,0.0));
 		this.stocksChocolat.add( new Stock(Constante.listeProduit[2].getNomProduit(),this,0.0));
-		//this.stocks.put(Constante.listeProduit[0], this.stockChocolat50);
-		//this.stocks.put(Constante.listeProduit[1], this.stockChocolat60);
-		//this.stocks.put(Constante.listeProduit[2], this.stockChocolat70);
+		this.stocks.put(Constante.listeProduit[0], this.stockChocolat50);
+		this.stocks.put(Constante.listeProduit[1], this.stockChocolat60);
+		this.stocks.put(Constante.listeProduit[2], this.stockChocolat70);
 	}
-	//public HashMap<Produit, Stock>getStocks() {
-	//	return this.stocks;
-	//}
-	// Voil� tout les getters !
+	
+	public HashMap<Produit, Stock>getStocks() {
+		return this.stocks;
+	}
+	
+	// Voilà tout les getters !
 	public HistoriqueCommandeDistri getHistCommandeDistri() {
 		return histCommandeDistri;
 	}
@@ -101,8 +85,6 @@ public class Lindt implements Acteur, ITransformateur{
 	public ArrayList<Stock> getStocksChocolat(){
 		return this.stocksChocolat;
 	}
-
-	
 
 	// Ne pas oublier d'acheter 30% de plus à cause des pertes!!!!!!
 	public void next() {
@@ -167,11 +149,6 @@ public class Lindt implements Acteur, ITransformateur{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	//public void arriveeCommandeProduc(IProducteur p) {
-		//CommandeProduc nouvelleCommandeProduc = new CommandeProduc(this, p, annonceQuantiteDemandee(p), MarcheProducteur.LE_MARCHE.getCours());
-		//this.getHistCommandeProduc().ajouter(nouvelleCommandeProduc);
-	//}
 	
 	// Fonctions finies
 	public double annonceQuantiteDemandee() {
