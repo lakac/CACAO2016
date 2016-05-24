@@ -81,4 +81,6 @@ public class AchatProd {
 	public double getPrix(){
 		return 0.0; //this.calculQuantiteDemandee(listeCommandesDist).getPrix();
 	}
+	
+	
 }

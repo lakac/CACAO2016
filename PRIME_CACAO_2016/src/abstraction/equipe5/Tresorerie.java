@@ -60,7 +60,7 @@ public class Tresorerie {
 		}// Ajouter le cout de livraison!!!
 		double quantiteDemandeeP3= 0.0; //voir avec le reste du monde
 		quantiteCacaoAchetee += quantiteDemandeeP3;
-		return chargesFixes + quantiteCacaoAchetee * 5000 + 
+		return chargesFixes + quantiteCacaoAchetee * 5000 + this.coutLivraison()+
 				(prix + MarcheProducteur.LE_MARCHE.getCours()*quantiteDemandeeP3)/quantiteCacaoAchetee;	
 		
 		
@@ -71,11 +71,12 @@ public class Tresorerie {
 	public double coutLivraison(){
 		double coutLivraison=0;
 		double quantiteAchetee=0;
+		int[] kilometre = {5000,9000,5000};
 		for (int i = 0; i<listeProducteurs.size() ; i++){
 			quantiteAchetee = this.histProduc.getCommande(this.histProduc.getHist().size()-i-1).getQuantite();
-			coutLivraison += 1; 
+			coutLivraison += quantiteAchetee*0.01*kilometre[i]; 
 		}
-		return 0.0;
+		return coutLivraison;
 	}
 //	
 //	public double marge(){

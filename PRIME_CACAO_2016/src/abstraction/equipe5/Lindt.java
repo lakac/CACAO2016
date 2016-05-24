@@ -20,6 +20,7 @@ public class Lindt implements Acteur, ITransformateur{
 	private ArrayList<IDistributeur> distributeurs;
 	private Catalogue catalogue;
 	private ArrayList<Stock> stocksChocolat;
+	private IProducteur producteur3;
 	//private HashMap<Produit, Stock>stocks;
 	
 
@@ -48,7 +49,7 @@ public class Lindt implements Acteur, ITransformateur{
 		//return this.stocks;
 	//}
 	
-	// Voilà tout les getters !
+	// Voila� tout les getters !
 	public HistoriqueCommandeDistri getHistCommandeDistri() {
 		return histCommandeDistri;
 	}
@@ -85,9 +86,15 @@ public class Lindt implements Acteur, ITransformateur{
 	public ArrayList<Stock> getStocksChocolat(){
 		return this.stocksChocolat;
 	}
+	public Tresorerie getTreso() {
+		return this.treso;
+	}
 
-	// Ne pas oublier d'acheter 30% de plus à cause des pertes!!!!!!
 	public void next() {
+		
+		// mise a� jour de l'etat interne de Lindt du au troisieme producteur A FAIRE
+		
+		
 		
 		//P1.annonceQuantiteMiseEnVente(this);
 		//P2.annonceQuantiteMiseEnVente(this);
@@ -110,7 +117,7 @@ public class Lindt implements Acteur, ITransformateur{
 		//treso.retrait(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT) * 3000); // achat cacao au reste du monde
 		//this.venteChocolat.setValeur(this, this.stockChocolat.getStock());
 		//treso.retrait(18*(this.stockChocolat.getStock() + this.stockCacao.getStock())); //cout de stock (18€ la tonne/step)
-		//treso.retrait(0.01*(5000*quantiteDemandeeP1+9000*quantiteDemandeeP2+5000*quantiteDemandeeP3)); //cout de livraison côté producteur (0,01€/km et P1 à 5000km et P2 à 9000km)
+		//treso.retrait(0.01*(treso.coutLivraison())); //cout de livraison côté producteur (0,01€/km et P1 à 5000km et P2 à 9000km)
 	}
 	//TODO Fonctions a finir!!
 	/**
@@ -126,28 +133,22 @@ public class Lindt implements Acteur, ITransformateur{
 		//CommandeDistri nouvelleCommandeeDistri = new CommandeDistri(d, this, d.getDemande(this)); // faire méthode qui donne le prix de vente
 	}
 	
-	public void arriveeCommandeProduc(IProducteur p) {
-		//CommandeProduc nouvelleCommandeProduc = new CommandeProduc(this, p, annonceQuantiteDemandee(p), MarcheProducteur.LE_MARCHE.getCours());
-		//this.getHistCommandeProduc().ajouter(nouvelleCommandeProduc);
-	}
-
-
 	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
 		return null;
 	}
-
-	public void notificationVente(CommandeProduc c) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	
 	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	// Fonctions finies
+	public void notificationVente(CommandeProduc c) {
+		this.getHistCommandeProduc().ajouter(c);
+		this.getStockCacao().ajouterStock(c.getQuantite());
+		this.getTreso().retrait(c.getPrixTonne());
+	}
+	
 	public double annonceQuantiteDemandee() {
 		return this.achatProd.annonceQuantiteDemandee();
 	}
