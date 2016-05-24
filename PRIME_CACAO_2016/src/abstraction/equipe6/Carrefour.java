@@ -19,7 +19,7 @@ public class Carrefour implements Acteur,IDistributeur {
 	private static final Monde LE_MONDE = null;
 	private String nom;
 	private double prixachat;
-	private PrixVente prixvente;
+	private int prixvente;
 	private Indicateur solde;
 	private Indicateur achats;
 	private double demandeannuel;
@@ -29,13 +29,12 @@ public class Carrefour implements Acteur,IDistributeur {
 
 	private ArrayList<ITransformateur> transformateurs;
 	
-	public Carrefour(String nom, Monde monde, double prixachat, PrixVente prixvente, double demandeannuel) {
+	public Carrefour(String nom, Monde monde, double prixachat, int i, double demandeannuel) {
 		this.nom = nom;
 		this.prixachat=prixachat;
-		this.prixvente=prixvente;
+		this.prixvente=i;
 		this.achats = new Indicateur("Achats de "+this.nom, this, 0.0);
 		this.solde = new Indicateur("Solde de "+this.nom, this, 1000000.0);
-		this.demandeannuel = demandeannuel;
     	Monde.LE_MONDE.ajouterIndicateur( this.achats );
     	Monde.LE_MONDE.ajouterIndicateur( this.solde );
     	this.transformateurs = new ArrayList<ITransformateur>();
@@ -61,13 +60,10 @@ public class Carrefour implements Acteur,IDistributeur {
 	
 	// Reglage des frais de distribution choisi arbitrairement de 2% de la demande du step en cours
 	
-	/*public void setFraisdeDistri() {
-		this.fraisdedistri = 0.02*this.demandeperstep*this.prixvente;
-	}
 
 	public void ajouterVendeur(ITransformateur t) {
 		this.transformateurs.add(t);
-	}*/
+	}
 	
 	// Reglage de la quantite a acheter en fonction du transformateur (12.5% Nestle, 3.6% Lindt et 83.9% Others)
 	
@@ -96,8 +92,39 @@ public class Carrefour implements Acteur,IDistributeur {
 	}
 
 	public List<CommandeDistri> demandeDistri(HashMap<ITransformateur, Catalogue> cat) {
+		return null;
 		
 	}
+
+
+	@Override
+	public List<CommandeDistri> demande(ITransformateur t, Catalogue c) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<CommandeDistri> contreDemande(List<CommandeDistri> cd) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<CommandeDistri> commandeFinale(List<CommandeDistri> list) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public void next() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+}
 	
 	/*public void next() {
 		setdemandePerStep( MondeV1.LE_MONDE.getStep());
@@ -118,19 +145,3 @@ public class Carrefour implements Acteur,IDistributeur {
 
 
 
-	@Override
-	public List<CommandeDistri> Demande(HashMap<ITransformateur, Catalogue> d) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-
-
-	@Override
-	public List<CommandeDistri> ContreDemande(List<CommandeDistri> cd) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-}

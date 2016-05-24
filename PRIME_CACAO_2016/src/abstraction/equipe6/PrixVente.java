@@ -24,7 +24,7 @@ public class PrixVente {
 	}
 
 
-	public void setPrix (CommandeDistri c ) {
+	/*public void setPrix (CommandeDistri c ) {
 			this.prix=1.25*(c.getPrixTonne());
 			setdemandePerStep( MondeV1.LE_MONDE.getStep());
 		}
@@ -41,7 +41,7 @@ public class PrixVente {
 	
 	}
 	
-}
+
 	
 	
 	

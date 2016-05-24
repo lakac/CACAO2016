@@ -34,7 +34,7 @@ public interface ITransformateur {
 	
 	public Catalogue getCatalogue();
 	
-	public List<CommandeDistri> Offre (List<CommandeDistri> o);
+	public List<CommandeDistri> offre (List<CommandeDistri> o);
 	
 	
 	/**
@@ -44,5 +44,14 @@ public interface ITransformateur {
 	 * Cette méthode est appelée par le marché.
 	 */
 	public void notificationVente(CommandeProduc c);
+
+
+	public List<CommandeDistri> commandeFinale(List<CommandeDistri> list);
+
+
+	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> list);
+
+
+	List<CommandeDistri> Offre(List<CommandeDistri> o);
 
 }

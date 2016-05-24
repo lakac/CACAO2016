@@ -10,9 +10,10 @@ import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
 
-public class Newcarrefour implements Acteur,IDistributeur {
-	
-	private static final Monde LE_MONDE = null;
+public class Newcarrefour {
+
+} /*
+    private static final Monde LE_MONDE = null;
 	private String nom;
 	private Indicateur solde;
 	private Indicateur achats;
@@ -56,6 +57,8 @@ public class Newcarrefour implements Acteur,IDistributeur {
 	public void next() {
 		// TODO Auto-generated method stub
 		
-	}
+	} 
 	
 }
+
+*/

@@ -171,4 +171,22 @@ public class Lindt implements Acteur, ITransformateur{
 		//treso.retrait(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT) * p.annoncePrix());
 	}
 
+	@Override
+	public List<CommandeDistri> offre(List<CommandeDistri> o) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<CommandeDistri> commandeFinale(List<CommandeDistri> list) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> list) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
