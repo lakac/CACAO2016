@@ -21,11 +21,11 @@ public class Producteur implements Acteur,IProducteur{
 		this.stock = new Stock(this);
 		this.journal = new Journal("Journal de "+this.nom);
 		this.prodBiannu=new ProductionBiannuelle(this,1200000);
-
 		this.transformateurs= new ArrayList<ITransformateur>();
-		Monde.LE_MONDE.ajouterActeur((Acteur)(this.getTransformateurs().get(0)));
-
 		Monde.LE_MONDE.ajouterJournal(this.journal);
+	}
+
+	public void AjoutVariableVente(){
 		this.vente = new Vente(this.stock, this);
 	}
 
@@ -56,18 +56,17 @@ public class Producteur implements Acteur,IProducteur{
 	public Tresorerie getTreso() {
 		return this.treso;
 	}
-	
+
 	public Vente getVente() {
 		return this.vente;
 	}
 
 
 	//Ajout des clients à la liste transformateurs
-	public void ajoutClient(Acteur a){
-		if (!this.getTransformateurs().contains(((ITransformateur)a))){
-			this.getTransformateurs().add((ITransformateur)a);
-		}
+	public void ajoutClient(ITransformateur a){
+		this.getTransformateurs().add(a);
 	}
+
 
 	// le next du producteur 2	
 	public void next(){
@@ -77,6 +76,7 @@ public class Producteur implements Acteur,IProducteur{
 			// actualisation de toutes les variables du à la récolte semestrielle.
 			this.getProdBiannu().production();
 			this.getJournal().ajouter("Production de semi annuelle de " + this.getProdBiannu().getProductionFinale() + " en comptant les pertes de "+ this.getProdBiannu().getPerteProduction());
+
 		}
 		// modifications des stocks pour causes naturelles et prise en compte des couts de stock
 		this.getStock().gererLesStock();
@@ -116,8 +116,8 @@ public class Producteur implements Acteur,IProducteur{
 		this.venteRealisee(c);
 
 	}
-	
-	
+
+
 	// POUR LA V3
 	@Override
 	public double annoncePrix() {
