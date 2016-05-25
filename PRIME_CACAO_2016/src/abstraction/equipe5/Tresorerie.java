@@ -58,7 +58,7 @@ public class Tresorerie {
 			double quantiteDemandee= this.histProduc.getCommande(this.histProduc.getHist().size()-i-1).getQuantite();
 			quantiteCacaoAchetee += quantiteDemandee; //quantite de cacao commandee au step precedent
 			prix += this.histProduc.getCommande(this.histProduc.getHist().size()-i-1).getQuantite()*this.histProduc.getCommande(this.histProduc.getHist().size()-i-1).getPrixTonne();
-		}// Ajouter le cout de livraison!!!
+		}
 		double quantiteDemandeeP3= 0.0; //voir avec le reste du monde
 		quantiteCacaoAchetee += quantiteDemandeeP3;
 		return chargesFixes + quantiteCacaoAchetee * 5000 + this.coutLivraison()+
@@ -69,7 +69,6 @@ public class Tresorerie {
 		//Cout de transformation d'une tonne= 5000+pourcentage de quantite de cacao demandee a� chaque producteur multiplie par leur prix, afin d'avoir un prix de transfo d'environ 8000€/t
 
 		}
-
 	
 	public double coutLivraison(){
 		double coutLivraison=0;
@@ -81,6 +80,16 @@ public class Tresorerie {
 		}
 		return coutLivraison;
 	}
+	
+	//cout de stock (18 euros la tonne/step)
+	public double coutStock(){
+		return(18*(lindt.getStockChocolat50().getStock()
+				+lindt.getStockChocolat60().getStock()
+				+lindt.getStockChocolat70().getStock() 
+				+ lindt.getStockCacao().getStock())); 
+	}
+		
+
 //	
 //	public double marge(){
 //	return (15000*hist.valeur(Constante.STEP_3)-coutRevient());
