@@ -27,9 +27,7 @@ public class Lindt implements Acteur, ITransformateur{
 	public Lindt(){
 		this.histCommandeDistri = new HistoriqueCommandeDistri();
 		this.histCommandeProduc = new HistoriqueCommandeProduc();
-		for (IProducteur p : this.getProducteurs()) {
-			this.histCommandeProduc.ajouter(new CommandeProduc(this, p, 100.0, MarcheProducteur.LE_MARCHE.getCours()));
-		}
+		this.remplirHistProduc();
 		this.stockCacao = new Stock("cacao",this,0.0);
 		this.stockChocolat50 = new Stock(Constante.LISTE_PRODUIT[0].getNomProduit(),this,0.0);
 		this.stockChocolat60 = new Stock(Constante.LISTE_PRODUIT[1].getNomProduit(),this,0.0);
@@ -118,8 +116,7 @@ public class Lindt implements Acteur, ITransformateur{
 		//treso.depot(treso.marge());
 		//treso.retrait(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT) * 3000); // achat cacao au reste du monde
 		//this.venteChocolat.setValeur(this, this.stockChocolat.getStock());
-		//treso.retrait(18*(this.stockChocolat.getStock() + this.stockCacao.getStock())); //cout de stock (18€ la tonne/step)
-		//treso.retrait(0.01*(treso.coutLivraison())); //cout de livraison côté producteur (0,01€/km et P1 à 5000km et P2 à 9000km)
+		treso.retrait(treso.coutStock()+treso.coutLivraison());
 	}
 	//TODO Fonctions a finir!!
 	/**
@@ -129,9 +126,11 @@ public class Lindt implements Acteur, ITransformateur{
 	 * Cette methode est appelee par les producteurs.
 	 */
 
-	
-	
-	
+	public void remplirHistProduc() {
+		this.getHistCommandeProduc().ajouter(new CommandeProduc(this, this.getProducteurs().get(0), 100.0, MarcheProducteur.LE_MARCHE.getCours()));
+		this.getHistCommandeProduc().ajouter(new CommandeProduc(this, this.getProducteurs().get(1), 100.0, MarcheProducteur.LE_MARCHE.getCours()));
+	}
+		
 	public void arriveeCommandeDistri(IDistributeur d) {
 
 		//CommandeDistri nouvelleCommandeeDistri = new CommandeDistri(d, this, d.getDemande(this)); // faire méthode qui donne le prix de vente
