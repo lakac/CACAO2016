@@ -82,5 +82,7 @@ public class AchatProd {
 		return 0.0; //this.calculQuantiteDemandee(listeCommandesDist).getPrix();
 	}
 	
-	
+	public double quantiteProduc3() {
+		return 0.0; //0.4*this.calculQuantiteDemandee(listeCommandesDist).getQuantite(); //on achète 40% de la quantité demandée au producteur 3
+	}
 }
