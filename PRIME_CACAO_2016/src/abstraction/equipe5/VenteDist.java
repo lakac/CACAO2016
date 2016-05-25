@@ -18,7 +18,6 @@ public class VenteDist {
 		this.lindt=lindt;
 	}
 	
-	
 	class variable{
 		
 		private Stock stock50;
