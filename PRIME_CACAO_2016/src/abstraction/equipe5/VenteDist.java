@@ -7,21 +7,35 @@ import java.util.List;
 
 import abstraction.commun.CommandeDistri;
 import abstraction.commun.IProducteur;
+import abstraction.commun.Produit;
 
 
 public class VenteDist {
-
-	private String produit;
 	private Lindt lindt;
+	private Tresorerie treso;
 
-	public VenteDist(String p, Lindt lindt){
-		this.produit=p;
+	public VenteDist(Lindt lindt, Tresorerie treso){
 		this.lindt=lindt;
-	}
+		this.treso = treso;
+	} 
 
+	public Tresorerie getTreso() {
+		return this.treso;
+	}
 	
 	//creation d'une fonction qui renvoie le prix d'un produit 
-//	public double prixProduit(String p){
+	public double prixProduit(Produit p) {
+		double r = 0;
+		for (int i=0; i<Constante.LISTE_PRODUIT.length; i++) {
+			if (p.equals(Constante.LISTE_PRODUIT[i])) {
+				r= this.getTreso().coutRevient() + Constante.MARGE_PRODUIT[i];
+			}
+		}
+		return r;
+	}
+	
+	
+	//	public double prixProduit(String p){
 //		double marge=0.0;
 //		if (p=='50%'){
 //			marge=7;

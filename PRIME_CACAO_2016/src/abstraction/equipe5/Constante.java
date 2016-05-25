@@ -11,4 +11,5 @@ public class Constante {
 	 public static final Produit[] LISTE_PRODUIT = {new Produit("50%",0.5),new Produit("60%",0.6),new Produit("70%",0.7)};
 	 public static final double STOCK_MINIMAL = 200;
 	 public static final double RATIO_COUT_TRANSFORMATION = 5000;
+	 public static final double[] MARGE_PRODUIT = {0.07, 0.1, 0.12};
 }

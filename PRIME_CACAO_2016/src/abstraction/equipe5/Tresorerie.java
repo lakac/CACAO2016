@@ -66,7 +66,8 @@ public class Tresorerie {
 		coutTransformation = quantiteCacaoAchetee * Constante.RATIO_COUT_TRANSFORMATION;
 		coutStock = quantiteCacaoAchetee * 18;
 		return (coutTransformation + chargesFixes + coutLivraison + coutStock + coutAchat)/quantiteCacaoAchetee;
-	} //cout de revient d'une tonne= charges fixes+ quantite de cacao commandé aux producteurs * cout de transformation d'une tonne.
+	} 
+	//cout de revient d'une tonne= charges fixes+ quantite de cacao commandé aux producteurs * cout de transformation d'une tonne.
 	//Cout de transformation d'une tonne= 5000+pourcentage de quantite de cacao demandee a� chaque producteur multiplie par leur prix, afin d'avoir un prix de transfo d'environ 8000€/t
 	
 	public double coutLivraison(){
