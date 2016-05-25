@@ -39,7 +39,7 @@ public class VenteDist {
 	public List <Double> QuantiteDemandeeProduit( List<CommandeDistri> listeCommandesDist){
 		List <Double> quantiteTotale = new ArrayList <Double> ();
 
-		for (int i=0; i<3 ; i++){
+		for (int i=0; i<Constante.LISTE_PRODUIT.length ; i++){
 			double quantiteProduit=0.0;
 			for (CommandeDistri c : listeCommandesDist ){
 				if (Constante.LISTE_PRODUIT[i].getNomProduit()==c.getProduit().getNomProduit()) {
@@ -84,7 +84,7 @@ public class VenteDist {
 								j++;
 								
 							}
-							
+						
 							
 						}
 						c.setQuantite(quantiteRepartie);
@@ -101,10 +101,23 @@ public class VenteDist {
 	//Creation d'une fonction qui répartie le chocolat pour le 2eme échange (échange final) Ne pas oublier le boolean validation
 	
 	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf){
+		ArrayList<CommandesNonComp>
 		for(CommandeDistri c : cf ){
-			if(c.getValidation()==false){
+			if(c.getValidation()==false){	
+				
 				
 			}
+		}
+		
+		for(int i=0; i<Constante.LISTE_PRODUIT.length ; i++){
+				if(lindt.getStocksChocolat().get(i).getStock()>0){ //si il nous reste du chocolat i
+					for(CommandeDistri c : cf ){
+						if (c.getProduit().getNomProduit()==Constante.LISTE_PRODUIT[i].getNomProduit()){
+							
+						}
+					}
+					}
+						
 		}
 		
 		return cf;
