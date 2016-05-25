@@ -51,7 +51,6 @@ public class AchatProd {
 		for (IProducteur p: lindt.getProducteurs()){
 			quantiteEnVente += p.annonceQuantiteMiseEnVente(lindt);
 		}
-		// Dans cette partie: Est-ce que je fais du stock? Prix d'achat?
 		double prixDemande;
 		if (besoinCacao <= quantiteEnVente){
 			if (besoinCacao <= 0.7*quantiteEnVente){

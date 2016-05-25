@@ -113,13 +113,9 @@ public class Lindt implements Acteur, ITransformateur{
 		//stockChocolat60.ajouterStock(this.getHist().valeur(Constante.STEP_2));
 		//stockChocolat70.ajouterStock(this.getHist().valeur(Constante.STEP_2));
 		
-		
 		//stockChocolat50.retirerStock(this.getHist().valeur(Constante.STEP_3));
 		//stockChocolat60.retirerStock(this.getHist().valeur(Constante.STEP_3));
 		//stockChocolat70.retirerStock(this.getHist().valeur(Constante.STEP_3));
-		
-		//stockCacao.ajouterStock(0.4 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT)); // stock lié au reste du monde
-		//stockCacao.retirerStock(0.4 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_2)); // stock lié au reste du monde
 		
 		//treso.depot(treso.marge());
 		//treso.retrait(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT) * 3000); // achat cacao au reste du monde
@@ -143,16 +139,17 @@ public class Lindt implements Acteur, ITransformateur{
 		//CommandeDistri nouvelleCommandeeDistri = new CommandeDistri(d, this, d.getDemande(this)); // faire méthode qui donne le prix de vente
 	}
 	
-	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
-		return venteDist.Offre(o);
-	}
-	
+
 	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	// Fonctions finies
+	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
+		return venteDist.Offre(o);
+	}
+	
 	public void notificationVente(CommandeProduc c) {
 		this.getHistCommandeProduc().ajouter(c);
 		this.getStockCacao().ajouterStock(c.getQuantite());
