@@ -61,7 +61,7 @@ public class Tresorerie {
 		}
 		double quantiteDemandeeP3= 0.0; //voir avec le reste du monde
 		quantiteCacaoAchetee += quantiteDemandeeP3;
-		return chargesFixes + quantiteCacaoAchetee * 5000 + this.coutLivraison()+
+		return chargesFixes + quantiteCacaoAchetee * Constante.RATIO_COUT_TRANSFORMATION + this.coutLivraison()+
 				(prix + MarcheProducteur.LE_MARCHE.getCours()*quantiteDemandeeP3)/quantiteCacaoAchetee;	
 		
 		
@@ -69,6 +69,17 @@ public class Tresorerie {
 		//Cout de transformation d'une tonne= 5000+pourcentage de quantite de cacao demandee a� chaque producteur multiplie par leur prix, afin d'avoir un prix de transfo d'environ 8000€/t
 
 		}
+	public double coutRevientI(){
+		double chargesFixes = 900980; // salaires+impots
+		double quantiteCacaoAchetee=0;
+		double coutTransformation = 0;
+		double quantiteDemandee = 0;
+		for (int i = 0; i<listeProducteurs.size() ; i++){
+			quantiteDemandee= this.histProduc.getCommande(this.histProduc.getHist().size()-i-1).getQuantite();
+			quantiteCacaoAchetee += quantiteDemandee;}
+		coutTransformation = quantiteCacaoAchetee * Constante.RATIO_COUT_TRANSFORMATION;
+		return 0.0;
+	}
 	
 	public double coutLivraison(){
 		double coutLivraison=0;
