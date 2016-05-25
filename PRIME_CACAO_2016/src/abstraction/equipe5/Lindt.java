@@ -16,6 +16,7 @@ public class Lindt implements Acteur, ITransformateur{
 	private Stock stockChocolat70;
 	private Tresorerie treso;
 	private AchatProd achatProd;
+	private VenteDist venteDist;
 	private ArrayList<IProducteur> producteurs;
 	private ArrayList<IDistributeur> distributeurs;
 	private Catalogue catalogue;
@@ -37,6 +38,7 @@ public class Lindt implements Acteur, ITransformateur{
 		this.producteurs = new ArrayList<IProducteur>();
 		this.distributeurs = new ArrayList<IDistributeur>();
 		this.achatProd = new AchatProd(this.histCommandeProduc, this);	
+//		this.venteDist = new VenteDist(produit, this)
 		this.catalogue = new Catalogue();
 		this.stocksChocolat= new ArrayList<Stock>();
 		this.stocksChocolat.add(new Stock(Constante.LISTE_PRODUIT[0].getNomProduit(),this,0.0));
@@ -142,7 +144,7 @@ public class Lindt implements Acteur, ITransformateur{
 	}
 	
 	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
-		return null;
+		return venteDist.Offre(o);
 	}
 	
 	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
@@ -169,7 +171,7 @@ public class Lindt implements Acteur, ITransformateur{
 		listePlage.add(new Plage(100, 150, 0.05));
 		listePlage.add(new Plage(151, 200, 0.07));
 		listePlage.add(new Plage(201, 0.12));
-		this.catalogue.add(new Produit("50%", 0.5), new Tarif(15000, listePlage));
+		this.catalogue.add(new Produit("50%", 0.5), new Tarif(15000, listePlage)); //prixProduit(
 		this.catalogue.add(new Produit("60%", 0.6), new Tarif(20000, listePlage));
 		this.catalogue.add(new Produit("70%", 0.5), new Tarif(25000, listePlage));
 		return this.catalogue;
