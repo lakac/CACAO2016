@@ -27,10 +27,9 @@ public class Lindt implements Acteur, ITransformateur{
 	public Lindt(){
 		this.histCommandeDistri = new HistoriqueCommandeDistri();
 		this.histCommandeProduc = new HistoriqueCommandeProduc();
-		for (IProducteur p : this.getProducteurs()) {
-			this.getHistCommandeProduc().ajouter(new CommandeProduc(this, p, 100.0, MarcheProducteur.LE_MARCHE.getCours()));}
+		this.getHistCommandeProduc().ajouter(new CommandeProduc(this, this.getProducteurs().get(0), 100.0, MarcheProducteur.LE_MARCHE.getCours()));
+		this.getHistCommandeProduc().ajouter(new CommandeProduc(this, this.getProducteurs().get(1), 100.0, MarcheProducteur.LE_MARCHE.getCours()));
 		this.stockCacao = new Stock("cacao",this,0.0);
-
 		this.stockChocolat50 = new Stock(Constante.LISTE_PRODUIT[0].getNomProduit(),this,0.0);
 		this.stockChocolat60 = new Stock(Constante.LISTE_PRODUIT[1].getNomProduit(),this,0.0);
 		this.stockChocolat70 = new Stock(Constante.LISTE_PRODUIT[2].getNomProduit(),this,0.0);
@@ -97,8 +96,6 @@ public class Lindt implements Acteur, ITransformateur{
 	}
 
 	public void next() {
-
-		
 		// mise a jour de l'etat interne de Lindt du au troisieme producteur
 		this.getStockCacao().ajouterStock(this.achatProd.quantiteProduc3());
 		this.getTreso().retrait(this.achatProd.quantiteProduc3()*MarcheProducteur.LE_MARCHE.getCours()); //on achète au prix du marché
