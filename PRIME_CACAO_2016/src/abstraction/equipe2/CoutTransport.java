@@ -2,8 +2,6 @@ package abstraction.equipe2;
 import java.util.HashMap;
 
 import abstraction.commun.*;
-import abstraction.equipe1.Producteur;
-import abstraction.fourni.*;
 
 
 public class CoutTransport {
@@ -27,10 +25,16 @@ public class CoutTransport {
 	
 	public double getCouttransport() {
 		return couttransportglobal;
+		}
+	
+	public double CouttransportGlobal(Achat achatp1, Achat achatp2, Achat ResteDuMonde) {
+		this.setCouttransportglobal((achatp1.getCacaoachete()+achatp2.getCacaoachete()+ResteDuMonde.getCacaoachete())
+				*Constante.COUT_UNITAIRE_TRANSPORT);
+		return this.getCouttransport();
 	}
 
-	public void setCouttransport(IProducteur p, Achat achat) {
-		this.couttransportglobal+=Constante.COUT_UNITAIRE_TRANSPORT*this.distances.get(p)*achat.getCacaoachete();
+	public void setCouttransportglobal(double couttransportglobal) {
+		this.couttransportglobal = couttransportglobal;
 	}
 	
 	/*public static void main(String[] args) {

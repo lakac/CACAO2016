@@ -42,7 +42,7 @@ public class Nestle implements Acteur, ITransformateur{
 	public StockCacao getStockcac() {
 		return stockcacao;
 	}
-
+	
 	public StockChocolats getStockchoc() {
 		return stockchocolats;
 	}
@@ -106,7 +106,9 @@ public class Nestle implements Acteur, ITransformateur{
 		
 		// A faire a chaque step
 		
-		
+		this.getCatalogue();
+		//Obtenir la demande des distributeurs
+		this.Offre(o)
 		
 
 	}
