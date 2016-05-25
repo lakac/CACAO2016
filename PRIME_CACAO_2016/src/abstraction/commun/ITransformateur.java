@@ -19,10 +19,7 @@ public interface ITransformateur {
 	
 
 	public List<CommandeDistri> offre (List<CommandeDistri> o);
-	
 
-	
-	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf);
 
 
 	/**

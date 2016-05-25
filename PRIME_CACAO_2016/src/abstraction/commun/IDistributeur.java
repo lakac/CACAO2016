@@ -17,10 +17,6 @@ public interface IDistributeur {
 	public double getPrix();
 	
 	public List<CommandeDistri> LivraisonEffective(List<CommandeDistri> liste);
-
-	
-	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf);
-
 	
 
 }
