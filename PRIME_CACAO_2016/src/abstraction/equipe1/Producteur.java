@@ -8,7 +8,6 @@ import abstraction.commun.CommandeProduc;
 import abstraction.commun.IProducteur;
 import abstraction.commun.ITransformateur;
 import abstraction.commun.Constantes;
-import abstraction.commun.MarcheProducteur;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,16 +16,18 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class Producteur implements Acteur, IProducteur {
+	private static final double productionAnnuelle = 24000;
+	
 	private String nom;
 	private Stock stock;
 	private Indicateur tresorerie;
 	private double coutProduction;
-	private double productionAnnuelle;
 	private double[] productionDeBase;
 	private Map<ITransformateur,Double> quantitesProposees;
 	private Indicateur productionCourante;
 	private Journal journal;
 	private List<ITransformateur> transformateurs;
+	private IntelligenceEconomique intelligenceEconomique;
 	
 	/**
 	 * Initialise notre producteur a partir d'un stock et d'une tresorerie initiaux.
@@ -36,7 +37,6 @@ public class Producteur implements Acteur, IProducteur {
 		this.stock = new Stock(this, stockInitial);
 		this.tresorerie = new Indicateur("Solde de "+this.nom, this, tresoInitiale);
 		this.coutProduction = 2100.0;
-		this.productionAnnuelle = 24000.0;
 		this.productionCourante = new Indicateur(Constantes.IND_PRODUCTION_P1, this, 100.0);
 		
 		Monde.LE_MONDE.ajouterIndicateur(this.tresorerie);
@@ -58,9 +58,53 @@ public class Producteur implements Acteur, IProducteur {
 		this.transformateurs = new ArrayList<ITransformateur>();
 	}
 	
+	public void creerIntelligenceEconomique() {
+		this.intelligenceEconomique = new IntelligenceEconomique(this.transformateurs,this.stock);
+	}
+	
+	// Méthodes de l'interface Acteur
+	
+	public String getNom() {
+		return this.nom;
+	}
+	
+	public void next() {
+		this.intelligenceEconomique.actualiser();
+		this.produire();
+		this.repartirQuantites();
+		this.journal.ajouter("Production de "+this.getNom()+" = <font color=\"maroon\">"+this.getProductionCourante()+"</font> au <b>step</b> "+Monde.LE_MONDE.getStep());
+	}
+	
+	// Méthodes de l'interface IProducteur
+	
+	public double annonceQuantiteMiseEnVente(ITransformateur t) {
+		return this.getQuantiteProposee(t);
+	}
+	
+	public void notificationVente(CommandeProduc c) {
+		this.stock.retirerVente((Acteur)c.getAcheteur(), c.getQuantite());
+		this.setTresorerie(this.getTresorerie() + c.getQuantite()*c.getPrixTonne());
+	}
+	
+	// méthode dépréciée
+	public double annoncePrix() {
+		return 0.0;
+	}
+	
+	// Méthodes publiques
+	
 	public void ajouterTransformateur(ITransformateur transformateur) {
 		this.transformateurs.add(transformateur);
 		this.quantitesProposees.put(transformateur, 0.0);
+	}
+	
+	// Méthodes privées
+	
+	/**
+	 * @return l'ensemble des transformateurs.
+	 */
+	private List<ITransformateur> getTransformateurs() {
+		return this.transformateurs;
 	}
 	
 	/**
@@ -70,19 +114,15 @@ public class Producteur implements Acteur, IProducteur {
 	 */
 	private void produire() {
 		Random fluctuations = new Random();
-		this.setProductionCourante(Math.floor(this.getProductionDeBaseCourante()*this.getProductionAnnuelle()*(98+4*fluctuations.nextDouble()))/100.0);
+		this.setProductionCourante(Math.floor(this.getProductionDeBaseCourante()*productionAnnuelle*(98+4*fluctuations.nextDouble()))/100.0);
 		this.stock.ajouterProd(this.getProductionCourante());
 		this.setTresorerie(this.getTresorerie()-this.getCoutProduction()*this.getProductionCourante());
 	}
 	
 	private void repartirQuantites() {
 		for (ITransformateur t : this.getTransformateurs()) {
-			this.quantitesProposees.put(t,this.getStock()*0.5);
+			this.quantitesProposees.put(t,this.intelligenceEconomique.donnerQuantiteMiseEnVente(t));
 		}
-	}
-	
-	public String getNom() {
-		return this.nom;
 	}
 	
 	private double getStock() {
@@ -99,14 +139,6 @@ public class Producteur implements Acteur, IProducteur {
 	
 	private double getCoutProduction() {
 		return this.coutProduction;
-	}
-	
-	private double getPrixVente() {
-		return MarcheProducteur.LE_MARCHE.getCours();
-	}
-	
-	private double getProductionAnnuelle() {
-		return this.productionAnnuelle;
 	}
 	
 	/**
@@ -126,47 +158,5 @@ public class Producteur implements Acteur, IProducteur {
 	
 	private double getQuantiteProposee(ITransformateur t) {
 		return this.quantitesProposees.get(t);
-	}
-	
-	/**
-	 * @return la quantite mise en vente pour le transformateur t.
-	 * 
-	 * Methode de l'interface IProducteur.
-	 */
-	public double annonceQuantiteMiseEnVente(ITransformateur t) {
-		return this.getQuantiteProposee(t);
-	}
-	
-	/**
-	 * @return le prix de vente.
-	 * 
-	 * Methode de l'interface IProducteur.
-	 */
-	public double annoncePrix() {
-		return this.getPrixVente();
-	}
-	
-	/**
-	 * Met a jour les stocks et tresoreries du transformateur t et de notre producteur.
-	 * 
-	 * Warning : il faut absolument que les transformateurs aient bien acces a la quantite reellement vendue...
-	 * Version prochaine : passer cette quantite en argument de ITransformateur.notificationVente ?
-	 */
-	public void notificationVente(CommandeProduc c) {
-		this.stock.retirerVente((Acteur)c.getAcheteur(), c.getQuantite());
-		this.setTresorerie(this.getTresorerie() + c.getQuantite()*c.getPrixTonne());
-	}
-	
-	/**
-	 * @return l'ensemble des transformateurs du Monde.
-	 */
-	private List<ITransformateur> getTransformateurs() {
-		return this.transformateurs;
-	}
-	
-	public void next() {
-		this.produire();
-		this.repartirQuantites();
-		this.journal.ajouter("Production de "+this.getNom()+" = <font color=\"maroon\">"+this.getProductionCourante()+"</font> au <b>step</b> "+Monde.LE_MONDE.getStep());
 	}
 }
