@@ -7,15 +7,36 @@ import java.util.List;
 
 import abstraction.commun.CommandeDistri;
 import abstraction.commun.IProducteur;
+import abstraction.commun.Produit;
 
 
 public class VenteDist {
 
+
 	private Lindt lindt;
-	
-	public VenteDist(Lindt lindt){
-	
+
+	private Tresorerie treso;
+
+	public VenteDist(Lindt lindt, Tresorerie treso){
+
 		this.lindt=lindt;
+		this.treso=treso;
+
+	}
+
+	public Tresorerie getTreso() {
+		return this.treso;
+	}
+
+	//creation d'une fonction qui renvoie le prix d'un produit 
+	public double prixProduit(Produit p) {
+		double r = 0;
+		for (int i=0; i<Constante.LISTE_PRODUIT.length; i++) {
+			if (p.equals(Constante.LISTE_PRODUIT[i])) {
+				r= this.getTreso().coutRevient() + Constante.MARGE_PRODUIT[i];
+			}
+		}
+		return r;
 	}
 	
 	class variable{
@@ -35,6 +56,8 @@ public class VenteDist {
 		
 		public Stock getStock50() {
 			return stock50;}
+
+
 
 		public void setStock50(Stock stock50) {
 			this.stock50 = stock50;}
@@ -57,10 +80,10 @@ public class VenteDist {
 		public void setCommandeDist(List<CommandeDistri> commandeDist) {
 			this.commandeDist = commandeDist;}
 
-	}
+
 	
-	//creation d'une fonction qui renvoie le prix d'un produit 
-//	public double prixProduit(String p){
+	
+	//	public double prixProduit(String p){
 //		double marge=0.0;
 //		if (p=='50%'){
 //			marge=7;
@@ -167,7 +190,7 @@ public class VenteDist {
 	//	for (abstraction.commun.Produit p : Constante.listeProduit) {
 	//		if(this.QuantiteDemandeeProduit(listeCommandesDist).get(0).doubleValue() <= lindt.getStocks().get(p).getStock()){
 	
-}
+}}
 			
 
 	

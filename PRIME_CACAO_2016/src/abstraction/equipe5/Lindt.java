@@ -27,7 +27,6 @@ public class Lindt implements Acteur, ITransformateur{
 	public Lindt(){
 		this.histCommandeDistri = new HistoriqueCommandeDistri();
 		this.histCommandeProduc = new HistoriqueCommandeProduc();
-		this.remplirHistProduc();
 		this.stockCacao = new Stock("cacao",this,0.0);
 		this.stockChocolat50 = new Stock(Constante.LISTE_PRODUIT[0].getNomProduit(),this,0.0);
 		this.stockChocolat60 = new Stock(Constante.LISTE_PRODUIT[1].getNomProduit(),this,0.0);
@@ -93,6 +92,9 @@ public class Lindt implements Acteur, ITransformateur{
 	public Tresorerie getTreso() {
 		return this.treso;
 	}
+	public VenteDist getVenteDist() {
+		return this.venteDist;
+	}
 
 	public void next() {
 		// mise a jour de l'etat interne de Lindt du au troisieme producteur
@@ -125,11 +127,6 @@ public class Lindt implements Acteur, ITransformateur{
 	 * 
 	 * Cette methode est appelee par les producteurs.
 	 */
-
-	public void remplirHistProduc() {
-		this.getHistCommandeProduc().ajouter(new CommandeProduc(this, this.getProducteurs().get(0), 100.0, MarcheProducteur.LE_MARCHE.getCours()));
-		this.getHistCommandeProduc().ajouter(new CommandeProduc(this, this.getProducteurs().get(1), 100.0, MarcheProducteur.LE_MARCHE.getCours()));
-	}
 		
 	public void arriveeCommandeDistri(IDistributeur d) {
 
@@ -165,9 +162,9 @@ public class Lindt implements Acteur, ITransformateur{
 		listePlage.add(new Plage(100, 150, 0.05));
 		listePlage.add(new Plage(151, 200, 0.07));
 		listePlage.add(new Plage(201, 0.12));
-		this.catalogue.add(new Produit("50%", 0.5), new Tarif(15000, listePlage)); //venteDist.prixProduit(Constante.LISTE_PRODUIT[0])
-		this.catalogue.add(new Produit("60%", 0.6), new Tarif(20000, listePlage)); //venteDist.prixProduit(Constante.LISTE_PRODUIT[1])
-		this.catalogue.add(new Produit("70%", 0.5), new Tarif(25000, listePlage)); //venteDist.prixProduit(Constante.LISTE_PRODUIT[2])
+		this.catalogue.add(new Produit("50%", 0.5), new Tarif(this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[0]), listePlage));
+		this.catalogue.add(new Produit("60%", 0.6), new Tarif(this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[1]), listePlage));
+		this.catalogue.add(new Produit("70%", 0.5), new Tarif(this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[2]), listePlage));
 		return this.catalogue;
 	}
 
