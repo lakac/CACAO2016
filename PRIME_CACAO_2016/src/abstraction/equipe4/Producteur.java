@@ -1,6 +1,9 @@
 package abstraction.equipe4;
 import abstraction.fourni.*;
 import abstraction.commun.*;
+import abstraction.equipe1.Stock;
+import abstraction.equipe2.Vente;
+
 import java.util.ArrayList;
 
 public class Producteur implements Acteur,IProducteur{
@@ -9,7 +12,7 @@ public class Producteur implements Acteur,IProducteur{
 	private Stock stock; 
 	private Journal journal;
 	private Tresorerie treso;
-	private ProductionBiannuelle prodBiannu;
+	// private ProductionBiannuelle prodBiannu;
 	private ArrayList<ITransformateur> transformateurs;
 	private Vente vente;
 
@@ -18,16 +21,16 @@ public class Producteur implements Acteur,IProducteur{
 	public Producteur(Monde monde) {
 		this.nom = Constantes.NOM_PRODUCTEUR_2;
 		this.treso = new Tresorerie(this);
-		this.stock = new Stock(this);
+	//	this.stock = new Stock(this);
 		this.journal = new Journal("Journal de "+this.nom);
-		this.prodBiannu=new ProductionBiannuelle(this,1200000);
+	//	this.prodBiannu=new ProductionBiannuelle(this,1200000);
 		this.transformateurs= new ArrayList<ITransformateur>();
 		Monde.LE_MONDE.ajouterJournal(this.journal);
 	}
 
-	public void AjoutVariableVente(){
-		this.vente = new Vente(this.stock, this);
-	}
+	//public void AjoutVariableVente(){
+	//	this.vente = new Vente(this.stock, this);
+	// }
 
 
 	// getter
@@ -41,10 +44,9 @@ public class Producteur implements Acteur,IProducteur{
 	}
 
 
-	public ProductionBiannuelle getProdBiannu() {
+	/* public ProductionBiannuelle getProdBiannu() {
 		return this.prodBiannu;
-	}
-
+ */
 	public Stock getStock() {
 		return this.stock;
 	}
@@ -69,8 +71,8 @@ public class Producteur implements Acteur,IProducteur{
 
 
 	// le next du producteur 2	
-	public void next(){
-
+	// public void next(){
+/*
 		//production semi annuelle
 		if (Monde.LE_MONDE.getStep()%12==1){
 			// actualisation de toutes les variables du à la récolte semestrielle.
@@ -95,14 +97,14 @@ public class Producteur implements Acteur,IProducteur{
 			return this.vente.ventesStep()[2];
 		}
 		return 0.0;
-	}
+	} */
 
 	//Modification du stock et de la tresorerie suite a une vente
 	public void venteRealisee(CommandeProduc c) {
 		// modifie la tresorerie
 		this.vente(c.getQuantite(), c.getPrixTonne());
 		// modife les stocks
-		this.getStock().reductionStock(c.getQuantite());
+		// this.getStock().reductionStock(c.getQuantite());
 		// le note dans le journal
 		this.getJournal().ajouter("Vente de " + c.getQuantite()+" auprès de " + ((Acteur)c.getAcheteur()).getNom() + " au step numéro "+ Monde.LE_MONDE.getStep());
 	}
@@ -123,6 +125,18 @@ public class Producteur implements Acteur,IProducteur{
 	public double annoncePrix() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public double annonceQuantiteMiseEnVente(ITransformateur t) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void next() {
+		// TODO Auto-generated method stub
+		
 	}
 
 

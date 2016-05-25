@@ -117,13 +117,6 @@ public class Carrefour implements Acteur,IDistributeur {
 
 
 	@Override
-	public List<CommandeDistri> commandeFinale(List<CommandeDistri> list) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
 	public void next() {
 		// TODO Auto-generated method stub
 		
@@ -155,20 +148,6 @@ public class Carrefour implements Acteur,IDistributeur {
 
 
 
-	@Override
-	public List<CommandeDistri> Demande(HashMap<ITransformateur, Catalogue> d) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-
-
-	@Override
-	public List<CommandeDistri> ContreDemande(List<CommandeDistri> cd) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 
 

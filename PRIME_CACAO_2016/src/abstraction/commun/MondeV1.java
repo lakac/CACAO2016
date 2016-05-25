@@ -30,13 +30,13 @@ public class MondeV1 extends Monde {
 		
 		// Transformateurs
 		Nestle t1 = new Nestle(this);
-		ResteDesTransformateursMondiaux t3 = new ResteDesTransformateursMondiaux();
+		/* ResteDesTransformateursMondiaux t3 = new ResteDesTransformateursMondiaux(); */
 		this.ajouterActeur(t1);
 		Lindt lindt = new Lindt();
 		ajouterActeur(lindt);
 		lindt.ajouterDistributeur(Ca);
 		lindt.ajouterDistributeur(Le);
-		this.ajouterActeur(t3);
+		// this.ajouterActeur(t3);
 		
 		
 		// Marché Producteur
@@ -54,8 +54,8 @@ public class MondeV1 extends Monde {
 
 		lindt.ajouterProducteur(p1);
 		lindt.ajouterProducteur(p2);
-		t3.ajouterTransformateur(t1);
-		t3.ajouterTransformateur(lindt);
+		// t3.ajouterTransformateur(t1);
+		// t3.ajouterTransformateur(lindt);
 		
 		
 		Le.ajouterVendeur(t1);
@@ -75,7 +75,7 @@ public class MondeV1 extends Monde {
 		
 		p2.ajoutClient(t1);
 		p2.ajoutClient(lindt);
-		p2.ajoutClient(t3);		
-		p2.AjoutVariableVente();
+		// p2.ajoutClient(t3);		
+		//p2.AjoutVariableVente();
 	}
 }
