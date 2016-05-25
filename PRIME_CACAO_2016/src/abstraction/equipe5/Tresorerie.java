@@ -21,7 +21,6 @@ public class Tresorerie {
 		this.histDistri = histDistri;
 		this.histProduc = histProduc;
 		this.lindt = lindt;
-
 		this.listeProducteurs=P;
 		this.treso = new Indicateur("Tresorerie Lindt", lindt, 100000);
 		Monde.LE_MONDE.ajouterIndicateur(this.treso);
