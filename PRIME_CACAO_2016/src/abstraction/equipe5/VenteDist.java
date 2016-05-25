@@ -62,36 +62,29 @@ public class VenteDist {
 			double QteDemandeeChocolatI=this.QuantiteDemandeeProduit(listeCommandesDist).get(i).doubleValue();// quantite totale de chocolat i demandée par les 3 dist
 			
 			if(QteDemandeeChocolatI <= stockChocolatI){ //ok on peut fournir aux distrib la quantité de chocolats i qu'ils demandent donc on valide les commandes
-					lindt.getStocksChocolat().get(i).setStock(stockChocolatI-QteDemandeeChocolatI); //mise à jour du stock de chocolat i
-				
+					//lindt.getStocksChocolat().get(i).setStock(stockChocolatI-QteDemandeeChocolatI); //mise à jour du stock de chocolat i
+					// a faire varier au step n+3
 				 for(CommandeDistri c : listeCommandesDist){
 					 if(c.getProduit().getNomProduit()==Constante.LISTE_PRODUIT[i].getNomProduit()){
-						 c.setValidation(true); //on valide les commandes de produit i puisqu'on a assez de chocolats i
-					 } 
-				 }
-			}
+						 c.setValidation(true);}}} //on valide les commandes de produit i puisqu'on a assez de chocolats i
+			
 			else{
 				double quantiteRepartie=lindt.getStocksChocolat().get(i).getStock()/(lindt.getDistributeurs().size()); //Répartition équitable, donc si 3 dist, on divise la quantité totale par 3)
 				
 				for (CommandeDistri c : listeCommandesDist){
 					if(c.getProduit().getNomProduit()==Constante.LISTE_PRODUIT[i].getNomProduit()){
-						while(lindt.getStocksChocolat().get(i).getStock()>0){// tant qu'il me reste du stock de chocolat i
+						while(stockChocolatI>0){// tant qu'il me reste du stock de chocolat i
 							int j=0; 
-							if(c.getQuantite()<=quantiteRepartie){ //si la quantité demandée dans la commande est inférieure à quantiteRepartie
+							if(c.getQuantite()<=quantiteRepartie){ //si la quantite demandee dans la commande est inférieure à quantiteRepartie
 								c.setValidation(true); //on valide la commande
-								lindt.getStocksChocolat().get(i).setStock(stockChocolatI-quantiteRepartie); // on met à jour le stock de chocolat i
-								quantiteRepartie=lindt.getStocksChocolat().get(i).getStock()/(lindt.getDistributeurs().size()+j);
+								//lindt.getStocksChocolat().get(i).setStock(stockChocolatI-quantiteRepartie); // on met à jour le stock de chocolat i
+								stockChocolatI -= c.getQuantite();
+								quantiteRepartie=stockChocolatI/(lindt.getDistributeurs().size()-j);
 								j++;
-								
-							}
-							
-							
-						}
-						c.setQuantite(quantiteRepartie);
-					}
-						
-				}
-			}
+								}
+							else{
+								c.setQuantite(quantiteRepartie);
+								}}}}}
 		}return listeCommandesDist; //liste de commandes pour le premier echange => offre
 	}
 	

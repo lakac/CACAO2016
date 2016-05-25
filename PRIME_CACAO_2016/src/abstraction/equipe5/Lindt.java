@@ -115,8 +115,7 @@ public class Lindt implements Acteur, ITransformateur{
 		//treso.depot(treso.marge());
 		//treso.retrait(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT) * 3000); // achat cacao au reste du monde
 		//this.venteChocolat.setValeur(this, this.stockChocolat.getStock());
-		//treso.retrait(18*(this.stockChocolat.getStock() + this.stockCacao.getStock())); //cout de stock (18€ la tonne/step)
-		//treso.retrait(0.01*(treso.coutLivraison())); //cout de livraison côté producteur (0,01€/km et P1 à 5000km et P2 à 9000km)
+		treso.retrait(treso.coutStock()+treso.coutLivraison());
 	}
 	//TODO Fonctions a finir!!
 	/**
