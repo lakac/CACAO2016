@@ -41,6 +41,14 @@ public class Stock {
 			}
 		} return stock;
 	}
+	public Double[] getStock(ITransformateur t){
+		Double[] stock = {0.0, 0.0, 0.0};
+		for (int i=0;i<this.leclerc.nombreTransformateur();i++){
+			if (t.equals(this.leclerc.getTransformateurs(i))){
+				stock=this.stock.get(i);
+			}
+		} return stock;
+	}
 	
 	public void setStock (ITransformateur t, int indexproduit) {
 		Double[] x;

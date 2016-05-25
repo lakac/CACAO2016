@@ -10,11 +10,14 @@ public class Commande {
 	private ArrayList<Double[]> commande;
 	private Leclerc leclerc;
 	private Stock stock;
+	private Produit produit;
+	private Ventes ventes;
 
-	public Commande(Leclerc leclerc) {
+	public Commande(Leclerc leclerc, Stock stock, Ventes ventes) {
 		this.commande = new ArrayList<Double[]>();
 		this.leclerc = leclerc;
 		this.stock = stock;
+		this.ventes=ventes;
 	}
 	
 	public double getCommande(ITransformateur t, Produit p){
@@ -37,8 +40,12 @@ public class Commande {
 		} return x;	
 	}
 	
-	public void setCommande(Stock stock){
-		
+	public void setCommande(Stock stock, ITransformateur t, Produit produit){
+		for (int i=0; i<this.leclerc.nombreTransformateur();i++){
+			if (t.equals(this.leclerc.getTransformateurs(i))){
+				
+			}
+		}
 	}
 
 }

@@ -16,7 +16,7 @@ public interface IDistributeur {
 	 */
 	public double getPrix();
 	
-	public List<CommandeDistri> Demande (HashMap<ITransformateur, Catalogue > d);
+	public List<CommandeDistri> Demande (ITransformateur t, Catalogue c);
 	
 	public List<CommandeDistri> ContreDemande (List<CommandeDistri> cd);
 	
