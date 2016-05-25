@@ -66,10 +66,8 @@ public class VenteDist {
 				
 				 for(CommandeDistri c : listeCommandesDist){
 					 if(c.getProduit().getNomProduit()==Constante.LISTE_PRODUIT[i].getNomProduit()){
-						 c.setValidation(true); //on valide les commandes de produit i puisqu'on a assez de chocolats i
-					 } 
-				 }
-			}
+						 c.setValidation(true);}}} //on valide les commandes de produit i puisqu'on a assez de chocolats i
+			
 			else{
 				double quantiteRepartie=lindt.getStocksChocolat().get(i).getStock()/(lindt.getDistributeurs().size()); //Répartition équitable, donc si 3 dist, on divise la quantité totale par 3)
 				
@@ -82,12 +80,8 @@ public class VenteDist {
 								lindt.getStocksChocolat().get(i).setStock(stockChocolatI-quantiteRepartie); // on met à jour le stock de chocolat i
 								quantiteRepartie=lindt.getStocksChocolat().get(i).getStock()/(lindt.getDistributeurs().size()+j);
 								j++;
-								
+								}	
 							}
-							
-							
-						}
-						c.setQuantite(quantiteRepartie);
 					}
 						
 				}
