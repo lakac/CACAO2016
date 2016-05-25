@@ -99,9 +99,9 @@ public class Lindt implements Acteur, ITransformateur{
 	public void next() {
 
 		
-		// mise a� jour de l'etat interne de Lindt du au troisieme producteur A FAIRE
-		
-		
+		// mise a jour de l'etat interne de Lindt du au troisieme producteur
+		this.getStockCacao().ajouterStock(this.achatProd.quantiteProduc3());
+		this.getTreso().retrait(this.achatProd.quantiteProduc3()*MarcheProducteur.LE_MARCHE.getCours()); //on achète au prix du marché
 		
 		//P1.annonceQuantiteMiseEnVente(this);
 
@@ -156,7 +156,7 @@ public class Lindt implements Acteur, ITransformateur{
 	public void notificationVente(CommandeProduc c) {
 		this.getHistCommandeProduc().ajouter(c);
 		this.getStockCacao().ajouterStock(c.getQuantite());
-		this.getTreso().retrait(c.getPrixTonne());
+		this.getTreso().retrait(c.getQuantite()*c.getPrixTonne());
 	}
 	
 	public double annonceQuantiteDemandee() {
@@ -171,9 +171,9 @@ public class Lindt implements Acteur, ITransformateur{
 		listePlage.add(new Plage(100, 150, 0.05));
 		listePlage.add(new Plage(151, 200, 0.07));
 		listePlage.add(new Plage(201, 0.12));
-		this.catalogue.add(new Produit("50%", 0.5), new Tarif(15000, listePlage));
-		this.catalogue.add(new Produit("60%", 0.6), new Tarif(20000, listePlage));
-		this.catalogue.add(new Produit("70%", 0.5), new Tarif(25000, listePlage));
+		this.catalogue.add(new Produit("50%", 0.5), new Tarif(15000, listePlage)); //venteDist.prixProduit(Constante.LISTE_PRODUIT[0])
+		this.catalogue.add(new Produit("60%", 0.6), new Tarif(20000, listePlage)); //venteDist.prixProduit(Constante.LISTE_PRODUIT[1])
+		this.catalogue.add(new Produit("70%", 0.5), new Tarif(25000, listePlage)); //venteDist.prixProduit(Constante.LISTE_PRODUIT[2])
 		return this.catalogue;
 	}
 
