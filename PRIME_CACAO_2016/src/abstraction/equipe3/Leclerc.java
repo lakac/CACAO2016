@@ -124,13 +124,25 @@ public class Leclerc implements Acteur,IDistributeur{
 		this.achats.setValeur(this,this.getQteTotal());
 		this.setPrixVente(20.0);
 		for (ITransformateur t : this.transformateurs) {
+
 			double q = this.getVente(t);
 			this.solde.setValeur(this, this.solde.getValeur()-q*this.getPrixAchat()); 
+
+			
 		}
 		this.solde.setValeur(this, this.solde.getValeur()+this.getQteTotal()*this.getPrixVente());
 		//solde(step n)=solde step(n-1)+quantite(step n)*prixvente
 	}
-
+	@Override
+	public List<CommandeDistri> Demande(ITransformateur t, Catalogue c) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<CommandeDistri> LivraisonEffective(List<CommandeDistri> liste) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	@Override
 	public List<CommandeDistri> Demande(HashMap<ITransformateur, Catalogue> d) {
 		// TODO Auto-generated method stub
@@ -142,9 +154,12 @@ public class Leclerc implements Acteur,IDistributeur{
 		return null;
 	}
 	@Override
-	public double getPrix() {
+	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
+	
 }
+
+
 
