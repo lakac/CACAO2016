@@ -37,13 +37,8 @@ public class Lindt implements Acteur, ITransformateur{
 		this.treso = new Tresorerie(this.histCommandeDistri, this.histCommandeProduc, this, this.getProducteurs());
 		this.producteurs = new ArrayList<IProducteur>();
 		this.distributeurs = new ArrayList<IDistributeur>();
-<<<<<<< HEAD
 		this.achatProd = new AchatProd(this.histCommandeProduc, this);	
 //		this.venteDist = new VenteDist(produit, this)
-=======
-		this.achatProd = new AchatProd(this.histCommandeProduc, this);	
-//		this.venteDist = new VenteDist(produit, this)
->>>>>>> branch 'master' of https://github.com/florianed/CACAO2016.git
 		this.catalogue = new Catalogue();
 		this.stocksChocolat= new ArrayList<Stock>();
 		this.stocksChocolat.add(new Stock(Constante.LISTE_PRODUIT[0].getNomProduit(),this,0.0));
