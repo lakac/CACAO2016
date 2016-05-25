@@ -20,7 +20,6 @@ public class Leclerc implements Acteur,IDistributeur{
 	private Indicateur solde;
 	private Indicateur achats;
 	private Stock stock;
-	private ArrayList<Double[]> quantites;
 	private ArrayList<ITransformateur> transformateurs;
 	private Ventes ventes;
 	private ArrayList<Double> ratio;
@@ -31,11 +30,9 @@ public class Leclerc implements Acteur,IDistributeur{
 		this.achats = new Indicateur("Achats de "+nom, this, 0.0);
 		this.solde = new Indicateur("Solde de "+nom, this, 1000000.0);
 		this.stock.initialiseStock();
-		this.quantites = new ArrayList<Double[]>();
     	Monde.LE_MONDE.ajouterIndicateur( this.achats );
     	Monde.LE_MONDE.ajouterIndicateur( this.solde );
-    	this.transformateurs = new ArrayList<ITransformateur>();	
-		this.quantites = new ArrayList<Double[]>();
+    	this.transformateurs = new ArrayList<ITransformateur>();
 		this.ratio = new ArrayList<Double>();
 		Monde.LE_MONDE.ajouterIndicateur( this.achats );
 		Monde.LE_MONDE.ajouterIndicateur( this.solde );
@@ -134,7 +131,7 @@ public class Leclerc implements Acteur,IDistributeur{
 		} return x;
 	}*/
 	
-	public List<CommandeDistri> Demande(ITransformateur t, Catalogue c) {
+	public List<CommandeDistri> Demande(ITransformateur t, Catalogue c) { //Commande aux différents transformateurs basé sur les ventes des années précédentes
 		Double[] x = {0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donné sur toutes les années
 		Double[] sto = {0.0,0.0,0.0};
 		for (int i=0; i<this.transformateurs.size();i++){
