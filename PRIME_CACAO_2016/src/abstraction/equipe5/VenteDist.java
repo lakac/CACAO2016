@@ -77,7 +77,11 @@ public class VenteDist {
 	
 	//Creation d'une fonction qui répartie le chocolat pour le 2eme échange (échange final) Ne pas oublier le boolean validation
 	
-	
+	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf){
+		
+		
+		return cf;
+	}
 	
 	
 	
