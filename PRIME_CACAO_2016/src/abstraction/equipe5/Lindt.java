@@ -27,6 +27,7 @@ public class Lindt implements Acteur, ITransformateur{
 	public Lindt(){
 		this.histCommandeDistri = new HistoriqueCommandeDistri();
 		this.histCommandeProduc = new HistoriqueCommandeProduc();
+		this.remplirHistProduc();
 		this.stockCacao = new Stock("cacao",this,0.0);
 		this.stockChocolat50 = new Stock(Constante.LISTE_PRODUIT[0].getNomProduit(),this,0.0);
 		this.stockChocolat60 = new Stock(Constante.LISTE_PRODUIT[1].getNomProduit(),this,0.0);
@@ -125,9 +126,11 @@ public class Lindt implements Acteur, ITransformateur{
 	 * Cette methode est appelee par les producteurs.
 	 */
 
-	
-	
-	
+	public void remplirHistProduc() {
+		this.getHistCommandeProduc().ajouter(new CommandeProduc(this, this.getProducteurs().get(0), 100.0, MarcheProducteur.LE_MARCHE.getCours()));
+		this.getHistCommandeProduc().ajouter(new CommandeProduc(this, this.getProducteurs().get(1), 100.0, MarcheProducteur.LE_MARCHE.getCours()));
+	}
+		
 	public void arriveeCommandeDistri(IDistributeur d) {
 
 		//CommandeDistri nouvelleCommandeeDistri = new CommandeDistri(d, this, d.getDemande(this)); // faire méthode qui donne le prix de vente
