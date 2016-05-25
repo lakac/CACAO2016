@@ -130,9 +130,8 @@ public class Leclerc implements Acteur,IDistributeur{
 		this.solde.setValeur(this, this.solde.getValeur()+this.getQteTotal()*this.getPrixVente());
 		//solde(step n)=solde step(n-1)+quantite(step n)*prixvente
 	}
-
 	@Override
-	public List<CommandeDistri> Demande(HashMap<ITransformateur, Catalogue> d) {
+	public List<CommandeDistri> Demande(ITransformateur t, Catalogue c) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -141,10 +140,8 @@ public class Leclerc implements Acteur,IDistributeur{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
-	public double getPrix() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
+
+	
 }
 
