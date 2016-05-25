@@ -124,8 +124,11 @@ public class Leclerc implements Acteur,IDistributeur{
 		this.achats.setValeur(this,this.getQteTotal());
 		this.setPrixVente(20.0);
 		for (ITransformateur t : this.transformateurs) {
+
 			double q = this.getVente(t);
 			this.solde.setValeur(this, this.solde.getValeur()-q*this.getPrixAchat()); 
+
+			
 		}
 		this.solde.setValeur(this, this.solde.getValeur()+this.getQteTotal()*this.getPrixVente());
 		//solde(step n)=solde step(n-1)+quantite(step n)*prixvente
@@ -135,13 +138,8 @@ public class Leclerc implements Acteur,IDistributeur{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
-	public List<CommandeDistri> ContreDemande(List<CommandeDistri> cd) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
 	
 }
+
+
 
