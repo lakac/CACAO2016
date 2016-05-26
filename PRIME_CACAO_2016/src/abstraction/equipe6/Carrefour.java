@@ -29,7 +29,9 @@ public class Carrefour implements Acteur,IDistributeur {
 	private List<Double> quantitesouhaite;
 	private List<Produit> produits;
 	private HashMap<Produit,Double> besoinStep;
-
+    private List<Double> commandeparproduit;
+    
+    
 	public List<Produit> getProduits() {
 		return produits;
 	}
@@ -53,7 +55,7 @@ public class Carrefour implements Acteur,IDistributeur {
 
 	private ArrayList<ITransformateur> transformateurs;
 	
-	public Carrefour(String nom, Monde monde, double prixachat, int i, double demandeannuel) {
+	public Carrefour(String nom, Monde monde, double prixachat, int i, double demandeannuel, List<Double> cpp) {
 		this.nom = nom;
 		this.prixachat=prixachat;
 		this.prixvente=i;
@@ -62,9 +64,12 @@ public class Carrefour implements Acteur,IDistributeur {
     	Monde.LE_MONDE.ajouterIndicateur( this.achats );
     	Monde.LE_MONDE.ajouterIndicateur( this.solde );
     	this.transformateurs = new ArrayList<ITransformateur>();
+    	this.commandeparproduit=cpp;
 	}
 
-	
+	public Carrefour(){
+		this.commandeparproduit= new ArrayList<Double>();
+	}
 	// Fixe la demande selon la p�riode de l'ann�e.
 
 
@@ -134,14 +139,80 @@ public class Carrefour implements Acteur,IDistributeur {
 		return transfo;
 	}
 
+	
+	public List<Double> getCommandeParProduit() {
+		return this.commandeparproduit;
+	}
+	
+	
+	
+	
+	public void setCommandeBasique(int step, Carrefour carrefour, List<Indicateur> I) {
+		int c = 0;
+		for (Double d : this.commandeparproduit) {
+			if (step%26 == 6 ) {
+				d = carrefour.getDemandeAnnuel()*0.06;
+				
+			}
+			
+			else {
+				if (step%26 == 25) {
+					d = 0.12*carrefour.getDemandeAnnuel();
+				}
+				else {
+					d = 0.03416*carrefour.getDemandeAnnuel();
+				}
+			}
+			d = d*(1+(Math.random()*0.2 - 0.1)); // fluctuation al�atoire de 10% de la commandeparstep
+		    
+			/*if (d>I.get(c).getValeur()){
+				d=d;
+				
+			}else{
+			if ( d >= 0.5*I.get(c).getValeur() && d<I.get(c).getValeur()){
+		    	d=0.80*d;
+		    }else{
+		    	d=0.65*d;
+		    	
+		    }
+		    c++;*/
+		}
+		}
+
+
+
+	
+	
+	
 	public HashMap<Produit,Double> getBesoinStep() {
 		return this.besoinStep;
 	}
 
-	public void setBesoinStep(HashMap<Produit,Double> bs) {
+	public void setBesoinStep(HashMap<Produit,Double> bs, int step,Carrefour carrefour) {
 		this.besoinStep = bs;
-	}
+	double de;
+	for (int i=0; i<3; i++){	
+	if (step%26 == 6 ) {
+		
 	
+	          de=(carrefour.getDemandeAnnuel()*0.06)*(1+(Math.random()*0.2 - 0.1));
+				this.besoinStep.put(produits.get(i),de); 
+		
+			
+			
+			}else{
+				if (step%26 == 25) {
+					
+					de =( 0.12*carrefour.getDemandeAnnuel())*(1+(Math.random()*0.2 - 0.1));
+					this.besoinStep.put(produits.get(i), de);
+					
+			}else{
+				de= (0.03416*carrefour.getDemandeAnnuel())*(1+(Math.random()*0.2 - 0.1));
+				this.besoinStep.put(produits.get(i),de);
+	}
+	}
+}		
+	}		
 	public HashMap<ITransformateur,List<CommandeDistri>> commandeStep(HashMap<Produit,Double> besoinpro) {
 		HashMap<ITransformateur, Catalogue> cat = new HashMap<ITransformateur,Catalogue>();
 		HashMap<ITransformateur,List<CommandeDistri>> commande = new HashMap<ITransformateur,List<CommandeDistri>>();
