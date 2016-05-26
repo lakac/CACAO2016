@@ -33,25 +33,23 @@ public class Lindt implements Acteur, ITransformateur{
 		this.stockChocolat70 = new Stock(Constante.LISTE_PRODUIT[2].getNomProduit(),this,0.0);
 		this.producteurs = new ArrayList<IProducteur>();
 		this.distributeurs = new ArrayList<IDistributeur>();
-		this.achatProd = new AchatProd(this.histCommandeProduc, this);	
-
 		this.catalogue = new Catalogue();
 		this.stocksChocolat= new ArrayList<Stock>();
 		this.stocksChocolat.add(new Stock(Constante.LISTE_PRODUIT[0].getNomProduit(),this,0.0));
 		this.stocksChocolat.add(new Stock(Constante.LISTE_PRODUIT[1].getNomProduit(),this,0.0));
 		this.stocksChocolat.add( new Stock(Constante.LISTE_PRODUIT[2].getNomProduit(),this,0.0));
+/** Qu'est-ce que c'est que ca?*/
 //		this.stocks.put(Constante.listeProduit[0], this.stockChocolat50);
 //		this.stocks.put(Constante.listeProduit[1], this.stockChocolat60);
 //		this.stocks.put(Constante.listeProduit[2], this.stockChocolat70);
-		//this.histCommandeProduc.ajouter(new CommandeProduc(this, this.getProducteurs().get(0), 100.0, MarcheProducteur.LE_MARCHE.getCours()));
-		//this.histCommandeProduc.ajouter(new CommandeProduc(this, this.getProducteurs().get(1), 100.0, MarcheProducteur.LE_MARCHE.getCours()));
-
 	}
 
 	public void creer() {
-		this.treso = new Tresorerie(this.histCommandeDistri, this.histCommandeProduc, this, this.getProducteurs());
 		this.histCommandeProduc.ajouter(new CommandeProduc(this, this.getProducteurs().get(0), 100.0, MarcheProducteur.LE_MARCHE.getCours()));
 		this.histCommandeProduc.ajouter(new CommandeProduc(this, this.getProducteurs().get(1), 100.0, MarcheProducteur.LE_MARCHE.getCours()));
+		this.achatProd = new AchatProd(this.histCommandeProduc,this.histCommandeDistri, this);	
+		this.treso = new Tresorerie(this.histCommandeDistri, this.histCommandeProduc, this, this.getProducteurs());
+		this.venteDist = new VenteDist(this, this.getTreso());
 
 	}
 
@@ -164,7 +162,7 @@ public class Lindt implements Acteur, ITransformateur{
 	}
 
 	public double annoncePrix() {
-		return this.achatProd.getPrix();
+		return this.achatProd.getPrix();}
 	
 	public Catalogue getCatalogue() {
 		List<Plage> listePlage = new ArrayList<Plage>();
