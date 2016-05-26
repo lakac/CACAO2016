@@ -110,32 +110,26 @@ public class Lindt implements Acteur, ITransformateur{
 		//stockChocolat60.ajouterStock(this.getHist().valeur(Constante.STEP_2));
 		//stockChocolat70.ajouterStock(this.getHist().valeur(Constante.STEP_2));
 		
-		//stockChocolat50.retirerStock(this.getHist().valeur(Constante.STEP_3));
-		//stockChocolat60.retirerStock(this.getHist().valeur(Constante.STEP_3));
-		//stockChocolat70.retirerStock(this.getHist().valeur(Constante.STEP_3));
+		stockChocolat50.retirerStockChocolat(Monde.LE_MONDE.getStep()-3);
+		stockChocolat60.retirerStockChocolat(Monde.LE_MONDE.getStep()-3);
+		stockChocolat70.retirerStockChocolat(Monde.LE_MONDE.getStep()-3);
+		
 		
 		//treso.retrait(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT) * 3000); // achat cacao au reste du monde
 		//this.venteChocolat.setValeur(this, this.stockChocolat.getStock());
 		treso.retrait(treso.coutStock()+treso.coutLivraison()+Constante.CHARGES_FIXES_STEP);
 	}
-	//TODO Fonctions a finir!!
-	/**
-	 * Met a jour l'etat interne de ce transformateur
-	 * suite a une vente aupres du producteur p.
-	 * 
-	 * Cette methode est appelee par les producteurs.
-	 */
 	
-
-	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
-		return null;
-	}
-
+	
 	// Fonctions finies
 	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
 		return this.venteDist.Offre(o);
 	}
 	
+	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
+		return this.venteDist.CommandeFinale(cf);
+	}
+
 	public void notificationVente(CommandeProduc c) {
 		this.getHistCommandeProduc().ajouter(c);
 		this.getStockCacao().ajouterStock(c.getQuantite());
