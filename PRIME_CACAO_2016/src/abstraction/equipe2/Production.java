@@ -47,7 +47,7 @@ public class Production {
 	
 	public double CoutTransformation(Produit p) {
 		double couttransformation = 0.0;
-		couttransformation+=this.getProduction().get(p);
+		couttransformation+=this.getProduction().get(p)*Constante.COUT_DE_TRANSFORMATION;
 		return couttransformation;
 	}
 	
