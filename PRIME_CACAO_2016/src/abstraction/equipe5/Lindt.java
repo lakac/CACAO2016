@@ -1,7 +1,6 @@
 package abstraction.equipe5;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import abstraction.commun.*;
 import abstraction.fourni.*;
 import java.util.List;
@@ -27,7 +26,7 @@ public class Lindt implements Acteur, ITransformateur{
 	public Lindt(){
 		this.histCommandeDistri = new HistoriqueCommandeDistri();
 		this.histCommandeProduc = new HistoriqueCommandeProduc();
-		this.stockCacao = new Stock("cacao",this,0.0);
+		this.stockCacao = new Stock("cacao",this,300);
 		this.stockChocolat50 = new Stock(Constante.LISTE_PRODUIT[0].getNomProduit(),this,0.0);
 		this.stockChocolat60 = new Stock(Constante.LISTE_PRODUIT[1].getNomProduit(),this,0.0);
 		this.stockChocolat70 = new Stock(Constante.LISTE_PRODUIT[2].getNomProduit(),this,0.0);

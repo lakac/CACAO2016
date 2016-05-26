@@ -18,10 +18,8 @@ public class VenteDist {
 	private Tresorerie treso;
 
 	public VenteDist(Lindt lindt, Tresorerie treso){
-
 		this.lindt=lindt;
 		this.treso=treso;
-
 	}
 
 	public Tresorerie getTreso() {

@@ -65,13 +65,22 @@ public class AchatProd {
 				if (c.getProduit().equals(Constante.LISTE_PRODUIT[i]))
 					besoinCacao += c.getQuantite()*Constante.LISTE_PRODUIT[i].getRatioCacao();
 		}}
-		
-		double stockCacao=lindt.getStockCacao().getStock()
+		// StockCacao-StockChoco c est pas optimal comme solution
+		double commandeP=0;
+		for (int i=0; i<lindt.getProducteurs().size() ; i++){
+			commandeP+= histP.getHist().get(histP.getHist().size()-i-1).getQuantite();
+		}
+		commandeP=commandeP*2/3; // Pour rajouter P3
+		double stockCacao=lindt.getStockCacao().getStock()+commandeP
 				- lindt.getStockChocolat50().getStock()
 				- lindt.getStockChocolat60().getStock()
 				- lindt.getStockChocolat70().getStock();
-		if (stockCacao<besoinCacao){
-			besoinCacao=besoinCacao-stockCacao - Constante.STOCK_MINIMAL;
+
+		if (stockCacao-Constante.STOCK_MINIMAL<besoinCacao){
+			besoinCacao=besoinCacao-stockCacao+Constante.STOCK_MINIMAL;
+		}
+		else{
+			besoinCacao= Constante.STOCK_MINIMAL/2;
 		}
 		double quantiteEnVente = 0;
 		for (IProducteur p: lindt.getProducteurs()){
