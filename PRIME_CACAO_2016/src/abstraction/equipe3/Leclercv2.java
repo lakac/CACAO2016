@@ -19,6 +19,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	private Indicateur solde;
 	private Ventes ventes;
 	private Stock stock;
+	private PrixDeVente prixdevente;
 	private ArrayList<Double> ratio;
 	private ArrayList<ITransformateur> transformateurs;
 
@@ -73,42 +74,54 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		} return list;
 		// TODO Auto-generated method stub
 	}
-	
-	@Override
-	public List<CommandeDistri> Demande(HashMap<ITransformateur, Catalogue> d) {
-		List<CommandeDistri> dem = new ArrayList<CommandeDistri>();
-		List<CommandeDistri> a = new ArrayList<CommandeDistri>();
-		for (ITransformateur t : this.getTransformateurs()){
-			//a=this.Demande(t,(d.get(t).getCata())); //créer un constructeur avec Hashmap en argument
-			for (CommandeDistri c : a){
-				dem.add(c);
-			}
-			
-		}
-		return dem;
-		// TODO Auto-generated method stub
-	}
+
 
 	@Override
 	public List<CommandeDistri> ContreDemande(List<CommandeDistri> cd) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public void rajoutStock(List<CommandeDistri> l){
+		for (CommandeDistri com : l){
+			this.stock.ajouterStock(com);
+		}
+	}
+	public void retraitStock(List<CommandeDistri> l){
+		for (CommandeDistri com : l){
+			this.stock.retirerStock(com);
+		}
+	}
+	
+	public double recette(){
+		double recette = 0.0;
+		for (int i=0;i<3;i++){
+			//recette+=DEMANDE.get(i)*this.prixdevente.getPrixDeVente().get(i);
+		}
+		return recette;
+	}
+	public double depenses(List<CommandeDistri> l){
+		double depenses = 0.0;
+		depenses+=this.stock.getFraisDeStockTotal();
+		for (CommandeDistri com : l){
+			depenses+=com.getPrix()*com.getQuantite();
+		}
+		return depenses;
 	}
 
-	@Override
-	public List<CommandeDistri> LivraisonEffective(List<CommandeDistri> liste) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
 	public void next() {
+		/*//récupérer commande finale
+		List<CommandeDistri> commandefinale = LEMARCHE.CommandeFinale();*/
+		/*récupérer livraison effective
+		//List<CommandeDistri> livraisoneffective = LEMARCHE.LivraisonEffective();*/
+		/*gérer le stock
+		rajoutStock(livraisoneffective);
+		retraitStock(DEMANDE.get())*/
+		//gérer le solde
+		//this.solde.setValeur(this, this.solde.getValeur()+recette()-depenses(commandefinale));
+		//gérer prix de vente
+		//gérer demande
 		// TODO Auto-generated method stub
 		
 	}

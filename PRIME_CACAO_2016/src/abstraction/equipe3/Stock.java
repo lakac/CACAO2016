@@ -2,8 +2,10 @@ package abstraction.equipe3;
 
 import java.util.ArrayList;
 
+import abstraction.commun.CommandeDistri;
 import abstraction.commun.ITransformateur;
-import abstraction.equipe3.Leclerc;
+
+import abstraction.commun.Produit;
 
 public class Stock {
 	
@@ -11,18 +13,22 @@ public class Stock {
 	private Leclerc leclerc;
 	private double fraisDeStock;
 	
-	public Stock(Leclerc leclerc, ArrayList<Double[]> stock){
+	public Stock(Leclerc leclerc, ArrayList<Double[]> stock, double fraisDeStock){
 		this.leclerc=leclerc;
 		this.stock=stock;
+		this.fraisDeStock=fraisDeStock;
 	}
 	
-	public double getFraisDeStockTotal(double fraisDeStock){
-		this.fraisDeStock = 0.0;
+	public double getFraisDeStockTotal(){
+		double fraisDeStockTotal= 0.0;
 		for (ITransformateur t : this.leclerc.getTransformateurs()){
 			for (int i=0; i<3;i++){
-				this.fraisDeStock += this.getStock(t,i)*fraisDeStock;
+				fraisDeStockTotal += this.getStock(t,i)*this.fraisDeStock;
 			}
-		} return this.fraisDeStock;
+		} return fraisDeStockTotal;
+	}
+	public void set(double fraisDeStock){
+		this.fraisDeStock=fraisDeStock;
 	}
 	
 	public void initialiseStock(){
@@ -50,16 +56,46 @@ public class Stock {
 		} return stock;
 	}
 	
-	public void setStock (ITransformateur t, int indexproduit) {
+	public void ajouterStock (CommandeDistri com) {
 		Double[] x;
 		for (int i=0;i<this.leclerc.nombreTransformateur();i++){
-			if (t.equals(this.leclerc.getTransformateurs(i))){
+			if (com.getVendeur().equals(this.leclerc.getTransformateurs(i))){
 				x=this.stock.get(i);
 				this.stock.remove(i);
-				//x[indexproduit]+=this.leclerc.getDemande(t)-this.leclerc.getVente(t);
+				if (com.getProduit().getNomProduit()=="50%"){
+					x[0]+=com.getQuantite();
+				}
+				else{
+					if (com.getProduit().getNomProduit()=="50%"){
+						x[1]+=com.getQuantite();
+					}
+					else{
+						x[2]+=com.getQuantite();
+					}
+				}
 				this.stock.add(i, x);
 			}
 		} 
 	}
-	
+	public void retirerStock (CommandeDistri com) {
+		Double[] x;
+		for (int i=0;i<this.leclerc.nombreTransformateur();i++){
+			if (com.getVendeur().equals(this.leclerc.getTransformateurs(i))){
+				x=this.stock.get(i);
+				this.stock.remove(i);
+				if (com.getProduit().getNomProduit()=="50%"){
+					x[0]-=com.getQuantite();
+				}
+				else{
+					if (com.getProduit().getNomProduit()=="50%"){
+						x[1]-=com.getQuantite();
+					}
+					else{
+						x[2]-=com.getQuantite();
+					}
+				}
+				this.stock.add(i, x);
+			}
+		} 
+	}
 }
