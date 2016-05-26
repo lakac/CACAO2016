@@ -52,10 +52,10 @@ public class Nestle implements Acteur, ITransformateur{
 				this.SetCommandesDistriInit(this.clients);
 				this.commandeproduc = new ArrayList<CommandeProduc>();
 				this.SetCommandesProduc(fournisseurs);
-				this.SetTotalVentesProduit();
+			//	this.SetTotalVentesProduit();
 		
 		//Stock et les informations de transport et production
-				this.stockcacao = new StockCacao();
+			/*	this.stockcacao = new StockCacao();
 				this.stockchocolats = new StockChocolats();
 				this.couttransport = new CoutTransport(Constante.COUT_UNITAIRE_TRANSPORT);
 				this.production = new Production();
@@ -64,9 +64,27 @@ public class Nestle implements Acteur, ITransformateur{
 				Monde.LE_MONDE.ajouterIndicateur(this.totalachats);
 				for (Produit p : this.totalventesproduit.keySet()) {
 					Monde.LE_MONDE.ajouterIndicateur( this.totalventesproduit.get(p));
-				}
+				}*/
 		}
-	
+	public void creer() {
+		this.SetTotalVentesProduit();
+		//Stock et les informations de transport et production
+		this.stockcacao = new StockCacao();
+		this.stockchocolats = new StockChocolats();
+		this.couttransport = new CoutTransport(Constante.COUT_UNITAIRE_TRANSPORT);
+		this.production = new Production();
+//Ajout d'indicateurs visibles
+		this.banque=new Banque(this);
+		System.out.println("treso "+this.banque.getTresorerie());
+		Monde.LE_MONDE.ajouterIndicateur(this.banque.getTresorerie());
+		this.totalachats = new Indicateur("totalachats", this, 0.);
+		System.out.println("total "+this.totalachats);
+		Monde.LE_MONDE.ajouterIndicateur(this.totalachats);
+		for (Produit p : this.totalventesproduit.keySet()) {
+			Monde.LE_MONDE.ajouterIndicateur( this.totalventesproduit.get(p));
+		}
+
+	}
 	//Ajout de clients et de fournisseurs
 	//@copyright équipe 3
 	public void AjouterClient(IDistributeur d) {
@@ -188,7 +206,7 @@ public class Nestle implements Acteur, ITransformateur{
 	public double annonceQuantiteDemandee() {
 		double resultat = 0.0;
 		for (IDistributeur d : this.getCommandesdistri().keySet()) {
-			for (CommandeDistri c : this.getCommandesdistri().get(d)) {
+		 	for (CommandeDistri c : this.getCommandesdistri().get(d)) {
 				resultat+=c.getQuantite()*c.getProduit().getRatioCacao();
 			}
 		}
@@ -261,7 +279,7 @@ public class Nestle implements Acteur, ITransformateur{
 		for (IDistributeur d : this.getClients()) {
 			// Si les distributeurs demandent un produit que l'on ne vend pas -> erreur du programme
 			this.setCommandesdistri(d,d.Demande(null));
-			this.Offre(d.Demande(null));// null a changer quand l'équipe aura fait une pul request.
+			this.Offre(d.Demande(null));// null a changer quand l'équipe aura fait une pull request.
 		}
 		for (IDistributeur d : this.getClients()) {
 			this.setCommandesdistri(d, d.ContreDemande(this.getCommandesdistri().get(d)));
@@ -290,12 +308,15 @@ public class Nestle implements Acteur, ITransformateur{
 		//et la trésorerie (cout de transport à notre charge)
 		for (IProducteur p : this.achats.keySet()) {
 			this.stockcacao.AjouterStockCacao(this.achats.get(p));
-			this.banque.retirer(this.getCouttransport().getDistances().get(p)*this.achats.get(p).getCacaoachete()*Constante.COUT_UNITAIRE_TRANSPORT);
+			
+			this.banque.retirer(this.getCouttransport().getDistances().get(p)*
+					Constante.COUT_UNITAIRE_TRANSPORT*this.getAchats().get(p).getCacaoachete());
 		}
 		
 		//Le stock de cacao est à jour, on lance la production de chocolat, et on met
 		//a jour le stock de cacao et de chocolat au fur et a mesure
 		//et on retranche les couts de production à la banque
+		//on calcule le cout de stock à ce moment là
 		for (IDistributeur d : this.commandesdistri.keySet()) {
 			for (CommandeDistri cd : this.commandesdistri.get(d)) {
 				this.production.setProduction(this, cd);
@@ -305,6 +326,7 @@ public class Nestle implements Acteur, ITransformateur{
 				this.banque.retirer(this.production.CoutTransformation(cd.getProduit()));
 				//Cout de stock
 				this.banque.retirer(this.stockcacao.CoutStockCacao()+this.stockchocolats.CoutStockChocolat());
+			
 			}
 		}
 		//La production étant faite, on peut alors mettre a jour les ventes 

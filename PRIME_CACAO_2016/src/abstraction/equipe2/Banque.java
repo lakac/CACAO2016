@@ -11,7 +11,12 @@ public class Banque {
 		
 	
 	public Banque() {
-	this.banque=Constante.TRESORERIE_INITIALE;;
+	this.banque=Constante.TRESORERIE_INITIALE;
+	}
+
+	public Banque(Nestle nestle) {
+	this.banque=Constante.TRESORERIE_INITIALE;
+	this.tresorerie = new Indicateur("fonds", nestle, Constante.TRESORERIE_INITIALE);
 	}
 	
 	public void MiseAJourHistorique(Nestle nestle, int etape) {
