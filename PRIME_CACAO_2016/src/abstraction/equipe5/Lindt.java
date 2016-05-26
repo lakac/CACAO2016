@@ -9,6 +9,7 @@ public class Lindt implements Acteur, ITransformateur{
 	
 	private HistoriqueCommandeDistri histCommandeDistri;
 	private HistoriqueCommandeProduc histCommandeProduc;
+	private HistoriqueCommandeDistri commandeDistriLivree;
 	private Stock stockCacao;
 	private Stock stockChocolat50;
 	private Stock stockChocolat60;
@@ -25,6 +26,7 @@ public class Lindt implements Acteur, ITransformateur{
 	public Lindt(){
 		this.histCommandeDistri = new HistoriqueCommandeDistri();
 		this.histCommandeProduc = new HistoriqueCommandeProduc();
+		this.commandeDistriLivree = new HistoriqueCommandeDistri();
 		this.stockCacao = new Stock("cacao",this,300);
 		this.stockChocolat50 = new Stock(Constante.LISTE_PRODUIT[0].getNomProduit(),this,0.0);
 		this.stockChocolat60 = new Stock(Constante.LISTE_PRODUIT[1].getNomProduit(),this,0.0);
@@ -50,10 +52,13 @@ public class Lindt implements Acteur, ITransformateur{
 
 	/** Voila tout les getters*/
 	public HistoriqueCommandeDistri getHistCommandeDistri() {
-		return histCommandeDistri;
+		return this.histCommandeDistri;
 	}
 	public HistoriqueCommandeProduc getHistCommandeProduc() {
-		return histCommandeProduc;
+		return this.histCommandeProduc;
+	}
+	public HistoriqueCommandeDistri getCommandeDistriLivree() {
+		return this.commandeDistriLivree;
 	}
 	public void ajouterProducteur(IProducteur p) {
 		this.producteurs.add(p);
@@ -97,6 +102,9 @@ public class Lindt implements Acteur, ITransformateur{
 		// mise a jour de l'etat interne de Lindt du au troisieme producteur
 		this.getStockCacao().ajouterStock(this.achatProd.quantiteProduc3());
 		this.getTreso().retrait(this.achatProd.quantiteProduc3()*MarcheProducteur.LE_MARCHE.getCours()); //on achete au prix du marche
+		
+		// deplacement des commandes distributeurs dans l'historique des commandes livrees
+		this.deplacerCommandeDist();
 		
 		//stockChocolat50.ajouterStock(this.getHist().valeur(Constante.STEP_2));
 		//stockChocolat60.ajouterStock(this.getHist().valeur(Constante.STEP_2));
@@ -144,6 +152,22 @@ public class Lindt implements Acteur, ITransformateur{
 		this.catalogue.add(new Produit("60%", 0.6), new Tarif(this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[1]), listePlage));
 		this.catalogue.add(new Produit("70%", 0.5), new Tarif(this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[2]), listePlage));
 		return this.catalogue;
+	}
+	
+	public void deplacerCommandeDist() {
+		// trouve le step maximum dans l'historique des commandes
+		int stepMax = 0;
+		for (CommandeDistri c : this.getHistCommandeDistri().getHist()) {
+			if (c.getStepLivraison() > stepMax) {
+				stepMax = c.getStepLivraison();
+			}
+		}
+		for (int i=0; i<this.getHistCommandeDistri().getHist().size(); i++) {
+				this.getCommandeDistriLivree().getHist().add(this.getHistCommandeDistri().getCommande(stepMax-3));
+				this.getHistCommandeDistri().getHist().remove(stepMax-3); 
+		// voir avec le prof si il ne va pas y avoir une erreur des qu'il n'y aura plus de commande à setpMax-3
+		// idee : faire une boucle while --> tant qu'il existe une commande dans HistCommandeDistri qui a un stepMax-3
+		}
 	}
 
 	// Ne plus coder celles la, elles vont disparaitre!
