@@ -104,7 +104,7 @@ public class Lindt implements Acteur, ITransformateur{
 		this.getTreso().retrait(this.achatProd.quantiteProduc3()*MarcheProducteur.LE_MARCHE.getCours()); //on achete au prix du marche
 		
 		// deplacement des commandes distributeurs dans l'historique des commandes livrees
-		
+		this.deplacerCommandeDist();
 		
 		//stockChocolat50.ajouterStock(this.getHist().valeur(Constante.STEP_2));
 		//stockChocolat60.ajouterStock(this.getHist().valeur(Constante.STEP_2));
@@ -158,20 +158,16 @@ public class Lindt implements Acteur, ITransformateur{
 		// trouve le step maximum dans l'historique des commandes
 		int stepMax = 0;
 		for (CommandeDistri c : this.getHistCommandeDistri().getHist()) {
-			
 			if (c.getStepLivraison() > stepMax) {
 				stepMax = c.getStepLivraison();
 			}
 		}
-		
-		for (CommandeDistri c : this.getHistCommandeDistri().getHist()) {
-				
-			if (stepMax >= 4) {
+		for (int i=0; i<this.getHistCommandeDistri().getHist().size(); i++) {
 				this.getCommandeDistriLivree().getHist().add(this.getHistCommandeDistri().getCommande(stepMax-3));
-				this.getHistCommandeDistri().getHist().remove(stepMax-3);
+				this.getHistCommandeDistri().getHist().remove(stepMax-3); 
+		// voir avec le prof si il ne va pas y avoir une erreur des qu'il n'y aura plus de commande à setpMax-3
+		// idee : faire une boucle while --> tant qu'il existe une commande dans HistCommandeDistri qui a un stepMax-3
 		}
-	}
-		
 	}
 
 	// Ne plus coder celles la, elles vont disparaitre!
