@@ -20,7 +20,6 @@ public class Lindt implements Acteur, ITransformateur{
 	private ArrayList<IDistributeur> distributeurs;
 	private Catalogue catalogue;
 	private ArrayList<Stock> stocksChocolat;
-	//private HashMap<Produit, Stock>stocks;
 	
 
 	public Lindt(){
@@ -37,10 +36,6 @@ public class Lindt implements Acteur, ITransformateur{
 		this.stocksChocolat.add(new Stock(Constante.LISTE_PRODUIT[0].getNomProduit(),this,0.0));
 		this.stocksChocolat.add(new Stock(Constante.LISTE_PRODUIT[1].getNomProduit(),this,0.0));
 		this.stocksChocolat.add( new Stock(Constante.LISTE_PRODUIT[2].getNomProduit(),this,0.0));
-/** Qu'est-ce que c'est que ca?*/
-//		this.stocks.put(Constante.listeProduit[0], this.stockChocolat50);
-//		this.stocks.put(Constante.listeProduit[1], this.stockChocolat60);
-//		this.stocks.put(Constante.listeProduit[2], this.stockChocolat70);
 	}
 
 	public void creer() {
@@ -52,13 +47,8 @@ public class Lindt implements Acteur, ITransformateur{
 
 	}
 
-	
-	//public HashMap<Produit, Stock>getStocks() {
-		//return this.stocks;}
 
-
-	
-	// Voila� tout les getters !
+	/** Voila tout les getters*/
 	public HistoriqueCommandeDistri getHistCommandeDistri() {
 		return histCommandeDistri;
 	}
@@ -102,16 +92,11 @@ public class Lindt implements Acteur, ITransformateur{
 		return this.venteDist;
 	}
 
+	
 	public void next() {
 		// mise a jour de l'etat interne de Lindt du au troisieme producteur
 		this.getStockCacao().ajouterStock(this.achatProd.quantiteProduc3());
-		this.getTreso().retrait(this.achatProd.quantiteProduc3()*MarcheProducteur.LE_MARCHE.getCours()); //on achète au prix du marché
-		
-		//P1.annonceQuantiteMiseEnVente(this);
-
-		//P2.annonceQuantiteMiseEnVente(this);
-		
-		//this.hist.ajouter(D1.getDemande(this)+ D2.getDemande(this));
+		this.getTreso().retrait(this.achatProd.quantiteProduc3()*MarcheProducteur.LE_MARCHE.getCours()); //on achete au prix du marche
 		
 		//stockChocolat50.ajouterStock(this.getHist().valeur(Constante.STEP_2));
 		//stockChocolat60.ajouterStock(this.getHist().valeur(Constante.STEP_2));
@@ -121,10 +106,9 @@ public class Lindt implements Acteur, ITransformateur{
 		//stockChocolat60.retirerStock(this.getHist().valeur(Constante.STEP_3));
 		//stockChocolat70.retirerStock(this.getHist().valeur(Constante.STEP_3));
 		
-		//treso.depot(treso.marge());
 		//treso.retrait(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT) * 3000); // achat cacao au reste du monde
 		//this.venteChocolat.setValeur(this, this.stockChocolat.getStock());
-		treso.retrait(treso.coutStock()+treso.coutLivraison());
+		treso.retrait(treso.coutStock()+treso.coutLivraison()+Constante.CHARGES_FIXES_STEP);
 	}
 	//TODO Fonctions a finir!!
 	/**
@@ -133,15 +117,9 @@ public class Lindt implements Acteur, ITransformateur{
 	 * 
 	 * Cette methode est appelee par les producteurs.
 	 */
-		
-	public void arriveeCommandeDistri(IDistributeur d) {
-
-		//CommandeDistri nouvelleCommandeeDistri = new CommandeDistri(d, this, d.getDemande(this)); // faire méthode qui donne le prix de vente
-	}
 	
 
 	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

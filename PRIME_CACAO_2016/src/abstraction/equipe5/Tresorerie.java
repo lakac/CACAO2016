@@ -49,7 +49,7 @@ public class Tresorerie {
 
 	// TODO Constante (expliquer ce que represente 5000);
 	public double coutRevient(){
-		double chargesFixes = 900980; // salaires+impots
+		double chargesFixes = Constante.CHARGES_FIXES_STEP;
 		double coutLivraison = this.coutLivraison();
 		double quantiteCacaoAchetee=0;
 		double coutTransformation = 0;
@@ -89,9 +89,5 @@ public class Tresorerie {
 				+ lindt.getStockCacao().getStock())); 
 	}		
 
-//	
-//	public double marge(){
-//	return (15000*hist.valeur(Constante.STEP_3)-coutRevient());
-//	}
 
 }
