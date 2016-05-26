@@ -39,62 +39,6 @@ public class VenteDist {
 		return r;
 	}
 	
-	class variable{
-		
-		private Stock stock50;
-		private Stock stock60;
-		private Stock stock70;
-		private List<CommandeDistri> commandeDist;
-		
-		public variable(Stock stock50, Stock stock60, Stock stock70, List<CommandeDistri> commandeDist) {
-			super();
-			this.stock50 = stock50;
-			this.stock60 = stock60;
-			this.stock70 = stock70;
-			this.commandeDist = commandeDist;
-		}
-		
-		public Stock getStock50() {
-			return stock50;}
-
-
-
-		public void setStock50(Stock stock50) {
-			this.stock50 = stock50;}
-
-		public Stock getStock60() {
-			return stock60;}
-
-		public void setStock60(Stock stock60) {
-			this.stock60 = stock60;}
-
-		public Stock getStock70() {
-			return stock70;}
-
-		public void setStock70(Stock stock70) {
-			this.stock70 = stock70;}
-
-		public List<CommandeDistri> getCommandeDist() {
-			return commandeDist;}
-
-		public void setCommandeDist(List<CommandeDistri> commandeDist) {
-			this.commandeDist = commandeDist;}
-
-
-	
-	
-	//	public double prixProduit(String p){
-//		double marge=0.0;
-//		if (p=='50%'){
-//			marge=7;
-//		}
-//		else{
-//			if(p)
-//		}
-//	
-//		return Tresorerie.coutRevientParProduit() + marge ;
-//	}
-	
 	
 	//creation d'une fonction qui calcule la quantité totale demandée par les 3 distrib pour chacun des produits (dans l'ordre 50%,60%,70%)
 	public List <Double> QuantiteDemandeeProduit( List<CommandeDistri> listeCommandesDist){
@@ -113,17 +57,10 @@ public class VenteDist {
 	}
 
 	//Creation d'une fonction qui calcule la quantité de chocolat à mettre dans chaque commande pour le 1er échange (offre) 
-	//Ne pas oublier de changer le prix!!!!
 	
-	public List<CommandeDistri> Offre (List<CommandeDistri> listeCommandesDist){
-		return this.Offre(listeCommandesDist).get(3);
-	}
-	
-	public variable OffreInterne (List<CommandeDistri> listeCommandesDist){
-		variable var = new variable (lindt.getStockChocolat50(),lindt.getStockChocolat60(),lindt.getStockChocolat70(),listeCommandesDist);
-
+	public List<CommandeDistri> Offre(List<CommandeDistri> listeCommandesDist){
+		
 		for(int i=0; i<lindt.getDistributeurs().size(); i++){
-			
 			
 			double stockChocolatI=lindt.getStocksChocolat().get(i).getStock(); //stock de chocolat i
 			double QteDemandeeChocolatI=this.QuantiteDemandeeProduit(listeCommandesDist).get(i).doubleValue();// quantite totale de chocolat i demandée par les 3 dist
@@ -141,7 +78,7 @@ public class VenteDist {
 				
 				for (CommandeDistri c : listeCommandesDist){
 					if(c.getProduit().getNomProduit()==Constante.LISTE_PRODUIT[i].getNomProduit()){
-						while(stockChocolatI>0){// tant qu'il me reste du stock de chocolat i
+						while(stockChocolatI>0.5){// tant qu'il me reste du stock de chocolat i (limite à 0,5 tonne)
 							int j=0; 
 							if(c.getQuantite()<=quantiteRepartie){ //si la quantite demandee dans la commande est inférieure à quantiteRepartie
 								c.setValidation(true); //on valide la commande
@@ -153,7 +90,7 @@ public class VenteDist {
 							else{
 								c.setQuantite(quantiteRepartie);
 								}}}}}
-		}return var; //liste de commandes pour le premier echange => offre		
+		}return listeCommandesDist; //liste de commandes pour le premier echange => offre		
 	}
 	
 	
@@ -161,11 +98,26 @@ public class VenteDist {
 	
 	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf){
 		
+		
 		ArrayList<CommandeDistri> CommandesNonValidees= new ArrayList<CommandeDistri>();																																
 		for(CommandeDistri c : cf ){
 			if(c.getValidation()==false){	
-				CommandesNonValidees.add(c);
-			}
+				CommandesNonValidees.add(c); //liste 
+			}else{ //Commandes valides
+				List<Double> stockFictif= new ArrayList<Double>(); //liste contenant les stocks fictifs
+				for(int i=0; i<Constante.LISTE_PRODUIT.length ; i++){
+					stockFictif.add(lindt.getStocksChocolat().get(i).getStock());
+					if(c.getProduit().getNomProduit()==Constante.LISTE_PRODUIT[i].getNomProduit()){
+					
+						stockFictif.get(i)
+						-=c.getQuantite(); //on enleve de notre stock fictif la quantité de cacao que l'on s'engage à livrer 
+						
+				}
+					
+					
+					
+					
+				}
 		}
 		for(int i=0; i<Constante.LISTE_PRODUIT.length ; i++){
 				if(

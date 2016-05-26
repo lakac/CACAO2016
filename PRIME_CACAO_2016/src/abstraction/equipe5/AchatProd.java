@@ -39,7 +39,7 @@ public class AchatProd {
 	public CommandeInterne calculQuantiteDemandee(List<CommandeDistri> listeCommandesDist){
 		double besoinCacao=0;
 		for (CommandeDistri c : listeCommandesDist){
-			for (int i=0; i<3 ; i++){
+			for (int i=0; i<Constante.LISTE_PRODUIT.length ; i++){
 				if (c.getProduit().equals(Constante.LISTE_PRODUIT[i]))
 					besoinCacao += c.getQuantite()*Constante.LISTE_PRODUIT[i].getRatioCacao();
 		}}

@@ -54,6 +54,7 @@ public class MondeV1 extends Monde {
 
 		lindt.ajouterProducteur(p1);
 		lindt.ajouterProducteur(p2);
+		lindt.creer();
 		t3.ajouterTransformateur(t1);
 		t3.ajouterTransformateur(lindt);
 		
