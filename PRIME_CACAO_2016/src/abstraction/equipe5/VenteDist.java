@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import abstraction.commun.CommandeDistri;
-import abstraction.commun.IProducteur;
+
 import abstraction.commun.Produit;
 
 
@@ -49,7 +49,7 @@ public class VenteDist {
 			for (CommandeDistri c : listeCommandesDist ){
 				if (Constante.LISTE_PRODUIT[i].getNomProduit()==c.getProduit().getNomProduit()) {
 					quantiteProduit += c.getQuantite();
-				}
+				}	
 			}
 			quantiteTotale.add(quantiteProduit);
 		}
@@ -98,7 +98,13 @@ public class VenteDist {
 	
 	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf){
 		
-		ArrayList<CommandeDistri> CommandesNonValidees= new ArrayList<CommandeDistri>();	
+		List<CommandeDistri> CommandesNonValidees= new ArrayList<CommandeDistri>(); //liste contenant les commandes non validées
+		for (CommandeDistri c:cf){
+			if (c.getValidation()==false){
+				CommandesNonValidees.add(c);
+			}
+		}
+		
 		
 		List<Double> stockFictif= new ArrayList<Double>(); //liste contenant les stocks fictifs
 			for(int i=0; i<Constante.LISTE_PRODUIT.length ; i++){ 
@@ -111,30 +117,48 @@ public class VenteDist {
 				stockFictif.add(valeurStock);	
 				}
 		
-		for(int i=0; i<Constante.LISTE_PRODUIT.length ; i++){
-				if(
-						){ //si il nous reste du chocolat i
-					for(CommandeDistri c : cf ){
-						if (c.getProduit().getNomProduit()==Constante.LISTE_PRODUIT[i].getNomProduit()){
+			
+			for(int i=0; i<Constante.LISTE_PRODUIT.length ; i++){
+				if (stockFictif.get(i)>0.5){ // si la quantite de stock fictif est suffisante (ie la quantité qu'il nous restera après avoir validé les commandes)
+					
+					if(QuantiteDemandeeProduit(CommandesNonValidees).get(i) <= stockFictif.get(i)){ //ok on peut fournir aux distrib la quantité de chocolats i qu'ils demandent donc on valide les commandes
 							
+						 for(CommandeDistri c : CommandesNonValidees){
+							 if(c.getProduit().getNomProduit()==Constante.LISTE_PRODUIT[i].getNomProduit()){
+								 c.setValidation(true);}}} //on valide les commandes de produit i puisqu'on a assez de chocolats i
+					
+					else{
+					double quantiteRepartie=stockFictif.get(i)/(lindt.getDistributeurs().size());
+					for (CommandeDistri c : CommandesNonValidees){
+						if(c.getProduit().getNomProduit()==Constante.LISTE_PRODUIT[i].getNomProduit()){
+							while(stockFictif.get(i)>0.5){ 
+								int j=0;
+								if(c.getQuantite()<=quantiteRepartie){
+									c.setValidation(true);
+									stockFictif.set(i, stockFictif.get(i)-c.getQuantite());	
+									quantiteRepartie=stockFictif.get(i)/(lindt.getDistributeurs().size()-j);
+									j++;	
+								}
+								else{
+									c.setQuantite(quantiteRepartie);
+									}
+							}
 						}
 					}
-					}
-						
-		}
-		
+				}
+			}}
+			for( CommandeDistri c: cf){	
+			lindt.getHistCommandeDistri().ajouter(c); 	
+			}
 		return cf;
 	}
-	
-	
-	
 	
 	
     //exemple avec une hashmap
 	//	for (abstraction.commun.Produit p : Constante.listeProduit) {
 	//		if(this.QuantiteDemandeeProduit(listeCommandesDist).get(0).doubleValue() <= lindt.getStocks().get(p).getStock()){
 	
-}}
+}
 			
 
 	
