@@ -43,6 +43,11 @@ public class Stock {
 				}}
 			i++;
 		}}
+	
+	//Variation des stocks de chocolat en fonction des commandes passées au step n-3
+	
+	public void retirerStockChocolat(Stock s, double quantite, Step n,HistoriqueCommande 
+	}
 
 
 }
