@@ -30,8 +30,8 @@ public class Banque {
 		return Constante.CHARGES_FIXES;
 	}
 	
-	public void ajouter(double quantité) {
-		this.banque+=quantité;
+	public void ajouter(double quantite) {
+		this.banque+=quantite;
 	}
 
 	public void retirer(double quantite) {
