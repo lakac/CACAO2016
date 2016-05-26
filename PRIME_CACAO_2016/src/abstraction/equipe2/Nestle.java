@@ -218,6 +218,8 @@ public class Nestle implements Acteur, ITransformateur{
 						,this.getVentes().get(d).getQuantitevendue().get(p)));
 			}
 		}
+		//Enfin, mise à jour de l'historique de la banque
+		this.banque.MiseAJourHistorique(this, Monde.LE_MONDE.getStep());
 		//fin du next
 	}
 
