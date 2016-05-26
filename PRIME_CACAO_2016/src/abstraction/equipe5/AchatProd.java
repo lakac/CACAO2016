@@ -61,7 +61,7 @@ public class AchatProd {
 		}
 		// Calcul du besoin en cacao pour les 3 prochains step
 		for (CommandeDistri c : listeCommandesDist){
-			for (int i=0; i<3 ; i++){
+			for (int i=0; i<Constante.LISTE_PRODUIT.length ; i++){
 				if (c.getProduit().equals(Constante.LISTE_PRODUIT[i]))
 					besoinCacao += c.getQuantite()*Constante.LISTE_PRODUIT[i].getRatioCacao();
 		}}
