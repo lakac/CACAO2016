@@ -91,4 +91,9 @@ public class Stock {
 	public double getStockParStep(int i) {
 		return this.stockParStep.get(i);
 	}
+
+	public void reductionStock(double quantite2) {
+		// TODO Auto-generated method stub
+		
+	}
 }
