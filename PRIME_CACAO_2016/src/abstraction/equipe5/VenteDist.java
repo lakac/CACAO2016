@@ -98,27 +98,19 @@ public class VenteDist {
 	
 	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf){
 		
+		ArrayList<CommandeDistri> CommandesNonValidees= new ArrayList<CommandeDistri>();	
 		
-		ArrayList<CommandeDistri> CommandesNonValidees= new ArrayList<CommandeDistri>();																																
-		for(CommandeDistri c : cf ){
-			if(c.getValidation()==false){	
-				CommandesNonValidees.add(c); //liste 
-			}else{ //Commandes valides
-				List<Double> stockFictif= new ArrayList<Double>(); //liste contenant les stocks fictifs
-				for(int i=0; i<Constante.LISTE_PRODUIT.length ; i++){
-					stockFictif.add(lindt.getStocksChocolat().get(i).getStock());
-					if(c.getProduit().getNomProduit()==Constante.LISTE_PRODUIT[i].getNomProduit()){
-					
-						stockFictif.get(i)
-						-=c.getQuantite(); //on enleve de notre stock fictif la quantité de cacao que l'on s'engage à livrer 
-						
+		List<Double> stockFictif= new ArrayList<Double>(); //liste contenant les stocks fictifs
+			for(int i=0; i<Constante.LISTE_PRODUIT.length ; i++){ 
+				double valeurStock=lindt.getStocksChocolat().get(i).getStock(); 
+				for(CommandeDistri c : cf ){
+					if(c.getValidation()==true && c.getProduit().getNomProduit()==Constante.LISTE_PRODUIT[i].getNomProduit()){ //si la commande a été validée et que le produit de la commande correspond au produit i
+					valeurStock-=c.getQuantite(); //on enleve de notre stock fictif la quantité de cacao que l'on s'engage à livrer 
+					}
+				} 
+				stockFictif.add(valeurStock);	
 				}
-					
-					
-					
-					
-				}
-		}
+		
 		for(int i=0; i<Constante.LISTE_PRODUIT.length ; i++){
 				if(
 						){ //si il nous reste du chocolat i
