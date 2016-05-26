@@ -32,7 +32,9 @@ public class Banque {
 	public void ajouter(double quantité) {
 		this.banque+=quantité;
 	}
+
 	public void retirer(double quantite) {
 		this.banque-=quantite;
 	}
 }
+
