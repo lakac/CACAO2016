@@ -54,13 +54,11 @@ public class Stock {
 	
 	//Variation des stocks de chocolat en fonction des commandes passées au step n-3
 	
-	public void retirerStockChocolat(int step, Stock chocolat){
+	public void retirerStockChocolat(int step){
 		for (CommandeDistri c: lindt.getHistCommandeDistri().getHist()){
 			if(c.getStepLivraison()==step){
-				for (int i=0 ; i<Constante.LISTE_PRODUIT.length ; i++){
-						if(c.getProduit().getNomProduit()==chocolat.getNom()){
-							chocolat.setStock(chocolat.getStock()-c.getQuantite());	
-						}
+				if(c.getProduit().getNomProduit()==this.getNom()){
+					this.setStock(this.getStock()-c.getQuantite());	
 				}
 			}
 		}
