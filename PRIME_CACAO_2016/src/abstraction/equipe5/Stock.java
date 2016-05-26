@@ -1,6 +1,10 @@
 package abstraction.equipe5;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
+
+import java.util.List;
+
+import abstraction.commun.CommandeDistri;
 import abstraction.commun.Produit;
 import abstraction.equipe5.Lindt;
 
@@ -29,7 +33,11 @@ public class Stock {
 		this.setStock(this.getStock()+d*this.getStock()*perte);
 	}
 	
-		public Produit getProduit(int i) {
+	public String getNom(){
+		return this.nom;
+	}
+	
+	public Produit getProduit(int i) {
 		return Constante.LISTE_PRODUIT[i];
 	}
 
@@ -46,8 +54,16 @@ public class Stock {
 	
 	//Variation des stocks de chocolat en fonction des commandes passées au step n-3
 	
-	public void retirerStockChocolat(Stock s, double quantite, Step n,HistoriqueCommande 
+	public void retirerStockChocolat(int step, Stock chocolat){
+		for (CommandeDistri c: lindt.getHistCommandeDistri().getHist()){
+			if(c.getStepLivraison()==step){
+				for (int i=0 ; i<Constante.LISTE_PRODUIT.length ; i++){
+						if(c.getProduit().getNomProduit()==chocolat.getNom()){
+							chocolat.setStock(chocolat.getStock()-c.getQuantite());	
+						}
+				}
+			}
+		}
 	}
-
 
 }
