@@ -1,7 +1,7 @@
 package abstraction.equipe2;
 import abstraction.commun.*;
 import java.util.HashMap;
-import java.util.List;
+
 
 public class PlageInterne {
 	

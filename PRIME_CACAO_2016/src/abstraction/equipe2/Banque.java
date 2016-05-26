@@ -1,27 +1,28 @@
 package abstraction.equipe2;
 
-import abstraction.fourni.Historique;
+import abstraction.fourni.Acteur;
+import abstraction.fourni.Indicateur;
 
 public class Banque {
 	
 	private double banque;
-	private Historique tresorerie;
+	private Indicateur tresorerie;
 		
 	
-	public Banque() {
+	public Banque(Acteur acteur) {
 	this.banque=Constante.TRESORERIE_INITIALE;;
-	this.tresorerie = new Historique();
+	this.tresorerie = new Indicateur("tresorerie", acteur, this.banque);
 	}
 	
 	public void MiseAJourHistorique(Nestle nestle, int etape) {
-		this.tresorerie.ajouter(nestle, etape, this.banque);
+		this.tresorerie.getHistorique().ajouter(nestle, etape, this.banque);
 	}
 	
 	public double getBanque() {
 		return banque;
 	}
 	
-	public Historique getTresorerie() {
+	public Indicateur getTresorerie() {
 		return tresorerie;
 	}
 

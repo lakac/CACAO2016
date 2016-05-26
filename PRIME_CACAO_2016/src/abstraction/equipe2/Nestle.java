@@ -10,9 +10,9 @@ import java.util.List;
 public class Nestle implements Acteur, ITransformateur{
 	
 	private String nom;
-	private Indicateur historiqueachats;
-	private Indicateur historiqueventes;
-	private Indicateur balance;
+	
+	private Indicateur totalachats;
+	private HashMap<Produit,Indicateur> totalventesproduit;
 	
 	private HashMap<IDistributeur,List<CommandeDistri>> commandesdistri;
 	private List<CommandeProduc> commandeproduc;
@@ -32,16 +32,74 @@ public class Nestle implements Acteur, ITransformateur{
 	
 	
 	public Nestle(Monde monde) {
-		this.nom = Constantes.NOM_TRANSFORMATEUR_1;
-		this.historiqueachats = new Indicateur("Achats de "+this.nom, this, 0.0);
-		this.historiqueventes = new Indicateur("Ventes de "+this.nom, this, 0.0);
-		this.balance = new Indicateur("Solde de "+this.nom, this, 10000000.0);
-		Monde.LE_MONDE.ajouterIndicateur( this.historiqueachats );
-		Monde.LE_MONDE.ajouterIndicateur( this.historiqueventes );
-		Monde.LE_MONDE.ajouterIndicateur( this.balance );
-		this.banque =new Banque();
-		this.stockcacao = new StockCacao ();
-		this.stockchocolats = new StockChocolats ();
+		//le nom
+			this.nom = Constantes.NOM_TRANSFORMATEUR_1;
+		//Les listes des clients et fournisseurs
+				this.clients = new ArrayList<IDistributeur>();
+				this.fournisseurs = new ArrayList<IProducteur>();
+		//les attributs relatifs à la trésorerie
+				this.banque =new Banque(this);
+		//les HashMaps et liste
+				this.achats = new HashMap<IProducteur, Achat>();
+				this.SetAchats(this.fournisseurs);
+				this.ventes = new HashMap<IDistributeur, Vente>();
+				this.SetVentes(clients);
+				this.commandesdistri = new HashMap<IDistributeur, List<CommandeDistri>>();
+				this.SetCommandesDistriInit(this.clients);
+				this.commandeproduc = new ArrayList<CommandeProduc>();
+				this.SetCommandesProduc(fournisseurs);
+		
+		//Stock et les informations de transport et production
+				this.stockcacao = new StockCacao();
+				this.stockchocolats = new StockChocolats();
+				this.couttransport = new CoutTransport(Constante.COUT_UNITAIRE_TRANSPORT);
+				this.production = new Production();
+		//Ajout d'indicateurs visibles
+				Monde.LE_MONDE.ajouterIndicateur( this.banque.getTresorerie() );
+				Monde.LE_MONDE.ajouterIndicateur( this.totalachats );
+				for (Produit p : this.totalventesproduit.keySet()) {
+					Monde.LE_MONDE.ajouterIndicateur( this.totalventesproduit.get(p));
+				}
+		}
+	
+//Setters par defauts (utilises dans le constructeurs)	
+	//Setter du dictionnaire des achats
+	public void SetAchats(List<IProducteur> producteurs) {
+		for (IProducteur p : producteurs) {
+			Achat achat = new Achat(this);
+			this.achats.put(p, achat);
+		}
+	}
+	//Setter du dictionnaire des ventes
+	public void SetVentes(List<IDistributeur> distributeur) {
+		for (IDistributeur d : distributeur) {
+			Vente vente = new Vente(this);
+			this.ventes.put(d, vente);
+		}
+	}
+	//Setter initial du dictionnaire des commandes
+	public void SetCommandesDistriInit(List<IDistributeur> distributeur) {
+		for (IDistributeur d : distributeur) {
+			this.setCommandesdistri(d, null);
+		}
+	}
+	//setter utilisé par la suite
+	public void setCommandesdistri(IDistributeur d, List<CommandeDistri> commandesdistri) {
+		this.commandesdistri.put(d, commandesdistri);
+	}
+
+	//Setter de la liste des commandes aux producteurs
+	public void SetCommandesProduc(List<IProducteur> producteurs) {
+		ArrayList<CommandeProduc> listecommandes = new ArrayList<CommandeProduc>();
+		for (IProducteur p : producteurs) {
+			CommandeProduc commande = new CommandeProduc(this, p, 0., 0.);
+			listecommandes.add(commande);
+		}
+		this.commandeproduc = listecommandes;
+	}
+	
+	public void setCommandeproduc(int i, CommandeProduc commandeproduc) {
+		this.commandeproduc.add(i, commandeproduc);
 	}
 	
 	public CoutTransport getCouttransport() {
@@ -95,8 +153,7 @@ public class Nestle implements Acteur, ITransformateur{
 		PlageInterne plageinterne = this.getProd().plageinterne();
 		
 		//Catalogue
-		CatalogueInterne catalogueinterne = new CatalogueInterne();
-		catalogueinterne.setCatalogueinterne(plageinterne);
+		this.catalogue.setCatalogueinterne(plageinterne);
 		
 		//début de la phase d'échange à proprement dit.
 		//On donne le catalogue.
@@ -164,15 +221,7 @@ public class Nestle implements Acteur, ITransformateur{
 		//fin du next
 	}
 
-	
-	public void setCommandeproduc( int i, CommandeProduc commandeproduc) {
-		this.commandeproduc.add(i, commandeproduc);
-	}
-
-	public void setCommandesdistri(IDistributeur d, List<CommandeDistri> commandesdistri) {
-		this.commandesdistri.put(d, commandesdistri);
-	}
-
+//getters des clients et fournisseurs
 	public ArrayList<IDistributeur> getClients() {
 		return clients;
 	}
@@ -180,7 +229,7 @@ public class Nestle implements Acteur, ITransformateur{
 	public ArrayList<IProducteur> getFournisseurs() {
 		return fournisseurs;
 	}
-
+//Méthodes de l'interface
 	public double annonceQuantiteDemandee() {
 		double resultat = 0.0;
 		for (IDistributeur d : this.getCommandesdistri().keySet()) {
@@ -227,7 +276,8 @@ public class Nestle implements Acteur, ITransformateur{
 	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
 		return Offre(cf);
 	}
-
+	
+// méthodes vouées à disparaître
 	@Override
 	public double annonceQuantiteDemandee(IProducteur p) {
 		return 0;
