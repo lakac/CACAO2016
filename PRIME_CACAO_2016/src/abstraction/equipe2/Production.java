@@ -1,5 +1,7 @@
 package abstraction.equipe2;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import abstraction.commun.*;
 
@@ -45,7 +47,7 @@ public class Production {
 	
 	public double CoutTransformation(Produit p) {
 		double couttransformation = 0.0;
-		couttransformation+=this.getProduction().get(Constante.PRODUIT_50);
+		couttransformation+=this.getProduction().get(p)*Constante.COUT_DE_TRANSFORMATION;
 		return couttransformation;
 	}
 	
@@ -55,6 +57,33 @@ public class Production {
 			Couttot+=this.CoutTransformation(p);
 		}
 		return Couttot;
+	}
+	
+	public PlageInterne plageinterne() {
+		// Initialisation des plages de réduction
+				List<Plage> listplageproduit = new ArrayList<Plage>();
+				Plage plage1= new Plage(0,200,0);
+				Plage plage2= new Plage(200.1,500,0.03);
+				Plage plage3= new Plage(500.1,1000,0.07);
+				Plage plage4= new Plage(1000.1,0.10);
+				listplageproduit.add(plage1);
+				listplageproduit.add(plage2);
+				listplageproduit.add(plage3);
+				listplageproduit.add(plage4);
+				//Dictionnaire des prix de base de la step d'avant
+				HashMap<Produit, Double> prixdebase = new HashMap<Produit, Double>();
+				prixdebase.put(Constante.PRODUIT_50, this.PrixdeventeDeBase(Constante.PRODUIT_50));
+				prixdebase.put(Constante.PRODUIT_60, this.PrixdeventeDeBase(Constante.PRODUIT_60));
+				prixdebase.put(Constante.PRODUIT_70, this.PrixdeventeDeBase(Constante.PRODUIT_70));
+				//plage interne des tarifs
+				PlageInterne plageinterne = new PlageInterne();
+				Tarif tarifproduit1 = new Tarif(prixdebase.get(Constante.PRODUIT_50),listplageproduit);
+				Tarif tarifproduit2 = new Tarif(prixdebase.get(Constante.PRODUIT_60),listplageproduit);
+				Tarif tarifproduit3 = new Tarif(prixdebase.get(Constante.PRODUIT_70),listplageproduit);
+				plageinterne.setTarifproduit(Constante.PRODUIT_50, tarifproduit1);
+				plageinterne.setTarifproduit(Constante.PRODUIT_60, tarifproduit2);
+				plageinterne.setTarifproduit(Constante.PRODUIT_70, tarifproduit3);
+				return plageinterne;
 	}
 	
 }

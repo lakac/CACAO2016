@@ -1,27 +1,28 @@
 package abstraction.equipe2;
 
 import abstraction.fourni.Historique;
+import abstraction.fourni.Acteur;
+import abstraction.fourni.Indicateur;
 
 public class Banque {
 	
 	private double banque;
-	private Historique tresorerie;
+	private Indicateur tresorerie;
 		
 	
 	public Banque() {
 	this.banque=Constante.TRESORERIE_INITIALE;;
-	this.tresorerie = new Historique();
 	}
 	
 	public void MiseAJourHistorique(Nestle nestle, int etape) {
-		this.tresorerie.ajouter(nestle, etape, this.banque);
+		this.tresorerie.getHistorique().ajouter(nestle, etape, this.getBanque());
 	}
 	
 	public double getBanque() {
 		return banque;
 	}
 	
-	public Historique getTresorerie() {
+	public Indicateur getTresorerie() {
 		return tresorerie;
 	}
 
@@ -29,21 +30,16 @@ public class Banque {
 		return Constante.CHARGES_FIXES;
 	}
 	
-	public void  MiseAJourBanque(Nestle nestle, Achat achatp1, Achat achatp2, Achat restedumonde,
-			Production production, CoutTransport couttransport,
-			StockCacao cacao, StockChocolats chocolats, Vente vented1, Vente vented2, Vente monde,
-			PlageInterne plage) {
-		this.banque-=achatp1.getCacaoachete()*nestle.annoncePrix();
-		this.banque-=achatp2.getCacaoachete()*nestle.annoncePrix();	
-		this.banque-=production.CoutTransformationGlobal();
-		this.banque-=couttransport.CouttransportGlobal(achatp1, achatp2, restedumonde);
-		this.banque-=cacao.CoutStockCacao();
-		this.banque-=chocolats.CoutStockChocolat();
-		this.banque+= vented1.TotalVentes(production, plage);
-		this.banque+=vented2.TotalVentes(production, plage);
-		this.banque+=monde.TotalVentes(production, plage);
+	public void ajouter(double quantité) {
+		this.banque+=quantité;
 	}
 	
 	
 	
+
+
+	public void retirer(double quantite) {
+		this.banque-=quantite;
+	}
 }
+

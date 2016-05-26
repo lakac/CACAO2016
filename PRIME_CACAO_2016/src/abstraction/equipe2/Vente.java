@@ -5,9 +5,9 @@ import abstraction.fourni.*;
 
 public class Vente {
 	private HashMap<Produit, Double> quantitevendue;
-	private Historique historiquedesventesproduit50;
-	private Historique historiquedesventesproduit60;
-	private Historique historiquedesventesproduit70;
+	private Indicateur historiquedesventesproduit50;
+	private Indicateur historiquedesventesproduit60;
+	private Indicateur historiquedesventesproduit70;
 	
 	private HashMap<IProducteur,Double> prixdevente;
 	
@@ -15,11 +15,15 @@ public class Vente {
 		this.quantitevendue.put(p, 0.0);
 	}
 	
-	public Vente() {
+	public HashMap<Produit, Double> getQuantitevendue() {
+		return quantitevendue;
+	}
+
+	public Vente(Acteur acteur) {
 		this.quantitevendue = new HashMap<Produit, Double>();
-		this.historiquedesventesproduit50 = new Historique();
-		this.historiquedesventesproduit60 = new Historique();
-		this.historiquedesventesproduit70 = new Historique();
+		this.historiquedesventesproduit50 = new Indicateur(acteur.getNom(), acteur, 0.0);
+		this.historiquedesventesproduit60 = new Indicateur(acteur.getNom(), acteur, 0.0);
+		this.historiquedesventesproduit70 = new Indicateur(acteur.getNom(), acteur, 0.0);
 	}
 	
 	public HashMap<IProducteur, Double> getPrixdevente() {
@@ -36,30 +40,20 @@ public class Vente {
 		this.quantitevendue.put(p, Math.min(d.getQuantite(), nestle.getStockchoc().getStockschocolats().get(p)+nestle.getProd().getProduction().get(p)));
 	}
 	
-	
-	public void MiseAJourHistorique50(Nestle nestle, int etape) {
-		this.historiquedesventesproduit50.ajouter(nestle, etape, this.quantitevendue.get(50));
-	}
-		
-	public void MiseAJourHistorique60(Nestle nestle, int etape) {
-		this.historiquedesventesproduit60.ajouter(nestle, etape, this.quantitevendue.get(60));
-	}
-			
-	public void MiseAJourHistorique70(Nestle nestle, int etape) {
-		this.historiquedesventesproduit70.ajouter(nestle, etape, this.quantitevendue.get(70));
-	}
-	
-	public double Prixdevente(Production prod, Produit p, PlageInterne plage, double quantite) {
-		Tarif tarif = new Tarif(prod.PrixdeventeDeBase(p), plage.getTarifproduit().get(p));
-		return tarif.prixDeVente(quantite);
-	}
-	
-	public double TotalVentes(Production prod, PlageInterne plage) {
-		double total = 0.0;
-		for (Produit p : this.getVentes().keySet()) {
-			total+=this.Prixdevente(prod, p, plage, this.getPrixdevente().get(p));
+	public void MiseAJourHistorique(Nestle nestle, int etape, Produit produit) {
+		if (produit.equals(Constante.PRODUIT_50)) {
+			this.historiquedesventesproduit50.getHistorique().ajouter(nestle, etape, this.quantitevendue.get(Constante.PRODUIT_50));
 		}
-		return total;
+		else if (produit.equals(Constante.PRODUIT_60)) {
+			this.historiquedesventesproduit60.getHistorique().ajouter(nestle, etape, this.quantitevendue.get(Constante.PRODUIT_60));
+		}
+		else {
+			this.historiquedesventesproduit70.getHistorique().ajouter(nestle, etape, this.quantitevendue.get(Constante.PRODUIT_70));
+		}
+	}
+	
+	public double Prixdevente(Tarif tarif, double quantite) {
+		return tarif.prixDeVente(quantite);
 	}
 
 }

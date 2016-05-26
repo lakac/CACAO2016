@@ -15,16 +15,20 @@ public class StockCacao {
 	
 	public void RetirerStockCacao(Produit p, Production production) {
 		if (p.equals(Constante.PRODUIT_50)) {
-			this.stockcacao -= 0.5*production.getProduction().get(p);
+			this.stockcacao -= Constante.RATIO_TRANSFORMATION_50*production.getProduction().get(p);
 		}
 		else if (p.equals(Constante.PRODUIT_60)) {
-			this.stockcacao -= 0.6*production.getProduction().get(p);
+			this.stockcacao -= Constante.RATIO_TRANSFORMATION_60*production.getProduction().get(p);
 		}
 		else if (p.equals(Constante.PRODUIT_70)) {
-			this.stockcacao -= 0.7*production.getProduction().get(p);
+			this.stockcacao -= Constante.RATIO_TRANSFORMATION_70*production.getProduction().get(p);
 		}
 	}
 	
+	public StockCacao() {
+		this.stockcacao = 0.;
+	}
+
 	public double CoutStockCacao() {
 		return Constante.COUT_STOCK_UNITAIRE*this.getStockcacao();
 	}
