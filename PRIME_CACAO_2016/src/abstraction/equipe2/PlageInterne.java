@@ -5,22 +5,22 @@ import java.util.List;
 
 public class PlageInterne {
 	
-	private HashMap<Produit,List<Plage>> tarifproduit;
+	private HashMap<Produit,Tarif> tarifproduit;
 
 	public PlageInterne() {
-	this.tarifproduit=new HashMap<Produit,List<Plage>>();
+	this.tarifproduit=new HashMap<Produit,Tarif>();
 	}
 
-	public HashMap<Produit, List<Plage>> getTarifproduit(){
+	public HashMap<Produit, Tarif> getTarifproduit(){
 		return tarifproduit;
 	}
 
-	public void setTarifproduit(Produit produit, List<Plage> listplage){
-		this.add(produit, listplage);
+	public void setTarifproduit(Produit produit, Tarif tarif){
+		this.add(produit, tarif);
 		
 	}
 	
-	public void add(Produit p, List<Plage> listplage){
-		this.tarifproduit.put(p, listplage);
+	public void add(Produit p, Tarif tarif){
+		this.tarifproduit.put(p, tarif);
 	}
 }

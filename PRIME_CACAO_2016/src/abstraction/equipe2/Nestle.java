@@ -25,6 +25,7 @@ public class Nestle implements Acteur, ITransformateur{
 	private StockChocolats stockchocolats;
 	private Production production;
 	private Banque banque;
+	private CoutTransport couttransport;
 	
 	private ArrayList<IDistributeur> clients;
 	private ArrayList<IProducteur> fournisseurs;
@@ -41,6 +42,10 @@ public class Nestle implements Acteur, ITransformateur{
 		this.banque =new Banque();
 		this.stockcacao = new StockCacao ();
 		this.stockchocolats = new StockChocolats ();
+	}
+	
+	public CoutTransport getCouttransport() {
+		return couttransport;
 	}
 
 	public StockCacao getStockcac() {
@@ -86,31 +91,94 @@ public class Nestle implements Acteur, ITransformateur{
 	}
 
 	public void next() {
-		// Initialisation
-		List<Plage> listplageproduit = new ArrayList<Plage>();
-		Plage plage1= new Plage(0,200,0);
-		Plage plage2= new Plage(200.1,500,0.03);
-		Plage plage3= new Plage(500.1,1000,0.07);
-		Plage plage4= new Plage(1000.1,0.10);
-		listplageproduit.add(plage1);
-		listplageproduit.add(plage2);
-		listplageproduit.add(plage3);
-		listplageproduit.add(plage4);
-		this.production = new Production();
-		PlageInterne plageinterne = new PlageInterne();
-		plageinterne.setTarifproduit(Constante.PRODUIT_50,listplageproduit);
-		plageinterne.setTarifproduit(Constante.PRODUIT_60,listplageproduit);
-		plageinterne.setTarifproduit(Constante.PRODUIT_70,listplageproduit);
-		Tarif tarifproduit1 = new Tarif(this.getProd().PrixdeventeDeBase(Constante.PRODUIT_50),listplageproduit);
-		Tarif tarifproduit2 = new Tarif(this.getProd().PrixdeventeDeBase(Constante.PRODUIT_60),listplageproduit);
-		Tarif tarifproduit3 = new Tarif(this.getProd().PrixdeventeDeBase(Constante.PRODUIT_70),listplageproduit);
-		CatalogueInterne catalogueinterne = new CatalogueInterne();
-		catalogueinterne.setCatalogueinterne(tarifproduit1, tarifproduit2, tarifproduit3);
+		//initialisation des plages de prix compte tenu des production précédentes
+		PlageInterne plageinterne = this.getProd().plageinterne();
 		
+		//Catalogue
+		CatalogueInterne catalogueinterne = new CatalogueInterne();
+		catalogueinterne.setCatalogueinterne(plageinterne);
+		
+		//début de la phase d'échange à proprement dit.
+		//On donne le catalogue.
 		this.getCatalogue();
-		//demande distrib
-		this.Offre()
+		//On négocie avec les distributeurs.
+		for (IDistributeur d : this.getClients()) {
+			this.setCommandesdistri(d,d.Demande(null));
+			this.Offre(d.Demande(null));// null a changer quand l'équipe aura fait une pul request.
+		}
+		for (IDistributeur d : this.getClients()) {
+			this.setCommandesdistri(d, d.ContreDemande(this.getCommandesdistri().get(d)));
+			this.CommandeFinale(this.getCommandesdistri().get(d));
+		}
+		for (IDistributeur d : this.getClients()) {
+			this.setCommandesdistri(d, d.CommandeFinale(this.getCommandesdistri().get(d)));
+		}
+		//On négocie avec les Producteurs et on actualise nos commande aux producteurs
+		this.annonceQuantiteDemandee();
+		double prix = this.annoncePrix();
+		for (int i = 0; i<this.getCommandeproduc().size(); i++) {
+			CommandeProduc commande = new CommandeProduc(this, this.getFournisseurs().get(i), 
+					this.getFournisseurs().get(i).annonceQuantiteMiseEnVente(this), prix);
+			this.setCommandeproduc(i, commande);
+		}
+		//chacun des producteurs nous envoie leur offre et on achète leur cacao
+		//et on met à jour l'historique
+		//et la trésorerie (on achète quelque chose)
+		for (IProducteur p : this.achats.keySet()) {
+			this.achats.get(p).setCacaoAchete(this, p);
+			this.achats.get(p).MiseAJourHistorique(this, Monde.LE_MONDE.getStep());
+			this.banque.retirer(this.achats.get(p).getCacaoachete());
+		}
+		//Le cacao est alors livré, on met a jour le stock de cacao.
+		//et la trésorerie (cout de transport à notre charge)
+		for (IProducteur p : this.achats.keySet()) {
+			this.stockcacao.AjouterStockCacao(this.achats.get(p));
+			this.banque.retirer(this.getCouttransport().getDistances().get(p)*this.getCouttransport().getCouttransport());
+		}
+		
+		//Le stock de cacao est à jour, on lance la production de chocolat, et on met
+		//a jour le stock de cacao et de chocolat au fur et a mesure
+		//et on retranche les couts de production à la banque
+		for (IDistributeur d : this.commandesdistri.keySet()) {
+			for (CommandeDistri cd : this.commandesdistri.get(d)) {
+				this.production.setProduction(this, cd);
+				this.stockcacao.RetirerStockCacao(cd.getProduit(), this.production);
+				this.stockchocolats.AjouterStockProduit(cd.getProduit(), this.production);
+				this.banque.retirer(this.production.CoutTransformation(cd.getProduit()));
+			}
+		}
+		//La production étant faite, on peut alors mettre a jour les ventes 
+		//(car c'est la production de la vente finale qui a été faite)
+		//ainsi que leur historique
+		//ainsi que la trésorerie de Nestle
+		for (IDistributeur d : this.ventes.keySet()) {
+			int i = 0;
+			for (Produit p : this.ventes.get(d).getQuantitevendue().keySet()) {
+				this.ventes.get(d).setquantitevendue(this, this.commandesdistri.get(d).get(i), p);
+				this.ventes.get(d).MiseAJourHistorique(this, Monde.LE_MONDE.getStep(), p);
+				i++;
+				this.banque.ajouter(this.getVentes().get(d).Prixdevente(plageinterne.getTarifproduit().get(p)
+						,this.getVentes().get(d).getQuantitevendue().get(p)));
+			}
+		}
+		//fin du next
+	}
 
+	
+	public void setCommandeproduc( int i, CommandeProduc commandeproduc) {
+		this.commandeproduc.add(i, commandeproduc);
+	}
+
+	public void setCommandesdistri(IDistributeur d, List<CommandeDistri> commandesdistri) {
+		this.commandesdistri.put(d, commandesdistri);
+	}
+
+	public ArrayList<IDistributeur> getClients() {
+		return clients;
+	}
+
+	public ArrayList<IProducteur> getFournisseurs() {
+		return fournisseurs;
 	}
 
 	public double annonceQuantiteDemandee() {
