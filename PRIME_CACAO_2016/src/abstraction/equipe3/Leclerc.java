@@ -25,7 +25,7 @@ public class Leclerc implements Acteur,IDistributeur{
 	private ArrayList<Double> ratio;
 
 
-	public Leclerc(String nom, Monde monde, double prixAchat, Ventes ventes) {
+	public Leclerc(String nom, Monde monde, double prixAchat) {
 		this.nom=nom;		
 		this.achats = new Indicateur("Achats de "+nom, this, 0.0);
 		this.solde = new Indicateur("Solde de "+nom, this, 1000000.0);
@@ -158,7 +158,7 @@ public class Leclerc implements Acteur,IDistributeur{
 	}
 	
 	public void next() {
-		setPrixAchat(15.0);
+		/*setPrixAchat(15.0);
 		Double[] ratio = {0.125, 0.036};
 		setRatio(ratio);
 		commande(Monde.LE_MONDE.getStep());
@@ -174,13 +174,9 @@ public class Leclerc implements Acteur,IDistributeur{
 		}
 		this.solde.setValeur(this, this.solde.getValeur()+this.getQteTotal()*this.getPrixVente());
 		//solde(step n)=solde step(n-1)+quantite(step n)*prixvente
+		*/
+	}
 
-	}
-	@Override
-	public List<CommandeDistri> Demande(ITransformateur t, Catalogue c) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	@Override
 	public List<CommandeDistri> LivraisonEffective(List<CommandeDistri> liste) {
 		// TODO Auto-generated method stub

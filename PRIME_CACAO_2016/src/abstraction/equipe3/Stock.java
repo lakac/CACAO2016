@@ -56,7 +56,7 @@ public class Stock {
 			if (t.equals(this.leclerc.getTransformateurs(i))){
 				x=this.stock.get(i);
 				this.stock.remove(i);
-				x[indexproduit]+=this.leclerc.getDemande(t)-this.leclerc.getVente(t);
+				//x[indexproduit]+=this.leclerc.getDemande(t)-this.leclerc.getVente(t);
 				this.stock.add(i, x);
 			}
 		} 
