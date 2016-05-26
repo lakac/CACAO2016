@@ -9,13 +9,13 @@ public class Banque {
 	private Indicateur tresorerie;
 		
 	
-	public Banque(Acteur acteur) {
+	public Banque(Nestle nestle) {
 	this.banque=Constante.TRESORERIE_INITIALE;;
-	this.tresorerie = new Indicateur("tresorerie", acteur, this.banque);
+	this.tresorerie = new Indicateur("tresorerie", nestle, Constante.TRESORERIE_INITIALE);
 	}
 	
 	public void MiseAJourHistorique(Nestle nestle, int etape) {
-		this.tresorerie.getHistorique().ajouter(nestle, etape, this.banque);
+		this.tresorerie.getHistorique().ajouter(nestle, etape, this.getBanque());
 	}
 	
 	public double getBanque() {

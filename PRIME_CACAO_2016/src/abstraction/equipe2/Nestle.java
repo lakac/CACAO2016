@@ -31,7 +31,7 @@ public class Nestle implements Acteur, ITransformateur{
 	private ArrayList<IProducteur> fournisseurs;
 	
 	
-	public Nestle(Monde monde) {
+	public Nestle() {
 		//le nom
 			this.nom = Constantes.NOM_TRANSFORMATEUR_1;
 		//Les listes des clients et fournisseurs
@@ -48,6 +48,7 @@ public class Nestle implements Acteur, ITransformateur{
 				this.SetCommandesDistriInit(this.clients);
 				this.commandeproduc = new ArrayList<CommandeProduc>();
 				this.SetCommandesProduc(fournisseurs);
+				this.SetTotalVentesProduit();
 		
 		//Stock et les informations de transport et production
 				this.stockcacao = new StockCacao();
@@ -55,12 +56,22 @@ public class Nestle implements Acteur, ITransformateur{
 				this.couttransport = new CoutTransport(Constante.COUT_UNITAIRE_TRANSPORT);
 				this.production = new Production();
 		//Ajout d'indicateurs visibles
-				Monde.LE_MONDE.ajouterIndicateur( this.banque.getTresorerie() );
-				Monde.LE_MONDE.ajouterIndicateur( this.totalachats );
+				Monde.LE_MONDE.ajouterIndicateur(this.banque.getTresorerie());
+				Monde.LE_MONDE.ajouterIndicateur(this.totalachats);
 				for (Produit p : this.totalventesproduit.keySet()) {
 					Monde.LE_MONDE.ajouterIndicateur( this.totalventesproduit.get(p));
 				}
 		}
+	
+	//Ajout de clients et de fournisseurs
+	//@copyright équipe 3
+	public void AjouterClient(IDistributeur d) {
+		this.clients.add(d);
+	}
+	public void AjouterFournisseur(IProducteur p) {
+		this.fournisseurs.add(p);
+	}
+	
 	
 //Setters par defauts (utilises dans le constructeurs)	
 	//Setter du dictionnaire des achats
@@ -100,6 +111,16 @@ public class Nestle implements Acteur, ITransformateur{
 	
 	public void setCommandeproduc(int i, CommandeProduc commandeproduc) {
 		this.commandeproduc.add(i, commandeproduc);
+	}
+	//Setter initial pour l'historique des ventes
+	public void SetTotalVentesProduit() {
+		this.totalventesproduit = new HashMap<Produit, Indicateur>();
+		Indicateur indicateur50 = new Indicateur(this.nom, this, 0.);
+		this.totalventesproduit.put(Constante.PRODUIT_50, indicateur50);
+		Indicateur indicateur60 = new Indicateur(this.nom, this, 0.);
+		this.totalventesproduit.put(Constante.PRODUIT_60, indicateur60);
+		Indicateur indicateur70 = new Indicateur(this.nom, this, 0.);
+		this.totalventesproduit.put(Constante.PRODUIT_70, indicateur70);
 	}
 	
 	public CoutTransport getCouttransport() {
@@ -148,6 +169,79 @@ public class Nestle implements Acteur, ITransformateur{
 		this.achats.put(p, achat);
 	}
 
+	
+
+//getters des clients et fournisseurs
+	public ArrayList<IDistributeur> getClients() {
+		return clients;
+	}
+
+	public ArrayList<IProducteur> getFournisseurs() {
+		return fournisseurs;
+	}
+//Méthodes de l'interface
+	public double annonceQuantiteDemandee() {
+		double resultat = 0.0;
+		for (IDistributeur d : this.getCommandesdistri().keySet()) {
+			for (CommandeDistri c : this.getCommandesdistri().get(d)) {
+				resultat+=c.getQuantite()*c.getProduit().getRatioCacao();
+			}
+		}
+		return resultat;
+	}
+
+	public double annoncePrix() {
+			return MarcheProducteur.LE_MARCHE.getCours()*(1+0.1*Math.random());
+		}
+
+	public void notificationVente(CommandeProduc c) {
+		Achat achat = new Achat(c.getQuantite());
+		this.setAchats(c.getVendeur(), achat);
+	}
+
+	@Override
+	public Catalogue getCatalogue() {
+		return this.catalogue.getCatalogueinterne();
+	}
+
+	@Override
+	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
+		ArrayList<CommandeDistri> Offre = new ArrayList<CommandeDistri>();
+		for (int i=0; i<=o.size(); i++) {
+			CommandeDistri C = o.get(i);
+			if (this.getStockchoc().getStockschocolats().get(o.get(i).getProduit())
+					>=o.get(i).getQuantite()/2) {
+				o.add(i, o.get(i));
+			}
+			else {
+				o.get(i).setQuantite(o.get(i).getQuantite()/2+
+						this.getStockchoc().getStockschocolats().get(C.getProduit()));
+				Offre.add(i,C);
+			}
+		}
+		return Offre;
+	}
+
+	@Override
+	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
+		return Offre(cf);
+	}
+	
+// méthodes vouées à disparaître
+	@Override
+	public double annonceQuantiteDemandee(IProducteur p) {
+		return 0;
+	}
+
+	@Override
+	public void notificationVente(IProducteur p){
+	}
+	
+	public static void main(String[] args) {
+		Nestle nestle = new Nestle();
+		Monde.LE_MONDE.getIndicateurs();
+	}
+	
 	public void next() {
 		//initialisation des plages de prix compte tenu des production précédentes
 		PlageInterne plageinterne = this.getProd().plageinterne();
@@ -222,72 +316,8 @@ public class Nestle implements Acteur, ITransformateur{
 		this.banque.MiseAJourHistorique(this, Monde.LE_MONDE.getStep());
 		//fin du next
 	}
-
-//getters des clients et fournisseurs
-	public ArrayList<IDistributeur> getClients() {
-		return clients;
-	}
-
-	public ArrayList<IProducteur> getFournisseurs() {
-		return fournisseurs;
-	}
-//Méthodes de l'interface
-	public double annonceQuantiteDemandee() {
-		double resultat = 0.0;
-		for (IDistributeur d : this.getCommandesdistri().keySet()) {
-			for (CommandeDistri c : this.getCommandesdistri().get(d)) {
-				resultat+=c.getQuantite()*c.getProduit().getRatioCacao();
-			}
-		}
-		return resultat;
-	}
-
-	public double annoncePrix() {
-			return MarcheProducteur.LE_MARCHE.getCours()*(1+0.1*Math.random());
-		}
-
-	public void notificationVente(CommandeProduc c) {
-		Achat achat = new Achat(c.getQuantite());
-		this.setAchats(c.getVendeur(), achat);
-	}
-
-	@Override
-	public Catalogue getCatalogue() {
-		return this.catalogue.getCatalogueinterne();
-	}
-
-	@Override
-	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
-		ArrayList<CommandeDistri> Offre = new ArrayList<CommandeDistri>();
-		for (int i=0; i<=o.size(); i++) {
-			CommandeDistri C = o.get(i);
-			if (this.getStockchoc().getStockschocolats().get(o.get(i).getProduit())
-					>=o.get(i).getQuantite()/2) {
-				o.add(i, o.get(i));
-			}
-			else {
-				o.get(i).setQuantite(o.get(i).getQuantite()/2+
-						this.getStockchoc().getStockschocolats().get(C.getProduit()));
-				Offre.add(i,C);
-			}
-		}
-		return Offre;
-	}
-
-	@Override
-	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
-		return Offre(cf);
-	}
-	
-// méthodes vouées à disparaître
-	@Override
-	public double annonceQuantiteDemandee(IProducteur p) {
-		return 0;
-	}
-
-	@Override
-	public void notificationVente(IProducteur p){
-	}	
 }
+
+
 
 
