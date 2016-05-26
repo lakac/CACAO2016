@@ -18,6 +18,10 @@ public class Vente {
 	public HashMap<Produit, Double> getQuantitevendue() {
 		return quantitevendue;
 	}
+	
+	public double Quantitevendue(Produit p) {
+		return this.getQuantitevendue().get(p);
+	}
 
 	public Vente(Acteur acteur) {
 		this.quantitevendue = new HashMap<Produit, Double>();
