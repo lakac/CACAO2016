@@ -96,4 +96,9 @@ public class Stock {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public Indicateur getStockCacao() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

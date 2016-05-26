@@ -1,12 +1,10 @@
 package abstraction.equipe4;
 import abstraction.fourni.*;
 import abstraction.commun.*;
-<<<<<<< HEAD
 import abstraction.equipe1.Stock;
 import abstraction.equipe2.Vente;
 
-=======
->>>>>>> refs/remotes/choose_remote_name/master
+
 import java.util.ArrayList;
 
 public class Producteur implements Acteur,IProducteur{
@@ -37,7 +35,7 @@ public class Producteur implements Acteur,IProducteur{
 	//	this.vente = new Vente(this.stock, this);
 	// }
 
-		this.stock = new Stock(this);
+		this.stock = new Stock(this, 0);
 		this.journal = new Journal("Journal de "+this.nom);
 		this.prodBiannu=new ProductionBiannuelle(this,1200000);
 		this.transformateurs= new ArrayList<ITransformateur>();
@@ -45,7 +43,7 @@ public class Producteur implements Acteur,IProducteur{
 	}
 
 	public void AjoutVariableVente(){
-		this.vente = new Vente(this.stock, this);
+		this.vente = new Vente();
 	}
 
 

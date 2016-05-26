@@ -65,7 +65,7 @@ public class ProductionBiannuelle {
 		this.setPerteProduction();
 		this.setProductionFinale();
 		this.coutProd();
-		this.getProd().getStock().augmentationStock(this.getProductionFinale());
+		this.getProd().getStock().reductionStock(this.getProductionFinale());
 	}
 
 
