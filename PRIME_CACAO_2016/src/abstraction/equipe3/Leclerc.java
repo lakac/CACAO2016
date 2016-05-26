@@ -158,7 +158,6 @@ public class Leclerc implements Acteur,IDistributeur{
 	}
 	
 	public void next() {
-		setPrixAchat(15.0);
 		Double[] ratio = {0.125, 0.036};
 		setRatio(ratio);
 		commande(Monde.LE_MONDE.getStep());
