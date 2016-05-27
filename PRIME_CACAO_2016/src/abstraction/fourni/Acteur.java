@@ -1,5 +1,7 @@
 package abstraction.fourni;
 
+import abstraction.commun.IProducteur;
+
 /**
  * Tout acteur doit implementer cette interface
  * 
@@ -18,4 +20,5 @@ public interface Acteur {
 	 * Méthode de l'acteur invoquée suite a l'appui sur le bouton NEXT de la fenêtre principale
 	 */
 	public void next();
+
 }

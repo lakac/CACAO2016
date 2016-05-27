@@ -86,6 +86,19 @@ public class Stock {
 		}
 		res += this.stockParStep.peekLast() +"]";
 		return res;
-	}	
-}
+	}
+	
+	public double getStockParStep(int i) {
+		return this.stockParStep.get(i);
+	}
 
+	public void reductionStock(double quantite2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Indicateur getStockCacao() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}

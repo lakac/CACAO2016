@@ -1,14 +1,14 @@
-package abstraction.commun;
+ package abstraction.commun;
 import java.util.HashMap;
 import java.util.List;
+import java.util.List;
 
-public interface IDistributeur {
+public interface IDistributeur {	
 	
-	/** 
-	 * @deprecated
-	 */
-	public double getDemande(ITransformateur t);
-	// Rajouter une variable delais de livraisons
+	public List<CommandeDistri> demande (ITransformateur t, Catalogue c);
+	
+	public List<CommandeDistri> contreDemande (List<CommandeDistri> cd);
+
 
 	/**
 	 * @deprecated
@@ -16,8 +16,7 @@ public interface IDistributeur {
 	 */
 	public double getPrix();
 	
-	public List<CommandeDistri> Demande (HashMap<ITransformateur, Catalogue > d);
+	public List<CommandeDistri> LivraisonEffective(List<CommandeDistri> liste);
 	
-	public List<CommandeDistri> ContreDemande (List<CommandeDistri> cd);
-	
+
 }
