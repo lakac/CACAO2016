@@ -257,7 +257,7 @@ public class Nestle implements Acteur, ITransformateur{
 		this.stockcacao.AjouterStockCacao(this.achats.get(c.getVendeur()));
 		this.banque.retirer(this.getCouttransport().getDistances().get(c.getVendeur())*
 				Constante.COUT_UNITAIRE_TRANSPORT*this.getAchats().get(c.getVendeur()).getCacaoachete());
-		
+		this.totalachats.setValeur(this, c.getQuantite());
 	}
 
 	@Override
