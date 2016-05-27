@@ -45,11 +45,17 @@ public class Detaillant implements Acteur {
 
 
 	public void next() {
+		
+			
 		this.achats.setValeur(this, 0.0);
 		for (IVendeur t : this.vendeurs) {
 			double q = t.acheter(this, this.quantite);
 			this.solde.setValeur(this, this.solde.getValeur()-q*this.getPrix());
 			this.achats.setValeur(this, this.achats.getValeur()+q);
+			
+			
+			
+			//mettre à jour un indicateur consommation globale à chaque step
 		}
 
 	}
