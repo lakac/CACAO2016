@@ -26,7 +26,7 @@ public class ResteDesTransformateursMondiaux implements Acteur, ITransformateur 
 		
 	}
 
-	/**
+	/** 
 	 * Ajoute un transformateur ré¦¥ls ï¿½ la liste des transformateurs
 	 * servant ï¿½ calculer la quantitï¿½ mise en vente.
 	 */

@@ -1,3 +1,6 @@
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=refs/remotes/choose_remote_name/master
 eclipse.preferences.version=1
 encoding//src/abstraction/commun/Constantes.java=UTF-8
 encoding//src/abstraction/commun/IDistributeur.java=UTF-8
@@ -6,8 +9,6 @@ encoding//src/abstraction/commun/ITransformateur.java=UTF-8
 encoding//src/abstraction/commun/MondeV1.java=UTF-8
 encoding//src/abstraction/commun/ResteDesTransformateursMondiaux.java=UTF-8
 encoding//src/abstraction/equipe4/Producteur.java=UTF-8
+encoding//src/abstraction/equipe4/Stock.java=UTF-8
 encoding//src/abstraction/equipe4/Vente.java=UTF-8
-<<<<<<< HEAD
 encoding//src/abstraction/equipe5/Lindt.java=UTF-8
-=======
->>>>>>> refs/remotes/choose_remote_name/master
