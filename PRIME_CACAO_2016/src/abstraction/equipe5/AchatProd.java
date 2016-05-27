@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import abstraction.commun.CommandeDistri;
-import abstraction.commun.IProducteur;
+import abstraction.commun.CommandeProduc;
 import abstraction.commun.MarcheProducteur;
 
 class CommandeInterne {
@@ -28,19 +28,35 @@ public class AchatProd {
 	private HistoriqueCommandeProduc histP;
 	private HistoriqueCommandeDistri histD;
 	private Lindt lindt;
+	private Stock stockCacao;
+	private Tresorerie treso;
+	private double quantiteDemandee;
+	private double quantiteRecue;
 
 	
-	public AchatProd(HistoriqueCommandeProduc histP, HistoriqueCommandeDistri histD, Lindt lindt) {
+	public AchatProd(HistoriqueCommandeProduc histP, HistoriqueCommandeDistri histD, Lindt lindt, Stock stockCacao, Tresorerie treso) {
 		this.histP = histP;
 		this.histD = histD;
 		this.lindt = lindt;
+		this.stockCacao = stockCacao;
+		this.treso = treso;
 	}
 	
 	public HistoriqueCommandeProduc getHistP() {
-		return histP;}
+		return this.histP;
+	}
 
 	public HistoriqueCommandeDistri getHistD() {
-		return histD;}
+		return this.histD;
+	}
+	
+	public Tresorerie getTreso() {
+		return this.treso;
+	}
+	
+	public Stock getStock() {
+		return this.stockCacao;
+	}
 	
 	
 	/** Fonction qui calcul la quantite que l on va demander aux producteurs
@@ -79,27 +95,12 @@ public class AchatProd {
 		if (stockCacao-Constante.STOCK_MINIMAL<besoinCacao){
 			besoinCacao=besoinCacao-stockCacao+Constante.STOCK_MINIMAL;
 		}
-		else{
-			besoinCacao= Constante.STOCK_MINIMAL/2;
-		}
-		double quantiteEnVente = 0;
-		for (IProducteur p: lindt.getProducteurs()){
-			quantiteEnVente += p.annonceQuantiteMiseEnVente(lindt);
-		}
 		double prixDemande;
-		if (besoinCacao <= quantiteEnVente){
-			if (besoinCacao <= 0.7*quantiteEnVente){
-				besoinCacao += 0.2*besoinCacao;
-				prixDemande=MarcheProducteur.LE_MARCHE.getCours();}
-				if (besoinCacao <= 0.7*quantiteEnVente){
-					prixDemande=0.85*MarcheProducteur.LE_MARCHE.getCours();
-				}
-				else{
-					prixDemande=MarcheProducteur.LE_MARCHE.getCours();
-					}
-			}
+		if (quantiteDemandee < quantiteRecue) {
+			prixDemande = MarcheProducteur.LE_MARCHE.getCours()*1.2;
+		}
 		else {
-			prixDemande=1.2*MarcheProducteur.LE_MARCHE.getCours();
+			prixDemande=0.95*MarcheProducteur.LE_MARCHE.getCours();
 		}
 		return new CommandeInterne(besoinCacao, prixDemande);
 	}
@@ -109,14 +110,24 @@ public class AchatProd {
 	 */
 	
 	public double annonceQuantiteDemandee(){ 
+		this.quantiteDemandee = this.calculQuantiteDemandee(this.getHistP(),this.getHistD()).getQuantite();
 		return 0.6*this.calculQuantiteDemandee(this.getHistP(),this.getHistD()).getQuantite();
 	}// On met *0.6 car on prend 60% au prod et 40% au reste du monde
+	
+	public void notificationVente(CommandeProduc c) {
+		this.quantiteRecue = c.getQuantite();
+		this.getHistP().ajouter(c);
+		this.getStock().ajouterStock(c.getQuantite());
+		this.getTreso().retrait(c.getQuantite()*c.getPrixTonne());
+	}
+	
 	/**
 	 * Indique le prix propose au producteur .
 	 */
 	public double getPrix(){
 		return this.calculQuantiteDemandee(this.getHistP(),this.getHistD()).getPrix();
 	}
+	
 	//on achete 40% de la quantite demandee au producteur 3
 	public double quantiteProduc3() {
 		return 0.4*this.calculQuantiteDemandee(this.getHistP(),this.getHistD()).getQuantite(); 

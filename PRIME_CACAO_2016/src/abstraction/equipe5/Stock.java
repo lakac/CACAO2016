@@ -13,7 +13,7 @@ public class Stock {
 	public Stock  (String nom, Lindt lindt,double d) {
 		this.lindt=lindt;
 		this.nom=nom;
-		this.stock = new Indicateur("stock de "+ this.nom +"de Lindt", this.lindt,d);
+		this.stock = new Indicateur("Stock de "+ this.nom +" de Lindt", this.lindt,d);
 		Monde.LE_MONDE.ajouterIndicateur(this.stock);
 	}
 	

@@ -28,7 +28,7 @@ public class Lindt implements Acteur, ITransformateur{
 		this.histCommandeDistri = new HistoriqueCommandeDistri();
 		this.histCommandeProduc = new HistoriqueCommandeProduc();
 		this.commandeDistriLivree = new HistoriqueCommandeDistri();
-		this.stockCacao = new Stock("cacao",this,300);
+		this.stockCacao = new Stock("cacao",this,200.0);
 		this.stockChocolat50 = new Stock(Constante.LISTE_PRODUIT[0].getNomProduit(),this,0.0);
 		this.stockChocolat60 = new Stock(Constante.LISTE_PRODUIT[1].getNomProduit(),this,0.0);
 		this.stockChocolat70 = new Stock(Constante.LISTE_PRODUIT[2].getNomProduit(),this,0.0);
@@ -45,7 +45,7 @@ public class Lindt implements Acteur, ITransformateur{
 	public void creer() {
 		this.histCommandeProduc.ajouter(new CommandeProduc(this, this.getProducteurs().get(0), 100.0, MarcheProducteur.LE_MARCHE.getCours()));
 		this.histCommandeProduc.ajouter(new CommandeProduc(this, this.getProducteurs().get(1), 100.0, MarcheProducteur.LE_MARCHE.getCours()));
-		this.achatProd = new AchatProd(this.histCommandeProduc,this.histCommandeDistri, this);	
+		this.achatProd = new AchatProd(this.histCommandeProduc,this.histCommandeDistri, this, this.stockCacao, this.treso);	
 		this.treso = new Tresorerie(this.histCommandeDistri, this.histCommandeProduc, this, this.getProducteurs());
 		this.venteDist = new VenteDist(this, this.getTreso());
 
@@ -136,9 +136,7 @@ public class Lindt implements Acteur, ITransformateur{
 	}
 
 	public void notificationVente(CommandeProduc c) {
-		this.getHistCommandeProduc().ajouter(c);
-		this.getStockCacao().ajouterStock(c.getQuantite());
-		this.getTreso().retrait(c.getQuantite()*c.getPrixTonne());
+		this.achatProd.notificationVente(c);
 	}
 	
 	public double annonceQuantiteDemandee() {
