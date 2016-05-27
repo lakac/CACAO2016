@@ -8,7 +8,7 @@ public interface ITransformateur {
 	 * Indique la quantité demandée au marché du cacao.
 	 */
 	//Done!
-	public double annonceQuantiteDemandee();
+	public double annonceQuantiteDemandee(IProducteur p);
 	/**
 	 * Indique le prix d'achat proposé pour ce transformateur. Fluctue donc logiquement autour du cours du marché du cacao.
 	 */
@@ -18,7 +18,7 @@ public interface ITransformateur {
 	public Catalogue getCatalogue();
 	
 
-	public List<CommandeDistri> offre (List<CommandeDistri> o);
+	
 
 
 
@@ -28,11 +28,11 @@ public interface ITransformateur {
 	 * 
 	 * Cette méthode est appelée par le marché.
 	 */
-	public void notificationVente(CommandeProduc c);
+	public void notificationVente(IProducteur p);
 
 
 
-	public List<CommandeDistri> commandeFinale(List<CommandeDistri> list);
+	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> list);
 
 
 	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> list);

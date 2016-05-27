@@ -25,6 +25,7 @@ public class CommandeDistri {
 		this.stepLivraison = stepLivraison;
 		this.validation = validation;
 	}
+	
 
 	public Produit getProduit() {
 		return this.produit;

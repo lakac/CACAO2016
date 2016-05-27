@@ -43,7 +43,7 @@ public class Producteur implements Acteur,IProducteur{
 	}
 
 	public void AjoutVariableVente(){
-		this.vente = new Vente();
+		this.vente = new Vente(this.stock, this);
 	}
 
 
