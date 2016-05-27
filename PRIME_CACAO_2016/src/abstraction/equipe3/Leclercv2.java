@@ -160,6 +160,36 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		}
 		return depenses;
 	}
+	
+	public double getPrixVente(Produit p){
+		if (p.getNomProduit()=="50%"){
+			return this.prixdevente.getPrixDeVente().get(0);
+		} else {
+			if (p.getNomProduit()=="60%"){
+				return this.prixdevente.getPrixDeVente().get(1);
+			} else {
+				return this.prixdevente.getPrixDeVente().get(2);
+			}
+		}
+	}
+	public double getStock(Produit p){
+		double x = 0;
+		if (p.getNomProduit()=="50%"){
+			for (ITransformateur t : this.transformateurs){
+				x+=this.stock.getStock(t,0);
+			}
+		} else {
+			if (p.getNomProduit()=="60%"){
+				for (ITransformateur t : this.transformateurs){
+					x+=this.stock.getStock(t,1);
+				}
+			} else {
+				for (ITransformateur t : this.transformateurs){
+					x+=this.stock.getStock(t,2);
+				}
+			}
+		} return x;
+	}
 
 
 	public void next() {
