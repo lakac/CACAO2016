@@ -31,7 +31,7 @@ public class MarcheConsommateurs implements Acteur {
 
 	
 	private HashMap <IDistributeur,HashMap<Produit,Double>> fidelite ;
-	private HashMap <IDistributeur,Double> ventesEffectuees;
+	private HashMap <IDistributeur,HashMap<Produit,Double>> ventesEffectuees;
 	
 	private HashMap <Produit,Double> demandeAnnuelle; // volume des ventes annuelles d'un produit
 	private HashMap <Produit,Double> demandeComposanteContinue;
@@ -58,6 +58,7 @@ public class MarcheConsommateurs implements Acteur {
 		this.pourcentageIncertitudeVentes=new HashMap <Produit,Double>();
 		this.offreTotale=new HashMap <Produit,Double>();
 		this.demandeAnnuelle=new HashMap <Produit,Double>();
+		this.initialiser();
 	}
 	
 	public void actualiserDemande(){ //A actualiser a chaque next()
@@ -78,7 +79,7 @@ public class MarcheConsommateurs implements Acteur {
 		}
 	}
 	
-/*	public void actualiserFidelite(){
+	public void actualiserFidelite(){
 		for (Produit p : cata.getProduits()){
 			//if Carrefour et Leclerc sont en concurrence sur ce produit/) (V3)
 				if ((this.carrefour.getPrixVente(p)>this.leclerc.getPrixDeVente(p))&&(this.fidelite.get("Carrefour").get(p)>FIDELITE_MIN)){//si prix carrefour superieur
@@ -95,12 +96,12 @@ public class MarcheConsommateurs implements Acteur {
 			//}
 			
 		}
-*/	
+
 	public void repartirVentes(){
 		for (IDistributeur d : MarcheConsommateurs.distributeurs){
-			this.ventesEffectuees.put(d,(double) 0);
 			for (Produit p : cata.getProduits()){
-				this.ventesEffectuees.put(d,this.ventesEffectuees.get(d)+this.fidelite.get(d).get(p)*(this.demandeComposanteContinue.get(p)+this.demandeComposanteAleatoire.get(p)));
+				
+				this.ventesEffectuees.get(d).put(p,this.fidelite.get(d).get(p)*(this.demandeComposanteContinue.get(p)+this.demandeComposanteAleatoire.get(p)));
 			}
 		}	
 	}	
@@ -158,14 +159,14 @@ public class MarcheConsommateurs implements Acteur {
 	
 
 	
-	
+	public void initialiser(){
+		this.initialiserDemandeAnnuelle();
+		this.initialiserCalendrierDemande();
+		this.initialiserPourcentageIncertitudeVentes();
+		this.initialiserFidelite();
+	}
 	public void next(){
-		if (Monde.LE_MONDE.getStep()==0){
-			this.initialiserDemandeAnnuelle();
-			this.initialiserCalendrierDemande();
-			this.initialiserPourcentageIncertitudeVentes();
-			this.initialiserFidelite();
-		}
+		
 		this.actualiserDemande();
 		this.actualiserOffre();
 		this.actualiserFidelite();
