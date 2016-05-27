@@ -54,7 +54,7 @@ public class VenteDist {
 		return quantiteTotale;
 	}
 
-	//Creation d'une fonction qui calcule la quantité de chocolat à mettre dans chaque commande pour le 1er échange (offre) 
+	//Creation d'une fonction qui calcule la quantité de chocolat à mettre dans chaque commande 
 	//Cette fonction ne prend pas en compte le fait qu'on pourrait avoir un stock plus important au step n+3 grâce à la transformation
 	public List<CommandeDistri> Offre(List<CommandeDistri> listeCommandesDist){
 		
@@ -87,67 +87,11 @@ public class VenteDist {
 							else{
 								c.setQuantite(quantiteRepartie);
 								}}}}}
-		}return listeCommandesDist; //liste de commandes pour le premier echange => offre		
+		}return listeCommandesDist; 
 	}
 	
 	
-	//Creation d'une fonction qui répartie le chocolat pour le 2eme échange (échange final) Ne pas oublier le boolean validation
-	
-	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf){
-		
-		List<CommandeDistri> CommandesNonValidees= new ArrayList<CommandeDistri>(); //liste contenant les commandes non validées
-		for (CommandeDistri c:cf){
-			if (c.getValidation()==false){
-				CommandesNonValidees.add(c);
-			}
-		}
-		
-		List<Double> stockFictif= new ArrayList<Double>(); //liste contenant les stocks fictifs
-			for(int i=0; i<Constante.LISTE_PRODUIT.length ; i++){ 
-				double valeurStock=lindt.getStocksChocolat().get(i).getStock(); 
-				for(CommandeDistri c : cf ){
-					if(c.getValidation()==true && c.getProduit().getNomProduit()==Constante.LISTE_PRODUIT[i].getNomProduit()){ //si la commande a été validée et que le produit de la commande correspond au produit i
-					valeurStock-=c.getQuantite(); //on enleve de notre stock fictif la quantité de cacao que l'on s'engage à livrer 
-					}
-				} 
-				stockFictif.add(valeurStock);	
-				}
-			
-		for(int i=0; i<Constante.LISTE_PRODUIT.length ; i++){
-				if (stockFictif.get(i)>0.5){ // si la quantite de stock fictif est suffisante (ie la quantité qu'il nous restera après avoir validé les commandes)
-					
-					if(QuantiteDemandeeProduit(CommandesNonValidees).get(i) <= stockFictif.get(i)){ //ok on peut fournir aux distrib la quantité de chocolats i qu'ils demandent donc on valide les commandes
-							
-						 for(CommandeDistri c : CommandesNonValidees){
-							 if(c.getProduit().getNomProduit()==Constante.LISTE_PRODUIT[i].getNomProduit()){
-								 c.setValidation(true);}}} //on valide les commandes de produit i puisqu'on a assez de chocolats i
-					
-					else{ //même partie de code que dans la méthode Offre
-					double quantiteRepartie=stockFictif.get(i)/(lindt.getDistributeurs().size());
-					for (CommandeDistri c : CommandesNonValidees){
-						if(c.getProduit().getNomProduit()==Constante.LISTE_PRODUIT[i].getNomProduit()){
-							while(stockFictif.get(i)>0.5){ 
-								int j=0;
-								if(c.getQuantite()<=quantiteRepartie){
-									c.setValidation(true);
-									stockFictif.set(i, stockFictif.get(i)-c.getQuantite());	
-									quantiteRepartie=stockFictif.get(i)/(lindt.getDistributeurs().size()-j);
-									j++;	
-								}
-								else{
-									c.setQuantite(quantiteRepartie);
-									}
-							}
-						}
-					}
-				}
-			}}
-			for( CommandeDistri c: cf){	
-			lindt.getHistCommandeDistri().ajouter(c); 	
-			}
-		return cf;
-	}
-	
+
 
 	//Fonction qui met à jour l'historique ie qui va changer dans l'historique de commande distri la quantité des commandes si ce n'est pas la meme
 	// que dans commande finale, c'est à dire qu'on livre moins que prévu, et qui va enlever les commandes livrées de l'historique HistCommandeDistri
