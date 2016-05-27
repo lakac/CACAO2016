@@ -68,5 +68,4 @@ public class PrixDeVente {
 			this.prixDeVente.add(this.getPrixDeVenteParProduit(p));			// Le prix de vente diffère selon le produit 
 		} 	
 	}
-	
 }
