@@ -32,7 +32,6 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		this.ratio = new ArrayList<Double>();
 		Monde.LE_MONDE.ajouterIndicateur( this.solde );
 		this.transformateurs = new ArrayList<ITransformateur>();
-		this.ventes=ventes;
 		// TODO Auto-generated constructor stub
 	}
 	@Override
@@ -188,6 +187,31 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		//gérer ventes (rajouter ventes réelles du step)
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public List<CommandeDistri> LivraisonEffective(List<CommandeDistri> liste) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<CommandeDistri> Demande(HashMap<ITransformateur, Catalogue> d) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public Double getStock(Produit p) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public Double getPrixVente(Produit p) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
