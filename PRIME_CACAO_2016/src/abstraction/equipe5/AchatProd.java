@@ -117,7 +117,11 @@ public class AchatProd {
 	public void notificationVente(CommandeProduc c) {
 		this.quantiteRecue = c.getQuantite();
 		this.getHistP().ajouter(c);
+		System.out.println("avant "+this.getStock().getStock()+" --> "+c.getQuantite());
 		this.getStock().ajouterStock(c.getQuantite());
+		System.out.println("apres "+this.getStock().getStock());
+		System.out.println("c "+c);
+		System.out.println("treso"+this.getTreso());
 		this.getTreso().retrait(c.getQuantite()*c.getPrixTonne());
 	}
 	
