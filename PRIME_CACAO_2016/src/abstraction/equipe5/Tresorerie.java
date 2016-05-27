@@ -90,7 +90,7 @@ public class Tresorerie {
 	public double payeParDistrib(){
 		double paye=0;
 		for (CommandeDistri c: lindt.getHistCommandeDistri().getHist()){ //si il s'agit des commandes livrées
-			if(c.getStepLivraison()==Monde.LE_MONDE.getStep()-3){
+			if(c.getStepLivraison()==Monde.LE_MONDE.getStep()){
 				paye+=c.getPrix();	
 			}
 		}

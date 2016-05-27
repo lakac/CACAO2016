@@ -1,43 +1,41 @@
 package abstraction.equipe2;
 
-import java.util.HashMap;
-
-import abstraction.commun.*;
-import abstraction.fourni.Historique;
+import abstraction.fourni.Acteur;
+import abstraction.fourni.Indicateur;
 
 public class Banque {
 	
 	private double banque;
-	private Historique tresorerie;
+	private Indicateur tresorerie;
 		
 	
-	public Banque() {
-	this.banque=Constante.TRESORERIE_INITIALE;;
-	this.tresorerie = new Historique();
+	public Banque(Nestle nestle) {
+	this.banque=Constante.TRESORERIE_INITIALE;
+	this.tresorerie = new Indicateur("fonds", nestle, Constante.TRESORERIE_INITIALE);
 	}
 	
 	public void MiseAJourHistorique(Nestle nestle, int etape) {
-		this.tresorerie.ajouter(nestle, etape, this.banque);
+		this.tresorerie.getHistorique().ajouter(nestle, etape, this.getBanque());
 	}
 	
 	public double getBanque() {
 		return banque;
 	}
 	
-	
-	
-	
+	public Indicateur getTresorerie() {
+		return tresorerie;
+	}
+
 	public double CoutsFixes() {
 		return Constante.CHARGES_FIXES;
 	}
 	
-	public void  MiseAJourBanque(Achat achatp1, Achat achatp2, Production production, 
-			StockCacao cacao, StockChocolats chocolats, Vente vented1, Vente vented2,
-			IProducteur p1, IProducteur p2, IDistributeur d1, IDistributeur d2) {
-		//this.banque-=production.CoutTransformation();
-		this.banque-=cacao.CoutStockCacao();
-		this.banque-=chocolats.CoutStockChocolat();
-		//this.banque+=;
+	public void ajouter(double quantite) {
+		this.banque+=quantite;
 	}
-	
+
+	public void retirer(double quantite) {
+		this.banque-=quantite;
+	}
 }
+

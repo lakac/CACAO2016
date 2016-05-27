@@ -108,16 +108,12 @@ public class Lindt implements Acteur, ITransformateur{
 		this.getStockCacao().ajouterStock(this.achatProd.quantiteProduc3());
 		this.getTreso().retrait(this.achatProd.quantiteProduc3()*MarcheProducteur.LE_MARCHE.getCours()); //on achete au prix du marche
 		
-		// deplacement des commandes distributeurs dans l'historique des commandes livrees
-		this.deplacerCommandeDist();
+		this.getTransformationCacaoChocolat().Transformation(); // transforme le cacao en chocolat et met à jour les stocks (retire pour cacao et ajoute pour chocolat)
 		
-		this.getTransformationCacaoChocolat().Transformation();
-		
-		
-		stockChocolat50.retirerStockChocolat(Monde.LE_MONDE.getStep()-3);
-		stockChocolat60.retirerStockChocolat(Monde.LE_MONDE.getStep()-3);
-		stockChocolat70.retirerStockChocolat(Monde.LE_MONDE.getStep()-3);
-		
+		stockChocolat50.retirerStockChocolat(Monde.LE_MONDE.getStep());
+		stockChocolat60.retirerStockChocolat(Monde.LE_MONDE.getStep());
+		stockChocolat70.retirerStockChocolat(Monde.LE_MONDE.getStep());
+		venteDist.MiseAJourHistCommandeDistri();
 		treso.retrait(treso.coutStock()+treso.coutLivraison()+Constante.CHARGES_FIXES_STEP);
 		treso.depot(treso.payeParDistrib());
 		
@@ -134,8 +130,7 @@ public class Lindt implements Acteur, ITransformateur{
 		return this.venteDist.CommandeFinale(cf);
 	}
 	
-	public List<CommandeDistri> LivraisonEffective(List<CommandeDistri> livraison){
-		this.deplacerCommandeDist();
+	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> livraison){
 		return this.venteDist.Offre (livraison);
 	}
 
@@ -160,25 +155,14 @@ public class Lindt implements Acteur, ITransformateur{
 		this.catalogue.add(new Produit("70%", 0.5), new Tarif(this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[2]), listePlage));
 		return this.catalogue;
 	}
-	
-	public void deplacerCommandeDist() {
-		// trouve le step maximum dans l'historique des commandes
-		int stepMax = 0;
-		for (CommandeDistri c : this.getHistCommandeDistri().getHist()) {
-			if (c.getStepLivraison() > stepMax) {
-				stepMax = c.getStepLivraison();
-			}
-		}
-		for (int i=0; i<this.getHistCommandeDistri().getHist().size(); i++) {
-			if ((stepMax>4) && (this.getHistCommandeDistri().getCommande(i).getStepLivraison() == stepMax-4)) {
-				this.getCommandeDistriLivree().ajouter(this.getHistCommandeDistri().getCommande(i));
-				this.getHistCommandeDistri().supprimer(this.getHistCommandeDistri().getCommande(i)); 
-			}		
-		}
-	}
+
 
 	// Ne plus coder celles la, elles vont disparaitre!
 	public double annonceQuantiteDemandee(IProducteur p) {	return 0;	}
 	public void notificationVente(IProducteur p){ 	}
 	public double annonceQuantiteMiseEnVente(IDistributeur d){ return 0;}
+
+	public List<CommandeDistri> offre(List<CommandeDistri> o) { return null;}
+
+
 }
