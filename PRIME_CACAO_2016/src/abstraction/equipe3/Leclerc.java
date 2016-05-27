@@ -180,11 +180,35 @@ public class Leclerc implements Acteur,IDistributeur{
 	}
 
 	@Override
+
 	public List<CommandeDistri> ContreDemande(List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+
+
+	public List<CommandeDistri> demande(ITransformateur t, Catalogue c) {
+
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	
+
+	public List<CommandeDistri> contreDemande(List<CommandeDistri> cd) {
+
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public double getPrix() {
+		// TODO Auto-generated method stub
+		return 0;
+	
+	}
 	@Override
 	public Double getStock(Produit p) {
 		// TODO Auto-generated method stub
@@ -195,8 +219,4 @@ public class Leclerc implements Acteur,IDistributeur{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
 }
-
-
-
