@@ -18,6 +18,7 @@ public interface IDistributeur extends Acteur {
 	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf);
 
 	public Double getStock(Produit p);
+	
 	public Double getPrixVente(Produit p);
 		
 }
