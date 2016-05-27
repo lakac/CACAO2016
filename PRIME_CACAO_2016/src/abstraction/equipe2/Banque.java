@@ -2,9 +2,6 @@ package abstraction.equipe2;
 
 import java.util.HashMap;
 
-<<<<<<< HEAD
-
-=======
 import abstraction.commun.*;
 import abstraction.fourni.Historique;
 

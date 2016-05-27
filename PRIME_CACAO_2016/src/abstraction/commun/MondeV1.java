@@ -65,8 +65,8 @@ public class MondeV1 extends Monde {
 		
 		p1.ajouterTransformateur(t1);
 		p1.ajouterTransformateur(lindt);
-		p1.ajouterTransformateur(t3);
-		
+
+		p1.creerIntelligenceEconomique();
 		
 		marcheProducteur.ajouterProducteur(p1);
 		marcheProducteur.ajouterProducteur(p2);
@@ -75,6 +75,7 @@ public class MondeV1 extends Monde {
 		
 		p2.ajoutClient(t1);
 		p2.ajoutClient(lindt);
-		p2.ajoutClient(t3);
+		p2.ajoutClient(t3);		
+		p2.AjoutVariableVente();
 	}
 }
