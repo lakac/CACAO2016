@@ -362,11 +362,7 @@ public class Nestle implements Acteur, ITransformateur{
 		//chacun des producteurs nous envoie leur offre et on achète leur cacao
 		//et on met à jour l'historique
 		//et la trésorerie (on achète quelque chose)
-		double achattotal = this.QuantiteAcheteeMonde();
-		this.banque.retirer(this.QuantiteAcheteeMonde()*MarcheProducteur.LE_MARCHE.getCours());
-		for (CommandeProduc c : this.getCommandeproduc()) {
-			this.notificationVente(c);
-		}
+		
 
 		//chacun des producteurs nous envoie leur offre et on achï¿½te leur cacao
 		//et on met ï¿½ jour l'historique
