@@ -52,6 +52,7 @@ public class MondeV1 extends Monde {
 		
 		// Ajout des acteurs dans les listes des acteurs
 
+		
 		lindt.ajouterProducteur(p1);
 		lindt.ajouterProducteur(p2);
 		t3.ajouterTransformateur(nestle);

@@ -10,6 +10,10 @@ import java.util.List;
 public class Nestle implements Acteur, ITransformateur{
 	
 	private String nom;
+	private Indicateur historiqueachats;
+	private Indicateur historiqueventes;
+	private Indicateur balance;
+
 	
 	private Indicateur totalachats;
 	private HashMap<Produit,Indicateur> totalventesproduit;
@@ -37,6 +41,8 @@ public class Nestle implements Acteur, ITransformateur{
 		//Les listes des clients et fournisseurs
 				this.clients = new ArrayList<IDistributeur>();
 				this.fournisseurs = new ArrayList<IProducteur>();
+		//les attributs relatifs à la trésorerie
+				this.banque =new Banque();
 		//les HashMaps et liste
 				this.achats = new HashMap<IProducteur, Achat>();
 				this.SetAchats(this.fournisseurs);
@@ -152,7 +158,7 @@ public class Nestle implements Acteur, ITransformateur{
 	public StockCacao getStockcac() {
 		return stockcacao;
 	}
-
+	
 	public StockChocolats getStockchoc() {
 		return stockchocolats;
 	}
@@ -191,6 +197,7 @@ public class Nestle implements Acteur, ITransformateur{
 		this.achats.put(p, achat);
 	}
 
+	
 	
 
 //getters des clients et fournisseurs
@@ -276,6 +283,9 @@ public class Nestle implements Acteur, ITransformateur{
 		dictionnaire.put(this, this.getCatalogue());
 		//On négocie avec les distributeurs.
 		for (IDistributeur d : this.getClients()) {
+			// Si les distributeurs demandent un produit que l'on ne vend pas -> erreur du programme
+			this.setCommandesdistri(d,d.Demande(null));
+			this.Offre(d.Demande(null));// null a changer quand l'équipe aura fait une pull request.
 			this.setCommandesdistri(d,d.Demande(dictionnaire));
 			this.Offre(d.Demande(dictionnaire));
 		}
@@ -310,6 +320,7 @@ public class Nestle implements Acteur, ITransformateur{
 		//et la trésorerie (cout de transport à notre charge)
 		for (IProducteur p : this.achats.keySet()) {
 			this.stockcacao.AjouterStockCacao(this.achats.get(p));
+			
 			this.banque.retirer(this.getCouttransport().getDistances().get(p)*
 					Constante.COUT_UNITAIRE_TRANSPORT*this.getAchats().get(p).getCacaoachete());
 		}
@@ -323,9 +334,11 @@ public class Nestle implements Acteur, ITransformateur{
 				this.production.setProduction(this, cd);
 				this.stockcacao.RetirerStockCacao(cd.getProduit(), this.production);
 				this.stockchocolats.AjouterStockProduit(cd.getProduit(), this.production);
+				//Cout de transformation
 				this.banque.retirer(this.production.CoutTransformation(cd.getProduit()));
-				this.banque.retirer(this.getStockcac().CoutStockCacao());
-				this.banque.retirer(this.getStockchoc().CoutStockChocolat());
+				//Cout de stock
+				this.banque.retirer(this.stockcacao.CoutStockCacao()+this.stockchocolats.CoutStockChocolat());
+			
 			}
 		}
 		//La production étant faite, on peut alors mettre a jour les ventes 
