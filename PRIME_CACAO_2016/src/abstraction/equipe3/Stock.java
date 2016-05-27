@@ -27,7 +27,7 @@ public class Stock {
 			}
 		} return fraisDeStockTotal;
 	}
-	public void set(double fraisDeStock){
+	public void setFraisDeStock(double fraisDeStock){
 		this.fraisDeStock=fraisDeStock;
 	}
 	
