@@ -78,7 +78,7 @@ public class MarcheConsommateurs implements Acteur {
 		}
 	}
 	
-	public void actualiserFidelite(){
+/*	public void actualiserFidelite(){
 		for (Produit p : cata.getProduits()){
 			//if Carrefour et Leclerc sont en concurrence sur ce produit/) (V3)
 				if ((this.carrefour.getPrixVente(p)>this.leclerc.getPrixDeVente(p))&&(this.fidelite.get("Carrefour").get(p)>FIDELITE_MIN)){//si prix carrefour superieur
@@ -95,7 +95,7 @@ public class MarcheConsommateurs implements Acteur {
 			//}
 			
 		}
-	
+*/	
 	public void repartirVentes(){
 		for (IDistributeur d : MarcheConsommateurs.distributeurs){
 			this.ventesEffectuees.put(d,(double) 0);
