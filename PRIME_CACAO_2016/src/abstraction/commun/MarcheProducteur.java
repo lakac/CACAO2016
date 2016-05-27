@@ -3,7 +3,6 @@ package abstraction.commun;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import abstraction.commun.IProducteur;
 import abstraction.commun.ITransformateur;
 import abstraction.fourni.Acteur;
