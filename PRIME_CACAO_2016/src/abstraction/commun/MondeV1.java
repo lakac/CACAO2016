@@ -5,18 +5,10 @@ import abstraction.fourni.Monde;
 import abstraction.commun.Constantes;
 import abstraction.equipe5.Lindt;
 import abstraction.equipe1.Producteur;
-import abstraction.fourni.Monde;
-import abstraction.fourni.v0.Detaillant;
-import abstraction.commun.Constantes;
-
 
 import abstraction.equipe3.Leclerc;
 import abstraction.equipe2.*;
 import abstraction.equipe6.Carrefour;
-
-import abstraction.equipe4.*;
-import abstraction.equipe6.Carrefour;
-
 
 public class MondeV1 extends Monde {
 	

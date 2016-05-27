@@ -31,7 +31,7 @@ public class CommandeDistri {
 		return this.produit;
 	}
 
-public void setProduit(Produit produit) {
+	public void setProduit(Produit produit) {
 		this.produit = produit;
 	}
 
