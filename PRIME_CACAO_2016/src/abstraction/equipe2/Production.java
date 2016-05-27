@@ -83,6 +83,7 @@ public class Production {
 				plageinterne.setTarifproduit(Constante.PRODUIT_50, tarifproduit1);
 				plageinterne.setTarifproduit(Constante.PRODUIT_60, tarifproduit2);
 				plageinterne.setTarifproduit(Constante.PRODUIT_70, tarifproduit3);
+				System.out.println(plageinterne);
 				return plageinterne;
 	}
 	
