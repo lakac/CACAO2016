@@ -134,7 +134,7 @@ public class Lindt implements Acteur, ITransformateur{
 		return this.venteDist.CommandeFinale(cf);
 	}
 	
-	public List<CommandeDistri> LivraisonEffective(List<CommandeDistri> livraison){
+	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> livraison){
 		return this.venteDist.Offre (livraison);
 	}
 
@@ -182,4 +182,8 @@ public class Lindt implements Acteur, ITransformateur{
 	public double annonceQuantiteDemandee(IProducteur p) {	return 0;	}
 	public void notificationVente(IProducteur p){ 	}
 	public double annonceQuantiteMiseEnVente(IDistributeur d){ return 0;}
+
+	public List<CommandeDistri> offre(List<CommandeDistri> o) { return null;}
+
+
 }

@@ -15,14 +15,9 @@ public class CatalogueInterne {
 	}
 
 
-	public void setCatalogueinterne(Tarif tarif50, Tarif tarif60, Tarif tarif70) {
-		this.catalogueinterne.add(Constante.PRODUIT_50 , tarif50);
-		this.catalogueinterne.add(Constante.PRODUIT_60, tarif60);
-		this.catalogueinterne.add(Constante.PRODUIT_70, tarif70);
+	public void setCatalogueinterne(PlageInterne plageinterne) {
+		for (Produit p : plageinterne.getTarifproduit().keySet()) {
+		this.catalogueinterne.add(p, plageinterne.getTarifproduit().get(p));
+		}		
 	}
-	
-	
-	
-	
-
 }
