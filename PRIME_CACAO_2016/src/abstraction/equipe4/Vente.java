@@ -3,6 +3,8 @@ package abstraction.equipe4;
 import abstraction.commun.MarcheProducteur;
 import abstraction.fourni.*;
 
+//AVANT DE MODIFIER CE CODE, S'ADRESSER À JEAN VAN HECKE !!!
+
 public class Vente {
 	//stock disponible
 	private Stock stock;
