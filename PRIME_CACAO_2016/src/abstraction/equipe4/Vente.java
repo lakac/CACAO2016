@@ -54,10 +54,10 @@ public class Vente {
 		double M = coursCacao.get(0).getValeur();
 		for (int i=1; i<l; i++) {
 			M=M+coursCacao.get(i).getValeur();
-			M=M/l;
 		}
-		return M;
+		return M/l;
 	}
+	
 	//Retourne le stock disponible divise par le nombre de steps restantes
 	//avant le nouvel arrivage de production, pour savoir quelle quantite
 	//mettre en vente theoriquement, sans prendre en compte le cours actuel 
@@ -67,6 +67,7 @@ public class Vente {
 		int n=12-this.getStep()%12;
 		return this.getStock().getStockCacao().getValeur()/n;
 	}
+	
 	//Retourne notre offre totale par step
 	public double offreTotale () {
 	//Premier ajustement de notre offre totale, en fonction du cours de cacao fixe par le marche.
@@ -92,6 +93,7 @@ public class Vente {
 		}
 		return offreTotale;
 	}
+	
 	//Intention de vente aux differents transformateurs
 	public double[] ventesStep() {
 		double[] ventesStep = new double[3];
