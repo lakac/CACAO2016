@@ -1,15 +1,11 @@
 package abstraction.equipe5;
 
 import abstraction.fourni.Monde;
-import abstraction.commun.Constantes;
 import abstraction.commun.IProducteur;
 import abstraction.fourni.Indicateur;
 import abstraction.equipe5.Lindt;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import abstraction.commun.MarcheProducteur;
-import abstraction.commun.Produit;
 
 public class Tresorerie {
 	private HistoriqueCommandeDistri histDistri;
