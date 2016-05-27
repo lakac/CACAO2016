@@ -22,6 +22,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	private PrixDeVente prixdevente;
 	private ArrayList<Double> ratio;
 	private ArrayList<ITransformateur> transformateurs;
+	private List<CommandeDistri> commandeEnCours; // variable utilisée pour avoir la commande ou la contre demande qu'on a envoyé avant de reçevoir la contre demande des transfo
 
 	public Leclercv2(String nom, Monde monde) {
 		this.nom=nom;
@@ -40,6 +41,12 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		// TODO Auto-generated method stub
 		return this.nom;
 	}
+	public List<CommandeDistri> getCommandeEnCours(){
+		return this.commandeEnCours;
+	}
+	public void setCommandeEnCours(List<CommandeDistri> l){
+		this.commandeEnCours=l;
+	}
 	
 	public void ajouterVendeur(ITransformateur t) {
 		this.transformateurs.add(t);
@@ -47,7 +54,29 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	public ArrayList<ITransformateur> getTransformateurs(){
 		return this.transformateurs;
 	}
+	
+	public List<ITransformateur> Classerparprix(Produit p){ 
+		List<ITransformateur> liste = new ArrayList<ITransformateur>();
+		double t0 = this.getTransformateurs().get(0).getCatalogue().getTarif(p).getPrixTonne();
+		double t1 = this.getTransformateurs().get(1).getCatalogue().getTarif(p).getPrixTonne();
+		double t2 = this.getTransformateurs().get(2).getCatalogue().getTarif(p).getPrixTonne();
+		if (t0<=t1 && t1<=t2){
+			
+		}
+		else{
+			if (t0<=t1 && t1>t2){
+				
+			}
+			else{
+				
+			}
+		}
+		return liste;
+	}
 
+	public ITransformateur TransfoSuivant(CommandeDistri c){
+		return c.getVendeur();	 // a modifier	
+	}
 	@Override
 	public List<CommandeDistri> Demande(ITransformateur t, Catalogue c) {
 		Double[] x = {0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donné sur toutes les années
@@ -71,15 +100,38 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		}
 		for (int i=0;i<x.length; i++){
 			list.get(i).setQuantite(this.ratio.get(i)*x[i]-sto[i]);
-		} return list;
+		} 
+		this.setCommandeEnCours(list);
+		return list;
 		// TODO Auto-generated method stub
 	}
 
+	public void ActualiserCommande(List<CommandeDistri> cd, CommandeDistri c){
+		for (int i=0;i<cd.size();i++){
+			if (cd.get(i).equals(c)){
+				double q = cd.get(i).getQuantite()-c.getQuantite();
+				boolean valid = (cd.get(i).getQuantite()-c.getQuantite()==0);
+				ITransformateur vendeur = c.getVendeur();
+				if(!valid){
+					vendeur=TransfoSuivant(c);
+				}
+				CommandeDistri commande=new CommandeDistri(c.getAcheteur(), vendeur, c.getProduit(), q, c.getPrix(), c.getStepLivraison(), valid);
+				cd.set(i,commande);
+			}
+		
+		}
+	}
 
 	@Override
 	public List<CommandeDistri> ContreDemande(List<CommandeDistri> cd) {
+		List<CommandeDistri> a = new ArrayList<CommandeDistri>();
+		a=this.getCommandeEnCours();
+		for (CommandeDistri c : cd){
+			this.ActualiserCommande(a, c);			
+		}
 		// TODO Auto-generated method stub
-		return null;
+		this.setCommandeEnCours(a);
+		return a;
 	}
 	
 	public void rajoutStock(List<CommandeDistri> l){
@@ -117,11 +169,11 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		//List<CommandeDistri> livraisoneffective = LEMARCHE.LivraisonEffective();*/
 		/*gérer le stock
 		rajoutStock(livraisoneffective);
-		retraitStock(DEMANDE.get())*/
+		retraitStock(DEMANDE.get())
+		this.stock.setFraisDeStock();*/
 		//gérer le solde
 		//this.solde.setValeur(this, this.solde.getValeur()+recette()-depenses(commandefinale));
 		//gérer prix de vente
-		//gérer demande
 		// TODO Auto-generated method stub
 		
 	}
