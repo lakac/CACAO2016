@@ -107,12 +107,6 @@ public class MarcheConsommateurs implements Acteur {
 		}	
 	}	
 
-	
-	public void initialiserCalendrierDemande (){
-		for (int i=0;i<MarcheConsommateurs.CALENDRIER.length; i++){
-			
-		}
-	}
 	public HashMap<Produit, Double> getVenteDistri(IDistributeur d){
 		return this.ventesEffectuees.get(d);
 	}

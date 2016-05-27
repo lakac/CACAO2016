@@ -24,6 +24,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	private ArrayList<Double> ratio;
 	private ArrayList<ITransformateur> transformateurs;
 	private MarcheConsommateurs marche;
+	private Catalogue cata;
 
 	public Leclercv2(String nom, Monde monde) {
 		this.nom=nom;
@@ -131,8 +132,10 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	
 	public double recette(){
 		double recette = 0.0;
-		for (int i=0;i<3;i++){
-			//recette+=DEMANDE.get(i)*this.prixdevente.getPrixDeVente().get(i);
+		int j =0;
+		for (Produit p : this.cata.getProduits()){
+			recette+=this.marche.getVenteDistri(this).get(p)*this.prixdevente.getPrixDeVente().get(j);
+			j++;
 		}
 		return recette;
 	}
