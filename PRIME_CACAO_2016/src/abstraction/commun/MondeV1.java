@@ -29,14 +29,20 @@ public class MondeV1 extends Monde {
 		this.ajouterActeur(Ca);
 		
 		// Transformateurs
+
 		Nestle nestle = new Nestle();
+
 		ResteDesTransformateursMondiaux t3 = new ResteDesTransformateursMondiaux();
+
 		this.ajouterActeur(nestle);
+
 		Lindt lindt = new Lindt();
 		ajouterActeur(lindt);
 		lindt.ajouterDistributeur(Ca);
 		lindt.ajouterDistributeur(Le);
+
 		this.ajouterActeur(t3);
+
 		
 		
 		// Marché Producteur
@@ -55,8 +61,11 @@ public class MondeV1 extends Monde {
 		
 		lindt.ajouterProducteur(p1);
 		lindt.ajouterProducteur(p2);
+
 		t3.ajouterTransformateur(nestle);
+
 		t3.ajouterTransformateur(lindt);
+
 		nestle.AjouterClient(Le);
 		nestle.AjouterClient(Ca);
 		nestle.AjouterFournisseur(p1);
@@ -80,7 +89,9 @@ public class MondeV1 extends Monde {
 		
 		p2.ajoutClient(nestle);
 		p2.ajoutClient(lindt);
+
 		p2.ajoutClient(t3);		
 		p2.AjoutVariableVente();
+
 	}
 }

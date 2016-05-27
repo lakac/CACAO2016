@@ -79,18 +79,19 @@ public class Nestle implements Acteur, ITransformateur{
 //Ajout d'indicateurs visibles
 		this.banque=new Banque(this);
 		Monde.LE_MONDE.ajouterIndicateur(this.banque.getTresorerie());
-		this.totalachats = new Indicateur("totalachats", this, 0.);
+		this.totalachats = new Indicateur("Achats total de Nestle", this, 0.);
 		Monde.LE_MONDE.ajouterIndicateur(this.totalachats);
 		
 		for (Produit p : this.totalventesproduit.keySet()) {
-			Indicateur indicateurp =new Indicateur(""+p, this, 0.);
+			Indicateur indicateurp =new Indicateur("Ventes de "+p.getNomProduit()+" de Nestle", this, 0.);
 			Monde.LE_MONDE.ajouterIndicateur( indicateurp);
 		}
+		
 		this.catalogue = new CatalogueInterne();
 
 	}
 	//Ajout de clients et de fournisseurs
-	//@copyright équipe 3
+	//@copyright ï¿½quipe 3
 	public void AjouterClient(IDistributeur d) {
 		this.clients.add(d);
 	}
@@ -120,7 +121,7 @@ public class Nestle implements Acteur, ITransformateur{
 			this.setCommandesdistri(d, null);
 		}
 	}
-	//setter utilisé par la suite
+	//setter utilisï¿½ par la suite
 	public void setCommandesdistri(IDistributeur d, List<CommandeDistri> commandesdistri) {
 		this.commandesdistri.put(d, commandesdistri);
 	}
@@ -141,7 +142,7 @@ public class Nestle implements Acteur, ITransformateur{
 	//Setter initial pour l'historique des ventes
 	public void SetTotalVentesProduit() {
 		this.totalventesproduit = new HashMap<Produit, Indicateur>();
-		Indicateur indicateur50 = new Indicateur(this.nom, this, 0.);
+		Indicateur indicateur50 = new Indicateur(this.nom , this, 0.);
 		this.totalventesproduit.put(Constante.PRODUIT_50, indicateur50);
 		Indicateur indicateur60 = new Indicateur(this.nom, this, 0.);
 		this.totalventesproduit.put(Constante.PRODUIT_60, indicateur60);
@@ -206,7 +207,7 @@ public class Nestle implements Acteur, ITransformateur{
 	public ArrayList<IProducteur> getFournisseurs() {
 		return fournisseurs;
 	}
-//Méthodes de l'interface
+//Mï¿½thodes de l'interface
 	public double annonceQuantiteDemandee() {
 		double resultat = 0.0;
 		for (IDistributeur d : this.getCommandesdistri().keySet()) {
@@ -224,21 +225,40 @@ public class Nestle implements Acteur, ITransformateur{
 	}
 
 	public double annoncePrix() {
-			return MarcheProducteur.LE_MARCHE.getCours()*(1+0.1*Math.random());
+			return MarcheProducteur.LE_MARCHE.getCours()*(Constante.PRIX_MINIMUM+Constante.VARIATION_PRIX*Math.random());
 		}
+	
+	//
+	/*for (IProducteur p : this.achats.keySet()) {
+		this.achats.get(p).setCacaoAchete(this, p);
+		achattotal+=this.getAchats().get(p).getCacaoachete();
+		
+	}
+	this.totalachats.setValeur(this, achattotal);
+	
+	//Le cacao est alors livrï¿½, on met a jour le stock de cacao.
+	//et la trï¿½sorerie (cout de transport ï¿½ notre charge)
+	for (IProducteur p : this.achats.keySet()) {
+		;
+		
+		this.banque.retirer(this.getCouttransport().getDistances().get(p)*
+				Constante.COUT_UNITAIRE_TRANSPORT*this.getAchats().get(p).getCacaoachete());
+	}
+	
+	Achat achatmonde = new Achat(this.QuantiteAcheteeMonde());
+	this.stockcacao.AjouterStockCacao(achatmonde);
+	this.banque.retirer(this.QuantiteAcheteeMonde()*Constante.COUT_UNITAIRE_TRANSPORT*Constante.DISTANCE_MONDE);
 
+	//*/
 	public void notificationVente(CommandeProduc c) {
 		Achat achat = new Achat(c.getQuantite());
 		this.setAchats(c.getVendeur(), achat);
-		
 		this.stockcacao.AjouterStockCacao(achat);
 		// MODIFICATION ! mise a jour la tresorerie et le stock de cacao (selon c) 27/05
 		this.banque.retirer(achat.getCacaoachete());
 		this.banque.retirer(this.getCouttransport().getDistances().get(c.getVendeur())*
 				Constante.COUT_UNITAIRE_TRANSPORT*achat.getCacaoachete());
-		
 		this.totalachats.setValeur(this, this.totalachats.getValeur()+c.getQuantite()); /// ligne modifiée le 27/05 Sarah/Manon
-		
 	}
 
 	@Override
@@ -263,12 +283,15 @@ public class Nestle implements Acteur, ITransformateur{
 		return Offre;
 	}
 
+
 	@Override
+
 	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
 		return Offre(cf);
 	}
+
 	
-// méthodes vouées à disparaître
+// mï¿½thodes vouï¿½es ï¿½ disparaï¿½tre
 	@Override
 	public double annonceQuantiteDemandee(IProducteur p) {
 		return 0;
@@ -278,26 +301,67 @@ public class Nestle implements Acteur, ITransformateur{
 	public void notificationVente(IProducteur p){
 	}
 	
+	
 	public void next() {
-		//initialisation des plages de prix compte tenu des production précédentes
+		//initialisation des plages de prix compte tenu des production prï¿½cï¿½dentes
 		PlageInterne plageinterne = this.getProd().plageinterne();
 		//Catalogue
 		this.catalogue.setCatalogueinterne(plageinterne);
 		
-		//début de la phase d'échange à proprement dit.
+		//dï¿½but de la phase d'ï¿½change ï¿½ proprement dit.
 		//On donne le catalogue.
+		/*HashMap<ITransformateur, Catalogue>  dictionnaire = new HashMap<ITransformateur, Catalogue>();
+		dictionnaire.put(this, this.getCatalogue());
+		//On négocie avec les distributeurs.
+		for (IDistributeur d : this.getClients()) {
+			// Si les distributeurs demandent un produit que l'on ne vend pas -> erreur du programme
+			this.setCommandesdistri(d,d.Demande(dictionnaire));
+			this.Offre(d.Demande(dictionnaire));// null a changer quand l'équipe aura fait une pull request.
+			this.setCommandesdistri(d,d.Demande(dictionnaire));
+			this.Offre(d.Demande(dictionnaire));
+		}
+		for (IDistributeur d : this.getClients()) {
+			this.setCommandesdistri(d, d.ContreDemande(this.getCommandesdistri().get(d)));
+			this.CommandeFinale(this.getCommandesdistri().get(d));
+		}*/
+		/*for (IDistributeur d : this.getClients()) {
+			this.setCommandesdistri(d, d.CommandeFinale(this.getCommandesdistri().get(d)));
+		}*/
+		
 		this.getCatalogue();
 		//for (IDistributeur d : this.getClients()) {
 		//	this.setCommandesdistri(d, //methode du marche);
 		//}
 		//On négocie avec les Producteurs et on actualise nos commande aux producteurs
+		/*HashMap<ITransformateur, Catalogue>  dictionnaire = new HashMap<ITransformateur, Catalogue>();
+		dictionnaire.put(this, this.getCatalogue());
+		//On nï¿½gocie avec les distributeurs.
+		for (IDistributeur d : this.getClients()) {
+			this.setCommandesdistri(d,d.Demande(dictionnaire));
+			this.Offre(d.Demande(dictionnaire));
+		}
+		for (IDistributeur d : this.getClients()) {
+			this.setCommandesdistri(d, d.ContreDemande(this.getCommandesdistri().get(d)));
+			this.CommandeFinale(this.getCommandesdistri().get(d));
+		}
+		for (IDistributeur d : this.getClients()) {
+			this.setCommandesdistri(d, d.CommandeFinale(this.getCommandesdistri().get(d)));
+		}
+		//On nï¿½gocie avec les Producteurs et on actualise nos commande aux producteurs
+		 */
+
 		this.annonceQuantiteDemandee();
 		this.annoncePrix(); /// pas besoin de stocker prix 27/05
 		/**for (int i = 0; i<this.getCommandeproduc().size(); i++) {
 			CommandeProduc commande = new CommandeProduc(this, this.getFournisseurs().get(i), 
 					this.getFournisseurs().get(i).annonceQuantiteMiseEnVente(this), prix);
 			this.setCommandeproduc(i, commande);
+
 		}*/
+
+		
+
+
 		
 		
 		//chacun des producteurs nous envoie leur offre et on achète leur cacao
@@ -305,6 +369,7 @@ public class Nestle implements Acteur, ITransformateur{
 		//et la trésorerie (on achète quelque chose)
 		double achattotal = this.QuantiteAcheteeMonde();
 		this.banque.retirer(this.QuantiteAcheteeMonde()*MarcheProducteur.LE_MARCHE.getCours());
+
 		/**for (IProducteur p : this.achats.keySet()) {
 			this.achats.get(p).setCacaoAchete(this, p);
 			achattotal+=this.getAchats().get(p).getCacaoachete();
@@ -324,12 +389,22 @@ public class Nestle implements Acteur, ITransformateur{
 		Achat achatmonde = new Achat(this.QuantiteAcheteeMonde());
 		this.stockcacao.AjouterStockCacao(achatmonde);
 		this.banque.retirer(this.QuantiteAcheteeMonde()*Constante.COUT_UNITAIRE_TRANSPORT*Constante.DISTANCE_MONDE);
+
+		for (CommandeProduc c : this.getCommandeproduc()) {
+			this.notificationVente(c);
+		}
+
+		//chacun des producteurs nous envoie leur offre et on achï¿½te leur cacao
+		//et on met ï¿½ jour l'historique
+		//et la trï¿½sorerie (on achï¿½te quelque chose)
+
 		
 		
-		//Le stock de cacao est à jour, on lance la production de chocolat, et on met
+		
+		//Le stock de cacao est ï¿½ jour, on lance la production de chocolat, et on met
 		//a jour le stock de cacao et de chocolat au fur et a mesure
-		//et on retranche les couts de production à la banque
-		//on calcule le cout de stock à ce moment là
+		//et on retranche les couts de production ï¿½ la banque
+		//on calcule le cout de stock ï¿½ ce moment lï¿½
 		for (IDistributeur d : this.commandesdistri.keySet()) {
 			for (CommandeDistri cd : this.commandesdistri.get(d)) {
 				this.production.setProduction(this, cd);
@@ -342,10 +417,10 @@ public class Nestle implements Acteur, ITransformateur{
 			
 			}
 		}
-		//La production étant faite, on peut alors mettre a jour les ventes 
-		//(car c'est la production de la vente finale qui a été faite)
+		//La production ï¿½tant faite, on peut alors mettre a jour les ventes 
+		//(car c'est la production de la vente finale qui a ï¿½tï¿½ faite)
 		//ainsi que leur historique
-		//ainsi que la trésorerie de Nestle
+		//ainsi que la trï¿½sorerie de Nestle
 		for (IDistributeur d : this.ventes.keySet()) {
 			int i = 0;
 			for (Produit p : this.ventes.get(d).getQuantitevendue().keySet()) {
@@ -358,9 +433,19 @@ public class Nestle implements Acteur, ITransformateur{
 						,this.getVentes().get(d).getQuantitevendue().get(p)));
 			}
 		}
-		//Enfin, mise à jour de l'historique de la banque
+		//Enfin, mise ï¿½ jour de l'historique de la banque
 		this.banque.MiseAJourHistorique(this, Monde.LE_MONDE.getStep());
 		//fin du next
+	}
+	@Override
+	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> list) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<CommandeDistri> offre(List<CommandeDistri> list) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
 
