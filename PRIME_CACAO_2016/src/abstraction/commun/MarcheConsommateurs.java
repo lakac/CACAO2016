@@ -31,6 +31,9 @@ public class MarcheConsommateurs implements Acteur {
 	
 	private HashMap <IDistributeur,HashMap<Produit,Double>> fidelite ;
 	private HashMap <IDistributeur,Double> ventesEffectuees;
+	
+	private HashMap <Produit,Double> demandeAnnuelle; // volume des ventes annuelles d'un produit
+	
 	private HashMap <Produit,Double> demandeComposanteContinue;
 	private HashMap <Produit,Double> demandeComposanteAleatoire;
 	
@@ -54,7 +57,7 @@ public class MarcheConsommateurs implements Acteur {
 		this.demandeComposanteAleatoire=new HashMap <Produit,Double>();
 		this.pourcentageIncertitudeVentes=new HashMap <Produit,Double>();
 		this.offreTotale=new HashMap <Produit,Double>();
-		
+		this.demandeAnnuelle=new HashMap <Produit,Double>();
 	}
 	
 	public void actualiserDemande(){ //A actualiser a chaque next()
@@ -118,7 +121,7 @@ public class MarcheConsommateurs implements Acteur {
 	
 	public void initialiserCalendrierDemande (){
 		for (int i=0;i<MarcheConsommateurs.CALENDRIER.length; i++){
-			if
+			
 		}
 	}
 	
