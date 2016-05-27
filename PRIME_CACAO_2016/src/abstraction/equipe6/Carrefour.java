@@ -252,6 +252,12 @@ public class Carrefour implements Acteur,IDistributeur {
 		}
 		return null;
 	}
+	public Double getFraisDeDistribution(){
+		return this.fraisdedistri;
+	}
+	public void setFraisDeDistribution(double solde){
+		solde=solde*1.1;
+	}
 
 
 	@Override
