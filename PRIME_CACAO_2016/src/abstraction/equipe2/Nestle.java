@@ -230,6 +230,15 @@ public class Nestle implements Acteur, ITransformateur{
 	public void notificationVente(CommandeProduc c) {
 		Achat achat = new Achat(c.getQuantite());
 		this.setAchats(c.getVendeur(), achat);
+		
+		this.stockcacao.AjouterStockCacao(achat);
+		// MODIFICATION ! mise a jour la tresorerie et le stock de cacao (selon c) 27/05
+		this.banque.retirer(achat.getCacaoachete());
+		this.banque.retirer(this.getCouttransport().getDistances().get(c.getVendeur())*
+				Constante.COUT_UNITAIRE_TRANSPORT*achat.getCacaoachete());
+		
+		this.totalachats.setValeur(this, this.totalachats.getValeur()+c.getQuantite()); /// ligne modifiée le 27/05 Sarah/Manon
+		
 	}
 
 	@Override
@@ -283,12 +292,12 @@ public class Nestle implements Acteur, ITransformateur{
 		//}
 		//On négocie avec les Producteurs et on actualise nos commande aux producteurs
 		this.annonceQuantiteDemandee();
-		double prix = this.annoncePrix();
-		for (int i = 0; i<this.getCommandeproduc().size(); i++) {
+		this.annoncePrix(); /// pas besoin de stocker prix 27/05
+		/**for (int i = 0; i<this.getCommandeproduc().size(); i++) {
 			CommandeProduc commande = new CommandeProduc(this, this.getFournisseurs().get(i), 
 					this.getFournisseurs().get(i).annonceQuantiteMiseEnVente(this), prix);
 			this.setCommandeproduc(i, commande);
-		}
+		}*/
 		
 		
 		//chacun des producteurs nous envoie leur offre et on achète leur cacao
@@ -296,21 +305,21 @@ public class Nestle implements Acteur, ITransformateur{
 		//et la trésorerie (on achète quelque chose)
 		double achattotal = this.QuantiteAcheteeMonde();
 		this.banque.retirer(this.QuantiteAcheteeMonde()*MarcheProducteur.LE_MARCHE.getCours());
-		for (IProducteur p : this.achats.keySet()) {
+		/**for (IProducteur p : this.achats.keySet()) {
 			this.achats.get(p).setCacaoAchete(this, p);
 			achattotal+=this.getAchats().get(p).getCacaoachete();
 			this.banque.retirer(this.achats.get(p).getCacaoachete());
-		}
-		this.totalachats.setValeur(this, achattotal);
+		}*/ ///doit être fait dans notificationVentes() 27/05
+		this.totalachats.setValeur(this, achattotal); ///ok mais totalachat aussi mis a jour par notificationVents() 27/05
 		
 		//Le cacao est alors livré, on met a jour le stock de cacao.
 		//et la trésorerie (cout de transport à notre charge)
-		for (IProducteur p : this.achats.keySet()) {
+		/**for (IProducteur p : this.achats.keySet()) {
 			this.stockcacao.AjouterStockCacao(this.achats.get(p));
 			
 			this.banque.retirer(this.getCouttransport().getDistances().get(p)*
 					Constante.COUT_UNITAIRE_TRANSPORT*this.getAchats().get(p).getCacaoachete());
-		}
+		}*/ /// mise a jour stock et ventes fait par notificationVentes() 27/05
 		
 		Achat achatmonde = new Achat(this.QuantiteAcheteeMonde());
 		this.stockcacao.AjouterStockCacao(achatmonde);
