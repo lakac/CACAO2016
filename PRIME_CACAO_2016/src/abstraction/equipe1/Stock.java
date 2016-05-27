@@ -20,7 +20,7 @@ public class Stock {
 	/**
 	 * Repartition du stock selon la date de peremption
 	 * 
-	 * Les feves les plus anciennes sont en tete de la pile
+	 * Les feves les plus anciennes sont en tete de la file
 	 */
 	private LinkedList<Double> stockParStep;
 	
