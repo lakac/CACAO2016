@@ -11,7 +11,7 @@ public class Tresorerie {
 	
 	//constructeur
 	public Tresorerie(Producteur p) {
-		this.fond = new Indicateur("Fond de" + p.getNom(),p,0.0);
+		this.fond = new Indicateur("Fond de Asie Amerique",p,0.0);
 		this.prod= p;
 		Monde.LE_MONDE.ajouterIndicateur( this.fond );
 	}

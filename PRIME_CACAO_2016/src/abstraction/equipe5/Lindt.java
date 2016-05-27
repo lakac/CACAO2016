@@ -53,6 +53,7 @@ public class Lindt implements Acteur, ITransformateur{
 
 
 	/** Voila tout les getters*/
+
 	public HistoriqueCommandeDistri getHistCommandeDistri() {
 		return this.histCommandeDistri;
 	}
@@ -121,8 +122,8 @@ public class Lindt implements Acteur, ITransformateur{
 		venteDist.MiseAJourHistCommandeDistri();
 		treso.retrait(treso.coutStock()+treso.coutLivraison()+Constante.CHARGES_FIXES_STEP);
 		treso.depot(treso.payeParDistrib());	
-		
 	}
+
 	
 	
 	// Fonctions finies
