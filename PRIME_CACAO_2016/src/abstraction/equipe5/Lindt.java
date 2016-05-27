@@ -119,8 +119,9 @@ public class Lindt implements Acteur, ITransformateur{
 		stockChocolat70.retirerStockChocolat(Monde.LE_MONDE.getStep()-3);
 		
 		treso.retrait(treso.coutStock()+treso.coutLivraison()+Constante.CHARGES_FIXES_STEP);
+		treso.depot(treso.payeParDistrib());
 		
-		//treso ajouter
+		
 	}
 	
 	

@@ -1,6 +1,7 @@
 package abstraction.equipe5;
 
 import abstraction.fourni.Monde;
+import abstraction.commun.CommandeDistri;
 import abstraction.commun.Constantes;
 import abstraction.commun.IProducteur;
 import abstraction.fourni.Indicateur;
@@ -8,6 +9,8 @@ import abstraction.equipe5.Lindt;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+
 import abstraction.commun.MarcheProducteur;
 import abstraction.commun.Produit;
 
@@ -87,7 +90,17 @@ public class Tresorerie {
 				+lindt.getStockChocolat60().getStock()
 				+lindt.getStockChocolat70().getStock() 
 				+ lindt.getStockCacao().getStock())); 
-	}		
+	}	
+	
+	public double payeParDistrib(){
+		double paye=0;
+		for (CommandeDistri c: lindt.getHistCommandeDistri().getHist()){ //si il s'agit des commandes livrées
+			if(c.getStepLivraison()==Monde.LE_MONDE.getStep()-3){
+				paye+=c.getPrix();	
+			}
+		}
+		return paye;
+	}
 
 
 }
