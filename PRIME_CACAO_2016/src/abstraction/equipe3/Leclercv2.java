@@ -197,7 +197,6 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		//gérer prix de vente
 		//gérer ventes (rajouter ventes réelles du step)
 		// TODO Auto-generated method stub
-		
 
-	
+	}
 }
