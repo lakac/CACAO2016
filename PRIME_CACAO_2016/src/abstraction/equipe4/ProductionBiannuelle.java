@@ -3,7 +3,7 @@ package abstraction.equipe4;
 public class ProductionBiannuelle {
 	//CapacitÃ© maximale de production mensuelle, sans prendre en compte les alÃ©as
 	private int capaciteMaximale; 
-	//Quantité de cacao perdu avant récolte (due aux aléas)
+	//Quantitï¿½ de cacao perdu avant rï¿½colte (due aux alï¿½as)
 	private double perteProduction; 
 	//Renvoie la production finale (maximale soustraite des pertes)
 	private double productionFinale; 
@@ -42,30 +42,30 @@ public class ProductionBiannuelle {
 	this.perteProduction = this.getCapaciteMaximale()*this.perteAleatoire();
 	}
 
-	// calcul la quantité totale de fève de cacao récolté à la fin des récoltes (pour un semestre).
+	// calcul la quantitï¿½ totale de fï¿½ve de cacao rï¿½coltï¿½ ï¿½ la fin des rï¿½coltes (pour un semestre).
 	public void setProductionFinale() {
 		this.productionFinale=this.getCapaciteMaximale()-this.getPerteProduction();
 	}	
 	
 	// calcule un pourcentage de perte ici compris entre 0 et 10%,
-	// ces pertes sont aléatoire et représente les effets des aléas méthéorologiques sur les récoltes.
+	// ces pertes sont alï¿½atoire et reprï¿½sente les effets des alï¿½as mï¿½thï¿½orologiques sur les rï¿½coltes.
 	public double perteAleatoire() { 
 		double PerteAleatoire = Math.random()*0.1;
 		return PerteAleatoire;	
 	}
 
-	// modification de la tréso à cause des couts de productions.
+	// modification de la trï¿½so ï¿½ cause des couts de productions.
 	public void coutProd(){
 		this.getProd().getTreso().getFond().setValeur(this.getProd(), this.getProd().getTreso().getFond().getValeur()- Couts.COUTPROD*this.getProductionFinale());
 	}
 	
-	// actualise toute les variables liées à la production uniquement:
-	// l'augmentation de stock, baisse de la trésorerie (cout de prod)
+	// actualise toute les variables liï¿½es ï¿½ la production uniquement:
+	// l'augmentation de stock, baisse de la trï¿½sorerie (cout de prod)
 	public void production(){
 		this.setPerteProduction();
 		this.setProductionFinale();
 		this.coutProd();
-		this.getProd().getStock().reductionStock(this.getProductionFinale());
+		this.getProd().getStock().augmentationStock(this.getProductionFinale());
 	}
 
 
