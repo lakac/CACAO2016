@@ -36,9 +36,9 @@ public class Lindt implements Acteur, ITransformateur{
 		this.distributeurs = new ArrayList<IDistributeur>();
 		this.catalogue = new Catalogue();
 		this.stocksChocolat= new ArrayList<Stock>();
-		this.stocksChocolat.add(new Stock(Constante.LISTE_PRODUIT[0].getNomProduit(),this,0.0));
-		this.stocksChocolat.add(new Stock(Constante.LISTE_PRODUIT[1].getNomProduit(),this,0.0));
-		this.stocksChocolat.add( new Stock(Constante.LISTE_PRODUIT[2].getNomProduit(),this,0.0));
+		this.stocksChocolat.add(this.stockChocolat50);
+		this.stocksChocolat.add(this.stockChocolat60);
+		this.stocksChocolat.add(this.stockChocolat70);
 		this.transfo=new TransformationCacaoChocolat(this);
 	}
 
@@ -113,9 +113,6 @@ public class Lindt implements Acteur, ITransformateur{
 		
 		this.getTransformationCacaoChocolat().Transformation();
 		
-		//stockChocolat50.ajouterStock(this.getHist().valeur(Constante.STEP_2));
-		//stockChocolat60.ajouterStock(this.getHist().valeur(Constante.STEP_2));
-		//stockChocolat70.ajouterStock(this.getHist().valeur(Constante.STEP_2));
 		
 		stockChocolat50.retirerStockChocolat(Monde.LE_MONDE.getStep()-3);
 		stockChocolat60.retirerStockChocolat(Monde.LE_MONDE.getStep()-3);

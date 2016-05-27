@@ -28,6 +28,7 @@ public class Stock {
 		this.stock.setValeur(this.lindt, stock); 
 	}
 	
+	
 	public void ajouterStock(double d) {
 		double perte=(20+10*Math.random())/100;
 		this.setStock(this.getStock()+d*this.getStock()*perte);
