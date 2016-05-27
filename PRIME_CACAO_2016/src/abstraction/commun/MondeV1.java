@@ -79,6 +79,7 @@ public class MondeV1 extends Monde {
 		
 		p1.ajouterTransformateur(nestle);
 		p1.ajouterTransformateur(lindt);
+		p1.ajouterTransformateur(t3);
 
 		marcheProducteur.ajouterProducteur(p1);
 		marcheProducteur.ajouterProducteur(p2);
