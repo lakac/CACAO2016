@@ -6,11 +6,13 @@ import abstraction.fourni.*;
 public class Vente {
 	//stock disponible
 	private Stock stock;
-	//on choisit de ne pas dﾃｩpasser un certain stock, dans la mesure du possible. C'est-ﾃ�-dire que si notre stock est supﾃｩrieur ﾃ� cette valeur, on veut le plus possible.
-	private Producteur producteur;
-	private double prixMarche;
-	private double[] prixDemandes;
-	private double offreTotale;
+ 	private Producteur producteur;
+	//cours du cacao fixe par le marche
+ 	private double prixMarche;
+	//prix demandes par les acheteurs (transformateurs)
+ 	private double[] prixDemandes;
+	//notre offre totale par step
+ 	private double offreTotale;
 
 	//Constructeurs
 	public Vente (Stock stock, Producteur producteur) {
@@ -87,7 +89,7 @@ public class Vente {
 		return offreTotale;
 	}
 
-	//Intention de vente aux diffﾃｩrents transformateurs
+	//Intention de vente aux differents transformateurs
 	public double[] ventesStep() {
 		double[] ventesStep = new double[3];
 		ventesStep[2] = 0.04*this.offreTotale()+((this.getPrixDemandes()[2]-this.prixMarche)/this.prixMarche)*this.offreTotale();
@@ -98,7 +100,7 @@ public class Vente {
 
 
 	/*
-	 * NE PAS EFFACER LA SUITE (PEUT ﾃ概RE UTILE DANS LA V3)
+	 * NE PAS EFFACER LA SUITE (PEUT ETRE UTILE DANS LA V3)
 	public double[] ventesStep () {
 		double[] R = new double[3];
 		double offreRestante = 0.0;
