@@ -272,23 +272,9 @@ public class Nestle implements Acteur, ITransformateur{
 		//début de la phase d'échange à proprement dit.
 		//On donne le catalogue.
 		this.getCatalogue();
-		HashMap<ITransformateur, Catalogue>  dictionnaire = new HashMap<ITransformateur, Catalogue>();
-		dictionnaire.put(this, this.getCatalogue());
-		//On négocie avec les distributeurs.
-		for (IDistributeur d : this.getClients()) {
-			// Si les distributeurs demandent un produit que l'on ne vend pas -> erreur du programme
-			this.setCommandesdistri(d,d.Demande(dictionnaire));
-			this.Offre(d.Demande(dictionnaire));// null a changer quand l'équipe aura fait une pull request.
-			this.setCommandesdistri(d,d.Demande(dictionnaire));
-			this.Offre(d.Demande(dictionnaire));
-		}
-		for (IDistributeur d : this.getClients()) {
-			this.setCommandesdistri(d, d.ContreDemande(this.getCommandesdistri().get(d)));
-			this.CommandeFinale(this.getCommandesdistri().get(d));
-		}
-		for (IDistributeur d : this.getClients()) {
-			this.setCommandesdistri(d, d.CommandeFinale(this.getCommandesdistri().get(d)));
-		}
+		//for (IDistributeur d : this.getClients()) {
+		//	this.setCommandesdistri(d, //methode du marche);
+		//}
 		//On négocie avec les Producteurs et on actualise nos commande aux producteurs
 		this.annonceQuantiteDemandee();
 		double prix = this.annoncePrix();
