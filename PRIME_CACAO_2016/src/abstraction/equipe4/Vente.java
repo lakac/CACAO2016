@@ -6,7 +6,7 @@ import abstraction.fourni.*;
 public class Vente {
 	//stock disponible
 	private Stock stock;
-	//on choisit de ne pas dﾃｩpasser un certain stock, dans la mesure du possible. C'est-ﾃ�-dire que si notre stock est supﾃｩrieur ﾃ� cette valeur, on veut le plus possible.
+	//on choisit de ne pas d�ｾ�ｽｩpasser un certain stock, dans la mesure du possible. C'est-�ｾ�ｿｽ-dire que si notre stock est sup�ｾ�ｽｩrieur �ｾ�ｿｽ cette valeur, on veut le plus possible.
 	private Producteur producteur;
 	private double prixMarche;
 	private double[] prixDemandes;
@@ -33,7 +33,7 @@ public class Vente {
 	public Stock getStock() {
 		return this.getProducteur().getStock();
 	}
-	//Retourne le prix actuel du marchﾃｩ.
+	//Retourne le prix actuel du march�ｾ�ｽｩ.
 	public double getPrixMarche() {
 		return MarcheProducteur.LE_MARCHE.getCours();
 	}
@@ -42,11 +42,11 @@ public class Vente {
 	}
 
 
-	//AUTRES Mﾃ欝HODES
-	//Retourne la moyenne des prix de vente sur les prﾃｩcﾃｩdentes step.
+	//AUTRES M�ｾ�谺扎ODES
+	//Retourne la moyenne des prix de vente sur les pr�ｾ�ｽｩc�ｾ�ｽｩdentes step.
 	public double moyennePrixDeVente () {
 		Historique coursCacao = MarcheProducteur.LE_MARCHE.getHistorique();
-		//longueur du tableau regroupant les prﾃｩcﾃｩdents prix de vente
+		//longueur du tableau regroupant les pr�ｾ�ｽｩc�ｾ�ｽｩdents prix de vente
 		int l = coursCacao.getTaille();
 		double M = coursCacao.get(0).getValeur();
 		for (int i=1; i<l; i++) {
@@ -55,7 +55,7 @@ public class Vente {
 		}
 		return M;
 	}
-	//Retourne le stock disponible divisﾃｩ par le nombre de steps restantes avant le nouvel arrivage de production.
+	//Retourne le stock disponible divis�ｾ�ｽｩ par le nombre de steps restantes avant le nouvel arrivage de production.
 	public double venteAPriori () {
 		//nombre de steps restantes avant l'arrivage de la nouvelle production
 		int n=12-this.getStep()%12;
@@ -66,7 +66,7 @@ public class Vente {
 
 	//Retourne notre offre totale.
 	public double offreTotale () {
-		//Premier ajustement de notre offre totale, en fonction du cours de cacao fixﾃｩ par le marchﾃｩ.
+		//Premier ajustement de notre offre totale, en fonction du cours de cacao fix�ｾ�ｽｩ par le march�ｾ�ｽｩ.
 		double coeff = (this.getPrixMarche()-3000)/1000;
 		double offreTotale = 0.0;
 		if (coeff>=0) {
@@ -75,9 +75,9 @@ public class Vente {
 		else {
 			offreTotale = this.venteAPriori()*(1+coeff/2);
 		}
-		//Moyenne des prix fixﾃｩs par chaque transformateur.
+		//Moyenne des prix fix�ｾ�ｽｩs par chaque transformateur.
 		double moyennePrixDemandes = (this.getPrixDemandes()[0]+this.getPrixDemandes()[1]+this.getPrixDemandes()[2])/3;
-		//Deuxiﾃｨme ajustement de notre offre totale, en fonction des prix fixﾃｩs par les transformateurs eux-mﾃｪmes.
+		//Deuxi�ｾ�ｽｨme ajustement de notre offre totale, en fonction des prix fix�ｾ�ｽｩs par les transformateurs eux-m�ｾ�ｽｪmes.
 		if (moyennePrixDemandes<=this.getPrixMarche()) {
 			offreTotale = offreTotale*moyennePrixDemandes/this.getPrixMarche();
 		}
@@ -87,7 +87,7 @@ public class Vente {
 		return offreTotale;
 	}
 
-	//Intention de vente aux diffﾃｩrents transformateurs
+	//Intention de vente aux diff�ｾ�ｽｩrents transformateurs
 	public double[] ventesStep() {
 		double[] ventesStep = new double[3];
 		ventesStep[2] = 0.04*this.offreTotale()+((this.getPrixDemandes()[2]-this.prixMarche)/this.prixMarche)*this.offreTotale();
@@ -98,11 +98,11 @@ public class Vente {
 
 
 	/*
-	 * NE PAS EFFACER LA SUITE (PEUT ﾃ概RE UTILE DANS LA V3)
+	 * NE PAS EFFACER LA SUITE (PEUT �ｾ�讎３E UTILE DANS LA V3)
 	public double[] ventesStep () {
 		double[] R = new double[3];
 		double offreRestante = 0.0;
-		//vente ﾃ� notre meilleur client (ﾃｩquipe 2)
+		//vente �ｾ�ｿｽ notre meilleur client (�ｾ�ｽｩquipe 2)
 		if (this.demande[1]<=this.offreTotale()) {
 			R[1] = this.demande[1];
 			offreRestante = this.offreTotale()-R[1];

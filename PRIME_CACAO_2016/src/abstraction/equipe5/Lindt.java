@@ -66,7 +66,7 @@ public class Lindt implements Acteur, ITransformateur{
 	//public HashMap<Produit, Stock>getStocks() {
 	//	return this.stocks;
 	//}
-	// Voil� tout les getters !
+	// Voil�ｿｽ tout les getters !
 	public HistoriqueCommandeDistri getHistCommandeDistri() {
 		return histCommandeDistri;
 	}
@@ -106,7 +106,7 @@ public class Lindt implements Acteur, ITransformateur{
 
 	
 
-	// Ne pas oublier d'acheter 30% de plus à cause des pertes!!!!!!
+	// Ne pas oublier d'acheter 30% de plus ﾃ� cause des pertes!!!!!!
 	public void next() {
 
 		
@@ -125,14 +125,14 @@ public class Lindt implements Acteur, ITransformateur{
 		//stockChocolat60.retirerStock(this.getHist().valeur(Constante.STEP_3));
 		//stockChocolat70.retirerStock(this.getHist().valeur(Constante.STEP_3));
 		
-		//stockCacao.ajouterStock(0.4 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT)); // stock lié au reste du monde
-		//stockCacao.retirerStock(0.4 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_2)); // stock lié au reste du monde
+		//stockCacao.ajouterStock(0.4 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT)); // stock liﾃｩ au reste du monde
+		//stockCacao.retirerStock(0.4 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_2)); // stock liﾃｩ au reste du monde
 		
 		//treso.depot(treso.marge());
 		//treso.retrait(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT) * 3000); // achat cacao au reste du monde
 		//this.venteChocolat.setValeur(this, this.stockChocolat.getStock());
-		//treso.retrait(18*(this.stockChocolat.getStock() + this.stockCacao.getStock())); //cout de stock (18€ la tonne/step)
-		//treso.retrait(0.01*(5000*quantiteDemandeeP1+9000*quantiteDemandeeP2+5000*quantiteDemandeeP3)); //cout de livraison côté producteur (0,01€/km et P1 à 5000km et P2 à 9000km)
+		//treso.retrait(18*(this.stockChocolat.getStock() + this.stockCacao.getStock())); //cout de stock (18竄ｬ la tonne/step)
+		//treso.retrait(0.01*(5000*quantiteDemandeeP1+9000*quantiteDemandeeP2+5000*quantiteDemandeeP3)); //cout de livraison cﾃｴtﾃｩ producteur (0,01竄ｬ/km et P1 ﾃ� 5000km et P2 ﾃ� 9000km)
 	}
 	//TODO Fonctions a finir!!
 	/**
@@ -150,7 +150,7 @@ public class Lindt implements Acteur, ITransformateur{
 	
 	public void arriveeCommandeDistri(IDistributeur d) {
 
-		//CommandeDistri nouvelleCommandeeDistri = new CommandeDistri(d, this, d.getDemande(this)); // faire méthode qui donne le prix de vente
+		//CommandeDistri nouvelleCommandeeDistri = new CommandeDistri(d, this, d.getDemande(this)); // faire mﾃｩthode qui donne le prix de vente
 	}
 	
 	public void arriveeCommandeProduc(IProducteur p) {
