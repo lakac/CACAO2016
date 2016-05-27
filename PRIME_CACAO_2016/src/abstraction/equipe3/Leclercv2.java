@@ -49,19 +49,21 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	
 	public List<ITransformateur> Classerparprix(Produit p){ 
 		List<ITransformateur> liste = new ArrayList<ITransformateur>();
-		double t0 = this.getTransformateurs().get(0).getCatalogue().getTarif(p).getPrixTonne();
-		double t1 = this.getTransformateurs().get(1).getCatalogue().getTarif(p).getPrixTonne();
-		double t2 = this.getTransformateurs().get(2).getCatalogue().getTarif(p).getPrixTonne();
-		if (t0<=t1 && t1<=t2){
-			
-		}
-		else{
-			if (t0<=t1 && t1>t2){
-				
+		List<ITransformateur> transfo=this.getTransformateurs();
+		int i=0;
+		int n;
+		while(transfo!=null){
+			double a=transfo.get(0).getCatalogue().getTarif(p).getPrixTonne();
+			n=0;
+			for (int j=0;j<transfo.size();j++){
+				if (transfo.get(j).getCatalogue().getTarif(p).getPrixTonne()<a){
+					a=transfo.get(j).getCatalogue().getTarif(p).getPrixTonne();
+					n=j;
+					liste.set(i, transfo.get(j));
+				}	
 			}
-			else{
-				
-			}
+		transfo.remove(n);
+		i++;	
 		}
 		return liste;
 	}
@@ -106,7 +108,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 				if(!valid){
 					vendeur=TransfoSuivant(c);
 				}
-				CommandeDistri commande=new CommandeDistri(c.getAcheteur(), vendeur, c.getProduit(), q, c.getPrix(), c.getStepLivraison(), valid);
+				CommandeDistri commande=new CommandeDistri(c.getAcheteur(), vendeur, c.getProduit(), q, c.getPrixTonne(), c.getStepLivraison(), valid);
 				cd.set(i,commande);
 			}
 		
@@ -136,7 +138,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		double depenses = 0.0;
 		depenses+=this.stock.getFraisDeStockTotal();
 		for (CommandeDistri com : l){
-			depenses+=com.getPrix()*com.getQuantite();
+			depenses+=com.getPrixTonne()*com.getQuantite();
 		}
 		return depenses;
 	}
