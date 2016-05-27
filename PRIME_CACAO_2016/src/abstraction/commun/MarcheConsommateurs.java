@@ -12,6 +12,7 @@ import abstraction.fourni.Historique;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
 
+// Auteur : équipe 3
 
 public class MarcheConsommateurs implements Acteur {
 	
@@ -30,7 +31,7 @@ public class MarcheConsommateurs implements Acteur {
 
 	
 	private HashMap <IDistributeur,HashMap<Produit,Double>> fidelite ;
-	private HashMap <IDistributeur,Double> ventesEffectuees;
+	private HashMap <IDistributeur,HashMap<Produit,Double>> ventesEffectuees;
 	
 	private HashMap <Produit,Double> demandeAnnuelle; // volume des ventes annuelles d'un produit
 	
@@ -123,6 +124,9 @@ public class MarcheConsommateurs implements Acteur {
 		for (int i=0;i<MarcheConsommateurs.CALENDRIER.length; i++){
 			
 		}
+	}
+	public HashMap<Produit, Double> getVenteDistri(IDistributeur d){
+		return this.ventesEffectuees.get(d);
 	}
 	
 

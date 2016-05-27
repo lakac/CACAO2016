@@ -8,6 +8,7 @@ import abstraction.commun.Catalogue;
 import abstraction.commun.CommandeDistri;
 import abstraction.commun.IDistributeur;
 import abstraction.commun.ITransformateur;
+import abstraction.commun.MarcheConsommateurs;
 import abstraction.commun.Produit;
 import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
@@ -22,6 +23,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	private PrixDeVente prixdevente;
 	private ArrayList<Double> ratio;
 	private ArrayList<ITransformateur> transformateurs;
+	private MarcheConsommateurs marche;
 
 	public Leclercv2(String nom, Monde monde) {
 		this.nom=nom;
@@ -202,12 +204,6 @@ public class Leclercv2 implements Acteur,IDistributeur{
 
 		
 	}
-	@Override
-	public double getPrix() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 
 	}
 

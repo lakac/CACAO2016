@@ -13,9 +13,7 @@ public interface IDistributeur extends Acteur {
 
 	public List<CommandeDistri> ContreDemande (List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne);
 	
-	public Double getStock(Produit p);
-
-	public double getPrix();	
+	public Double getStock(Produit p);	
 	
 	public Double getPrixVente(Produit p);
 		
