@@ -44,7 +44,7 @@ public class MarcheProducteur implements Acteur {
 	/** Quantites de cacao commandees a chaque IProducteur par chaque ITransformateur */
 	private HashMap<ITransformateur,HashMap<IProducteur,Double>> commandesPassees;
 	/**
-	 * Constructeur par chainage du marche
+	 * Constructeur du marche
 	 */
 	public MarcheProducteur() {
 		MarcheProducteur.producteurs = new ArrayList<IProducteur>();
