@@ -8,6 +8,7 @@ import abstraction.commun.Catalogue;
 import abstraction.commun.CommandeDistri;
 import abstraction.commun.IDistributeur;
 import abstraction.commun.ITransformateur;
+import abstraction.commun.MarcheConsommateurs;
 import abstraction.commun.Produit;
 import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
@@ -22,6 +23,8 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	private PrixDeVente prixdevente;
 	private ArrayList<Double> ratio;
 	private ArrayList<ITransformateur> transformateurs;
+	private MarcheConsommateurs marche;
+	private Catalogue cata;
 
 	public Leclercv2(String nom, Monde monde) {
 		this.nom=nom;
@@ -130,8 +133,10 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	
 	public double recette(){
 		double recette = 0.0;
-		for (int i=0;i<3;i++){
-			//recette+=DEMANDE.get(i)*this.prixdevente.getPrixDeVente().get(i);
+		int j =0;
+		for (Produit p : this.cata.getProduits()){
+			recette+=this.marche.getVenteDistri(this).get(p)*this.prixdevente.getPrixDeVente().get(j);
+			j++;
 		}
 		return recette;
 	}
@@ -203,12 +208,6 @@ public class Leclercv2 implements Acteur,IDistributeur{
 
 		
 	}
-	@Override
-	public double getPrix() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 
 	}
 
