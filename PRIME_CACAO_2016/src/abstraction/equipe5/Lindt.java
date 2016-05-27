@@ -118,10 +118,8 @@ public class Lindt implements Acteur, ITransformateur{
 		stockChocolat60.retirerStockChocolat(Monde.LE_MONDE.getStep()-3);
 		stockChocolat70.retirerStockChocolat(Monde.LE_MONDE.getStep()-3);
 		
-		
-		//treso.retrait(0.3 * Constante.RATIO_CACAO_CHOCOLAT * hist.valeur(Constante.STEP_PRECEDENT) * 3000); // achat cacao au reste du monde
-		//this.venteChocolat.setValeur(this, this.stockChocolat.getStock());
 		treso.retrait(treso.coutStock()+treso.coutLivraison()+Constante.CHARGES_FIXES_STEP);
+		
 		//treso ajouter
 	}
 	
@@ -133,6 +131,10 @@ public class Lindt implements Acteur, ITransformateur{
 	
 	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
 		return this.venteDist.CommandeFinale(cf);
+	}
+	
+	public List<CommandeDistri> LivraisonEffective(List<CommandeDistri> livraison){
+		return this.venteDist.Offre (livraison);
 	}
 
 	public void notificationVente(CommandeProduc c) {
