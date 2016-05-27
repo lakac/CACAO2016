@@ -154,6 +154,7 @@ public class MarcheConsommateurs implements Acteur {
 		for (Produit p : cata.getProduits()){
 			this.pourcentageIncertitudeVentes.put(p, (double) 5);
 			}
+		}
 	
 
 	
