@@ -1,5 +1,6 @@
 package abstraction.equipe5;
 import abstraction.equipe5.Lindt;
+import abstraction.fourni.Monde;
 import abstraction.commun.Constantes;
 
 import java.util.ArrayList;
@@ -145,18 +146,6 @@ public class VenteDist {
 			lindt.getHistCommandeDistri().ajouter(c); 	
 			}
 		return cf;
-	}
-	
-	//fonction qui calcule ce qu'on livre vraiment au distributeur
-	
-	public List<CommandeDistri> LivraisonEffective(int step){
-		List<CommandeDistri> livraison= new ArrayList<CommandeDistri>();	
-		for (CommandeDistri c: lindt.getHistCommandeDistri().getHist()){
-			if(c.getStepLivraison()==step){
-				livraison.add(c);
-			}
-		}
-		return 	this.Offre(livraison);
 	}
 	
 	
