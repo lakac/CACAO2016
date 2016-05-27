@@ -244,7 +244,7 @@ public class Nestle implements Acteur, ITransformateur{
 		this.banque.retirer(this.getCouttransport().getDistances().get(p)*
 				Constante.COUT_UNITAIRE_TRANSPORT*this.getAchats().get(p).getCacaoachete());
 	}
-	
+
 	Achat achatmonde = new Achat(this.QuantiteAcheteeMonde());
 	this.stockcacao.AjouterStockCacao(achatmonde);
 	this.banque.retirer(this.QuantiteAcheteeMonde()*Constante.COUT_UNITAIRE_TRANSPORT*Constante.DISTANCE_MONDE);
