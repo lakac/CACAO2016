@@ -110,15 +110,15 @@ public class ResteDesTransformateursMondiaux implements Acteur, ITransformateur 
 	}
 
 	@Override
-	public List<CommandeDistri> commandeFinale(List<CommandeDistri> list) {
+	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> list) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> list) {
+	public void notificationVente(IProducteur p) {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 }

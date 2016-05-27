@@ -25,6 +25,10 @@ public class StockCacao {
 		}
 	}
 	
+	public StockCacao() {
+		this.stockcacao = 0.;
+	}
+
 	public double CoutStockCacao() {
 		return Constante.COUT_STOCK_UNITAIRE*this.getStockcacao();
 	}

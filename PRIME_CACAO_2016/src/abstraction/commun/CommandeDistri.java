@@ -34,6 +34,7 @@ public class CommandeDistri {
 	public void setPrix(double prix) {
 		this.prix = prix;
 	}
+	
 
 	public Produit getProduit() {
 		return this.produit;
