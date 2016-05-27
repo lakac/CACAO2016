@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
+import abstraction.equipe3.Leclerc;
+import abstraction.equipe3.Leclercv2;
+import abstraction.equipe6.Carrefour;
 import abstraction.fourni.Acteur;
 import abstraction.fourni.Historique;
 import abstraction.fourni.Indicateur;
@@ -17,6 +19,7 @@ public class MarcheConsommateurs implements Acteur {
 	
 	private final static double VARIATION_FIDELITE=0.01;//part de clients changeant de bord lorsque difference de prix
 	private final static double FIDELITE_MIN=0.20; //part minimum de clients fidèles a Leclerc et Carrefour
+	private final static double[][] CALENDRIER =new double[26][3]; 
 	
 	//Pentes des courbes Demande = Cte-aplha*PrixMoyen 
 	private HashMap <Produit, Double> ALPHA;//a compléter 
@@ -27,8 +30,10 @@ public class MarcheConsommateurs implements Acteur {
 
 	
 	private HashMap <IDistributeur,HashMap<Produit,Double>> fidelite ;
+	private HashMap <IDistributeur,Double> ventesEffectuees;
 	private HashMap <Produit,Double> demandeComposanteContinue;
 	private HashMap <Produit,Double> demandeComposanteAleatoire;
+	
 	
 	//Demande en fonction du step, par produit et sans effet sur les prix
 	//Demande continue réelle = calendrierdermande.get(Step)-ALPHA*PrixMoyen
@@ -69,15 +74,15 @@ public class MarcheConsommateurs implements Acteur {
 			}
 		}
 	}
-	/*
+	
 	public void actualiserFidelite(){
 		for (Produit p : cata.getProduits()){
-			//if (){//*Carrefour et Leclerc sont en concurrence sur ce produit/)
-				//	if ((Carrefour.getPrixVente(p)>Leclerc.getPrixVente(p))&&(this.fidelite.get("Carrefour").get(p)>FIDELITE_MIN)){//si prix carrefour superieur
+			if (){//*Carrefour et Leclerc sont en concurrence sur ce produit/)
+				if ((Carrefour.getPrixVente(p)>Leclercv2.getPrixVente(p))&&(this.fidelite.get("Carrefour").get(p)>FIDELITE_MIN)){//si prix carrefour superieur
 						this.fidelite.get("Leclerc").put(p,this.fidelite.get("Leclerc").get(p)+VARIATION_FIDELITE);
 						this.fidelite.get("Carrefour").put(p,this.fidelite.get("Carrefour").get(p)-VARIATION_FIDELITE);
 					}
-					/if ((Carrefour.getPrixVente(p)<Leclerc.getPrixVente(p))&&(this.fidelite.get("Leclerc").get(p)>FIDELITE_MIN)){//si prix carrefour superieur
+					if ((Carrefour.getPrixVente(p)<Leclerc.getPrixVente(p))&&(this.fidelite.get("Leclerc").get(p)>FIDELITE_MIN)){//si prix carrefour superieur
 						this.fidelite.get("Leclerc").put(p,this.fidelite.get("Leclerc").get(p)-VARIATION_FIDELITE);
 						this.fidelite.get("Carrefour").put(p,this.fidelite.get("Carrefour").get(p)+VARIATION_FIDELITE);
 					}
@@ -98,21 +103,28 @@ public class MarcheConsommateurs implements Acteur {
 			}
 				//initialiser ventes en fonction des stocks disponibles de chaque distributeur
 		}
-		
+		for (IDistributeur d : MarcheConsommateurs.distributeurs){
+			this.ventesEffectuees.put(d,(double) 0);
+			for (Produit p : cata.getProduits()){
+				this.ventesEffectuees.put(d,this.ventesEffectuees.get(d)+this.fidelite.get(d).get(p)*(this.demandeComposanteContinue.get(p)+this.demandeComposanteAleatoire.get(p)));
+			}
+		}
 		
 		for (Produit p : cata.getProduits()){
-			for (IDistributeur d : MarcheDistributeur.distributeurs){
-					
-				}
+			
+		}
+			
 	}	
-	public void getVentes(){ //renvoie le resultat des ventes du mois aux distributeurs 
-		return this.
-	}
 	
 	public void initialiserCalendrierDemande (){
-		for p
+		for (int i=0;i<MarcheConsommateurs.CALENDRIER.length; i++){
+			if
+		}
 	}
-	*/
+	
+
+	
+	
 	public void next(){
 		
 	}
