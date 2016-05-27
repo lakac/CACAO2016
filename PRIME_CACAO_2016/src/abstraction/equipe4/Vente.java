@@ -3,9 +3,12 @@ package abstraction.equipe4;
 import abstraction.commun.MarcheProducteur;
 import abstraction.fourni.*;
 
+//AVANT DE MODIFIER CE CODE, S'ADRESSER À JEAN VAN HECKE !!!
+
 public class Vente {
 	//stock disponible
 	private Stock stock;
+
  	private Producteur producteur;
 	//cours du cacao fixe par le marche
  	private double prixMarche;
@@ -37,9 +40,11 @@ public class Vente {
 	public Stock getStock() {
 		return this.getProducteur().getStock();
 	}
+
 	public double[] getPrixDemandes() {
 		return this.prixDemandes;
 	}
+
 	private double getPrixMarche() {
 		return this.prixMarche;
 	}
@@ -48,6 +53,7 @@ public class Vente {
 	//Retourne la moyenne des prix de vente sur les precedentes step.
 	public double moyennePrixDeVente () {
 		Historique coursCacao = MarcheProducteur.LE_MARCHE.getHistorique();
+
 		//longueur du tableau regroupant les precedents prix de vente
 		int l = coursCacao.getTaille();
 		//somme des valeurs du tableau
@@ -57,7 +63,7 @@ public class Vente {
 		}
 		return M/l;
 	}
-	
+
 	//Retourne le stock disponible divise par le nombre de steps restantes
 	//avant le nouvel arrivage de production, pour savoir quelle quantite
 	//mettre en vente theoriquement, sans prendre en compte le cours actuel 
@@ -70,6 +76,7 @@ public class Vente {
 	
 	//Retourne notre offre totale par step
 	public double offreTotale () {
+
 	//Premier ajustement de notre offre totale, en fonction du cours de cacao fixe par le marche.
 		//calcul d'un coefficient nous indiquant l'interet de vendre beaucoup ou peu a la step actuelle
 		double coeff = (this.getPrixMarche()-3000)/1000;
@@ -80,10 +87,12 @@ public class Vente {
 		else {
 			offreTotale = this.venteAPriori()*(1+coeff/2);
 		}
+
 		//L'offre totale est comprise entre la moitie et le double de notre venteAPriori.
 	//Deuxieme ajustement de notre offre totale, en fonction des prix fixes par les transformateurs eux-memes.
 		//moyenne des prix fixes par chaque transformateur.
 		double moyennePrixDemandes = (this.getPrixDemandes()[0]+this.getPrixDemandes()[1]+this.getPrixDemandes()[2])/3;
+
 		//on ajuste legerement notre offre totale
 		if (moyennePrixDemandes<=this.getPrixMarche()) {
 			offreTotale = offreTotale*moyennePrixDemandes/this.getPrixMarche();
@@ -93,7 +102,7 @@ public class Vente {
 		}
 		return offreTotale;
 	}
-	
+
 	//Intention de vente aux differents transformateurs
 	public double[] ventesStep() {
 		double[] ventesStep = new double[3];
@@ -105,11 +114,15 @@ public class Vente {
 
 
 	/*
+<<<<<<< HEAD
+	 * NE PAS EFFACER LA SUITE (PEUT �ｾ�讎３E UTILE DANS LA V3)
+=======
 	 * NE PAS EFFACER LA SUITE (PEUT ETRE UTILE DANS LA V3)
+>>>>>>> branch 'master' of https://github.com/SofianeSalort/CACAO2016.git
 	public double[] ventesStep () {
 		double[] R = new double[3];
 		double offreRestante = 0.0;
-		//vente ﾃ� notre meilleur client (ﾃｩquipe 2)
+		//vente �ｾ�ｿｽ notre meilleur client (�ｾ�ｽｩquipe 2)
 		if (this.demande[1]<=this.offreTotale()) {
 			R[1] = this.demande[1];
 			offreRestante = this.offreTotale()-R[1];

@@ -46,7 +46,7 @@ public class ResteDesTransformateursMondiaux implements Acteur, ITransformateur 
 		// le reste du monde represente 83% du marche
 		// on rajoute un peu d'aleatoire pour mieux coller a la realite.
 		double pourcentage = 82.0+Math.random()*2.0;
-		// 17% correspond aux transformateurs simules¸ par les autres groupe.
+		// 17% correspond aux transformateurs simulesï¿½ par les autres groupe.
 		// Donc en respectant les ratio on a 
 		return qt / 17.0 * pourcentage;
 	}
@@ -64,27 +64,22 @@ public class ResteDesTransformateursMondiaux implements Acteur, ITransformateur 
 	@Override
 	public void next() {
 		// On ne simule aucun etat concernant le reste du monde
-	}
 
-	@Override
+	}
 	public double annonceQuantiteDemandee(IProducteur p) {
 		double qt =0;
 		for (ITransformateur t : this.transformateurs) {
-			qt += t.annonceQuantiteDemandee();
+			qt += t.annonceQuantiteDemandee(p);
 		}
 
 		// le reste du monde represente 83% du marche
 		// on rajoute un peu d'aleatoire pour mieux coller a la realite.
 		double pourcentage = 82.0+Math.random()*2.0;
-		// 17% correspond aux transformateurs simules¸ par les autres groupe.
+		// 17% correspond aux transformateurs simulesï¿½ par les autres groupe.
 		// Donc en respectant les ratio on a 
 		return qt / 17.0 * pourcentage;
 	}
 
-	@Override
-	public void notificationVente(IProducteur p) {
-		// On ne simule aucun etat concernant le reste du monde	
-	}
 
 	@Override
 	public double annoncePrix() {
@@ -103,8 +98,27 @@ public class ResteDesTransformateursMondiaux implements Acteur, ITransformateur 
 		return null;
 	}
 
+
 	@Override
 	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
+		return cf;
+		// On ne simule aucun etat concernant le reste du monde	pour les distributeurs
+	}
+	
+	@Override
+	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> list) {
+		// On ne simule aucun etat concernant le reste du monde	pour les distributeurs
+		return null;
+	}
+
+	@Override
+	public void notificationVente(IProducteur p) {
+		// On ne simule aucun etat concernant le reste du monde
+		
+	}
+
+	@Override
+	public List<CommandeDistri> offre(List<CommandeDistri> list) {
 		// On ne simule aucun etat concernant le reste du monde	pour les distributeurs
 		return null;
 	}
