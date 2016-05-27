@@ -114,7 +114,7 @@ public class Producteur implements Acteur, IProducteur {
 	 */
 	private void produire() {
 		Random fluctuations = new Random();
-		this.setProductionCourante(Math.floor(this.getProductionDeBaseCourante()*productionAnnuelle*(98+4*fluctuations.nextDouble()))/100.0);
+		this.setProductionCourante(Math.floor(this.getProductionDeBaseCourante()*productionAnnuelle*(90+20*fluctuations.nextDouble()))/100.0);
 		this.stock.ajouterProd(this.getProductionCourante());
 		this.setTresorerie(this.getTresorerie()-this.getCoutProduction()*this.getProductionCourante());
 	}
