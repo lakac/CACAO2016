@@ -11,7 +11,9 @@ public static final double RATIO_TRANSFORMATION_70=0.7;
 public static final double TRESORERIE_INITIALE=300000;
 public static final double COUT_DE_TRANSFORMATION=5000;
 public static final double RATIO_TRANSFORMATION=0.6;
-
+public static final double DEMANDE_ACTEURS=0.6;
+public static final double DEMANDE_MONDE=0.4;
+public static final double DISTANCE_MONDE=5000;
 
 public static final double ACHAT_SANS_PERTE=1;
 public static final double PERTE_MINIMALE = 0.2;

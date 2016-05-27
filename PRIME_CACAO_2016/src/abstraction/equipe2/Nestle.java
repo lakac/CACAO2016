@@ -211,10 +211,16 @@ public class Nestle implements Acteur, ITransformateur{
 		double resultat = 0.0;
 		for (IDistributeur d : this.getCommandesdistri().keySet()) {
 		 	for (CommandeDistri c : this.getCommandesdistri().get(d)) {
-				resultat+=c.getQuantite()*c.getProduit().getRatioCacao();
+				resultat+=c.getQuantite()*c.getProduit().getRatioCacao()
+						*(Constante.ACHAT_SANS_PERTE+(Constante.PERTE_MINIMALE + Math.random()*(Constante.VARIATION_PERTE)))
+						*Constante.DEMANDE_ACTEURS;
 			}
 		}
 		return resultat;
+	}
+	
+	public double QuantiteAcheteeMonde(){
+		return annonceQuantiteDemandee()*Constante.DEMANDE_MONDE;
 	}
 
 	public double annoncePrix() {
@@ -283,10 +289,13 @@ public class Nestle implements Acteur, ITransformateur{
 					this.getFournisseurs().get(i).annonceQuantiteMiseEnVente(this), prix);
 			this.setCommandeproduc(i, commande);
 		}
+		
+		
 		//chacun des producteurs nous envoie leur offre et on achète leur cacao
 		//et on met à jour l'historique
 		//et la trésorerie (on achète quelque chose)
-		double achattotal = 0.;
+		double achattotal = this.QuantiteAcheteeMonde();
+		this.banque.retirer(this.QuantiteAcheteeMonde()*MarcheProducteur.LE_MARCHE.getCours());
 		for (IProducteur p : this.achats.keySet()) {
 			this.achats.get(p).setCacaoAchete(this, p);
 			achattotal+=this.getAchats().get(p).getCacaoachete();
@@ -302,6 +311,11 @@ public class Nestle implements Acteur, ITransformateur{
 			this.banque.retirer(this.getCouttransport().getDistances().get(p)*
 					Constante.COUT_UNITAIRE_TRANSPORT*this.getAchats().get(p).getCacaoachete());
 		}
+		
+		Achat achatmonde = new Achat(this.QuantiteAcheteeMonde());
+		this.stockcacao.AjouterStockCacao(achatmonde);
+		this.banque.retirer(this.QuantiteAcheteeMonde()*Constante.COUT_UNITAIRE_TRANSPORT*Constante.DISTANCE_MONDE);
+		
 		
 		//Le stock de cacao est à jour, on lance la production de chocolat, et on met
 		//a jour le stock de cacao et de chocolat au fur et a mesure
