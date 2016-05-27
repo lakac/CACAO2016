@@ -16,14 +16,23 @@ public class CommandeDistri {
 	private boolean validation;
 	private int stepLivraison;
 
-	public CommandeDistri(IDistributeur acheteur, ITransformateur vendeur, Produit produit, double quantite, double prix, int stepLivraison, boolean validation) {
+	public CommandeDistri(IDistributeur acheteur, ITransformateur vendeur, Produit produit, double quantite, double prixTonne, int stepLivraison, boolean validation) {
 		this.acheteur = acheteur;
 		this.vendeur = vendeur;
 		this.produit = produit; //Change string en produit 19/05 A.MARTY
 		this.quantite = quantite;
-		this.prix=prix;
+		this.prixTonne = prixTonne;
+		this.prix = prixTonne*quantite;
 		this.stepLivraison = stepLivraison;
 		this.validation = validation;
+	}
+
+	public double getPrix() {
+		return prix;
+	}
+
+	public void setPrix(double prix) {
+		this.prix = prix;
 	}
 
 	public Produit getProduit() {
@@ -53,10 +62,7 @@ public void setProduit(Produit produit) {
 	public void setQuantite(double quantite) {
 		this.quantite = quantite;
 	}
-	
-	public void setPrix(double prix){
-		this.prix=prix;
-	}
+
 	public void setPrixTonne(double prixTonne) {
 		this.prixTonne = prixTonne;
 	}
@@ -71,10 +77,6 @@ public void setProduit(Produit produit) {
 
 	public double getQuantite(){
 		return this.quantite;
-	}
-	
-	public double getPrix(){
-		return this.prix;
 	}
 
 	public double getPrixTonne() {

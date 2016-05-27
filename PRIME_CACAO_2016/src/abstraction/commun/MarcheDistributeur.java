@@ -1,8 +1,12 @@
 package abstraction.commun;
 
+import java.sql.Array;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import abstraction.fourni.Acteur;
 
@@ -171,6 +175,17 @@ public class MarcheDistributeur implements Acteur {
 		return NegoDistri;
 
 	}
+	
+	public HashMap<IDistributeur, List<CommandeDistri>> copieProfonde (HashMap<IDistributeur, List<CommandeDistri>> aCopie) {
+		HashMap<IDistributeur, List<CommandeDistri> > copieProfonde = new HashMap<IDistributeur, List<CommandeDistri>>();
+		for (IDistributeur d : this.getLesDitris()) {
+			copieProfonde.put(d, new ArrayList<CommandeDistri>());
+			for (CommandeDistri cd : aCopie.get(d)) {
+				copieProfonde.get(d).add(new CommandeDistri(cd.getAcheteur(),cd.getVendeur(),cd.getProduit(),cd.getQuantite(), cd.getPrixTonne(),cd.getStepLivraison(), cd.getValidation()));
+			}
+		}
+		return copieProfonde;
+	}
 
 	public void next() {
 
@@ -187,10 +202,10 @@ public class MarcheDistributeur implements Acteur {
 			for (ITransformateur t : this.getLesTransfos()) {
 				NegoDistri.put(d, d.demande(t, this.getCatalogues().get(t)));
 			}
-			HashMap<IDistributeur, List<CommandeDistri> > NegoDistriTemp = new HashMap<IDistributeur, List<CommandeDistri>>();
+			
 			while (marcheValide(NegoDistri) == false) {
 				NegoTransfo = this.RenvoiDistri(NegoDistri);
-				NegoDistriTemp = NegoDistri;
+				HashMap<IDistributeur, List<CommandeDistri>> NegoDistriTemp = copieProfonde(NegoDistri);
 				for (ITransformateur t : this.getLesTransfos()) {
 					NegoTransfo.replace(t, t.offre(NegoTransfo.get(t)));
 				}

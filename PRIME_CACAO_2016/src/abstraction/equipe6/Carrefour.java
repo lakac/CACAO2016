@@ -190,22 +190,35 @@ public class Carrefour implements Acteur,IDistributeur {
 	}
 
 	public List<CommandeDistri> contreDemande(List<CommandeDistri> nouvelle,List<CommandeDistri> ancienne) {
+		List<CommandeDistri> contreDemande = new ArrayList<CommandeDistri>();
 		for (Produit p : this.getProduits()) {
+			List<ITransformateur> enRupture = new ArrayList<ITransformateur>();
 			double insatisfait = 0.0;
-			List<ITransformateur> avecstock = new ArrayList<ITransformateur>();
-			for (CommandeDistri c : nouvelle) {
-				if (c.getValidation()) {
-					avecstock.add(c.getVendeur());
-				}
-				else {
-					insatisfait+=c.getQuantite();
+			for (CommandeDistri cd : nouvelle) {
+				for (CommandeDistri cd2 : ancienne) {
+					if (cd.getAcheteur() == cd2.getAcheteur() && cd.getPrixTonne() == cd2.getPrixTonne() && cd.getStepLivraison() == cd2.getStepLivraison() && cd.getVendeur() == cd2.getVendeur() && cd.getQuantite() != cd2.getQuantite()) {
+						insatisfait+= cd2.getQuantite() - cd.getQuantite();
+						contreDemande.add(cd);
+					}
 				}
 			}
-			for (ITransformateur t : avecstock) {
-
+			for (ITransformateur t : this.getTransformateurs()) {
+				if (enRupture.contains(t) == false) {
+					double quantite = insatisfait/enRupture.size();
+					double prixTonne = 0.0;
+					for (CommandeDistri cd : nouvelle) {
+						if (cd.getAcheteur() == this && cd.getVendeur() == t && cd.getProduit() == p) {
+							quantite+= cd.getQuantite();
+							prixTonne = cd.getPrixTonne();
+						}
+					}
+					contreDemande.add(new CommandeDistri(this, t, p, quantite, prixTonne, this.getLeMonde().getStep(), false ));
+					
+				}
 			}
+			
 		}
-		return null;
+		return contreDemande;
 	}
 
 
@@ -213,6 +226,13 @@ public class Carrefour implements Acteur,IDistributeur {
 	public void next() {
 		// TODO Auto-generated method stub
 
+	}
+
+
+	@Override
+	public HashMap<Produit, Double> getPrix() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

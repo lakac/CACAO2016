@@ -14,9 +14,6 @@ public interface IDistributeur {
 	 * @deprecated
 	 * @return
 	 */
-	public double getPrix();
+	public HashMap<Produit, Double> getPrix();
 	
-	public List<CommandeDistri> LivraisonEffective(List<CommandeDistri> liste);
-	
-
 }
