@@ -55,7 +55,7 @@ public class Carrefour implements Acteur,IDistributeur {
 
 	private ArrayList<ITransformateur> transformateurs;
 	
-	public Carrefour(String nom, Monde monde, double prixachat, int i, double demandeannuel, List<Double> cpp) {
+	public Carrefour(String nom, Monde monde, double prixachat, int i, double demandeannuel) {
 		this.nom = nom;
 		this.prixachat=prixachat;
 		this.prixvente=i;
@@ -64,7 +64,7 @@ public class Carrefour implements Acteur,IDistributeur {
     	Monde.LE_MONDE.ajouterIndicateur( this.achats );
     	Monde.LE_MONDE.ajouterIndicateur( this.solde );
     	this.transformateurs = new ArrayList<ITransformateur>();
-    	this.commandeparproduit=cpp;
+    	
 	}
 
 	public Carrefour(){
@@ -147,7 +147,7 @@ public class Carrefour implements Acteur,IDistributeur {
 	
 	
 	
-	public void setCommandeBasique(int step, Carrefour carrefour, List<Indicateur> I) {
+	/*public void setCommandeBasique(int step, Carrefour carrefour, List<Indicateur> I) {
 		int c = 0;
 		for (Double d : this.commandeparproduit) {
 			if (step%26 == 6 ) {
@@ -163,7 +163,7 @@ public class Carrefour implements Acteur,IDistributeur {
 				}
 			}
 			d = d*(1+(Math.random()*0.2 - 0.1)); // fluctuation al�atoire de 10% de la commandeparstep
-		    
+		    */
 			/*if (d>I.get(c).getValeur()){
 				d=d;
 				
@@ -175,8 +175,8 @@ public class Carrefour implements Acteur,IDistributeur {
 		    	
 		    }
 		    c++;*/
-		}
-		}
+		
+		
 
 
 	
@@ -290,8 +290,11 @@ public class Carrefour implements Acteur,IDistributeur {
 
 
 
+	
+
+
 	@Override
-	public List<CommandeDistri> LivraisonEffective(List<CommandeDistri> liste) {
+	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> liste) {
 		// TODO Auto-generated method stub
 		return null;
 	}

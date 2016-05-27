@@ -211,12 +211,6 @@ public class Lindt implements Acteur, ITransformateur{
 	}
 
 	@Override
-	public List<CommandeDistri> commandeFinale(List<CommandeDistri> list) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> list) {
 		// TODO Auto-generated method stub
 		return null;
