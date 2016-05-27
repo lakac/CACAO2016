@@ -23,7 +23,7 @@ public class Tresorerie {
 		this.histProduc = histProduc;
 		this.lindt = lindt;
 		this.listeProducteurs=P;
-		this.treso = new Indicateur("Tresorerie Lindt", lindt, 100000);
+		this.treso = new Indicateur("Solde de Lindt", lindt, 100000);
 		Monde.LE_MONDE.ajouterIndicateur(this.treso);
 	}
 	
@@ -90,7 +90,7 @@ public class Tresorerie {
 	public double payeParDistrib(){
 		double paye=0;
 		for (CommandeDistri c: lindt.getHistCommandeDistri().getHist()){ //si il s'agit des commandes livrées
-			if(c.getStepLivraison()==Monde.LE_MONDE.getStep()-3){
+			if(c.getStepLivraison()==Monde.LE_MONDE.getStep()){
 				paye+=c.getPrix();	
 			}
 		}

@@ -28,7 +28,7 @@ public class Lindt implements Acteur, ITransformateur{
 		this.histCommandeDistri = new HistoriqueCommandeDistri();
 		this.histCommandeProduc = new HistoriqueCommandeProduc();
 		this.commandeDistriLivree = new HistoriqueCommandeDistri();
-		this.stockCacao = new Stock("cacao",this,300);
+		this.stockCacao = new Stock("cacao",this,200.0);
 		this.stockChocolat50 = new Stock(Constante.LISTE_PRODUIT[0].getNomProduit(),this,0.0);
 		this.stockChocolat60 = new Stock(Constante.LISTE_PRODUIT[1].getNomProduit(),this,0.0);
 		this.stockChocolat70 = new Stock(Constante.LISTE_PRODUIT[2].getNomProduit(),this,0.0);
@@ -45,7 +45,7 @@ public class Lindt implements Acteur, ITransformateur{
 	public void creer() {
 		this.histCommandeProduc.ajouter(new CommandeProduc(this, this.getProducteurs().get(0), 100.0, MarcheProducteur.LE_MARCHE.getCours()));
 		this.histCommandeProduc.ajouter(new CommandeProduc(this, this.getProducteurs().get(1), 100.0, MarcheProducteur.LE_MARCHE.getCours()));
-		this.achatProd = new AchatProd(this.histCommandeProduc,this.histCommandeDistri, this);	
+		this.achatProd = new AchatProd(this.histCommandeProduc,this.histCommandeDistri, this, this.stockCacao, this.treso);	
 		this.treso = new Tresorerie(this.histCommandeDistri, this.histCommandeProduc, this, this.getProducteurs());
 		this.venteDist = new VenteDist(this, this.getTreso());
 
@@ -108,16 +108,12 @@ public class Lindt implements Acteur, ITransformateur{
 		this.getStockCacao().ajouterStock(this.achatProd.quantiteProduc3());
 		this.getTreso().retrait(this.achatProd.quantiteProduc3()*MarcheProducteur.LE_MARCHE.getCours()); //on achete au prix du marche
 		
-		// deplacement des commandes distributeurs dans l'historique des commandes livrees
-		this.deplacerCommandeDist();
+		this.getTransformationCacaoChocolat().Transformation(); // transforme le cacao en chocolat et met à jour les stocks (retire pour cacao et ajoute pour chocolat)
 		
-		this.getTransformationCacaoChocolat().Transformation();
-		
-		
-		stockChocolat50.retirerStockChocolat(Monde.LE_MONDE.getStep()-3);
-		stockChocolat60.retirerStockChocolat(Monde.LE_MONDE.getStep()-3);
-		stockChocolat70.retirerStockChocolat(Monde.LE_MONDE.getStep()-3);
-		
+		stockChocolat50.retirerStockChocolat(Monde.LE_MONDE.getStep());
+		stockChocolat60.retirerStockChocolat(Monde.LE_MONDE.getStep());
+		stockChocolat70.retirerStockChocolat(Monde.LE_MONDE.getStep());
+		venteDist.MiseAJourHistCommandeDistri();
 		treso.retrait(treso.coutStock()+treso.coutLivraison()+Constante.CHARGES_FIXES_STEP);
 		treso.depot(treso.payeParDistrib());
 		
@@ -139,9 +135,7 @@ public class Lindt implements Acteur, ITransformateur{
 	}
 
 	public void notificationVente(CommandeProduc c) {
-		this.getHistCommandeProduc().ajouter(c);
-		this.getStockCacao().ajouterStock(c.getQuantite());
-		this.getTreso().retrait(c.getQuantite()*c.getPrixTonne());
+		this.achatProd.notificationVente(c);
 	}
 	
 	public double annonceQuantiteDemandee() {
@@ -161,22 +155,7 @@ public class Lindt implements Acteur, ITransformateur{
 		this.catalogue.add(new Produit("70%", 0.5), new Tarif(this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[2]), listePlage));
 		return this.catalogue;
 	}
-	
-	public void deplacerCommandeDist() {
-		// trouve le step maximum dans l'historique des commandes
-		int stepMax = 0;
-		for (CommandeDistri c : this.getHistCommandeDistri().getHist()) {
-			if (c.getStepLivraison() > stepMax) {
-				stepMax = c.getStepLivraison();
-			}
-		}
-		for (int i=0; i<this.getHistCommandeDistri().getHist().size(); i++) {
-			if ((stepMax>4) && (this.getHistCommandeDistri().getCommande(i).getStepLivraison() == stepMax-4)) {
-				this.getCommandeDistriLivree().ajouter(this.getHistCommandeDistri().getCommande(i));
-				this.getHistCommandeDistri().supprimer(this.getHistCommandeDistri().getCommande(i)); 
-			}		
-		}
-	}
+
 
 	// Ne plus coder celles la, elles vont disparaitre!
 	public double annonceQuantiteDemandee(IProducteur p) {	return 0;}
