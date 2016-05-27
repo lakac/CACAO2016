@@ -187,15 +187,16 @@ public class MarcheDistributeur implements Acteur {
 			for (ITransformateur t : this.getLesTransfos()) {
 				NegoDistri.put(d, d.demande(t, this.getCatalogues().get(t)));
 			}
-
+			HashMap<IDistributeur, List<CommandeDistri> > NegoDistriTemp = new HashMap<IDistributeur, List<CommandeDistri>>();
 			while (marcheValide(NegoDistri) == false) {
 				NegoTransfo = this.RenvoiDistri(NegoDistri);
+				NegoDistriTemp = NegoDistri;
 				for (ITransformateur t : this.getLesTransfos()) {
 					NegoTransfo.replace(t, t.offre(NegoTransfo.get(t)));
 				}
 				NegoDistri = this.RenvoiTransfo(NegoTransfo);
 				for (IDistributeur d1 : this.getLesDitris()) {
-					NegoDistri.replace(d1, d1.contreDemande(NegoDistri.get(d1)));
+					NegoDistri.replace(d1, d1.contreDemande(NegoDistri.get(d1),NegoDistriTemp.get(d1)));
 				}
 			}
 			List<CommandeDistri> commandefinale = new ArrayList<CommandeDistri>();

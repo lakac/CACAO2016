@@ -7,7 +7,7 @@ public interface IDistributeur {
 	
 	public List<CommandeDistri> demande (ITransformateur t, Catalogue c);
 	
-	public List<CommandeDistri> contreDemande (List<CommandeDistri> cd);
+	public List<CommandeDistri> contreDemande (List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne);
 
 
 	/**
