@@ -159,9 +159,7 @@ public class Lindt implements Acteur, ITransformateur{
 	}
 
 
-	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
-		return null;
-	}
+
 
 	public void notificationVente(CommandeProduc c) {
 		// TODO Auto-generated method stub
@@ -169,10 +167,6 @@ public class Lindt implements Acteur, ITransformateur{
 	}
 	
 	
-	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	//public void arriveeCommandeProduc(IProducteur p) {
 		//CommandeProduc nouvelleCommandeProduc = new CommandeProduc(this, p, annonceQuantiteDemandee(p), MarcheProducteur.LE_MARCHE.getCours());
@@ -199,8 +193,38 @@ public class Lindt implements Acteur, ITransformateur{
 	}
 
 
+
 	// Ne plus coder celles la, elle va disparaitre!
 	public double annonceQuantiteDemandee(IProducteur p) {	return 0;	}
 	public void notificationVente(IProducteur p){ 	}
+
+	@Override
+	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> list) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> list) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<CommandeDistri> offre(List<CommandeDistri> list) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+
+
 
 }

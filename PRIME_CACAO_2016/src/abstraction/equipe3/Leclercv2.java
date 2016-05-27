@@ -190,5 +190,10 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public double getPrix() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 }

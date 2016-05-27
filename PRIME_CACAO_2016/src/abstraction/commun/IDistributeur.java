@@ -1,4 +1,7 @@
+
 package abstraction.commun;
+
+
 
 import java.util.List;
 
@@ -11,6 +14,8 @@ public interface IDistributeur extends Acteur {
 	public List<CommandeDistri> ContreDemande (List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne);
 	
 	public Double getStock(Produit p);
+
+	public double getPrix();	
 	
 	public Double getPrixVente(Produit p);
 		
