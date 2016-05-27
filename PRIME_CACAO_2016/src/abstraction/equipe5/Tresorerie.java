@@ -43,7 +43,6 @@ public class Tresorerie {
 		}
 	}
 
-	// TODO Constante (expliquer ce que represente 5000);
 	public double coutRevient(){
 		double chargesFixes = Constante.CHARGES_FIXES_STEP;
 		double coutLivraison = this.coutLivraison();
@@ -79,7 +78,7 @@ public class Tresorerie {
 	
 	//cout de stock (18 euros la tonne/step)
 	public double coutStock(){
-		return(18*(lindt.getStockChocolat50().getStock()
+		return(Constante.COUT_STOCK_TONNE_STEP*(lindt.getStockChocolat50().getStock()
 				+lindt.getStockChocolat60().getStock()
 				+lindt.getStockChocolat70().getStock() 
 				+ lindt.getStockCacao().getStock())); 
