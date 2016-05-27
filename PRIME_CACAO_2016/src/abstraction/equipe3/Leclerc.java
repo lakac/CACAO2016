@@ -195,7 +195,6 @@ public class Leclerc implements Acteur,IDistributeur{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	
 }
 

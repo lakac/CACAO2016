@@ -114,31 +114,11 @@ public class Carrefour implements Acteur,IDistributeur {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 	@Override
 	public List<CommandeDistri> Demande(ITransformateur t, Catalogue c) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
-
-
-
-
-
-
-
 
 
 
@@ -162,8 +142,11 @@ public class Carrefour implements Acteur,IDistributeur {
 
 
 
+
+
+
 	@Override
-	public Double getStock(Produit p) {
+	public Double getPrixVente(Produit p) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -172,7 +155,7 @@ public class Carrefour implements Acteur,IDistributeur {
 
 
 	@Override
-	public Double getPrixVente(Produit p) {
+	public Double getStock(Produit p) {
 		// TODO Auto-generated method stub
 		return null;
 	}
