@@ -63,7 +63,7 @@ public class Tresorerie {
 		// plus le producteur3 qui represente 40% de la commande totale soit 2/3 de p1+p2
 		coutAchat += MarcheProducteur.LE_MARCHE.getCours()* quantiteCacaoAchetee * 2/3;
 		quantiteCacaoAchetee += quantiteCacaoAchetee * 2/3;
-		coutTransformation = quantiteCacaoAchetee * Constante.RATIO_COUT_TRANSFORMATION;
+		coutTransformation = quantiteCacaoAchetee * Constante.COUT_TRANSFORMATION;
 		coutStock = quantiteCacaoAchetee * 18;
 		return (coutTransformation + chargesFixes + coutLivraison + coutStock + coutAchat)/quantiteCacaoAchetee;
 	} 
