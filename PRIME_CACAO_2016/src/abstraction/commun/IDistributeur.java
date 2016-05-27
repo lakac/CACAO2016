@@ -11,7 +11,7 @@ public interface IDistributeur {
 
 
 	/**
-	 * @deprecated
+	 * 
 	 * @return
 	 */
 	public double getPrix();
