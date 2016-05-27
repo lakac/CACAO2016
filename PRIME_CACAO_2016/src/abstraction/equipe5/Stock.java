@@ -1,9 +1,6 @@
 package abstraction.equipe5;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
-
-import java.util.List;
-
 import abstraction.commun.CommandeDistri;
 import abstraction.commun.Produit;
 import abstraction.equipe5.Lindt;
