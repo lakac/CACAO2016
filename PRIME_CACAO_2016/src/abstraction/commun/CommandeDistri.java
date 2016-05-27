@@ -25,6 +25,7 @@ public class CommandeDistri {
 		this.stepLivraison = stepLivraison;
 		this.validation = validation;
 	}
+	
 
 	public Produit getProduit() {
 		return this.produit;
@@ -86,5 +87,10 @@ public class CommandeDistri {
 	
 	public boolean getValidation() {
 		return this.validation;
+	}
+	public boolean equals(Object o){
+		return (o!=null && o instanceof CommandeDistri && ((CommandeDistri)o).getAcheteur()==this.getAcheteur()
+				&& ((CommandeDistri)o).getVendeur()==this.getVendeur() && ((CommandeDistri)o).getProduit()==this.getProduit()
+					&& ((CommandeDistri)o).getStepLivraison()==this.getStepLivraison());
 	}
 }

@@ -9,7 +9,7 @@ public class PrixDeVente {
 	
 	private ArrayList<Double> prixDeVente;   // prix différents selon le produit
 	private Catalogue catalogue;
-	private ArrayList<Double> marge; // marge prise sur la vente des tabelttes de chocolat qui diffère selon le produit (donnée en pourcentage)
+	private ArrayList<Double> marge; // marge prise sur la vente des tablettes de chocolat qui diffère selon le produit (donnée en pourcentage)
 	
 	public PrixDeVente(Catalogue catalogue) {
 		// TODO Auto-generated constructor stub

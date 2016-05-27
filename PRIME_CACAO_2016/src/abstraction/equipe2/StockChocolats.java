@@ -8,6 +8,9 @@ public class StockChocolats {
 	
 	public StockChocolats() {
 		this.stockschocolats = new HashMap<Produit, Double>();
+		this.stockschocolats.put(Constante.PRODUIT_50, 0.);
+		this.stockschocolats.put(Constante.PRODUIT_60, 0.);
+		this.stockschocolats.put(Constante.PRODUIT_70, 0.);
 	}
 
 	public HashMap<Produit, Double> getStockschocolats() {

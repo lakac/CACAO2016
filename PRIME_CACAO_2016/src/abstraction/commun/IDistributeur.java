@@ -12,6 +12,8 @@ public interface IDistributeur extends Acteur {
 	public List<CommandeDistri> LivraisonEffective(List<CommandeDistri> liste);
 
 	public List<CommandeDistri> Demande (HashMap<ITransformateur, Catalogue > d);
+
+	public List<CommandeDistri> ContreDemande (List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne);
 	
 	public List<CommandeDistri> ContreDemande (List<CommandeDistri> cd);
 

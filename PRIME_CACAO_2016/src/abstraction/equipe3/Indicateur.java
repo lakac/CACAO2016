@@ -1,4 +1,4 @@
-package abstraction.fourni;
+package abstraction.equipe3;
 
 import java.util.Observable;
 /**
@@ -70,7 +70,6 @@ public class Indicateur extends Observable {
 	public double getValeur() {
 		return this.historique.getValeur();
 	}
-	
 	/**
 	 * Affecte la valeur valeur a l'indicateur en precisant
 	 * que c'est auteur qui est a l'origine de ce changement.
@@ -83,5 +82,4 @@ public class Indicateur extends Observable {
 		this.setChanged();
 		this.notifyObservers("setValeur");
 	}
-	
 }

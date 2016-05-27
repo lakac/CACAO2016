@@ -1,6 +1,7 @@
 package abstraction.equipe3;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import abstraction.commun.CommandeDistri;
 import abstraction.commun.ITransformateur;
@@ -27,7 +28,7 @@ public class Stock {
 			}
 		} return fraisDeStockTotal;
 	}
-	public void set(double fraisDeStock){
+	public void setFraisDeStock(double fraisDeStock){
 		this.fraisDeStock=fraisDeStock;
 	}
 	
@@ -97,5 +98,15 @@ public class Stock {
 				this.stock.add(i, x);
 			}
 		} 
+	}
+	public void rajoutStock(List<CommandeDistri> l){
+		for (CommandeDistri com : l){
+			this.ajouterStock(com);
+		}
+	}
+	public void retraitStock(List<CommandeDistri> l){
+		for (CommandeDistri com : l){
+			this.retirerStock(com);
+		}
 	}
 }

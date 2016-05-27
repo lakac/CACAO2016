@@ -158,7 +158,9 @@ public class Leclerc implements Acteur,IDistributeur{
 	}
 	
 	public void next() {
+
 		/*setPrixAchat(15.0);
+>>>>>>> refs/remotes/origin/master
 		Double[] ratio = {0.125, 0.036};
 		setRatio(ratio);
 		commande(Monde.LE_MONDE.getStep());
@@ -177,10 +179,8 @@ public class Leclerc implements Acteur,IDistributeur{
 		*/
 	}
 
-
-
 	@Override
-	public List<CommandeDistri> ContreDemande(List<CommandeDistri> cd) {
+	public List<CommandeDistri> ContreDemande(List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne) {
 		// TODO Auto-generated method stub
 		return null;
 	}
