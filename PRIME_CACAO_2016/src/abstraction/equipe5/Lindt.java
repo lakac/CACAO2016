@@ -199,8 +199,22 @@ public class Lindt implements Acteur, ITransformateur{
 	}
 
 
+
 	// Ne plus coder celles la, elle va disparaitre!
 	public double annonceQuantiteDemandee(IProducteur p) {	return 0;	}
 	public void notificationVente(IProducteur p){ 	}
+
+	@Override
+	public List<CommandeDistri> offre(List<CommandeDistri> o) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> list) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }
