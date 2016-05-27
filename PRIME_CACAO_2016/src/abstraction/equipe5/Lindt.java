@@ -170,10 +170,10 @@ public class Lindt implements Acteur, ITransformateur{
 			}
 		}
 		for (int i=0; i<this.getHistCommandeDistri().getHist().size(); i++) {
-				this.getCommandeDistriLivree().getHist().add(this.getHistCommandeDistri().getCommande(stepMax-3));
-				this.getHistCommandeDistri().getHist().remove(stepMax-3); 
-		// voir avec le prof si il ne va pas y avoir une erreur des qu'il n'y aura plus de commande à setpMax-3
-		// idee : faire une boucle while --> tant qu'il existe une commande dans HistCommandeDistri qui a un stepMax-3
+			if ((stepMax>4) && (this.getHistCommandeDistri().getCommande(i).getStepLivraison() == stepMax-4)) {
+				this.getCommandeDistriLivree().ajouter(this.getHistCommandeDistri().getCommande(i));
+				this.getHistCommandeDistri().supprimer(this.getHistCommandeDistri().getCommande(i)); 
+			}		
 		}
 	}
 

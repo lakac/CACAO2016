@@ -22,4 +22,8 @@ public class HistoriqueCommandeDistri {
 	public void ajouter(CommandeDistri commande) {
 		this.getHist().add(commande);
 	}
+	
+	public void supprimer(CommandeDistri commande) {
+		this.getHist().remove(commande);
+	}
 }	 
