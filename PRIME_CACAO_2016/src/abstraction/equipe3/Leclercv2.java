@@ -22,7 +22,6 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	private PrixDeVente prixdevente;
 	private ArrayList<Double> ratio;
 	private ArrayList<ITransformateur> transformateurs;
-	private List<CommandeDistri> commandeEnCours; // variable utilisée pour avoir la commande ou la contre demande qu'on a envoyé avant de reçevoir la contre demande des transfo
 
 	public Leclercv2(String nom, Monde monde) {
 		this.nom=nom;
@@ -40,12 +39,6 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	public String getNom() {
 		// TODO Auto-generated method stub
 		return this.nom;
-	}
-	public List<CommandeDistri> getCommandeEnCours(){
-		return this.commandeEnCours;
-	}
-	public void setCommandeEnCours(List<CommandeDistri> l){
-		this.commandeEnCours=l;
 	}
 	
 	public void ajouterVendeur(ITransformateur t) {
@@ -101,7 +94,6 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		for (int i=0;i<x.length; i++){
 			list.get(i).setQuantite(this.ratio.get(i)*x[i]-sto[i]);
 		} 
-		this.setCommandeEnCours(list);
 		return list;
 		// TODO Auto-generated method stub
 	}
@@ -123,27 +115,16 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	}
 
 	@Override
-	public List<CommandeDistri> ContreDemande(List<CommandeDistri> cd) {
-		List<CommandeDistri> a = new ArrayList<CommandeDistri>();
-		a=this.getCommandeEnCours();
-		for (CommandeDistri c : cd){
+	public List<CommandeDistri> ContreDemande(List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne) {
+		List<CommandeDistri> a = ancienne;
+		for (CommandeDistri c : nouvelle){
 			this.ActualiserCommande(a, c);			
 		}
 		// TODO Auto-generated method stub
-		this.setCommandeEnCours(a);
 		return a;
 	}
 	
-	public void rajoutStock(List<CommandeDistri> l){
-		for (CommandeDistri com : l){
-			this.stock.ajouterStock(com);
-		}
-	}
-	public void retraitStock(List<CommandeDistri> l){
-		for (CommandeDistri com : l){
-			this.stock.retirerStock(com);
-		}
-	}
+	
 	
 	public double recette(){
 		double recette = 0.0;
@@ -168,8 +149,8 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		/*récupérer livraison effective
 		//List<CommandeDistri> livraisoneffective = LEMARCHE.LivraisonEffective();*/
 		/*gérer le stock
-		rajoutStock(livraisoneffective);
-		retraitStock(DEMANDE.get())
+		this.stock.rajoutStock(livraisoneffective);
+		this.stock.retraitStock(DEMANDE.get())
 		this.stock.setFraisDeStock();*/
 		//gérer le solde
 		//this.solde.setValeur(this, this.solde.getValeur()+recette()-depenses(commandefinale));

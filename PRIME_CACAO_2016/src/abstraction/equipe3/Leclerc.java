@@ -177,10 +177,8 @@ public class Leclerc implements Acteur,IDistributeur{
 		*/
 	}
 
-
-
 	@Override
-	public List<CommandeDistri> ContreDemande(List<CommandeDistri> cd) {
+	public List<CommandeDistri> ContreDemande(List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne) {
 		// TODO Auto-generated method stub
 		return null;
 	}
