@@ -17,12 +17,14 @@ public class Vente {
 	//Constructeurs
 	public Vente (Stock stock, Producteur producteur) {
 		this.stock = stock;
+		//on importe les prix demandes par les transformateurs
 		this.prixDemandes = new double[3];
 		for (int i=0; i<3; i++) {
 			this.prixDemandes[i] = producteur.getTransformateurs().get(i).annoncePrix();
 		}
 		this.producteur = producteur;
-		this.prixMarche = this.getPrixMarche();
+		//on importe le cours du cacao fixe par le marche
+		this.prixMarche = MarcheProducteur.LE_MARCHE.getCours();
 	}
 
 	//GETTERS AND SETTERS
@@ -35,21 +37,20 @@ public class Vente {
 	public Stock getStock() {
 		return this.getProducteur().getStock();
 	}
-	//Retourne le prix actuel du marchﾃｩ.
-	public double getPrixMarche() {
-		return MarcheProducteur.LE_MARCHE.getCours();
-	}
 	public double[] getPrixDemandes() {
 		return this.prixDemandes;
 	}
-
-
-	//AUTRES Mﾃ欝HODES
-	//Retourne la moyenne des prix de vente sur les prﾃｩcﾃｩdentes step.
+	private double getPrixMarche() {
+		return this.prixMarche;
+	}
+	
+	//AUTRES METHODES
+	//Retourne la moyenne des prix de vente sur les precedentes step.
 	public double moyennePrixDeVente () {
 		Historique coursCacao = MarcheProducteur.LE_MARCHE.getHistorique();
-		//longueur du tableau regroupant les prﾃｩcﾃｩdents prix de vente
+		//longueur du tableau regroupant les precedents prix de vente
 		int l = coursCacao.getTaille();
+		//somme des valeurs du tableau
 		double M = coursCacao.get(0).getValeur();
 		for (int i=1; i<l; i++) {
 			M=M+coursCacao.get(i).getValeur();
@@ -57,18 +58,19 @@ public class Vente {
 		}
 		return M;
 	}
-	//Retourne le stock disponible divisﾃｩ par le nombre de steps restantes avant le nouvel arrivage de production.
+	//Retourne le stock disponible divise par le nombre de steps restantes
+	//avant le nouvel arrivage de production, pour savoir quelle quantite
+	//mettre en vente theoriquement, sans prendre en compte le cours actuel 
+	//du cacao et les prix demandes par les transformateurs
 	public double venteAPriori () {
 		//nombre de steps restantes avant l'arrivage de la nouvelle production
 		int n=12-this.getStep()%12;
 		return this.getStock().getStockCacao().getValeur()/n;
 	}
-
-
-
-	//Retourne notre offre totale.
+	//Retourne notre offre totale par step
 	public double offreTotale () {
-		//Premier ajustement de notre offre totale, en fonction du cours de cacao fixﾃｩ par le marchﾃｩ.
+	//Premier ajustement de notre offre totale, en fonction du cours de cacao fixe par le marche.
+		//calcul d'un coefficient nous indiquant l'interet de vendre beaucoup ou peu a la step actuelle
 		double coeff = (this.getPrixMarche()-3000)/1000;
 		double offreTotale = 0.0;
 		if (coeff>=0) {
@@ -77,9 +79,11 @@ public class Vente {
 		else {
 			offreTotale = this.venteAPriori()*(1+coeff/2);
 		}
-		//Moyenne des prix fixﾃｩs par chaque transformateur.
+		//L'offre totale est comprise entre la moitie et le double de notre venteAPriori.
+	//Deuxieme ajustement de notre offre totale, en fonction des prix fixes par les transformateurs eux-memes.
+		//moyenne des prix fixes par chaque transformateur.
 		double moyennePrixDemandes = (this.getPrixDemandes()[0]+this.getPrixDemandes()[1]+this.getPrixDemandes()[2])/3;
-		//Deuxiﾃｨme ajustement de notre offre totale, en fonction des prix fixﾃｩs par les transformateurs eux-mﾃｪmes.
+		//on ajuste legerement notre offre totale
 		if (moyennePrixDemandes<=this.getPrixMarche()) {
 			offreTotale = offreTotale*moyennePrixDemandes/this.getPrixMarche();
 		}
@@ -88,7 +92,6 @@ public class Vente {
 		}
 		return offreTotale;
 	}
-
 	//Intention de vente aux differents transformateurs
 	public double[] ventesStep() {
 		double[] ventesStep = new double[3];
