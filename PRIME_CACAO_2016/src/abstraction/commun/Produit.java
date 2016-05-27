@@ -33,4 +33,7 @@ public class Produit {
 		return ((o instanceof Produit)
 				&& (this.getNomProduit() == ((Produit)o).getNomProduit()));
 	}
+	
+
+
 }

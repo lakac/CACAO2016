@@ -79,13 +79,14 @@ public class Nestle implements Acteur, ITransformateur{
 //Ajout d'indicateurs visibles
 		this.banque=new Banque(this);
 		Monde.LE_MONDE.ajouterIndicateur(this.banque.getTresorerie());
-		this.totalachats = new Indicateur("totalachats", this, 0.);
+		this.totalachats = new Indicateur("Achat total de Nestle", this, 0.);
 		Monde.LE_MONDE.ajouterIndicateur(this.totalachats);
 		
 		for (Produit p : this.totalventesproduit.keySet()) {
-			Indicateur indicateurp =new Indicateur(""+p, this, 0.);
+			Indicateur indicateurp =new Indicateur("vente de "+p.getNomProduit()+" de Nestle", this, 0.);
 			Monde.LE_MONDE.ajouterIndicateur( indicateurp);
 		}
+		
 		this.catalogue = new CatalogueInterne();
 
 	}
@@ -141,7 +142,7 @@ public class Nestle implements Acteur, ITransformateur{
 	//Setter initial pour l'historique des ventes
 	public void SetTotalVentesProduit() {
 		this.totalventesproduit = new HashMap<Produit, Indicateur>();
-		Indicateur indicateur50 = new Indicateur(this.nom, this, 0.);
+		Indicateur indicateur50 = new Indicateur(this.nom , this, 0.);
 		this.totalventesproduit.put(Constante.PRODUIT_50, indicateur50);
 		Indicateur indicateur60 = new Indicateur(this.nom, this, 0.);
 		this.totalventesproduit.put(Constante.PRODUIT_60, indicateur60);
@@ -224,7 +225,7 @@ public class Nestle implements Acteur, ITransformateur{
 	}
 
 	public double annoncePrix() {
-			return MarcheProducteur.LE_MARCHE.getCours()*(1+0.1*Math.random());
+			return MarcheProducteur.LE_MARCHE.getCours()*(Constante.PRIX_MINIMUM+Constante.VARIATION_PRIX*Math.random());
 		}
 
 	public void notificationVente(CommandeProduc c) {
@@ -278,7 +279,7 @@ public class Nestle implements Acteur, ITransformateur{
 		//début de la phase d'échange à proprement dit.
 		//On donne le catalogue.
 		this.getCatalogue();
-		HashMap<ITransformateur, Catalogue>  dictionnaire = new HashMap<ITransformateur, Catalogue>();
+		/*HashMap<ITransformateur, Catalogue>  dictionnaire = new HashMap<ITransformateur, Catalogue>();
 		dictionnaire.put(this, this.getCatalogue());
 		//On négocie avec les distributeurs.
 		for (IDistributeur d : this.getClients()) {
@@ -291,10 +292,11 @@ public class Nestle implements Acteur, ITransformateur{
 		for (IDistributeur d : this.getClients()) {
 			this.setCommandesdistri(d, d.ContreDemande(this.getCommandesdistri().get(d)));
 			this.CommandeFinale(this.getCommandesdistri().get(d));
-		}
-		for (IDistributeur d : this.getClients()) {
+		}*/
+		/*for (IDistributeur d : this.getClients()) {
 			this.setCommandesdistri(d, d.CommandeFinale(this.getCommandesdistri().get(d)));
-		}
+		}*/
+		
 		//On négocie avec les Producteurs et on actualise nos commande aux producteurs
 		this.annonceQuantiteDemandee();
 		double prix = this.annoncePrix();
