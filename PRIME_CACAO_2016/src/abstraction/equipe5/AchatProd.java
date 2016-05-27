@@ -53,10 +53,10 @@ public class AchatProd {
 		// Creation de la liste des commandes au step n,n-1 et n-2
 		List<CommandeDistri> listeCommandesDist= new ArrayList<CommandeDistri>();
 		for (int i=0 ; i<histD.getHist().size(); i++){
-			if (histD.getCommande(i).getStepLivraison()==Constante.STEP_COURANT
-					||histD.getCommande(i).getStepLivraison()==Constante.STEP_PRECEDENT
-					||histD.getCommande(i).getStepLivraison()==Constante.STEP_2 
-					||histD.getCommande(i).getStepLivraison()==Constante.STEP_3 )
+			if (histD.getCommande(i).getStepLivraison()==Constante.stepCourant()
+					||histD.getCommande(i).getStepLivraison()==Constante.stepPrecedent()
+					||histD.getCommande(i).getStepLivraison()==Constante.step2() 
+					||histD.getCommande(i).getStepLivraison()==Constante.step3())
 				listeCommandesDist.add(histD.getCommande(i));
 		}
 		// Calcul du besoin en cacao pour les 3 prochains step
