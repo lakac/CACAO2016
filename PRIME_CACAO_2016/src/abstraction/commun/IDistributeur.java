@@ -3,7 +3,9 @@ package abstraction.commun;
 import java.util.HashMap;
 import java.util.List;
 
-public interface IDistributeur implements acteur {
+import abstraction.fourni.Acteur;
+
+public interface IDistributeur extends Acteur {
 		
 	public List<CommandeDistri> Demande (ITransformateur t, Catalogue c);
 	
@@ -16,6 +18,6 @@ public interface IDistributeur implements acteur {
 	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf);
 
 	public Double getStock(Produit p);
-	public Double getPrix(Produit p);
+	public Double getPrixVente(Produit p);
 		
 }
