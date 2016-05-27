@@ -6,12 +6,22 @@ import java.util.List;
 import abstraction.commun.ITransformateur;
 import abstraction.commun.MarcheProducteur;
 
+/**
+ * Classe pour calculer la quantité mise en vente pour chaque transformateur
+ */
 public class IntelligenceEconomique {
+	/** Liste des transformateurs en relation avec notre producteur */
 	private List<ITransformateur> transformateurs;
+	/** Coefficients de somme unité correspondant à l'importance des ventes réalisées */
 	private HashMap<ITransformateur,Double> importanceTransformateurs;
+	/** Stock de notre producteur */
 	private Stock stock;
+	/** Quantités mises en vente pour chaque transformateur pour le step en cours */
 	private HashMap<ITransformateur,Double> quantitesMisesEnVente;
-	
+	/**
+	 * Coefficients associés au stock produit à différentes dates.
+	 * Le cacao le plus ancien est en tête.
+	 */
 	private final double[] coeffPerissabilite = {1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1};
 	
 	public IntelligenceEconomique(List<ITransformateur> t, Stock s) {
