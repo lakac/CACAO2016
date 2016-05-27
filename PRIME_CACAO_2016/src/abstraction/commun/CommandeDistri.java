@@ -25,11 +25,13 @@ public class CommandeDistri {
 		this.stepLivraison = stepLivraison;
 		this.validation = validation;
 	}
+	
 
 	public Produit getProduit() {
 		return this.produit;
 	}
-	public void setProduit(Produit produit) {
+
+public void setProduit(Produit produit) {
 		this.produit = produit;
 	}
 

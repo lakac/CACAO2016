@@ -14,4 +14,5 @@ public class Constante {
 	 public static final double STOCK_MINIMAL = 200;
 	 public static final double COUT_TRANSFORMATION = 5000;
 	 public static final double[] MARGE_PRODUIT = {0.07, 0.1, 0.12};
+	 public static final double COUT_STOCK_TONNE_STEP = 18;
 }
