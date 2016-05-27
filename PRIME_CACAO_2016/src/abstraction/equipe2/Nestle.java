@@ -297,6 +297,9 @@ public class Nestle implements Acteur, ITransformateur{
 			this.setCommandesdistri(d, d.CommandeFinale(this.getCommandesdistri().get(d)));
 		}*/
 		
+		//for (IDistributeur d : this.getClients()) {
+		//	this.setCommandesdistri(d, //methode du marche);
+		//}
 		//On négocie avec les Producteurs et on actualise nos commande aux producteurs
 		this.annonceQuantiteDemandee();
 		double prix = this.annoncePrix();

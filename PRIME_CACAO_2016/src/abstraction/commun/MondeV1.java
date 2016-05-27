@@ -60,7 +60,6 @@ public class MondeV1 extends Monde {
 		nestle.AjouterClient(Le);
 		nestle.AjouterClient(Ca);
 		nestle.AjouterFournisseur(p1);
-		nestle.AjouterFournisseur(p2);
 		
 		nestle.creer();
 		Le.ajouterVendeur(nestle);
