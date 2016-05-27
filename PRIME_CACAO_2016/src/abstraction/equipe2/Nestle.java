@@ -226,10 +226,37 @@ public class Nestle implements Acteur, ITransformateur{
 	public double annoncePrix() {
 			return MarcheProducteur.LE_MARCHE.getCours()*(1+0.1*Math.random());
 		}
+	
+	//
+	/*for (IProducteur p : this.achats.keySet()) {
+		this.achats.get(p).setCacaoAchete(this, p);
+		achattotal+=this.getAchats().get(p).getCacaoachete();
+		
+	}
+	this.totalachats.setValeur(this, achattotal);
+	
+	//Le cacao est alors livrï¿½, on met a jour le stock de cacao.
+	//et la trï¿½sorerie (cout de transport ï¿½ notre charge)
+	for (IProducteur p : this.achats.keySet()) {
+		;
+		
+		this.banque.retirer(this.getCouttransport().getDistances().get(p)*
+				Constante.COUT_UNITAIRE_TRANSPORT*this.getAchats().get(p).getCacaoachete());
+	}
+	
+	Achat achatmonde = new Achat(this.QuantiteAcheteeMonde());
+	this.stockcacao.AjouterStockCacao(achatmonde);
+	this.banque.retirer(this.QuantiteAcheteeMonde()*Constante.COUT_UNITAIRE_TRANSPORT*Constante.DISTANCE_MONDE);
 
+	//*/
 	public void notificationVente(CommandeProduc c) {
 		Achat achat = new Achat(c.getQuantite());
 		this.setAchats(c.getVendeur(), achat);
+		this.banque.retirer(this.achats.get(c.getVendeur()).getCacaoachete());
+		this.stockcacao.AjouterStockCacao(this.achats.get(c.getVendeur()));
+		this.banque.retirer(this.getCouttransport().getDistances().get(c.getVendeur())*
+				Constante.COUT_UNITAIRE_TRANSPORT*this.getAchats().get(c.getVendeur()).getCacaoachete());
+		
 	}
 
 	@Override
@@ -318,29 +345,14 @@ public class Nestle implements Acteur, ITransformateur{
 		//et la trésorerie (on achète quelque chose)
 		double achattotal = this.QuantiteAcheteeMonde();
 		this.banque.retirer(this.QuantiteAcheteeMonde()*MarcheProducteur.LE_MARCHE.getCours());
+		for (CommandeProduc c : this.getCommandeproduc()) {
+			this.notificationVente(c);
+		}
 
 		//chacun des producteurs nous envoie leur offre et on achï¿½te leur cacao
 		//et on met ï¿½ jour l'historique
 		//et la trï¿½sorerie (on achï¿½te quelque chose)
-		for (IProducteur p : this.achats.keySet()) {
-			this.achats.get(p).setCacaoAchete(this, p);
-			achattotal+=this.getAchats().get(p).getCacaoachete();
-			this.banque.retirer(this.achats.get(p).getCacaoachete());
-		}
-		this.totalachats.setValeur(this, achattotal);
 		
-		//Le cacao est alors livrï¿½, on met a jour le stock de cacao.
-		//et la trï¿½sorerie (cout de transport ï¿½ notre charge)
-		for (IProducteur p : this.achats.keySet()) {
-			this.stockcacao.AjouterStockCacao(this.achats.get(p));
-			
-			this.banque.retirer(this.getCouttransport().getDistances().get(p)*
-					Constante.COUT_UNITAIRE_TRANSPORT*this.getAchats().get(p).getCacaoachete());
-		}
-		
-		Achat achatmonde = new Achat(this.QuantiteAcheteeMonde());
-		this.stockcacao.AjouterStockCacao(achatmonde);
-		this.banque.retirer(this.QuantiteAcheteeMonde()*Constante.COUT_UNITAIRE_TRANSPORT*Constante.DISTANCE_MONDE);
 		
 		
 		//Le stock de cacao est ï¿½ jour, on lance la production de chocolat, et on met
