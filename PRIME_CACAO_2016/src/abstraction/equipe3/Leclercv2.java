@@ -25,6 +25,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 
 	public Leclercv2(String nom, Monde monde) {
 		this.nom=nom;
+		//this.stock= new Stock(Le, new ArrayList<Double[]> stock,0.0);
 		this.solde = new Indicateur("Solde de Leclerc", this, 1000000.0);
 		this.stock.initialiseStock();
 		Monde.LE_MONDE.ajouterIndicateur( this.solde );
