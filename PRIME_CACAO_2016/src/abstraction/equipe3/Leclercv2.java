@@ -16,16 +16,16 @@ import abstraction.fourni.Monde;
 public class Leclercv2 implements Acteur,IDistributeur{
 	
 	private String nom;
-	private Indicateur solde;
 	private Ventes ventes;
 	private Stock stock;
+	private Indicateur solde; //SoldeDeLeclerc
 	private PrixDeVente prixdevente;
 	private ArrayList<Double> ratio;
 	private ArrayList<ITransformateur> transformateurs;
 
 	public Leclercv2(String nom, Monde monde) {
 		this.nom=nom;
-		this.solde = new Indicateur("Solde de "+nom, this, 1000000.0);
+		this.solde = new Indicateur("Solde de Leclerc", this, 1000000.0);
 		this.stock.initialiseStock();
 		Monde.LE_MONDE.ajouterIndicateur( this.solde );
     	this.transformateurs = new ArrayList<ITransformateur>();
@@ -142,7 +142,18 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		}
 		return depenses;
 	}
-
+	
+	public double getPrixDeVente(Produit p){
+		if (p.getNomProduit()=="50%"){
+			return this.prixdevente.getPrixDeVente().get(0);
+		} else {
+			if (p.getNomProduit()=="60%"){
+				return this.prixdevente.getPrixDeVente().get(1);
+			} else {
+				return this.prixdevente.getPrixDeVente().get(2);
+			}
+		}
+	}
 	public Double getStock(Produit p) {
 		double x = 0;
 		if (p.getNomProduit()=="50%"){
@@ -188,6 +199,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		//gérer prix de vente
 		//gérer ventes (rajouter ventes réelles du step)
 		// TODO Auto-generated method stub
+
 		
 	}
 	@Override
@@ -196,4 +208,6 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		return 0;
 	}
 
-}
+
+	}
+
