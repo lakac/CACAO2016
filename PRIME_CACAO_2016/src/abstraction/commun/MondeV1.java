@@ -32,9 +32,9 @@ public class MondeV1 extends Monde {
 		this.ajouterActeur(Ca);
 		
 		// Transformateurs
-		Nestle t1 = new Nestle(this);
+		Nestle nestle = new Nestle();
 		ResteDesTransformateursMondiaux t3 = new ResteDesTransformateursMondiaux();
-		this.ajouterActeur(t1);
+		this.ajouterActeur(nestle);
 		Lindt lindt = new Lindt();
 		ajouterActeur(lindt);
 		lindt.ajouterDistributeur(Ca);
@@ -57,26 +57,30 @@ public class MondeV1 extends Monde {
 
 		lindt.ajouterProducteur(p1);
 		lindt.ajouterProducteur(p2);
-		t3.ajouterTransformateur(t1);
+		t3.ajouterTransformateur(nestle);
 		t3.ajouterTransformateur(lindt);
+		nestle.AjouterClient(Le);
+		nestle.AjouterClient(Ca);
+		nestle.AjouterFournisseur(p1);
+		nestle.AjouterFournisseur(p2);
 		
-		
-		Le.ajouterVendeur(t1);
+		nestle.creer();
+		Le.ajouterVendeur(nestle);
 		Le.ajouterVendeur(lindt);
-		Ca.ajouterVendeur(t1);
+		Ca.ajouterVendeur(nestle);
 		Ca.ajouterVendeur(lindt);
 		
-		p1.ajouterTransformateur(t1);
+		p1.ajouterTransformateur(nestle);
 		p1.ajouterTransformateur(lindt);
 
 		p1.creerIntelligenceEconomique();
 		
 		marcheProducteur.ajouterProducteur(p1);
 		marcheProducteur.ajouterProducteur(p2);
-		marcheProducteur.ajouterTransformateur(t1);
+		marcheProducteur.ajouterTransformateur(nestle);
 		marcheProducteur.ajouterTransformateur(lindt);
 		
-		p2.ajoutClient(t1);
+		p2.ajoutClient(nestle);
 		p2.ajoutClient(lindt);
 		p2.ajoutClient(t3);		
 		p2.AjoutVariableVente();
