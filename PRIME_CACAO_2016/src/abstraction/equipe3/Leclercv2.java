@@ -140,19 +140,8 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		}
 		return depenses;
 	}
-	
-	public double getPrixVente(Produit p){
-		if (p.getNomProduit()=="50%"){
-			return this.prixdevente.getPrixDeVente().get(0);
-		} else {
-			if (p.getNomProduit()=="60%"){
-				return this.prixdevente.getPrixDeVente().get(1);
-			} else {
-				return this.prixdevente.getPrixDeVente().get(2);
-			}
-		}
-	}
-	public double getStock(Produit p){
+
+	public Double getStock(Produit p) {
 		double x = 0;
 		if (p.getNomProduit()=="50%"){
 			for (ITransformateur t : this.transformateurs){
@@ -170,8 +159,19 @@ public class Leclercv2 implements Acteur,IDistributeur{
 			}
 		} return x;
 	}
-
-
+	
+	public Double getPrixVente(Produit p) {
+		if (p.getNomProduit()=="50%"){
+			return this.prixdevente.getPrixDeVente().get(0);
+		} else {
+			if (p.getNomProduit()=="60%"){
+				return this.prixdevente.getPrixDeVente().get(1);
+			} else {
+				return this.prixdevente.getPrixDeVente().get(2);
+			}
+		}
+	}
+	
 	public void next() {
 		/*//récupérer commande finale
 		List<CommandeDistri> commandefinale = LEMARCHE.CommandeFinale();*/
@@ -187,30 +187,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
-	public List<CommandeDistri> LivraisonEffective(List<CommandeDistri> liste) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public List<CommandeDistri> Demande(HashMap<ITransformateur, Catalogue> d) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public Double getStock(Produit p) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public Double getPrixVente(Produit p) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+	
 
 }

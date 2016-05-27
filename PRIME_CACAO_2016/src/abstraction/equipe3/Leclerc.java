@@ -185,21 +185,6 @@ public class Leclerc implements Acteur,IDistributeur{
 		return null;
 	}
 	@Override
-	public List<CommandeDistri> LivraisonEffective(List<CommandeDistri> liste) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public List<CommandeDistri> Demande(HashMap<ITransformateur, Catalogue> d) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
 	public Double getStock(Produit p) {
 		// TODO Auto-generated method stub
 		return null;
@@ -209,7 +194,6 @@ public class Leclerc implements Acteur,IDistributeur{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	
 }
 
