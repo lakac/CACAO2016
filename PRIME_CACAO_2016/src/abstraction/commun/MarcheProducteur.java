@@ -70,7 +70,6 @@ public class MarcheProducteur implements Acteur {
 			this.quantitesDisponibles.get(producteur).put(t, 0.0);
 		}
 	}
-	
 	/**
 	 * Renvoie la valeur actuelle du cout du cacao
 	 */
