@@ -8,6 +8,7 @@ import abstraction.commun.Catalogue;
 import abstraction.commun.CommandeDistri;
 import abstraction.commun.IDistributeur;
 import abstraction.commun.ITransformateur;
+import abstraction.commun.Produit;
 import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
@@ -56,7 +57,7 @@ public class Leclerc implements Acteur,IDistributeur{
 	public double getT3(){
 		return this.qteT3;
 	}
-	public double getPrix(){
+	public double getPrix1(){
 		return this.prix;
 	}
 	public double getPrixvente(){
@@ -111,23 +112,29 @@ public class Leclerc implements Acteur,IDistributeur{
 		this.prixvente=20.0;
 		for (ITransformateur t : this.transformateurs) {
 			double q = this.getDemande(t);
-			this.solde.setValeur(this, this.solde.getValeur()+q*this.getPrix()); //on ach�te au transformateur donc il re�oit de l'argent
+			this.solde.setValeur(this, this.solde.getValeur()+q*this.getPrix1()); //on ach�te au transformateur donc il re�oit de l'argent
 		}
 		this.achats.setValeur(this,quantite);
-		this.solde.setValeur(this, this.solde.getValeur()-quantite*this.getPrix()+quantite*this.getPrixvente()); //solde(step n)=solde step(n-1)+quantite(step n)*prixvente - quantite(step n)*prix
+		this.solde.setValeur(this, this.solde.getValeur()-quantite*this.getPrix1()+quantite*this.getPrixvente()); //solde(step n)=solde step(n-1)+quantite(step n)*prixvente - quantite(step n)*prix
 }
 	@Override
 	public List<CommandeDistri> demande(ITransformateur t, Catalogue c) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
-	public List<CommandeDistri> contreDemande(List<CommandeDistri> cd) {
+
+
+	public List<CommandeDistri> LivraisonEffective(List<CommandeDistri> liste) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public List<CommandeDistri> LivraisonEffective(List<CommandeDistri> liste) {
+	public List<CommandeDistri> contreDemande(List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public HashMap<Produit, Double> getPrix() {
 		// TODO Auto-generated method stub
 		return null;
 	}
