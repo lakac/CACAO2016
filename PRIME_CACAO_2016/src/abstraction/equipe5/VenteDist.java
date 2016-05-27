@@ -148,14 +148,28 @@ public class VenteDist {
 		return cf;
 	}
 	
+
+	//Fonction qui met à jour l'historique ie qui va changer dans l'historique de commande distri la quantité des commandes si ce n'est pas la meme
+	// que dans commande finale, c'est à dire qu'on livre moins que prévu, et qui va enlever les commandes livrées de l'historique HistCommandeDistri
+	// pour les mettre dans l'historique CommandeDistriLivree
+	public void MiseAJourHistCommandeDistri (){
+		List<CommandeDistri> Commandeslivrees = new ArrayList<CommandeDistri>();
+		for (CommandeDistri c: lindt.getHistCommandeDistri().getHist()){
+			if(c.getStepLivraison()==Monde.LE_MONDE.getStep()){
+				Commandeslivrees.add(c);
+			}		
+		}
+		Offre(Commandeslivrees);
+		for (CommandeDistri c: Commandeslivrees){
+			lindt.getCommandeDistriLivree().ajouter(c);
+			lindt.getHistCommandeDistri().supprimer(c); 	
+		}	
+	}
 	
-	
-    //exemple avec une hashmap
-	//	for (abstraction.commun.Produit p : Constante.listeProduit) {
-	//		if(this.QuantiteDemandeeProduit(listeCommandesDist).get(0).doubleValue() <= lindt.getStocks().get(p).getStock()){
-	
-	
-	
+	//fonction que l'intermédiaire va appeler pour savoir les commandes que l'on livre réellement
+	public List<CommandeDistri> LivraisonEffective(List<CommandeDistri> livraison){
+			return Offre (livraison);	
+	}
 	
 }
 			
