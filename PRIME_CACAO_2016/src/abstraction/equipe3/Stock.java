@@ -67,7 +67,7 @@ public class Stock {
 					x[0]+=com.getQuantite();
 				}
 				else{
-					if (com.getProduit().getNomProduit()=="50%"){
+					if (com.getProduit().getNomProduit()=="60%"){
 						x[1]+=com.getQuantite();
 					}
 					else{
