@@ -20,6 +20,7 @@ public class MarcheDistributeur implements Acteur {
 	private List<CommandeDistri> historiquecommande;
 	private List<CommandeDistri> commandefinale;
 	private List<CommandeDistri> livraisonglobale;
+	public static MarcheDistributeur LE_MARCHE_DISTRIBUTEUR;
 
 	public MarcheDistributeur()	 {
 		this.lestransfos = new ArrayList<ITransformateur>() ;

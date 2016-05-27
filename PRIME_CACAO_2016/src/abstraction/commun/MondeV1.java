@@ -69,6 +69,11 @@ public class MondeV1 extends Monde {
 		nestle.AjouterClient(Ca);
 		nestle.AjouterFournisseur(p1);
 		nestle.AjouterFournisseur(p2);
+		
+		// Marché Distributeur
+		MarcheDistributeur marcheDistributeur = new MarcheDistributeur();
+		MarcheDistributeur.LE_MARCHE_DISTRIBUTEUR = marcheDistributeur;
+		this.ajouterActeur(marcheDistributeur);
 
 		
 		nestle.creer();
