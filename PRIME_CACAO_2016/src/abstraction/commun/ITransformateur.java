@@ -52,14 +52,13 @@ public interface ITransformateur {
 
 	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> list);
 
-	public List<CommandeDistri> Offre(List<CommandeDistri> o);
+	public List<CommandeDistri> offre(List<CommandeDistri> o);
 	/**
 	 * @deprecated
 	 * @param list
 	 * @return
 	 */
-	public List<CommandeDistri> offre(List<CommandeDistri> list);
+	public List<CommandeDistri> Offre(List<CommandeDistri> list);
 
 }
-	// Fonctions vouees a disparaitre
 

@@ -126,7 +126,7 @@ public class Lindt implements Acteur, ITransformateur{
 	
 	
 	// Fonctions finies
-	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
+	public List<CommandeDistri> offre(List<CommandeDistri> o) {
 		return this.venteDist.Offre(o);
 	}
 	
@@ -179,11 +179,10 @@ public class Lindt implements Acteur, ITransformateur{
 	}
 
 	// Ne plus coder celles la, elles vont disparaitre!
-	public double annonceQuantiteDemandee(IProducteur p) {	return 0;	}
+	public double annonceQuantiteDemandee(IProducteur p) {	return 0;}
 	public void notificationVente(IProducteur p){ 	}
 	public double annonceQuantiteMiseEnVente(IDistributeur d){ return 0;}
-
-	public List<CommandeDistri> offre(List<CommandeDistri> o) { return null;}
+	public List<CommandeDistri> Offre(List<CommandeDistri> o) { return null;}
 
 
 }
