@@ -86,13 +86,13 @@ public class Producteur implements Acteur,IProducteur{
 	// pour chaque transformateur a chaque step
 	public double annonceQuantiteMiseEnVente(ITransformateur t) {
 		if (((Acteur)t).getNom().equals(((Acteur)this.getTransformateurs().get(0)).getNom())) {
-			return this.vente.ventesStep()[0];
+			return this.getVente().ventesStep()[0];
 		}
 		if (((Acteur)t).getNom().equals(((Acteur)this.getTransformateurs().get(1)).getNom())) {
-			return this.vente.ventesStep()[1];
+			return this.getVente().ventesStep()[1];
 		}
 		if (((Acteur)t).getNom().equals(((Acteur)this.getTransformateurs().get(2)).getNom())) {
-			return this.vente.ventesStep()[2];
+			return this.getVente().ventesStep()[2];
 		}
 		return 0.0;
 	}
