@@ -72,9 +72,9 @@ public class AchatProd {
 		}
 		commandeP=commandeP*2/3; // Pour rajouter P3
 		double stockCacao=lindt.getStockCacao().getStock()+commandeP
-				- lindt.getStockChocolat50().getStock()*Constante.LISTE_PRODUIT[0].getRatioCacao()
-				- lindt.getStockChocolat60().getStock()*Constante.LISTE_PRODUIT[1].getRatioCacao()
-				- lindt.getStockChocolat70().getStock()*Constante.LISTE_PRODUIT[2].getRatioCacao();
+				+ lindt.getStockChocolat50().getStock()*Constante.LISTE_PRODUIT[0].getRatioCacao()
+				+ lindt.getStockChocolat60().getStock()*Constante.LISTE_PRODUIT[1].getRatioCacao()
+				+ lindt.getStockChocolat70().getStock()*Constante.LISTE_PRODUIT[2].getRatioCacao();
 
 		if (stockCacao-Constante.STOCK_MINIMAL<besoinCacao){
 			besoinCacao=besoinCacao-stockCacao+Constante.STOCK_MINIMAL;

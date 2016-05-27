@@ -16,7 +16,7 @@ public class TransformationCacaoChocolat {
 				lindt.getStockCacao().setStock((lindt.getStockCacao().getStock()-c.getQuantite()*c.getProduit().getRatioCacao()));
 				for (int i=0; i<lindt.getStocksChocolat().size(); i++){
 					if (c.getProduit().getNomProduit()==lindt.getStocksChocolat().get(i).getNom()){
-						lindt.getStocksChocolat().get(i).setStock(lindt.getStocksChocolat().get(i).getStock());// a finir
+						lindt.getStocksChocolat().get(i).setStock(lindt.getStocksChocolat().get(i).getStock()+c.getQuantite());// a finir
 					}
 				}
 			}

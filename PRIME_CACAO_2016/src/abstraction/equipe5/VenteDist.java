@@ -37,7 +37,6 @@ public class VenteDist {
 		return r;
 	}
 	
-	
 	//creation d'une fonction qui calcule la quantité totale demandée par les 3 distrib pour chacun des produits (dans l'ordre 50%,60%,70%)
 	public List <Double> QuantiteDemandeeProduit( List<CommandeDistri> listeCommandesDist){
 		List <Double> quantiteTotale = new ArrayList <Double> ();
@@ -55,7 +54,7 @@ public class VenteDist {
 	}
 
 	//Creation d'une fonction qui calcule la quantité de chocolat à mettre dans chaque commande pour le 1er échange (offre) 
-	
+	//Cette fonction ne prend pas en compte le fait qu'on pourrait avoir un stock plus important au step n+3 grâce à la transformation
 	public List<CommandeDistri> Offre(List<CommandeDistri> listeCommandesDist){
 		
 		for(int i=0; i<lindt.getDistributeurs().size(); i++){
@@ -68,9 +67,8 @@ public class VenteDist {
 					// a faire varier au step n+3
 				
 				 for(CommandeDistri c : listeCommandesDist){
-					 if(c.getProduit().getNomProduit()==Constante.LISTE_PRODUIT[i].getNomProduit()){
+					 if(c.getProduit().getNomProduit()==Constante.LISTE_PRODUIT[i].getNomProduit()){ 
 						 c.setValidation(true);}}} //on valide les commandes de produit i puisqu'on a assez de chocolats i
-			
 			else{
 				double quantiteRepartie=lindt.getStocksChocolat().get(i).getStock()/(lindt.getDistributeurs().size()); //Répartition équitable, donc si 3 dist, on divise la quantité totale par 3)
 				
@@ -103,7 +101,6 @@ public class VenteDist {
 			}
 		}
 		
-		
 		List<Double> stockFictif= new ArrayList<Double>(); //liste contenant les stocks fictifs
 			for(int i=0; i<Constante.LISTE_PRODUIT.length ; i++){ 
 				double valeurStock=lindt.getStocksChocolat().get(i).getStock(); 
@@ -114,9 +111,8 @@ public class VenteDist {
 				} 
 				stockFictif.add(valeurStock);	
 				}
-		
 			
-			for(int i=0; i<Constante.LISTE_PRODUIT.length ; i++){
+		for(int i=0; i<Constante.LISTE_PRODUIT.length ; i++){
 				if (stockFictif.get(i)>0.5){ // si la quantite de stock fictif est suffisante (ie la quantité qu'il nous restera après avoir validé les commandes)
 					
 					if(QuantiteDemandeeProduit(CommandesNonValidees).get(i) <= stockFictif.get(i)){ //ok on peut fournir aux distrib la quantité de chocolats i qu'ils demandent donc on valide les commandes
@@ -125,7 +121,7 @@ public class VenteDist {
 							 if(c.getProduit().getNomProduit()==Constante.LISTE_PRODUIT[i].getNomProduit()){
 								 c.setValidation(true);}}} //on valide les commandes de produit i puisqu'on a assez de chocolats i
 					
-					else{
+					else{ //même partie de code que dans la méthode Offre
 					double quantiteRepartie=stockFictif.get(i)/(lindt.getDistributeurs().size());
 					for (CommandeDistri c : CommandesNonValidees){
 						if(c.getProduit().getNomProduit()==Constante.LISTE_PRODUIT[i].getNomProduit()){
@@ -151,10 +147,26 @@ public class VenteDist {
 		return cf;
 	}
 	
+	//fonction qui calcule ce qu'on livre vraiment au distributeur
+	
+	public List<CommandeDistri> LivraisonEffective(int step){
+		List<CommandeDistri> livraison= new ArrayList<CommandeDistri>();	
+		for (CommandeDistri c: lindt.getHistCommandeDistri().getHist()){
+			if(c.getStepLivraison()==step){
+				livraison.add(c);
+			}
+		}
+		return 	this.Offre(livraison);
+	}
+	
+	
 	
     //exemple avec une hashmap
 	//	for (abstraction.commun.Produit p : Constante.listeProduit) {
 	//		if(this.QuantiteDemandeeProduit(listeCommandesDist).get(0).doubleValue() <= lindt.getStocks().get(p).getStock()){
+	
+	
+	
 	
 }
 			
