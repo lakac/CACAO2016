@@ -78,10 +78,8 @@ public class Nestle implements Acteur, ITransformateur{
 		this.production = new Production();
 //Ajout d'indicateurs visibles
 		this.banque=new Banque(this);
-		System.out.println("treso "+this.banque.getTresorerie());
 		Monde.LE_MONDE.ajouterIndicateur(this.banque.getTresorerie());
 		this.totalachats = new Indicateur("totalachats", this, 0.);
-		System.out.println("total "+this.totalachats);
 		Monde.LE_MONDE.ajouterIndicateur(this.totalachats);
 		
 		for (Produit p : this.totalventesproduit.keySet()) {
@@ -265,11 +263,6 @@ public class Nestle implements Acteur, ITransformateur{
 	public void notificationVente(IProducteur p){
 	}
 	
-	public static void main(String[] args) {
-		Nestle nestle = new Nestle();
-		Monde.LE_MONDE.getIndicateurs();
-	}
-	
 	public void next() {
 		//initialisation des plages de prix compte tenu des production précédentes
 		PlageInterne plageinterne = this.getProd().plageinterne();
@@ -279,13 +272,13 @@ public class Nestle implements Acteur, ITransformateur{
 		//début de la phase d'échange à proprement dit.
 		//On donne le catalogue.
 		this.getCatalogue();
-		/*HashMap<ITransformateur, Catalogue>  dictionnaire = new HashMap<ITransformateur, Catalogue>();
+		HashMap<ITransformateur, Catalogue>  dictionnaire = new HashMap<ITransformateur, Catalogue>();
 		dictionnaire.put(this, this.getCatalogue());
 		//On négocie avec les distributeurs.
 		for (IDistributeur d : this.getClients()) {
 			// Si les distributeurs demandent un produit que l'on ne vend pas -> erreur du programme
-			this.setCommandesdistri(d,d.Demande(null));
-			this.Offre(d.Demande(null));// null a changer quand l'équipe aura fait une pull request.
+			this.setCommandesdistri(d,d.Demande(dictionnaire));
+			this.Offre(d.Demande(dictionnaire));// null a changer quand l'équipe aura fait une pull request.
 			this.setCommandesdistri(d,d.Demande(dictionnaire));
 			this.Offre(d.Demande(dictionnaire));
 		}
@@ -297,7 +290,6 @@ public class Nestle implements Acteur, ITransformateur{
 			this.setCommandesdistri(d, d.CommandeFinale(this.getCommandesdistri().get(d)));
 		}
 		//On négocie avec les Producteurs et on actualise nos commande aux producteurs
-		 */
 		this.annonceQuantiteDemandee();
 		double prix = this.annoncePrix();
 		for (int i = 0; i<this.getCommandeproduc().size(); i++) {
@@ -352,6 +344,7 @@ public class Nestle implements Acteur, ITransformateur{
 				this.ventes.get(d).MiseAJourHistorique(this, Monde.LE_MONDE.getStep(), p);
 				this.totalventesproduit.get(p).setValeur(this, this.ventes.get(d).Quantitevendue(p));
 				i++;
+				System.out.println(this.totalventesproduit.get(p));
 				this.banque.ajouter(this.getVentes().get(d).Prixdevente(plageinterne.getTarifproduit().get(p)
 						,this.getVentes().get(d).getQuantitevendue().get(p)));
 			}
