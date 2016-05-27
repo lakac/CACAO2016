@@ -56,12 +56,10 @@ public class Producteur implements Acteur, IProducteur {
 		Monde.LE_MONDE.ajouterJournal(this.journal);
 		
 		this.transformateurs = new ArrayList<ITransformateur>();
-	}
-	
-	public void creerIntelligenceEconomique() {
+		
 		this.intelligenceEconomique = new IntelligenceEconomique(this.transformateurs,this.stock);
 	}
-	
+		
 	// Méthodes de l'interface Acteur
 	
 	public String getNom() {
@@ -96,6 +94,7 @@ public class Producteur implements Acteur, IProducteur {
 	public void ajouterTransformateur(ITransformateur transformateur) {
 		this.transformateurs.add(transformateur);
 		this.quantitesProposees.put(transformateur, 0.0);
+		this.intelligenceEconomique.prendreEnCompte(transformateur);
 	}
 	
 	// Méthodes privées

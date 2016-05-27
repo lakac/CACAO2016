@@ -29,10 +29,17 @@ public class IntelligenceEconomique {
 		this.importanceTransformateurs = new HashMap<ITransformateur,Double>();
 		this.stock = s;
 		this.quantitesMisesEnVente = new HashMap<ITransformateur,Double>();
-		
+	}
+	
+	/**
+	 * Prend en compte l'existence du transformateur après son ajout
+	 * à la liste des transformateurs pour l'ajouter aux HashMap internes.
+	 */
+	public void prendreEnCompte(ITransformateur t) {
+		this.quantitesMisesEnVente.put(t, 0.0);
+		// mise à jour des coefficients d'importance pour avoir une somme unité
 		for (ITransformateur tr : this.transformateurs) {
 			this.importanceTransformateurs.put(tr, 1.0/this.transformateurs.size());
-			this.quantitesMisesEnVente.put(tr, 0.0);
 		}
 	}
 	
