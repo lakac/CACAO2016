@@ -164,6 +164,7 @@ public class Lindt implements Acteur, ITransformateur{
 	public void notificationVente(IProducteur p){ 	}
 	public double annonceQuantiteMiseEnVente(IDistributeur d){ return 0;}
 	public List<CommandeDistri> Offre(List<CommandeDistri> o) { return null;}
+	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> list) {return null;}
 
 
 }
