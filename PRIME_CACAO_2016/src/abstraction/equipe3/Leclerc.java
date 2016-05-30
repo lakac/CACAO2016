@@ -203,12 +203,7 @@ public class Leclerc implements Acteur,IDistributeur{
 		return null;
 	}
 	
-	@Override
-	public double getPrix() {
-		// TODO Auto-generated method stub
-		return 0;
 	
-	}
 	@Override
 	public Double getStock(Produit p) {
 		// TODO Auto-generated method stub
