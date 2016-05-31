@@ -2,11 +2,15 @@
 package abstraction.commun;
 
 import abstraction.fourni.Monde;
+
+import java.util.ArrayList;
+
 import abstraction.commun.Constantes;
 import abstraction.equipe5.Lindt;
 import abstraction.equipe1.Producteur;
 
 import abstraction.equipe3.Leclerc;
+import abstraction.equipe3.Leclercv2;
 import abstraction.equipe2.*;
 import abstraction.equipe6.Carrefour;
 
@@ -14,7 +18,7 @@ public class MondeV1 extends Monde {
 	
 	public void peupler() {
 		// Distributeurs
-		Leclerc Le = new Leclerc("Leclerc", this, 1673.08, 15.0);
+		Leclercv2 Le = new Leclercv2("Leclerc", this);
 		this.ajouterActeur(Le);
 		Carrefour Ca = new Carrefour("Carrefour", this, 15, 20, 50000);
 		this.ajouterActeur(Ca);
@@ -38,7 +42,10 @@ public class MondeV1 extends Monde {
 		MarcheProducteur.LE_MARCHE = marcheProducteur;
 		this.ajouterActeur(marcheProducteur);
 		
-		
+		// Marché Consommateur
+		//MarcheConsommateurs marcheConsommateurs = new MarcheConsommateurs();
+		//MarcheConsommateurs.LE_MARCHE = marcheConsommateurs;
+		//this.ajouterActeur(marcheConsommateurs);
 		
 		// Producteurs
 		Producteur p1 = new Producteur(Constantes.NOM_PRODUCTEUR_1, 1000.0, 0.0, Monde.LE_MONDE);
@@ -82,5 +89,11 @@ public class MondeV1 extends Monde {
 		marcheProducteur.ajouterProducteur(p2);
 		marcheProducteur.ajouterTransformateur(nestle);
 		marcheProducteur.ajouterTransformateur(lindt);
+		
+		//maj 31/05 Leclerc
+		Le.getStock().initialiseStock();
+		Le.getPrixDeVente().initialisePDV();
+
+
 	}
 }

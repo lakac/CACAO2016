@@ -1,20 +1,20 @@
- package abstraction.commun;
+
+package abstraction.commun;
+
+
+
 import java.util.List;
 
-public interface IDistributeur {	
-	
-	public List<CommandeDistri> demande (ITransformateur t, Catalogue c);
-	
-	public List<CommandeDistri> contreDemande (List<CommandeDistri> cd);
+import abstraction.fourni.Acteur;
 
+public interface IDistributeur extends Acteur {
+		
+	public List<CommandeDistri> Demande (ITransformateur t, Catalogue c);
 
-	/**
-	 * 
-	 * @return
-	 */
-	public double getPrix();
+	public List<CommandeDistri> ContreDemande (List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne);
 	
-	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> liste);
+	public Double getStock(Produit p);	
 	
-
+	public Double getPrixVente(Produit p);
+		
 }

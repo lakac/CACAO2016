@@ -185,7 +185,7 @@ public class MarcheDistributeur implements Acteur {
 
 		for (IDistributeur d : this.getLesDitris()) {
 			for (ITransformateur t : this.getLesTransfos()) {
-				NegoDistri.put(d, d.demande(t, this.getCatalogues().get(t)));
+				//NegoDistri.put(d, d.demande(t, this.getCatalogues().get(t)));
 			}
 
 			while (marcheValide(NegoDistri) == false) {
@@ -195,7 +195,7 @@ public class MarcheDistributeur implements Acteur {
 				}
 				NegoDistri = this.RenvoiTransfo(NegoTransfo);
 				for (IDistributeur d1 : this.getLesDitris()) {
-					NegoDistri.replace(d1, d1.contreDemande(NegoDistri.get(d1)));
+				//	NegoDistri.replace(d1, d1.contreDemande(NegoDistri.get(d1)));
 				}
 			}
 			List<CommandeDistri> commandefinale = new ArrayList<CommandeDistri>();
