@@ -30,8 +30,6 @@ public class MondeV1 extends Monde {
 		// Distributeurs
 
 		Leclercv2 Le = new Leclercv2("Leclerc", this);
-
-
 		Carrefour Ca = new Carrefour("Carrefour", this, 15, 20, 50000);
 		this.ajouterActeur(Le);
 		this.ajouterActeur(Ca);
@@ -104,6 +102,11 @@ public class MondeV1 extends Monde {
 
 		p2.ajoutClient(t3);		
 		p2.AjoutVariableVente();
+		
+		//maj 31/05 Leclerc
+		Le.getStock().initialiseStock();
+		Le.getPrixDeVente().initialisePDV();
+
 
 	}
 }

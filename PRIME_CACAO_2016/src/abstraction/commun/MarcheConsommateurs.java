@@ -48,9 +48,7 @@ public class MarcheConsommateurs implements Acteur {
 	private Catalogue cata;
 	//Monde.LE_MONDE.ajouterIndicateur(this.fidelite);
 	
-	public void ajouterDistributeur(IDistributeur distributeur){
-		MarcheConsommateurs.distributeurs.add(distributeur);
-	}//  
+
 	
 	public MarcheConsommateurs(){
 		MarcheConsommateurs.distributeurs=new ArrayList<IDistributeur>();
@@ -59,8 +57,12 @@ public class MarcheConsommateurs implements Acteur {
 		this.pourcentageIncertitudeVentes=new HashMap <Produit,Double>();
 		this.offreTotale=new HashMap <Produit,Double>();
 		this.demandeAnnuelle=new HashMap <Produit,Double>();
-		this.initialiser();
+		//this.initialiser();
 	}
+	
+	public void ajouterDistributeur(IDistributeur distributeur){
+		MarcheConsommateurs.distributeurs.add(distributeur);
+	}//  
 	
 	public void actualiserDemande(){ //A actualiser a chaque next()
 		for (Produit p : cata.getProduits()){ 
@@ -173,10 +175,10 @@ public class MarcheConsommateurs implements Acteur {
 	}
 	public void next(){
 		
-		this.actualiserDemande();
-		this.actualiserOffre();
-		this.actualiserFidelite();
-		this.repartirVentes();
+		//this.actualiserDemande();
+		//this.actualiserOffre();
+		//this.actualiserFidelite();
+		//this.repartirVentes();
 		
 	}
 

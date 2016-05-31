@@ -23,20 +23,27 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	private PrixDeVente prixdevente;
 	private ArrayList<Double> ratio;
 	private ArrayList<ITransformateur> transformateurs;
-	private MarcheConsommateurs marche;
-	private Catalogue cata;
+	private MarcheConsommateurs marche; //a retirer
+	private Catalogue cata; //a retirer
 
 	public Leclercv2(String nom, Monde monde) {
 		this.nom=nom;
-		//this.stock= new Stock(Le, new ArrayList<Double[]> stock,0.0);
 		this.solde = new Indicateur("Solde de Leclerc", this, 1000000.0);
-		this.stock.initialiseStock();
 		Monde.LE_MONDE.ajouterIndicateur( this.solde );
     	this.transformateurs = new ArrayList<ITransformateur>();
 		this.ratio = new ArrayList<Double>();
 		Monde.LE_MONDE.ajouterIndicateur( this.solde );
 		this.transformateurs = new ArrayList<ITransformateur>();
+		this.ventes=new Ventes();
+		this.stock= new Stock(this, new ArrayList<Double[]>(), 0.0);
+		this.prixdevente=new PrixDeVente();
 		// TODO Auto-generated constructor stub
+	}
+	public Stock getStock(){
+		return this.stock;
+	}
+	public PrixDeVente getPrixDeVente(){
+		return this.prixdevente;
 	}
 	@Override
 	public String getNom() {
@@ -134,7 +141,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	public double recette(){
 		double recette = 0.0;
 		int j =0;
-		for (Produit p : this.cata.getProduits()){
+		for (Produit p : this.cata.getProduits()){ // a arranger
 			recette+=this.marche.getVenteDistri(this).get(p)*this.prixdevente.getPrixDeVente().get(j);
 			j++;
 		}
@@ -204,6 +211,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		//this.solde.setValeur(this, this.solde.getValeur()+recette()-depenses(commandefinale));
 		//gérer prix de vente
 		//gérer ventes (rajouter ventes réelles du step)
+		//gérer prixdevente
 		// TODO Auto-generated method stub
 
 		

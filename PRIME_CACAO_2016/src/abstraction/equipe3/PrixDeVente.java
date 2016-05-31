@@ -11,23 +11,25 @@ import abstraction.commun.Produit;
 public class PrixDeVente {
 	
 	private ArrayList<Double> prixDeVente;   // prix différents selon le produit
-	private Catalogue catalogue;
+	private List<Catalogue> catalogues;
 	private ArrayList<Double> marge; // marge prise sur la vente des tablettes de chocolat qui diffère selon le produit (donnée en pourcentage)
 	private Leclerc leclerc;
 	
-	public PrixDeVente(Catalogue catalogue) {
+	public PrixDeVente() {
 		// TODO Auto-generated constructor stub
 		this.prixDeVente = new ArrayList<Double>();
-		this.catalogue = catalogue;
+		this.catalogues = new ArrayList<Catalogue>();
 		this.marge = new ArrayList<Double>();
 	}
-	
+	public void initialisePDV(){
+		//a completer
+	}	
 	public ArrayList<Double> getPrixDeVente() {
 		return this.prixDeVente;
 	}
 	
-	public Catalogue getCatalogue() {
-		return this.catalogue;
+	public List<Catalogue> getCatalogues() {
+		return this.catalogues;
 	}
 	
 	public ArrayList<Double> getMarge() {
@@ -62,6 +64,8 @@ public class PrixDeVente {
 		return prixVente/l.size();
 	}
 	
+	
+	//faire une moyenne des trois transfos en utilisant catalogues, sans entr�e donc
 	public void setPrixDeVente(Catalogue c) { 		 // liste contenant le prix de vente de chaque produit (50%, 60%, 70%)
 		this.prixDeVente = new ArrayList<Double>();
 		for (Produit p : c.getProduits() ) {
