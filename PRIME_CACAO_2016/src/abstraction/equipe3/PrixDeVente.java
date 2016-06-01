@@ -1,47 +1,90 @@
 package abstraction.equipe3;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import abstraction.commun.Catalogue;
+import abstraction.commun.ITransformateur;
 import abstraction.commun.Produit;
+
+/* Classe qui s'occupe de gÈrer les prix des diffÈrents produits */
 
 public class PrixDeVente {
 	
 	private ArrayList<Double> prixDeVente;   // prix diff√©rents selon le produit
-	private Catalogue catalogue;
-	private ArrayList<Double> marge; // marge prise sur la vente des tabelttes de chocolat qui diff√®re selon le produit (donn√©e en pourcentage)
+	private List<Catalogue> catalogues;
+	private ArrayList<Double> marge; // marge prise sur la vente des tablettes de chocolat qui diff√®re selon le produit (donn√©e en pourcentage)
+	private ArrayList<ITransformateur> transfos;
 	
-	public PrixDeVente(Catalogue catalogue) {
+	public PrixDeVente() {
 		// TODO Auto-generated constructor stub
 		this.prixDeVente = new ArrayList<Double>();
-		this.catalogue = catalogue;
+		this.catalogues = new ArrayList<Catalogue>();
 		this.marge = new ArrayList<Double>();
+		this.transfos=new ArrayList<ITransformateur>();
 	}
 	
+	public void ajouterTransfo(ITransformateur t) {
+		this.transfos.add(t);
+	}
+	public ArrayList<ITransformateur> getTransfos(){
+		return this.transfos;
+	}
 	public ArrayList<Double> getPrixDeVente() {
 		return this.prixDeVente;
 	}
-	
-	public Catalogue getCatalogue() {
-		return this.catalogue;
+	public List<Catalogue> getCatalogues() {
+		return this.catalogues;
 	}
-	
 	public ArrayList<Double> getMarge() {
 		return this.marge;
 	}
-	
 	public void setMarge(ArrayList<Double> m) {
 		this.marge = m;	
 	}
+	public double getMargeParProduit(Produit p) {
+		double m;
+		if (p.getNomProduit()=="50%") {
+			m = 0.1;	
+		}
+		else {
+			if (p.getNomProduit()=="60%") {
+				m = 0.05;
+			}
+			else {
+				m = 0.2;
+			}
+		} return m;
+	}
+	public double getPrixDeVenteParProduit (Produit p) {
+		ArrayList<ITransformateur> l = this.getTransfos();
+		double prixVente = 0;
+		for (int i=0 ; i<l.size(); i++) {
+			prixVente += l.get(i).getCatalogue().getTarif(p).getPrixTonne()*(1+this.getMargeParProduit(p));
+		}
+		return prixVente/l.size();
+	}
 	
-	public void setPrixDeVente(Catalogue c) {
-		int i = 0;
-		double prixVente = 0;  
+	/*mÈthode qui initialise PrixDeVente en ajoutant les transformateurs */
+	
+	public void initialisePrixDeVente(Leclercv2 Leclerc){
+		for (ITransformateur t : Leclerc.getTransformateurs()){
+			this.ajouterTransfo(t);
+		}
+	}
+	
+	
+	//faire une moyenne des trois transfos en utilisant catalogues, sans entrÈe donc
+	public void setPrixDeVente(Catalogue c) { 		 // liste contenant le prix de vente de chaque produit (50%, 60%, 70%)
 		this.prixDeVente = new ArrayList<Double>();
-		for (Produit p : c.getProduits()) {
-			prixVente += c.getTarif(p).getPrixTonne()*(1+this.getMarge().get(i)/100);
-			this.prixDeVente.add(prixVente);			// Le prix de vente diff√®re selon le produit
-			i++; 
+		for (Produit p : c.getProduits() ) {
+			this.prixDeVente.add(this.getPrixDeVenteParProduit(p));			// Le prix de vente diff√®re selon le produit 
 		} 	
+	}
+	
+	/*mÈthode appelÈe dans le next de Leclerc, qui demande les catalogues et set le prix de vente de chaque produit*/
+	
+	public void actualisePrixDeVente(){
+		
 	}
 }

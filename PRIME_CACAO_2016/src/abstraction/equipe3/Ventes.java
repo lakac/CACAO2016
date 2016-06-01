@@ -1,6 +1,9 @@
 package abstraction.equipe3;
 
+
 import java.util.ArrayList;
+
+import abstraction.commun.CommandeDistri;
 
 
 public class Ventes {
@@ -20,6 +23,9 @@ public class Ventes {
 	}
 	public void addVentes(Double[] vente){
 		this.ventes.add(vente);
+	}
+	public void actualiserVentes(ArrayList<CommandeDistri> livraisonEffective){
+		//a compléter
 	}
 
 }
