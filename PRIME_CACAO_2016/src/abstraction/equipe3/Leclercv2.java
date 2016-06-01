@@ -209,9 +209,9 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		this.stock.setFraisDeStock();*/
 		//gérer le solde
 		//this.solde.setValeur(this, this.solde.getValeur()+recette()-depenses(commandefinale));
-		//gérer prix de vente
 		//gérer ventes (rajouter ventes réelles du step)
 		//gérer prixdevente
+		//this.getPrixDeVente.actualise();
 		// TODO Auto-generated method stub
 
 		

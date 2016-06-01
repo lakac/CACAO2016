@@ -106,9 +106,8 @@ public class MondeV1 extends Monde {
 		p2.AjoutVariableVente();
 		
 		//maj 31/05 Leclerc
-		Le.getStock().initialiseStock();
-		Le.getPrixDeVente().initialisePDV();
-		
+		Le.getStock().initialiseStock();		
+		Le.getPrixDeVente().initialisePrixDeVente(Le);
 
 	}
 }
