@@ -12,9 +12,10 @@ import abstraction.commun.Produit;
 public class PrixDeVente {
 	
 	private ArrayList<Double> prixDeVente;   // prix diffÃ©rents selon le produit
-	private List<Catalogue> catalogues;
+	private ArrayList<Catalogue> catalogues;
 	private ArrayList<Double> marge; // marge prise sur la vente des tablettes de chocolat qui diffÃ¨re selon le produit (donnÃ©e en pourcentage)
 	private ArrayList<ITransformateur> transfos;
+	private ArrayList<Produit> produits;
 	
 	public PrixDeVente() {
 		// TODO Auto-generated constructor stub
@@ -65,7 +66,7 @@ public class PrixDeVente {
 		return prixVente/l.size();
 	}
 	
-	/*méthode qui initialise PrixDeVente en ajoutant les transformateurs */
+	/*méthode qui initialise PrixDeVente en ajoutant les transformateurs, les produits, les marges et les prix de vente */
 	
 	public void initialisePrixDeVente(Leclercv2 Leclerc){
 		for (ITransformateur t : Leclerc.getTransformateurs()){
@@ -73,16 +74,19 @@ public class PrixDeVente {
 		}
 	}
 	
+	/*set le prix de vente d'un produit*/
 	
-	//faire une moyenne des trois transfos en utilisant catalogues, sans entrée donc
-	public void setPrixDeVente(Catalogue c) { 		 // liste contenant le prix de vente de chaque produit (50%, 60%, 70%)
-		this.prixDeVente = new ArrayList<Double>();
-		for (Produit p : c.getProduits() ) {
-			this.prixDeVente.add(this.getPrixDeVenteParProduit(p));			// Le prix de vente diffÃ¨re selon le produit 
-		} 	
+	public void setPrixDeVente(Produit p){
+		
 	}
 	
-	/*méthode appelée dans le next de Leclerc, qui demande les catalogues et set le prix de vente de chaque produit*/
+	/*utilise méthode précédente pour un set de tous les produits*/
+	
+	public void setPrixDeVente() { 		 
+			
+	}
+	
+	/*méthode appelée dans le next de Leclerc, qui demande les catalogues et set le prix de vente et la marge de chaque produit*/
 	
 	public void actualisePrixDeVente(){
 		
