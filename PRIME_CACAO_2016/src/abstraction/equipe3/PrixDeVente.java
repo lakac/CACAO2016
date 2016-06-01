@@ -7,7 +7,7 @@ import abstraction.commun.Catalogue;
 import abstraction.commun.ITransformateur;
 import abstraction.commun.Produit;
 
-/* Classe qui s'occupe de gérer les prix des différents produits */
+/* Classe qui s'occupe de gï¿½rer les prix des diffï¿½rents produits */
 
 public class PrixDeVente {
 	
@@ -22,7 +22,8 @@ public class PrixDeVente {
 		this.prixDeVente = new ArrayList<Double>();
 		this.catalogues = new ArrayList<Catalogue>();
 		this.marge = new ArrayList<Double>();
-		this.transfos=new ArrayList<ITransformateur>();
+		this.transfos= new ArrayList<ITransformateur>();
+		this.produits = new ArrayList<Produit>();
 	}
 	
 	public void ajouterTransfo(ITransformateur t) {
@@ -39,6 +40,12 @@ public class PrixDeVente {
 	}
 	public ArrayList<Double> getMarge() {
 		return this.marge;
+	}
+	public ArrayList<Produit> getProduits() {
+		return this.produits;
+	}
+	public void setCatalogues(ArrayList<Catalogue> cata) {
+		this.catalogues = cata;
 	}
 	public void setMarge(ArrayList<Double> m) {
 		this.marge = m;	
@@ -58,15 +65,15 @@ public class PrixDeVente {
 		} return m;
 	}
 	public double getPrixDeVenteParProduit (Produit p) {
-		ArrayList<ITransformateur> l = this.getTransfos();
 		double prixVente = 0;
-		for (int i=0 ; i<l.size(); i++) {
-			prixVente += l.get(i).getCatalogue().getTarif(p).getPrixTonne()*(1+this.getMargeParProduit(p));
+		for (ITransformateur t : this.getTransfos()) {
+			prixVente =	t.getCatalogue().getTarif(p).getPrixTonne();
 		}
-		return prixVente/l.size();
+		prixVente = prixVente*(this.getMargeParProduit(p));
+		return prixVente/this.getTransfos().size();
 	}
 	
-	/*méthode qui initialise PrixDeVente en ajoutant les transformateurs, les produits, les marges et les prix de vente */
+	/*mï¿½thode qui initialise PrixDeVente en ajoutant les transformateurs, les produits, les marges et les prix de vente */
 	
 	public void initialisePrixDeVente(Leclercv2 Leclerc){
 		for (ITransformateur t : Leclerc.getTransformateurs()){
@@ -77,18 +84,35 @@ public class PrixDeVente {
 	/*set le prix de vente d'un produit*/
 	
 	public void setPrixDeVente(Produit p){
-		
+		if (p.getNomProduit()  == "50%") {
+			this.prixDeVente.set(0, this.getPrixDeVenteParProduit(p));
+		}
+		else {
+			if (p.getNomProduit() == "60%") {
+				this.prixDeVente.set(1, this.getPrixDeVenteParProduit(p));
+			}
+			else {
+				this.prixDeVente.set(2, this.getPrixDeVenteParProduit(p));
+			}
+		}
 	}
 	
-	/*utilise méthode précédente pour un set de tous les produits*/
+	/*utilise mÃ©thode prÃ©cÃ©dente pour un set de tous les produits*/
 	
-	public void setPrixDeVente() { 		 
-			
+	public void setPrixDeVente() { 	
+		for (Produit p : this.getProduits()) {
+			this.setPrixDeVente(p);
+		}		
 	}
 	
-	/*méthode appelée dans le next de Leclerc, qui demande les catalogues et set le prix de vente et la marge de chaque produit*/
+	/*mÃ©thode appelÃ©e dans le next de Leclerc, qui demande les catalogues et set le prix de vente et la marge de chaque produit*/
 	
 	public void actualisePrixDeVente(){
-		
+		ArrayList<Catalogue> lis = new ArrayList<Catalogue>();
+		for (ITransformateur t : this.getTransfos()) {
+			lis.add(t.getCatalogue());
+		}
+		this.setCatalogues(lis);
+		this.setPrixDeVente();
 	}
 }
