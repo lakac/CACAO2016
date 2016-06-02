@@ -112,12 +112,12 @@ public class Lindt implements Acteur, ITransformateur{
 		this.getTransformationCacaoChocolat().Transformation(); // transforme le cacao en chocolat et met à jour les stocks (retire pour cacao et ajoute pour chocolat)
 		
 		// si on commente ça, pas de rouge --> il y a surement une erreur dans MarcheDistri obtenirCommandeFinale
-		for(IDistributeur d: this.getDistributeurs()){ // ajout des commandes finales à notre historique
-			for (CommandeDistri cd : MarcheDistributeur.LE_MARCHE_DISTRIBUTEUR.obtenirCommandeFinale(this,d)){ 
-				//tant que les distributeurs ne créent pas dans le marche une variable d'instance static 
-				// (public static MarcheDistributeur LE_MARCHE_DISTRIBUTEUR;), on ne pourra pas appeler cette méthode
-				this.getHistCommandeDistri().ajouter(cd);
-		}}
+//		for(IDistributeur d: this.getDistributeurs()){ // ajout des commandes finales à notre historique
+//			for (CommandeDistri cd : MarcheDistributeur.LE_MARCHE_DISTRIBUTEUR.obtenirCommandeFinale(this,d)){ 
+//				//tant que les distributeurs ne créent pas dans le marche une variable d'instance static 
+//				// (public static MarcheDistributeur LE_MARCHE_DISTRIBUTEUR;), on ne pourra pas appeler cette méthode
+//				this.getHistCommandeDistri().ajouter(cd);
+//		}}
 		
 		stockChocolat50.retirerStockChocolat(Monde.LE_MONDE.getStep());
 		stockChocolat60.retirerStockChocolat(Monde.LE_MONDE.getStep());
