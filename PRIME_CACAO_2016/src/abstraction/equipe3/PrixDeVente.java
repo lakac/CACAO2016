@@ -69,8 +69,8 @@ public class PrixDeVente {
 		} return m;
 	}
 	
-	/*methode qui renvoie le prix de vente du produit p en faisant la moyenne des differents prix à la tonne des transformateurs,
-	 * ne prend pas encore en compte les paliers*/
+	/*methode qui renvoie le prix de vente du produit p en faisant la moyenne des differents prix 
+	 *à la tonne des transformateurs,*/
 	
 	public double getPrixDeVenteParProduit (Produit p) {
 		double prixVente = 0;
@@ -83,16 +83,11 @@ public class PrixDeVente {
 	
 	/*methode qui initialise PrixDeVente en ajoutant les transformateurs, les produits, les marges et les prix de vente */
 	
-	public void initialisePrixDeVente(Leclercv2 Leclerc){
+	public void initialisePrixDeVente(Leclercv2 Leclerc, ArrayList<Produit> produits){
 		for (ITransformateur t : Leclerc.getTransformateurs()){
 			this.ajouterTransfo(t);
 		}
-		this.produits.add(new Produit("50%",50));
-		this.prixDeVente.add(20.0);
-		this.produits.add(new Produit("60%",60));
-		this.prixDeVente.add(20.0);
-		this.produits.add(new Produit("70%",70));
-		this.prixDeVente.add(20.0);
+		this.produits=produits;
 	}
 	
 	/*set le prix de vente d'un produit*/
@@ -119,7 +114,7 @@ public class PrixDeVente {
 		}		
 	}
 	
-	/*methode appelee dans le next de Leclerc, qui demande les catalogues et set le prix de vente et la marge de chaque produit*/
+	/*methode appelee dans le next de Leclercv2, qui demande les catalogues et set le prix de vente*/
 	
 	public void actualisePrixDeVente(){
 		ArrayList<Catalogue> lis = new ArrayList<Catalogue>();
