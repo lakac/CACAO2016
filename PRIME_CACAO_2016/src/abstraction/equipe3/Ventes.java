@@ -12,6 +12,7 @@ public class Ventes {
 	 * l'année suivante*/
 
 	private ArrayList<Double[]> ventes;
+	private static Double[][] VENTES_ANNEE_ZERO = new Double[26][3];
 	
 	public Ventes(){
 		this.ventes = new ArrayList<Double[]>();
@@ -25,11 +26,32 @@ public class Ventes {
 		this.ventes.add(vente);
 	}
 	
+	/*methode qui initialise les ventes du static VENTES_ANNEE_ZERO*/
+	
+	public void initialiseAnneeZero(){
+		for (int i = 0; i<VENTES_ANNEE_ZERO.length;i++){
+			if (i==5){
+				for (int j =0; j<3;j++){
+					VENTES_ANNEE_ZERO[i][j]=1469.23;
+				}
+			} else {
+				if (i==25){
+					for (int j=0;j<3;j++){
+						VENTES_ANNEE_ZERO[i][j]=2469.23;
+					}
+				} else {
+					for (int j=0;j<3;j++){
+						VENTES_ANNEE_ZERO[i][j]=669.24;
+					}
+				}
+			}
+		}
+	}
+	
 	/*methode qui initialise les Ventes en se basant sur la demande de la v1*/
 	
-	public void InitialiseVentes(Double[][] ventes){ 
-		//a completer : creer la base de ventes
-		for (Double[] i : ventes){
+	public void initialiseVentes(){ 
+		for (Double[] i : VENTES_ANNEE_ZERO){
 			this.ventes.add(i);
 		}
 	}
