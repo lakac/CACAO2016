@@ -37,6 +37,18 @@ public class Ventes {
 	/*methode qui rajoute les ventes reelles du step a la variable*/
 	
 	public void actualiserVentes(ArrayList<CommandeDistri> livraisonEffective){
+		Double[] x = {0.0,0.0,0.0};
+		for (CommandeDistri co : livraisonEffective){
+			if (co.getProduit().getNomProduit()=="50%"){
+				x[0]+=co.getQuantite();
+			} else {
+				if (co.getProduit().getNomProduit()=="60%"){
+					x[1]+=co.getQuantite();
+				} else {
+					x[2]+=co.getQuantite();
+				}
+			}
+		} this.addVentes(x);
 		//a compléter : prendre le nombre de clients pour chaque produit du marche consommateurs et les rajouter aux ventes
 	}
 
