@@ -6,8 +6,6 @@ import java.util.List;
 import abstraction.commun.CommandeDistri;
 import abstraction.commun.ITransformateur;
 
-import abstraction.commun.Produit;
-
 public class Stock {
 	
 	/*classe qui gère les stocks des différents produits */
