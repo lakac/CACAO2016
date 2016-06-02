@@ -87,8 +87,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	}
 	
 	/*methode qui fait la moyenne des ventes de ce step des annees passees pour avoir une idee 
-	 * du nombre de clients a ce step
-	 * */
+	 * du nombre de clients a ce step */
 
 	public List<CommandeDistri> Demande(ITransformateur t, Catalogue c) {
 		Double[] x = {0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donné sur toutes les années
@@ -116,7 +115,8 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		return list;
 	}
 	
-	/* */
+	/*methode qui change la quantite et passe au transfo suivant de la CommandeDistri c dans la List<CommandeDistri>
+	 * ie on met a jour la commande c dans la liste pour renvoyer la nouvelle demande*/
 
 	public void ActualiserCommande(List<CommandeDistri> cd, CommandeDistri c){
 		for (int i=0;i<cd.size();i++){
@@ -134,7 +134,8 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		}
 	}
 	
-	/* */
+	/*utilise la methode precedente avec toutes les commandes de l'ancienne liste pour renvoyer une liste
+	 * actualisee*/
 
 	public List<CommandeDistri> ContreDemande(List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne) {
 		List<CommandeDistri> a = ancienne;
@@ -165,20 +166,6 @@ public class Leclercv2 implements Acteur,IDistributeur{
 			depenses+=com.getPrixTonne()*com.getQuantite();
 		}
 		return depenses;
-	}
-	
-	/* */
-	
-	public double getPrixDeVente(Produit p){
-		if (p.getNomProduit()=="50%"){
-			return this.prixdevente.getPrixDeVente().get(0);
-		} else {
-			if (p.getNomProduit()=="60%"){
-				return this.prixdevente.getPrixDeVente().get(1);
-			} else {
-				return this.prixdevente.getPrixDeVente().get(2);
-			}
-		}
 	}
 	
 	/* */
@@ -228,6 +215,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		//gérer le solde
 		//this.solde.setValeur(this, this.solde.getValeur()+recette()-depenses(commandefinale));
 		//gérer ventes (rajouter ventes réelles du step)
+		//this.getVentes().actualise(MARCHECONSOMMATEURS.getventes();
 		//gérer prixdevente
 		//this.getPrixDeVente.actualise();
 		// TODO Auto-generated method stub
