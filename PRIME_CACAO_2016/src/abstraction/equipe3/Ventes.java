@@ -7,25 +7,37 @@ import abstraction.commun.CommandeDistri;
 
 
 public class Ventes {
+	
+	/*classe qui répertorie les ventes de chaque produit pour pouvoir connaître environ le nombre de clients 
+	 * l'année suivante*/
 
 	private ArrayList<Double[]> ventes;
 	
 	public Ventes(){
 		this.ventes = new ArrayList<Double[]>();
 	}
-	public void InitialiseVentes(Double[][] ventes){ //on se donne une base de vente pour faire nos commandes en fonction des historiques de vente
+	
+	public Double[] getVentes(int step){
+		return this.ventes.get(step+25);
+	}
+	
+	public void addVentes(Double[] vente){
+		this.ventes.add(vente);
+	}
+	
+	/*methode qui initialise les Ventes en se basant sur la demande de la v1*/
+	
+	public void InitialiseVentes(Double[][] ventes){ 
+		//a completer : creer la base de ventes
 		for (Double[] i : ventes){
 			this.ventes.add(i);
 		}
 	}
-	public Double[] getVentes(int step){
-		return this.ventes.get(step+25);
-	}
-	public void addVentes(Double[] vente){
-		this.ventes.add(vente);
-	}
+	
+	/*methode qui rajoute les ventes reelles du step a la variable*/
+	
 	public void actualiserVentes(ArrayList<CommandeDistri> livraisonEffective){
-		//a compléter
+		//a compléter : prendre le nombre de clients pour chaque produit du marche consommateurs et les rajouter aux ventes
 	}
 
 }

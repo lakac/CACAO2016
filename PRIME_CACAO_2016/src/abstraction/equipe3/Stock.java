@@ -26,6 +26,7 @@ public class Stock {
 	public void setFraisDeStock(double fraisDeStock){
 		this.fraisDeStock=fraisDeStock;
 	}
+	
 	public double getStock(ITransformateur t, int  indexproduit){
 		double stock=0;
 		for (int i=0;i<this.getTransfos().size();i++){
@@ -57,6 +58,7 @@ public class Stock {
 	/*méthode qui initalise le stock*/
 	
 	public void initialiseStock(Leclercv2 Leclerc){
+		this.fraisDeStock=0.0;
 		this.stock = new ArrayList<Double[]>();
 		Double[] l = {0.0,0.0,0.0};
 		for (int i=0;i<Leclerc.getTransformateurs().size();i++){
