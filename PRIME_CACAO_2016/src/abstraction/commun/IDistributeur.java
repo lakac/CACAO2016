@@ -1,19 +1,26 @@
- package abstraction.commun;
-import java.util.HashMap;
+
+package abstraction.commun;
+
+
+
 import java.util.List;
-import java.util.List;
-
-public interface IDistributeur {	
-	
-	public List<CommandeDistri> demande (ITransformateur t, Catalogue c);
-	
-	public List<CommandeDistri> contreDemande (List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne);
 
 
-	/**
-	 * @deprecated
-	 * @return
-	 */
-	public HashMap<Produit, Double> getPrix();
+import abstraction.fourni.Acteur;
+
+
+public interface IDistributeur extends Acteur {
+		
+	public List<CommandeDistri> Demande (ITransformateur t, Catalogue c);
+
+
+	public List<CommandeDistri> ContreDemande (List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne);
+
+
+	public Double getStock(Produit p);	
 	
+	public Double getPrixVente(Produit p);
+		
+
 }
+

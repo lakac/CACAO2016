@@ -12,7 +12,7 @@ public class Stock {
 	private Producteur prod;
 	
 	public Stock(Producteur p) {
-		this.stockCacao = new Indicateur("Stock de "+ p.getNom(),p,0.0);
+		this.stockCacao = new Indicateur("Stock de Asie Amerique",p,0.0);
     	Monde.LE_MONDE.ajouterIndicateur(this.stockCacao);
     	this.perteStock=0.0;
     	this.prod=p;
@@ -31,12 +31,12 @@ public class Stock {
 		return this.prod;
 	}
 	
-	// définition des perte de stock semi-mensuelle (à chaque step on perd du stock)
+	// dﾃｩfinition des perte de stock semi-mensuelle (ﾃ� chaque step on perd du stock)
 	public void setPerteStock() {
 		this.perteStock = this.getStockCacao().getValeur()*Math.random()*0.05;
 	}
 	
-	//Réduction du stock d'une valeur value
+	//Rﾃｩduction du stock d'une valeur value
 	public void reductionStock(double value){
 		if (value>0){
 		this.getStockCacao().setValeur(this.getProd(), this.getStockCacao().getValeur()- value);	
@@ -55,13 +55,13 @@ public class Stock {
 		this.getStockCacao().setValeur(this.getProd(),this.getStockCacao().getValeur()-this.getPerteStock());
 	}
 	
-	// Modification de la tréso en enlevant les couts de stock
+	// Modification de la trﾃｩso en enlevant les couts de stock
 	public void coutStock(){
 		this.getProd().getTreso().getFond().setValeur(this.getProd(), this.getProd().getTreso().getFond().getValeur()-Couts.COUTSTOCK*this.getProd().getStock().getStockCacao().getValeur());
 	}
 	
-	// actualise des variables liées au stock :
-	// Diminution des stock à cause des pertes naturelles et diminution de la trésorerie à cause des couts de stock
+	// actualise des variables liﾃｩes au stock :
+	// Diminution des stock ﾃ� cause des pertes naturelles et diminution de la trﾃｩsorerie ﾃ� cause des couts de stock
 	public void gererLesStock(){
 		this.setPerteStock();
 		this.perteDeStock();

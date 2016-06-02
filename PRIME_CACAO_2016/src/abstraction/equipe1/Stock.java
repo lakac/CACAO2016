@@ -20,7 +20,7 @@ public class Stock {
 	/**
 	 * Repartition du stock selon la date de peremption
 	 * 
-	 * Les feves les plus anciennes sont en tete de la pile
+	 * Les feves les plus anciennes sont en tete de la file
 	 */
 	private LinkedList<Double> stockParStep;
 	
@@ -90,15 +90,5 @@ public class Stock {
 	
 	public double getStockParStep(int i) {
 		return this.stockParStep.get(i);
-	}
-
-	public void reductionStock(double quantite2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public Indicateur getStockCacao() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

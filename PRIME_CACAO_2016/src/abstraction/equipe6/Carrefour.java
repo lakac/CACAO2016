@@ -210,6 +210,18 @@ public class Carrefour implements Acteur,IDistributeur {
 	public void ajouterVendeur(ITransformateur t) {
 		this.transformateurs.add(t);
 
+
+	// R�glage de la quantit� � acheter en fonction du transformateur (12.5% Nestl�, 3.6% Lindt et 83.9% Others)
+	
+
+
+
+	// Reglage de la quantite a acheter en fonction du transformateur (12.5% Nestle, 3.6% Lindt et 83.9% Others)
+
+	public double getPrix() {
+
+		return this.prixachat;
+
 	}
 
 
@@ -267,14 +279,17 @@ public class Carrefour implements Acteur,IDistributeur {
 	}
 
 
+
+
 	public List<CommandeDistri> demande(ITransformateur t, Catalogue c) {
 		return this.commandeStep(this.getBesoinStep()).get(t);
 	}
 
 
 
-	public List<CommandeDistri> contreDemande(List<CommandeDistri> nouvelle,List<CommandeDistri> ancienne) {
-     List <CommandeDistri> contreDemande= new ArrayList<CommandeDistri>();
+
+	public List<CommandeDistri> contreDemande(List<CommandeDistri> cd,List<CommandeDistri> ancienne,List<CommandeDistri> nouvelle) {
+		List<CommandeDistri> contreDemande = new ArrayList <CommandeDistri>();
 		for (Produit p : this.getProduits()) {
 			List<ITransformateur> enRupture = new ArrayList<ITransformateur>();
 			double insatisfait = 0.0;
@@ -306,6 +321,7 @@ public class Carrefour implements Acteur,IDistributeur {
 	}
 
 	public void next() {
+
 		this.setBesoinStep(this.LE_MONDE.getStep()+1);
 		for (ITransformateur t : this.getTransformateurs()) {
 		//	this.setHistoCommande(this.getHistoCommande().addAll(LE_MARCHE_DISTRIBUTEUR.obtenirCommandeFinale(t, this)));
@@ -319,20 +335,42 @@ public class Carrefour implements Acteur,IDistributeur {
 					}
 				}
 			}
-		}
 
-	}
-
-	@Override
-	public HashMap<Produit, Double> getPrix() {
+	
 		// TODO Auto-generated method stub
 		return null;
 	}
 }
 
 
-	
-	
 
 
 
+	@Override
+	public Double getStock(Produit p) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<CommandeDistri> Demande(ITransformateur t, Catalogue c) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<CommandeDistri> ContreDemande(List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+
+
+}
+
+
+>>>>>>> refs/remotes/choose_remote_name/master
