@@ -23,8 +23,8 @@ public class MondeV1 extends Monde {
 	public void peupler() {
 		// Il faut créer les acteurs et les ajouter au monde ici.
 		// Distributeurs
-		Leclerc Le = new Leclerc("Leclerc", this, 1673.08, 15.0);
-		Carrefour Ca = new Carrefour();
+		Leclerc Le = new Leclercv2("Leclerc", this);
+		Carrefour Ca = new Carrefour(null, null);
 		this.ajouterActeur(Le);
 		this.ajouterActeur(Ca);
 		
