@@ -23,6 +23,7 @@ public class PrixDeVente {
 		this.catalogues = new ArrayList<Catalogue>();
 		this.marge = new ArrayList<Double>();
 		this.transfos=new ArrayList<ITransformateur>();
+		this.produits=new ArrayList<Produit>();
 	}
 	
 	public void ajouterTransfo(ITransformateur t) {
