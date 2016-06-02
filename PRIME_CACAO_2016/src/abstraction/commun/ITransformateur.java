@@ -66,4 +66,3 @@ public interface ITransformateur {
 
 }
 	// Fonctions vouees a disparaitre
-

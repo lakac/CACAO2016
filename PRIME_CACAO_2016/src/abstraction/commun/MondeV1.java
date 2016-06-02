@@ -51,8 +51,8 @@ public class MondeV1 extends Monde {
 		this.ajouterActeur(p1);
 		abstraction.equipe4.Producteur p2 = new abstraction.equipe4.Producteur(Monde.LE_MONDE);
 		this.ajouterActeur(p2);
-		
-		
+
+
 		
 		// Ajout des liens necessaires entre les acteurs
 		Le.ajouterVendeur(nestle);
@@ -71,6 +71,8 @@ public class MondeV1 extends Monde {
 		lindt.ajouterDistributeur(Le);
 		lindt.ajouterProducteur(p1);
 		lindt.ajouterProducteur(p2);
+		lindt.creer();
+
 		
 		t3.ajouterTransformateur(nestle);
 		t3.ajouterTransformateur(lindt);
