@@ -26,31 +26,41 @@ public class Ventes {
 		this.ventes.add(vente);
 	}
 	
-	/*methode qui initialise les Ventes en se basant sur la demande de la v1*/
+	/*methode qui initialise les ventes du static VENTES_ANNEE_ZERO*/
 	
-	public void initialiseVentes(){ 
-		for (int i=0; i<VENTES_ANNEE_ZERO.length; i++) {
-			for (int j=0; j<3; j++) {
-				if (i==5) {
-					VENTES_ANNEE_ZERO[i][j] = 3673.08;
+	public void initialiseAnneeZero(){
+		for (int i = 0; i<VENTES_ANNEE_ZERO.length;i++){
+			if (i==5){
+				for (int j =0; j<3;j++){
+					VENTES_ANNEE_ZERO[i][j]=1469.23;
 				}
-				else {
-					if (i==22) {
-						VENTES_ANNEE_ZERO[i][j] = 6173.08;
+			} else {
+				if (i==25){
+					for (int j=0;j<3;j++){
+						VENTES_ANNEE_ZERO[i][j]=2469.23;
 					}
-					else {
-						VENTES_ANNEE_ZERO[i][j] = 1673.08;
+				} else {
+					for (int j=0;j<3;j++){
+						VENTES_ANNEE_ZERO[i][j]=669.24;
 					}
 				}
 			}
 		}
 	}
 	
+	/*methode qui initialise les Ventes en se basant sur la demande de la v1*/
+	
+	public void initialiseVentes(){ 
+		for (Double[] i : VENTES_ANNEE_ZERO){
+			this.ventes.add(i);
+		}
+	}
+	
 	/*methode qui rajoute les ventes reelles du step a la variable*/
 	
-	public void actualiserVentes(ArrayList<CommandeDistri> livraisonEffective){
+	public void actualiserVentes(ArrayList<CommandeDistri> venteEffective){
 		Double[] x = {0.0,0.0,0.0};
-		for (CommandeDistri co : livraisonEffective){
+		for (CommandeDistri co : venteEffective){
 			if (co.getProduit().getNomProduit()=="50%"){
 				x[0]+=co.getQuantite();
 			} else {
@@ -61,7 +71,9 @@ public class Ventes {
 				}
 			}
 		} this.addVentes(x);
+
 		//a compl�ter : prendre le nombre de clients pour chaque produit du marche consommateurs et les rajouter aux ventes
+
 	}
 
 }

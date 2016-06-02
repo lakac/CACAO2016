@@ -22,11 +22,11 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	private PrixDeVente prixdevente;
 	private ArrayList<Double> ratio;
 	private ArrayList<ITransformateur> transformateurs;
-	private MarcheConsommateurs marche; //a retirer
-	private Catalogue cata; //a retirer
+	private ArrayList<Produit> produits;
 
-	public Leclercv2(String nom, Monde monde) {
+	public Leclercv2(String nom, Monde monde, ArrayList<Produit> produits) {
 		this.nom=nom;
+		this.produits=produits;
 		this.solde = new Indicateur("Solde de Leclerc", this, 1000000.0);
 		Monde.LE_MONDE.ajouterIndicateur( this.solde );
     	this.transformateurs = new ArrayList<ITransformateur>();
@@ -40,6 +40,9 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	}
 	public Stock getStock(){
 		return this.stock;
+	}
+	public ArrayList<Produit> getProduits(){
+		return this.produits;
 	}
 	public Ventes getVentes(){
 		return this.ventes;
@@ -87,8 +90,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	}
 	
 	/*methode qui fait la moyenne des ventes de ce step des annees passees pour avoir une idee 
-	 * du nombre de clients a ce step
-	 * */
+	 * du nombre de clients a ce step */
 
 	public List<CommandeDistri> Demande(ITransformateur t, Catalogue c) {
 		Double[] x = {0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donné sur toutes les années
@@ -116,7 +118,8 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		return list;
 	}
 	
-	/* */
+	/*methode qui change la quantite et passe au transfo suivant de la CommandeDistri c dans la List<CommandeDistri>
+	 * ie on met a jour la commande c dans la liste pour renvoyer la nouvelle demande*/
 
 	public void ActualiserCommande(List<CommandeDistri> cd, CommandeDistri c){
 		for (int i=0;i<cd.size();i++){
@@ -134,7 +137,8 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		}
 	}
 	
-	/* */
+	/*utilise la methode precedente avec toutes les commandes de l'ancienne liste pour renvoyer une liste
+	 * actualisee*/
 
 	public List<CommandeDistri> ContreDemande(List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne) {
 		List<CommandeDistri> a = ancienne;
@@ -149,8 +153,8 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	public double recette(){
 		double recette = 0.0;
 		int j =0;
-		for (Produit p : this.cata.getProduits()){ // a arranger
-			recette+=this.marche.getVenteDistri(this).get(p)*this.prixdevente.getPrixDeVente().get(j);
+		for (Produit p : this.getProduits()){ // a arranger
+			recette+=MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.getVenteDistri(this).get(p)*this.prixdevente.getPrixDeVente().get(j);
 			j++;
 		}
 		return recette;
@@ -165,20 +169,6 @@ public class Leclercv2 implements Acteur,IDistributeur{
 			depenses+=com.getPrixTonne()*com.getQuantite();
 		}
 		return depenses;
-	}
-	
-	/* */
-	
-	public double getPrixDeVente(Produit p){
-		if (p.getNomProduit()=="50%"){
-			return this.prixdevente.getPrixDeVente().get(0);
-		} else {
-			if (p.getNomProduit()=="60%"){
-				return this.prixdevente.getPrixDeVente().get(1);
-			} else {
-				return this.prixdevente.getPrixDeVente().get(2);
-			}
-		}
 	}
 	
 	/* */
@@ -228,6 +218,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		//gérer le solde
 		//this.solde.setValeur(this, this.solde.getValeur()+recette()-depenses(commandefinale));
 		//gérer ventes (rajouter ventes réelles du step)
+		//this.getVentes().actualise(MARCHECONSOMMATEURS.getventes();
 		//gérer prixdevente
 		//this.getPrixDeVente.actualise();
 		// TODO Auto-generated method stub
