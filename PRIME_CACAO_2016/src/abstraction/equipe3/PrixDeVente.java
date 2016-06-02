@@ -64,10 +64,11 @@ public class PrixDeVente {
 			}
 		} return m;
 	}
+	/* méthode qui retourne le prix de vente par produit*/
 	public double getPrixDeVenteParProduit (Produit p) {
 		double prixVente = 0;
 		for (ITransformateur t : this.getTransfos()) {
-			prixVente =	t.getCatalogue().getTarif(p).getPrixTonne();
+			prixVente += t.getCatalogue().getTarif(p).getPrixTonne();
 		}
 		prixVente = prixVente*(this.getMargeParProduit(p));
 		return prixVente/this.getTransfos().size();
