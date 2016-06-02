@@ -22,11 +22,11 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	private PrixDeVente prixdevente;
 	private ArrayList<Double> ratio;
 	private ArrayList<ITransformateur> transformateurs;
-	private MarcheConsommateurs marche; //a retirer
-	private Catalogue cata; //a retirer
+	private ArrayList<Produit> produits;
 
-	public Leclercv2(String nom, Monde monde) {
+	public Leclercv2(String nom, Monde monde, ArrayList<Produit> produits) {
 		this.nom=nom;
+		this.produits=produits;
 		this.solde = new Indicateur("Solde de Leclerc", this, 1000000.0);
 		Monde.LE_MONDE.ajouterIndicateur( this.solde );
     	this.transformateurs = new ArrayList<ITransformateur>();
@@ -40,6 +40,9 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	}
 	public Stock getStock(){
 		return this.stock;
+	}
+	public ArrayList<Produit> getProduits(){
+		return this.produits;
 	}
 	public Ventes getVentes(){
 		return this.ventes;
@@ -150,8 +153,8 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	public double recette(){
 		double recette = 0.0;
 		int j =0;
-		for (Produit p : this.cata.getProduits()){ // a arranger
-			recette+=this.marche.getVenteDistri(this).get(p)*this.prixdevente.getPrixDeVente().get(j);
+		for (Produit p : this.getProduits()){ // a arranger
+			recette+=MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.getVenteDistri(this).get(p)*this.prixdevente.getPrixDeVente().get(j);
 			j++;
 		}
 		return recette;
