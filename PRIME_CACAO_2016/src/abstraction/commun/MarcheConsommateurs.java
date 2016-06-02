@@ -42,7 +42,7 @@ public class MarcheConsommateurs implements Acteur {
 	private HashMap <Produit,Double> demandeComposanteAleatoire;
 	
 	
-	//Demande en fonction du step, par produit et sans effet sur les prix
+	//Demande en fonction du step, par produit, et sans effet sur les prix
 	//Demande continue réelle = calendrierdermande.get(Step)-ALPHA*PrixMoyen
 	private HashMap <Integer, HashMap<Produit,Double>> calendrierDemande; 
 	

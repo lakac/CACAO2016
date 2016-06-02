@@ -59,9 +59,9 @@ public class MondeV1 extends Monde {
 		this.ajouterActeur(marcheProducteur);
 		
 		// Marché Consommateur
-		//MarcheConsommateurs marcheConsommateurs = new MarcheConsommateurs();
-		//MarcheConsommateurs.LE_MARCHE = marcheConsommateurs;
-		//this.ajouterActeur(marcheConsommateurs);
+		MarcheConsommateurs marcheConsommateurs = new MarcheConsommateurs();
+		MarcheConsommateurs.LE_MARCHE = marcheConsommateurs;
+		this.ajouterActeur(marcheConsommateurs);
 		
 		// Producteurs
 		Producteur p1 = new Producteur(Constantes.NOM_PRODUCTEUR_1, 1000.0, 0.0, Monde.LE_MONDE);
