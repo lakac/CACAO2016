@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import abstraction.commun.MarcheProducteur;
+import abstraction.commun.Tarif;
 
 public class Tresorerie {
 	private HistoriqueCommandeDistri histDistri;
@@ -17,6 +18,7 @@ public class Tresorerie {
 	private Indicateur treso;	
 	private ArrayList<IProducteur> listeProducteurs;
 	private Lindt lindt;
+	private Tarif tarif; // Faut-il l'initialiser forcément dans le constructeur pour que la dernière méthode marche ?
 
 	public Tresorerie(HistoriqueCommandeDistri histDistri, HistoriqueCommandeProduc histProduc, Lindt lindt, ArrayList<IProducteur> P){
 		this.histDistri = histDistri;
@@ -29,6 +31,10 @@ public class Tresorerie {
 	
 	public double getTresorerie() {
 		return this.treso.getValeur();
+	}
+	
+	public Tarif getTarif() {
+		return this.tarif;
 	}
 	
 	private void setTresorerie(double treso) { 
@@ -91,7 +97,7 @@ public class Tresorerie {
 		double paye=0;
 		for (CommandeDistri c: lindt.getHistCommandeDistri().getHist()){ //si il s'agit des commandes livrées
 			if(c.getStepLivraison()==Monde.LE_MONDE.getStep()){
-				paye+=c.getPrixTonne();	
+				paye+=this.getTarif().prixDeVente(c.getQuantite());	
 			}
 		}
 		return paye;
