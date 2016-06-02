@@ -87,6 +87,12 @@ public class PrixDeVente {
 		for (ITransformateur t : Leclerc.getTransformateurs()){
 			this.ajouterTransfo(t);
 		}
+		this.produits.add(new Produit("50%",50));
+		this.prixDeVente.add(20.0);
+		this.produits.add(new Produit("60%",60));
+		this.prixDeVente.add(20.0);
+		this.produits.add(new Produit("70%",70));
+		this.prixDeVente.add(20.0);
 	}
 	
 	/*set le prix de vente d'un produit*/
