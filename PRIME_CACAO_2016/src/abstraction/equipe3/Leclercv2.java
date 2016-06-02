@@ -88,7 +88,21 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	/*methode qui fait appel au distributeur suivant dans la liste renvoyee par la methode precedente*/
 	
 	public ITransformateur TransfoSuivant(CommandeDistri c){
-		return c.getVendeur();	 // a modifier	
+		List<ITransformateur> liste = Classerparprix(c.getProduit());
+		int i;
+		if (c.getVendeur()==liste.get(0)){
+			i=0;
+		}
+		else{
+			if (c.getVendeur()==liste.get(1)){
+				i=1;
+			}
+			else{
+				i=2;
+			}
+		}
+		i=(i+1)%(liste.size());
+		return liste.get(i);
 	}
 	
 	/*methode qui fait la moyenne des ventes de ce step des annees passees pour avoir une idee 
