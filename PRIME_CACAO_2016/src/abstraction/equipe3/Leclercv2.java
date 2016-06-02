@@ -1,7 +1,6 @@
 package abstraction.equipe3;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import abstraction.commun.Catalogue;
@@ -35,7 +34,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		Monde.LE_MONDE.ajouterIndicateur( this.solde );
 		this.transformateurs = new ArrayList<ITransformateur>();
 		this.ventes=new Ventes();
-		this.stock= new Stock(this, new ArrayList<Double[]>(), 0.0);
+		this.stock= new Stock(new ArrayList<Double[]>(), 0.0);
 		this.prixdevente=new PrixDeVente();
 		// TODO Auto-generated constructor stub
 	}
@@ -204,14 +203,14 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		/*récupérer livraison effective
 		//List<CommandeDistri> livraisoneffective = LEMARCHE.LivraisonEffective();*/
 		/*gérer le stock
-		this.stock.rajoutStock(livraisoneffective);
-		this.stock.retraitStock(DEMANDE.get())
+		this.stock.ajouterStock(livraisoneffective);
+		this.stock.retirerStock(DEMANDE.get())
 		this.stock.setFraisDeStock();*/
 		//gérer le solde
 		//this.solde.setValeur(this, this.solde.getValeur()+recette()-depenses(commandefinale));
-		//gérer prix de vente
 		//gérer ventes (rajouter ventes réelles du step)
 		//gérer prixdevente
+		//this.getPrixDeVente.actualise();
 		// TODO Auto-generated method stub
 
 		

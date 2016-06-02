@@ -21,13 +21,16 @@ public class MarcheConsommateurs implements Acteur {
 	private final static double VARIATION_FIDELITE=0.01;//part de clients changeant de bord lorsque difference de prix
 	private final static double FIDELITE_MIN=0.20; //part minimum de clients fidèles a Leclerc et Carrefour
 	private final static double[][] CALENDRIER =new double[3][26]; //calendrier demande
-	private Leclercv2 leclerc;
-	private Carrefour carrefour;
+	//private Leclercv2 leclerc;
+	//private Carrefour carrefour;
 	//Pentes des courbes Demande = Cte-aplha*PrixMoyen 
 	private HashMap <Produit, Double> ALPHA;//a compléter 
 	
 	//Liste des distributeurs
+	//A l'initialisation, on ajoute d'abord Leclerc puis Carrefour
+	//Leclerc se trouve donc à l'indice 0 et Carrefour  à l'indice 1
 	private static ArrayList<IDistributeur> distributeurs;
+	
 	public static MarcheConsommateurs LE_MARCHE;
 
 	
@@ -60,7 +63,8 @@ public class MarcheConsommateurs implements Acteur {
 		//this.initialiser();
 	}
 	
-	public void ajouterDistributeur(IDistributeur distributeur){
+	
+	public static void ajouterDistributeur(IDistributeur distributeur){
 		MarcheConsommateurs.distributeurs.add(distributeur);
 	}//  
 	
@@ -85,13 +89,13 @@ public class MarcheConsommateurs implements Acteur {
 	public void actualiserFidelite(){
 		for (Produit p : cata.getProduits()){
 			//if Carrefour et Leclerc sont en concurrence sur ce produit/) (V3)
-				if ((this.carrefour.getPrixVente(p)>this.leclerc.getPrixDeVente(p))&&(this.fidelite.get("Carrefour").get(p)>FIDELITE_MIN)){//si prix carrefour superieur
-						this.fidelite.get(leclerc).put(p,this.fidelite.get(leclerc).get(p)+VARIATION_FIDELITE);
-						this.fidelite.get(carrefour).put(p,this.fidelite.get(carrefour).get(p)-VARIATION_FIDELITE);
+				if ((MarcheConsommateurs.distributeurs.get(1).getPrixVente(p)>MarcheConsommateurs.distributeurs.get(0).getPrixVente(p))&&(this.fidelite.get("Carrefour").get(p)>FIDELITE_MIN)){//si prix carrefour superieur
+						this.fidelite.get(MarcheConsommateurs.distributeurs.get(0)).put(p,this.fidelite.get(MarcheConsommateurs.distributeurs.get(0)).get(p)+VARIATION_FIDELITE);
+						this.fidelite.get(MarcheConsommateurs.distributeurs.get(1)).put(p,this.fidelite.get(MarcheConsommateurs.distributeurs.get(1)).get(p)-VARIATION_FIDELITE);
 					}
-					if ((this.carrefour.getPrixVente(p)<this.leclerc.getPrixVente(p))&&(this.fidelite.get("Leclerc").get(p)>FIDELITE_MIN)){//si prix carrefour superieur
-						this.fidelite.get(leclerc).put(p,this.fidelite.get(leclerc).get(p)-VARIATION_FIDELITE);
-						this.fidelite.get(carrefour).put(p,this.fidelite.get(carrefour).get(p)+VARIATION_FIDELITE);
+					if ((MarcheConsommateurs.distributeurs.get(1).getPrixVente(p)<MarcheConsommateurs.distributeurs.get(0).getPrixVente(p))&&(this.fidelite.get("Leclerc").get(p)>FIDELITE_MIN)){//si prix carrefour superieur
+						this.fidelite.get(MarcheConsommateurs.distributeurs.get(0)).put(p,this.fidelite.get(MarcheConsommateurs.distributeurs.get(0)).get(p)-VARIATION_FIDELITE);
+						this.fidelite.get(MarcheConsommateurs.distributeurs.get(1)).put(p,this.fidelite.get(MarcheConsommateurs.distributeurs.get(1)).get(p)+VARIATION_FIDELITE);
 					}
 			}	
 			//for (IDistributeur d : MarcheConsommateurs.distributeurs){
@@ -148,11 +152,11 @@ public class MarcheConsommateurs implements Acteur {
 	
 	public void initialiserFidelite(){
 		for (Produit p : cata.getProduits()){
-			this.fidelite.get(carrefour).put(p, 0.3);
-			this.fidelite.get(leclerc).put(p, 0.3);
+			this.fidelite.get(MarcheConsommateurs.distributeurs.get(0)).put(p, 0.3);
+			this.fidelite.get(MarcheConsommateurs.distributeurs.get(1)).put(p, 0.3);
 			for (IDistributeur d : MarcheConsommateurs.distributeurs){
-				if(d.equals(carrefour)&&d.equals(leclerc)){
-					this.fidelite.get(d).put(p, 0.4); //0.4 valable que si 3 distributeurs dans le monde
+				if(!(d.equals(MarcheConsommateurs.distributeurs.get(1))&&d.equals(MarcheConsommateurs.distributeurs.get(0)))){
+					this.fidelite.get(d).put(p, 0.4); //0.4 n'est valable que si 3 distributeurs dans le monde
 				}
 				
 			}
