@@ -3,11 +3,13 @@
 import java.util.List;
 
 public interface ITransformateur {
+
 	/**
 	 * Indique la quantité demandée au marché du cacao.
 	 * 
 	 */
 	public double annonceQuantiteDemandee();
+
 	/**
 	 * @deprecated
 	 * Indique la quantité demandée au marché du cacao.

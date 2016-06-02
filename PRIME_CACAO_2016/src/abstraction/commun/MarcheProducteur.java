@@ -69,6 +69,7 @@ public class MarcheProducteur implements Acteur {
 			this.quantitesDisponibles.get(producteur).put(t, 0.0);
 		}
 	}
+
 	
 	/** 
 	 * Ajoute le transformateur argument dans la liste des transformateurs.
@@ -84,6 +85,7 @@ public class MarcheProducteur implements Acteur {
 	}
 
 	
+
 	/**
 	 * Renvoie la valeur actuelle du cout du cacao en euro par tonne
 	 */
