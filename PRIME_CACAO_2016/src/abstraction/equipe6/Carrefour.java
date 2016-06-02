@@ -35,7 +35,14 @@ public class Carrefour implements Acteur,IDistributeur {
 	}
 
 
+
+
+
 	// Reglage de la quantite a acheter en fonction du transformateur (12.5% Nestle, 3.6% Lindt et 83.9% Others)
+
+
+	
+	
 
 	public String getNom() {
 		return this.nom;
@@ -185,12 +192,15 @@ public class Carrefour implements Acteur,IDistributeur {
 		return commande;
 	}
 
+
 	public List<CommandeDistri> demande(ITransformateur t, Catalogue c) {
 		return this.commandeStep(this.getBesoinStep()).get(t);
 	}
 
-	public List<CommandeDistri> contreDemande(List<CommandeDistri> nouvelle,List<CommandeDistri> ancienne) {
-		List<CommandeDistri> contreDemande = new ArrayList<CommandeDistri>();
+
+
+	public List<CommandeDistri> contreDemande(List<CommandeDistri> cd) {
+
 		for (Produit p : this.getProduits()) {
 			List<ITransformateur> enRupture = new ArrayList<ITransformateur>();
 			double insatisfait = 0.0;
@@ -235,11 +245,39 @@ public class Carrefour implements Acteur,IDistributeur {
 	}
 
 
+
 	@Override
-	public HashMap<Produit, Double> getPrix() {
+	public List<CommandeDistri> Demande(ITransformateur t, Catalogue c) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+
+	@Override
+	public List<CommandeDistri> ContreDemande(List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public Double getStock(Produit p) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public Double getPrixVente(Produit p) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}
+
+	
 
 
 
@@ -248,7 +286,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		setFraisdeDistri();
 		for (ITransformateur t : this.transformateurs) {
 			double q = this.getDemande(t);
-			this.solde.setValeur(this, this.solde.getValeur()-q*this.getPrix());
+			this.solde.setValeur(this, this.solde.getValeur()-q*this.getPrixAchat());
 		}
 		this.achats.setValeur(this, this.demandeperstep);
 		this.solde.setValeur(this,this.solde.getValeur()+this.demandeperstep*this.prixvente
@@ -261,7 +299,45 @@ public class Carrefour implements Acteur,IDistributeur {
 		// Solde = Solde pr�c�dent + Ventes - Achats - Frais de Distribution
 >>>>>>> refs/remotes/choose_remote_name/master
 	}
+<<<<<<< HEAD
 	 */
 
 
+	
+	/*@Override
+	public Double getPrixVente(Produit p) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+
+
+	@Override
+	public Double getStock(Produit p) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<CommandeDistri> Demande(ITransformateur t, Catalogue c) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<CommandeDistri> ContreDemande(List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+
+
 }
+
+*/
