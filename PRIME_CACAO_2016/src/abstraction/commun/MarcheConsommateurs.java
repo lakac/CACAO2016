@@ -43,7 +43,7 @@ public class MarcheConsommateurs implements Acteur {
 	private HashMap <Produit,Double> demandeComposanteAleatoire;
 	
 	
-	//Demande en fonction du step, par produit et sans effet sur les prix
+	//Demande en fonction du step, par produit, et sans effet sur les prix
 	//Demande continue réelle = calendrierdermande.get(Step)-ALPHA*PrixMoyen
 	private HashMap <Integer, HashMap<Produit,Double>> calendrierDemande; 
 	
@@ -54,13 +54,15 @@ public class MarcheConsommateurs implements Acteur {
 	
 
 	
-	public MarcheConsommateurs(){
+	public MarcheConsommateurs(String nom){
+		
 		MarcheConsommateurs.distributeurs=new ArrayList<IDistributeur>();
 		this.demandeComposanteContinue=new HashMap <Produit,Double>();
 		this.demandeComposanteAleatoire=new HashMap <Produit,Double>();
 		this.pourcentageIncertitudeVentes=new HashMap <Produit,Double>();
 		this.offreTotale=new HashMap <Produit,Double>();
 		this.demandeAnnuelle=new HashMap <Produit,Double>();
+		this.nom = nom;
 		//this.initialiser();
 	}
 	
@@ -182,10 +184,10 @@ public class MarcheConsommateurs implements Acteur {
 	}
 	public void next(){
 		
-		//this.actualiserDemande();
-		//this.actualiserOffre();
-		//this.actualiserFidelite();
-		//this.repartirVentes();
+		this.actualiserDemande();
+		this.actualiserOffre();
+		this.actualiserFidelite();
+		this.repartirVentes();
 		
 	}
 
