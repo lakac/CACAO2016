@@ -16,12 +16,27 @@ import abstraction.equipe6.Carrefour;
 
 public class MondeV1 extends Monde {
 	
+	private static ArrayList<Produit> produits = new ArrayList<Produit>();
+	
 	public void peupler() {
+		// Il faut créer les acteurs et les ajouter au monde ici.
+		
+		
+		//Initialisation de la liste produits
+		produits.add(new Produit("50%",50));
+		produits.add(new Produit("60%",60));
+		produits.add(new Produit("70%",70));
+		
+
 		// Distributeurs
 
-		Leclercv2 Le = new Leclercv2("Leclerc", this);
+
+
+		Leclercv2 Le = new Leclercv2("Leclerc", this,produits);
+		Carrefour Ca = new Carrefour("Carrefour", this, 15, 20, 50000);
+
 		this.ajouterActeur(Le);
-		Carrefour Ca = new Carrefour("Carrefour", null);
+
 		this.ajouterActeur(Ca);
 		
 		
@@ -97,10 +112,10 @@ public class MondeV1 extends Monde {
 		
 		//maj 31/05 Leclerc
 		Le.getStock().initialiseStock(Le);	
-		Le.getPrixDeVente().initialisePrixDeVente(Le);
-		
-		//maj 02/06 Carrefour
-		Ca.creer();
+
+		Le.getPrixDeVente().initialisePrixDeVente(Le, produits);
+		Le.getVentes().initialiseVentes();
+
 
 	}
 }
