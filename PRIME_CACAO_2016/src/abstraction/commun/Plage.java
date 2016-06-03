@@ -48,7 +48,11 @@ public class Plage {
 		this.rabais = rabais;
 	}	
 	
-	/** méthode qui permet de savoir si une quantité est comprise dans la plage de valeur */
+	/** 
+	 * méthode qui permet de savoir si une quantité est comprise dans la plage de valeur 
+	 * @param quantite
+	 * @return true si elle l est, false sinon
+	 */
 	public boolean quantiteDansPlage(double quantite) {
 		return (quantite >= this.getQuantiteMin() && quantite <= this.getQuantiteMax());
 	}
