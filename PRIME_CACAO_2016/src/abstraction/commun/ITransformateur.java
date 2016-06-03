@@ -8,20 +8,23 @@ public interface ITransformateur {
 	 * Indique la quantité demandée au marché du cacao.
 	 * 
 	 */
+	//Done!
 	public double annonceQuantiteDemandee();
 
 	/**
-	 * @deprecated
-	 * Indique la quantité demandée au marché du cacao.
+	 * Indique la quantité demandée au producteur p.
+	 * 
+	 * @deprecated Remplacé par {@link #annonceQuantiteDemandee()}.
 	 */
-	
+	//Done!
 	public double annonceQuantiteDemandee(IProducteur p);
+	
 	/**
 	 * Indique le prix d'achat proposé pour ce transformateur. Fluctue donc logiquement autour du cours du marché du cacao.
 	 */
-	
+	//Done!
 	public double annoncePrix();
-	
+	//Done!
 	public Catalogue getCatalogue();
 	
 
@@ -29,7 +32,9 @@ public interface ITransformateur {
 	/**
 	
 	 * Met à jour l'état interne de ce transformateur suite à une vente auprès d'un producteur.
+	 * 
 	 * Toutes les informations (producteur, quantité, prix unitaire) sont stockées dans une CommandeProduc.
+	 * 
 	 * Cette méthode est appelée par le marché.
 	 */
 	public void notificationVente(CommandeProduc c);
@@ -39,9 +44,8 @@ public interface ITransformateur {
 
 	/**
 	 * Met à jour l'état interne de ce transformateur suite à une vente auprès d'un producteur.
-	 * Toutes les informations (producteur, quantité, prix unitaire) sont stockées dans une CommandeProduc.
-	 * @deprecated
-	 * Cette méthode est appelée par le marché.
+	 * 
+	 * @deprecated Remplacé par {@link #notificationVente(CommandeProduc)}.
 	 */
 	public void notificationVente(IProducteur p);
 
@@ -52,13 +56,13 @@ public interface ITransformateur {
 
 	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> list);
 
-	public List<CommandeDistri> offre(List<CommandeDistri> o);
+	public List<CommandeDistri> Offre(List<CommandeDistri> o);
 	/**
-	 * @deprecated
+	 * 
 	 * @param list
 	 * @return
 	 */
-	public List<CommandeDistri> Offre(List<CommandeDistri> list);
+	public List<CommandeDistri> offre(List<CommandeDistri> list);
 
 }
-
+	// Fonctions vouees a disparaitre

@@ -117,14 +117,4 @@ public class Producteur implements Acteur,IProducteur{
 
 	}
 
-
-	// POUR LA V3
-	@Override
-	public double annoncePrix() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-
 }
