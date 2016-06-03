@@ -3,8 +3,10 @@ import java.util.List;
 
 /**
  * Classe modelisant les tarifs
- * On a une variable d'instance prix et 3 variables d'instance pour avoir des plages de valeurs où l'on fixe un rabais
+ * Elle associe un prix à la tonne (plus tard d'un produit) à différentes
+ * plages de valeur qui permettent de savoir les rabais
  * 
+ * @author equipe 5
  */
 
 public class Tarif {
@@ -33,6 +35,8 @@ public class Tarif {
 		this.plage = plage;
 	}
 	
+	/** méthode qui permet de connaitre le prix de vente lorsque l'on met en argument une quantité
+	 * Cela permet de prendre en compte les rabais */
 	public double prixDeVente(double quantite) {
 		for (Plage p : this.getPlage()) {
 			if (p.quantiteDansPlage(quantite)) {
