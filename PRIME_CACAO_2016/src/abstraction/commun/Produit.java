@@ -31,7 +31,11 @@ public class Produit {
 		this.produit = produit;
 	}
 	
-	/** méthode qui permet de savoir si un produit est égal à un autre */
+	/** 
+	 * méthode qui permet de savoir si un produit est égal à un autre
+	 * @param o
+	 * @return true si se sont les memes, false sinon
+	 */
 	public boolean equals(Object o) {
 		return ((o instanceof Produit)
 				&& (this.getNomProduit() == ((Produit)o).getNomProduit()));

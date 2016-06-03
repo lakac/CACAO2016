@@ -35,8 +35,12 @@ public class Tarif {
 		this.plage = plage;
 	}
 	
-	/** méthode qui permet de connaitre le prix de vente lorsque l'on met en argument une quantité
-	 * Cela permet de prendre en compte les rabais */
+	/** 
+	 * méthode qui permet de connaitre le prix de vente lorsque l'on met en argument une quantité
+	 * Cela permet de prendre en compte les rabais 
+	 * @param quantite
+	 * @return le prix de vente avec prise en compte des rabais
+	 */
 	public double prixDeVente(double quantite) {
 		for (Plage p : this.getPlage()) {
 			if (p.quantiteDansPlage(quantite)) {
