@@ -4,6 +4,7 @@ package abstraction.commun;
 import abstraction.fourni.Monde;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import abstraction.commun.Constantes;
 import abstraction.equipe5.Lindt;
@@ -19,9 +20,8 @@ public class MondeV1 extends Monde {
 		// Distributeurs
 
 		Leclercv2 Le = new Leclercv2("Leclerc", this);
-
 		this.ajouterActeur(Le);
-		Carrefour Ca = new Carrefour("Carrefour", this, 15, 20, 50000);
+		Carrefour Ca = new Carrefour("Carrefour", null);
 		this.ajouterActeur(Ca);
 		
 		
@@ -98,6 +98,9 @@ public class MondeV1 extends Monde {
 		//maj 31/05 Leclerc
 		Le.getStock().initialiseStock(Le);	
 		Le.getPrixDeVente().initialisePrixDeVente(Le);
+		
+		//maj 02/06 Carrefour
+		Ca.creer();
 
 	}
 }

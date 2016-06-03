@@ -11,10 +11,10 @@ import abstraction.fourni.Acteur;
 
 public interface IDistributeur extends Acteur {
 		
-	public List<CommandeDistri> Demande (ITransformateur t, Catalogue c);
+	public List<CommandeDistri> demande (ITransformateur t, Catalogue c);
 
 
-	public List<CommandeDistri> ContreDemande (List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne);
+	public List<CommandeDistri> contreDemande (List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne);
 
 
 	public Double getStock(Produit p);	

@@ -14,6 +14,7 @@ public class CommandeDistri {
 	private double prixTonne;
 	private boolean validation;
 	private int stepLivraison;
+	private double prix;
 
 	public CommandeDistri(IDistributeur acheteur, ITransformateur vendeur, Produit produit, double quantite, double prixTonne, int stepLivraison, boolean validation) {
 		this.acheteur = acheteur;

@@ -81,7 +81,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	public ITransformateur TransfoSuivant(CommandeDistri c){
 		return c.getVendeur();	 // a modifier	
 	}
-	@Override
+	
 	public List<CommandeDistri> Demande(ITransformateur t, Catalogue c) {
 		Double[] x = {0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donné sur toutes les années
 		Double[] sto = {0.0,0.0,0.0};
@@ -125,7 +125,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		}
 	}
 
-	@Override
+	
 	public List<CommandeDistri> ContreDemande(List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne) {
 		List<CommandeDistri> a = ancienne;
 		for (CommandeDistri c : nouvelle){
@@ -214,6 +214,16 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		// TODO Auto-generated method stub
 
 		
+	}
+	@Override
+	public List<CommandeDistri> demande(ITransformateur t, Catalogue c) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<CommandeDistri> contreDemande(List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	}

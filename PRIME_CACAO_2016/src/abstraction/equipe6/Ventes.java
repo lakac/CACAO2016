@@ -2,6 +2,7 @@ package abstraction.equipe6;
 
 import abstraction.commun.ITransformateur;
 import abstraction.commun.Produit;
+import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 
 public class Ventes {
@@ -32,5 +33,9 @@ public class Ventes {
 	}
 	public void setProduit(Produit produit) {
 		this.produit = produit;
+	}
+
+	public void setQuantite(Double quantite2, Acteur t) {
+		this.quantite.setValeur(t, quantite2);
 	}
 }

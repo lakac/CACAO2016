@@ -77,7 +77,7 @@ public class Leclerc implements Acteur,IDistributeur{
 		this.prixVente[indexproduit]=prixVente;
 
 	}
-<
+
 	public void setRatio (Double[] ratio) {  //fonction utilis�e dans la V1, mais plus dans les versions suivantes.
 
 		double x = 1;
@@ -202,9 +202,9 @@ public class Leclerc implements Acteur,IDistributeur{
 		this.solde.setValeur(this, this.solde.getValeur()+this.getQteTotal()*this.getPrixVente());
 		//solde(step n)=solde step(n-1)+quantite(step n)*prixvente
 		*/
-		this.solde.setValeur(this, this.solde.getValeur()+this.getQteTotal()*this.getPrixVente());
+		// this.solde.setValeur(this, this.solde.getValeur()+this.getQteTotal()*this.getPrixVente());
 		//solde(step n)=solde step(n-1)+quantite(step n)*prixvente
-		*/
+		
 	}
 
 
@@ -260,6 +260,11 @@ public class Leclerc implements Acteur,IDistributeur{
 		return null;
 	
 }
+	@Override
+	public List<CommandeDistri> contreDemande(List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne) {
+		// TODO Auto-generated method stub
+		return null;
+	
 }
 
 	/*@Override
@@ -278,5 +283,4 @@ public class Leclerc implements Acteur,IDistributeur{
 
 	}
 }*/
-=======
->>>>>>> refs/remotes/choose_remote_name/master
+}

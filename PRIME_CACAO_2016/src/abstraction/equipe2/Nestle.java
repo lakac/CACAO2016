@@ -244,7 +244,7 @@ public class Nestle implements Acteur, ITransformateur{
 	}
 
 
-	@Override
+
 
 	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
 		return Offre(cf);

@@ -90,11 +90,6 @@ public class ResteDesTransformateursMondiaux implements Acteur, ITransformateur 
 	}
 
 
-	@Override
-	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
-		return cf;
-		// On ne simule aucun etat concernant le reste du monde	pour les distributeurs
-	}
 	
 	@Override
 	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> list) {
