@@ -3,38 +3,72 @@ package abstraction.equipe6;
 import java.util.ArrayList;
 import java.util.List;
 
+import abstraction.commun.ITransformateur;
+import abstraction.commun.Produit;
 import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 
 public class Stock {
 	
-	private List<Indicateur> stockparproduit;
-	private List<Double> capacitemax;
+	private Produit produit;
+	private double capacitemax;
+	private ITransformateur marque;
+	private Indicateur quantite;
 	
-	public Stock() {
-		this.stockparproduit = new ArrayList<Indicateur>();
-		this.capacitemax = new ArrayList<Double>();
+	public Stock(Produit produit, double capacitemax, ITransformateur marque, Indicateur quantite) {
+		this.produit = produit;
+		this.capacitemax = capacitemax;
+		this.marque = marque;
+		this.quantite = quantite;
 	}
 	
-	public Stock(List<Indicateur> I, List<Double> D) {
-		this.stockparproduit = I;
-		this.capacitemax = D;
+	public Produit getProduit() {
+		return produit;
+	}
+
+	public void setProduit(Produit produit) {
+		this.produit = produit;
+	}
+
+	public ITransformateur getMarque() {
+		return marque;
+	}
+
+	public void setMarque(ITransformateur marque) {
+		this.marque = marque;
+	}
+
+	public Indicateur getQuantite() {
+		return quantite;
+	}
+
+	public void setQuantite(double quantite, Acteur t) {
+		this.quantite.setValeur(t, quantite);
 	}
 	
-	public List<Indicateur> getstockParProduit() {
-		return this.stockparproduit;
+	public double getCapacitemax() {
+		return capacitemax;
+	}
+
+	public void setCapacitemax(double capacitemax) {
+		this.capacitemax = capacitemax;
 	}
 	
-	public List<Double> getCapaciteMax() {
-		return this.capacitemax;
+	public void ajout(double quantite, Acteur t) {
+		if (quantite + this.getQuantite().getValeur()> this.getCapacitemax()) {
+			this.setQuantite(this.getCapacitemax(), t);
+		}
+		else {
+			this.setQuantite(quantite + this.getQuantite().getValeur(), t);
+		}
 	}
 	
-	public void setStockParProduit(int i,double q, Acteur Carrefour) {
-		this.stockparproduit.get(i).setValeur(Carrefour , q);
+	public void retrait(double quantite, Acteur t) {
+		if (-quantite + this.getQuantite().getValeur()>=0) {
+			this.setQuantite(-quantite + this.getQuantite().getValeur(), t);
+		}
 	}
-	
-	public void setCapaciteMax(int i,double q) {
-		this.getCapaciteMax().set(i, q);
-	}
+
+
 	
 }

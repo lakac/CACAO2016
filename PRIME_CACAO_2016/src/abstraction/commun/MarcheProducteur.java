@@ -1,10 +1,8 @@
-
 package abstraction.commun;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import abstraction.commun.IProducteur;
 import abstraction.commun.ITransformateur;
 import abstraction.fourni.Acteur;
@@ -13,23 +11,23 @@ import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
 
 /**
- * Acteur g�rant l'�volution du cours du cacao et r�alisant les �changes entre
+ * Acteur gerant l'evolution du cours du cacao et realisant les echanges entre
  * producteurs et transformateurs.
  * 
- * @author �quipe 1
+ * @author equipe 1
  */
 public class MarcheProducteur implements Acteur {
 	/** Prix initial avant toute transaction */
 	public static final double PRIX_DE_BASE = 3000.0;
 	
-	/** Reference statique de l'unique instance du march� du cacao */
+	/** Reference statique de l'unique instance du marche du cacao */
 	public static MarcheProducteur LE_MARCHE;
 
 	
-	/** Historique du prix du march� */
+	/** Historique du prix du marche */
 	private Indicateur coursCacao;
 	
-	/** Variation du co�t par step */
+	/** Variation du cout par step */
 	public static final double VARIATION_PRIX = 0.02; 
 	
 	//Extrema des prix du marche
@@ -45,7 +43,9 @@ public class MarcheProducteur implements Acteur {
 	private HashMap<IProducteur,HashMap<ITransformateur,Double>> quantitesDisponibles;
 	/** Quantites de cacao commandees a chaque IProducteur par chaque ITransformateur */
 	private HashMap<ITransformateur,HashMap<IProducteur,Double>> commandesPassees;
-	
+	/**
+	 * Constructeur du marche
+	 */
 	public MarcheProducteur() {
 		MarcheProducteur.producteurs = new ArrayList<IProducteur>();
 		MarcheProducteur.transformateurs = new ArrayList<ITransformateur>();
@@ -55,6 +55,27 @@ public class MarcheProducteur implements Acteur {
 		this.quantitesDisponibles = new HashMap<IProducteur,HashMap<ITransformateur,Double>>();
 	}
 
+	
+	/** 
+	 * Ajoute le producteur argument dans la liste des producteurs.
+	 * Puis initialise une nouvelle paire dans quantiteDisponibles : la clef est le producteur argument, la valeur
+	 * est une nouvelle hashmap associant chaque transformateur connu par le marche a la valeur zero.
+	 */
+	
+	public void ajouterProducteur(IProducteur producteur){
+		MarcheProducteur.producteurs.add(producteur);
+		this.quantitesDisponibles.put(producteur, new HashMap<ITransformateur,Double>());
+		for (ITransformateur t : MarcheProducteur.transformateurs) {
+			this.quantitesDisponibles.get(producteur).put(t, 0.0);
+		}
+	}
+
+	
+	/** 
+	 * Ajoute le transformateur argument dans la liste des transformateurs.
+	 * Puis initialise une nouvelle paire dans commandesPassees : la clef est le transformateur argument, la valeur
+	 * est une nouvelle hashmap associant chaque producteur connu par le marche a la valeur zero.
+	 */
 	public void ajouterTransformateur(ITransformateur transformateur){
 		MarcheProducteur.transformateurs.add(transformateur);
 		this.commandesPassees.put(transformateur, new HashMap<IProducteur,Double>());
@@ -63,21 +84,18 @@ public class MarcheProducteur implements Acteur {
 		}
 	}
 
-	public void ajouterProducteur(IProducteur producteur){
-		MarcheProducteur.producteurs.add(producteur);
-		this.quantitesDisponibles.put(producteur, new HashMap<ITransformateur,Double>());
-		for (ITransformateur t : MarcheProducteur.transformateurs) {
-			this.quantitesDisponibles.get(producteur).put(t, 0.0);
-		}
-	}
 	
+
 	/**
-	 * Renvoie la valeur actuelle du cout du cacao
+	 * Renvoie la valeur actuelle du cout du cacao en euro par tonne
 	 */
 	public double getCours() {
 		return coursCacao.getValeur();
 	}
 
+	/**
+	 * Renvoie l'historique du cours du cacao pour l'affichage
+	 */
 	public Historique getHistorique(){
 		return coursCacao.getHistorique();
 	}
@@ -111,13 +129,15 @@ public class MarcheProducteur implements Acteur {
 			coursCacao.setValeur(this, coursCacao.getValeur()); //On affecte une valeur pour actualiser l'historique
 		}
 	}
-	
+	/**
+	 * Renvoie le nom du marche
+	 */
 	public String getNom() {
 		return "Marche Cacao";
 	}
 	
 	/**
-	 * Renvoie la somme des quantit�s command�es durant le step courant par le transformateur t � tous les producteurs.
+	 * Renvoie la somme des quantite commandees durant le step courant par le transformateur t a tous les producteurs.
 	 */
 	private double getCommandeTotale(ITransformateur t) {
 		double quantite = 0;
@@ -128,8 +148,8 @@ public class MarcheProducteur implements Acteur {
 	}
 	
 	/**
-	 * Renvoie le nombre de producteurs auxquels le transformateur t a pour l'instant pass� une commande strictement
-	 * inf�rieure � la quantit� qu'ils proposaient (individuellement).
+	 * Renvoie le nombre de producteurs auxquels le transformateur t a pour l'instant passe une commande strictement
+	 * inferieure a la quantite qu'ils proposaient (individuellement).
 	 */
 	private int getNombreVendeursDisponibles(ITransformateur t) {
 		int n = 0;
@@ -142,8 +162,8 @@ public class MarcheProducteur implements Acteur {
 	}
 	
 	/**
-	 * Renvoie true uniquement si la demande du transformateur t est satisfaite (la somme de ses commandes �tant alors
-	 * �gale � sa demande initiale) ou s'il a d�j� command� absolument tout le cacao qui lui �tait propos� par l'ensemble
+	 * Renvoie true uniquement si la demande du transformateur t est satisfaite (la somme de ses commandes etant alors
+	 * egale a sa demande initiale) ou s'il a deja commande absolument tout le cacao qui lui etait propose par l'ensemble
 	 * des producteurs.
 	 */
 	private boolean satisfait(ITransformateur t) {
@@ -151,8 +171,8 @@ public class MarcheProducteur implements Acteur {
 	}
 	
 	/**
-	 * Cr�e une liste contenant tous les transformateurs non satisfaits au d�but de la phase d'�change. Autrement dit,
-	 * seuls les transformateurs qui ne commandent rien ou ceux � qui aucun producteur ne propose de cacao ne seront pas
+	 * Cree une liste contenant tous les transformateurs non satisfaits au debut de la phase d'echange. Autrement dit,
+	 * seuls les transformateurs qui ne commandent rien ou ceux a qui aucun producteur ne propose de cacao ne seront pas
 	 * dans cette liste.
 	 */
 	private List<Boolean> creerListeAttente() {
@@ -164,8 +184,8 @@ public class MarcheProducteur implements Acteur {
 	}
 	
 	/**
-	 * M�thode appel�e au tout d�but d'une phase d'�change : toutes les commandes sont remises � z�ro et toutes les
-	 * quantit�s disponibles sont r�cup�r�es aupr�s des producteurs.
+	 * Methode appelee au tout debut d'une phase d'echange : toutes les commandes sont remises a zero et toutes les
+	 * quantites disponibles sont recuperees aupres des producteurs.
 	 */
 	private void actualiserStocksEtCommandes() {
 		for (IProducteur p : MarcheProducteur.producteurs) {
@@ -177,9 +197,9 @@ public class MarcheProducteur implements Acteur {
 	}
 	
 	/**
-	 * Modifie les deux HashMaps en fonction de la quantit� command�e par le transformateur t aupr�s du producteur p.
-	 * Ainsi commandesPassees ajoute cette quantit� � celle qu'elle avait d�j� en m�moire, et quantitesDisponibles retire
-	 * cette quantit� � celle qu'elle avait d�j� en m�moire.
+	 * Modifie les deux HashMaps en fonction de la quantite commandee par le transformateur t aupres du producteur p.
+	 * Ainsi commandesPassees ajoute cette quantite a celle qu'elle avait deja en memoire, et quantitesDisponibles retire
+	 * cette quantite a celle qu'elle avait deja en memoire.
 	 */
 	private void ajouterCommande(ITransformateur t, IProducteur p, double quantite) {
 		this.commandesPassees.get(t).put(p,this.commandesPassees.get(t).get(p)+quantite);
@@ -187,18 +207,18 @@ public class MarcheProducteur implements Acteur {
 	}
 	
 	/**
-	 * M�thode permettant de r�partir �quitablement les commandes d'un transformateur aupr�s des producteurs.
-	 * Elle doit �tre appel�e plusieurs fois par une autre m�thode (prevoirCommandes) pour arriver � la r�partition finale.
+	 * Methode permettant de repartir equitablement les commandes d'un transformateur aupres des producteurs.
+	 * Elle doit etre appelee plusieurs fois par une autre methode (prevoirCommandes) pour arriver a la repartition finale.
 	 * 
-	 * Lors d'un appel, elle d�termine le besoin effectif du transformateur (sa demande initiale moins ce qu'il a d�j�
-	 * command� lors des appels pr�c�dents) et le nombre de producteurs disposant encore de cacao pouvant �tre achet� par
+	 * Lors d'un appel, elle determine le besoin effectif du transformateur (sa demande initiale moins ce qu'il a deja
+	 * commande lors des appels precedents) et le nombre de producteurs disposant encore de cacao pouvant etre achete par
 	 * ce transformateur.
 	 * Dans le while :
-	 * En th�orie, le transformateur devrait commander besoinEffectif/vendeursDisponibles � chaque producteur : dans un cas
-	 * id�al, les stocks disponibles permettent de r�pondre totalement � la demande.
-	 * Dans le cas contraire, tant que le transformateur n'est pas satisfait (et que tous les producteurs n'ont pas �t�
-	 * pass�s en revue), il commande le minimum entre ce qui est disponible chez le producteur actuel (accessible via
-	 * MarcheProducteur.producteurs.get(i)) et la commande th�orique (besoinEffectif/vendeursDisponibles).
+	 * En theorie, le transformateur devrait commander besoinEffectif/vendeursDisponibles a chaque producteur : dans un cas
+	 * ideal, les stocks disponibles permettent de repondre totalement a la demande.
+	 * Dans le cas contraire, tant que le transformateur n'est pas satisfait (et que tous les producteurs n'ont pas ete
+	 * passes en revue), il commande le minimum entre ce qui est disponible chez le producteur actuel (accessible via
+	 * MarcheProducteur.producteurs.get(i)) et la commande theorique (besoinEffectif/vendeursDisponibles).
 	 */
 	private void repartirCommandes(ITransformateur t) {
 		double q = 0;
@@ -214,9 +234,9 @@ public class MarcheProducteur implements Acteur {
 	}
 	
 	/**
-	 * M�thode principale g�rant les �changes au sein du march�. Tant qu'il existe des transformateurs non "satisfaits"
-	 * (voir la m�thode satisfait(ITransformateur t)), donc pr�sents dans la liste d'attente, ceux-ci passent des commandes
-	 * via la m�thode repartirCommandes. Une fois un transformateur satisfait, il quitte la liste d'attente.
+	 * Methode principale gerant les echanges au sein du marche. Tant qu'il existe des transformateurs non "satisfaits"
+	 * (voir la methode satisfait(ITransformateur t)), donc presents dans la liste d'attente, ceux-ci passent des commandes
+	 * via la methode repartirCommandes. Une fois un transformateur satisfait, il quitte la liste d'attente.
 	 */
 	private void prevoirCommandes() {
 		List<Boolean> attente = creerListeAttente();
@@ -234,7 +254,7 @@ public class MarcheProducteur implements Acteur {
 	}
 	
 	/**
-	 * M�thode appel�e � la fin de la phase d'�change, donc une fois que tous les transformateurs sont "satisfaits".
+	 * Methode appelee a la fin de la phase d'echange, donc une fois que tous les transformateurs sont "satisfaits".
 	 * Notifie chaque ITransformateur et chaque IProducteur des commandes qui le concernent. 
 	 */
 	private void effectuerCommandes() {
@@ -248,9 +268,9 @@ public class MarcheProducteur implements Acteur {
 	}
 	
 	/**
-	 * M�thode appel�e par le monde, au m�me niveau que les nexts des autres Acteurs.
-	 * Le march� r�initialise ses commandes et r�cup�re les quantit�s propos�es par les producteurs aux transformateurs,
-	 * puis d�cide de la r�partition des commandes entre les producteurs, puis notifie chaque acteur des commandes qui le
+	 * Methode appelee par le monde, au meme niveau que les nexts des autres Acteurs.
+	 * Le marche reinitialise ses commandes et recupere les quantites proposees par les producteurs aux transformateurs,
+	 * puis decide de la repartition des commandes entre les producteurs, puis notifie chaque acteur des commandes qui le
 	 * concernent, puis actualise le cours du cacao.
 	 */
 	public void next() {

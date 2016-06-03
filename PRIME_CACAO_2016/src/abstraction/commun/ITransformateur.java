@@ -47,8 +47,6 @@ public interface ITransformateur {
 
 
 
-	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> list);
-
 
 	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> list);
 
@@ -60,6 +58,7 @@ public interface ITransformateur {
 	 */
 	public List<CommandeDistri> offre(List<CommandeDistri> list);
 
+	public String getNom();
 }
 	// Fonctions vouees a disparaitre
 

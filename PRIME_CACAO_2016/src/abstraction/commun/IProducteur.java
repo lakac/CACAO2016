@@ -14,11 +14,5 @@ public interface IProducteur {
 	 * Cette méthode est appelée par le marché.
 	 */
 	public void notificationVente(CommandeProduc c);
-	
-	/**
-	 * Indique le prix de vente par tonne.
-	 * 
-	 * @deprecated Le prix est désormais choisi par les transformateurs.
-	 */
-	public double annoncePrix();
+
 }
