@@ -1,6 +1,7 @@
 package abstraction.equipe6;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import abstraction.commun.CommandeDistri;
@@ -17,32 +18,27 @@ public class PrixVente {
 		this.nomproduit=nomproduit;
 		this.transformateur =transf;
 	}
-	
 
 	public Double getPrixVente(){
 		return this.prix;
 	}
+}
 
 
-	/*public void setPrix (CommandeDistri c ) {
-			this.prix=1.25*(c.getPrixTonne());
+	/*public HashMap<ITransformateur,List<CommandeDistri>> setPrix (HashMap<ITransformateur,List<CommandeDistri>> CommandeEffective) {
+		HashMap<ITransformateur,List<CommandeDistri>> PrixdeVente = new HashMap<ITransformateur,List<CommandeDistri>> ;
+		for (ITransformateur t : transfo) {
+		String value = map.get(key);
+		    for (CommandeDistri c : commande) {
+		   
+		prixréf=1.2*(CommandeEffective.getPrixTonne());
 			;
-		}
-	
-
-		/*if (prixréf>1.2*p2) {
-			this.prix = (prixréf - p2);			
-		}
-		else if (prixréf<0.95*p2) {
-			this.prix = prixréf+0.05*p2;
-		}*/
-		
+		return PrixdeVente;
 		
 	
-	}
+	}*/
 	
 
-	
 	
 	
 
