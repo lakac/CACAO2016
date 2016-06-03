@@ -31,7 +31,8 @@ public class MarcheConsommateurs implements Acteur {
 	//Leclerc se trouve donc à l'indice 0 et Carrefour  à l'indice 1
 	private static ArrayList<IDistributeur> distributeurs;
 	
-	public static MarcheConsommateurs LE_MARCHE;
+	public static MarcheConsommateurs LE_MARCHE_CONSOMMATEURS;
+	private String nom;
 
 	
 	private HashMap <IDistributeur,HashMap<Produit,Double>> fidelite ;
@@ -63,7 +64,9 @@ public class MarcheConsommateurs implements Acteur {
 		//this.initialiser();
 	}
 	
-	
+	public String getNom(){
+		return this.nom;
+	}
 	public static void ajouterDistributeur(IDistributeur distributeur){
 		MarcheConsommateurs.distributeurs.add(distributeur);
 	}//  
@@ -186,10 +189,5 @@ public class MarcheConsommateurs implements Acteur {
 		
 	}
 
-	@Override
-	public String getNom() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 }
