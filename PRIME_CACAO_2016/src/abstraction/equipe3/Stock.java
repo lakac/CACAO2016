@@ -44,7 +44,8 @@ public class Stock {
 		} return stock;
 	}
 	
-	/*méthode qui renvoie les frais du stock total en parcourant chaque stock de chaque produit provenant de tous les transformateurs*/
+	/*méthode qui renvoie les frais du stock total en parcourant chaque stock de chaque produit provenant de tous les 
+	 *transformateurs*/
 	
 	public double getFraisDeStockTotal(){
 		double fraisDeStockTotal= 0.0;
@@ -58,7 +59,7 @@ public class Stock {
 	/*méthode qui initalise le stock*/
 	
 	public void initialiseStock(Leclercv2 Leclerc){
-		this.fraisDeStock=0.0;
+		this.fraisDeStock=0.1;
 		this.stock = new ArrayList<Double[]>();
 		Double[] l = {0.0,0.0,0.0};
 		for (int i=0;i<Leclerc.getTransformateurs().size();i++){

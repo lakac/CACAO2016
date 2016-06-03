@@ -14,6 +14,9 @@ import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
 
 public class Leclerc implements Acteur,IDistributeur{ 
+	
+	/*Leclerc de la v1, n'est plus utilisee dans la v2*/
+	
 	private String nom;
 	private double[][] prixAchat;
 	private double[] prixVente;
