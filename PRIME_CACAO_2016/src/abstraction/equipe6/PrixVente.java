@@ -22,21 +22,32 @@ public class PrixVente {
 	public Double getPrixVente(){
 		return this.prix;
 	}
-}
+	public ITransformateur getTransformateur() {
+		return this.transformateur;
+	}
+	public Produit getProduit(){
+		return this.nomproduit;
+	}
+	public void setPrix(Double prix) {
+		this.prix = prix;
+	}
+	public void setTransformateur(ITransformateur transformateur) {
+		this.transformateur = transformateur;
+	}
+	public void setNomproduit(Produit nomproduit) {
+		this.nomproduit = nomproduit;
+	}
 
 
-	/*public HashMap<ITransformateur,List<CommandeDistri>> setPrix (HashMap<ITransformateur,List<CommandeDistri>> CommandeEffective) {
-		HashMap<ITransformateur,List<CommandeDistri>> PrixdeVente = new HashMap<ITransformateur,List<CommandeDistri>> ;
-		for (ITransformateur t : transfo) {
-		String value = map.get(key);
-		    for (CommandeDistri c : commande) {
+
+	
 		   
-		prixréf=1.2*(CommandeEffective.getPrixTonne());
-			;
-		return PrixdeVente;
+		
+			
+
 		
 	
-	}*/
+	}
 	
 
 	
