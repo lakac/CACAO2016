@@ -14,6 +14,9 @@ import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
 
 public class Leclerc implements Acteur,IDistributeur{ 
+	
+	/*Leclerc de la v1, n'est plus utilisee dans la v2*/
+	
 	private String nom;
 	private double[][] prixAchat;
 	private double[] prixVente;
@@ -29,7 +32,7 @@ public class Leclerc implements Acteur,IDistributeur{
 		this.nom=nom;		
 		this.achats = new Indicateur("Achats de "+nom, this, 0.0);
 		this.solde = new Indicateur("Solde de "+nom, this, 1000000.0);
-		this.stock.initialiseStock();
+		this.stock.initialiseStock(null);
     	Monde.LE_MONDE.ajouterIndicateur( this.achats );
     	Monde.LE_MONDE.ajouterIndicateur( this.solde );
     	this.transformateurs = new ArrayList<ITransformateur>();
