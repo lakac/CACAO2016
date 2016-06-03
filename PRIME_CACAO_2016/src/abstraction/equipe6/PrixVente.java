@@ -1,6 +1,7 @@
 package abstraction.equipe6;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import abstraction.commun.CommandeDistri;
@@ -17,32 +18,38 @@ public class PrixVente {
 		this.nomproduit=nomproduit;
 		this.transformateur =transf;
 	}
-	
 
 	public Double getPrixVente(){
 		return this.prix;
 	}
+	public ITransformateur getTransformateur() {
+		return this.transformateur;
+	}
+	public Produit getProduit(){
+		return this.nomproduit;
+	}
+	public void setPrix(Double prix) {
+		this.prix = prix;
+	}
+	public void setTransformateur(ITransformateur transformateur) {
+		this.transformateur = transformateur;
+	}
+	public void setNomproduit(Produit nomproduit) {
+		this.nomproduit = nomproduit;
+	}
 
 
-	/*public void setPrix (CommandeDistri c ) {
-			this.prix=1.25*(c.getPrixTonne());
-			;
-		}
+
 	
-
-		/*if (prixréf>1.2*p2) {
-			this.prix = (prixréf - p2);			
-		}
-		else if (prixréf<0.95*p2) {
-			this.prix = prixréf+0.05*p2;
-		}*/
+		   
 		
+			
+
 		
 	
 	}
 	
 
-	
 	
 	
 

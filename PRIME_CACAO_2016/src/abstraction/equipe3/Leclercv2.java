@@ -260,6 +260,16 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		  */
 
 	}
+	@Override
+	public List<CommandeDistri> demande(ITransformateur t, Catalogue c) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<CommandeDistri> contreDemande(List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
 
