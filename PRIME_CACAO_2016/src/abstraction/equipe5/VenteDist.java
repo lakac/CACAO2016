@@ -27,7 +27,9 @@ public class VenteDist {
 		return this.treso;
 	}
 
-	//creation d'une fonction qui renvoie le prix d'un produit 
+	/**
+	 *  creation d'une fonction qui renvoie le prix d'un produit
+	  */ 
 	public double prixProduit(Produit p) {
 		double r = 0;
 		for (int i=0; i<Constante.LISTE_PRODUIT.length; i++) {
@@ -38,7 +40,9 @@ public class VenteDist {
 		return r;
 	}
 	
-	//creation d'une fonction qui calcule la quantité totale demandée par les 3 distrib pour chacun des produits (dans l'ordre 50%,60%,70%)
+	/**
+	  *creation d'une fonction qui calcule la quantité totale demandée par les 3 distrib pour chacun des produits (dans l'ordre 50%,60%,70%)
+	 * */
 	public List <Double> QuantiteDemandeeProduit( List<CommandeDistri> listeCommandesDist){
 		List <Double> quantiteTotale = new ArrayList <Double> ();
 
@@ -54,7 +58,10 @@ public class VenteDist {
 		return quantiteTotale;
 	}
 
-	//Creation d'une fonction qui calcule la quantité de chocolat à mettre dans chaque commande 
+	/**
+	 * Creation d'une fonction qui calcule la quantité de chocolat à mettre dans chaque commande
+	 */
+	
 	//Cette fonction ne prend pas en compte le fait qu'on pourrait avoir un stock plus important au step n+3 grâce à la transformation
 	public List<CommandeDistri> Offre(List<CommandeDistri> listeCommandesDist){
 		
@@ -93,9 +100,11 @@ public class VenteDist {
 	
 
 
-	//Fonction qui met à jour l'historique ie qui va changer dans l'historique de commande distri la quantité des commandes si ce n'est pas la meme
-	// que dans commande finale, c'est à dire qu'on livre moins que prévu, et qui va enlever les commandes livrées de l'historique HistCommandeDistri
-	// pour les mettre dans l'historique CommandeDistriLivree
+	/**
+	 * Fonction qui met à jour l'historique ie qui va changer dans l'historique de commande distri la quantité des commandes si ce n'est pas la meme
+	 que dans commande finale, c'est à dire qu'on livre moins que prévu, et qui va enlever les commandes livrées de l'historique HistCommandeDistri
+ 	pour les mettre dans l'historique CommandeDistriLivree
+ 	 */
 	public void MiseAJourHistCommandeDistri (){
 		List<CommandeDistri> Commandeslivrees = new ArrayList<CommandeDistri>();
 		for (CommandeDistri c: lindt.getHistCommandeDistri().getHist()){
@@ -110,7 +119,9 @@ public class VenteDist {
 		}	
 	}
 	
-	//fonction que l'intermédiaire va appeler pour savoir les commandes que l'on livre réellement
+	/**
+	 *fonction que l'intermédiaire va appeler pour savoir les commandes que l'on livre réellement
+	  */
 	public List<CommandeDistri> LivraisonEffective(List<CommandeDistri> livraison){
 			return Offre (livraison);	
 	}
