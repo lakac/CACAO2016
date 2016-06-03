@@ -33,7 +33,7 @@ public class MondeV1 extends Monde {
 
 
 		Leclercv2 Le = new Leclercv2("Leclerc", this,produits);
-		Carrefour Ca = new Carrefour("Carrefour", this, 15, 20, 50000);
+		Carrefour Ca = new Carrefour("Carrefour", this.produits);
 
 		this.ajouterActeur(Le);
 
@@ -115,7 +115,8 @@ public class MondeV1 extends Monde {
 
 		Le.getPrixDeVente().initialisePrixDeVente(Le, produits);
 		Le.getVentes().initialiseVentes();
-
+		
+		Ca.creer();
 
 	}
 }
