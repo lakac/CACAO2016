@@ -68,6 +68,10 @@ public class MondeV1 extends Monde {
 
 
 		
+		// Ajout des acteurs dans les listes des acteurs
+
+		
+		
 		// Ajout des liens necessaires entre les acteurs
 		Le.ajouterVendeur(nestle);
 		Le.ajouterVendeur(lindt);

@@ -1,4 +1,4 @@
-package abstraction.commun;
+ package abstraction.commun;
 
 public class CommandeProduc {
 
