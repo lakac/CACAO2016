@@ -60,20 +60,18 @@ public class AchatProd {
 	
 	
 	/** Fonction qui calcul la quantite que l on va demander aux producteurs
-	 * @param histP
-	 * @param histD
-	 * @return la quantite que l on va demander aux producteurs
+	 * @return une CommandeInterne qui donne la quantite et le prix d'achat du cacao
 	 */
-	public CommandeInterne calculQuantiteDemandee(HistoriqueCommandeProduc histP, HistoriqueCommandeDistri histD){
+	public CommandeInterne calculQuantiteDemandee(){
 		double besoinCacao=0;
 		// Creation de la liste des commandes au step n,n-1 et n-2
 		List<CommandeDistri> listeCommandesDist= new ArrayList<CommandeDistri>();
-		for (int i=0 ; i<histD.getHist().size(); i++){
-			if (histD.getCommande(i).getStepLivraison()==Constante.stepCourant()
-					||histD.getCommande(i).getStepLivraison()==Constante.stepPrecedent()
-					||histD.getCommande(i).getStepLivraison()==Constante.step2() 
-					||histD.getCommande(i).getStepLivraison()==Constante.step3())
-				listeCommandesDist.add(histD.getCommande(i));
+		for (int i=0 ; i<this.getHistD().getHist().size(); i++){
+			if (this.getHistD().getCommande(i).getStepLivraison()==Constante.stepCourant()
+					||this.getHistD().getCommande(i).getStepLivraison()==Constante.stepPrecedent()
+					||this.getHistD().getCommande(i).getStepLivraison()==Constante.step2() 
+					||this.getHistD().getCommande(i).getStepLivraison()==Constante.step3())
+				listeCommandesDist.add(this.getHistD().getCommande(i));
 		}
 		// Calcul du besoin en cacao pour les 3 prochains step
 		for (CommandeDistri c : listeCommandesDist){
@@ -84,7 +82,7 @@ public class AchatProd {
 		// StockCacao-StockChoco c est pas optimal comme solution
 		double commandeP=0;
 		for (int i=0; i<lindt.getProducteurs().size() ; i++){
-			commandeP+= histP.getHist().get(histP.getHist().size()-i-1).getQuantite();
+			commandeP+= this.getHistP().getHist().get(this.getHistP().getHist().size()-i-1).getQuantite();
 		}
 		commandeP=commandeP*2/3; // Pour rajouter P3
 		double stockCacao=lindt.getStockCacao().getStock()+commandeP
@@ -95,6 +93,7 @@ public class AchatProd {
 		if (stockCacao-Constante.STOCK_MINIMAL<besoinCacao){
 			besoinCacao=besoinCacao-stockCacao+Constante.STOCK_MINIMAL;
 		}
+		// Calcul du prix d'achat : si au step prece on n'a pas eu ce qu'on veut, on n'achete plus chere
 		double prixDemande;
 		if (quantiteDemandee < quantiteRecue) {
 			prixDemande = MarcheProducteur.LE_MARCHE.getCours()*1.2;
@@ -105,15 +104,19 @@ public class AchatProd {
 		return new CommandeInterne(besoinCacao, prixDemande);
 	}
 	
+	
 	/**
 	 * Indique la quantite demandee au producteur autre que P3.
 	 */
-	
 	public double annonceQuantiteDemandee(){ 
-		this.quantiteDemandee = this.calculQuantiteDemandee(this.getHistP(),this.getHistD()).getQuantite();
-		return 0.6*this.calculQuantiteDemandee(this.getHistP(),this.getHistD()).getQuantite();
+		this.quantiteDemandee = this.calculQuantiteDemandee().getQuantite();
+		return 0.6*this.calculQuantiteDemandee().getQuantite();
 	}// On met *0.6 car on prend 60% au prod et 40% au reste du monde
 	
+	
+	/** Fonction qui permet de mettre à jour notre stock et notre treso lorsque l'on recoit une CommandeProduc
+	 *  Ajoute également la commande à l'historique des commandes producteurs
+	 */
 	public void notificationVente(CommandeProduc c) {
 		this.quantiteRecue = c.getQuantite();
 		this.getHistP().ajouter(c);
@@ -129,11 +132,12 @@ public class AchatProd {
 	 * Indique le prix propose au producteur .
 	 */
 	public double getPrix(){
-		return this.calculQuantiteDemandee(this.getHistP(),this.getHistD()).getPrix();
+		return this.calculQuantiteDemandee().getPrix();
 	}
 	
+	/** Fonction qui calcul la quantite que l on va demander aux producteurs 3 */
 	//on achete 40% de la quantite demandee au producteur 3
 	public double quantiteProduc3() {
-		return 0.4*this.calculQuantiteDemandee(this.getHistP(),this.getHistD()).getQuantite(); 
+		return 0.4*this.calculQuantiteDemandee().getQuantite(); 
 	}
 }
