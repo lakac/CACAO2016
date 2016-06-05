@@ -25,7 +25,7 @@ public class CoutTransport {
 	
 	public double getCouttransport() {
 		return couttransportglobal;
-	}
+		}
 	
 	public double CouttransportGlobal(Achat achatp1, Achat achatp2, Achat ResteDuMonde) {
 		this.setCouttransportglobal((achatp1.getCacaoachete()+achatp2.getCacaoachete()+ResteDuMonde.getCacaoachete())
