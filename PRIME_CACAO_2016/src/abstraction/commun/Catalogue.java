@@ -29,7 +29,6 @@ public class Catalogue {
 	/** méthode qui permet d'avoir le tarif d'un produit */
 	public Tarif getTarif(Produit p) {
 		return this.cata.get(p);
-		
 	}
 	
 	/** méthode qui permet d'avoir l'ensemble des produits du catalogue */

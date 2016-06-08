@@ -320,7 +320,17 @@ public class Carrefour implements Acteur,IDistributeur {
 		}
 		return contreDemande;
 	}
-
+	public void setPrix (HashMap<ITransformateur,List<CommandeDistri>> CommandeEffective) {
+		for (ITransformateur t : this.getTransformateurs()) {
+		    for (CommandeDistri c : CommandeEffective.get(t) ) {
+		    	for (PrixVente p : this.getPrixvente()){
+		    		if (p.getTransformateur()==t && c.getProduit()==p.getProduit()){
+		    			p.setPrix(1.2*c.getPrixTonne());
+		    		}
+		    	}
+		    }
+		}    
+	}
 	public void next() {
 
 		for (ITransformateur t : this.getTransformateurs()) {
