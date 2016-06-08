@@ -68,17 +68,7 @@ public class ResteDesTransformateursMondiaux implements Acteur, ITransformateur 
 
 	}
 	public double annonceQuantiteDemandee(IProducteur p) {
-		double qt =0;
-		for (ITransformateur t : this.transformateurs) {
-			qt += t.annonceQuantiteDemandee(p);
-		}
-
-		// le reste du monde represente 83% du marche
-		// on rajoute un peu d'aleatoire pour mieux coller a la realite.
-		double pourcentage = 82.0+Math.random()*2.0;
-		// 17% correspond aux transformateurs simules� par les autres groupe.
-		// Donc en respectant les ratio on a 
-		return qt / 17.0 * pourcentage;
+		return 0.0; // méthode dépréciée
 	}
 
 
@@ -114,8 +104,7 @@ public class ResteDesTransformateursMondiaux implements Acteur, ITransformateur 
 
 	@Override
 	public void notificationVente(IProducteur p) {
-		// On ne simule aucun etat concernant le reste du monde
-		
+		// méthode dépréciée
 	}
 
 	@Override

@@ -99,9 +99,15 @@ public class Carrefour implements Acteur,IDistributeur {
 	}
 	
 
+	// R�glage de la quantit� � acheter en fonction du transformateur (12.5% Nestl�, 3.6% Lindt et 83.9% Others)
+	
+
+
+
 	// Reglage de la quantite a acheter en fonction du transformateur (12.5% Nestle, 3.6% Lindt et 83.9% Others)
 
 	public double getPrix() {
+
 		return this.prixachat;
 	}
 
@@ -227,13 +233,12 @@ public class Carrefour implements Acteur,IDistributeur {
 	}
 
 
-	@Override
 	public List<CommandeDistri> demande(ITransformateur t, Catalogue c) {
 		return this.commandeStep(this.getBesoinStep()).get(t);
 	}
 
 
-	@Override
+
 	public List<CommandeDistri> contreDemande(List<CommandeDistri> cd) {
 		for (Produit p : this.getProduits()) {
 			double insatisfait = 0.0;
@@ -267,7 +272,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		setFraisdeDistri();
 		for (ITransformateur t : this.transformateurs) {
 			double q = this.getDemande(t);
-			this.solde.setValeur(this, this.solde.getValeur()-q*this.getPrix());
+			this.solde.setValeur(this, this.solde.getValeur()-q*this.getPrixAchat());
 		}
 		this.achats.setValeur(this, this.demandeperstep);
 		this.solde.setValeur(this,this.solde.getValeur()+this.demandeperstep*this.prixvente
@@ -281,22 +286,39 @@ public class Carrefour implements Acteur,IDistributeur {
 >>>>>>> refs/remotes/choose_remote_name/master
 	}
 	*/
-
-
-
-
-
-
-
-
-
-	
-
-
 	@Override
-	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> liste) {
+	public Double getPrixVente(Produit p) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+
+
+
+	@Override
+	public Double getStock(Produit p) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<CommandeDistri> Demande(ITransformateur t, Catalogue c) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<CommandeDistri> ContreDemande(List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+
+
 }
+
+

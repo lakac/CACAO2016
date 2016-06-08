@@ -6,77 +6,86 @@ import java.util.List;
 import abstraction.commun.ITransformateur;
 import abstraction.commun.MarcheProducteur;
 
+/**
+ * Classe pour calculer la quantité mise en vente pour chaque transformateur
+ */
 public class IntelligenceEconomique {
+	/** Liste des transformateurs en relation avec notre producteur */
 	private List<ITransformateur> transformateurs;
+	/** Coefficients de somme unité correspondant à l'importance des ventes réalisées */
 	private HashMap<ITransformateur,Double> importanceTransformateurs;
-	private double envieVendre;
-	private double besoinVendre;
+	/** Stock de notre producteur */
 	private Stock stock;
-	private double offreTotale;
+	/** Quantités mises en vente pour chaque transformateur pour le step en cours */
 	private HashMap<ITransformateur,Double> quantitesMisesEnVente;
-	
-	private final double[] coeffPerissabilite = {0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0};
+	/**
+	 * Coefficients associés au stock produit à différentes dates.
+	 * Le cacao le plus ancien est en tête.
+	 */
+	private final double[] coeffPerissabilite = {1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1};
 	
 	public IntelligenceEconomique(List<ITransformateur> t, Stock s) {
 		this.transformateurs = t;
 		this.importanceTransformateurs = new HashMap<ITransformateur,Double>();
-		this.envieVendre = 0;
-		this.besoinVendre = 0;
 		this.stock = s;
-		this.offreTotale = 0;
 		this.quantitesMisesEnVente = new HashMap<ITransformateur,Double>();
-		
+	}
+	
+	/**
+	 * Prend en compte l'existence du transformateur après son ajout
+	 * à la liste des transformateurs pour l'ajouter aux HashMap internes.
+	 */
+	public void prendreEnCompte(ITransformateur t) {
+		this.quantitesMisesEnVente.put(t, 0.0);
+		// mise à jour des coefficients d'importance pour avoir une somme unité
 		for (ITransformateur tr : this.transformateurs) {
-			this.importanceTransformateurs.put(tr, 0.0);
-			this.quantitesMisesEnVente.put(tr, 0.0);
+			this.importanceTransformateurs.put(tr, 1.0/this.transformateurs.size());
 		}
 	}
 	
-	private void actualiserEnvieVendre() {
-		this.envieVendre = Math.sin((MarcheProducteur.LE_MARCHE.getCours()-2000.0)/2000.0);
+	private double calculerEnvieDeVendre() {
+		double rapport = (MarcheProducteur.LE_MARCHE.getCours()-MarcheProducteur.PRIX_MINIMUM)/(MarcheProducteur.PRIX_MAXIMUM-MarcheProducteur.PRIX_MINIMUM);
+		return (1.0 + Math.sin((rapport - 0.5) * Math.PI)) / 2.0;
 	}
 	
-	private void actualiserBesoinVendre() {
-		this.besoinVendre = 0;
+	private double calculerBesoinDeVendre() {
+		double besoin = 0.0;
 		for (int i = 0; i<this.coeffPerissabilite.length; i++) {
-			this.besoinVendre += this.coeffPerissabilite[i]*this.stock.getStockParStep(i);
+			besoin += this.coeffPerissabilite[i]*this.stock.getStockParStep(i);
 		}
+		return besoin;
 	}
 	
-	private void actualiserOffreTotale() {
-		this.offreTotale = this.besoinVendre*(1-this.envieVendre) + this.stock.getQuantite()*this.envieVendre;
+	private double calculerOffreTotale() {
+		double envie = calculerEnvieDeVendre();
+		double besoin = calculerBesoinDeVendre();
+		return besoin*(1.0-envie) + this.stock.getQuantite()*envie;
 	}
 	
 	private void actualiserImportanceTransformateurs() {
-		double beneficeTotal = 0;
+		double totalDemandes = 0.0;
 		for (ITransformateur t : this.transformateurs) {
-			beneficeTotal += t.annoncePrix()*t.annonceQuantiteDemandee();
+			totalDemandes += t.annoncePrix()*t.annonceQuantiteDemandee();
 		}
 		
-		double valeur = 0;
-		for (ITransformateur t : this.transformateurs) {
-			valeur = this.importanceTransformateurs.get(t)*0.8 + t.annoncePrix()*t.annonceQuantiteDemandee()*0.2/beneficeTotal;
-			this.importanceTransformateurs.put(t, valeur);
+		if(totalDemandes != 0.0) {
+			for (ITransformateur t : this.transformateurs) {
+				double valeur = t.annoncePrix()*t.annonceQuantiteDemandee()/totalDemandes;
+				double valeurAmortie = this.importanceTransformateurs.get(t)*0.8 + valeur*0.2;
+				this.importanceTransformateurs.put(t, valeurAmortie);
+			}
 		}
 	}
 	
 	private void actualiserQuantitesMisesEnVente() {
-		double importance = 0;
+		double offreTotale = calculerOffreTotale();
 		for (ITransformateur t : this.transformateurs) {
-			importance += this.importanceTransformateurs.get(t);
-		}
-		
-		double valeur = 0;
-		for (ITransformateur t : this.transformateurs) {
-			valeur = this.offreTotale*this.importanceTransformateurs.get(t)/importance;
+			double valeur = offreTotale*this.importanceTransformateurs.get(t);
 			this.quantitesMisesEnVente.put(t, valeur);
 		}
 	}
 	
 	public void actualiser() {
-		this.actualiserEnvieVendre();
-		this.actualiserBesoinVendre();
-		this.actualiserOffreTotale();
 		this.actualiserImportanceTransformateurs();
 		this.actualiserQuantitesMisesEnVente();
 	}

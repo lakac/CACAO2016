@@ -10,8 +10,7 @@ public class Producteur implements Acteur,IProducteur{
 	private Journal journal;
 	private Tresorerie treso;
 	private ProductionBiannuelle prodBiannu;
-	private ArrayList<ITransformateur> transformateurs;
-	private Vente vente;
+	private MarcheProd marcheProducteur;
 
 	//Constructeur de l'acteur Producteur 2
 
@@ -21,14 +20,8 @@ public class Producteur implements Acteur,IProducteur{
 		this.stock = new Stock(this);
 		this.journal = new Journal("Journal de "+this.nom);
 		this.prodBiannu=new ProductionBiannuelle(this,1200000);
-		this.transformateurs= new ArrayList<ITransformateur>();
 		Monde.LE_MONDE.ajouterJournal(this.journal);
 	}
-
-	public void AjoutVariableVente(){
-		this.vente = new Vente(this.stock, this);
-	}
-
 
 	// getter
 
@@ -49,24 +42,19 @@ public class Producteur implements Acteur,IProducteur{
 		return this.stock;
 	}
 
-	public ArrayList<ITransformateur> getTransformateurs() {
-		return this.transformateurs;
-	}
 
 	public Tresorerie getTreso() {
 		return this.treso;
 	}
 
-	public Vente getVente() {
-		return this.vente;
+	public MarcheProd getMarcheProducteur() {
+		return this.marcheProducteur;
 	}
 
 
-	//Ajout des clients à la liste transformateurs
-	public void ajoutClient(ITransformateur a){
-		this.getTransformateurs().add(a);
+	public void ajoutMarche(MarcheProd m){
+		this.marcheProducteur=m;
 	}
-
 
 	// le next du producteur 2	
 	public void next(){
@@ -82,49 +70,47 @@ public class Producteur implements Acteur,IProducteur{
 		this.getStock().gererLesStock();
 	}
 
-	// retourne un double valant la quantité disponible 
-	// pour chaque transformateur a chaque step
-	public double annonceQuantiteMiseEnVente(ITransformateur t) {
-		if (((Acteur)t).getNom().equals(((Acteur)this.getTransformateurs().get(0)).getNom())) {
-			return this.getVente().ventesStep()[0];
+	public double offre() {
+
+		//Premier ajustement de notre offre totale, en fonction du cours de cacao fixe par le marche.
+		//calcul d'un coefficient nous indiquant l'interet de vendre beaucoup ou peu a la step actuelle
+		double coeff = (this.getCoursCacao()-3000)/1000;
+		double offreTotale = 0.0;
+		if (coeff>=0) {
+			offreTotale = this.venteAPriori()*(1+coeff);
 		}
-		if (((Acteur)t).getNom().equals(((Acteur)this.getTransformateurs().get(1)).getNom())) {
-			return this.getVente().ventesStep()[1];
+		else {
+			offreTotale = this.venteAPriori()*(1+coeff/2);
 		}
-		if (((Acteur)t).getNom().equals(((Acteur)this.getTransformateurs().get(2)).getNom())) {
-			return this.getVente().ventesStep()[2];
+
+		//L'offre totale est comprise entre la moitie et le double de notre venteAPriori.
+
+
+
+		// retourne un double valant la quantité disponible 
+		// pour chaque transformateur a chaque step
+		public double annonceQuantiteMiseEnVente() {
+			return this.offre();
 		}
-		return 0.0;
+
+		//Modification du stock et de la tresorerie suite a une vente
+		public void venteRealisee(CommandeProduc c) {
+			// modifie la tresorerie
+			this.vente(c.getQuantite(), c.getPrixTonne());
+			// modife les stocks
+			this.getStock().reductionStock(c.getQuantite());
+			// le note dans le journal
+			this.getJournal().ajouter("Vente de " + c.getQuantite() + " au step numéro "+ Monde.LE_MONDE.getStep());
+		}
+
+		// ajout de le somme récolté à la trésorerie après une vente
+		public void vente(double qtVendue, double prix){		
+			this.getTreso().getFond().setValeur(this, this.getTreso().getFond().getValeur()+ qtVendue*prix);
+		}
+
+		public void notificationVente(CommandeProduc c) {
+			this.venteRealisee(c);
+
+		}
+
 	}
-
-	//Modification du stock et de la tresorerie suite a une vente
-	public void venteRealisee(CommandeProduc c) {
-		// modifie la tresorerie
-		this.vente(c.getQuantite(), c.getPrixTonne());
-		// modife les stocks
-		this.getStock().reductionStock(c.getQuantite());
-		// le note dans le journal
-		this.getJournal().ajouter("Vente de " + c.getQuantite()+" auprès de " + ((Acteur)c.getAcheteur()).getNom() + " au step numéro "+ Monde.LE_MONDE.getStep());
-	}
-
-	// ajout de le somme récolté à la trésorerie après une vente
-	public void vente(double qtVendue, double prix){		
-		this.getTreso().getFond().setValeur(this, this.getTreso().getFond().getValeur()+ qtVendue*prix);
-	}
-
-	public void notificationVente(CommandeProduc c) {
-		this.venteRealisee(c);
-
-	}
-
-
-	// POUR LA V3
-	@Override
-	public double annoncePrix() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-
-}
