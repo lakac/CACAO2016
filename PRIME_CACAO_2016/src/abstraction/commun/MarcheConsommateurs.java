@@ -18,7 +18,6 @@ public class MarcheConsommateurs implements Acteur {
 	
 	private final static double VARIATION_FIDELITE=0.01;//part de clients changeant de bord lorsque difference de prix
 	private final static double FIDELITE_MIN=0.20; //part minimum de clients fidèles a Leclerc et Carrefour
-	private final static double[][] CALENDRIER =new double[3][26]; //calendrier demande
 
 	//Pentes des courbes Demande = Cte-aplha*PrixMoyen 
 	private HashMap <Produit, Double> ALPHA;//a compléter 
@@ -29,7 +28,7 @@ public class MarcheConsommateurs implements Acteur {
 	
 	public static MarcheConsommateurs LE_MARCHE_CONSOMMATEURS;
 	private String nom;
-	private HashMap <IDistributeur,HashMap<Produit,Double>> fidelite ;
+	private HashMap <IDistributeur,HashMap<Produit,Double>> fidelite;
 	private HashMap <IDistributeur,HashMap<Produit,Double>> ventesEffectuees;
 	private HashMap <Produit,Double> demandeAnnuelle; // volume des ventes annuelles d'un produit
 	private HashMap <Produit,Double> demandeComposanteContinue;
@@ -38,14 +37,13 @@ public class MarcheConsommateurs implements Acteur {
 	
 	//Demande en fonction du step, par produit, et sans effet sur les prix
 	//Demande continue réelle = calendrierdermande.get(Step)-ALPHA*PrixMoyen
-	private HashMap <Integer, HashMap<Produit,Double>> calendrierDemande; 
 	
+	private HashMap <Integer, HashMap<Produit,Double>> calendrierDemande; 
 	private HashMap <Produit,Double> pourcentageIncertitudeVentes;
 	private HashMap <Produit,Double> offreTotale;
 	private ArrayList<Produit> produits;
+	
 	//Monde.LE_MONDE.ajouterIndicateur(this.fidelite);
-	
-	
 	
 	public MarcheConsommateurs(String nom, ArrayList<Produit> produits){
 		
@@ -180,12 +178,12 @@ public class MarcheConsommateurs implements Acteur {
 	}
 	
 	public void next(){
-		/*
+		
 		this.actualiserDemande();
 		this.actualiserOffre();
 		this.actualiserFidelite();
 		this.repartirVentes();
-		*/
+		
 		
 	}
 

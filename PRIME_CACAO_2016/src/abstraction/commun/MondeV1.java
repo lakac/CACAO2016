@@ -109,11 +109,7 @@ public class MondeV1 extends Monde {
 		Le.getStock().initialiseStock(Le);	
 		Le.getPrixDeVente().initialisePrixDeVente(Le, produits);
 		Le.getVentes().initialiseVentes();
-		MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiserDemandeAnnuelle();
-		//MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiserCalendrierDemande();
-		MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiserPourcentageIncertitudeVentes();
-		//MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiserFidelite();
-		
+		MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiser();
 
 	}
 }
