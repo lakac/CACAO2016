@@ -125,10 +125,6 @@ public class Producteur implements Acteur, IProducteur {
 		}
 	}
 	
-	private double getStock() {
-		return this.stock.getQuantite();
-	}
-	
 	private double getTresorerie() {
 		return this.tresorerie.getValeur();
 	}
