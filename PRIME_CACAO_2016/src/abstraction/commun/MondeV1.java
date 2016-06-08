@@ -72,6 +72,7 @@ public class MondeV1 extends Monde {
 
 		
 		
+
 		Le.ajouterVendeur(nestle);
 		Le.ajouterVendeur(lindt);
 		
