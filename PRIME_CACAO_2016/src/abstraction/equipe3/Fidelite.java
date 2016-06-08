@@ -36,5 +36,6 @@ public class Fidelite {
 	public void setDistri(IDistributeur distri) {
 		this.distri = distri;
 	}
+	
 
 }
