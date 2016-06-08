@@ -102,7 +102,7 @@ public class Tresorerie {
 		double paye=0;
 		for (CommandeDistri c: lindt.getHistCommandeDistri().getHist()){ //si il s'agit des commandes livrées
 			if(c.getStepLivraison()==Monde.LE_MONDE.getStep()){
-				paye+=this.getTarif().prixDeVente(c.getQuantite());	
+				paye+=c.getQuantite()*c.getPrixTonne();	 //on ne prend pas en compte les rabais pour la V2
 			}
 		}
 		return paye;

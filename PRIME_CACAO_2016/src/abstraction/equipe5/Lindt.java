@@ -43,8 +43,8 @@ public class Lindt implements Acteur, ITransformateur{
 	}
 
 	public void creer() {
-		this.histCommandeProduc.ajouter(new CommandeProduc(this, this.getProducteurs().get(0), 100.0, MarcheProducteur.LE_MARCHE.getCours()));
-		this.histCommandeProduc.ajouter(new CommandeProduc(this, this.getProducteurs().get(1), 100.0, MarcheProducteur.LE_MARCHE.getCours()));
+		this.histCommandeProduc.ajouter(new CommandeProduc(100.0, MarcheProducteur.LE_MARCHE.getCours()));
+		this.histCommandeProduc.ajouter(new CommandeProduc(100.0, MarcheProducteur.LE_MARCHE.getCours()));
 		this.treso = new Tresorerie(this.histCommandeDistri, this.histCommandeProduc, this, this.getProducteurs());
 		this.achatProd = new AchatProd(this.histCommandeProduc,this.histCommandeDistri, this, this.stockCacao, this.treso);	
 		this.venteDist = new VenteDist(this, this.getTreso());
@@ -118,7 +118,7 @@ public class Lindt implements Acteur, ITransformateur{
 //				// (public static MarcheDistributeur LE_MARCHE_DISTRIBUTEUR;), on ne pourra pas appeler cette méthode
 //				this.getHistCommandeDistri().ajouter(cd);
 //		}}
-		
+//		System.out.println(getHistCommandeDistri());
 		stockChocolat50.retirerStockChocolat(Monde.LE_MONDE.getStep());
 		stockChocolat60.retirerStockChocolat(Monde.LE_MONDE.getStep());
 		stockChocolat70.retirerStockChocolat(Monde.LE_MONDE.getStep());
