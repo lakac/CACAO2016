@@ -114,7 +114,9 @@ public class Producteur implements Acteur, IProducteur {
 	 * Il reste en pratique compris entre COUT_PROD_MIN et COUT_PROD_MAX euros par tonne.
 	 */
 	private void actualiserCoutProduction() {
-		this.coutProduction = Producteur.COUT_PROD_MIN + Math.floor((Producteur.COUT_PROD_MAX-Producteur.COUT_PROD_MIN)*100/(1 + 26*this.getProductionCourante()/Producteur.PRODUCTION_ANNUELLE))/100.0;
+		double productionMoyenne = Producteur.PRODUCTION_ANNUELLE/26;
+		double cout = Producteur.COUT_PROD_MIN + (Producteur.COUT_PROD_MAX-Producteur.COUT_PROD_MIN)/(1 + this.getProductionCourante()/productionMoyenne);
+		this.coutProduction = Math.floor(cout*100.0)/100.0; // arrondi au centime
 	}
 	
 	/**
