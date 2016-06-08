@@ -8,20 +8,25 @@ import abstraction.commun.ITransformateurP;
 import abstraction.commun.MarcheProducteur;
 
 /**
- * Classe pour calculer la quantité mise en vente pour chaque transformateur
+ * Classe pour calculer la quantite mise en vente pour chaque transformateur
  */
 public class IntelligenceEconomique {
+
 	/** Liste des transformateurs en relation avec notre producteur */
 	private List<ITransformateurP> transformateurs;
-	/** Coefficients de somme unité correspondant à l'importance des ventes réalisées */
+
+	/** Coefficients de somme unite correspondant a l'importance des ventes realisees */
 	private HashMap<ITransformateurP,Double> importanceTransformateurs;
+
 	/** Stock de notre producteur */
 	private Stock stock;
-	/** Quantités mises en vente pour chaque transformateur pour le step en cours */
+
+	/** Quantites mises en vente pour chaque transformateur pour le step en cours */
 	private HashMap<ITransformateurP,Double> quantitesMisesEnVente;
+
 	/**
-	 * Coefficients associés au stock produit à différentes dates.
-	 * Le cacao le plus ancien est en tête.
+	 * Coefficients associes au stock produit a differentes dates.
+	 * Le cacao le plus ancien est en tete.
 	 */
 	private final double[] coeffPerissabilite = {1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1};
 	
@@ -33,12 +38,12 @@ public class IntelligenceEconomique {
 	}
 	
 	/**
-	 * Prend en compte l'existence du transformateur après son ajout
-	 * à la liste des transformateurs pour l'ajouter aux HashMap internes.
+	 * Prend en compte l'existence du transformateur apres son ajout a la liste des transformateurs pour l'ajouter aux
+	 * HashMap internes.
 	 */
 	public void prendreEnCompte(ITransformateurP t) {
 		this.quantitesMisesEnVente.put(t, 0.0);
-		// mise à jour des coefficients d'importance pour avoir une somme unité
+		// Mise a jour des coefficients d'importance pour avoir une somme unite
 		for (ITransformateurP tr : this.transformateurs) {
 			this.importanceTransformateurs.put(tr, 1.0/this.transformateurs.size());
 		}
