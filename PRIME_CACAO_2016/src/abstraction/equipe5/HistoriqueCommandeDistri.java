@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import abstraction.commun.CommandeDistri;
 
-public class HistoriqueCommandeDistri {
+public class HistoriqueCommandeDistri extends HistoriqueCommande {
 	private List<CommandeDistri> hist = new ArrayList<CommandeDistri>();
 
 	public HistoriqueCommandeDistri() {	

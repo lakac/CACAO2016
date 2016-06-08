@@ -85,6 +85,7 @@ public class MondeV1 extends Monde {
 		lindt.ajouterDistributeur(Le);
 		lindt.ajouterProducteur(p1);
 		lindt.ajouterProducteur(p2);
+		//lindt.ajouterProducteur(CotedIvoire);
 		lindt.creer();
 
 		
