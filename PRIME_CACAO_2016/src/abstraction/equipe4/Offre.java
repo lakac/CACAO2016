@@ -18,10 +18,10 @@ public class Offre {
 	public Producteur getProducteur() {
 		return producteur;
 	}
-		public int getStep() {
+	public int getStep() {
 		return step;
 	}
-		public Stock getStock() {
+	public Stock getStock() {
 		return stock;
 	}
 	
