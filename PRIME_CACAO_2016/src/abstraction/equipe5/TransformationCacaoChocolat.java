@@ -1,6 +1,11 @@
 package abstraction.equipe5;
 
+import java.util.ArrayList;
+
+import abstraction.commun.Catalogue;
 import abstraction.commun.CommandeDistri;
+import abstraction.commun.IDistributeur;
+import abstraction.commun.IProducteur;
 import abstraction.fourni.Monde;
 
 public class TransformationCacaoChocolat {
@@ -29,4 +34,10 @@ public class TransformationCacaoChocolat {
 		}
 	}
 	
+	
+	
+	public static void main(String[] args){
+		//Test
+	}
 }
+
