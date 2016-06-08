@@ -7,6 +7,8 @@ import abstraction.fourni.*;
 public class MarcheProd implements Acteur{
 
 	private Indicateur coursCacao;
+	
+	private Historique historique;
 
 	private static double CoursMinimum=2000.0;
 	private static double CoursMaximum=4000.0;
@@ -23,6 +25,8 @@ public class MarcheProd implements Acteur{
 		this.transformateurs= new ArrayList<ITransformateur>();
 		this.quantiteTotaleDemandee=0.0;
 		this.quantiteTotaleFournise=0.0;
+		this.historique= new Historique();
+		this.historique.ajouter(this, Monde.LE_MONDE.getStep(), this.getCoursCacao().getValeur());
 	}
 
 	public ArrayList<IProducteur> getProducteurs() {
@@ -37,6 +41,10 @@ public class MarcheProd implements Acteur{
 		return this.quantiteTotaleDemandee;
 	}
 
+	public Historique getHistorique() {
+		return this.historique;
+	}
+	
 	public void setQuantiteTotaleDemandee(double quantiteTotaleDemandee) {
 		this.quantiteTotaleDemandee = quantiteTotaleDemandee;
 	}
@@ -76,22 +84,23 @@ public class MarcheProd implements Acteur{
 			this.setQuantiteTotaleDemandee(this.getQuantiteTotaleDemandee()+t.annonceQuantiteDemandee());
 		}
 		for (IProducteur p : this.getProducteurs()){
-			this.setQuantiteTotaleFournise(this.getQuantiteTotaleFournise()+p.annonceQuantiteMiseEnVente());		
+			this.setQuantiteTotaleFournise(this.getQuantiteTotaleFournise()+p.annonceQuantiteProposee());		
 		}
 		this.getCoursCacao().setValeur(this,this.getCoursCacao().getValeur()+(quantiteTotaleDemandee-quantiteTotaleFournise)/(quantiteTotaleFournise));
-		if (this.getCoursCacao().getValeur()<this.CoursMinimum){
-			this.getCoursCacao().setValeur(this, this.CoursMinimum);
+		if (this.getCoursCacao().getValeur()<MarcheProd.CoursMinimum){
+			this.getCoursCacao().setValeur(this, MarcheProd.CoursMinimum);
 		}
-		if (this.getCoursCacao().getValeur()>this.CoursMaximum){
-			this.getCoursCacao().setValeur(this, this.CoursMaximum);
+		if (this.getCoursCacao().getValeur()>MarcheProd.CoursMaximum){
+			this.getCoursCacao().setValeur(this, MarcheProd.CoursMaximum);
 		}
+		this.getHistorique().ajouter(this, Monde.LE_MONDE.getStep(), this.getCoursCacao().getValeur());
 	}
 
 	public void next() {
 		this.ActualisationCours();
 		if (this.getQuantiteTotaleDemandee()>this.getQuantiteTotaleFournise()){
 			for(IProducteur p : this.getProducteurs()){
-				p.notificationVente(new CommandeProduc(p.annonceQuantiteMiseEnVente(),this.getCoursCacao().getValeur()));
+				p.notificationVente(new CommandeProduc(p.annonceQuantiteProposee(),this.getCoursCacao().getValeur()));
 			}
 			for (ITransformateur t : this.transformateurs){
 				double quantiteLivree = t.annonceQuantiteDemandee()*(this.getQuantiteTotaleFournise()/this.getQuantiteTotaleDemandee());
@@ -102,7 +111,7 @@ public class MarcheProd implements Acteur{
 				t.notificationVente(new CommandeProduc(t.annonceQuantiteDemandee(),this.getCoursCacao().getValeur()));	
 			}
 			for (IProducteur p : this.getProducteurs()){
-				double quantiteVendue = p.annonceQuantiteMiseEnVente()*(this.getQuantiteTotaleDemandee()/this.getQuantiteTotaleFournise());
+				double quantiteVendue = p.annonceQuantiteProposee()*(this.getQuantiteTotaleDemandee()/this.getQuantiteTotaleFournise());
 				p.notificationVente(new CommandeProduc(quantiteVendue,this.getCoursCacao().getValeur()));
 			}
 		}

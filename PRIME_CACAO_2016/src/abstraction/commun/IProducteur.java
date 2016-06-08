@@ -4,8 +4,9 @@ public interface IProducteur {
 	/**
 	 * Indique la quantité disponible à la vente sur le marché.
 	 */
-	public double annonceQuantiteMiseEnVente();
-
+	public double annonceQuantiteProposee();
+	
+	@Deprecated public double annonceQuantiteMiseEnVente(ITransformateur t);
 	
 	/**
 	 * Met à jour l'état interne de ce producteur suite à une vente auprès du marché.

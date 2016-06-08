@@ -109,7 +109,7 @@ import abstraction.fourni.Monde;
 		double totalQuantitesEnVenteP = 0.0;
 		for (ITransformateur t : MarcheProducteur.transformateurs) {
 			for (IProducteur p : MarcheProducteur.producteurs){
-				totalQuantitesEnVenteP+=p.annonceQuantiteMiseEnVente();
+				totalQuantitesEnVenteP+=p.annonceQuantiteProposee();
 			}
 		}
 		// Toutes les quantites demandees
@@ -191,7 +191,7 @@ import abstraction.fourni.Monde;
 	private void actualiserStocksEtCommandes() {
 		for (IProducteur p : MarcheProducteur.producteurs) {
 			for (ITransformateur t : MarcheProducteur.transformateurs) {
-				this.quantitesDisponibles.get(p).put(t, p.annonceQuantiteMiseEnVente());
+				this.quantitesDisponibles.get(p).put(t, p.annonceQuantiteProposee());
 				this.commandesPassees.get(t).put(p,0.0);
 			}
 		}

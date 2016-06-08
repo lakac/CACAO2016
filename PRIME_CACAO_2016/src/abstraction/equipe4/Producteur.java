@@ -14,6 +14,7 @@ public class Producteur implements Acteur,IProducteur{
 	private double moyenneCoursCacao;
 	private Offre offre;
 
+
 	//Constructeur de l'acteur Producteur 2
 
 	public Producteur(Monde monde) {
@@ -88,7 +89,7 @@ public class Producteur implements Acteur,IProducteur{
 
 	// retourne un double valant la quantité disponible 
 	// pour chaque transformateur a chaque step
-	public double annonceQuantiteMiseEnVente() {
+	public double annonceQuantiteProposee() {
 		return 0;
 	}
 
@@ -111,6 +112,11 @@ public class Producteur implements Acteur,IProducteur{
 	public void notificationVente(CommandeProduc c) {
 		this.venteRealisee(c);
 
+	}
+
+	public double annonceQuantiteMiseEnVente(ITransformateur t) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 	
