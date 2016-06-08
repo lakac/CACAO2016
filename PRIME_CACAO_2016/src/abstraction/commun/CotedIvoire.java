@@ -34,7 +34,6 @@ public class CotedIvoire implements IProducteur, Acteur {
 	
 	@Override
 	public double annonceQuantiteMiseEnVente(ITransformateur t) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -43,8 +42,6 @@ public class CotedIvoire implements IProducteur, Acteur {
 	//mais il doit quand même implémenter cette méthode (vide)
 	@Override
 	public void notificationVente(CommandeProduc c) {
-		// TODO Auto-generated method stub
-		
 	}
 
 
@@ -60,14 +57,11 @@ public class CotedIvoire implements IProducteur, Acteur {
 
 	@Override
 	public String getNom() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Côte d'Ivoire";
 	}
 
 	//Il n'y a aucun indicateur à mettre à jour, le next ne fait rien non plus
 	public void next() {
-		// TODO Auto-generated method stub
-		
 	}
 	
 
