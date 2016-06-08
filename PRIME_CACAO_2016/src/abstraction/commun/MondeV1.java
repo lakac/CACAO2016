@@ -51,8 +51,7 @@ public class MondeV1 extends Monde {
 		
 		
 		// Marché Producteur
-		MarcheProducteur marcheProducteur = new MarcheProducteur();
-		MarcheProducteur.LE_MARCHE = marcheProducteur;
+		MarcheProd marcheProducteur = new MarcheProd();
 		this.ajouterActeur(marcheProducteur);
 		
 		// Marché Consommateur
@@ -95,15 +94,12 @@ public class MondeV1 extends Monde {
 		p1.ajouterTransformateur(lindt);
 		p1.ajouterTransformateur(t3);
 		
-		p2.ajoutClient(nestle);
-		p2.ajoutClient(lindt);
-		p2.ajoutClient(t3);		
-		p2.AjoutVariableVente();
-		
-		marcheProducteur.ajouterProducteur(p1);
-		marcheProducteur.ajouterProducteur(p2);
-		marcheProducteur.ajouterTransformateur(nestle);
-		marcheProducteur.ajouterTransformateur(lindt);
+
+		marcheProducteur.AjoutProducteur(p1);;
+		marcheProducteur.AjoutProducteur(p2);
+		marcheProducteur.AjoutTransformateur(nestle);
+		marcheProducteur.AjoutTransformateur(lindt);
+		marcheProducteur.AjoutTransformateur(t3);
 		
 		//maj 31/05 Leclerc
 		Le.getStock().initialiseStock(Le);	
