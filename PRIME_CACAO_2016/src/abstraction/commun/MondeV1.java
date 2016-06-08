@@ -27,13 +27,17 @@ public class MondeV1 extends Monde {
 		produits.add(new Produit("60%",60));
 		produits.add(new Produit("70%",70));
 		
+		// Marche distributeur
+		
+		MarcheDistributeur MaDi = new MarcheDistributeur();
+		this.ajouterActeur(MaDi);
 
 		// Distributeurs
 
 
 
 		Leclercv2 Le = new Leclercv2("Leclerc", this,produits);
-		Carrefour Ca = new Carrefour("Carrefour", this.produits);
+		Carrefour Ca = new Carrefour("Carrefour", MondeV1.produits);
 
 		this.ajouterActeur(Le);
 
@@ -109,6 +113,14 @@ public class MondeV1 extends Monde {
 		marcheProducteur.ajouterProducteur(p2);
 		marcheProducteur.ajouterTransformateur(nestle);
 		marcheProducteur.ajouterTransformateur(lindt);
+		MaDi.addDistributeur(Ca);
+		MaDi.addDistributeur(Le);
+		MaDi.addTransformateur(t3);
+		MaDi.addTransformateur(lindt);
+		MaDi.addTransformateur(nestle);
+		for (int i=0; i<produits.size(); i++) {
+			MaDi.addProduit(produits.get(i));
+		}
 		
 		//maj 31/05 Leclerc
 		Le.getStock().initialiseStock(Le);	
