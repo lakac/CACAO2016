@@ -123,8 +123,6 @@ public class MarcheConsommateurs implements Acteur {
 	}
 
 	
-
-	
 	
 	public void initialiserDemandeAnnuelle(){
 		for (Produit p : cata.getProduits()){
