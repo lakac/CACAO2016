@@ -18,6 +18,8 @@ import java.util.Random;
 
 public class Producteur implements Acteur, IProducteur {
 	private static final double PRODUCTION_ANNUELLE = 24000;
+	private static final double COUT_PROD_MIN = 1500;
+	private static final double COUT_PROD_MAX = 2100;
 	
 	private String nom;
 	private Stock stock;
@@ -109,12 +111,10 @@ public class Producteur implements Acteur, IProducteur {
 	
 	/**
 	 * Actualise le cout de production en fonction de la quantite produite : plus elle est elevee, plus le cout sera bas.
-	 * Il reste en pratique compris entre 1600 et 2100 euros par tonne.
-	 * La production moyenne d'un step etant de 923 tonnes, nous avons ajuste cette fonction pour que le cout de
-	 * production moyen soit de 1800 euros par tonne.
+	 * Il reste en pratique compris entre COUT_PROD_MIN et COUT_PROD_MAX euros par tonne.
 	 */
 	private void actualiserCoutProduction() {
-		this.coutProduction = 1500 + (2100-1500)/(1 + this.getProductionCourante()/923);
+		this.coutProduction = Producteur.COUT_PROD_MIN + Math.floor((Producteur.COUT_PROD_MAX-Producteur.COUT_PROD_MIN)*100/(1 + 26*this.getProductionCourante()/Producteur.PRODUCTION_ANNUELLE))/100.0;
 	}
 	
 	/**
