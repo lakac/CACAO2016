@@ -49,8 +49,10 @@ public class Carrefour implements Acteur,IDistributeur {
 		this.histoCommande = new ArrayList<CommandeDistri>();
 		this.histoLivraison = new ArrayList<CommandeDistri>();
 		this.lesStocks = new ArrayList<Stock>();
-
 	}
+	
+	//Méthode qui crée et initialise trois listes de taille neuf (pour chaque produit et chaque tranformateur) qui gèrent respectivement nos stocks, nos achats 
+	//au transformateur et nos ventes aux clients. La dernière liste créée (demandeAnnuel) initialise la demande dans chaque produit des client
 
 	public void creer() {
 		List<Stock> lesStocks = new ArrayList<Stock>();
@@ -70,6 +72,8 @@ public class Carrefour implements Acteur,IDistributeur {
 		this.setDemandeAnnuel(demandeAnnuel);
 
 	}
+	
+	//Accesseurs
 
 	public String getNom() {
 		return nom;
@@ -104,12 +108,9 @@ public class Carrefour implements Acteur,IDistributeur {
 	}
 
 
-
 	public List<Achats> getLesAchats() {
 		return lesAchats;
 	}
-
-
 
 	public void setLesAchats(List<Achats> lesAchats) {
 		this.lesAchats = lesAchats;
@@ -226,7 +227,7 @@ public class Carrefour implements Acteur,IDistributeur {
 
 	}
 
-
+   //Fonction qui compare les prix des deux tranformateurs 
 	public List<ITransformateur> comparateurPrixProduit(HashMap<ITransformateur,Catalogue> hm, Produit p) {
 		List<ITransformateur> transfo = new ArrayList<ITransformateur>();
 		transfo.add(this.getTransformateurs().get(0));
@@ -316,6 +317,10 @@ public class Carrefour implements Acteur,IDistributeur {
 		}
 		return contreDemande;
 	}
+	
+	//Méthode qui fixe le prix de vente avec bénéfice de 20% par rapport au prix d'achat au transformateur, 
+	//pour chaque produit de chaque transformateur
+	
 	public void setPrix (HashMap<ITransformateur,List<CommandeDistri>> CommandeEffective) {
 		for (ITransformateur t : this.getTransformateurs()) {
 		    for (CommandeDistri c : CommandeEffective.get(t) ) {
@@ -327,6 +332,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		    }
 		}    
 	}
+	
 	public void next() {
 		this.setBesoinStep(LE_MONDE.getStep()+1);
 		for (ITransformateur t : this.getTransformateurs()) {
