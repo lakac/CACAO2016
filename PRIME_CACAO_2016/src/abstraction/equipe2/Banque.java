@@ -1,7 +1,6 @@
 package abstraction.equipe2;
 
 import abstraction.fourni.Historique;
-import abstraction.equipe2copie.Nestle;
 import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 
