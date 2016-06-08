@@ -12,6 +12,7 @@ public class Producteur implements Acteur,IProducteur{
 	private ProductionBiannuelle prodBiannu;
 	private MarcheProd marcheProducteur;
 	private double moyenneCoursCacao;
+	private Offre offre;
 
 	//Constructeur de l'acteur Producteur 2
 
@@ -23,6 +24,7 @@ public class Producteur implements Acteur,IProducteur{
 		this.prodBiannu=new ProductionBiannuelle(this,1200000);
 		Monde.LE_MONDE.ajouterJournal(this.journal);
 		this.moyenneCoursCacao = getMoyenneCoursCacao();
+		this.offre = new Offre(this, Monde.LE_MONDE.getStep(), this.stock);
 	}
 
 	// getter
@@ -84,10 +86,7 @@ public class Producteur implements Acteur,IProducteur{
 		return M/l;
 	}
 
-	public double offre() {
-		
-		
-		
+			
 	// retourne un double valant la quantité disponible 
 	// pour chaque transformateur a chaque step
 	public double annonceQuantiteMiseEnVente() {
