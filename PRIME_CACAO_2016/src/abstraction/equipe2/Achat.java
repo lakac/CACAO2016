@@ -3,7 +3,6 @@ package abstraction.equipe2;
 import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.commun.*;
-import abstraction.equipe2copie.Nestle;
 
 public class Achat {
 

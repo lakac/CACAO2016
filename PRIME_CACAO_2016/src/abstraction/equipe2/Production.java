@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import abstraction.commun.*;
-import abstraction.equipe2copie.Nestle;
 
 public class Production {
 	private HashMap<Produit,Double> production;
