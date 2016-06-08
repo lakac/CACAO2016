@@ -89,6 +89,23 @@ public class MarcheProd implements Acteur{
 
 	public void next() {
 		this.ActualisationCours();
+		if (this.getQuantiteTotaleDemandee()>this.getQuantiteTotaleFournise()){
+			for(IProducteur p : this.getProducteurs()){
+				p.notificationVente(new CommandeProduc(p.annonceQuantiteMiseEnVente(),this.getCoursCacao().getValeur()));
+			}
+			for (ITransformateur t : this.transformateurs){
+				double quantiteLivree = t.annonceQuantiteDemandee()*(this.getQuantiteTotaleFournise()/this.getQuantiteTotaleDemandee());
+				t.notificationVente(new CommandeProduc(quantiteLivree,this.getCoursCacao().getValeur()));
+			}
+		}else{
+			for (ITransformateur t : this.getTransformateurs()){
+				t.notificationVente(new CommandeProduc(t.annonceQuantiteDemandee(),this.getCoursCacao().getValeur()));	
+			}
+			for (IProducteur p : this.getProducteurs()){
+				double quantiteVendue = p.annonceQuantiteMiseEnVente()*(this.getQuantiteTotaleDemandee()/this.getQuantiteTotaleFournise());
+				p.notificationVente(new CommandeProduc(quantiteVendue,this.getCoursCacao().getValeur()));
+			}
+		}
 		
 	}
 

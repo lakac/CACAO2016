@@ -11,6 +11,7 @@ public class Producteur implements Acteur,IProducteur{
 	private Tresorerie treso;
 	private ProductionBiannuelle prodBiannu;
 	private MarcheProd marcheProducteur;
+	private double moyenneCoursCacao;
 
 	//Constructeur de l'acteur Producteur 2
 
@@ -21,6 +22,7 @@ public class Producteur implements Acteur,IProducteur{
 		this.journal = new Journal("Journal de "+this.nom);
 		this.prodBiannu=new ProductionBiannuelle(this,1200000);
 		Monde.LE_MONDE.ajouterJournal(this.journal);
+		this.moyenneCoursCacao = getMoyenneCoursCacao();
 	}
 
 	// getter
@@ -70,49 +72,47 @@ public class Producteur implements Acteur,IProducteur{
 		this.getStock().gererLesStock();
 	}
 
+	public double getMoyenneCoursCacao() {
+		Historique coursCacao = MarcheProducteur.LE_MARCHE.getHistorique();
+		//longueur du tableau regroupant les cours
+		int l = coursCacao.getTaille();
+		//somme des valeurs du tableau
+		double M = coursCacao.get(0).getValeur();
+		for (int i=1; i<l; i++) {
+			M=M+coursCacao.get(i).getValeur();
+		}
+		return M/l;
+	}
+
 	public double offre() {
+		return 0;
+	}
+	// retourne un double valant la quantité disponible 
+	// pour chaque transformateur a chaque step
+	public double annonceQuantiteMiseEnVente() {
+		return this.offre();
+	}
 
-		//Premier ajustement de notre offre totale, en fonction du cours de cacao fixe par le marche.
-		//calcul d'un coefficient nous indiquant l'interet de vendre beaucoup ou peu a la step actuelle
-		double coeff = (this.getCoursCacao()-3000)/1000;
-		double offreTotale = 0.0;
-		if (coeff>=0) {
-			offreTotale = this.venteAPriori()*(1+coeff);
-		}
-		else {
-			offreTotale = this.venteAPriori()*(1+coeff/2);
-		}
-
-	
-	
-		//L'offre totale est comprise entre la moitie et le double de notre venteAPriori.
+	//Modification du stock et de la tresorerie suite a une vente
+	public void venteRealisee(CommandeProduc c) {
+		// modifie la tresorerie
+		this.vente(c.getQuantite(), c.getPrixTonne());
+		// modife les stocks
+		this.getStock().reductionStock(c.getQuantite());
+		// le note dans le journal
+		this.getJournal().ajouter("Vente de " + c.getQuantite() + " au step numéro "+ Monde.LE_MONDE.getStep());
+	}
 
 
+	// ajout de le somme récolté à la trésorerie après une vente
+	public void vente(double qtVendue, double prix){		
+		this.getTreso().getFond().setValeur(this, this.getTreso().getFond().getValeur()+ qtVendue*prix);
+	}
 
-		// retourne un double valant la quantité disponible 
-		// pour chaque transformateur a chaque step
-		public double annonceQuantiteMiseEnVente() {
-			return this.offre();
-		}
-
-		//Modification du stock et de la tresorerie suite a une vente
-		public void venteRealisee(CommandeProduc c) {
-			// modifie la tresorerie
-			this.vente(c.getQuantite(), c.getPrixTonne());
-			// modife les stocks
-			this.getStock().reductionStock(c.getQuantite());
-			// le note dans le journal
-			this.getJournal().ajouter("Vente de " + c.getQuantite() + " au step numéro "+ Monde.LE_MONDE.getStep());
-		}
-
-		// ajout de le somme récolté à la trésorerie après une vente
-		public void vente(double qtVendue, double prix){		
-			this.getTreso().getFond().setValeur(this, this.getTreso().getFond().getValeur()+ qtVendue*prix);
-		}
-
-		public void notificationVente(CommandeProduc c) {
-			this.venteRealisee(c);
-
-		}
+	public void notificationVente(CommandeProduc c) {
+		this.venteRealisee(c);
 
 	}
+	
+	
+}
