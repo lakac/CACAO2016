@@ -73,7 +73,7 @@ public class Producteur implements Acteur, IProducteur {
 		this.intelligenceEconomique.actualiser();
 		this.produire();
 		this.repartirQuantites();
-		this.journal.ajouter("Production de "+this.getNom()+" = <font color=\"maroon\">"+this.getProductionCourante()+"</font> au <b>step</b> "+Monde.LE_MONDE.getStep());
+		this.journal.ajouter("Production = <font color=\"maroon\">"+this.getProductionCourante()+"</font> t; Cout de production = <font color=\"maroon\">"+this.getCoutProduction()+"</font> euros/t au step "+Monde.LE_MONDE.getStep());
 	}
 	
 	// Méthodes de l'interface IProducteur
