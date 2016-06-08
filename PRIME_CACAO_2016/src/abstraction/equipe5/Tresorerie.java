@@ -93,6 +93,11 @@ public class Tresorerie {
 				+ lindt.getStockCacao().getStock())); 
 	}	
 	
+	
+	/**
+	 * 
+	 * fonction qui calcule combien les distributeurs nous payent au step courant
+	 */
 	public double payeParDistrib(){
 		double paye=0;
 		for (CommandeDistri c: lindt.getHistCommandeDistri().getHist()){ //si il s'agit des commandes livrées

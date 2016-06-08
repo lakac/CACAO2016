@@ -1,8 +1,10 @@
 package abstraction.commun;
 
 /**
- * Classe modelisant les produits
-**/
+ * Classe modelisant les produits vendus par les transformateurs aux distributeurs 
+ * 
+ * @author equipe 5
+ */
 
 public class Produit {
 	private String produit;
@@ -29,8 +31,16 @@ public class Produit {
 		this.produit = produit;
 	}
 	
+	/** 
+	 * méthode qui permet de savoir si un produit est égal à un autre
+	 * @param o
+	 * @return true si se sont les memes, false sinon
+	 */
 	public boolean equals(Object o) {
 		return ((o instanceof Produit)
 				&& (this.getNomProduit() == ((Produit)o).getNomProduit()));
 	}
+	
+
+
 }
