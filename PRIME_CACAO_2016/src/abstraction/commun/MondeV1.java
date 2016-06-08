@@ -55,8 +55,8 @@ public class MondeV1 extends Monde {
 		MarcheProducteur.LE_MARCHE = marcheProducteur;
 		this.ajouterActeur(marcheProducteur);
 		
-		// Marché Consommateur
-		MarcheConsommateurs marcheConsommateurs = new MarcheConsommateurs("MarcheConsommateurs");
+		// Marché Consommateurs
+		MarcheConsommateurs marcheConsommateurs = new MarcheConsommateurs("MarcheConsommateurs",this.produits);
 		MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS = marcheConsommateurs;
 		this.ajouterActeur(marcheConsommateurs);
 		
@@ -67,6 +67,10 @@ public class MondeV1 extends Monde {
 		this.ajouterActeur(p2);
 
 
+		
+		// Ajout des acteurs dans les listes des acteurs
+
+		
 		
 		// Ajout des liens necessaires entre les acteurs
 		Le.ajouterVendeur(nestle);
@@ -105,10 +109,16 @@ public class MondeV1 extends Monde {
 		marcheProducteur.ajouterTransformateur(nestle);
 		marcheProducteur.ajouterTransformateur(lindt);
 		
-		//maj 31/05 Leclerc
+		//maj 31/05 Groupe 3
 		Le.getStock().initialiseStock(Le);	
 		Le.getPrixDeVente().initialisePrixDeVente(Le, produits);
 		Le.getVentes().initialiseVentes();
+		//Ajouter transformateurs et distributeurs au marché
+		MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiserDemandeAnnuelle();
+		//MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiserCalendrierDemande();
+		MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiserPourcentageIncertitudeVentes();
+		//MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiserFidelite();
+		
 
 	}
 }

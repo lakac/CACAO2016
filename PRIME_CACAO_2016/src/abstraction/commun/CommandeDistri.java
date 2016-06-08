@@ -3,7 +3,7 @@ package abstraction.commun;
 /**
  * Classe modelisant les commandes entre distributeur et transformateur
  * 
- *
+ * @author equipe 5
  */
 
 public class CommandeDistri {
@@ -81,6 +81,8 @@ public class CommandeDistri {
 	public boolean getValidation() {
 		return this.validation;
 	}
+	
+	/** pas codée par l'équipe 5, donc on ne sait pas ce qu'elle fait et à quoi elle sert */
 	public boolean equals(Object o){
 		return (o!=null && o instanceof CommandeDistri && ((CommandeDistri)o).getAcheteur()==this.getAcheteur()
 				&& ((CommandeDistri)o).getVendeur()==this.getVendeur() && ((CommandeDistri)o).getProduit()==this.getProduit()

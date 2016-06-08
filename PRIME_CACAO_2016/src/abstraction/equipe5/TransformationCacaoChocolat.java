@@ -10,6 +10,11 @@ public class TransformationCacaoChocolat {
 		this.lindt = lindt;
 	}
 	
+	/**
+	 * Transformation() est une fonction qui ne retourne rien, 
+	 * lorsqu elle est appelee, elle met a jour les stocks.
+	 */
+	
 	public void Transformation(){
 		for (CommandeDistri c : lindt.getHistCommandeDistri().getHist()){
 			if (c.getStepLivraison()==Monde.LE_MONDE.getStep()+2){
