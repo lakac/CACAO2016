@@ -8,33 +8,14 @@ public class CommandeProduc {
 	 *
 	 */
 	
-	private ITransformateur acheteur;
-	private IProducteur vendeur;
 	private double quantite;
 	private double prixTonne;
 
-	public CommandeProduc(ITransformateur acheteur, IProducteur vendeur, double quantite, double prixTonne) {
-		this.acheteur = acheteur;
-		this.vendeur = vendeur;
+	public CommandeProduc(double quantite, double prixTonne) {
 		this.quantite = quantite;
 		this.prixTonne = prixTonne;
 	}
 
-	public ITransformateur getAcheteur() {
-		return this.acheteur;
-	}
-
-	public IProducteur getVendeur() {
-		return this.vendeur;
-	}
-
-	public void setAcheteur(ITransformateur acheteur) {
-		this.acheteur = acheteur;
-	}
-
-	public void setVendeur(IProducteur vendeur) {
-		this.vendeur = vendeur;
-	}
 
 	public void setQuantite(double quantite) {
 		this.quantite = quantite;
