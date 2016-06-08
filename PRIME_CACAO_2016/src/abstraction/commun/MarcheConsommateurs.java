@@ -45,7 +45,7 @@ public class MarcheConsommateurs implements Acteur {
 	private ArrayList<Produit> produits;
 	//Monde.LE_MONDE.ajouterIndicateur(this.fidelite);
 	
-
+	
 	
 	public MarcheConsommateurs(String nom, ArrayList<Produit> produits){
 		
@@ -67,11 +67,19 @@ public class MarcheConsommateurs implements Acteur {
 	}
 	public static void ajouterDistributeur(IDistributeur distributeur){
 		MarcheConsommateurs.distributeurs.add(distributeur);
-	}//  
+	}// 
+	
+	public double getPrixMoyen(Produit p){
+		double PrixMoyen=0;
+		for (IDistributeur d : MarcheConsommateurs.distributeurs){
+			PrixMoyen+=this.fidelite.get(d).get(p)*d.getPrixVente(p);
+		}
+		return PrixMoyen;
+	}
 	
 	public void actualiserDemande(){ //A actualiser a chaque next()
 		for (Produit p : this.getProduits()){ 
-			double demandeDuStep = ((Double)calendrierDemande.get(Monde.LE_MONDE.getStep()%26).get(p)).doubleValue();
+			double demandeDuStep = ((Double)calendrierDemande.get(Monde.LE_MONDE.getStep()%26).get(p)).doubleValue()-this.ALPHA.get(p)*getPrixMoyen(p);
 			this.demandeComposanteContinue.put(p,demandeDuStep);
 			this.demandeComposanteAleatoire.put(p, this.demandeComposanteContinue.get(p)*(1+2*Math.random())*this.pourcentageIncertitudeVentes.get(p));
 		}
