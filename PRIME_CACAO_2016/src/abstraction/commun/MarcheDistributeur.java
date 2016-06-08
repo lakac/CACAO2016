@@ -34,7 +34,7 @@ public class MarcheDistributeur implements Acteur {
 	}
 
 	public void addCatalogue(ITransformateur t, Catalogue c) {
-		this.cat.put(t, c);
+		this.cat.replace(t, c);
 	}
 
 	public void addTransformateur(ITransformateur t) {
@@ -53,7 +53,7 @@ public class MarcheDistributeur implements Acteur {
 		return this.lestransfos;
 	}
 
-	public List<IDistributeur> getLesDitris() {
+	public List<IDistributeur> getLesDistris() {
 		return this.lesdistris;
 	}
 
@@ -99,7 +99,7 @@ public class MarcheDistributeur implements Acteur {
 	public List<CommandeDistri> obtenirCommandeFinale(ITransformateur t, IDistributeur d) {
 		List<CommandeDistri> temp = new ArrayList<CommandeDistri>();
 		for (ITransformateur t0 : this.getLesTransfos()) {
-			for(IDistributeur d0 : this.getLesDitris()) {
+			for(IDistributeur d0 : this.getLesDistris()) {
 				for (int i=0; i<this.getCommandeFinale().size(); i++) {
 					if (this.getCommandeFinale().get(i).getAcheteur() == d0 && this.getCommandeFinale().get(i).getVendeur() == t0) {
 						temp.add(this.getCommandeFinale().get(i));
@@ -113,7 +113,7 @@ public class MarcheDistributeur implements Acteur {
 	public List<CommandeDistri> obtenirLivraisonEffective(ITransformateur t, IDistributeur d) {
 		List<CommandeDistri> temp = new ArrayList<CommandeDistri>();
 		for (ITransformateur t0 : this.getLesTransfos()) {
-			for(IDistributeur d0 : this.getLesDitris()) {
+			for(IDistributeur d0 : this.getLesDistris()) {
 				for (int i=0; i<this.getLivraisonglobale().size(); i++) {
 					if (this.getLivraisonglobale().get(i).getAcheteur() == d0 && this.getLivraisonglobale().get(i).getVendeur() == t0) {
 						temp.add(this.getLivraisonglobale().get(i));
@@ -147,9 +147,9 @@ public class MarcheDistributeur implements Acteur {
 		for (ITransformateur t : this.getLesTransfos()) {
 			NegoTransfo.put(t, new ArrayList<CommandeDistri>());	
 		}
-		for (IDistributeur d : this.getLesDitris()) {
+		for (IDistributeur d : this.getLesDistris()) {
 			for (ITransformateur t : this.getLesTransfos()) {
-				for (int i=0; i<NegoTransfo.get(d).size(); i++) {
+				for (int i=0; i<NegoTransfo.get(t).size(); i++) {
 					if (hm.get(d).get(i).getVendeur() == t) {
 						NegoTransfo.get(t).add(hm.get(d).get(i));
 					}
@@ -162,11 +162,11 @@ public class MarcheDistributeur implements Acteur {
 
 	public HashMap<IDistributeur, List<CommandeDistri>> RenvoiTransfo(HashMap<ITransformateur, List<CommandeDistri> > hm) {
 		HashMap<IDistributeur, List<CommandeDistri> > NegoDistri = new HashMap<IDistributeur, List<CommandeDistri>>();
-		for (IDistributeur d : this.getLesDitris()) {
+		for (IDistributeur d : this.getLesDistris()) {
 			NegoDistri.put(d, new ArrayList<CommandeDistri>());	
 		}
 		for (ITransformateur t : this.getLesTransfos()) {
-			for (IDistributeur d : this.getLesDitris()) {
+			for (IDistributeur d : this.getLesDistris()) {
 				for (int i=0; i<NegoDistri.get(t).size(); i++) {
 					if (hm.get(t).get(i).getAcheteur() == d) {
 						NegoDistri.get(d).add(hm.get(t).get(i));
@@ -180,8 +180,10 @@ public class MarcheDistributeur implements Acteur {
 	
 	public HashMap<IDistributeur, List<CommandeDistri>> copieProfonde (HashMap<IDistributeur, List<CommandeDistri>> aCopie) {
 		HashMap<IDistributeur, List<CommandeDistri> > copieProfonde = new HashMap<IDistributeur, List<CommandeDistri>>();
-		for (IDistributeur d : this.getLesDitris()) {
+		for (IDistributeur d : this.getLesDistris()) {
 			copieProfonde.put(d, new ArrayList<CommandeDistri>());
+			System.out.println(d);
+			System.out.println(aCopie);
 			for (CommandeDistri cd : aCopie.get(d)) {
 				copieProfonde.get(d).add(new CommandeDistri(cd.getAcheteur(),cd.getVendeur(),cd.getProduit(),cd.getQuantite(), cd.getPrixTonne(),cd.getStepLivraison(), cd.getValidation()));
 			}
@@ -197,22 +199,32 @@ public class MarcheDistributeur implements Acteur {
 		HashMap<ITransformateur, List<CommandeDistri> > NegoTransfo = new HashMap<ITransformateur, List<CommandeDistri>>();
 
 		for (ITransformateur t : this.getLesTransfos()) {
-			this.getCatalogues().put(t, t.getCatalogue());
+			if (this.getCatalogues().size() < this.getLesTransfos().size()) {
+				this.cat.put(t, t.getCatalogue());
+			}
+			this.addCatalogue(t, t.getCatalogue());;
 		}
 
-		for (IDistributeur d : this.getLesDitris()) {
+		for (IDistributeur d : this.getLesDistris()) {
+			int i=0;
+			NegoDistri.put(d, new ArrayList<CommandeDistri>());
 			for (ITransformateur t : this.getLesTransfos()) {
-				NegoDistri.put(d, d.demande(t, this.getCatalogues().get(t)));
+				i+=1;
+				System.out.println("Transfo de l'étape "+i+"-->"+t);
+				NegoDistri.get(d).addAll(d.demande(t, this.getCatalogues().get(t)));
+				System.out.println("Nego Distri étape"+i+"-->"+NegoDistri);
 			}
 			
 			while (marcheValide(NegoDistri) == false) {
 				NegoTransfo = this.RenvoiDistri(NegoDistri);
+				System.out.println("Les distributeurs -->"+this.getLesDistris());
+				System.out.println("Nego distri -->"+NegoDistri);
 				HashMap<IDistributeur, List<CommandeDistri>> NegoDistriTemp = copieProfonde(NegoDistri);
 				for (ITransformateur t : this.getLesTransfos()) {
-					NegoTransfo.replace(t, t.offre(NegoTransfo.get(t)));
+					NegoTransfo.replace(t, t.Offre(NegoTransfo.get(t)));
 				}
 				NegoDistri = this.RenvoiTransfo(NegoTransfo);
-				for (IDistributeur d1 : this.getLesDitris()) {
+				for (IDistributeur d1 : this.getLesDistris()) {
 					NegoDistri.replace(d1, d1.contreDemande(NegoDistri.get(d1),NegoDistriTemp.get(d1)));
 				}
 			}
@@ -227,7 +239,7 @@ public class MarcheDistributeur implements Acteur {
 			
 			List<CommandeDistri> livraisonglobale = new ArrayList<CommandeDistri>();
 			for (ITransformateur t : this.getLesTransfos()) {
-				for (IDistributeur d4 : this.getLesDitris()) {
+				for (IDistributeur d4 : this.getLesDistris()) {
 					for (CommandeDistri cd : this.getHistoriqueCommande()) {
 						List<CommandeDistri> temp = new ArrayList<CommandeDistri>();
 						if (cd.getStepLivraison() == MondeV1.LE_MONDE.getStep() && t == cd.getVendeur() && d4 == cd.getAcheteur()) {

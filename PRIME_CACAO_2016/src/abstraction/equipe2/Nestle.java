@@ -83,6 +83,10 @@ public class Nestle implements Acteur, ITransformateur{
 			Monde.LE_MONDE.ajouterIndicateur( indicateurp);
 		}
 		this.catalogue = new CatalogueInterne();
+		
+		PlageInterne plageinterne = this.getProd().plageinterne();
+		//Catalogue
+		this.catalogue.setCatalogueinterne(plageinterne);
 
 	}
 	//Ajout de clients et de fournisseurs
@@ -226,6 +230,9 @@ public class Nestle implements Acteur, ITransformateur{
 		return this.catalogue.getCatalogueinterne();
 	}
 
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
 	@Override
 	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
 		ArrayList<CommandeDistri> Offre = new ArrayList<CommandeDistri>();

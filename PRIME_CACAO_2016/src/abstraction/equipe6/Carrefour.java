@@ -61,6 +61,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		HashMap<Produit,Double> demandeAnnuel = new HashMap<Produit,Double>();
 		for (Produit p : this.getProduits()) {
 			demandeAnnuel.put(p, 2500.0);
+			besoinStep.put(p, 0.0);
 			for (ITransformateur t : this.getTransformateurs()) {
 				lesStocks.add(new Stock(p, 1000, t, new Indicateur("Stock de "+p.getNomProduit()+" de marque "+this.getNom(),this , 0.0)));
 				lesAchats.add(new Achats(t, new Indicateur("Achats de "+p.getNomProduit()+" de marque "+t.getNom()+" de "+this.getNom(), this, 0.0), p));
@@ -209,7 +210,7 @@ public class Carrefour implements Acteur,IDistributeur {
 			}
 		}
 	}
-	
+
 	public void setVentes(Produit p, ITransformateur t, Double quantite) {
 		for (int i=0; i<this.getLesVentes().size(); i++) {
 			if (this.getLesVentes().get(i).getProduit() == p && this.getLesVentes().get(i).getMarque() == t) {
@@ -233,9 +234,12 @@ public class Carrefour implements Acteur,IDistributeur {
 		transfo.add(this.getTransformateurs().get(0));
 		for (ITransformateur t : this.getTransformateurs()) {
 			for (ITransformateur t2 : transfo) {
-				if (hm.get(t2).getTarif(p).getPrixTonne()>hm.get(t).getTarif(p).getPrixTonne() && t!=t2) {
-					transfo.add(transfo.indexOf(t2), t);
-					break;
+				int temp = 0;
+				while (temp == 0) {
+					if (hm.get(t2).getTarif(p).getPrixTonne()>hm.get(t).getTarif(p).getPrixTonne() && t!=t2) {
+						transfo.add(transfo.indexOf(t2), t);
+						temp+=1;
+					}
 				}
 			}
 		}
@@ -247,16 +251,16 @@ public class Carrefour implements Acteur,IDistributeur {
 		for (int i=0; i<this.getProduits().size(); i++){	
 			if (step%26 == 6 ) {
 				besoin = (this.getDemandeAnnuel().get(this.getProduits().get(i))*0.06)*(1+(Math.random()*0.2 - 0.1));
-				this.besoinStep.put(produits.get(i),besoin); 
+				this.besoinStep.replace(this.getProduits().get(i), besoin); 
 			}
 			else {
 				if (step%26 == 25) {
 					besoin = (0.12*this.getDemandeAnnuel().get(this.getProduits().get(i))*(1+(Math.random()*0.2 - 0.1)));
-					this.besoinStep.put(produits.get(i), besoin);
+					this.besoinStep.replace(this.getProduits().get(i), besoin);
 				}
 				else {
 					besoin = (0.03416*this.getDemandeAnnuel().get(this.getProduits().get(i))*(1+(Math.random()*0.2 - 0.1)));
-					this.besoinStep.put(produits.get(i),besoin);
+					this.besoinStep.replace(this.getProduits().get(i), besoin);
 				}
 			}
 		}		
@@ -273,7 +277,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		for (Produit p : this.getProduits()) {
 			for (int i=0; i<this.getTransformateurs().size(); i++) {
 				int le = this.getTransformateurs().size();
-				ITransformateur letransfo = this.comparateurPrixProduit(cat, p).get(i);
+				ITransformateur letransfo = this.getTransformateurs().get(i); // Modif pour que ça marche, plus de comparateur de prix
 				double quantite = (6*(le-i)^2)/((le*(le-1)*(2*le-1)));
 				commande.get(letransfo).add(new CommandeDistri(this, letransfo, p, quantite, letransfo.getCatalogue().getTarif(p).getPrixTonne(), MondeV1.LE_MONDE.getStep()+3, false));
 			}
@@ -289,7 +293,7 @@ public class Carrefour implements Acteur,IDistributeur {
 
 
 	public List<CommandeDistri> contreDemande(List<CommandeDistri> nouvelle,List<CommandeDistri> ancienne) {
-     List <CommandeDistri> contreDemande= new ArrayList<CommandeDistri>();
+		List <CommandeDistri> contreDemande= new ArrayList<CommandeDistri>();
 		for (Produit p : this.getProduits()) {
 			List<ITransformateur> enRupture = new ArrayList<ITransformateur>();
 			double insatisfait = 0.0;
@@ -334,7 +338,7 @@ public class Carrefour implements Acteur,IDistributeur {
 	}
 	
 	public void next() {
-		this.setBesoinStep(LE_MONDE.getStep()+1);
+
 		for (ITransformateur t : this.getTransformateurs()) {
 			List<CommandeDistri> temp = new ArrayList<CommandeDistri>();
 			List<CommandeDistri> temp2 = new ArrayList<CommandeDistri>();
@@ -365,7 +369,7 @@ public class Carrefour implements Acteur,IDistributeur {
 					}
 				}
 			}
-			
+
 		}
 
 	}
@@ -385,8 +389,8 @@ public class Carrefour implements Acteur,IDistributeur {
 }
 
 
-	
-	
+
+
 
 
 
