@@ -1,6 +1,7 @@
 package abstraction.equipe2;
 import java.util.HashMap;
 import abstraction.commun.*;
+import abstraction.equipe2copie.Nestle;
 import abstraction.fourni.*;
 
 public class Vente {

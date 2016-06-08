@@ -1,7 +1,17 @@
-package abstraction.equipe2;
+package abstraction.equipe2copie;
 
 import abstraction.fourni.*;
 import abstraction.commun.*;
+import abstraction.equipe2.Achat;
+import abstraction.equipe2.Banque;
+import abstraction.equipe2.CatalogueInterne;
+import abstraction.equipe2.Constante;
+import abstraction.equipe2.CoutTransport;
+import abstraction.equipe2.PlageInterne;
+import abstraction.equipe2.Production;
+import abstraction.equipe2.StockCacao;
+import abstraction.equipe2.StockChocolats;
+import abstraction.equipe2.Vente;
 
 import java.util.ArrayList;
 import java.util.HashMap;

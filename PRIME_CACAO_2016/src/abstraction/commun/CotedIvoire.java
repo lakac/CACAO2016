@@ -20,7 +20,7 @@ public class CotedIvoire implements IProducteur, Acteur {
 	}
 	
 	//permet de remplir la liste des concurrents de la cote d'ivoire
-	public void AjouterConcurrent(IProducteur p) {
+	public void ajouterConcurrent(IProducteur p) {
 		this.concurrents.add(p);
 	}
 	

@@ -11,6 +11,7 @@ import abstraction.equipe1.Producteur;
 
 import abstraction.equipe3.Leclercv2;
 import abstraction.equipe2.*;
+import abstraction.equipe2copie.Nestle;
 import abstraction.equipe6.Carrefour;
 
 public class MondeV1 extends Monde {
