@@ -8,14 +8,14 @@ package abstraction.commun;
 
 public class CommandeDistri {
 	private IDistributeur acheteur;
-	private ITransformateur vendeur;
+	private ITransformateurD vendeur;
 	private Produit produit;
 	private double quantite;
 	private double prixTonne;
 	private boolean validation;
 	private int stepLivraison;
 
-	public CommandeDistri(IDistributeur acheteur, ITransformateur vendeur, Produit produit, double quantite, double prixTonne, int stepLivraison, boolean validation) {
+	public CommandeDistri(IDistributeur acheteur, ITransformateurD vendeur, Produit produit, double quantite, double prixTonne, int stepLivraison, boolean validation) {
 		this.acheteur = acheteur;
 		this.vendeur = vendeur;
 		this.produit = produit; //Change string en produit 19/05 A.MARTY
@@ -38,7 +38,7 @@ public class CommandeDistri {
 		return this.acheteur;
 	}
 
-	public ITransformateur getVendeur() {
+	public ITransformateurD getVendeur() {
 		return this.vendeur;
 	}
 
@@ -46,7 +46,7 @@ public class CommandeDistri {
 		this.acheteur = acheteur;
 	}
 
-	public void setVendeur(ITransformateur vendeur) {
+	public void setVendeur(ITransformateurD vendeur) {
 		this.vendeur = vendeur;
 	}
 

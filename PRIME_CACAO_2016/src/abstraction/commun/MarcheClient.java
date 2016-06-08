@@ -4,7 +4,7 @@ public class MarcheClient {
 	
 	private double demandeannuelle;
 	private double demandeperstep;
-	private ITransformateur transformateur;
+	private ITransformateurD transformateur;
 	private Produit nomproduit;
 	
 	

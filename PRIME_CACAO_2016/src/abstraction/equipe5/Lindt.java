@@ -5,7 +5,7 @@ import abstraction.commun.*;
 import abstraction.fourni.*;
 import java.util.List;
 
-public class Lindt implements Acteur, ITransformateur{
+public class Lindt implements Acteur, ITransformateurD{
 	
 	private HistoriqueCommandeDistri histCommandeDistri;
 	private HistoriqueCommandeProduc histCommandeProduc;

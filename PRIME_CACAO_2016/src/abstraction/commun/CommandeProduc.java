@@ -8,7 +8,7 @@ public class CommandeProduc {
 	 * @author equipe 5
 	 */
 	
-	private ITransformateur acheteur;
+	private ITransformateurD acheteur;
 	private IProducteur vendeur;
 	private double quantite;
 	private double prixTonne;
@@ -17,7 +17,7 @@ public class CommandeProduc {
 	/**
 	 * @depreciated
 	 */
-	public CommandeProduc(ITransformateur acheteur, IProducteur vendeur, double quantite, double prixTonne) {
+	public CommandeProduc(ITransformateurD acheteur, IProducteur vendeur, double quantite, double prixTonne) {
 		this.acheteur = acheteur;
 		this.vendeur = vendeur;
 		this.quantite = quantite;
@@ -32,7 +32,7 @@ public class CommandeProduc {
 	/**
 	 * @depreciated
 	 */
-	public ITransformateur getAcheteur() {
+	public ITransformateurD getAcheteur() {
 		return this.acheteur;
 	}
 
@@ -46,7 +46,7 @@ public class CommandeProduc {
 	/**
 	 * @depreciated
 	 */
-	public void setAcheteur(ITransformateur acheteur) {
+	public void setAcheteur(ITransformateurD acheteur) {
 		this.acheteur = acheteur;
 	}
 

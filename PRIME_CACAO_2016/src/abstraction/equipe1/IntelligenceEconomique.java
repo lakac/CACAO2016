@@ -3,7 +3,7 @@ package abstraction.equipe1;
 import java.util.HashMap;
 import java.util.List;
 
-import abstraction.commun.ITransformateur;
+import abstraction.commun.ITransformateurD;
 import abstraction.commun.MarcheProducteur;
 
 /**
@@ -11,34 +11,34 @@ import abstraction.commun.MarcheProducteur;
  */
 public class IntelligenceEconomique {
 	/** Liste des transformateurs en relation avec notre producteur */
-	private List<ITransformateur> transformateurs;
+	private List<ITransformateurD> transformateurs;
 	/** Coefficients de somme unité correspondant à l'importance des ventes réalisées */
-	private HashMap<ITransformateur,Double> importanceTransformateurs;
+	private HashMap<ITransformateurD,Double> importanceTransformateurs;
 	/** Stock de notre producteur */
 	private Stock stock;
 	/** Quantités mises en vente pour chaque transformateur pour le step en cours */
-	private HashMap<ITransformateur,Double> quantitesMisesEnVente;
+	private HashMap<ITransformateurD,Double> quantitesMisesEnVente;
 	/**
 	 * Coefficients associés au stock produit à différentes dates.
 	 * Le cacao le plus ancien est en tête.
 	 */
 	private final double[] coeffPerissabilite = {1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1};
 	
-	public IntelligenceEconomique(List<ITransformateur> t, Stock s) {
+	public IntelligenceEconomique(List<ITransformateurD> t, Stock s) {
 		this.transformateurs = t;
-		this.importanceTransformateurs = new HashMap<ITransformateur,Double>();
+		this.importanceTransformateurs = new HashMap<ITransformateurD,Double>();
 		this.stock = s;
-		this.quantitesMisesEnVente = new HashMap<ITransformateur,Double>();
+		this.quantitesMisesEnVente = new HashMap<ITransformateurD,Double>();
 	}
 	
 	/**
 	 * Prend en compte l'existence du transformateur après son ajout
 	 * à la liste des transformateurs pour l'ajouter aux HashMap internes.
 	 */
-	public void prendreEnCompte(ITransformateur t) {
+	public void prendreEnCompte(ITransformateurD t) {
 		this.quantitesMisesEnVente.put(t, 0.0);
 		// mise à jour des coefficients d'importance pour avoir une somme unité
-		for (ITransformateur tr : this.transformateurs) {
+		for (ITransformateurD tr : this.transformateurs) {
 			this.importanceTransformateurs.put(tr, 1.0/this.transformateurs.size());
 		}
 	}
@@ -64,12 +64,12 @@ public class IntelligenceEconomique {
 	
 	private void actualiserImportanceTransformateurs() {
 		double totalDemandes = 0.0;
-		for (ITransformateur t : this.transformateurs) {
+		for (ITransformateurD t : this.transformateurs) {
 			totalDemandes += t.annoncePrix()*t.annonceQuantiteDemandee();
 		}
 		
 		if(totalDemandes != 0.0) {
-			for (ITransformateur t : this.transformateurs) {
+			for (ITransformateurD t : this.transformateurs) {
 				double valeur = t.annoncePrix()*t.annonceQuantiteDemandee()/totalDemandes;
 				double valeurAmortie = this.importanceTransformateurs.get(t)*0.8 + valeur*0.2;
 				this.importanceTransformateurs.put(t, valeurAmortie);
@@ -79,7 +79,7 @@ public class IntelligenceEconomique {
 	
 	private void actualiserQuantitesMisesEnVente() {
 		double offreTotale = calculerOffreTotale();
-		for (ITransformateur t : this.transformateurs) {
+		for (ITransformateurD t : this.transformateurs) {
 			double valeur = offreTotale*this.importanceTransformateurs.get(t);
 			this.quantitesMisesEnVente.put(t, valeur);
 		}
@@ -90,7 +90,7 @@ public class IntelligenceEconomique {
 		this.actualiserQuantitesMisesEnVente();
 	}
 	
-	public double donnerQuantiteMiseEnVente(ITransformateur t) {
+	public double donnerQuantiteMiseEnVente(ITransformateurD t) {
 		return this.quantitesMisesEnVente.get(t);
 	}
 }

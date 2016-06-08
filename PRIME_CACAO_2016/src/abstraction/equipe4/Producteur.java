@@ -10,7 +10,7 @@ public class Producteur implements Acteur,IProducteur{
 	private Journal journal;
 	private Tresorerie treso;
 	private ProductionBiannuelle prodBiannu;
-	private ArrayList<ITransformateur> transformateurs;
+	private ArrayList<ITransformateurD> transformateurs;
 	private Vente vente;
 
 	//Constructeur de l'acteur Producteur 2
@@ -21,7 +21,7 @@ public class Producteur implements Acteur,IProducteur{
 		this.stock = new Stock(this);
 		this.journal = new Journal("Journal de "+this.nom);
 		this.prodBiannu=new ProductionBiannuelle(this,1200000);
-		this.transformateurs= new ArrayList<ITransformateur>();
+		this.transformateurs= new ArrayList<ITransformateurD>();
 		Monde.LE_MONDE.ajouterJournal(this.journal);
 	}
 
@@ -49,7 +49,7 @@ public class Producteur implements Acteur,IProducteur{
 		return this.stock;
 	}
 
-	public ArrayList<ITransformateur> getTransformateurs() {
+	public ArrayList<ITransformateurD> getTransformateurs() {
 		return this.transformateurs;
 	}
 
@@ -63,7 +63,7 @@ public class Producteur implements Acteur,IProducteur{
 
 
 	//Ajout des clients à la liste transformateurs
-	public void ajoutClient(ITransformateur a){
+	public void ajoutClient(ITransformateurD a){
 		this.getTransformateurs().add(a);
 	}
 
@@ -84,7 +84,7 @@ public class Producteur implements Acteur,IProducteur{
 
 	// retourne un double valant la quantité disponible 
 	// pour chaque transformateur a chaque step
-	public double annonceQuantiteMiseEnVente(ITransformateur t) {
+	public double annonceQuantiteMiseEnVente(ITransformateurD t) {
 		if (((Acteur)t).getNom().equals(((Acteur)this.getTransformateurs().get(0)).getNom())) {
 			return this.getVente().ventesStep()[0];
 		}

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Nestle implements Acteur, ITransformateur{
+public class Nestle implements Acteur, ITransformateurD{
 	
 	private String nom;
 	
