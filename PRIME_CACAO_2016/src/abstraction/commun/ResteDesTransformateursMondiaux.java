@@ -15,14 +15,14 @@ import abstraction.fourni.Acteur;
  * @author Equipe 4 avec l'aide de l'equipe 1 (+ Petites modifs de l'equipe 5)
  */
 
-public class ResteDesTransformateursMondiaux implements Acteur, ITransformateurD {
+public class ResteDesTransformateursMondiaux implements Acteur, ITransformateurP {
 
-	private List<ITransformateurD> transformateurs;
+	private List<ITransformateurP> transformateurs;
 	
 	
 	// constructeur
 	public ResteDesTransformateursMondiaux(){
-		this.transformateurs = new ArrayList<ITransformateurD>();
+		this.transformateurs = new ArrayList<ITransformateurP>();
 		
 	}
 
@@ -31,7 +31,7 @@ public class ResteDesTransformateursMondiaux implements Acteur, ITransformateurD
 	 * Ajoute un transformateur reel a la liste des transformateurs
 	 * servant a calculer la quantite mise en vente.
 	 */
-	public void ajouterTransformateur(ITransformateurD transformateur) {
+	public void ajouterTransformateur(ITransformateurP transformateur) {
 		if (!this.transformateurs.contains(transformateur) && transformateur != this) {
 			this.transformateurs.add(transformateur);
 		}
@@ -39,7 +39,7 @@ public class ResteDesTransformateursMondiaux implements Acteur, ITransformateurD
 
 	public double annonceQuantiteDemandee() {
 		double qt =0;
-		for (ITransformateurD t : this.transformateurs) {
+		for (ITransformateurP t : this.transformateurs) {
 			qt += t.annonceQuantiteDemandee();
 		}
 
