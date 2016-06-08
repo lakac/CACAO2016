@@ -113,6 +113,7 @@ public class MondeV1 extends Monde {
 		Le.getStock().initialiseStock(Le);	
 		Le.getPrixDeVente().initialisePrixDeVente(Le, produits);
 		Le.getVentes().initialiseVentes();
+		//Ajouter transformateurs et distributeurs au marché
 		MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiserDemandeAnnuelle();
 		//MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiserCalendrierDemande();
 		MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiserPourcentageIncertitudeVentes();

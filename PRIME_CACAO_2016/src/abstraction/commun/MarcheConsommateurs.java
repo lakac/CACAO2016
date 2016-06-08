@@ -57,6 +57,7 @@ public class MarcheConsommateurs implements Acteur {
 		this.demandeAnnuelle=new HashMap <Produit,Double>();
 		this.nom = nom;
 		this.produits=produits;
+		this.fidelite = new HashMap <IDistributeur,HashMap<Produit,Double>>();
 	}
 	
 	public String getNom(){
@@ -67,7 +68,7 @@ public class MarcheConsommateurs implements Acteur {
 	}
 	public static void ajouterDistributeur(IDistributeur distributeur){
 		MarcheConsommateurs.distributeurs.add(distributeur);
-	}//  
+	}
 	
 	public void actualiserDemande(){ //A actualiser a chaque next()
 		for (Produit p : this.getProduits()){ 
