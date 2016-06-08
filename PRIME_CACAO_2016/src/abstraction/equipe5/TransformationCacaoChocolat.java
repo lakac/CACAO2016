@@ -1,11 +1,7 @@
 package abstraction.equipe5;
 
-import java.util.ArrayList;
-
-import abstraction.commun.Catalogue;
+import abstraction.commun.Commande;
 import abstraction.commun.CommandeDistri;
-import abstraction.commun.IDistributeur;
-import abstraction.commun.IProducteur;
 import abstraction.fourni.Monde;
 
 public class TransformationCacaoChocolat {
@@ -21,13 +17,13 @@ public class TransformationCacaoChocolat {
 	 */
 	
 	public void Transformation(){
-		for (CommandeDistri c : lindt.getHistCommandeDistri().getHist()){
-			if (c.getStepLivraison()==Monde.LE_MONDE.getStep()+2){
-				lindt.getStockCacao().setStock((lindt.getStockCacao().getStock()-c.getQuantite()*c.getProduit().getRatioCacao()));
+		for (Commande c : lindt.getHistCommandeDistri().getHist()){
+			if (((CommandeDistri)c).getStepLivraison()==Monde.LE_MONDE.getStep()+2){
+				lindt.getStockCacao().setStock((lindt.getStockCacao().getStock()-c.getQuantite()*((CommandeDistri)c).getProduit().getRatioCacao()));
 				for (int i=0; i<lindt.getStocksChocolat().size(); i++){
-					if (c.getProduit().getNomProduit()==lindt.getStocksChocolat().get(i).getNom()){
+					if (((CommandeDistri)c).getProduit().getNomProduit()==lindt.getStocksChocolat().get(i).getNom()){
 						lindt.getStocksChocolat().get(i).setStock(lindt.getStocksChocolat().get(i).getStock()+c.getQuantite());
-						lindt.getTreso().retrait(c.getQuantite()*c.getProduit().getRatioCacao()*Constante.COUT_TRANSFORMATION);;
+						lindt.getTreso().retrait(c.getQuantite()*((CommandeDistri)c).getProduit().getRatioCacao()*Constante.COUT_TRANSFORMATION);;
 					}
 				}
 			}
