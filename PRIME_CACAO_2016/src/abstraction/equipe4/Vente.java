@@ -1,5 +1,7 @@
 package abstraction.equipe4;
 
+import javax.swing.plaf.synth.SynthScrollBarUI;
+
 import abstraction.commun.MarcheProducteur;
 import abstraction.fourni.*;
 
@@ -15,7 +17,7 @@ public class Vente {
  	private double[] prixDemandes;
 	//notre offre totale par step
  	private double offreTotale;
-
+ 
 	//Constructeurs
 	public Vente (Stock stock, Producteur producteur) {
 		this.stock = stock;
@@ -56,10 +58,10 @@ public class Vente {
 		double M = coursCacao.get(0).getValeur();
 		for (int i=1; i<l; i++) {
 			M=M+coursCacao.get(i).getValeur();
-			M=M/l;
 		}
-		return M;
+		return M/l;
 	}
+	
 	//Retourne le stock disponible divise par le nombre de steps restantes
 	//avant le nouvel arrivage de production, pour savoir quelle quantite
 	//mettre en vente theoriquement, sans prendre en compte le cours actuel 
