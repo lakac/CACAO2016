@@ -26,8 +26,8 @@ class CommandeInterne {
 }
 
 public class AchatProd {
-	private HistoriqueCommandeProduc histP;
-	private HistoriqueCommandeDistri histD;
+	private HistoriqueCommande histP;
+	private HistoriqueCommande histD;
 	private Lindt lindt;
 	private Stock stockCacao;
 	private Tresorerie treso;
@@ -35,7 +35,7 @@ public class AchatProd {
 	//private double quantiteRecue;
 
 	
-	public AchatProd(HistoriqueCommandeProduc histP, HistoriqueCommandeDistri histD, Lindt lindt, Stock stockCacao, Tresorerie treso) {
+	public AchatProd(HistoriqueCommande histP, HistoriqueCommande histD, Lindt lindt, Stock stockCacao, Tresorerie treso) {
 		this.histP = histP;
 		this.histD = histD;
 		this.lindt = lindt;
@@ -43,11 +43,11 @@ public class AchatProd {
 		this.treso = treso;
 	}
 	
-	public HistoriqueCommandeProduc getHistP() {
+	public HistoriqueCommande getHistP() {
 		return this.histP;
 	}
 
-	public HistoriqueCommandeDistri getHistD() {
+	public HistoriqueCommande getHistD() {
 		return this.histD;
 	}
 	
@@ -68,11 +68,11 @@ public class AchatProd {
 		// Creation de la liste des commandes au step n, n-1, n-2 et n-3
 		List<CommandeDistri> listeCommandesDist= new ArrayList<CommandeDistri>();
 		for (int i=0 ; i<this.getHistD().getHist().size(); i++){
-			if (this.getHistD().getCommande(i).getStepLivraison()==Constante.stepCourant()
-					||this.getHistD().getCommande(i).getStepLivraison()==Constante.stepPrecedent()
-					||this.getHistD().getCommande(i).getStepLivraison()==Constante.step2() 
-					||this.getHistD().getCommande(i).getStepLivraison()==Constante.step3())
-				listeCommandesDist.add(this.getHistD().getCommande(i));
+			if (((CommandeDistri)this.getHistD().getCommande(i)).getStepLivraison()==Constante.stepCourant()
+					||((CommandeDistri)this.getHistD().getCommande(i)).getStepLivraison()==Constante.stepPrecedent()
+					||((CommandeDistri)this.getHistD().getCommande(i)).getStepLivraison()==Constante.step2() 
+					||((CommandeDistri)this.getHistD().getCommande(i)).getStepLivraison()==Constante.step3())
+				listeCommandesDist.add(((CommandeDistri)this.getHistD().getCommande(i)));
 		}
 		// Calcul du besoin en cacao pour les 3 prochains step
 		for (CommandeDistri c : listeCommandesDist){

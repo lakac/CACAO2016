@@ -7,9 +7,9 @@ import java.util.List;
 
 public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 	
-	private HistoriqueCommandeDistri histCommandeDistri;
-	private HistoriqueCommandeProduc histCommandeProduc;
-	private HistoriqueCommandeDistri commandeDistriLivree;
+	private HistoriqueCommande histCommandeDistri;
+	private HistoriqueCommande histCommandeProduc;
+	private HistoriqueCommande commandeDistriLivree;
 	private Stock stockCacao;
 	private Stock stockChocolat50;
 	private Stock stockChocolat60;
@@ -24,9 +24,9 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 	
 
 	public Lindt(){
-		this.histCommandeDistri = new HistoriqueCommandeDistri();
-		this.histCommandeProduc = new HistoriqueCommandeProduc();
-		this.commandeDistriLivree = new HistoriqueCommandeDistri();
+		this.histCommandeDistri = new HistoriqueCommande();
+		this.histCommandeProduc = new HistoriqueCommande();
+		this.commandeDistriLivree = new HistoriqueCommande();
 		this.stockCacao = new Stock("cacao",this,200.0);
 		this.stockChocolat50 = new Stock(Constante.LISTE_PRODUIT[0].getNomProduit(),this,0.0);
 		this.stockChocolat60 = new Stock(Constante.LISTE_PRODUIT[1].getNomProduit(),this,0.0);
@@ -52,13 +52,13 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 
 	/** Voila tout les getters*/
 
-	public HistoriqueCommandeDistri getHistCommandeDistri() {
+	public HistoriqueCommande getHistCommandeDistri() {
 		return this.histCommandeDistri;
 	}
-	public HistoriqueCommandeProduc getHistCommandeProduc() {
+	public HistoriqueCommande getHistCommandeProduc() {
 		return this.histCommandeProduc;
 	}
-	public HistoriqueCommandeDistri getCommandeDistriLivree() {
+	public HistoriqueCommande getCommandeDistriLivree() {
 		return this.commandeDistriLivree;
 	}
 	public void ajouterProducteur(IProducteur p) {
