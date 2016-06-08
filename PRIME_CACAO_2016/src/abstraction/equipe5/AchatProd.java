@@ -6,6 +6,7 @@ import java.util.List;
 import abstraction.commun.CommandeDistri;
 import abstraction.commun.CommandeProduc;
 import abstraction.commun.MarcheProducteur;
+import abstraction.fourni.Monde;
 
 class CommandeInterne {
 	private double quantite, prix;
@@ -110,8 +111,8 @@ public class AchatProd {
 	 */
 	public double annonceQuantiteDemandee(){ 
 		this.quantiteDemandee = 0.6*this.calculQuantiteDemandee().getQuantite();
-		//return 0.6*this.calculQuantiteDemandee().getQuantite();
-		return (1000);
+		return 0.6*this.calculQuantiteDemandee().getQuantite();
+		//return (1000);
 	}// On met *0.6 car on prend 60% au prod et 40% au reste du monde
 	
 	
