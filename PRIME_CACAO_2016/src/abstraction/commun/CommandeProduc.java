@@ -1,11 +1,11 @@
-package abstraction.commun;
+ package abstraction.commun;
 
 public class CommandeProduc {
 
 	/**
 	 * Classe modelisant les commandes entre producteur et transformateur
 	 * 
-	 *
+	 * @author equipe 5
 	 */
 	
 	private double quantite;

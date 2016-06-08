@@ -42,7 +42,7 @@ public class Production {
 	}
 	
 	public double PrixdeventeDeBase(Produit p) {
-		return (1+Constante.MARGE)*this.CoutTransformation(p);
+		return (Constante.ACHAT_SANS_PERTE+Constante.MARGE)*this.CoutTransformation(p);
 	} 
 	
 	public double CoutTransformation(Produit p) {
@@ -62,10 +62,10 @@ public class Production {
 	public PlageInterne plageinterne() {
 		// Initialisation des plages de réduction
 				List<Plage> listplageproduit = new ArrayList<Plage>();
-				Plage plage1= new Plage(0,200,0);
-				Plage plage2= new Plage(200.1,500,0.03);
-				Plage plage3= new Plage(500.1,1000,0.07);
-				Plage plage4= new Plage(1000.1,0.10);
+				Plage plage1= new Plage(0,500,0);
+				Plage plage2= new Plage(500.1,1500,0.03);
+				Plage plage3= new Plage(1500.1,4000,0.07);
+				Plage plage4= new Plage(4000.1,0.10);
 				listplageproduit.add(plage1);
 				listplageproduit.add(plage2);
 				listplageproduit.add(plage3);
