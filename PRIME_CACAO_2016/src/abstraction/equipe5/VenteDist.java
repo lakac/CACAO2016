@@ -67,7 +67,7 @@ public class VenteDist {
 	 */
 	
 	//Cette fonction ne prend pas en compte le fait qu'on pourrait avoir un stock plus important au step n+3 grâce à la transformation
-	public List<CommandeDistri> Offre(List<CommandeDistri> listeCommandesDist){
+	public List<CommandeDistri> offre(List<CommandeDistri> listeCommandesDist){
 		
 		for(int i=0; i<lindt.getDistributeurs().size(); i++){
 			
@@ -117,7 +117,7 @@ public class VenteDist {
 				Commandeslivrees.add(c);
 			}		
 		}
-		Offre(Commandeslivrees);
+		offre(Commandeslivrees);
 		for (CommandeDistri c: Commandeslivrees){
 			lindt.getCommandeDistriLivree().ajouter(c);
 			lindt.getHistCommandeDistri().supprimer(c); 	
@@ -129,7 +129,7 @@ public class VenteDist {
 	 *@param liste des livraisons
 	 */
 	public List<CommandeDistri> LivraisonEffective(List<CommandeDistri> livraison){
-			return Offre (livraison);	
+			return offre (livraison);	
 	}
 	
 }
