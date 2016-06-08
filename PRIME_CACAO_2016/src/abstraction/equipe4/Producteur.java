@@ -117,4 +117,11 @@ public class Producteur implements Acteur,IProducteur{
 
 	}
 
+	//Réunion du 03/06 Ajout par l'équipe 2 le 8/06
+	@Override
+	public double annonceQuantitePropose() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

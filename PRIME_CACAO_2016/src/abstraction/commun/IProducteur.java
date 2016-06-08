@@ -6,6 +6,12 @@ public interface IProducteur {
 	 */
 	public double annonceQuantiteMiseEnVente(ITransformateur t);
 
+	//Conformément à la réunion du 03/06, créé par l'équipe 2 le 8/06.
+	/**
+	 * Indique la quantité de cacao totale mise en vente par le IProducteur p à la step considéré. 
+	 */
+	
+	public double annonceQuantitePropose();
 	
 	/**
 	 * Met à jour l'état interne de ce producteur suite à une vente auprès d'un transformateur.
