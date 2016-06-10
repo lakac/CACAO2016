@@ -17,15 +17,17 @@ public interface ITransformateurD {
 	
 	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> list);
 
-
 	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> list);
-
-	public List<CommandeDistri> Offre(List<CommandeDistri> o);
+	
 	/**
 	 * 
 	 * @param list
 	 * @return
 	 */
 	public List<CommandeDistri> offre(List<CommandeDistri> list);
-
+	
+	/**
+	 * @depreciated
+	 */
+	public List<CommandeDistri> Offre(List<CommandeDistri> o);
 }
