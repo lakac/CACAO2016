@@ -78,7 +78,7 @@ public class Producteur implements Acteur,IProducteur{
 	// retourne un double valant la quantité disponible 
 	// pour le marche
 	public double annonceQuantiteProposee() {
-		return 0;
+		return offre.venteAPriori();
 	}
 
 	//Modification du stock et de la tresorerie suite a une vente
@@ -99,7 +99,6 @@ public class Producteur implements Acteur,IProducteur{
 
 	public void notificationVente(CommandeProduc c) {
 		this.venteRealisee(c);
-
 	}
 
 	@Override

@@ -18,6 +18,8 @@ public class CommandeProduc {
 		this.prixTonne = prixTonne;
 	}
 
+	
+	@Deprecated
 	public CommandeProduc(ITransformateur t,IProducteur p, double quantite,double prixTonne ){
 		this(quantite,prixTonne);
 	}
