@@ -108,7 +108,15 @@ public class MarcheCons {
 	
 	/*renvoie les commandes reelles du step au distributeur d*/
 	
-	
+	public List<CommandeDistri> getVenteDistri(IDistributeur d){
+		List<CommandeDistri> res = new ArrayList<CommandeDistri>();
+		for (CommandeDistri com : this.ventesEffectuees){
+			if (com.getAcheteur()==d){
+				res.add(com);
+			}
+		}
+		return res;
+	}
 	
 	/* Retourne la demande continue fixe d'un produit au step step*/
 	
