@@ -1,6 +1,6 @@
 package abstraction.commun;
 
-public class CommandeProduc {
+public class CommandeProduc extends Commande{
 
 	/**
 	 * Classe modelisant les commandes entre producteur et transformateur
@@ -10,23 +10,35 @@ public class CommandeProduc {
 	
 	private ITransformateurD acheteur;
 	private IProducteur vendeur;
-	private double quantite;
-	private double prixTonne;
-
+	
+	public CommandeProduc(double quantite, double prixTonne) {
+		super(quantite, prixTonne);
+	}
+	
+	
+	// Toutes les méthodes depraciated
 	
 	/**
 	 * @depreciated
 	 */
 	public CommandeProduc(ITransformateurD acheteur, IProducteur vendeur, double quantite, double prixTonne) {
+		super(quantite, prixTonne);
 		this.acheteur = acheteur;
 		this.vendeur = vendeur;
-		this.quantite = quantite;
-		this.prixTonne = prixTonne;
 	}
 	
-	public CommandeProduc(double quantite, double prixTonne) {
-		this.quantite = quantite;
-		this.prixTonne = prixTonne;
+	/**
+	 * @depreciated
+	 */
+	public void setAcheteur(ITransformateurD acheteur) {
+		this.acheteur = acheteur;
+	}
+
+	/**
+	 * @depreciated
+	 */
+	public void setVendeur(IProducteur vendeur) {
+		this.vendeur = vendeur;
 	}
 	
 	/**
@@ -41,35 +53,5 @@ public class CommandeProduc {
 	 */
 	public IProducteur getVendeur() {
 		return this.vendeur;
-	}
-
-	/**
-	 * @depreciated
-	 */
-	public void setAcheteur(ITransformateurD acheteur) {
-		this.acheteur = acheteur;
-	}
-
-	/**
-	 * @depreciated
-	 */
-	public void setVendeur(IProducteur vendeur) {
-		this.vendeur = vendeur;
-	}
-
-	public void setQuantite(double quantite) {
-		this.quantite = quantite;
-	}
-
-	public void setPrixTonne(double prixTonne) {
-		this.prixTonne = prixTonne;
-	}
-
-	public double getQuantite(){
-		return this.quantite;
-	}
-
-	public double getPrixTonne() {
-		return this.prixTonne;
 	}
 }

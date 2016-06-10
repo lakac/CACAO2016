@@ -1,11 +1,11 @@
 package abstraction.equipe5;
 import abstraction.equipe5.Lindt;
 import abstraction.fourni.Monde;
-import abstraction.commun.Constantes;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import abstraction.commun.Commande;
 import abstraction.commun.CommandeDistri;
 
 import abstraction.commun.Produit;
@@ -113,9 +113,9 @@ public class VenteDist {
  	 */
 	public void MiseAJourHistCommandeDistri (){
 		List<CommandeDistri> Commandeslivrees = new ArrayList<CommandeDistri>();
-		for (CommandeDistri c: lindt.getHistCommandeDistri().getHist()){
-			if(c.getStepLivraison()==Monde.LE_MONDE.getStep()){
-				Commandeslivrees.add(c);
+		for (Commande c: lindt.getHistCommandeDistri().getHist()){
+			if(((CommandeDistri)c).getStepLivraison()==Monde.LE_MONDE.getStep()){
+				Commandeslivrees.add((CommandeDistri)c);
 			}		
 		}
 		offre(Commandeslivrees);
