@@ -1,43 +1,31 @@
 package abstraction.equipe4;
 import abstraction.fourni.*;
+import abstraction.commun.*;
 
 public class Tresorerie {
+	// argent totale dans la cagnote
 	private Indicateur fond;
-	private double prix;
-	private double CoutProd;
-	private Acteur Prod;
+	// nous
+	private Producteur prod;
 	
 	
-	public Tresorerie(Acteur a, double prix, double cout) {
-		this.fond = new Indicateur("Fond de" + a.getNom(),a,0.0);
-		this.prix = prix;
-		this.CoutProd = cout;
-		this.Prod= a;
+	//constructeur
+	public Tresorerie(Producteur p) {
+		this.fond = new Indicateur("Fond de Asie Amerique",p,0.0);
+		this.prod= p;
 		Monde.LE_MONDE.ajouterIndicateur( this.fond );
-	
-	}
-
-
-	public double getCoutProd() {
-		return this.CoutProd;
 	}
 	
-	public double getPrix() {
-		return this.prix;
-	}
-
-
-
-	public double PrixVente(double commande){
-		return commande*this.prix;
-	}
-
+	//geter
 	
-	public void modiftreso(double commande){
+	public Producteur getProd(){
+		return this.prod;
+	}
+
+
+	public Indicateur getFond(){
+		return this.fond;
+	}	
 		
-		this.fond.setValeur(this.Prod, PrixVente(commande) + this.fond.getValeur()- this.CoutProd);
-	
-	}
-		
-	}
+}
 	

@@ -1,37 +1,41 @@
 package abstraction.equipe2;
 
-import abstraction.fourni.Historique;
+import abstraction.fourni.Acteur;
+import abstraction.fourni.Indicateur;
+import abstraction.commun.*;
 
 public class Achat {
 
-	private CommandesProd dernierecommandeachetee;
-	private Historique historiqueachats;
+	private double cacaoachete;
+	private Indicateur historiqueachats;
 	
-	
-	public CommandesProd getDernierecommandeachetee() {
-		return dernierecommandeachetee;
+	public double getCacaoachete(){
+		return cacaoachete;
 	}
 	
-	public void setDernierecommandeachetee(CommandesProd dernierecommandeachetee) {
-		this.dernierecommandeachetee = dernierecommandeachetee;
-	}
-
-	public Historique getHistoriqueachats() {
+	
+/*	public void setCacaoAchete(Nestle nestle, IProducteur p) {
+		this.cacaoachete = Math.min(p.annonceQuantiteMiseEnVente(nestle), nestle.annonceQuantiteDemandee(p));
+		System.out.println("jjjj "+p.toString()+"---"+p.annonceQuantiteMiseEnVente(nestle));
+		System.out.println("patate");
+		System.out.println(nestle.annonceQuantiteDemandee(p));
+	}*/
+	
+	
+	public Indicateur getHistoriqueachats() {
 		return this.historiqueachats;
 	}
 	
-	public Achat() {
-		this.dernierecommandeachetee = new CommandesProd(0.0);
-		this.historiqueachats = new Historique();
+	public Achat(Acteur acteur) {
+		this.cacaoachete = 0.0;
+		this.historiqueachats = new Indicateur(acteur.getNom(), acteur, this.cacaoachete);
 	}
 	
-	//public void MiseAJourHistorique(int etape) {
-	//	this.historiqueachats.ajouter(Nestle, etape, this.dernierecommandeachetee);
-	//}
-	//Ne connaît pas encore Nestlé
+	public Achat(double quantite) {
+		this.cacaoachete = quantite;
+	}//
 	
-	
-	
-	
-
+	public void MiseAJourHistorique(Nestle nestle, int etape) {
+		this.historiqueachats.getHistorique().ajouter(nestle, etape, this.cacaoachete);
+	}
 }

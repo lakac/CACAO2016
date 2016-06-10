@@ -1,4 +1,11 @@
-package abstraction.commun;
+ package abstraction.commun;
+
+/**
+ * Classe modelisant les plages de valeurs qui permettent d'établir les différents
+ * rabais en fonction des plages de quantité achetée
+ * 
+ * @author equipe 5
+ */
 
 public class Plage {
 	private double quantiteMin;
@@ -10,6 +17,11 @@ public class Plage {
 		this.quantiteMin = quantiteMin;
 		this.quantiteMax = quantiteMax;
 		this.rabais = rabais;
+	}
+	
+	public Plage(double quantiteMin, double rabais){
+		this.quantiteMin=quantiteMin;
+		this.rabais=rabais;
 	}
 	
 	public double getQuantiteMin() {
@@ -36,6 +48,11 @@ public class Plage {
 		this.rabais = rabais;
 	}	
 	
+	/** 
+	 * méthode qui permet de savoir si une quantité est comprise dans la plage de valeur 
+	 * @param quantite
+	 * @return true si elle l est, false sinon
+	 */
 	public boolean quantiteDansPlage(double quantite) {
 		return (quantite >= this.getQuantiteMin() && quantite <= this.getQuantiteMax());
 	}

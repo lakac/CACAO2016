@@ -15,11 +15,15 @@ public class HistoriqueCommandeDistri {
 		return this.hist;
 	}
 
-	public CommandeDistri valeur(int i) {
+	public CommandeDistri getCommande(int i) {
 		return this.getHist().get(i);
 	}
 
 	public void ajouter(CommandeDistri commande) {
 		this.getHist().add(commande);
+	}
+	
+	public void supprimer(CommandeDistri commande) {
+		this.getHist().remove(commande);
 	}
 }	 

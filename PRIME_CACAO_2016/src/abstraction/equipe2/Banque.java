@@ -1,38 +1,50 @@
 package abstraction.equipe2;
 
-import java.util.HashMap;
-
-import abstraction.commun.*;
+import abstraction.fourni.Historique;
+import abstraction.fourni.Acteur;
+import abstraction.fourni.Indicateur;
 
 public class Banque {
 	
 	private double banque;
-	private HashMap<IProducteur,Double> prixdevente;	
+	private Indicateur tresorerie;
+		
 	
-	public Banque(double banque){
-	this.banque=banque;
-	this.prixdevente=new HashMap<IProducteur, Double>();
+	public Banque() {
+	this.banque=Constante.TRESORERIE_INITIALE;
+	}
+
+	public Banque(Nestle nestle) {
+	this.banque=Constante.TRESORERIE_INITIALE;
+	this.tresorerie = new Indicateur("Solde de Nestle", nestle, Constante.TRESORERIE_INITIALE);
 	}
 	
-	public void addPrixdevente(IProducteur p, Double prix) {
-		this.prixdevente.put(p,prix);
+	public void MiseAJourHistorique(Nestle nestle, int etape) {
+		this.tresorerie.getHistorique().ajouter(nestle, etape, this.getBanque());
 	}
-	
-	public HashMap<IProducteur, Double> getPrixdevente() {
-		return prixdevente;
-	}	
 	
 	public double getBanque() {
 		return banque;
 	}
+	
+	public Indicateur getTresorerie() {
+		return tresorerie;
+	}
 
-	public void setBanque(double banque) {
-		this.banque = Constante.TRESORERIE_INITIALE;
+	public double CoutsFixes() {
+		return Constante.CHARGES_FIXES;
 	}
 	
-	public static double CoutIntermediaireUnitaire (Produit produit, Achat achat, Tarif tarif){
-		return Constante.CHARGES_FIXES + achat.getDernierecommandeachetee().getCommandesProd()
-				*(Constante.COUT_DE_TRANSFORMATION /* + Cout d'achat */);
+	public void ajouter(double quantite) {
+		this.banque+=quantite;
 	}
 	
+	
+	
+
+
+	public void retirer(double quantite) {
+		this.banque-=quantite;
+	}
 }
+

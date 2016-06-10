@@ -81,7 +81,7 @@ public class Monde extends Observable {
 	}
 	/**
 	 * Ajoute le journal j au monde
-	 * @param j le journal a ajouter
+	 * @param j le journal à ajouter
 	 */
 	public void ajouterJournal(Journal j) {
 		this.journaux.add(j);
@@ -153,4 +153,7 @@ public class Monde extends Observable {
 			a.next();
 		}
 	}
+	
+	
+
 }

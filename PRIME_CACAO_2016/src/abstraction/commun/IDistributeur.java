@@ -1,8 +1,20 @@
 
 package abstraction.commun;
 
-public interface IDistributeur {	
-	public double getDemande(ITransformateur t);
-	// Rajouter une variable delais de livraisons
-	public double getPrix();
+
+
+import java.util.List;
+
+import abstraction.fourni.Acteur;
+
+public interface IDistributeur extends Acteur {
+		
+	public List<CommandeDistri> Demande (ITransformateur t, Catalogue c);
+
+	public List<CommandeDistri> ContreDemande (List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne);
+	
+	public Double getStock(Produit p);	
+	
+	public Double getPrixVente(Produit p);
+		
 }
