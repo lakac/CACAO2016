@@ -90,8 +90,8 @@ public class AchatProd {
 				+ lindt.getStockChocolat60().getStock()*Constante.LISTE_PRODUIT[1].getRatioCacao()
 				+ lindt.getStockChocolat70().getStock()*Constante.LISTE_PRODUIT[2].getRatioCacao();
 
-		if (stockCacao-Constante.STOCK_MINIMAL<besoinCacao){
-			besoinCacao=besoinCacao-stockCacao+Constante.STOCK_MINIMAL;
+		if (stockCacao-Constante.STOCK_MINIMAL_CACAO<besoinCacao){
+			besoinCacao=besoinCacao-stockCacao+Constante.STOCK_MINIMAL_CACAO;
 		}
 		
 //		// Calcul du prix d'achat : si au step prece on n'a pas eu ce qu'on veut, on n'achete plus chere
