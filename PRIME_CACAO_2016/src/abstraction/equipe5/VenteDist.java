@@ -67,11 +67,12 @@ public class VenteDist {
 	 */
 	
 	//Cette fonction ne prend pas en compte le fait qu'on pourrait avoir un stock plus important au step n+3 grâce à la transformation
+	// On considère que 25% de notre stock de chocolat est pour Leclerc+Carrefour et 75% pour un 3eme distributeur
 	public List<CommandeDistri> offre(List<CommandeDistri> listeCommandesDist){
 		
 		for(int i=0; i<lindt.getDistributeurs().size(); i++){
 			
-			double stockChocolatI=lindt.getStocksChocolat().get(i).getStock(); //stock de chocolat i
+			double stockChocolatI=0.25*(lindt.getStocksChocolat().get(i).getStock()-Constante.STOCK_MINIMAL); //stock de chocolat i disponible pour Leclerc+Carrefour (25%), on se reserve un stock minimal
 			double QteDemandeeChocolatI=this.QuantiteDemandeeProduit(listeCommandesDist).get(i).doubleValue();// quantite totale de chocolat i demandée par les 3 dist
 			
 			if(QteDemandeeChocolatI <= stockChocolatI){ //ok on peut fournir aux distrib la quantité de chocolats i qu'ils demandent donc on valide les commandes
