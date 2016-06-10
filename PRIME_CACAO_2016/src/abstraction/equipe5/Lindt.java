@@ -125,11 +125,11 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 	
 	// Fonctions finies
 	public List<CommandeDistri> offre(List<CommandeDistri> o) {
-		return this.venteDist.Offre(o);
+		return this.venteDist.offre(o);
 	}
 	
 	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> livraison){
-		return this.venteDist.Offre (livraison);
+		return this.venteDist.offre (livraison);
 	}
 
 	public void notificationVente(CommandeProduc c) {
