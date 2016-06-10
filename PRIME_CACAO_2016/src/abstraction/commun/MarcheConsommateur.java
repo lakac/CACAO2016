@@ -12,23 +12,23 @@ import abstraction.fourni.Historique;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
 
-// Auteur : équipe 3
+// Auteur : ï¿½quipe 3
 
 public class MarcheConsommateur implements Acteur {
 	
-	//pour implémenter cette classe, on s'est inspiré du modèle du marché des producteurs et de ses HashMap qui sotn très pratiques.
+	//pour implï¿½menter cette classe, on s'est inspirï¿½ du modï¿½le du marchï¿½ des producteurs et de ses HashMap qui sotn trï¿½s pratiques.
 	
 	private final static double VARIATION_FIDELITE=0.01;//part de clients changeant de bord lorsque difference de prix
-	private final static double FIDELITE_MIN=0.20; //part minimum de clients fidèles a Leclerc et Carrefour
-	private final static double[][] CALENDRIER =new double[3][26]; //calendrier demande
+	private final static double FIDELITE_MIN=0.20; //part minimum de clients fidï¿½les a Leclerc et Carrefour
+	private final static double[][] CALENDRIER = new double[3][26]; //calendrier demande
 	//private Leclercv2 leclerc;
 	//private Carrefour carrefour;
 	//Pentes des courbes Demande = Cte-aplha*PrixMoyen 
-	private HashMap <Produit, Double> ALPHA;//a compléter 
+	private HashMap <Produit, Double> ALPHA;//a complï¿½ter 
 	
 	//Liste des distributeurs
 	//A l'initialisation, on ajoute d'abord Leclerc puis Carrefour
-	//Leclerc se trouve donc à l'indice 0 et Carrefour  à l'indice 1
+	//Leclerc se trouve donc ï¿½ l'indice 0 et Carrefour  ï¿½ l'indice 1
 	private static ArrayList<IDistributeur> distributeurs;
 	
 	public static MarcheConsommateur LE_MARCHE;
@@ -43,7 +43,7 @@ public class MarcheConsommateur implements Acteur {
 	
 	
 	//Demande en fonction du step, par produit et sans effet sur les prix
-	//Demande continue réelle = calendrierdermande.get(Step)-ALPHA*PrixMoyen
+	//Demande continue rï¿½elle = calendrierdermande.get(Step)-ALPHA*PrixMoyen
 	private HashMap <Integer, HashMap<Produit,Double>> calendrierDemande; 
 	
 	private HashMap <Produit,Double> pourcentageIncertitudeVentes;
@@ -99,15 +99,14 @@ public class MarcheConsommateur implements Acteur {
 					}
 			}	
 			//for (IDistributeur d : MarcheConsommateurs.distributeurs){
-				//Version à n dimensions à déterminer mathematiquement
+				//Version ï¿½ n dimensions ï¿½ dï¿½terminer mathematiquement
 			//}
 			
 		}
 
 	public void repartirVentes(){
 		for (IDistributeur d : MarcheConsommateur.distributeurs){
-			for (Produit p : cata.getProduits()){
-				
+			for (Produit p : cata.getProduits()){	
 				this.ventesEffectuees.get(d).put(p,this.fidelite.get(d).get(p)*(this.demandeComposanteContinue.get(p)+this.demandeComposanteAleatoire.get(p)));
 			}
 		}	

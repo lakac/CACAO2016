@@ -50,8 +50,9 @@ public class Carrefour implements Acteur,IDistributeur {
 		this.histoLivraison = new ArrayList<CommandeDistri>();
 		this.lesStocks = new ArrayList<Stock>();
 		this.maDi = new MarcheDistributeur();
-
 	}
+	//Méthode qui crée et initialise trois listes de taille neuf (pour chaque produit et chaque tranformateur) qui gèrent respectivement nos stocks, nos achats 
+	//au transformateur et nos ventes aux clients. La dernière liste créée (demandeAnnuel) initialise la demande dans chaque produit des client
 
 	public void creer() {
 		List<Stock> lesStocks = new ArrayList<Stock>();
@@ -72,6 +73,8 @@ public class Carrefour implements Acteur,IDistributeur {
 		this.setDemandeAnnuel(demandeAnnuel);
 
 	}
+	
+	//Accesseurs
 
 	public String getNom() {
 		return nom;
@@ -122,12 +125,9 @@ public class Carrefour implements Acteur,IDistributeur {
 	}
 
 
-
 	public List<Achats> getLesAchats() {
 		return lesAchats;
 	}
-
-
 
 	public void setLesAchats(List<Achats> lesAchats) {
 		this.lesAchats = lesAchats;
@@ -196,7 +196,8 @@ public class Carrefour implements Acteur,IDistributeur {
 	public void setLesStocks(List<Stock> lesStocks) {
 		this.lesStocks = lesStocks;
 	}
-
+	
+    
 	public Stock getStock(Produit p, ITransformateur t) {
 		for (int i=0; i<this.getLesStocks().size(); i++) {
 			if (this.getLesStocks().get(i).getProduit() == p && this.getLesStocks().get(i).getMarque() == t) {
@@ -244,7 +245,7 @@ public class Carrefour implements Acteur,IDistributeur {
 
 	}
 
-
+   //Fonction qui compare les prix des deux tranformateurs 
 	public List<ITransformateur> comparateurPrixProduit(HashMap<ITransformateur,Catalogue> hm, Produit p) {
 		List<ITransformateur> transfo = new ArrayList<ITransformateur>();
 		transfo.add(this.getTransformateurs().get(0));
@@ -261,7 +262,9 @@ public class Carrefour implements Acteur,IDistributeur {
 		}
 		return transfo;
 	}
-
+	
+    //Affiche le demande par step pour chaque produit (la demande est supposée constante toute l'année, sauf à Pâques et Noël
+	//On rajoute une partie random dans la demande de +/-10% de la demande initiale
 	public void setBesoinStep(int step) {
 		double besoin;
 		for (int i=0; i<this.getProduits().size(); i++){	
@@ -282,7 +285,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		}		
 	}		
 
-
+    //??
 	public HashMap<ITransformateur,List<CommandeDistri>> commandeStep(HashMap<Produit,Double> besoinpro) {
 		HashMap<ITransformateur, Catalogue> cat = new HashMap<ITransformateur,Catalogue>();
 		HashMap<ITransformateur,List<CommandeDistri>> commande = new HashMap<ITransformateur,List<CommandeDistri>>();
@@ -293,7 +296,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		for (Produit p : this.getProduits()) {
 			for (int i=0; i<this.getTransformateurs().size(); i++) {
 				int le = this.getTransformateurs().size();
-				ITransformateur letransfo = this.getTransformateurs().get(i); // Modif pour que �a marche, plus de comparateur de prix
+				ITransformateur letransfo = this.getTransformateurs().get(i); // Modif pour que �a marche, plus de comparateur de prix
 				double quantite = (6*(le-i)^2)/((le*(le-1)*(2*le-1)));
 				commande.get(letransfo).add(new CommandeDistri(this, letransfo, p, quantite, letransfo.getCatalogue().getTarif(p).getPrixTonne(), MondeV1.LE_MONDE.getStep()+3, false));
 			}
@@ -339,6 +342,10 @@ public class Carrefour implements Acteur,IDistributeur {
 		}
 		return contreDemande;
 	}
+	
+	//Méthode qui fixe le prix de vente avec bénéfice de 20% par rapport au prix d'achat au transformateur, 
+	//pour chaque produit de chaque transformateur
+	
 	public void setPrix (HashMap<ITransformateur,List<CommandeDistri>> CommandeEffective) {
 		for (ITransformateur t : this.getTransformateurs()) {
 			for (CommandeDistri c : CommandeEffective.get(t) ) {
@@ -350,6 +357,7 @@ public class Carrefour implements Acteur,IDistributeur {
 			}
 		}    
 	}
+	
 	public void next() {
 
 		for (ITransformateur t : this.getTransformateurs()) {
