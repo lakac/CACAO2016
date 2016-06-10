@@ -16,20 +16,20 @@ public class Offre {
 
 //GETTERS
 	public Producteur getProducteur() {
-		return producteur;
+		return this.producteur;
 	}
 	public int getStep() {
-		return step;
+		return this.step;
 	}
 	public Stock getStock() {
-		return stock;
+		return this.stock;
 	}
 	
 //AUTRES METHODES
 	
 	//Retourne la moyenne du cours de cacao sur les precedentes step.
 	public double moyenneCoursCacao() {
-		Historique coursCacao = MarcheProducteur.LE_MARCHE.getHistorique();
+		Historique coursCacao = this.getProducteur().getMarcheProducteur().getHistorique();
 		//longueur du tableau regroupant les precedents cours
 		int l = coursCacao.getTaille();
 		//somme des valeurs du tableau

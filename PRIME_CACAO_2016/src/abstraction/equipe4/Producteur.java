@@ -75,20 +75,9 @@ public class Producteur implements Acteur,IProducteur{
 		this.getStock().gererLesStock();
 	}
 
-	public double getMoyenneCoursCacao() {
-		Historique coursCacao = MarcheProducteur.LE_MARCHE.getHistorique();
-		//longueur du tableau regroupant les cours
-		int l = coursCacao.getTaille();
-		//somme des valeurs du tableau
-		double M = coursCacao.get(0).getValeur();
-		for (int i=1; i<l; i++) {
-			M=M+coursCacao.get(i).getValeur();
-		}
-		return M/l;
-	}
 
 	// retourne un double valant la quantité disponible 
-	// pour chaque transformateur a chaque step
+	// pour le marche
 	public double annonceQuantiteProposee() {
 		return 0;
 	}
