@@ -266,7 +266,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		}		
 	}		
 
-
+    //
 	public HashMap<ITransformateur,List<CommandeDistri>> commandeStep(HashMap<Produit,Double> besoinpro) {
 		HashMap<ITransformateur, Catalogue> cat = new HashMap<ITransformateur,Catalogue>();
 		HashMap<ITransformateur,List<CommandeDistri>> commande = new HashMap<ITransformateur,List<CommandeDistri>>();
@@ -277,7 +277,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		for (Produit p : this.getProduits()) {
 			for (int i=0; i<this.getTransformateurs().size(); i++) {
 				int le = this.getTransformateurs().size();
-				ITransformateur letransfo = this.getTransformateurs().get(i); // Modif pour que ça marche, plus de comparateur de prix
+				ITransformateur letransfo = this.getTransformateurs().get(i); // Modif pour que ï¿½a marche, plus de comparateur de prix
 				double quantite = (6*(le-i)^2)/((le*(le-1)*(2*le-1)));
 				commande.get(letransfo).add(new CommandeDistri(this, letransfo, p, quantite, letransfo.getCatalogue().getTarif(p).getPrixTonne(), MondeV1.LE_MONDE.getStep()+3, false));
 			}

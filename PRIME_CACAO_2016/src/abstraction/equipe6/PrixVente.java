@@ -1,6 +1,7 @@
 package abstraction.equipe6;
 
 import java.util.Arrays;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -8,9 +9,11 @@ import abstraction.commun.CommandeDistri;
 import abstraction.commun.ITransformateur;
 import abstraction.commun.Produit;
 
+//Dans cette classe on définit un constructeur (et ses accesseurs) PrixVente qui va servir pour la méthode setPrix dans la classe Carrefour
+
 public class PrixVente {
-	private Double prix;
-	private ITransformateur transformateur;
+	private Double prix; 
+	private ITransformateur transformateur; 
 	private Produit nomproduit;
 	
 	public PrixVente(Double prix, Produit nomproduit, ITransformateur transf ){
