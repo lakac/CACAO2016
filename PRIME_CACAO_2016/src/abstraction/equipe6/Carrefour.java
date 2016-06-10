@@ -247,7 +247,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		return transfo;
 	}
 	
-    //Affiche le demande par step pour chaque produit
+    //Affiche le demande par step pour chaque produit (la demande est supposée constante toute l'année, sauf à Pâques et Noël
 	//On rajoute une partie random dans la demande de +/-10% de la demande initiale
 	public void setBesoinStep(int step) {
 		double besoin;
@@ -269,7 +269,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		}		
 	}		
 
-    //
+    //??
 	public HashMap<ITransformateur,List<CommandeDistri>> commandeStep(HashMap<Produit,Double> besoinpro) {
 		HashMap<ITransformateur, Catalogue> cat = new HashMap<ITransformateur,Catalogue>();
 		HashMap<ITransformateur,List<CommandeDistri>> commande = new HashMap<ITransformateur,List<CommandeDistri>>();
