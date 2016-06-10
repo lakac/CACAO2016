@@ -1,5 +1,6 @@
 package abstraction.equipe2;
 
+
 import java.util.HashMap;
 
 import abstraction.commun.Produit;
@@ -22,15 +23,22 @@ public class StockCacao extends Stock {
 
 
 	@Override
-	public void MiseAJourStockLivraison() {
-		// TODO Auto-generated method stub
-		
+	public void MiseAJourStockLivraison(Produit p,double quantite) {
+		this.stockCacao.put(p,this.stockCacao.get(p)+quantite);
 	}
-	// 
-
-	@Override
+	
+	
+	// Dans MiseAJOurStockTransformation, p est un chocolat et quantite et une quantite de chocolat voulue
 	public void MiseAJourStockTransformation(Produit p, double quantite) {
-		this.stockCacao.put(p,this.stockCacao.get(p)-quantite);
+		if (p.equals(Constante.PRODUIT_50)) {
+			this.stockCacao.put(p,Constante.RATIO_TRANSFORMATION_50*quantite);
+		}
+		else if (p.equals(Constante.PRODUIT_60)) {
+			this.stockCacao.put(p,Constante.RATIO_TRANSFORMATION_60*quantite);
+		}
+		else if (p.equals(Constante.PRODUIT_70)) {
+			this.stockCacao.put(p,this.stockCacao.get(p)-Constante.RATIO_TRANSFORMATION_70*quantite);
+		};
 	}
 
 }
