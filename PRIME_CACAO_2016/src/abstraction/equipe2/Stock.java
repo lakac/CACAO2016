@@ -11,10 +11,6 @@ public abstract class Stock {
 	
 	public Stock() {
 		this.stock = new HashMap<Produit, Double>();
-		this.stock.put(Constante.PRODUIT_50, 0.);
-		this.stock.put(Constante.PRODUIT_60, 0.);
-		this.stock.put(Constante.PRODUIT_70, 0.);
-		this.stock.put(Constante.CACAO, 0.);
 	}
 	
 	 public abstract void MiseAJourStockLivraison();
