@@ -25,8 +25,8 @@ public class Nestle implements Acteur, ITransformateur{
 	
 	private HashMap<IProducteur, Achat> achats;
 	private HashMap<IDistributeur, Vente> ventes;
-	private StockCacao stockcacao;
-	private StockChocolats stockchocolats;
+	private StockCacaoOld stockcacao;
+	private StockChocolatsOld stockchocolats;
 	private Production production;
 	private Banque banque;
 	private CoutTransport couttransport;
@@ -69,8 +69,8 @@ public class Nestle implements Acteur, ITransformateur{
 	public void creer() {
 		this.SetTotalVentesProduit();
 		//Stock et les informations de transport et production
-		this.stockcacao = new StockCacao();
-		this.stockchocolats = new StockChocolats();
+		this.stockcacao = new StockCacaoOld();
+		this.stockchocolats = new StockChocolatsOld();
 		this.couttransport = new CoutTransport(Constante.COUT_UNITAIRE_TRANSPORT);
 		for (IProducteur p : this.fournisseurs) {
 			this.couttransport.addDistance(p, 5000.);
@@ -154,11 +154,11 @@ public class Nestle implements Acteur, ITransformateur{
 		return couttransport;
 	}
 
-	public StockCacao getStockcac() {
+	public StockCacaoOld getStockcac() {
 		return stockcacao;
 	}
 	
-	public StockChocolats getStockchoc() {
+	public StockChocolatsOld getStockchoc() {
 		return stockchocolats;
 	}
 	

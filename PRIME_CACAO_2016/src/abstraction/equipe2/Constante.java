@@ -29,5 +29,5 @@ public static final double COUT_STOCK_UNITAIRE = 18.0;
 public static final Produit PRODUIT_50 =new Produit("50%" , 0.5);
 public static final Produit PRODUIT_60 =new Produit ("60%" , 0.6);
 public static final Produit PRODUIT_70 =new Produit("70%",0.7);
-
+public static final Produit CACAO=new Produit("100%",1);
 }
