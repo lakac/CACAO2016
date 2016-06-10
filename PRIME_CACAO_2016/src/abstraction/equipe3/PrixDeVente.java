@@ -129,4 +129,12 @@ public class PrixDeVente {
 		this.setCatalogues(lis);
 		this.setPrixDeVente();
 	}
+	
+	// test
+	public static void main(String[] args) {
+		PrixDeVente prix = new PrixDeVente();
+		Produit p = new Produit("50%", 0.5);
+		System.out.print(prix.getMargeParProduit(p));
+	}
+	
 }

@@ -20,7 +20,7 @@ public class Ventes {
 	
 	public Double[] getVentes(int step){
 		return this.ventes.get(step+25);
-	}
+	}	
 	
 	public void addVentes(Double[] vente){
 		this.ventes.add(vente);
