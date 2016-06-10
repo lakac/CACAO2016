@@ -180,7 +180,8 @@ public class Carrefour implements Acteur,IDistributeur {
 	public void setLesStocks(List<Stock> lesStocks) {
 		this.lesStocks = lesStocks;
 	}
-
+	
+    
 	public Stock getStock(Produit p, ITransformateur t) {
 		for (int i=0; i<this.getLesStocks().size(); i++) {
 			if (this.getLesStocks().get(i).getProduit() == p && this.getLesStocks().get(i).getMarque() == t) {
@@ -245,7 +246,9 @@ public class Carrefour implements Acteur,IDistributeur {
 		}
 		return transfo;
 	}
-
+	
+    //Affiche le demande par step pour chaque produit
+	//On rajoute une partie random dans la demande de +/-10% de la demande initiale
 	public void setBesoinStep(int step) {
 		double besoin;
 		for (int i=0; i<this.getProduits().size(); i++){	
