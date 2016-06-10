@@ -1,7 +1,7 @@
 package abstraction.equipe4;
 
-import abstraction.commun.MarcheProducteur;
 import abstraction.fourni.Historique;
+
 
 public class Offre {
 	private Producteur producteur;

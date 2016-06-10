@@ -86,7 +86,7 @@ public class MarcheProd implements Acteur{
 		for (IProducteur p : this.getProducteurs()){
 			this.setQuantiteTotaleFournise(this.getQuantiteTotaleFournise()+p.annonceQuantiteProposee());		
 		}
-		this.getCoursCacao().setValeur(this,this.getCoursCacao().getValeur()+(quantiteTotaleDemandee-quantiteTotaleFournise)/(quantiteTotaleFournise));
+		this.getCoursCacao().setValeur(this,this.getCoursCacao().getValeur()+(this.getQuantiteTotaleDemandee()-this.getQuantiteTotaleFournise())/(this.getQuantiteTotaleFournise()));
 		if (this.getCoursCacao().getValeur()<MarcheProd.CoursMinimum){
 			this.getCoursCacao().setValeur(this, MarcheProd.CoursMinimum);
 		}
@@ -97,8 +97,11 @@ public class MarcheProd implements Acteur{
 	}
 
 	public void next() {
+		//on actualise le cours du marché selon les données de ce step
 		this.ActualisationCours();
+		//on répartit les commandes équitablement
 		if (this.getQuantiteTotaleDemandee()>this.getQuantiteTotaleFournise()){
+			//si la demande est plus forte, les producteurs vendent tout et on répartit, proportionellement à leur demande,le cacao au transformateurs 
 			for(IProducteur p : this.getProducteurs()){
 				p.notificationVente(new CommandeProduc(p.annonceQuantiteProposee(),this.getCoursCacao().getValeur()));
 			}
@@ -107,6 +110,7 @@ public class MarcheProd implements Acteur{
 				t.notificationVente(new CommandeProduc(quantiteLivree,this.getCoursCacao().getValeur()));
 			}
 		}else{
+			//Cas contraire : les transformateurs sont sûr d'avoir leur commande et on répartit les ventes des producteurs proportionnelement à ce qu'ils ont mis sur le marché
 			for (ITransformateur t : this.getTransformateurs()){
 				t.notificationVente(new CommandeProduc(t.annonceQuantiteDemandee(),this.getCoursCacao().getValeur()));	
 			}
@@ -114,6 +118,7 @@ public class MarcheProd implements Acteur{
 				double quantiteVendue = p.annonceQuantiteProposee()*(this.getQuantiteTotaleDemandee()/this.getQuantiteTotaleFournise());
 				p.notificationVente(new CommandeProduc(quantiteVendue,this.getCoursCacao().getValeur()));
 			}
+			
 		}
 		
 	}

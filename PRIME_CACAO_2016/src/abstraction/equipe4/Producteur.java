@@ -11,7 +11,6 @@ public class Producteur implements Acteur,IProducteur{
 	private Tresorerie treso;
 	private ProductionBiannuelle prodBiannu;
 	private MarcheProd marcheProducteur;
-	private double moyenneCoursCacao;
 	private Offre offre;
 
 
@@ -24,8 +23,8 @@ public class Producteur implements Acteur,IProducteur{
 		this.journal = new Journal("Journal de "+this.nom);
 		this.prodBiannu=new ProductionBiannuelle(this,1200000);
 		Monde.LE_MONDE.ajouterJournal(this.journal);
-		this.moyenneCoursCacao = getMoyenneCoursCacao();
 		this.offre = new Offre(this, Monde.LE_MONDE.getStep(), this.stock);
+
 	}
 
 	// getter
@@ -103,10 +102,12 @@ public class Producteur implements Acteur,IProducteur{
 
 	}
 
+	@Override
 	public double annonceQuantiteMiseEnVente(ITransformateur t) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
-	
+
+
+
 }

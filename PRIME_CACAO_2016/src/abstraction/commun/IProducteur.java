@@ -1,12 +1,13 @@
 package abstraction.commun;
 
 public interface IProducteur {
+
+	//Conformément à la réunion du 03/06, créé par l'équipe 2 le 8/06.
 	/**
-	 * Indique la quantité disponible à la vente sur le marché.
+	 * Indique la quantité de cacao totale mise en vente par le IProducteur p à la step considéré. 
 	 */
-	public double annonceQuantiteProposee();
 	
-	@Deprecated public double annonceQuantiteMiseEnVente(ITransformateur t);
+	public double annonceQuantiteProposee();
 	
 	/**
 	 * Met à jour l'état interne de ce producteur suite à une vente auprès du marché.
@@ -16,4 +17,7 @@ public interface IProducteur {
 	 */
 	public void notificationVente(CommandeProduc c);
 
+	@Deprecated public double annonceQuantiteMiseEnVente(ITransformateur t);
+	
+	
 }

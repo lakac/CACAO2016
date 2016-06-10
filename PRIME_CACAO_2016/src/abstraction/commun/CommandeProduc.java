@@ -1,4 +1,6 @@
- package abstraction.commun;
+package abstraction.commun;
+
+import abstraction.fourni.Acteur;
 
 public class CommandeProduc {
 
@@ -7,13 +9,17 @@ public class CommandeProduc {
 	 * 
 	 * @author equipe 5
 	 */
-	
+
 	private double quantite;
 	private double prixTonne;
 
 	public CommandeProduc(double quantite, double prixTonne) {
 		this.quantite = quantite;
 		this.prixTonne = prixTonne;
+	}
+
+	public CommandeProduc(ITransformateur t,IProducteur p, double quantite,double prixTonne ){
+		this(quantite,prixTonne);
 	}
 
 
@@ -31,5 +37,14 @@ public class CommandeProduc {
 
 	public double getPrixTonne() {
 		return this.prixTonne;
+
+	}
+
+	@Deprecated public ITransformateur getAcheteur(){
+		return null;
+	}
+	
+	@Deprecated public IProducteur getVendeur(){
+		return null;
 	}
 }
