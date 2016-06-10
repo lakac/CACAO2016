@@ -117,9 +117,9 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		Double[] sto = {0.0,0.0,0.0};
 		for (int i=0; i<this.transformateurs.size();i++){
 			if (t.equals(this.transformateurs.get(i))){
-				sto[0] = this.stock.getStock(t)[0];
-				sto[1] = this.stock.getStock(t)[1];
-				sto[2] = this.stock.getStock(t)[2];
+				sto[0] = this.stock.getStock(t,0);
+				sto[1] = this.stock.getStock(t,1);
+				sto[2] = this.stock.getStock(t,2);
 			}
 		} int l = 0;
 		for (int j=0; j<Monde.LE_MONDE.getStep()+25;j+=26){
@@ -135,6 +135,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 			list.add(co);
 		}
 		for (int i=0;i<x.length; i++){
+			//probleme ratio a modifier
 			list.get(i).setQuantite(this.ratio.get(i)*x[i]-sto[i]);
 		} 
 		return list;
