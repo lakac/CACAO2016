@@ -20,7 +20,8 @@ public class CotedIvoire implements IProducteur, Acteur {
 	}
 	
 	//permet de remplir la liste des concurrents de la cote d'ivoire
-	public void AjouterConcurrent(IProducteur p) {
+
+	public void ajouterConcurrent(IProducteur p) {
 		this.concurrents.add(p);
 	}
 	
@@ -34,7 +35,6 @@ public class CotedIvoire implements IProducteur, Acteur {
 	
 	@Override
 	public double annonceQuantiteMiseEnVente(ITransformateur t) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -43,9 +43,16 @@ public class CotedIvoire implements IProducteur, Acteur {
 	//mais il doit quand même implémenter cette méthode (vide)
 	@Override
 	public void notificationVente(CommandeProduc c) {
-		// TODO Auto-generated method stub
-		
 	}
+
+
+	
+
+	@Override
+	public String getNom() {
+		return "Côte d'Ivoire";
+	}
+
 
 
 	//renvoie la quantité totale de cacao que la cote d'ivoire met en vente à la step considéré 
@@ -58,15 +65,11 @@ public class CotedIvoire implements IProducteur, Acteur {
 		return RATIOCOTEDIVOIRE*quantite;
 	}
 
-	@Override
-	public String getNom() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	//Il n'y a aucun indicateur à mettre à jour, le next ne fait rien non plus
 	public void next() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 	
