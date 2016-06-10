@@ -68,7 +68,7 @@ public class VenteDist {
 	
 	//Cette fonction ne prend pas en compte le fait qu'on pourrait avoir un stock plus important au step n+3 grâce à la transformation
 	public List<CommandeDistri> Offre(List<CommandeDistri> listeCommandesDist){
-		
+		System.out.println("Liste avant offre lindt -->"+listeCommandesDist);
 		for(int i=0; i<lindt.getDistributeurs().size(); i++){
 			
 			double stockChocolatI=lindt.getStocksChocolat().get(i).getStock(); //stock de chocolat i
@@ -98,7 +98,9 @@ public class VenteDist {
 							else{
 								c.setQuantite(quantiteRepartie);
 								}}}}}
-		}return listeCommandesDist; 
+		}
+		System.out.println("L'offre -->"+listeCommandesDist);
+		return listeCommandesDist; 
 	}
 	
 	

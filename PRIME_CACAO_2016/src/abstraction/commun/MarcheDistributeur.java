@@ -98,18 +98,14 @@ public class MarcheDistributeur implements Acteur {
 
 	public List<CommandeDistri> obtenirCommandeFinale(ITransformateur t, IDistributeur d) {
 		List<CommandeDistri> temp = new ArrayList<CommandeDistri>();
-		for (ITransformateur t0 : this.getLesTransfos()) {
-			for(IDistributeur d0 : this.getLesDistris()) {
-				for (int i=0; i<this.getCommandeFinale().size(); i++) {
-					if (this.getCommandeFinale().get(i).getAcheteur() == d0 && this.getCommandeFinale().get(i).getVendeur() == t0) {
-						temp.add(this.getCommandeFinale().get(i));
-					}
-				}
+		for (int i=0; i<this.getCommandeFinale().size(); i++) {
+			if (this.getCommandeFinale().get(i).getAcheteur() == d && this.getCommandeFinale().get(i).getVendeur() == t) {
+				temp.add(this.getCommandeFinale().get(i));
 			}
 		}
 		return temp;
 	}
-	
+
 	public List<CommandeDistri> obtenirLivraisonEffective(ITransformateur t, IDistributeur d) {
 		List<CommandeDistri> temp = new ArrayList<CommandeDistri>();
 		for (ITransformateur t0 : this.getLesTransfos()) {
@@ -123,7 +119,7 @@ public class MarcheDistributeur implements Acteur {
 		}
 		return temp;
 	}
-	
+
 	public boolean distriValide( List<CommandeDistri> cd) {
 		for (CommandeDistri d : cd ) {
 			if (d.getValidation() == false) {
@@ -149,9 +145,9 @@ public class MarcheDistributeur implements Acteur {
 		}
 		for (IDistributeur d : this.getLesDistris()) {
 			for (ITransformateur t : this.getLesTransfos()) {
-				for (int i=0; i<NegoTransfo.get(t).size(); i++) {
-					if (hm.get(d).get(i).getVendeur() == t) {
-						NegoTransfo.get(t).add(hm.get(d).get(i));
+				for (CommandeDistri com : hm.get(d)) {
+					if (hm.get(d).get(hm.get(d).indexOf(com)).getVendeur() == t) {
+						NegoTransfo.get(t).add(hm.get(d).get(hm.get(d).indexOf(com)));
 					}
 				}
 			}
@@ -165,25 +161,25 @@ public class MarcheDistributeur implements Acteur {
 		for (IDistributeur d : this.getLesDistris()) {
 			NegoDistri.put(d, new ArrayList<CommandeDistri>());	
 		}
+		System.out.println("les distris : "+this.getLesDistris());
+		System.out.println("NegoDistri :"+NegoDistri);
 		for (ITransformateur t : this.getLesTransfos()) {
 			for (IDistributeur d : this.getLesDistris()) {
-				for (int i=0; i<NegoDistri.get(t).size(); i++) {
-					if (hm.get(t).get(i).getAcheteur() == d) {
-						NegoDistri.get(d).add(hm.get(t).get(i));
-					}
+				for (CommandeDistri com : hm.get(t)) {;
+				if (hm.get(t).get(hm.get(t).indexOf(com)).getAcheteur() == d) {
+					NegoDistri.get(d).add(hm.get(t).get(hm.get(t).indexOf(com)));
+				}
 				}
 			}
 		}
 		return NegoDistri;
 
 	}
-	
+
 	public HashMap<IDistributeur, List<CommandeDistri>> copieProfonde (HashMap<IDistributeur, List<CommandeDistri>> aCopie) {
 		HashMap<IDistributeur, List<CommandeDistri> > copieProfonde = new HashMap<IDistributeur, List<CommandeDistri>>();
 		for (IDistributeur d : this.getLesDistris()) {
 			copieProfonde.put(d, new ArrayList<CommandeDistri>());
-			System.out.println(d);
-			System.out.println(aCopie);
 			for (CommandeDistri cd : aCopie.get(d)) {
 				copieProfonde.get(d).add(new CommandeDistri(cd.getAcheteur(),cd.getVendeur(),cd.getProduit(),cd.getQuantite(), cd.getPrixTonne(),cd.getStepLivraison(), cd.getValidation()));
 			}
@@ -204,55 +200,56 @@ public class MarcheDistributeur implements Acteur {
 			}
 			this.addCatalogue(t, t.getCatalogue());;
 		}
-
 		for (IDistributeur d : this.getLesDistris()) {
-			int i=0;
 			NegoDistri.put(d, new ArrayList<CommandeDistri>());
 			for (ITransformateur t : this.getLesTransfos()) {
-				i+=1;
-				System.out.println("Transfo de l'étape "+i+"-->"+t);
 				NegoDistri.get(d).addAll(d.demande(t, this.getCatalogues().get(t)));
-				System.out.println("Nego Distri étape"+i+"-->"+NegoDistri);
 			}
-			
-			while (marcheValide(NegoDistri) == false) {
-				NegoTransfo = this.RenvoiDistri(NegoDistri);
-				System.out.println("Les distributeurs -->"+this.getLesDistris());
-				System.out.println("Nego distri -->"+NegoDistri);
-				HashMap<IDistributeur, List<CommandeDistri>> NegoDistriTemp = copieProfonde(NegoDistri);
-				for (ITransformateur t : this.getLesTransfos()) {
-					NegoTransfo.replace(t, t.Offre(NegoTransfo.get(t)));
-				}
-				NegoDistri = this.RenvoiTransfo(NegoTransfo);
-				for (IDistributeur d1 : this.getLesDistris()) {
-					NegoDistri.replace(d1, d1.contreDemande(NegoDistri.get(d1),NegoDistriTemp.get(d1)));
-				}
-			}
-			List<CommandeDistri> commandefinale = new ArrayList<CommandeDistri>();
-			for (ITransformateur t : this.getLesTransfos()) {
-				commandefinale.addAll(NegoTransfo.get(t));
-			}
-			this.setCommandeFinale(commandefinale);
-
-
-			// Livraisons effectives chez les distributeurs et paiements.
-			
-			List<CommandeDistri> livraisonglobale = new ArrayList<CommandeDistri>();
-			for (ITransformateur t : this.getLesTransfos()) {
-				for (IDistributeur d4 : this.getLesDistris()) {
-					for (CommandeDistri cd : this.getHistoriqueCommande()) {
-						List<CommandeDistri> temp = new ArrayList<CommandeDistri>();
-						if (cd.getStepLivraison() == MondeV1.LE_MONDE.getStep() && t == cd.getVendeur() && d4 == cd.getAcheteur()) {
-							temp.add(cd);
-						}
-						livraisonglobale.addAll(t.livraisonEffective(temp));
-					}
-				} 
-
-				this.setLivraisonGlobale(livraisonglobale);
-			}	
-
 		}
-	}
+		System.out.println("NegoDistri avant offre --> "+NegoDistri);
+		int i = 0;
+		while (marcheValide(NegoDistri) == false) {
+			i+=1;
+			NegoTransfo = this.RenvoiDistri(NegoDistri);
+			HashMap<IDistributeur, List<CommandeDistri>> NegoDistriTemp = copieProfonde(NegoDistri);
+			System.out.println("NegoTransfo avant offre --> "+NegoTransfo);
+			for (ITransformateur t : this.getLesTransfos()) {
+				System.out.println("Liste de commandes pour "+t+" :"+NegoTransfo.get(t));
+				NegoTransfo.replace(t, t.offre(NegoTransfo.get(t)));
+			}
+			System.out.println("NegoTransfo boucle numéro "+i+" après offre -->"+NegoTransfo);
+			NegoDistri = this.RenvoiTransfo(NegoTransfo);
+			System.out.println("NegoDistri boucle numéro "+i+" après offre -->"+NegoDistri);
+			for (IDistributeur d1 : this.getLesDistris()) {
+				NegoDistri.replace(d1, d1.contreDemande(NegoDistri.get(d1),NegoDistriTemp.get(d1)));
+			}
+			System.out.println("NegoDistri boucle numéro "+i+" après contreDemande -->"+NegoDistri);
+		}
+		List<CommandeDistri> commandefinale = new ArrayList<CommandeDistri>();
+		for (ITransformateur t : this.getLesTransfos()) {
+			commandefinale.addAll(NegoTransfo.get(t));
+		}
+		this.setCommandeFinale(commandefinale);
+		System.out.println("La commande finale --> "+this.getCommandeFinale());
 
+
+		// Livraisons effectives chez les distributeurs et paiements.
+
+		List<CommandeDistri> livraisonglobale = new ArrayList<CommandeDistri>();
+		for (ITransformateur t : this.getLesTransfos()) {
+			for (IDistributeur d4 : this.getLesDistris()) {
+				for (CommandeDistri cd : this.getHistoriqueCommande()) {
+					List<CommandeDistri> temp = new ArrayList<CommandeDistri>();
+					if (cd.getStepLivraison() == MondeV1.LE_MONDE.getStep() && t == cd.getVendeur() && d4 == cd.getAcheteur()) {
+						temp.add(cd);
+					}
+					livraisonglobale.addAll(t.livraisonEffective(temp));
+				}
+			} 
+
+			this.setLivraisonGlobale(livraisonglobale);
+		}	
+
+	}
 }
+

@@ -234,7 +234,7 @@ public class Nestle implements Acteur, ITransformateur{
 		this.nom = nom;
 	}
 	@Override
-	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
+	public List<CommandeDistri> offre(List<CommandeDistri> o) {
 		ArrayList<CommandeDistri> Offre = new ArrayList<CommandeDistri>();
 		for (CommandeDistri C : o) {
 			if (this.getStockchoc().getStockschocolats().get(C.getProduit())
@@ -254,7 +254,7 @@ public class Nestle implements Acteur, ITransformateur{
 
 
 	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
-		return Offre(cf);
+		return offre(cf);
 	}
 
 	
@@ -362,11 +362,7 @@ public class Nestle implements Acteur, ITransformateur{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
-	public List<CommandeDistri> offre(List<CommandeDistri> list) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 }
 
 
