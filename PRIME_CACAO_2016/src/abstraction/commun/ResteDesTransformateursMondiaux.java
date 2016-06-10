@@ -84,7 +84,7 @@ public class ResteDesTransformateursMondiaux implements Acteur, ITransformateur 
 	}
 
 	@Override
-	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
+	public List<CommandeDistri> offre(List<CommandeDistri> o) {
 		// On ne simule aucun etat concernant le reste du monde	pour les distributeurs
 		return null;
 	}
@@ -102,10 +102,5 @@ public class ResteDesTransformateursMondiaux implements Acteur, ITransformateur 
 		// méthode dépréciée
 	}
 
-	@Override
-	public List<CommandeDistri> offre(List<CommandeDistri> list) {
-		// On ne simule aucun etat concernant le reste du monde	pour les distributeurs
-		return null;
-	}
 
 }

@@ -83,6 +83,10 @@ public class Nestle implements Acteur, ITransformateur{
 			Monde.LE_MONDE.ajouterIndicateur( indicateurp);
 		}
 		this.catalogue = new CatalogueInterne();
+		
+		PlageInterne plageinterne = this.getProd().plageinterne();
+		//Catalogue
+		this.catalogue.setCatalogueinterne(plageinterne);
 
 	}
 	//Ajout de clients et de fournisseurs
@@ -226,8 +230,11 @@ public class Nestle implements Acteur, ITransformateur{
 		return this.catalogue.getCatalogueinterne();
 	}
 
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
 	@Override
-	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
+	public List<CommandeDistri> offre(List<CommandeDistri> o) {
 		ArrayList<CommandeDistri> Offre = new ArrayList<CommandeDistri>();
 		for (CommandeDistri C : o) {
 			if (this.getStockchoc().getStockschocolats().get(C.getProduit())
@@ -247,7 +254,7 @@ public class Nestle implements Acteur, ITransformateur{
 
 
 	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
-		return Offre(cf);
+		return offre(cf);
 	}
 
 	
@@ -355,11 +362,7 @@ public class Nestle implements Acteur, ITransformateur{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
-	public List<CommandeDistri> offre(List<CommandeDistri> list) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 }
 
 
