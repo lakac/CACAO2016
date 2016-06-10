@@ -13,8 +13,8 @@ public abstract class Stock {
 		this.stock = new HashMap<Produit, Double>();
 	}
 	
-	 public abstract void MiseAJourStockLivraison();
+	 public abstract void MiseAJourStockLivraison(Produit p, double quantite);
 	 
-	 public abstract void MiseAJourStockTransformation(Produit p, double Quantite);
+	 public abstract void MiseAJourStockTransformation(Produit p, double quantite);
 
 }

@@ -16,21 +16,11 @@ public class StockCacao extends Stock {
 	
 	
 	public HashMap<Produit, Double> getStockcacao() {
-		return this.stockCacao;
+		return stockCacao;
 	}
 
 
 
-	@Override
-	public void MiseAJourStockLivraison() {
-		// TODO Auto-generated method stub
-		
-	}
-	// 
 
-	@Override
-	public void MiseAJourStockTransformation(Produit p, double quantite) {
-		this.stockCacao.put(p,this.stockCacao.get(p)-quantite);
-	}
 
 }
