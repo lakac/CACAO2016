@@ -17,6 +17,15 @@ private HashMap<Produit,Double> stockchocolats;
 	}
 	
 	
+	
+	
+	public HashMap<Produit, Double> getStockchocolats() {
+		return stockchocolats;
+	}
+
+
+
+
 	@Override
 	public void MiseAJourStockLivraison() {
 		// TODO Auto-generated method stub

@@ -13,6 +13,14 @@ public class StockCacao extends Stock {
 			this.stockcacao.put(Constante.CACAO, 0.);
 	}
 	
+	
+	
+	public HashMap<Produit, Double> getStockcacao() {
+		return stockcacao;
+	}
+
+
+
 	@Override
 	public void MiseAJourStockLivraison() {
 		// TODO Auto-generated method stub
