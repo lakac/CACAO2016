@@ -15,6 +15,6 @@ public abstract class Stock {
 	
 	 public abstract void MiseAJourStockLivraison();
 	 
-	 public abstract void MiseAJourStockTransformation();
+	 public abstract void MiseAJourStockTransformation(Produit p, double Quantite);
 
 }

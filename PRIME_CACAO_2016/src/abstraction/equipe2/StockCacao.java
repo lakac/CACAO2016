@@ -6,17 +6,17 @@ import abstraction.commun.Produit;
 
 public class StockCacao extends Stock {
 
-	private HashMap<Produit,Double> stockcacao;
+	private HashMap<Produit,Double> stockCacao;
 	
 	public StockCacao(){
 		super();
-			this.stockcacao.put(Constante.CACAO, 0.);
+			this.stockCacao.put(Constante.CACAO, 0.);
 	}
 	
 	
 	
 	public HashMap<Produit, Double> getStockcacao() {
-		return stockcacao;
+		return this.stockCacao;
 	}
 
 
@@ -26,11 +26,11 @@ public class StockCacao extends Stock {
 		// TODO Auto-generated method stub
 		
 	}
+	// 
 
 	@Override
-	public void MiseAJourStockTransformation() {
-		// TODO Auto-generated method stub
-		
+	public void MiseAJourStockTransformation(Produit p, double quantite) {
+		this.stockCacao.put(p,this.stockCacao.get(p)-quantite);
 	}
 
 }
