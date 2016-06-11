@@ -20,6 +20,7 @@ public class CotedIvoire implements IProducteur, Acteur {
 	}
 	
 	//permet de remplir la liste des concurrents de la cote d'ivoire
+
 	public void ajouterConcurrent(IProducteur p) {
 		this.concurrents.add(p);
 	}
@@ -45,6 +46,15 @@ public class CotedIvoire implements IProducteur, Acteur {
 	}
 
 
+	
+
+	@Override
+	public String getNom() {
+		return "Côte d'Ivoire";
+	}
+
+
+
 	//renvoie la quantité totale de cacao que la cote d'ivoire met en vente à la step considéré 
 	@Override
 	public double annonceQuantitePropose() {
@@ -55,13 +65,12 @@ public class CotedIvoire implements IProducteur, Acteur {
 		return RATIOCOTEDIVOIRE*quantite;
 	}
 
-	@Override
-	public String getNom() {
-		return "Côte d'Ivoire";
-	}
+	
 
 	//Il n'y a aucun indicateur à mettre à jour, le next ne fait rien non plus
 	public void next() {
+		
+		
 	}
 	
 

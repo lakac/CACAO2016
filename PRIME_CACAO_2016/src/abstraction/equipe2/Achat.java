@@ -14,13 +14,16 @@ public class Achat {
 	}
 	
 	
+
 	public void setCacaoAchete(Nestle_old nestle, IProducteur p) {
+/*	public void setCacaoAchete(Nestle nestle, IProducteur p) {
+>>>>>>> branch 'master' of https://github.com/AlexandreMARTY/CACAO2016.git
 		this.cacaoachete = Math.min(p.annonceQuantiteMiseEnVente(nestle), nestle.annonceQuantiteDemandee(p));
 		System.out.println("jjjj "+p.toString()+"---"+p.annonceQuantiteMiseEnVente(nestle));
 		System.out.println("patate");
 		System.out.println(nestle.annonceQuantiteDemandee(p));
+	}*/
 	}
-	
 	
 	public Indicateur getHistoriqueachats() {
 		return this.historiqueachats;

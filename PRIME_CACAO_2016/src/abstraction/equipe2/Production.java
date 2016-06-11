@@ -65,7 +65,7 @@ public class Production {
 				Plage plage1= new Plage(0,500,0);
 				Plage plage2= new Plage(500.1,1500,0.03);
 				Plage plage3= new Plage(1500.1,4000,0.07);
-				Plage plage4= new Plage(4000.1,0.10);
+				Plage plage4= new Plage(4 000.1,0.10);
 				listplageproduit.add(plage1);
 				listplageproduit.add(plage2);
 				listplageproduit.add(plage3);
