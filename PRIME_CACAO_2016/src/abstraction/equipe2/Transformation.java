@@ -77,5 +77,29 @@ public class Transformation {
 	 * 
 	 * 		6. Stocker le chocolat fabrique dans Stockchocolat
 	 */
+	
+	public double quantiteCommandeDistri(){
+		return 0; //A COMPLETER
+	}
+	
+	public double calculPerteCacao(){
+		return 0; //A COMPLETER
+	}
+	
+	public double calculMargedesecurite(){
+		return 0; //A COMPLETER
+	}
+	
+	public double cacaoTransformer(){
+		return 0; //A COMPLETER
+	}
+	
+	public Transformation transformerCacaoChocolat(Transformation transformation){
+		return transformation;	//A COMPLETER
+	}
+	
+	public void ajouterChocolatStock(){
+		;	//A COMPLETER
+	}
 
 }
