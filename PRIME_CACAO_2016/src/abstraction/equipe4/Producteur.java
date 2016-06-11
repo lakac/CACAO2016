@@ -10,7 +10,7 @@ public class Producteur implements Acteur,IProducteur{
 	private Journal journal;
 	private Tresorerie treso;
 	private ProductionBiannuelle prodBiannu;
-	private ArrayList<ITransformateurD> transformateurs;
+	private ArrayList<ITransformateurP> transformateurs;
 	private Vente vente;
 
 	//Constructeur de l'acteur Producteur 2
@@ -21,7 +21,7 @@ public class Producteur implements Acteur,IProducteur{
 		this.stock = new Stock(this);
 		this.journal = new Journal("Journal de "+this.nom);
 		this.prodBiannu=new ProductionBiannuelle(this,1200000);
-		this.transformateurs= new ArrayList<ITransformateurD>();
+		this.transformateurs= new ArrayList<ITransformateurP>();
 		Monde.LE_MONDE.ajouterJournal(this.journal);
 	}
 
@@ -49,7 +49,7 @@ public class Producteur implements Acteur,IProducteur{
 		return this.stock;
 	}
 
-	public ArrayList<ITransformateurD> getTransformateurs() {
+	public ArrayList<ITransformateurP> getTransformateurs() {
 		return this.transformateurs;
 	}
 
@@ -63,7 +63,7 @@ public class Producteur implements Acteur,IProducteur{
 
 
 	//Ajout des clients à la liste transformateurs
-	public void ajoutClient(ITransformateurD a){
+	public void ajoutClient(ITransformateurP a){
 		this.getTransformateurs().add(a);
 	}
 
@@ -115,6 +115,12 @@ public class Producteur implements Acteur,IProducteur{
 	public void notificationVente(CommandeProduc c) {
 		this.venteRealisee(c);
 
+	}
+
+	@Override
+	public double annonceQuantiteMiseEnVente(ITransformateurP t) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

@@ -139,7 +139,7 @@ public class MarcheProducteur implements Acteur {
 	/**
 	 * Renvoie la somme des quantite commandees durant le step courant par le transformateur t a tous les producteurs.
 	 */
-	private double getCommandeTotale(ITransformateurD t) {
+	private double getCommandeTotale(ITransformateurP t) {
 		double quantite = 0;
 		for (IProducteur p : MarcheProducteur.producteurs) {
 			quantite += this.commandesPassees.get(t).get(p);
@@ -151,7 +151,7 @@ public class MarcheProducteur implements Acteur {
 	 * Renvoie le nombre de producteurs auxquels le transformateur t a pour l'instant passe une commande strictement
 	 * inferieure a la quantite qu'ils proposaient (individuellement).
 	 */
-	private int getNombreVendeursDisponibles(ITransformateurD t) {
+	private int getNombreVendeursDisponibles(ITransformateurP t) {
 		int n = 0;
 		for (IProducteur p : MarcheProducteur.producteurs) {
 			if (this.quantitesDisponibles.get(p).get(t) > 0) {

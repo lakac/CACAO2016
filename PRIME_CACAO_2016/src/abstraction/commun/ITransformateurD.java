@@ -11,7 +11,7 @@ public interface ITransformateurD {
 	 * Indique le prix d'achat proposé pour ce transformateur. Fluctue donc logiquement autour du cours du marché du cacao.
 	 */
 
-	public double annoncePrix();
+	
 
 	public Catalogue getCatalogue();
 	

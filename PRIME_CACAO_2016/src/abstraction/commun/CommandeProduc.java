@@ -8,7 +8,7 @@ public class CommandeProduc extends Commande{
 	 * @author equipe 5
 	 */
 	
-	private ITransformateurD acheteur;
+	private ITransformateurP acheteur;
 	private IProducteur vendeur;
 	
 	public CommandeProduc(double quantite, double prixTonne) {
@@ -21,7 +21,7 @@ public class CommandeProduc extends Commande{
 	/**
 	 * @depreciated
 	 */
-	public CommandeProduc(ITransformateurD acheteur, IProducteur vendeur, double quantite, double prixTonne) {
+	public CommandeProduc(ITransformateurP acheteur, IProducteur vendeur, double quantite, double prixTonne) {
 		super(quantite, prixTonne);
 		this.acheteur = acheteur;
 		this.vendeur = vendeur;
@@ -30,7 +30,7 @@ public class CommandeProduc extends Commande{
 	/**
 	 * @depreciated
 	 */
-	public void setAcheteur(ITransformateurD acheteur) {
+	public void setAcheteur(ITransformateurP acheteur) {
 		this.acheteur = acheteur;
 	}
 
@@ -44,7 +44,7 @@ public class CommandeProduc extends Commande{
 	/**
 	 * @depreciated
 	 */
-	public ITransformateurD getAcheteur() {
+	public ITransformateurP getAcheteur() {
 		return this.acheteur;
 	}
 

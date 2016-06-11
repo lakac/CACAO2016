@@ -7,6 +7,7 @@ import abstraction.fourni.Monde;
 import abstraction.commun.CommandeProduc;
 import abstraction.commun.IProducteur;
 import abstraction.commun.ITransformateurD;
+import abstraction.commun.ITransformateurP;
 import abstraction.commun.Constantes;
 
 import java.util.ArrayList;
@@ -23,10 +24,10 @@ public class Producteur implements Acteur, IProducteur {
 	private Indicateur tresorerie;
 	private double coutProduction;
 	private double[] productionDeBase;
-	private Map<ITransformateurD,Double> quantitesProposees;
+	private Map<ITransformateurP,Double> quantitesProposees;
 	private Indicateur productionCourante;
 	private Journal journal;
-	private List<ITransformateurD> transformateurs;
+	private List<ITransformateurP> transformateurs;
 	private IntelligenceEconomique intelligenceEconomique;
 	
 	/**
@@ -50,12 +51,12 @@ public class Producteur implements Acteur, IProducteur {
 		// Afin d'eviter d'avoir une demande effective de la somme des transformateurs superieure a ce que nous pouvons
 		// mettre en vente, nous proposons a chaque transformateur une quantite specifique que nous sommes surs de pouvoir
 		// lui fournir.
-		this.quantitesProposees = new HashMap<ITransformateurD,Double>();
+		this.quantitesProposees = new HashMap<ITransformateurP,Double>();
 		
 		this.journal = new Journal("Journal de "+this.nom);
 		Monde.LE_MONDE.ajouterJournal(this.journal);
 		
-		this.transformateurs = new ArrayList<ITransformateurD>();
+		this.transformateurs = new ArrayList<ITransformateurP>();
 		
 		this.intelligenceEconomique = new IntelligenceEconomique(this.transformateurs,this.stock);
 	}
@@ -91,7 +92,7 @@ public class Producteur implements Acteur, IProducteur {
 	
 	// Méthodes publiques
 	
-	public void ajouterTransformateur(ITransformateurD transformateur) {
+	public void ajouterTransformateur(ITransformateurP transformateur) {
 		this.transformateurs.add(transformateur);
 		this.quantitesProposees.put(transformateur, 0.0);
 		this.intelligenceEconomique.prendreEnCompte(transformateur);
@@ -102,7 +103,7 @@ public class Producteur implements Acteur, IProducteur {
 	/**
 	 * @return l'ensemble des transformateurs.
 	 */
-	private List<ITransformateurD> getTransformateurs() {
+	private List<ITransformateurP> getTransformateurs() {
 		return this.transformateurs;
 	}
 	
@@ -119,7 +120,7 @@ public class Producteur implements Acteur, IProducteur {
 	}
 	
 	private void repartirQuantites() {
-		for (ITransformateurD t : this.getTransformateurs()) {
+		for (ITransformateurP t : this.getTransformateurs()) {
 			this.quantitesProposees.put(t,this.intelligenceEconomique.donnerQuantiteMiseEnVente(t));
 		}
 	}
@@ -157,5 +158,11 @@ public class Producteur implements Acteur, IProducteur {
 	
 	private double getQuantiteProposee(ITransformateurD t) {
 		return this.quantitesProposees.get(t);
+	}
+
+	@Override
+	public double annonceQuantiteMiseEnVente(ITransformateurP t) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

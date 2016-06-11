@@ -89,21 +89,16 @@ public class MondeV1 extends Monde {
 		lindt.creer();
 
 		
-		t3.ajouterTransformateur(nestle);
 		t3.ajouterTransformateur(lindt);
 		
-		p1.ajouterTransformateur(nestle);
 		p1.ajouterTransformateur(lindt);
-		p1.ajouterTransformateur(t3);
 		
 		p2.ajoutClient(nestle);
-		p2.ajoutClient(lindt);
-		p2.ajoutClient(t3);		
+		p2.ajoutClient(lindt);	
 		p2.AjoutVariableVente();
 		
 		marcheProducteur.ajouterProducteur(p1);
 		marcheProducteur.ajouterProducteur(p2);
-		marcheProducteur.ajouterTransformateur(nestle);
 		marcheProducteur.ajouterTransformateur(lindt);
 		
 		//maj 31/05 Leclerc

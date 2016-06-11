@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Nestle implements Acteur, ITransformateurD{
+public class Nestle implements Acteur, ITransformateurD, ITransformateurP {
 	
 	private String nom;
 	
@@ -303,7 +303,7 @@ public class Nestle implements Acteur, ITransformateurD{
 		//et la tr�sorerie (on ach�te quelque chose)
 		double achattotal = 0.;
 		for (IProducteur p : this.achats.keySet()) {
-			this.achats.get(p).setCacaoAchete(this, p);
+			//this.achats.get(p).setCacaoAchete(this, p);
 			achattotal+=this.getAchats().get(p).getCacaoachete();
 			this.banque.retirer(this.achats.get(p).getCacaoachete());
 		}

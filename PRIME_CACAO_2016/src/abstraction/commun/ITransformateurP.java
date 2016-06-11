@@ -5,7 +5,7 @@ public interface ITransformateurP {
 	 * @author equipe5
 	 */
 	
-	
+	public double annoncePrix();
 	/**
 	 * Indique la quantité demandée au marché du cacao.
 	 * 
