@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Nestle implements Acteur, ITransformateur{
+public class Nestle_old implements Acteur, ITransformateur{
 	
 	private String nom;
 	private Indicateur historiqueachats;
@@ -28,21 +28,21 @@ public class Nestle implements Acteur, ITransformateur{
 	private StockCacao stockcacao;
 	private StockChocolats stockchocolats;
 	private Production production;
-	private Banque banque;
+	private Banque_old banque;
 	private CoutTransport couttransport;
 	
 	private ArrayList<IDistributeur> clients;
 	private ArrayList<IProducteur> fournisseurs;
 	
 	
-	public Nestle() {
+	public Nestle_old() {
 		//le nom
 			this.nom = Constantes.NOM_TRANSFORMATEUR_1;
 		//Les listes des clients et fournisseurs
 				this.clients = new ArrayList<IDistributeur>();
 				this.fournisseurs = new ArrayList<IProducteur>();
 		//les attributs relatifs à la trésorerie
-				this.banque =new Banque();
+				this.banque =new Banque_old();
 		//les HashMaps et liste
 				this.achats = new HashMap<IProducteur, Achat>();
 				this.SetAchats(this.fournisseurs);
@@ -77,7 +77,7 @@ public class Nestle implements Acteur, ITransformateur{
 		}
 		this.production = new Production();
 //Ajout d'indicateurs visibles
-		this.banque=new Banque(this);
+		this.banque=new Banque_old(this);
 		Monde.LE_MONDE.ajouterIndicateur(this.banque.getTresorerie());
 		this.totalachats = new Indicateur("Achats total de Nestle", this, 0.);
 		Monde.LE_MONDE.ajouterIndicateur(this.totalachats);
@@ -188,7 +188,7 @@ public class Nestle implements Acteur, ITransformateur{
 		return ventes;
 	}
 
-	public Banque getBanque() {
+	public Banque_old getBanque() {
 		return banque;
 	}
 	

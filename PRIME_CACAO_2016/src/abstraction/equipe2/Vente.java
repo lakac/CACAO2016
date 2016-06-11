@@ -40,11 +40,11 @@ public class Vente {
 	}
 
 
-	public void setquantitevendue(Nestle nestle, CommandeDistri d, Produit p) {
+	public void setquantitevendue(Nestle_old nestle, CommandeDistri d, Produit p) {
 		this.quantitevendue.put(p, Math.min(d.getQuantite(), nestle.getStockchoc().getStockschocolats().get(p)+nestle.getProd().getProduction().get(p)));
 	}
 	
-	public void MiseAJourHistorique(Nestle nestle, int etape, Produit produit) {
+	public void MiseAJourHistorique(Nestle_old nestle, int etape, Produit produit) {
 		if (produit.equals(Constante.PRODUIT_50)) {
 			this.historiquedesventesproduit50.getHistorique().ajouter(nestle, etape, this.quantitevendue.get(Constante.PRODUIT_50));
 		}

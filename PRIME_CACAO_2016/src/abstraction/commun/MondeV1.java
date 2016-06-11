@@ -39,7 +39,7 @@ public class MondeV1 extends Monde {
 		
 		
 		// Transformateurs
-		Nestle nestle = new Nestle();
+		Nestle_old nestle = new Nestle_old();
 		this.ajouterActeur(nestle);
 		
 		Lindt lindt = new Lindt();

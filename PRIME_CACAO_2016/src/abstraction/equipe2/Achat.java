@@ -14,7 +14,7 @@ public class Achat {
 	}
 	
 	
-	public void setCacaoAchete(Nestle nestle, IProducteur p) {
+	public void setCacaoAchete(Nestle_old nestle, IProducteur p) {
 		this.cacaoachete = Math.min(p.annonceQuantiteMiseEnVente(nestle), nestle.annonceQuantiteDemandee(p));
 		System.out.println("jjjj "+p.toString()+"---"+p.annonceQuantiteMiseEnVente(nestle));
 		System.out.println("patate");
@@ -35,7 +35,7 @@ public class Achat {
 		this.cacaoachete = quantite;
 	}//
 	
-	public void MiseAJourHistorique(Nestle nestle, int etape) {
+	public void MiseAJourHistorique(Nestle_old nestle, int etape) {
 		this.historiqueachats.getHistorique().ajouter(nestle, etape, this.cacaoachete);
 	}
 }

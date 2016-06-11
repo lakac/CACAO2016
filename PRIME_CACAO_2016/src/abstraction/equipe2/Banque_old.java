@@ -4,22 +4,22 @@ import abstraction.fourni.Historique;
 import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 
-public class Banque {
+public class Banque_old {
 	
 	private double banque;
 	private Indicateur tresorerie;
 		
 	
-	public Banque() {
+	public Banque_old() {
 	this.banque=Constante.TRESORERIE_INITIALE;
 	}
 
-	public Banque(Nestle nestle) {
+	public Banque_old(Nestle_old nestle) {
 	this.banque=Constante.TRESORERIE_INITIALE;
 	this.tresorerie = new Indicateur("Solde de Nestle", nestle, Constante.TRESORERIE_INITIALE);
 	}
 	
-	public void MiseAJourHistorique(Nestle nestle, int etape) {
+	public void MiseAJourHistorique(Nestle_old nestle, int etape) {
 		this.tresorerie.getHistorique().ajouter(nestle, etape, this.getBanque());
 	}
 	

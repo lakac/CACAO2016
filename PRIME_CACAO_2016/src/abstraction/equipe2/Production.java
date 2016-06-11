@@ -27,7 +27,7 @@ public class Production {
 
 	
 	
-	public void setProduction(Nestle nestle, CommandeDistri commandedistri) {
+	public void setProduction(Nestle_old nestle, CommandeDistri commandedistri) {
 		if (nestle.getStockchoc().getStockschocolats().get(commandedistri.getProduit())>commandedistri.getQuantite()/2) {
 			this.production.put(commandedistri.getProduit(),commandedistri.getProduit().getRatioCacao()*Math.min(
 					nestle.getStockcac().getStockcacao(), 
