@@ -64,12 +64,12 @@ public class Transformation {
 	 * 
 	 * 		1. Recuperer la Commande des distributeurs
 	 * 
-	 * 		2. Prendre le cacao de Stockcacao : determiner la quantite a transformer 
+	 * 		2. Calculer la perte de cacao transformee a partir de Constante : PERTE_MINIMALE + VARIATION_PERTE
+	 * 
+	 * 		3. Calculer la Marge de securite a partir de Constance : MARGE_DE_SECURITE 
+	 * 
+	 * 		4. Prendre le cacao de Stockcacao : determiner la quantite a transformer 
 	 * 			en fonction de la Commande des distributeurs + marge de securite
-	 * 
-	 * 		3. Calculer la perte de cacao transformee a partir de Constante : PERTE_MINIMALE + VARIATION_PERTE
-	 * 
-	 * 		4. Calculer la Marge de securite a partir de Constance : MARGE_DE_SECURITE 
 	 * 
 	 * 		5. Transformation en chocolat : 
 	 * 				ex. chocolat50% : 0.5*(cacao + margeDeSecurite - perte) + 0.5*autresIngredients  
