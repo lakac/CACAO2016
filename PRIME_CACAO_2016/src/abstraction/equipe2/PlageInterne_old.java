@@ -3,11 +3,11 @@ import abstraction.commun.*;
 import java.util.HashMap;
 
 
-public class PlageInterne {
+public class PlageInterne_old {
 	
 	private HashMap<Produit,Tarif> tarifproduit;
 
-	public PlageInterne() {
+	public PlageInterne_old() {
 	this.tarifproduit=new HashMap<Produit,Tarif>();
 	}
 

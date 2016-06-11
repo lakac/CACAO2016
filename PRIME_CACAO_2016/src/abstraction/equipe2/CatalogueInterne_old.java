@@ -1,11 +1,11 @@
 package abstraction.equipe2;
 import abstraction.commun.*;
 
-public class CatalogueInterne {
+public class CatalogueInterne_old {
 
 	private Catalogue catalogueinterne;
 
-	public CatalogueInterne() {
+	public CatalogueInterne_old() {
 		this.catalogueinterne = new Catalogue();
 	}
 	
@@ -15,7 +15,7 @@ public class CatalogueInterne {
 	}
 
 
-	public void setCatalogueinterne(PlageInterne plageinterne) {
+	public void setCatalogueinterne(PlageInterne_old plageinterne) {
 		for (Produit p : plageinterne.getTarifproduit().keySet()) {
 		this.catalogueinterne.add(p, plageinterne.getTarifproduit().get(p));
 		}		

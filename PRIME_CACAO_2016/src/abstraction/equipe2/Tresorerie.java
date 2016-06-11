@@ -88,7 +88,8 @@ public class Tresorerie {
 		}
 	}
 	
-	
+	//La classe transformation est encore incomplète,
+	//nécessité de la remplir avant de pouvoir tester cette partie
 	
 	//Calcule le cout de transformation lorsuq'on effectue une transformation t
 	private double CoutTransformation (Transformation t) {
@@ -101,7 +102,8 @@ public class Tresorerie {
 		this.fonds-=CoutTransformation(t);
 	}
 	
-	//fin de la classe trésorerie, début des tests
+	//fin des méthodes 
+	//début des tests
 	
 	public static void main(String[] args) {
 		//test du constructeur
@@ -298,10 +300,47 @@ public class Tresorerie {
 			System.out.println("Ok, setTresorerieStock semble correcte");
 		}
 		//fin des tests de couts de stock
+		Tresorerie tres2 = new Tresorerie(); 
 		//début des tests de couts de transformation
+		//initialisation de la transformation
+		Transformation trans1 = new Transformation();
+		Transformation trans2 = new Transformation (500, 500, 500);
+		Transformation trans3 = new Transformation (100000, 100000, 100000);
 		
+		if (tres2.CoutTransformation(trans1) != 0) {
+			System.out.println("Aïe, s'il n'y a aucune transformation, le cout de transformation est de "+tres2.CoutTransformation(trans1)+" au lieu de 0");
+		}
+		else {
+			if (tres2.CoutTransformation(trans2) != 1500*Constante.COUT_DE_TRANSFORMATION) {
+				if (tres2.CoutTransformation(trans2) == 1500) {
+					System.out.println("Aïe, le cout de transformation ne prend pas en compte le cout unitaire de transformation");
+				}
+				else {
+					System.out.println("Aïe, pour 1500 tonnes de chocolats le cout de transformation vaut "+tres2.CoutTransformation(trans2)+" au lieu de "+(Constante.COUT_DE_TRANSFORMATION*1500));
+				}
+			}
+			else {
+				System.out.println("Ok, CoutTransformation semble correcte");
+			}
+		}
+		double tres2_old = tres2.getFonds();
+		tres2.setTresorerieTransformation(trans2);
+		if (tres2.getFonds() != tres2_old-1500*Constante.COUT_DE_TRANSFORMATION) {
+			if (tres2.getFonds() == tres2_old) {
+				System.out.println("la méthode setCoutTranformation ne fait rien");
+			}
+		}
+		tres2_old = tres2.getFonds();
+		tres2.setTresorerieTransformation(trans3);
+		if (tres2.getFonds()<0) {
+			System.out.println("Aïe, la trésorerie vaut "+tres2.getFonds()+" et ne peut pas être négative");
+		}
+		else {
+			System.out.println("Ok, setTransformation semble correcte");
+		}
+		//fin des tests
 	}
-	
+	//fin de la classe
 }
 
 

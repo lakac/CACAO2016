@@ -7,10 +7,14 @@ public class Transformation {
 		return 0;
 	}
 	
-	//variables d'instance
+	//variables d'instance, représente à l'étape n la quantité produite de chocolat de chaque espèce
 	private double chocolat_50;
 	private double chocolat_60;
 	private double chocolat_70;
+	
+	//ce constructeur ne sera jamais utilisé, 
+	//il vaudrait mieux garder le constructeur vide et des méthodes de production à mon sens
+	//mais je vais l'utiliser pour les tests de la trésorerie
 	
 	//Constructeurs
 	public Transformation(double chocolat50, double chocolat60, double chocolat70){
@@ -71,7 +75,7 @@ public class Transformation {
 	 * 
 	 * 		2. Calculer la perte de cacao transformee a partir de Constante : PERTE_MINIMALE + VARIATION_PERTE
 	 * 
-	 * 		3. Calculer la Marge de securite a partir de Constance : MARGE_DE_SECURITE 
+	 * 		3. Calculer la Marge de securite a partir de Constante : MARGE_DE_SECURITE 
 	 * 
 	 * 		4. Prendre le cacao de Stockcacao : determiner la quantite a transformer 
 	 * 			en fonction de la Commande des distributeurs + marge de securite

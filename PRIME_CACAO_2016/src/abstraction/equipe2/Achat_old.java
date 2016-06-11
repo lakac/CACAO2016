@@ -4,7 +4,7 @@ import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.commun.*;
 
-public class Achat {
+public class Achat_old {
 
 	private double cacaoachete;
 	private Indicateur historiqueachats;
@@ -29,12 +29,12 @@ public class Achat {
 		return this.historiqueachats;
 	}
 	
-	public Achat(Acteur acteur) {
+	public Achat_old(Acteur acteur) {
 		this.cacaoachete = 0.0;
 		this.historiqueachats = new Indicateur(acteur.getNom(), acteur, this.cacaoachete);
 	}
 	
-	public Achat(double quantite) {
+	public Achat_old(double quantite) {
 		this.cacaoachete = quantite;
 	}//
 	

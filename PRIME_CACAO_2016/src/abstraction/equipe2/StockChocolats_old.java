@@ -3,10 +3,10 @@ import java.util.HashMap;
 
 import abstraction.commun.Produit;
 
-public class StockChocolatsOld {
+public class StockChocolats_old {
 	private HashMap<Produit, Double> stockschocolats;
 	
-	public StockChocolatsOld() {
+	public StockChocolats_old() {
 		this.stockschocolats = new HashMap<Produit, Double>();
 		this.stockschocolats.put(Constante.PRODUIT_50, 0.);
 		this.stockschocolats.put(Constante.PRODUIT_60, 0.);
@@ -25,7 +25,7 @@ public class StockChocolatsOld {
 		this.stockschocolats.put(p, prod.getProduction().get(p)+this.stockschocolats.get(p));
 	}
 
-	public void RetirerStockProduit(Produit p, Vente vente) {
+	public void RetirerStockProduit(Produit p, Vente_old vente) {
 		this.stockschocolats.put(p, -vente.getVentes().get(p)+this.stockschocolats.get(p));
 	}
 	

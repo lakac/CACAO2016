@@ -5,7 +5,7 @@ import java.util.List;
 
 import abstraction.commun.*;
 
-public class Production {
+public class Production_old {
 	private HashMap<Produit,Double> production;
 	
 	
@@ -17,7 +17,7 @@ public class Production {
 		this.production.put(p, 0.0);
 	}
 	
-	public Production() {
+	public Production_old() {
 		this.production = new HashMap<Produit, Double>();
 		this.add(Constante.PRODUIT_50);
 		this.add(Constante.PRODUIT_60);

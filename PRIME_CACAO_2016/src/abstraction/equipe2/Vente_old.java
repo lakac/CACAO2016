@@ -3,7 +3,7 @@ import java.util.HashMap;
 import abstraction.commun.*;
 import abstraction.fourni.*;
 
-public class Vente {
+public class Vente_old {
 	private HashMap<Produit, Double> quantitevendue;
 	private Indicateur historiquedesventesproduit50;
 	private Indicateur historiquedesventesproduit60;
@@ -23,7 +23,7 @@ public class Vente {
 		return this.getQuantitevendue().get(p);
 	}
 
-	public Vente(Acteur acteur) {
+	public Vente_old(Acteur acteur) {
 		this.quantitevendue = new HashMap<Produit, Double>();
 		this.historiquedesventesproduit50 = new Indicateur(acteur.getNom(), acteur, 0.0);
 		this.historiquedesventesproduit60 = new Indicateur(acteur.getNom(), acteur, 0.0);
