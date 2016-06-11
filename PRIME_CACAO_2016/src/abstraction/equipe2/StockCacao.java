@@ -11,9 +11,6 @@ public class StockCacao extends Stock {
 	public StockCacao(){
 		super();
 			super.getStock().put(Constante.CACAO, 0.);
-			super.getStock().put(Constante.PRODUIT_50, 0.);
-			super.getStock().put(Constante.PRODUIT_60, 0.);
-			super.getStock().put(Constante.PRODUIT_70, 0.);
 	}
 	
 	
@@ -21,6 +18,7 @@ public class StockCacao extends Stock {
 	public HashMap<Produit, Double> getStockcacao() {
 		return super.getStock();
 	}
+	
 
 
 	@Override
@@ -95,6 +93,10 @@ public class StockCacao extends Stock {
 				}
 			}
 		}
+		System.out.println(stockcac.getStockcacao().get(Constante.CACAO));
+		stockcac.MiseAJourStockLivraison(Constante.CACAO, 10000);
+		stockcac.MiseAJourStockTransformation(Constante.PRODUIT_50, 9000);
+		System.out.println(stockcac.getStockcacao().get(Constante.CACAO));
 	}
 		
 

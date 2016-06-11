@@ -14,6 +14,12 @@ public class CommandeDistri {
 	private double prixTonne;
 	private boolean validation;
 	private int stepLivraison;
+	
+	//Ajout d'un constructeur simple pour les test (11/06, équipe 2)
+	public CommandeDistri(Produit produit, double quantite, double prixtonne) {
+		this.quantite = quantite;
+		this.prixTonne = prixtonne;
+	}
 
 	public CommandeDistri(IDistributeur acheteur, ITransformateur vendeur, Produit produit, double quantite, double prixTonne, int stepLivraison, boolean validation) {
 		this.acheteur = acheteur;

@@ -27,8 +27,14 @@ public class Producteur implements Acteur, IProducteur {
 	private Indicateur productionCourante;
 	private Journal journal;
 	private List<ITransformateur> transformateurs;
-	private IntelligenceEconomique intelligenceEconomique;
+	//mis en commentaire pour pouvoir effectuer des test sur les classe (équipe 2, 11/06)
+	//private IntelligenceEconomique intelligenceEconomique;
 	
+	//Constructeur prenant un nom en argument (pour les tests des transformateurs...)
+	//ajout équipe 2 11/06
+	public Producteur(String nom) {
+		this.nom = nom;
+	}
 	/**
 	 * Initialise notre producteur a partir d'un stock et d'une tresorerie initiaux.
 	 */
@@ -57,7 +63,8 @@ public class Producteur implements Acteur, IProducteur {
 		
 		this.transformateurs = new ArrayList<ITransformateur>();
 		
-		this.intelligenceEconomique = new IntelligenceEconomique(this.transformateurs,this.stock);
+		//Mise en commentaire de l'intelligence économique pour effectuer des tests (équipe 2 11/06)
+		//this.intelligenceEconomique = new IntelligenceEconomique(this.transformateurs,this.stock);
 	}
 		
 	// MÃ©thodes de l'interface Acteur
