@@ -1,5 +1,8 @@
 package abstraction.equipe2;
 
+import java.util.HashMap;
+import abstraction.commun.*;
+
 public class Transformation {
 
 	public double getCacaotransforme() {
@@ -11,6 +14,7 @@ public class Transformation {
 	private double chocolat_50;
 	private double chocolat_60;
 	private double chocolat_70;
+	private HashMap<Produit,Double> transformation;
 	
 	//ce constructeur ne sera jamais utilisé, 
 	//il vaudrait mieux garder le constructeur vide et des méthodes de production à mon sens
@@ -18,6 +22,10 @@ public class Transformation {
 	
 	//Constructeurs
 	public Transformation(double chocolat50, double chocolat60, double chocolat70){
+		this.transformation=new HashMap<Produit,Double>();
+		this.transformation.put(Constante.PRODUIT_50, chocolat50);
+		this.transformation.put(Constante.PRODUIT_60, chocolat60);
+		this.transformation.put(Constante.PRODUIT_70, chocolat70);
 		this.chocolat_50 = chocolat50;
 		this.chocolat_60 = chocolat60;
 		this.chocolat_70 = chocolat70;
@@ -40,6 +48,10 @@ public class Transformation {
 		return this.chocolat_70;
 	}
 	
+	public HashMap<Produit, Double> getTransformation() {
+		return transformation;
+	}
+
 	//Accesseurs en ecriture
 	public void setChocolat50(double quantite){
 		this.chocolat_50 = quantite;
@@ -51,6 +63,19 @@ public class Transformation {
 	
 	public void setChocolat70(double quantite){
 		this.chocolat_70 = quantite;
+	}
+	
+	
+	//Methode permettant de savoir quel chocolat on privilégie ( on privilégie le chocolat 
+	//que veut le meilleur acheteur du step précédent en % )
+	public void repartitionChocolat(){
+//A COMPLETER
+	}
+	
+// Methode permettant de transformer le cacao en chocolat : doit retirer le cacao du stock de cacao
+// doit ajouter le chocolat créé dans le stock de chocolat
+	public void setTransformation(HashMap<Produit, Double> transformation) {
+//A COMPLETER
 	}
 	
 	
