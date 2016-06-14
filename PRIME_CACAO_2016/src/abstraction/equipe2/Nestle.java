@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Nestle implements Acteur, ITransformateur{
+public class Nestle implements Acteur, ITransformateurD, ITransformateurP {
 	
 	private String nom;
 	private Indicateur historiqueachats;
@@ -356,6 +356,15 @@ public class Nestle implements Acteur, ITransformateur{
 			CommandeProduc commande = new CommandeProduc(this, this.getFournisseurs().get(i), 
 					this.getFournisseurs().get(i).annonceQuantiteMiseEnVente(this), prix);
 			this.setCommandeproduc(i, commande);
+<<<<<<< HEAD
+		}
+		//chacun des producteurs nous envoie leur offre et on achï¿½te leur cacao
+		//et on met ï¿½ jour l'historique
+		//et la trï¿½sorerie (on achï¿½te quelque chose)
+		double achattotal = 0.;
+		for (IProducteur p : this.achats.keySet()) {
+			//this.achats.get(p).setCacaoAchete(this, p);
+=======
 
 		}*/
 
@@ -373,6 +382,7 @@ public class Nestle implements Acteur, ITransformateur{
 
 		/**for (IProducteur p : this.achats.keySet()) {
 			this.achats.get(p).setCacaoAchete(this, p);
+>>>>>>> refs/remotes/#38/master
 			achattotal+=this.getAchats().get(p).getCacaoachete();
 			this.banque.retirer(this.achats.get(p).getCacaoachete());
 		}*/ ///doit être fait dans notificationVentes() 27/05

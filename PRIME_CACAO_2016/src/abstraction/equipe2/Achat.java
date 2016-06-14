@@ -13,7 +13,6 @@ public class Achat {
 		return cacaoachete;
 	}
 	
-	
 	public void setCacaoAchete(Nestle nestle, IProducteur p) {
 		this.cacaoachete = Math.min(p.annonceQuantiteMiseEnVente(nestle), nestle.annonceQuantiteDemandee(p));
 		System.out.println("jjjj "+p.toString()+"---"+p.annonceQuantiteMiseEnVente(nestle));
