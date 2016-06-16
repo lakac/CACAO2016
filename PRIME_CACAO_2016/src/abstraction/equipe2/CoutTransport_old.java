@@ -4,13 +4,13 @@ import java.util.HashMap;
 import abstraction.commun.*;
 
 
-public class CoutTransport {
+public class CoutTransport_old {
 	
 	private double couttransportglobal;
 	private HashMap<IProducteur,Double> distances;
 	
 	
-	public CoutTransport(double couttransp){
+	public CoutTransport_old(double couttransp){
 		this.couttransportglobal=couttransp;
 		this.distances=new HashMap<IProducteur, Double>();
 	}
@@ -27,7 +27,7 @@ public class CoutTransport {
 		return couttransportglobal;
 		}
 	
-	public double CouttransportGlobal(Achat achatp1, Achat achatp2, Achat ResteDuMonde) {
+	public double CouttransportGlobal(Achat_old achatp1, Achat_old achatp2, Achat_old ResteDuMonde) {
 		this.setCouttransportglobal((achatp1.getCacaoachete()+achatp2.getCacaoachete()+ResteDuMonde.getCacaoachete())
 				*Constante.COUT_UNITAIRE_TRANSPORT);
 		return this.getCouttransport();

@@ -11,7 +11,7 @@ public class Producteur implements Acteur,IProducteur{
 	private Tresorerie treso;
 	private ProductionBiannuelle prodBiannu;
 	private ArrayList<ITransformateur> transformateurs;
-	private Vente vente;
+	private Vente_old vente;
 
 	//Constructeur de l'acteur Producteur 2
 
@@ -26,7 +26,7 @@ public class Producteur implements Acteur,IProducteur{
 	}
 
 	public void AjoutVariableVente(){
-		this.vente = new Vente(this.stock, this);
+		this.vente = new Vente_old(this.stock, this);
 	}
 
 
@@ -57,7 +57,7 @@ public class Producteur implements Acteur,IProducteur{
 		return this.treso;
 	}
 
-	public Vente getVente() {
+	public Vente_old getVente() {
 		return this.vente;
 	}
 

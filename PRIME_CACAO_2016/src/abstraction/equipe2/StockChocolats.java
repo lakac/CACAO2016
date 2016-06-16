@@ -27,6 +27,14 @@ public class StockChocolats extends Stock {
 			this.getStockchocolats().put(p, this.getStockchocolats().get(p)-quantite);
 		}
 	}
+	
+	public double Quantitetotalchoc() {
+		double quantitetot = 0.;
+		for (Produit p : this.getStock().keySet()) {
+			quantitetot+=this.getStock().get(p);
+		}
+		return quantitetot;
+	}
 
 	
 	@Override

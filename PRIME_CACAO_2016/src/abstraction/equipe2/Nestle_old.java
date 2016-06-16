@@ -21,15 +21,15 @@ public class Nestle_old implements Acteur, ITransformateur{
 	private HashMap<IDistributeur,List<CommandeDistri>> commandesdistri;
 	private List<CommandeProduc> commandeproduc;
 	
-	private CatalogueInterne catalogue;
+	private CatalogueInterne_old catalogue;
 	
-	private HashMap<IProducteur, Achat> achats;
-	private HashMap<IDistributeur, Vente> ventes;
+	private HashMap<IProducteur, Achat_old> achats;
+	private HashMap<IDistributeur, Vente_old> ventes;
 	private StockCacao stockcacao;
 	private StockChocolats stockchocolats;
 	private Production production;
 	private Banque_old banque;
-	private CoutTransport couttransport;
+	private CoutTransport_old couttransport;
 	
 	private ArrayList<IDistributeur> clients;
 	private ArrayList<IProducteur> fournisseurs;
@@ -44,9 +44,9 @@ public class Nestle_old implements Acteur, ITransformateur{
 		//les attributs relatifs à la trésorerie
 				this.banque =new Banque_old();
 		//les HashMaps et liste
-				this.achats = new HashMap<IProducteur, Achat>();
+				this.achats = new HashMap<IProducteur, Achat_old>();
 				this.SetAchats(this.fournisseurs);
-				this.ventes = new HashMap<IDistributeur, Vente>();
+				this.ventes = new HashMap<IDistributeur, Vente_old>();
 				this.SetVentes(clients);
 				this.commandesdistri = new HashMap<IDistributeur, List<CommandeDistri>>();
 				this.SetCommandesDistriInit(this.clients);
@@ -71,7 +71,7 @@ public class Nestle_old implements Acteur, ITransformateur{
 		//Stock et les informations de transport et production
 		this.stockcacao = new StockCacao();
 		this.stockchocolats = new StockChocolats();
-		this.couttransport = new CoutTransport(Constante.COUT_UNITAIRE_TRANSPORT);
+		this.couttransport = new CoutTransport_old(Constante.COUT_UNITAIRE_TRANSPORT);
 		for (IProducteur p : this.fournisseurs) {
 			this.couttransport.addDistance(p, 5000.);
 		}
@@ -87,7 +87,7 @@ public class Nestle_old implements Acteur, ITransformateur{
 			Monde.LE_MONDE.ajouterIndicateur( indicateurp);
 		}
 		
-		this.catalogue = new CatalogueInterne();
+		this.catalogue = new CatalogueInterne_old();
 
 	}
 	//Ajout de clients et de fournisseurs
@@ -104,14 +104,14 @@ public class Nestle_old implements Acteur, ITransformateur{
 	//Setter du dictionnaire des achats
 	public void SetAchats(List<IProducteur> producteurs) {
 		for (IProducteur p : producteurs) {
-			Achat achat = new Achat(this);
+			Achat_old achat = new Achat_old(this);
 			this.achats.put(p, achat);
 		}
 	}
 	//Setter du dictionnaire des ventes
 	public void SetVentes(List<IDistributeur> distributeur) {
 		for (IDistributeur d : distributeur) {
-			Vente vente = new Vente(this);
+			Vente_old vente = new Vente_old(this);
 			this.ventes.put(d, vente);
 		}
 	}
@@ -150,7 +150,7 @@ public class Nestle_old implements Acteur, ITransformateur{
 		this.totalventesproduit.put(Constante.PRODUIT_70, indicateur70);
 	}
 	
-	public CoutTransport getCouttransport() {
+	public CoutTransport_old getCouttransport() {
 		return couttransport;
 	}
 
@@ -180,11 +180,11 @@ public class Nestle_old implements Acteur, ITransformateur{
 	}
 	
 
-	public HashMap<IProducteur, Achat> getAchats() {
+	public HashMap<IProducteur, Achat_old> getAchats() {
 		return achats;
 	}
 
-	public HashMap<IDistributeur, Vente> getVentes() {
+	public HashMap<IDistributeur, Vente_old> getVentes() {
 		return ventes;
 	}
 
@@ -192,7 +192,7 @@ public class Nestle_old implements Acteur, ITransformateur{
 		return banque;
 	}
 	
-	public void setAchats(IProducteur p, Achat achat) {
+	public void setAchats(IProducteur p, Achat_old achat) {
 		this.achats.put(p, achat);
 	}
 
@@ -251,7 +251,7 @@ public class Nestle_old implements Acteur, ITransformateur{
 
 	//*/
 	public void notificationVente(CommandeProduc c) {
-		Achat achat = new Achat(c.getQuantite());
+		Achat_old achat = new Achat_old(c.getQuantite());
 		this.setAchats(c.getVendeur(), achat);
 		this.stockcacao.AjouterStockCacao(achat);
 		// MODIFICATION ! mise a jour la tresorerie et le stock de cacao (selon c) 27/05
@@ -304,7 +304,7 @@ public class Nestle_old implements Acteur, ITransformateur{
 	
 	public void next() {
 		//initialisation des plages de prix compte tenu des production prï¿½cï¿½dentes
-		PlageInterne plageinterne = this.getProd().plageinterne();
+		PlageInterne_old plageinterne = this.getProd().plageinterne();
 		//Catalogue
 		this.catalogue.setCatalogueinterne(plageinterne);
 		
@@ -387,7 +387,7 @@ public class Nestle_old implements Acteur, ITransformateur{
 					Constante.COUT_UNITAIRE_TRANSPORT*this.getAchats().get(p).getCacaoachete());
 		}*/ /// mise a jour stock et ventes fait par notificationVentes() 27/05
 		
-		Achat achatmonde = new Achat(this.QuantiteAcheteeMonde());
+		Achat_old achatmonde = new Achat_old(this.QuantiteAcheteeMonde());
 		this.stockcacao.AjouterStockCacao(achatmonde);
 		this.banque.retirer(this.QuantiteAcheteeMonde()*Constante.COUT_UNITAIRE_TRANSPORT*Constante.DISTANCE_MONDE);
 

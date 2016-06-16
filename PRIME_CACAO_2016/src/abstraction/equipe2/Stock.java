@@ -13,15 +13,9 @@ public abstract class Stock {
 		this.stock = new HashMap<Produit, Double>();
 	}
 	
-	
-	
-	
 	 protected HashMap<Produit, Double> getStock() {
 		return stock;
 	}
-
-
-
 
 	public abstract void MiseAJourStockLivraison(Produit p, double quantite);
 

@@ -2,14 +2,14 @@ package abstraction.equipe2;
 
 import abstraction.commun.Produit;
 
-public class StockCacaoOld  {
+public class StockCacao_old  {
 	private double stockcacao;
 
 	public double getStockcacao() {
 		return stockcacao;
 	} 
 	
-	public void AjouterStockCacao(Achat achat) {
+	public void AjouterStockCacao(Achat_old achat) {
 		this.stockcacao += achat.getCacaoachete();
 	}
 	
@@ -25,7 +25,7 @@ public class StockCacaoOld  {
 		}
 	}
 	
-	public StockCacaoOld() {
+	public StockCacao_old() {
 		this.stockcacao = 0.;
 	}
 
