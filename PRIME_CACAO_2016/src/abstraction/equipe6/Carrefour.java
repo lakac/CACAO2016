@@ -19,7 +19,6 @@ import abstraction.fourni.Monde;
 
 public class Carrefour implements Acteur,IDistributeur {
 
-	private static final Monde LE_MONDE = null;
 	private MarcheDistributeur maDi;
 	private MarcheConsommateurs maCo;
 	private String nom;
@@ -71,7 +70,9 @@ public class Carrefour implements Acteur,IDistributeur {
 		}
 		this.setLesStocks(lesStocks);
 		this.setDemandeAnnuel(demandeAnnuel);
-
+		this.lesAchats = lesAchats;
+		this.lesStocks = lesStocks;
+		this.lesVentes = lesVentes;
 	}
 
 	//Accesseurs
@@ -236,9 +237,6 @@ public class Carrefour implements Acteur,IDistributeur {
 		}
 	}
 
-	public static Monde getLeMonde() {
-		return LE_MONDE;
-	}
 
 	public void ajouterVendeur(ITransformateur t) {
 		this.transformateurs.add(t);
@@ -342,7 +340,7 @@ public class Carrefour implements Acteur,IDistributeur {
 						}
 					}
 					System.out.println("Le transfo --> "+t+"\n le produit -->"+p+"\n la quantite --> "+quantite+"\n le prixTonne --> "+prixTonne);
-					contreDemande.add(new CommandeDistri(this, t, p, quantite, prixTonne, LE_MONDE.getStep(), false ));
+					contreDemande.add(new CommandeDistri(this, t, p, quantite, prixTonne, Monde.LE_MONDE.getStep(), false ));
 				}
 			}
 		}
@@ -388,7 +386,13 @@ public class Carrefour implements Acteur,IDistributeur {
 			for (Produit p : this.getProduits()) {
 				System.out.println("histo livraison --> "+this.getHistoLivraison());
 				for (CommandeDistri d : this.getHistoLivraison()) {
-					if (d.getAcheteur() == this && d.getStepLivraison() == LE_MONDE.getStep() && d.getVendeur() == t && d.getProduit()==p) {
+					boolean a, b, c, e;
+					a = d.getAcheteur() == this;
+					b =d.getStepLivraison() == Monde.LE_MONDE.getStep();
+					c =d.getVendeur().equals(t);
+					e =d.getProduit().equals(p);
+					System.out.println("Acheteur :"+a+" step :"+b+" Vendeur:"+c+" produit :"+e);
+					if (d.getAcheteur() == this && d.getStepLivraison() == Monde.LE_MONDE.getStep() && d.getVendeur().equals(t) && d.getProduit().equals(p)) {
 						this.setStock(p, t, d.getQuantite(), true);
 						System.out.println("Quantite de : "+p+" --> "+d.getQuantite());
 						this.setSolde(this.getSolde().getValeur() - d.getPrix());

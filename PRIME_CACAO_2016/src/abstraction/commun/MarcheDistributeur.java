@@ -245,14 +245,14 @@ public class MarcheDistributeur implements Acteur {
 			for (IDistributeur d4 : this.getLesDistris()) {
 				for (CommandeDistri cd : this.getHistoriqueCommande()) {
 					List<CommandeDistri> temp = new ArrayList<CommandeDistri>();
-					System.out.println("Commande consideré --> "+cd);
+					//System.out.println("Commande consideré --> "+cd);
 					if (cd.getStepLivraison() == MondeV1.LE_MONDE.getStep() && t == cd.getVendeur() && d4 == cd.getAcheteur()) {
 						temp.add(cd);
-						System.out.println("Temp --> "+temp);
+						//System.out.println("Temp --> "+temp);
 					}
-					System.out.println("Le transfo -->"+t);
-					System.out.println("Temp -->"+temp);
-					System.out.println("La livraison effective --> "+t.livraisonEffective(temp));
+					//System.out.println("Le transfo -->"+t);
+					//System.out.println("Temp -->"+temp);
+					//System.out.println("La livraison effective --> "+t.livraisonEffective(temp));
 					livraisonglobale.addAll(t.livraisonEffective(temp));
 				}
 			} 
