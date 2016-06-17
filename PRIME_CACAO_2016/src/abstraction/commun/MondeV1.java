@@ -25,8 +25,9 @@ public class MondeV1 extends Monde {
 		produits.add(new Produit("50%",50));
 		produits.add(new Produit("60%",60));
 		produits.add(new Produit("70%",70));
-		
-
+		// Marche distributeur
+		MarcheDistributeur MaDi = new MarcheDistributeur();
+		this.ajouterActeur(MaDi);
 		// Distributeurs
 
 
@@ -59,6 +60,9 @@ public class MondeV1 extends Monde {
 		MarcheCons marcheConsommateurs = new MarcheCons("MarcheConsommateurs",this.produits);
 		MarcheCons.LE_MARCHE_CONS = marcheConsommateurs;
 		this.ajouterActeur(marcheConsommateurs);
+		/*MarcheConsommateurs marcheConsommateurs = new MarcheConsommateurs("MarcheConsommateurs",this.produits);
+		MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS = marcheConsommateurs;
+		this.ajouterActeur(marcheConsommateurs);*/
 		
 		// Producteurs
 		Producteur p1 = new Producteur(Constantes.NOM_PRODUCTEUR_1, 1000.0, 0.0, Monde.LE_MONDE);
@@ -89,26 +93,30 @@ public class MondeV1 extends Monde {
 		lindt.ajouterDistributeur(Le);
 		lindt.ajouterProducteur(p1);
 		lindt.ajouterProducteur(p2);
+		//lindt.ajouterProducteur(CotedIvoire);
 		lindt.creer();
 
 		
-		t3.ajouterTransformateur(nestle);
 		t3.ajouterTransformateur(lindt);
 		
-		p1.ajouterTransformateur(nestle);
 		p1.ajouterTransformateur(lindt);
-		p1.ajouterTransformateur(t3);
 		
 		p2.ajoutClient(nestle);
 		p2.ajoutClient(lindt);
-		p2.ajoutClient(t3);		
+		p2.ajoutClient(t3);
+		p2.ajoutClient(lindt);	
 		p2.AjoutVariableVente();
 		
 		marcheProducteur.ajouterProducteur(p1);
 		marcheProducteur.ajouterProducteur(p2);
-		marcheProducteur.ajouterTransformateur(nestle);
 		marcheProducteur.ajouterTransformateur(lindt);
-		
+		//MaDi.addDistributeur(Ca);
+		MaDi.addDistributeur(Le);
+		//MaDi.addTransformateur(lindt);
+		MaDi.addTransformateur(nestle);
+		for (int i =0;i<produits.size();i++){
+			MaDi.addProduit(produits.get(i));
+		}
 		//maj 31/05 Groupe 3
 		Le.getStock().initialiseStock(Le);	
 		Le.getPrixDeVente().initialisePrixDeVente(Le, produits);
@@ -116,10 +124,14 @@ public class MondeV1 extends Monde {
 
 		MarcheCons.LE_MARCHE_CONS.initialiser();
 
+		//MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiser();
+
 		//Ajouter transformateurs et distributeurs au marché
 		MarcheCons.LE_MARCHE_CONS.initialiserDemandeAnnuelle();
+		//MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiserDemandeAnnuelle();
 		//MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiserCalendrierDemande();
 		MarcheCons.LE_MARCHE_CONS.initialiserPourcentageIncertitudeVentes();
+		//MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiserPourcentageIncertitudeVentes();
 		//MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiserFidelite();
 		
 	}
