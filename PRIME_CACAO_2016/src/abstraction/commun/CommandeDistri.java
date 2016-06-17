@@ -6,7 +6,7 @@ package abstraction.commun;
  * @author equipe 5
  */
 
-public class CommandeDistri {
+public class CommandeDistri implements Comparable {
 	private IDistributeur acheteur;
 	private ITransformateur vendeur;
 	private Produit produit;
@@ -93,5 +93,17 @@ public class CommandeDistri {
 		return (o!=null && o instanceof CommandeDistri && ((CommandeDistri)o).getAcheteur()==this.getAcheteur()
 				&& ((CommandeDistri)o).getVendeur()==this.getVendeur() && ((CommandeDistri)o).getProduit()==this.getProduit()
 					&& ((CommandeDistri)o).getStepLivraison()==this.getStepLivraison());
+	}
+
+	///Equipe 2, le 17/06 J'ai besoin de rendre une commande comparable
+	//Un commande est supérieure à une autre si la quantité commandée est plus grande.
+	@Override
+	public int compareTo(Object arg0) {
+		if (arg0 instanceof CommandeDistri) {
+			return ((int) (this.getQuantite()-((CommandeDistri) arg0).getQuantite()));
+		}
+		else {
+			return -1;
+		}
 	}
 }

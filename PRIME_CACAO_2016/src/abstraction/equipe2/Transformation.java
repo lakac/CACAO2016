@@ -2,72 +2,135 @@ package abstraction.equipe2;
 
 
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
+
 import abstraction.commun.*;
 
 
 public class Transformation {
-
-	public double getCacaotransforme() {
-		// TODO Auto-generated method stub
-		return 0;
+	
+	//variables d'instance, 
+	//représente à l'étape n la quantité produite de chocolat de chaque espèce
+	private HashMap<Produit,Double> transformation;
+		
+	//accesseur en lecture
+	public HashMap<Produit,Double> getTransformation() {
+		return this.transformation;
 	}
 	
-	//variables d'instance, représente à l'étape n la quantité produite de chocolat de chaque espèce
-	private double chocolat_50;
-	private double chocolat_60;
-	private double chocolat_70;
-	private HashMap<Produit,Double> transformation;
-	
-	//ce constructeur ne sera jamais utilisé, 
-	//il vaudrait mieux garder le constructeur vide et des méthodes de production à mon sens
-	//mais je vais l'utiliser pour les tests de la trésorerie
+	//"setter" qui permet de mettre à jour la production de produit p avec un double transformation
+	//c'est cette méthode qui va être appelée par tout un tas de méthodes du groupe
+	public void setTransformation (Produit p, double transformation) {
+		this.transformation.put(p, transformation);
+	}
 	
 	//Constructeurs
+	//Un constructeur général 
 	public Transformation(double chocolat50, double chocolat60, double chocolat70){
 		this.transformation=new HashMap<Produit,Double>();
 		this.transformation.put(Constante.PRODUIT_50, chocolat50);
 		this.transformation.put(Constante.PRODUIT_60, chocolat60);
 		this.transformation.put(Constante.PRODUIT_70, chocolat70);
-		this.chocolat_50 = chocolat50;
-		this.chocolat_60 = chocolat60;
-		this.chocolat_70 = chocolat70;
 	}
 	
+	//Remplit le dictionnaire avec 0 comme valeur de production pour chaque 
+	//(à appeler dans le constructeur de Nestle)
 	public Transformation(){
 		this(0.0,0.0,0.0);
 	}
 	
-	//Accesseurs en lecture
-	public double getChocolat50(){
-		return this.chocolat_50;
+	//Il faut maintenant déterminer 
+	//quel est le Distributeur qui a commandé le plus lors de la step précédente
+	//Il faut alors obtenir le total des commandes des distributeurs.
+	//Cette méthode statique prend une liste de commande en argument 
+	//et renvoie un dictionnaire de IDistributeur, double 
+	//indiquant la quantite totale de chocolat demande pour chaque IDistributeur
+	public static HashMap<IDistributeur, Double> CommandesTotales(List<CommandeDistri> lcd) {
+		HashMap<IDistributeur, Double> dictionnaire = new HashMap<IDistributeur, Double>();
+		for (CommandeDistri cd : lcd) {
+			dictionnaire.put(cd.getAcheteur(), 0.);
+		}
+		for (CommandeDistri cd : lcd) {
+			double quantite = dictionnaire.get(cd.getAcheteur());
+			dictionnaire.put(cd.getAcheteur(), quantite+cd.getQuantite());
+		}
+		return dictionnaire;
 	}
 	
-	public double getChocolat60(){
-		return this.chocolat_60;
+	//La méthode qui suit me sert à trier une liste. 
+	//Elle s'avère nécessaire pour classe les Distributeurs
+	public static void TrierDecroissant(List<Double> l) {
+		List<Double> resultat = new ArrayList<Double>();
+		int taille = l.size();
+		Collections.sort(l);
+		for (int i=0; i<taille; i++) {
+			resultat.add(l.get(taille-1-i));
+		}
+		l =  resultat;
 	}
 	
-	public double getChocolat70(){
-		return this.chocolat_70;
+	//Cette méthode prend en argument une liste de CommandeDistri
+	//et renvoie une liste de distributeur classé par ordre de priorité de transformation
+	//le premier sera celui à faire en priorité, et ainsi de suite.
+	public static List<IDistributeur> Priorite(List<CommandeDistri> lcd) {
+		List<IDistributeur> priorite = new ArrayList<IDistributeur>();
+		List<Double> valeurscommandes = new ArrayList<Double>();
+		HashMap<IDistributeur, Double> dictionnaire = CommandesTotales(lcd);
+		//Ce for permet de remplir la liste des valeurs de commandes totales.
+		for (IDistributeur d : dictionnaire.keySet()) {
+			valeurscommandes.add(dictionnaire.get(d));
+		}
+		//on trie cette liste
+		TrierDecroissant(valeurscommandes);
+		
+		//ce for permet de remplir la liste des distributeur 
+		//en s'aidant de la liste obtenue precedemment
+		for (double quantite : valeurscommandes) {
+			for (IDistributeur d : dictionnaire.keySet()) {
+				if(dictionnaire.get(d) == quantite && !priorite.contains(d)) {
+					priorite.add(d);
+				}
+			}
+		}
+		return priorite;
 	}
 	
-	public HashMap<Produit, Double> getTransformation() {
-		return transformation;
-	}
+	//on possède donc l'ordre dans lequel faire les commandes, 
+	//c'est l'ordre défini par la liste renvoyée par la methode ci dessus
+	//maintenant, il faut executer les commandes. 
+	//Pour cela il faut d'abord calculer la quantité de cacao nécessaire
+	//prends un IDistributeur en argument, et une Liste de commandesdistri
+	//calcule la quantite de cacao necessaire pour
+	//la réalisation de toutes ces commandes
 
-	//Accesseurs en ecriture
-	public void setChocolat50(double quantite){
-		this.chocolat_50 = quantite;
+	public static double CacaoNecessaire(IDistributeur dist, List<CommandeDistri> lcd) {
+		double cacaonecessaire = 0.;
+		for (CommandeDistri cd : lcd) {
+			if (cd.getAcheteur().equals(dist)) {
+				if (cd.getProduit().equals(Constante.PRODUIT_50)) {
+					cacaonecessaire+=cd.getQuantite()*Constante.RATIO_TRANSFORMATION_50;
+				}
+				else if (cd.getProduit().equals(Constante.PRODUIT_60)) {
+					cacaonecessaire+=cd.getQuantite()*Constante.RATIO_TRANSFORMATION_60;
+				}
+				else {
+					cacaonecessaire+=cd.getQuantite()*Constante.RATIO_TRANSFORMATION_70;
+				}
+			}
+		}
+		return cacaonecessaire;
 	}
 	
-	public void setChocolat60(double quantite){
-		this.chocolat_60 = quantite;
+	//Enfin, une fois que l'on a la cacao nécessaire, 
+	//il faut alors produire en tenant compte des stocks
+	//Cette méthode produit pour un Distributeur particulier
+	public void setTransformation(IDistributeur d, List<CommandeDistri> lcd, StockCacao scac, StockChocolats schoc) {
+		
 	}
-	
-	public void setChocolat70(double quantite){
-		this.chocolat_70 = quantite;
-	}
-	
 	
 	//Methode permettant de savoir quel chocolat on privilégie ( on privilégie le chocolat 
 	//que veut le meilleur acheteur du step précédent en % )
@@ -83,17 +146,15 @@ public class Transformation {
 	
 	
 	//Methodes toString et equals
-	public String toString(){
+	//Pas sûr que la methode toString serve ici
+	/*public String toString(){
 		return "La quantite de chocolat_50% transformee est egale a "+this.getChocolat50()+" T. "+"\n"
 				+"La quantite de chocolat_60% transformee est egale a "+this.getChocolat60()+" T. "+"\n"
 				+"La quantite de chocolat_70% transformee est egale a "+this.getChocolat70()+" T. "+"\n";
-	}
+	}*/
 	
 	public boolean equals(Object o){
-		return (o instanceof Transformation)
-				&& (this.getChocolat50() == ((Transformation)o).getChocolat50())
-				&& (this.getChocolat60() == ((Transformation)o).getChocolat60())
-				&& (this.getChocolat70() == ((Transformation)o).getChocolat70());
+		return false;
 	}
 	
 	
@@ -170,34 +231,16 @@ public class Transformation {
 	 * ps: on peut eventuellement completer en rajoutant les autres ingredients 
 	 * */
 	
-	public Transformation transformerCacaoChocolat(){
+	public void transformerCacaoChocolat(){
 		
-		double cacaoATransformer = this.cacaoATransformer();
-		
-		double chocolat50 = this.getChocolat50();
-		double chocolat60 = this.getChocolat60();
-		double chocolat70 = this.getChocolat70();
-		
-		chocolat50 = 0.5*cacaoATransformer;
-		chocolat60 = 0.6*cacaoATransformer;
-		chocolat70 = 0.7*cacaoATransformer;
-		
-		//Transformation t1 = new Transformation(chocolat50,chocolat60,chocolat70);
-		
-		Transformation t = new Transformation();
-		t.setChocolat50(chocolat50);
-		t.setChocolat60(chocolat60);
-		t.setChocolat70(chocolat70);
-		
-		return t;	
 	}
 	
 	
 	/**Mise a jour du Stock de chocolats transformes 
 	 * appel methode transformerCacaoChocolat()
 	 * */
-	
-	public void ajouterChocolatStock(){
+	//Le stock va être mis à jour par la classe stock
+	/*public void ajouterChocolatStock(){
 		Transformation t = this.transformerCacaoChocolat();
 		StockChocolats stockchocolats = new StockChocolats();
 		
@@ -205,7 +248,7 @@ public class Transformation {
 		stockchocolats.MiseAJourStockTransformation(Constante.PRODUIT_60, t.getChocolat60());
 		stockchocolats.MiseAJourStockTransformation(Constante.PRODUIT_70, t.getChocolat70());
 		;	
-	}
+	}*/
 	
 
 }
