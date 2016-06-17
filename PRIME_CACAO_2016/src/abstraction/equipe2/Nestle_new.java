@@ -59,7 +59,7 @@ public class Nestle_new implements ITransformateurP, ITransformateurD {
 	}
 
 
-	@Override
+	// Annonce de la quantite de CACAO souhaitée au marche
 	public double annonceQuantiteDemandee() {
 		double resultat = 0.0;
 		for (IDistributeur d : this.getCommandesdistri().keySet()) {
@@ -78,7 +78,7 @@ public class Nestle_new implements ITransformateurP, ITransformateurD {
 		return 0;
 	}
 
-	@Override
+	// Declenche la mise a jour de la tresorerie de du stock de CACAO
 	public void notificationVente(CommandeProduc c) {
 		tresorerie.setTresorerieAchat(c);
 		this.stockCacao.MiseAJourStockLivraison(Constante.CACAO,c.getQuantite());
