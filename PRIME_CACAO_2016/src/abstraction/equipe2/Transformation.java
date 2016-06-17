@@ -8,22 +8,24 @@ import abstraction.commun.*;
 
 public class Transformation {
 
-	public double getCacaotransforme() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
-	//variables d'instance, représente à l'étape n la quantité produite de chocolat de chaque espèce
+	/**variables d'instance,
+	 * représentent à l'étape n la quantité produite de chocolat de chaque espèce
+	 * 
+	 */
 	private double chocolat_50;
 	private double chocolat_60;
 	private double chocolat_70;
 	private HashMap<Produit,Double> transformation;
 	
+	
+	
 	//ce constructeur ne sera jamais utilisé, 
 	//il vaudrait mieux garder le constructeur vide et des méthodes de production à mon sens
 	//mais je vais l'utiliser pour les tests de la trésorerie
 	
-	//Constructeurs
+	
+	/**Constructeurs*/
+	
 	public Transformation(double chocolat50, double chocolat60, double chocolat70){
 		this.transformation=new HashMap<Produit,Double>();
 		this.transformation.put(Constante.PRODUIT_50, chocolat50);
@@ -38,7 +40,10 @@ public class Transformation {
 		this(0.0,0.0,0.0);
 	}
 	
-	//Accesseurs en lecture
+	
+	
+	/**Accesseurs en lecture*/
+	
 	public double getChocolat50(){
 		return this.chocolat_50;
 	}
@@ -54,8 +59,10 @@ public class Transformation {
 	public HashMap<Produit, Double> getTransformation() {
 		return transformation;
 	}
+	
 
-	//Accesseurs en ecriture
+	/**Accesseurs en ecriture*/
+	
 	public void setChocolat50(double quantite){
 		this.chocolat_50 = quantite;
 	}
@@ -174,15 +181,10 @@ public class Transformation {
 		
 		double cacaoATransformer = this.cacaoATransformer();
 		
-		double chocolat50 = this.getChocolat50();
-		double chocolat60 = this.getChocolat60();
-		double chocolat70 = this.getChocolat70();
+		double chocolat50 = 0.5*cacaoATransformer;
+		double chocolat60 = 0.6*cacaoATransformer;
+		double chocolat70 = 0.7*cacaoATransformer;
 		
-		chocolat50 = 0.5*cacaoATransformer;
-		chocolat60 = 0.6*cacaoATransformer;
-		chocolat70 = 0.7*cacaoATransformer;
-		
-		//Transformation t1 = new Transformation(chocolat50,chocolat60,chocolat70);
 		
 		Transformation t = new Transformation();
 		t.setChocolat50(chocolat50);
