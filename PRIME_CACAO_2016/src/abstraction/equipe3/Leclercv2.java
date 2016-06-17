@@ -135,7 +135,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 			if (t.equals(this.transformateurs.get(j))){
 				for (int i=0;i<x.length; i++){
 					list.get(i).setQuantite(this.ratio.get(j)*x[i]-sto[i]);
-				} 
+				}
 			}
 		}
 		return list;
