@@ -3,13 +3,11 @@ package abstraction.equipe5;
 import abstraction.fourni.Monde;
 import abstraction.commun.Commande;
 import abstraction.commun.CommandeDistri;
-import abstraction.commun.Constantes;
 import abstraction.commun.IProducteur;
 import abstraction.fourni.Indicateur;
 import abstraction.equipe5.Lindt;
 import java.util.ArrayList;
 import abstraction.commun.MarcheProd;
-import abstraction.commun.MondeV1;
 import abstraction.commun.Tarif;
 
 public class Tresorerie {
@@ -106,7 +104,7 @@ public class Tresorerie {
 	 */
 	public double payeParDistrib(){
 		double paye=0;
-		for (Commande c: lindt.getHistCommandeDistri().getHist()){ //si il s'agit des commandes livrées
+		for (Commande c: lindt.getCommandeDistriLivree().getHist()){ //si il s'agit des livrées
 			if(((CommandeDistri)c).getStepLivraison()==Monde.LE_MONDE.getStep()){
 				paye+=c.getQuantite()*c.getPrixTonne();	 //on ne prend pas en compte les rabais pour la V2
 			}

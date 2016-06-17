@@ -134,7 +134,7 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 		System.out.println("Informations liées à la commande du produit 70% :");
 		System.out.println(commande3.getPrixTonne());
 		System.out.println(commande3.getQuantite());
-		
+
 		stockChocolat50.retirerStockChocolat(Monde.LE_MONDE.getStep());
 		stockChocolat60.retirerStockChocolat(Monde.LE_MONDE.getStep());
 		stockChocolat70.retirerStockChocolat(Monde.LE_MONDE.getStep());
