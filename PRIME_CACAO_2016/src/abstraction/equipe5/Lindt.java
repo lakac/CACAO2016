@@ -47,11 +47,7 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 		this.achatProd = new AchatProd(this.histCommandeProduc,this.histCommandeDistri, this, this.stockCacao, this.treso);	
 		this.venteDist = new VenteDist(this, this.getTreso());
 		this.resteDesDistributeurs= new ResteDesDistributeurs(this, venteDist);
-<<<<<<< HEAD
-=======
-
->>>>>>> branch 'master' of https://github.com/florianed/CACAO2016.git
-	}
+}
 
 
 	/** Voila tout les getters*/
@@ -116,7 +112,6 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 //				// (public static MarcheDistributeur LE_MARCHE_DISTRIBUTEUR;), on ne pourra pas appeler cette méthode
 //				this.getHistCommandeDistri().ajouter(cd);
 //		}}
-<<<<<<< HEAD
 //		System.out.println(getHistCommandeDistri());
 		resteDesDistributeurs.commandesDistributeurRestant(); //calcul les commandes du reste des distributeurs et les ajoute à l'historique CommandeDistri
 		System.out.println(getHistCommandeDistri());
@@ -138,11 +133,6 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 		System.out.println("Informations liées à la commande du produit 70% :");
 		System.out.println(commande3.getPrixTonne());
 		System.out.println(commande3.getQuantite());
-		
-=======
-		resteDesDistributeurs.commandesDistributeurRestant(); //calcul les commandes du reste des distributeurs et les ajoute à l'historique CommandeDistri
-		System.out.println(getHistCommandeDistri());
->>>>>>> branch 'master' of https://github.com/florianed/CACAO2016.git
 		stockChocolat50.retirerStockChocolat(Monde.LE_MONDE.getStep());
 		stockChocolat60.retirerStockChocolat(Monde.LE_MONDE.getStep());
 		stockChocolat70.retirerStockChocolat(Monde.LE_MONDE.getStep());

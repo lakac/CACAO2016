@@ -112,8 +112,8 @@ public class VenteDist {
  	 */
 	public void MiseAJourHistCommandeDistri (){
 		List<CommandeDistri> Commandeslivrees = new ArrayList<CommandeDistri>();
-		for (Commande c: lindt.getHistCommandeDistri().getHist()){
-			if(((CommandeDistri)c).getStepLivraison()==Monde.LE_MONDE.getStep()){
+		for (CommandeDistri c: lindt.getHistCommandeDistri().getHist()){
+			if(((CommandeDistri)c).getStepLivraison()==Monde.LE_MONDE.getStep() && c.g){
 				Commandeslivrees.add((CommandeDistri)c);
 			}		
 		}
