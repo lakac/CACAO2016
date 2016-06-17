@@ -31,12 +31,12 @@ public class Stock {
 		return this.prod;
 	}
 	
-	// dﾃｩfinition des perte de stock semi-mensuelle (ﾃ� chaque step on perd du stock)
+	// definition des perte de stock semi-mensuelle (a chaque step on perd du stock)
 	public void setPerteStock() {
 		this.perteStock = this.getStockCacao().getValeur()*Math.random()*0.05;
 	}
 	
-	//Rﾃｩduction du stock d'une valeur value
+	//Reduction du stock d'une valeur value
 	public void reductionStock(double value){
 		if (value>0){
 		this.getStockCacao().setValeur(this.getProd(), this.getStockCacao().getValeur()- value);	
@@ -55,13 +55,13 @@ public class Stock {
 		this.getStockCacao().setValeur(this.getProd(),this.getStockCacao().getValeur()-this.getPerteStock());
 	}
 	
-	// Modification de la trﾃｩso en enlevant les couts de stock
+	// Modification de la treso en enlevant les couts de stock
 	public void coutStock(){
 		this.getProd().getTreso().getFond().setValeur(this.getProd(), this.getProd().getTreso().getFond().getValeur()-Couts.COUTSTOCK*this.getProd().getStock().getStockCacao().getValeur());
 	}
 	
-	// actualise des variables liﾃｩes au stock :
-	// Diminution des stock ﾃ� cause des pertes naturelles et diminution de la trﾃｩsorerie ﾃ� cause des couts de stock
+	// actualise des variables liees au stock :
+	// Diminution des stock a cause des pertes naturelles et diminution de la tresorerie a cause des couts de stock
 	public void gererLesStock(){
 		this.setPerteStock();
 		this.perteDeStock();
