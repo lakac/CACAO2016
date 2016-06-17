@@ -13,9 +13,9 @@ import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
 
-public class Leclerc implements Acteur,IDistributeur{ 
-	
-	/*Leclerc de la v1, n'est plus utilisee dans la v2*/
+public class Leclerc { 
+	/*
+	Leclerc de la v1, n'est plus utilisee dans la v2
 	
 	private String nom;
 	private double[][] prixAchat;
@@ -133,6 +133,7 @@ public class Leclerc implements Acteur,IDistributeur{
 			}
 		} return x;
 	}*/
+	/*
 	
 	public List<CommandeDistri> Demande(ITransformateurD t, Catalogue c) { //Commande aux diff�rents transformateurs bas� sur les ventes des ann�es pr�c�dentes
 		Double[] x = {0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donn� sur toutes les ann�es
@@ -180,6 +181,7 @@ public class Leclerc implements Acteur,IDistributeur{
 		this.solde.setValeur(this, this.solde.getValeur()+this.getQteTotal()*this.getPrixVente());
 		//solde(step n)=solde step(n-1)+quantite(step n)*prixvente
 		*/
+	/*
 	}
 
 	@Override
@@ -217,4 +219,5 @@ public class Leclerc implements Acteur,IDistributeur{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	*/
 }
