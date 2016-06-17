@@ -8,9 +8,12 @@ import java.util.zip.ZipEntry;
 import abstraction.commun.Catalogue;
 import abstraction.commun.CommandeDistri;
 import abstraction.commun.IDistributeur;
-import abstraction.commun.ITransformateur;
+
 import abstraction.commun.MarcheConsommateurs;
 import abstraction.commun.MarcheDistributeur;
+
+import abstraction.commun.ITransformateurD;
+
 import abstraction.commun.MondeV1;
 import abstraction.commun.Produit;
 import abstraction.fourni.Acteur;
@@ -31,7 +34,7 @@ public class Carrefour implements Acteur,IDistributeur {
 	private double fraisdedistri;
 	private List<Produit> produits;
 	private HashMap<Produit,Double> besoinStep;
-	private ArrayList<ITransformateur> transformateurs;
+	
 	private List<CommandeDistri> histoCommande;
 	private List<CommandeDistri> histoLivraison;
 	private List<Stock> lesStocks;
@@ -45,7 +48,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		this.fraisdedistri = 0.0;
 		this.produits = produits;
 		this.besoinStep = new HashMap<Produit,Double>();
-		this.transformateurs = new ArrayList<ITransformateur>();
+		this.transformateurs = new ArrayList<ITransformateurD>();
 		this.histoCommande = new ArrayList<CommandeDistri>();
 		this.histoLivraison = new ArrayList<CommandeDistri>();
 		this.lesStocks = new ArrayList<Stock>();
@@ -62,7 +65,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		for (Produit p : this.getProduits()) {
 			demandeAnnuel.put(p, 2500.0);
 			besoinStep.put(p, 0.0);
-			for (ITransformateur t : this.getTransformateurs()) {
+			for (ITransformateur t : this.getTransformateursD()) {
 				lesStocks.add(new Stock(p, 1000, t, new Indicateur("Stock de "+p.getNomProduit()+" de marque "+this.getNom(),this , 0.0)));
 				lesAchats.add(new Achats(t, new Indicateur("Achats de "+p.getNomProduit()+" de marque "+t.getNom()+" de "+this.getNom(), this, 0.0), p));
 				lesVentes.add(new Ventes(t, new Indicateur("Ventes de "+p.getNomProduit()+" de marque "+t.getNom()+" de "+this.getNom(), this, 0.0), p));
@@ -76,9 +79,7 @@ public class Carrefour implements Acteur,IDistributeur {
 
 	//Accesseurs
 
-	public String getNom() {
-		return nom;
-	}
+	
 
 	public void setNom(String nom) {
 		this.nom = nom;
@@ -133,9 +134,8 @@ public class Carrefour implements Acteur,IDistributeur {
 		this.lesAchats = lesAchats;
 	}
 
-	public HashMap<Produit, Double> getDemandeAnnuel() {
-		return demandeAnnuel;
-	}
+	
+	
 
 	public void setDemandeAnnuel(HashMap<Produit, Double> demandeannuel) {
 		this.demandeAnnuel = demandeannuel;
@@ -157,24 +157,38 @@ public class Carrefour implements Acteur,IDistributeur {
 		this.produits = produits;
 	}
 
-	public HashMap<Produit, Double> getBesoinStep() {
-		return besoinStep;
-	}
-
+	
 	public void setBesoinStep(HashMap<Produit, Double> besoinStep) {
 		this.besoinStep = besoinStep;
 	}
 
-	public ArrayList<ITransformateur> getTransformateurs() {
+	public ArrayList<ITransformateurD> getTransformateurs() {
 		return transformateurs;
 	}
 
-	public void setTransformateurs(ArrayList<ITransformateur> transformateurs) {
+
+
+	public void setTransformateurs(ArrayList<ITransformateurD> transformateurs) {
+
 		this.transformateurs = transformateurs;
 	}
 
-	public List<CommandeDistri> getHistoCommande() {
-		return histoCommande;
+
+
+
+	private ArrayList<ITransformateurD> transformateurs;
+	
+	public Carrefour(String nom, Monde monde, double prixachat, int i, double demandeannuel) {
+		this.nom = nom;
+		this.prixachat=prixachat;
+		this.prixvente=i;
+		this.achats = new Indicateur("Achats de "+this.nom, this, 0.0);
+		this.solde = new Indicateur("Solde de "+this.nom, this, 1000000.0);
+    	Monde.LE_MONDE.ajouterIndicateur( this.achats );
+    	Monde.LE_MONDE.ajouterIndicateur( this.solde );
+    	this.transformateurs = new ArrayList<ITransformateurD>();
+    	
+
 	}
 
 	public void setHistoCommande(List<CommandeDistri> histoCommande) {
@@ -198,7 +212,7 @@ public class Carrefour implements Acteur,IDistributeur {
 	}
 
 
-	public Stock getStock(Produit p, ITransformateur t) {
+	public Stock getStock(Produit p, ITransformateurD t) {
 		for (int i=0; i<this.getLesStocks().size(); i++) {
 			if (this.getLesStocks().get(i).getProduit() == p && this.getLesStocks().get(i).getMarque() == t) {
 				return this.getLesStocks().get(i);
@@ -207,7 +221,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		return null;
 	}
 
-	public void setStock(Produit p, ITransformateur t, Double quantite, boolean rajout) {
+	public void setStock(Produit p, ITransformateurD t, Double quantite, boolean rajout) {
 		for (int i=0; i<this.getLesStocks().size(); i++) {
 			if (this.getLesStocks().get(i).getProduit() == p && this.getLesStocks().get(i).getMarque() == t) {
 				if (rajout) {
@@ -220,7 +234,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		}
 	}
 
-	public void setAchats(Produit p, ITransformateur t, Double quantite) {
+	public void setAchats(Produit p, ITransformateurD t, Double quantite) {
 		for (int i=0; i<this.getLesAchats().size(); i++) {
 			if (this.getLesAchats().get(i).getProduit() == p && this.getLesAchats().get(i).getMarque() == t) {
 				this.lesAchats.get(i).setQuantite(quantite, this);
@@ -228,7 +242,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		}
 	}
 
-	public void setVentes(Produit p, ITransformateur t, Double quantite) {
+	public void setVentes(Produit p, ITransformateurD t, Double quantite) {
 		for (int i=0; i<this.getLesVentes().size(); i++) {
 			if (this.getLesVentes().get(i).getProduit() == p && this.getLesVentes().get(i).getMarque() == t) {
 				this.lesVentes.get(i).setQuantite(quantite,this);
@@ -240,23 +254,43 @@ public class Carrefour implements Acteur,IDistributeur {
 		return LE_MONDE;
 	}
 
-	public void ajouterVendeur(ITransformateur t) {
+	public void ajouterVendeur(ITransformateurD t) {
 		this.transformateurs.add(t);
 
 	}
 
-	//Fonction qui compare les prix des deux tranformateurs 
-	public List<ITransformateur> comparateurPrixProduit(HashMap<ITransformateur,Catalogue> hm, Produit p) {
-		List<ITransformateur> transfo = new ArrayList<ITransformateur>();
+
+	public double getDemande(ITransformateurD t) {
+		this.setdemandePerStep(MondeV1.LE_MONDE.getStep()+3);
+		if (t.equals(transformateurs.get(0))) {
+			return this.demandeperstep*0.125;
+		}
+		if (t.equals(transformateurs.get(1))) {
+			return this.demandeperstep*0.036;
+		}
+		else {
+			return this.demandeperstep*0.839;
+		}
+	}
+	
+	public String getNom() {
+		return this.nom;
+	}
+	public double getDemandeAnnuel() {
+		return this.demandeannuel;
+	}
+
+	public List<ITransformateurD> comparateurPrixProduit(HashMap<ITransformateurD,Catalogue> hm, Produit p) {
+		List<ITransformateurD> transfo = new ArrayList<ITransformateurD>();
+
 		transfo.add(this.getTransformateurs().get(0));
-		for (ITransformateur t : this.getTransformateurs()) {
-			for (ITransformateur t2 : transfo) {
-				int temp = 0;
-				while (temp == 0) {
-					if (hm.get(t2).getTarif(p).getPrixTonne()>hm.get(t).getTarif(p).getPrixTonne() && t!=t2) {
-						transfo.add(transfo.indexOf(t2), t);
-						temp++;
-					}
+
+		for (ITransformateurD t : this.getTransformateurs()) {
+			for (ITransformateurD t2 : transfo) {
+				if (hm.get(t2).getTarif(p).getPrixTonne()>hm.get(t).getTarif(p).getPrixTonne() && t!=t2) {
+					transfo.add(transfo.indexOf(t2), t);
+					break;
+
 				}
 			}
 		}
@@ -286,18 +320,50 @@ public class Carrefour implements Acteur,IDistributeur {
 	}		
 
 
-    //Fonction qui retourne un HahsMap fournissant des informations sur la commande chaque produit entre chaque Transformateur.
-	public HashMap<ITransformateur,List<CommandeDistri>> commandeStep(HashMap<Produit,Double> besoinpro) {
-		HashMap<ITransformateur, Catalogue> cat = new HashMap<ITransformateur,Catalogue>();
-		HashMap<ITransformateur,List<CommandeDistri>> commande = new HashMap<ITransformateur,List<CommandeDistri>>();
-		for (ITransformateur t : this.getTransformateurs()){
+
+	
+	public HashMap<Produit,Double> getBesoinStep() {
+		return this.besoinStep;
+	}
+
+	public void setBesoinStep(HashMap<Produit,Double> bs, int step,Carrefour carrefour) {
+		this.besoinStep = bs;
+	    double de;
+	    for (int i=0; i<3; i++){	
+	         if (step%26 == 6 ) {
+	        	 
+	           de=(carrefour.getDemandeAnnuel()*0.06)*(1+(Math.random()*0.2 - 0.1));
+			   this.besoinStep.put(produits.get(i),de); 
+			
+			 }else{
+				if (step%26 == 25) {
+					
+					de =( 0.12*carrefour.getDemandeAnnuel())*(1+(Math.random()*0.2 - 0.1));
+					this.besoinStep.put(produits.get(i), de);
+					
+			    }else{
+				    de= (0.03416*carrefour.getDemandeAnnuel())*(1+(Math.random()*0.2 - 0.1));
+				    this.besoinStep.put(produits.get(i),de);
+	}
+	}
+    }		
+    }		
+	
+	
+	public HashMap<ITransformateurD,List<CommandeDistri>> commandeStep(HashMap<Produit,Double> besoinpro) {
+		HashMap<ITransformateurD, Catalogue> cat = new HashMap<ITransformateurD,Catalogue>();
+		HashMap<ITransformateurD,List<CommandeDistri>> commande = new HashMap<ITransformateurD,List<CommandeDistri>>();
+		for (ITransformateurD t : this.getTransformateurs()){
+
 			cat.put(t, t.getCatalogue());
 			commande.put(t, new ArrayList<CommandeDistri>());
 		}
 		for (Produit p : this.getProduits()) {
-			int le = this.getTransformateurs().size();
-			for (int i=0; i<le; i++) {
-				ITransformateur letransfo = this.getTransformateurs().get(i); // Modif pour que ÔøΩa marche, plus de comparateur de prix
+
+			for (int i=0; i<this.getTransformateurs().size(); i++) {
+				int le = this.getTransformateurs().size();
+				ITransformateurD letransfo = this.comparateurPrixProduit(cat, p).get(i);
+
 				double quantite = (6*(le-i)^2)/((le*(le-1)*(2*le-1)));
 				commande.get(letransfo).add(new CommandeDistri(this, letransfo, p, quantite, letransfo.getCatalogue().getTarif(p).getPrixTonne(), MondeV1.LE_MONDE.getStep()+3, false));
 			}
@@ -306,7 +372,9 @@ public class Carrefour implements Acteur,IDistributeur {
 	}
 
 
-	public List<CommandeDistri> demande(ITransformateur t, Catalogue c) {
+
+	public List<CommandeDistri> demande(ITransformateurD t, Catalogue c) {
+
 		return this.commandeStep(this.getBesoinStep()).get(t);
 	}
 
@@ -318,32 +386,21 @@ public class Carrefour implements Acteur,IDistributeur {
 		for (Produit p : this.getProduits()) {
 			List<ITransformateur> enRupture = new ArrayList<ITransformateur>();
 			double insatisfait = 0.0;
-			System.out.println("taille nouvelle :"+nouvelle.size()+"et taille ancienne :"+ancienne.size());
-			for (CommandeDistri cd : nouvelle) {
-				for (CommandeDistri cd2 : ancienne) {
-					// System.out.println("Acheteur ancienne :"+cd2.getAcheteur()+" et acheteur nouvelle :"+cd.getAcheteur() );
-					if (cd.getAcheteur() == cd2.getAcheteur() && cd.getPrixTonne() == cd2.getPrixTonne() && cd.getStepLivraison() == cd2.getStepLivraison() && cd.getVendeur() == cd2.getVendeur() && cd.getQuantite() != cd2.getQuantite()) {
-						insatisfait+= cd2.getQuantite() - cd.getQuantite();
-						System.out.println("commande ajoutÈ ‡ la contreDemande -->"+cd);
-						contreDemande.add(cd);
-						enRupture.add(cd.getVendeur());
-						verification = true;
-					}
+
+			List<ITransformateurD> avecstock = new ArrayList<ITransformateurD>();
+			for (CommandeDistri c : cd) {
+				if (c.getValidation()) {
+					avecstock.add(c.getVendeur());
+				}
+				else {
+					insatisfait+=c.getQuantite();
+
 				}
 			}
-			for (ITransformateur t : this.getTransformateurs()) {
-				if (enRupture.contains(t) == false && enRupture.size()!=0) {
-					double quantite = insatisfait/enRupture.size();
-					double prixTonne = 0.0;
-					for (CommandeDistri cd3 : nouvelle) {
-						if (cd3.getAcheteur() == this && cd3.getVendeur() == t && cd3.getProduit() == p) {
-							quantite+= cd3.getQuantite();
-							prixTonne = cd3.getPrixTonne();
-						}
-					}
-					System.out.println("Le transfo --> "+t+"\n le produit -->"+p+"\n la quantite --> "+quantite+"\n le prixTonne --> "+prixTonne);
-					contreDemande.add(new CommandeDistri(this, t, p, quantite, prixTonne, LE_MONDE.getStep(), false ));
-				}
+
+			for (ITransformateurD t : avecstock) {
+				
+
 			}
 		}
 		if (verification) {
@@ -358,8 +415,8 @@ public class Carrefour implements Acteur,IDistributeur {
 	//M√©thode qui fixe le prix de vente avec b√©n√©fice de 20% par rapport au prix d'achat au transformateur, 
 	//pour chaque produit de chaque transformateur
 
-	public void setPrix (HashMap<ITransformateur,List<CommandeDistri>> CommandeEffective) {
-		for (ITransformateur t : this.getTransformateurs()) {
+	public void setPrix (HashMap<ITransformateurD,List<CommandeDistri>> CommandeEffective) {
+		for (ITransformateurD t : this.getTransformateurs()) {
 			for (CommandeDistri c : CommandeEffective.get(t) ) {
 				for (PrixVente p : this.getPrixvente()){
 					if (p.getTransformateur()==t && c.getProduit()==p.getProduit()){
@@ -372,12 +429,12 @@ public class Carrefour implements Acteur,IDistributeur {
 
 	public void next() {
 
-		for (ITransformateur t : this.getTransformateurs()) {
+		for (ITransformateurD t : this.getTransformateurs()) {
 			List<CommandeDistri> temp = new ArrayList<CommandeDistri>();
 			List<CommandeDistri> temp2 = new ArrayList<CommandeDistri>();
 			temp.addAll(this.getHistoCommande());
 			// System.out.println("Les transfo -->"+this.getTransformateurs());
-			// System.out.println("commande finale passÈ ‡ "+t+" -->"+maDi.obtenirCommandeFinale(t, this));
+			// System.out.println("commande finale passÔøΩ ÔøΩ "+t+" -->"+maDi.obtenirCommandeFinale(t, this));
 			temp.addAll(maDi.obtenirCommandeFinale(t, this));
 			temp2.addAll(this.getHistoLivraison());
 			temp2.addAll(maDi.obtenirLivraisonEffective(t, this));
@@ -424,6 +481,26 @@ public class Carrefour implements Acteur,IDistributeur {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+	@Override
+	public List<CommandeDistri> Demande(ITransformateurD t, Catalogue c) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	/*@Override
+	public List<CommandeDistri> ContreDemande(List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne) {
+		// TODO Auto-generated method stub
+		return null;
+	}*/
+
+
+
+
+
+
 }
 
 

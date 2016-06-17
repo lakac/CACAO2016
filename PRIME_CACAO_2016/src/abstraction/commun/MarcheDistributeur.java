@@ -1,19 +1,5 @@
 
 
-package abstraction.commun;
-
-import java.sql.Array;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import abstraction.fourni.Acteur;
-
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -119,7 +105,7 @@ public class MarcheDistributeur implements Acteur {
 		}
 		System.out.println("les distris : "+this.getLesDistris());
 		System.out.println("NegoDistri :"+NegoDistri);
-		for (ITransformateur t : this.getLesTransfos()) {
+		for (ITransformateurD t : this.getLesTransfos()) {
 			for (IDistributeur d : this.getLesDistris()) {
 				for (CommandeDistri com : hm.get(t)) {;
 				if (hm.get(t).get(hm.get(t).indexOf(com)).getAcheteur() == d) {
@@ -143,28 +129,7 @@ public class MarcheDistributeur implements Acteur {
 		return copieProfonde;
 	}
 
-	public void next() {
-
-		// Discussions concernant les livraisons � venir.
-
-		HashMap<IDistributeur, List<CommandeDistri> > NegoDistri = new HashMap<IDistributeur, List<CommandeDistri>>();
-		HashMap<ITransformateur, List<CommandeDistri> > NegoTransfo = new HashMap<ITransformateur, List<CommandeDistri>>();
-
-		for (ITransformateur t : this.getLesTransfos()) {
-			if (this.getCatalogues().size() < this.getLesTransfos().size()) {
-				this.cat.put(t, t.getCatalogue());
-			}
-			this.addCatalogue(t, t.getCatalogue());;
-		}
-		for (IDistributeur d : this.getLesDistris()) {
-			NegoDistri.put(d, new ArrayList<CommandeDistri>());
-			for (ITransformateur t : this.getLesTransfos()) {
-				NegoDistri.get(d).addAll(d.demande(t, this.getCatalogues().get(t)));
-
-		return NegoTransfo;
-			}
-	}
-		}
+	
 	public HashMap<IDistributeur, List<CommandeDistri>> RenvoiTransfo(HashMap<ITransformateurD, List<CommandeDistri> > hm) {
 		HashMap<IDistributeur, List<CommandeDistri> > NegoDistri = new HashMap<IDistributeur, List<CommandeDistri>>();
 		for (IDistributeur d : this.getLesDitris()) {
@@ -205,6 +170,12 @@ public class MarcheDistributeur implements Acteur {
 
 			NegoDistri = this.RenvoiTransfo(NegoTransfo);
 
+			// System.out.println("NegoDistri boucle num�ro "+i+" apr�s offre -->"+NegoDistri);
+			for (IDistributeur d1 : this.getLesDistris()) {
+				System.out.println("La contre-demande -->"+d1.contreDemande(NegoDistri.get(d1),NegoDistriTemp.get(d1)));
+
+				NegoDistri.replace(d1, d1.contreDemande(NegoDistri.get(d1),NegoDistriTemp.get(d1)));
+
 
 			while (marcheValide(NegoDistri) == false) {
 				NegoTransfo = this.RenvoiDistri(NegoDistri);
@@ -216,46 +187,7 @@ public class MarcheDistributeur implements Acteur {
 				//	NegoDistri.replace(d1, d1.contreDemande(NegoDistri.get(d1)));
 				}
 
-			System.out.println("NegoDistri boucle num�ro "+i+" apr�s contreDemande -->"+NegoDistri);
-			if (NegoDistri.equals(NegoDistriTemp)) {
-				break;
 			}
-
-		}
-		List<CommandeDistri> commandefinale = new ArrayList<CommandeDistri>();
-		for (ITransformateur t : this.getLesTransfos()) {
-			commandefinale.addAll(NegoTransfo.get(t));
-		}
-		this.setCommandeFinale(commandefinale);
-		this.addCommandeToHistorique(commandefinale);
-		// System.out.println("La commande finale --> "+this.getCommandeFinale());
-
-
-		// Livraisons effectives chez les distributeurs et paiements.
-
-		List<CommandeDistri> livraisonglobale = new ArrayList<CommandeDistri>();
-		for (ITransformateur t : this.getLesTransfos()) {
-			for (IDistributeur d4 : this.getLesDistris()) {
-				for (CommandeDistri cd : this.getHistoriqueCommande()) {
-					List<CommandeDistri> temp = new ArrayList<CommandeDistri>();
-					System.out.println("Commande consider� --> "+cd);
-					if (cd.getStepLivraison() == MondeV1.LE_MONDE.getStep() && t == cd.getVendeur() && d4 == cd.getAcheteur()) {
-						temp.add(cd);
-						System.out.println("Temp --> "+temp);
-					}
-					System.out.println("Le transfo -->"+t);
-					System.out.println("Temp -->"+temp);
-					System.out.println("La livraison effective --> "+t.livraisonEffective(temp));
-					livraisonglobale.addAll(t.livraisonEffective(temp));
-				}
-			} 
-			System.out.println("Livraison globale --> "+livraisonglobale);
-			this.setLivraisonGlobale(livraisonglobale);
-		}	
-
-	}
-}
-
 
 			List<CommandeDistri> commandefinale = new ArrayList<CommandeDistri>();
 			for (ITransformateurD t : this.getLesTransfos()) {
@@ -284,5 +216,5 @@ public class MarcheDistributeur implements Acteur {
 		}
 	}
 
-
-
+	}
+}

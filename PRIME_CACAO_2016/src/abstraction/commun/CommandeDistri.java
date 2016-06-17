@@ -19,11 +19,7 @@ public class CommandeDistri extends Commande {
 		this.acheteur = acheteur;
 		this.vendeur = vendeur;
 
-		this.produit = produit; //Change string en produit 19/05 A.MARTY
-		this.quantite = quantite;
-
-		this.prixTonne = prixTonne;
-		this.prix = prixTonne*quantite;
+		this.produit = produit;
 
 		this.stepLivraison = stepLivraison;
 		this.validation = validation;
@@ -61,14 +57,6 @@ public void setProduit(Produit produit) {
 	public void setVendeur(ITransformateurD vendeur) {
 		this.vendeur = vendeur;
 
-	}
-
-	public void setQuantite(double quantite) {
-		this.quantite = quantite;
-	}
-
-	public void setPrixTonne(double prixTonne) {
-		this.prixTonne = prixTonne;
 
 	}
 	

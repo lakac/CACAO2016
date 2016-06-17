@@ -1,5 +1,6 @@
 package abstraction.equipe2;
 
+import abstraction.fourni.Historique;
 import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 
@@ -9,9 +10,13 @@ public class Banque {
 	private Indicateur tresorerie;
 		
 	
+	public Banque() {
+	this.banque=Constante.TRESORERIE_INITIALE;
+	}
+
 	public Banque(Nestle nestle) {
 	this.banque=Constante.TRESORERIE_INITIALE;
-	this.tresorerie = new Indicateur("fonds", nestle, Constante.TRESORERIE_INITIALE);
+	this.tresorerie = new Indicateur("Solde de Nestle", nestle, Constante.TRESORERIE_INITIALE);
 	}
 	
 	public void MiseAJourHistorique(Nestle nestle, int etape) {
@@ -33,6 +38,10 @@ public class Banque {
 	public void ajouter(double quantite) {
 		this.banque+=quantite;
 	}
+	
+	
+	
+
 
 	public void retirer(double quantite) {
 		this.banque-=quantite;
