@@ -16,6 +16,7 @@ public class PrixDeVente {
 	private ArrayList<Double> marge; // marge prise sur la vente des tablettes de chocolat qui differe selon le produit (donnée en pourcentage)
 	private ArrayList<ITransformateurD> transfos;
 	private ArrayList<Produit> produits;
+	private Double[] historique; // historique des prix de vente
 	
 	public PrixDeVente() {
 		// TODO Auto-generated constructor stub
@@ -24,7 +25,7 @@ public class PrixDeVente {
 		this.marge = new ArrayList<Double>();
 		this.transfos= new ArrayList<ITransformateurD>();
 		this.produits = new ArrayList<Produit>();
-
+		this.historique = new Double[3];
 	}
 	
 	public void ajouterTransfo(ITransformateurD t) {
@@ -50,6 +51,18 @@ public class PrixDeVente {
 	}
 	public void setMarge(ArrayList<Double> m) {
 		this.marge = m;	
+	}
+	public Double[] getHistorique() {
+		return this.historique;
+	}
+	public void initialiseHistorique() {
+		Double[] l = {0.0,0.0,0.0};
+		int i = 0;
+		for (ITransformateurD t : this.getTransfos()) {
+			for (Produit p : this.getProduits())
+				l[i] += t.getCatalogue().getTarif(p).getPrixTonne()*1.1/this.getTransfos().size(); // on se fixe une marge de 10% pour le premier step
+				i++;
+		}
 	}
 	
 	/*methode qui renvoie la marge en % de la vente sur le produit p, dans cette version, la marge est constante*/
