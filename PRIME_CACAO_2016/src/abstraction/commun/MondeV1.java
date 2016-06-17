@@ -56,8 +56,8 @@ public class MondeV1 extends Monde {
 		this.ajouterActeur(marcheProducteur);
 		
 		// Marché Consommateurs
-		MarcheConsommateurs marcheConsommateurs = new MarcheConsommateurs("MarcheConsommateurs",this.produits);
-		MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS = marcheConsommateurs;
+		MarcheCons marcheConsommateurs = new MarcheCons("MarcheConsommateurs",this.produits);
+		MarcheCons.LE_MARCHE_CONS = marcheConsommateurs;
 		this.ajouterActeur(marcheConsommateurs);
 		
 		// Producteurs
@@ -114,12 +114,12 @@ public class MondeV1 extends Monde {
 		Le.getPrixDeVente().initialisePrixDeVente(Le, produits);
 		Le.getVentes().initialiseVentes();
 
-		MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiser();
+		MarcheCons.LE_MARCHE_CONS.initialiser();
 
 		//Ajouter transformateurs et distributeurs au marché
-		MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiserDemandeAnnuelle();
+		MarcheCons.LE_MARCHE_CONS.initialiserDemandeAnnuelle();
 		//MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiserCalendrierDemande();
-		MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiserPourcentageIncertitudeVentes();
+		MarcheCons.LE_MARCHE_CONS.initialiserPourcentageIncertitudeVentes();
 		//MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiserFidelite();
 		
 	}

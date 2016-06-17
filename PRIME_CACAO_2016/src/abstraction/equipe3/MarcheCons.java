@@ -1,13 +1,14 @@
 package abstraction.equipe3;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import abstraction.commun.CommandeDistri;
 import abstraction.commun.IDistributeur;
 import abstraction.commun.ITransformateur;
-import abstraction.commun.MarcheConsommateurs;
 import abstraction.commun.Produit;
 import abstraction.fourni.Monde;
 
@@ -62,6 +63,7 @@ public class MarcheCons {
 	
 	private List<Fidelite> fidelite ;
 	
+	
 
 	public MarcheCons(String nom, ArrayList<Produit> produits) {
 		this.nom=nom;
@@ -76,6 +78,15 @@ public class MarcheCons {
 		this.pourcentageIncertitudeVentes=new HashMap <Produit,Double>();
 		this.fidelite = new ArrayList<Fidelite>();
 		// TODO Auto-generated constructor stub
+	}
+	
+	public Fidelite getFidelite (IDistributeur d, Produit p){
+		for (Fidelite f: this.fidelite){
+			if (f.getProduit()==p && f.getDistri()==d){
+				return f;
+			}
+		}
+		return null;
 	}
 	
 	public String getNom(){
@@ -130,13 +141,34 @@ public class MarcheCons {
 			this.demandeComposanteAleatoire.put(p, this.demandeComposanteContinue.get(p)*(1+2*Math.random())*this.pourcentageIncertitudeVentes.get(p));
 		}
 	}
-	/*
+	
 	public void actualiserFidelite(){
+		/*double[][] Tab = new double[this.distributeurs.size()][this.produits.size()];
 		for (Produit p : this.getProduits()){
+			Iterator i = new Iterator();
+			double somme_totale=somme(1/d.getPrixVente(p));
+			double x=somme_totale*Math.random();
+			double sum = 0;
+			
+			for (IDistributeur d : MarcheCons.distributeurs){
+				if (x>=sum && x<sum+1/d.getPrixVente(p)){
+					Fidelite(d,p)+=2*VARIATION_FIDELITE/20/this.distributeurs.size();
+					for (IDistributeur c : MarcheCons.distributeurs){
+						Fidelite(d,p)-=VARIATION_FIDELITE/20/this;ampus
+					}
+				}
+		}
+	}
+	}	
+	*/		
+			/*
 			//if Carrefour et Leclerc sont en concurrence sur ce produit/) (V3)
-				if ((MarcheConsommateurs.distributeurs.get(1).getPrixVente(p)>MarcheConsommateurs.distributeurs.get(0).getPrixVente(p))&&(this.fidelite.get("Carrefour").get(p)>FIDELITE_MIN)){//si prix carrefour superieur
-						this.fidelite.get(MarcheConsommateurs.distributeurs.get(0)).put(p,this.fidelite.get(MarcheConsommateurs.distributeurs.get(0)).get(p)+VARIATION_FIDELITE);
-						this.fidelite.get(MarcheConsommateurs.distributeurs.get(1)).put(p,this.fidelite.get(MarcheConsommateurs.distributeurs.get(1)).get(p)-VARIATION_FIDELITE);
+				if ((MarcheCons.distributeurs.get(1).getPrixVente(p)>MarcheConsommateurs.distributeurs.get(0).getPrixVente(p))&&(this.fidelite.get("Carrefour").get(p)>FIDELITE_MIN)){//si prix carrefour superieur
+						
+						
+						this.fidelite.getFidelite("Leclerc",p).setPart(this.fidelite.getFidelite("Leclerc",p)+VARIATION_FIDELITE);
+						this.fidelite.get(MarcheCons.distributeurs.get(0)).put(p,this.fidelite.get(MarcheCons.distributeurs.get(0)).get(p)+VARIATION_FIDELITE);
+						this.fidelite.get(MarcheCons.distributeurs.get(1)).put(p,this.fidelite.get(MarcheCons.distributeurs.get(1)).get(p)-VARIATION_FIDELITE);
 					}
 					if ((MarcheConsommateurs.distributeurs.get(1).getPrixVente(p)<MarcheConsommateurs.distributeurs.get(0).getPrixVente(p))&&(this.fidelite.get("Leclerc").get(p)>FIDELITE_MIN)){//si prix carrefour superieur
 						this.fidelite.get(MarcheConsommateurs.distributeurs.get(0)).put(p,this.fidelite.get(MarcheConsommateurs.distributeurs.get(0)).get(p)-VARIATION_FIDELITE);
@@ -148,8 +180,8 @@ public class MarcheCons {
 			//}
 			
 		}
-	*/
-	
+		*/
+	}
 	public void repartirVentes(){
 		this.ventesEffectuees=new ArrayList<CommandeDistri>();
 		for (Produit p : this.getProduits()){

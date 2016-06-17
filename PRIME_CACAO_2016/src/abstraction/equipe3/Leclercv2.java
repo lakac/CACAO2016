@@ -8,7 +8,7 @@ import abstraction.commun.Catalogue;
 import abstraction.commun.CommandeDistri;
 import abstraction.commun.IDistributeur;
 import abstraction.commun.ITransformateur;
-import abstraction.commun.MarcheConsommateurs;
+import abstraction.commun.MarcheCons;
 import abstraction.commun.MarcheDistributeur;
 import abstraction.commun.Produit;
 import abstraction.fourni.Acteur;
@@ -169,7 +169,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		double recette = 0.0;
 		int j =0;
 		for (Produit p : this.getProduits()){ 
-			recette+=MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.getVenteDistri(this).get(p)*this.prixdevente.getPrixDeVente().get(j);
+			//recette+=MarcheCons.LE_MARCHE_CONS.getVentesEffectuees().get(this).get(p)*this.prixdevente.getPrixDeVente().get(j);
 			j++;
 		}
 		return recette;
