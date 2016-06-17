@@ -1,10 +1,13 @@
 package abstraction.equipe2;
 import abstraction.commun.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 
 public class Nestle_new implements ITransformateurP, ITransformateurD {
+	
+	private HashMap<IDistributeur,List<CommandeDistri>> commandesdistri;
 
 	public void next() {
 		// TODO Auto-generated method stub
@@ -46,11 +49,23 @@ public class Nestle_new implements ITransformateurP, ITransformateurD {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	public HashMap<IDistributeur, List<CommandeDistri>> getCommandesdistri() {
+		return commandesdistri;
+	}
+
 
 	@Override
 	public double annonceQuantiteDemandee() {
-		// TODO Auto-generated method stub
-		return 0;
+		double resultat = 0.0;
+		for (IDistributeur d : this.getCommandesdistri().keySet()) {
+		 	for (CommandeDistri c : this.getCommandesdistri().get(d)) {
+				resultat+=c.getQuantite()*c.getProduit().getRatioCacao()
+						*(Constante.ACHAT_SANS_PERTE+(Constante.PERTE_MINIMALE + Math.random()*(Constante.VARIATION_PERTE)))
+						*Constante.DEMANDE_ACTEURS;
+			}
+		}
+		return resultat;
 	}
 
 	@Override
