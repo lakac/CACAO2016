@@ -6,6 +6,7 @@ import java.util.List;
 import abstraction.commun.Catalogue;
 import abstraction.commun.ITransformateurD;
 import abstraction.commun.Produit;
+import abstraction.fourni.Monde;
 
 /* Classe qui s'occupe de gerer les prix des differents produits */
 
@@ -16,8 +17,8 @@ public class PrixDeVente {
 	private ArrayList<Double> marge; // marge prise sur la vente des tablettes de chocolat qui differe selon le produit (donnée en pourcentage)
 	private ArrayList<ITransformateurD> transfos;
 	private ArrayList<Produit> produits;
-	private Double[] historique; // historique des prix de vente
-	
+	private Double[] historiques; // historique de la vente du step pr�c�dant pour tous les produits
+
 	public PrixDeVente() {
 		// TODO Auto-generated constructor stub
 		this.prixDeVente = new ArrayList<Double>();
@@ -25,7 +26,7 @@ public class PrixDeVente {
 		this.marge = new ArrayList<Double>();
 		this.transfos= new ArrayList<ITransformateurD>();
 		this.produits = new ArrayList<Produit>();
-		this.historique = new Double[3];
+		this.historiques = new Double[3];
 	}
 	
 	public void ajouterTransfo(ITransformateurD t) {
@@ -52,16 +53,32 @@ public class PrixDeVente {
 	public void setMarge(ArrayList<Double> m) {
 		this.marge = m;	
 	}
-	public Double[] getHistorique() {
-		return this.historique;
+
+	public Double getHistoriques(Produit p){
+		Double his;
+		if (p.getNomProduit()=="50%") {
+			his=this.historiques[0];	
+		}
+		else {
+			if (p.getNomProduit()=="60%") {
+				his=this.historiques[1];
+			}
+			else {
+				his=this.historiques[2];
+			}
+		} return his;
 	}
-	public void initialiseHistorique() {
-		Double[] l = {0.0,0.0,0.0};
-		int i = 0;
-		for (ITransformateurD t : this.getTransfos()) {
-			for (Produit p : this.getProduits())
-				l[i] += t.getCatalogue().getTarif(p).getPrixTonne()*1.1/this.getTransfos().size(); // on se fixe une marge de 10% pour le premier step
-				i++;
+	public void setHistoriques(Produit p, Double historique){
+		if (p.getNomProduit()=="50%") {
+			this.historiques[0]=historique;	
+		}
+		else {
+			if (p.getNomProduit()=="60%") {
+				this.historiques[1]=historique;	
+			}
+			else {
+				this.historiques[2]=historique;	
+			}
 		}
 	}
 	
@@ -77,7 +94,7 @@ public class PrixDeVente {
 				m = 0.05;
 			}
 			else {
-				m = 0.2;
+				m = 0.15;
 			}
 		} return m;
 	}
@@ -92,12 +109,29 @@ public class PrixDeVente {
 
 
 	public double getPrixDeVenteParProduit (Produit p) {
-		double prixVente = 0;
-		for (ITransformateurD t : this.getTransfos()) {
-			prixVente += t.getCatalogue().getTarif(p).getPrixTonne();
+		Double prixVente = 0.0;
+		if (Monde.LE_MONDE.getStep()==1){
+			for (ITransformateurD t : this.getTransfos()) {
+				prixVente += t.getCatalogue().getTarif(p).getPrixTonne();
+			}
+			prixVente = prixVente/this.getTransfos().size();
+			prixVente+=prixVente*(this.getMargeParProduit(p));
+			this.setHistoriques(p,prixVente);
+			return prixVente;
+		}else {
+			for (ITransformateurD t : this.getTransfos()) {
+				prixVente += t.getCatalogue().getTarif(p).getPrixTonne();
+			}
+			prixVente = prixVente/this.getTransfos().size();
+			prixVente+=prixVente*(this.getMargeParProduit(p));
+			if (prixVente<=this.getHistoriques(p)*1.05 && prixVente>=this.getHistoriques(p)*0.95){
+				return this.getHistoriques(p);
+			} else {
+				this.setHistoriques(p,prixVente);
+				return prixVente;
+			}
 		}
-		prixVente = prixVente/this.getTransfos().size();
-		return (prixVente+prixVente*(this.getMargeParProduit(p)));
+		
 	}
 	
 	/*methode qui initialise PrixDeVente en ajoutant les transformateurs, les produits, les marges et les prix de vente */
