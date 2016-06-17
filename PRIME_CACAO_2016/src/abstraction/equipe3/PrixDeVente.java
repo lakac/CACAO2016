@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import abstraction.commun.Catalogue;
-import abstraction.commun.ITransformateur;
+import abstraction.commun.ITransformateurD;
 import abstraction.commun.Produit;
 
 /* Classe qui s'occupe de gerer les prix des differents produits */
@@ -14,7 +14,7 @@ public class PrixDeVente {
 	private ArrayList<Double> prixDeVente;   // prix differents selon le produit
 	private ArrayList<Catalogue> catalogues;
 	private ArrayList<Double> marge; // marge prise sur la vente des tablettes de chocolat qui differe selon le produit (donnée en pourcentage)
-	private ArrayList<ITransformateur> transfos;
+	private ArrayList<ITransformateurD> transfos;
 	private ArrayList<Produit> produits;
 	
 	public PrixDeVente() {
@@ -22,15 +22,15 @@ public class PrixDeVente {
 		this.prixDeVente = new ArrayList<Double>();
 		this.catalogues = new ArrayList<Catalogue>();
 		this.marge = new ArrayList<Double>();
-		this.transfos= new ArrayList<ITransformateur>();
+		this.transfos= new ArrayList<ITransformateurD>();
 		this.produits = new ArrayList<Produit>();
 
 	}
 	
-	public void ajouterTransfo(ITransformateur t) {
+	public void ajouterTransfo(ITransformateurD t) {
 		this.transfos.add(t);
 	}
-	public ArrayList<ITransformateur> getTransfos(){
+	public ArrayList<ITransformateurD> getTransfos(){
 		return this.transfos;
 	}
 	public ArrayList<Double> getPrixDeVente() {
@@ -77,9 +77,10 @@ public class PrixDeVente {
 	/*methode qui renvoie le prix de vente du produit p en faisant la moyenne des differents prix 
 	 *� la tonne des transformateurs,*/
 
+
 	public double getPrixDeVenteParProduit (Produit p) {
 		double prixVente = 0;
-		for (ITransformateur t : this.getTransfos()) {
+		for (ITransformateurD t : this.getTransfos()) {
 			prixVente += t.getCatalogue().getTarif(p).getPrixTonne();
 		}
 		prixVente = prixVente/this.getTransfos().size();
@@ -89,7 +90,7 @@ public class PrixDeVente {
 	/*methode qui initialise PrixDeVente en ajoutant les transformateurs, les produits, les marges et les prix de vente */
 	
 	public void initialisePrixDeVente(Leclercv2 Leclerc, ArrayList<Produit> produits){
-		for (ITransformateur t : Leclerc.getTransformateurs()){
+		for (ITransformateurD t : Leclerc.getTransformateurs()){
 			this.ajouterTransfo(t);
 		}
 		this.produits=produits;
@@ -123,7 +124,7 @@ public class PrixDeVente {
 	
 	public void actualisePrixDeVente(){
 		ArrayList<Catalogue> lis = new ArrayList<Catalogue>();
-		for (ITransformateur t : this.getTransfos()) {
+		for (ITransformateurD t : this.getTransfos()) {
 			lis.add(t.getCatalogue());
 		}
 		this.setCatalogues(lis);

@@ -5,11 +5,11 @@ import abstraction.commun.*;
 import abstraction.fourni.*;
 import java.util.List;
 
-public class Lindt implements Acteur, ITransformateur{
+public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 	
-	private HistoriqueCommandeDistri histCommandeDistri;
-	private HistoriqueCommandeProduc histCommandeProduc;
-	private HistoriqueCommandeDistri commandeDistriLivree;
+	private HistoriqueCommande histCommandeDistri;
+	private HistoriqueCommande histCommandeProduc;
+	private HistoriqueCommande commandeDistriLivree;
 	private Stock stockCacao;
 	private Stock stockChocolat50;
 	private Stock stockChocolat60;
@@ -19,22 +19,20 @@ public class Lindt implements Acteur, ITransformateur{
 	private VenteDist venteDist;
 	private ArrayList<IProducteur> producteurs;
 	private ArrayList<IDistributeur> distributeurs;
-	private Catalogue catalogue;
 	private ArrayList<Stock> stocksChocolat;
 	private TransformationCacaoChocolat transfo;
 	
 
 	public Lindt(){
-		this.histCommandeDistri = new HistoriqueCommandeDistri();
-		this.histCommandeProduc = new HistoriqueCommandeProduc();
-		this.commandeDistriLivree = new HistoriqueCommandeDistri();
+		this.histCommandeDistri = new HistoriqueCommande();
+		this.histCommandeProduc = new HistoriqueCommande();
+		this.commandeDistriLivree = new HistoriqueCommande();
 		this.stockCacao = new Stock("cacao",this,200.0);
 		this.stockChocolat50 = new Stock(Constante.LISTE_PRODUIT[0].getNomProduit(),this,0.0);
 		this.stockChocolat60 = new Stock(Constante.LISTE_PRODUIT[1].getNomProduit(),this,0.0);
 		this.stockChocolat70 = new Stock(Constante.LISTE_PRODUIT[2].getNomProduit(),this,0.0);
 		this.producteurs = new ArrayList<IProducteur>();
 		this.distributeurs = new ArrayList<IDistributeur>();
-		this.catalogue = new Catalogue();
 		this.stocksChocolat= new ArrayList<Stock>();
 		this.stocksChocolat.add(this.stockChocolat50);
 		this.stocksChocolat.add(this.stockChocolat60);
@@ -43,8 +41,8 @@ public class Lindt implements Acteur, ITransformateur{
 	}
 
 	public void creer() {
-		this.histCommandeProduc.ajouter(new CommandeProduc(this, this.getProducteurs().get(0), 100.0, MarcheProducteur.LE_MARCHE.getCours()));
-		this.histCommandeProduc.ajouter(new CommandeProduc(this, this.getProducteurs().get(1), 100.0, MarcheProducteur.LE_MARCHE.getCours()));
+		this.histCommandeProduc.ajouter(new CommandeProduc(100.0, MarcheProducteur.LE_MARCHE.getCours()));
+		this.histCommandeProduc.ajouter(new CommandeProduc(100.0, MarcheProducteur.LE_MARCHE.getCours()));
 		this.treso = new Tresorerie(this.histCommandeDistri, this.histCommandeProduc, this, this.getProducteurs());
 		this.achatProd = new AchatProd(this.histCommandeProduc,this.histCommandeDistri, this, this.stockCacao, this.treso);	
 		this.venteDist = new VenteDist(this, this.getTreso());
@@ -54,13 +52,13 @@ public class Lindt implements Acteur, ITransformateur{
 
 	/** Voila tout les getters*/
 
-	public HistoriqueCommandeDistri getHistCommandeDistri() {
+	public HistoriqueCommande getHistCommandeDistri() {
 		return this.histCommandeDistri;
 	}
-	public HistoriqueCommandeProduc getHistCommandeProduc() {
+	public HistoriqueCommande getHistCommandeProduc() {
 		return this.histCommandeProduc;
 	}
-	public HistoriqueCommandeDistri getCommandeDistriLivree() {
+	public HistoriqueCommande getCommandeDistriLivree() {
 		return this.commandeDistriLivree;
 	}
 	public void ajouterProducteur(IProducteur p) {
@@ -105,10 +103,6 @@ public class Lindt implements Acteur, ITransformateur{
 
 	
 	public void next() {
-		// mise a jour de l'etat interne de Lindt du au troisieme producteur
-		this.getStockCacao().ajouterStock(this.achatProd.quantiteProduc3());
-		this.getTreso().retrait(this.achatProd.quantiteProduc3()*MarcheProducteur.LE_MARCHE.getCours()); //on achete au prix du marche
-		
 		this.getTransformationCacaoChocolat().Transformation(); // transforme le cacao en chocolat et met à jour les stocks (retire pour cacao et ajoute pour chocolat)
 		
 		// si on commente ça, pas de rouge --> il y a surement une erreur dans MarcheDistri obtenirCommandeFinale
@@ -118,7 +112,7 @@ public class Lindt implements Acteur, ITransformateur{
 //				// (public static MarcheDistributeur LE_MARCHE_DISTRIBUTEUR;), on ne pourra pas appeler cette méthode
 //				this.getHistCommandeDistri().ajouter(cd);
 //		}}
-		
+//		System.out.println(getHistCommandeDistri());
 		stockChocolat50.retirerStockChocolat(Monde.LE_MONDE.getStep());
 		stockChocolat60.retirerStockChocolat(Monde.LE_MONDE.getStep());
 		stockChocolat70.retirerStockChocolat(Monde.LE_MONDE.getStep());
@@ -131,11 +125,11 @@ public class Lindt implements Acteur, ITransformateur{
 	
 	// Fonctions finies
 	public List<CommandeDistri> offre(List<CommandeDistri> o) {
-		return this.venteDist.Offre(o);
+		return this.venteDist.offre(o);
 	}
 	
 	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> livraison){
-		return this.venteDist.Offre (livraison);
+		return this.venteDist.offre (livraison);
 	}
 
 	public void notificationVente(CommandeProduc c) {
@@ -145,28 +139,25 @@ public class Lindt implements Acteur, ITransformateur{
 	public double annonceQuantiteDemandee() {
 		return this.achatProd.annonceQuantiteDemandee();
 	}
-
-	public double annoncePrix() {
-		return this.achatProd.getPrix();}
 	
 	public Catalogue getCatalogue() {
+		Catalogue catalogue = new Catalogue();
 		List<Plage> listePlage = new ArrayList<Plage>();
 		listePlage.add(new Plage(100, 150, 0.05));
 		listePlage.add(new Plage(151, 200, 0.07));
 		listePlage.add(new Plage(201, 0.12));
-		this.catalogue.add(new Produit("50%", 0.5), new Tarif(this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[0]), listePlage));
-		this.catalogue.add(new Produit("60%", 0.6), new Tarif(this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[1]), listePlage));
-		this.catalogue.add(new Produit("70%", 0.5), new Tarif(this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[2]), listePlage));
-		return this.catalogue;
+		catalogue.add(new Produit("50%", 0.5), new Tarif(this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[0]), listePlage));
+		catalogue.add(new Produit("60%", 0.6), new Tarif(this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[1]), listePlage));
+		catalogue.add(new Produit("70%", 0.5), new Tarif(this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[2]), listePlage));
+		return catalogue;
 	}
 
-
+	
 	// Ne plus coder celles la, elles vont disparaitre!
 	public double annonceQuantiteDemandee(IProducteur p) {	return 0;}
 	public void notificationVente(IProducteur p){ 	}
 	public double annonceQuantiteMiseEnVente(IDistributeur d){ return 0;}
 	public List<CommandeDistri> Offre(List<CommandeDistri> o) { return null;}
 	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> list) {return null;}
-
-
+	public double annoncePrix() {return 0.0;}
 }

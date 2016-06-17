@@ -4,15 +4,15 @@ import java.util.Arrays;
 import java.util.List;
 
 import abstraction.commun.CommandeDistri;
-import abstraction.commun.ITransformateur;
+import abstraction.commun.ITransformateurD;
 import abstraction.commun.Produit;
 
 public class PrixVente {
 	private Double prix;
-	private ITransformateur transformateur;
+	private ITransformateurD transformateur;
 	private Produit nomproduit;
 	
-	public PrixVente(Double prix, Produit nomproduit, ITransformateur transf ){
+	public PrixVente(Double prix, Produit nomproduit, ITransformateurD transf ){
 		this.prix=prix;
 		this.nomproduit=nomproduit;
 		this.transformateur =transf;
