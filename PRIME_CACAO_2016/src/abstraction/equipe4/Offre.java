@@ -3,7 +3,6 @@ package abstraction.equipe4;
 import abstraction.fourni.Historique;
 import abstraction.fourni.Monde;
 
-
 public class Offre {
 	private Producteur producteur;
 	private Stock stock;

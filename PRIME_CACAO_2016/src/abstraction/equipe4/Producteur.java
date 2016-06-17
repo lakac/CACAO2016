@@ -104,7 +104,7 @@ public class Producteur implements Acteur,IProducteur{
 	}
 
 
-	@Override
+	//Methode utile pour la V2, n'est plus d'actualité pour la V3.
 	public double annonceQuantiteMiseEnVente(ITransformateurP t) {
 		// TODO Auto-generated method stub
 		return 0;
