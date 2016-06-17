@@ -41,7 +41,7 @@ public class Nestle implements Acteur, ITransformateurD, ITransformateurP {
 		//Les listes des clients et fournisseurs
 				this.clients = new ArrayList<IDistributeur>();
 				this.fournisseurs = new ArrayList<IProducteur>();
-		//les attributs relatifs à la trésorerie
+		//les attributs relatifs ï¿½ la trï¿½sorerie
 				this.banque =new Banque();
 		//les HashMaps et liste
 				this.achats = new HashMap<IProducteur, Achat>();
@@ -225,7 +225,7 @@ public class Nestle implements Acteur, ITransformateurD, ITransformateurP {
 	}
 
 	public double annoncePrix() {
-			return MarcheProducteur.LE_MARCHE.getCours()*(Constante.PRIX_MINIMUM+Constante.VARIATION_PRIX*Math.random());
+			return 0.0;
 		}
 	
 	//
@@ -258,7 +258,7 @@ public class Nestle implements Acteur, ITransformateurD, ITransformateurP {
 		this.banque.retirer(achat.getCacaoachete());
 		this.banque.retirer(this.getCouttransport().getDistances().get(c.getVendeur())*
 				Constante.COUT_UNITAIRE_TRANSPORT*achat.getCacaoachete());
-		this.totalachats.setValeur(this, this.totalachats.getValeur()+c.getQuantite()); /// ligne modifiée le 27/05 Sarah/Manon
+		this.totalachats.setValeur(this, this.totalachats.getValeur()+c.getQuantite()); /// ligne modifiï¿½e le 27/05 Sarah/Manon
 	}
 
 	@Override
@@ -312,11 +312,11 @@ public class Nestle implements Acteur, ITransformateurD, ITransformateurP {
 		//On donne le catalogue.
 		/*HashMap<ITransformateur, Catalogue>  dictionnaire = new HashMap<ITransformateur, Catalogue>();
 		dictionnaire.put(this, this.getCatalogue());
-		//On négocie avec les distributeurs.
+		//On nï¿½gocie avec les distributeurs.
 		for (IDistributeur d : this.getClients()) {
 			// Si les distributeurs demandent un produit que l'on ne vend pas -> erreur du programme
 			this.setCommandesdistri(d,d.Demande(dictionnaire));
-			this.Offre(d.Demande(dictionnaire));// null a changer quand l'équipe aura fait une pull request.
+			this.Offre(d.Demande(dictionnaire));// null a changer quand l'ï¿½quipe aura fait une pull request.
 			this.setCommandesdistri(d,d.Demande(dictionnaire));
 			this.Offre(d.Demande(dictionnaire));
 		}
@@ -332,7 +332,7 @@ public class Nestle implements Acteur, ITransformateurD, ITransformateurP {
 		//for (IDistributeur d : this.getClients()) {
 		//	this.setCommandesdistri(d, //methode du marche);
 		//}
-		//On négocie avec les Producteurs et on actualise nos commande aux producteurs
+		//On nï¿½gocie avec les Producteurs et on actualise nos commande aux producteurs
 		/*HashMap<ITransformateur, Catalogue>  dictionnaire = new HashMap<ITransformateur, Catalogue>();
 		dictionnaire.put(this, this.getCatalogue());
 		//On nï¿½gocie avec les distributeurs.
@@ -373,23 +373,23 @@ public class Nestle implements Acteur, ITransformateurD, ITransformateurP {
 
 		
 		
-		//chacun des producteurs nous envoie leur offre et on achète leur cacao
-		//et on met à jour l'historique
-		//et la trésorerie (on achète quelque chose)
+		//chacun des producteurs nous envoie leur offre et on achï¿½te leur cacao
+		//et on met ï¿½ jour l'historique
+		//et la trï¿½sorerie (on achï¿½te quelque chose)
 
 		double achattotal = this.QuantiteAcheteeMonde();
-		this.banque.retirer(this.QuantiteAcheteeMonde()*MarcheProducteur.LE_MARCHE.getCours());
+		//this.banque.retirer(this.QuantiteAcheteeMonde()*MarcheProducteur.LE_MARCHE.getCours());
 
 		/**for (IProducteur p : this.achats.keySet()) {
 			this.achats.get(p).setCacaoAchete(this, p);
 >>>>>>> refs/remotes/#38/master
 			achattotal+=this.getAchats().get(p).getCacaoachete();
 			this.banque.retirer(this.achats.get(p).getCacaoachete());
-		}*/ ///doit être fait dans notificationVentes() 27/05
+		}*/ ///doit ï¿½tre fait dans notificationVentes() 27/05
 		this.totalachats.setValeur(this, achattotal); ///ok mais totalachat aussi mis a jour par notificationVents() 27/05
 		
-		//Le cacao est alors livré, on met a jour le stock de cacao.
-		//et la trésorerie (cout de transport à notre charge)
+		//Le cacao est alors livrï¿½, on met a jour le stock de cacao.
+		//et la trï¿½sorerie (cout de transport ï¿½ notre charge)
 		/**for (IProducteur p : this.achats.keySet()) {
 			this.stockcacao.AjouterStockCacao(this.achats.get(p));
 			
