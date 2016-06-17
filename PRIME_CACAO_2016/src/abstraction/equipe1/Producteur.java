@@ -160,8 +160,13 @@ public class Producteur implements Acteur, IProducteur {
 		return this.quantitesProposees.get(t);
 	}
 
-	@Override
+
 	public double annonceQuantiteMiseEnVente(ITransformateurP t) {
+		return 0.0;
+	}
+
+	//R�union du 03/06 Ajout par l'�quipe 2 le 8/06
+	public double annonceQuantitePropose() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
