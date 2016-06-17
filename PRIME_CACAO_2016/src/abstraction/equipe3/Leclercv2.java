@@ -61,6 +61,11 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		return this.transformateurs;
 	}
 	
+	public void initialiseRatio(){
+		this.ratio.add(0.13);
+		this.ratio.add(0.04);
+	}
+	
 	/*methode qui classe les transfos du moins cher au sens du produit p au plus cher*/
 	
 	public List<ITransformateur> Classerparprix(Produit p){ 
@@ -112,13 +117,15 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		Double[] sto = {0.0,0.0,0.0};
 		for (int i=0; i<this.transformateurs.size();i++){
 			if (t.equals(this.transformateurs.get(i))){
-				sto = this.stock.getStock(t);
+				sto[0] = this.stock.getStock(t)[0];
+				sto[1] = this.stock.getStock(t)[1];
+				sto[2] = this.stock.getStock(t)[2];
 			}
 		} int l = 0;
 		for (int j=0; j<Monde.LE_MONDE.getStep()+25;j+=26){
-			for (int m=0; m<x.length;m++){
-				x[m]+=this.ventes.getVentes(j)[m];
-			}
+			x[0]+=this.ventes.getVentes(j)[0];
+			x[1]+=this.ventes.getVentes(j)[1];
+			x[2]+=this.ventes.getVentes(j)[2];
 			l++;
 		} for (int m=0; m<x.length;m++){
 			x[m]=x[m]/l;

@@ -25,8 +25,9 @@ public class MondeV1 extends Monde {
 		produits.add(new Produit("50%",50));
 		produits.add(new Produit("60%",60));
 		produits.add(new Produit("70%",70));
-		
-
+		// Marche distributeur
+		MarcheDistributeur MaDi = new MarcheDistributeur();
+		this.ajouterActeur(MaDi);
 		// Distributeurs
 
 
@@ -56,9 +57,9 @@ public class MondeV1 extends Monde {
 		this.ajouterActeur(marcheProducteur);
 		
 		// Marché Consommateurs
-		MarcheConsommateurs marcheConsommateurs = new MarcheConsommateurs("MarcheConsommateurs",this.produits);
+		/*MarcheConsommateurs marcheConsommateurs = new MarcheConsommateurs("MarcheConsommateurs",this.produits);
 		MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS = marcheConsommateurs;
-		this.ajouterActeur(marcheConsommateurs);
+		this.ajouterActeur(marcheConsommateurs);*/
 		
 		// Producteurs
 		Producteur p1 = new Producteur(Constantes.NOM_PRODUCTEUR_1, 1000.0, 0.0, Monde.LE_MONDE);
@@ -101,24 +102,32 @@ public class MondeV1 extends Monde {
 		
 		p2.ajoutClient(nestle);
 		p2.ajoutClient(lindt);
-		p2.ajoutClient(t3);		
+		p2.ajoutClient(t3);
 		p2.AjoutVariableVente();
 		
 		marcheProducteur.ajouterProducteur(p1);
 		marcheProducteur.ajouterProducteur(p2);
 		marcheProducteur.ajouterTransformateur(nestle);
 		marcheProducteur.ajouterTransformateur(lindt);
-		
+		//MaDi.addDistributeur(Ca);
+		MaDi.addDistributeur(Le);
+		//MaDi.addTransformateur(lindt);
+		MaDi.addTransformateur(nestle);
+		for (int i =0;i<produits.size();i++){
+			MaDi.addProduit(produits.get(i));
+		}
 		//maj 31/05 Groupe 3
 		Le.getStock().initialiseStock(Le);	
 		Le.getPrixDeVente().initialisePrixDeVente(Le, produits);
 		Le.getVentes().initialiseVentes();
+
+		//MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiser();
+
 		//Ajouter transformateurs et distributeurs au marché
-		MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiserDemandeAnnuelle();
+		//MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiserDemandeAnnuelle();
 		//MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiserCalendrierDemande();
-		MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiserPourcentageIncertitudeVentes();
+		//MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiserPourcentageIncertitudeVentes();
 		//MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiserFidelite();
 		
-
 	}
 }
