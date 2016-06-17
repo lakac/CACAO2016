@@ -117,7 +117,7 @@ public class MondeV1 extends Monde {
 		MaDi.addDistributeur(Ca);
 		// MaDi.addDistributeur(Le);
 		MaDi.addTransformateur(lindt);
-		MaDi.addTransformateur(nestle);
+		// MaDi.addTransformateur(nestle);
 		for (int i=0; i<produits.size(); i++) {
 			MaDi.addProduit(produits.get(i));
 		}
