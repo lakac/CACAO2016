@@ -5,6 +5,7 @@ import java.util.List;
 
 import abstraction.commun.CommandeDistri;
 import abstraction.commun.IDistributeur;
+import abstraction.commun.MarcheDistributeur;
 
 public class distributeur3{
 	
