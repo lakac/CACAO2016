@@ -204,65 +204,66 @@ public class MarcheDistributeur implements Acteur {
 			NegoDistri.put(d, new ArrayList<CommandeDistri>());
 			for (ITransformateur t : this.getLesTransfos()) {
 				NegoDistri.get(d).addAll(d.demande(t, this.getCatalogues().get(t)));
-				for (CommandeDistri cd : d.demande(t, this.getCatalogues().get(t)) )
+				for (CommandeDistri cd : d.demande(t, this.getCatalogues().get(t))) {
 					System.out.println("La quantité après demande --> :"+cd.getQuantite());
-			}
-		}
-		// System.out.println("NegoDistri avant offre --> "+NegoDistri);
-		int i = 0;
-		while (marcheValide(NegoDistri) == false) {
-			i+=1;
-			NegoTransfo = this.RenvoiDistri(NegoDistri);
-			HashMap<IDistributeur, List<CommandeDistri>> NegoDistriTemp = copieProfonde(NegoDistri);
-			// System.out.println("NegoTransfo avant offre --> "+NegoTransfo);
-			for (ITransformateur t : this.getLesTransfos()) {
-			//	System.out.println("Liste de commandes pour "+t+" :"+NegoTransfo.get(t));
-				NegoTransfo.replace(t, t.offre(NegoTransfo.get(t)));
-			}
-			// System.out.println("NegoTransfo boucle numéro "+i+" après offre -->"+NegoTransfo);
-			NegoDistri = this.RenvoiTransfo(NegoTransfo);
-			// System.out.println("NegoDistri boucle numéro "+i+" après offre -->"+NegoDistri);
-			for (IDistributeur d1 : this.getLesDistris()) {
-				System.out.println("La contre-demande -->"+d1.contreDemande(NegoDistri.get(d1),NegoDistriTemp.get(d1)));
-				NegoDistri.replace(d1, d1.contreDemande(NegoDistri.get(d1),NegoDistriTemp.get(d1)));
-			}
-			System.out.println("NegoDistri boucle numéro "+i+" après contreDemande -->"+NegoDistri);
-			if (NegoDistri.equals(NegoDistriTemp)) {
-				break;
-			}
-		}
-		List<CommandeDistri> commandefinale = new ArrayList<CommandeDistri>();
-		for (ITransformateur t : this.getLesTransfos()) {
-			commandefinale.addAll(NegoTransfo.get(t));
-		}
-		this.setCommandeFinale(commandefinale);
-		this.addCommandeToHistorique(commandefinale);
-		// System.out.println("La commande finale --> "+this.getCommandeFinale());
-
-
-		// Livraisons effectives chez les distributeurs et paiements.
-
-		List<CommandeDistri> livraisonglobale = new ArrayList<CommandeDistri>();
-		for (ITransformateur t : this.getLesTransfos()) {
-			for (IDistributeur d4 : this.getLesDistris()) {
-				for (CommandeDistri cd : this.getHistoriqueCommande()) {
-					System.out.println("La quantité de la commande --> "+cd.getQuantite());
-					List<CommandeDistri> temp = new ArrayList<CommandeDistri>();
-					//System.out.println("Commande consideré --> "+cd);
-					if (cd.getStepLivraison() == MondeV1.LE_MONDE.getStep() && t == cd.getVendeur() && d4 == cd.getAcheteur()) {
-						temp.add(cd);
-						//System.out.println("Temp --> "+temp);
-					}
-					//System.out.println("Le transfo -->"+t);
-					//System.out.println("Temp -->"+temp);
-					//System.out.println("La livraison effective --> "+t.livraisonEffective(temp));
-					livraisonglobale.addAll(t.livraisonEffective(temp));
 				}
-			} 
-			System.out.println("Livraison globale --> "+livraisonglobale);
-			this.setLivraisonGlobale(livraisonglobale);
-		}	
+			}
+			// System.out.println("NegoDistri avant offre --> "+NegoDistri);
+			int i = 0;
+			while (marcheValide(NegoDistri) == false) {
+				i+=1;
+				NegoTransfo = this.RenvoiDistri(NegoDistri);
+				HashMap<IDistributeur, List<CommandeDistri>> NegoDistriTemp = copieProfonde(NegoDistri);
+				// System.out.println("NegoTransfo avant offre --> "+NegoTransfo);
+				for (ITransformateur t : this.getLesTransfos()) {
+					//	System.out.println("Liste de commandes pour "+t+" :"+NegoTransfo.get(t));
+					NegoTransfo.replace(t, t.offre(NegoTransfo.get(t)));
+				}
+				// System.out.println("NegoTransfo boucle numéro "+i+" après offre -->"+NegoTransfo);
+				NegoDistri = this.RenvoiTransfo(NegoTransfo);
+				// System.out.println("NegoDistri boucle numéro "+i+" après offre -->"+NegoDistri);
+				for (IDistributeur d1 : this.getLesDistris()) {
+					System.out.println("La contre-demande -->"+d1.contreDemande(NegoDistri.get(d1),NegoDistriTemp.get(d1)));
+					NegoDistri.replace(d1, d1.contreDemande(NegoDistri.get(d1),NegoDistriTemp.get(d1)));
+				}
+				System.out.println("NegoDistri boucle numéro "+i+" après contreDemande -->"+NegoDistri);
+				if (NegoDistri.equals(NegoDistriTemp)) {
+					break;
+				}
+			}
+			List<CommandeDistri> commandefinale = new ArrayList<CommandeDistri>();
+			for (ITransformateur t : this.getLesTransfos()) {
+				commandefinale.addAll(NegoTransfo.get(t));
+			}
+			this.setCommandeFinale(commandefinale);
+			this.addCommandeToHistorique(commandefinale);
+			// System.out.println("La commande finale --> "+this.getCommandeFinale());
 
+
+			// Livraisons effectives chez les distributeurs et paiements.
+
+			List<CommandeDistri> livraisonglobale = new ArrayList<CommandeDistri>();
+			for (ITransformateur t : this.getLesTransfos()) {
+				for (IDistributeur d4 : this.getLesDistris()) {
+					for (CommandeDistri cd : this.getHistoriqueCommande()) {
+						System.out.println("La quantité de la commande --> "+cd.getQuantite());
+						List<CommandeDistri> temp = new ArrayList<CommandeDistri>();
+						//System.out.println("Commande consideré --> "+cd);
+						if (cd.getStepLivraison() == MondeV1.LE_MONDE.getStep() && t == cd.getVendeur() && d4 == cd.getAcheteur()) {
+							temp.add(cd);
+							//System.out.println("Temp --> "+temp);
+						}
+						//System.out.println("Le transfo -->"+t);
+						//System.out.println("Temp -->"+temp);
+						//System.out.println("La livraison effective --> "+t.livraisonEffective(temp));
+						livraisonglobale.addAll(t.livraisonEffective(temp));
+					}
+				} 
+				System.out.println("Livraison globale --> "+livraisonglobale);
+				this.setLivraisonGlobale(livraisonglobale);
+			}	
+
+		}
 	}
 }
 

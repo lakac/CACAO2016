@@ -69,7 +69,7 @@ public class Carrefour implements Acteur,IDistributeur {
 
 		}
 		this.setLesStocks(lesStocks);
-		this.setDemandeAnnuel(demandeAnnuel);
+		this.demandeAnnuel= demandeAnnuel;
 		this.lesAchats = lesAchats;
 		this.lesStocks = lesStocks;
 		this.lesVentes = lesVentes;
@@ -83,6 +83,7 @@ public class Carrefour implements Acteur,IDistributeur {
 			Monde.LE_MONDE.ajouterIndicateur(this.lesStocks.get(i).getQuantite());
 		}
 		Monde.LE_MONDE.ajouterIndicateur(this.solde);
+		this.setBesoinStep(Monde.LE_MONDE.getStep());
 	}
 
 	//Accesseurs
@@ -275,19 +276,25 @@ public class Carrefour implements Acteur,IDistributeur {
 	//On rajoute une partie random dans la demande de +/-10% de la demande initiale
 	public void setBesoinStep(int step) {
 		double besoin;
-		for (int i=0; i<this.getProduits().size(); i++){	
+		for (Produit p : this.getProduits()) {	
 			if (step%26 == 6 ) {
-				besoin = (this.getDemandeAnnuel().get(this.getProduits().get(i))*0.06)*(1+(Math.random()*0.2 - 0.1));
-				this.besoinStep.replace(this.getProduits().get(i), besoin); 
+				System.out.println("La demande annuel  :"+ this.getDemandeAnnuel().get(p));
+				besoin = (this.getDemandeAnnuel().get(p)*0.06)*(1+(Math.random()*0.2 - 0.1));
+				this.besoinStep.replace(p, besoin); 
+				System.out.println("Le besoin step de "+p+" --> "+this.besoinStep.get(p));
 			}
+			
 			else {
 				if (step%26 == 25) {
-					besoin = (0.12*this.getDemandeAnnuel().get(this.getProduits().get(i))*(1+(Math.random()*0.2 - 0.1)));
-					this.besoinStep.replace(this.getProduits().get(i), besoin);
+					besoin = (0.12*this.getDemandeAnnuel().get(p)*(1+(Math.random()*0.2 - 0.1)));
+					this.besoinStep.replace(p, besoin);
+					System.out.println("Le besoin step de "+p+" --> "+this.besoinStep.get(p));
 				}
 				else {
-					besoin = (0.03416*this.getDemandeAnnuel().get(this.getProduits().get(i))*(1+(Math.random()*0.2 - 0.1)));
-					this.besoinStep.replace(this.getProduits().get(i), besoin);
+					System.out.println("La demande annuel  :"+ this.getDemandeAnnuel().get(p));
+					besoin = (0.03416*this.getDemandeAnnuel().get(p)*(1+(Math.random()*0.2 - 0.1)));
+					this.besoinStep.replace(p, besoin);
+					System.out.println("Le besoin step de "+p+" --> "+this.besoinStep.get(p));
 				}
 			}
 		}		
@@ -428,6 +435,10 @@ public class Carrefour implements Acteur,IDistributeur {
 
 	}
 
+	@Override
+	public Double getStock(Produit p) {
+		return this.getLesStocks().get(this.getLesStocks().indexOf(p)).getQuantite().getValeur();
+	}
 
 	@Override
 	public Double getPrixVente(Produit p) {
@@ -435,11 +446,6 @@ public class Carrefour implements Acteur,IDistributeur {
 		return null;
 	}
 
-	@Override
-	public Double getStock(Produit p) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
 
 
