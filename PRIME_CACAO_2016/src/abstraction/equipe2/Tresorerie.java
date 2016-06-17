@@ -44,7 +44,7 @@ public class Tresorerie {
 			this.fonds-=CoutTransport(cp);
 		}
 		else {
-			System.out.print("pas assez de trésorerie, rien n'a été effectué ");
+			System.out.print("pas assez de trésorerie, aucun achat n'a été effectué ");
 		}
 	}
 		

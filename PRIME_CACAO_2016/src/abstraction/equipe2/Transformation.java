@@ -110,5 +110,6 @@ public class Transformation {
 	public void ajouterChocolatStock(){
 		;	//A COMPLETER
 	}
+	
 
 }
