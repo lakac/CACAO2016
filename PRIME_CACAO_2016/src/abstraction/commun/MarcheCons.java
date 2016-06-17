@@ -1,4 +1,4 @@
-package abstraction.equipe3;
+package abstraction.commun;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,11 +7,13 @@ import java.util.List;
 import abstraction.commun.CommandeDistri;
 import abstraction.commun.IDistributeur;
 import abstraction.commun.ITransformateurD;
-import abstraction.commun.MarcheConsommateurs;
 import abstraction.commun.Produit;
+import abstraction.equipe3.Demande;
+import abstraction.equipe3.Fidelite;
+import abstraction.fourni.Acteur;
 import abstraction.fourni.Monde;
 
-public class MarcheCons {
+public class MarcheCons implements Acteur {
 	
 	public String nom;
 	public static MarcheCons LE_MARCHE_CONS;
@@ -24,7 +26,7 @@ public class MarcheCons {
 	
 	private final static double VARIATION_FIDELITE=0.01;
 	
-	/*parti minimum de clients fidèles a chaque distributeur*/
+	/*part minimum de clients fidèles a chaque distributeur*/
 	
 	private final static double FIDELITE_MIN=0.20;
 	private static final double ALPHA = 0; 
@@ -145,7 +147,6 @@ public class MarcheCons {
 	public void initialiserDemandeAnnuelle(){
 		for (Produit p : this.getProduits()){
 			this.demandeAnnuelle.put(p, (double) 50000); // a faire varier en fonction du produit
-			
 				}
 				
 		}	
@@ -230,8 +231,7 @@ public class MarcheCons {
 	public void repartirVentes(){
 		this.ventesEffectuees=new ArrayList<CommandeDistri>();
 		for (Produit p : this.getProduits()){
-			double demandeTotale=0;
-			demandeTotale = this.demandeComposanteContinue.get(p)+this.demandeComposanteAleatoire.get(p);
+			double demandeTotale = this.demandeComposanteContinue.get(p)+this.demandeComposanteAleatoire.get(p);
 			for (IDistributeur d : MarcheCons.distributeurs){
 				for (int i=0;i<transformateurs.size();i++){
 					this.ventesEffectuees.add(new CommandeDistri(d, transformateurs.get(i), p, this.getPart(d, p)*demandeTotale, d.getPrixVente(p), Monde.LE_MONDE.getStep(), true));//! au step du prix de vente
@@ -239,6 +239,14 @@ public class MarcheCons {
 				}			
 			}
 		}	
+	}
+
+	@Override
+	public void next() {
+		this.repartirVentes();
+		this.actualiserDemande();
+		// TODO Auto-generated method stub
+		
 	}
 	
 	}
