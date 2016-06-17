@@ -6,7 +6,7 @@ package abstraction.commun;
 import abstraction.fourni.Acteur;
 
 
-//Ajout conformément à la réunion du vendredi 3/06 par l'équipe 2 d'un troisième producteur mondial
+//Ajout conformï¿½ment ï¿½ la rï¿½union du vendredi 3/06 par l'ï¿½quipe 2 d'un troisiï¿½me producteur mondial
 
 public class CotedIvoire implements IProducteur, Acteur {
 	
@@ -14,7 +14,7 @@ public class CotedIvoire implements IProducteur, Acteur {
 	
 	public final static double RATIOCOTEDIVOIRE = 0.4;
 	
-	//Constructeur de l'acteur (très simpli, il n'y a qu'une variable d'instance)
+	//Constructeur de l'acteur (trï¿½s simpli, il n'y a qu'une variable d'instance)
 	public CotedIvoire() {
 		this.concurrents = new ArrayList<IProducteur>();
 	}
@@ -29,23 +29,18 @@ public class CotedIvoire implements IProducteur, Acteur {
 		return this.concurrents;
 	}
 
-	//AnnonceQuantiteMiseEnVente(ITransformateur t) est vouée à disparaître. 
+	//AnnonceQuantiteMiseEnVente(ITransformateur t) est vouï¿½e ï¿½ disparaï¿½tre. 
 	//On la laisse vide pour le moment
 	
-	@Override
-	public double annonceQuantiteMiseEnVente(ITransformateur t) {
-		return 0;
-	}
-
 	
 	//Il n'y aura jamais de notification de vente pour cet acteur, 
-	//mais il doit quand même implémenter cette méthode (vide)
+	//mais il doit quand mï¿½me implï¿½menter cette mï¿½thode (vide)
 	@Override
 	public void notificationVente(CommandeProduc c) {
 	}
 
 
-	//renvoie la quantité totale de cacao que la cote d'ivoire met en vente à la step considéré 
+	//renvoie la quantitï¿½ totale de cacao que la cote d'ivoire met en vente ï¿½ la step considï¿½rï¿½ 
 	@Override
 	public double annonceQuantitePropose() {
 		double quantite = 0;
@@ -57,11 +52,17 @@ public class CotedIvoire implements IProducteur, Acteur {
 
 	@Override
 	public String getNom() {
-		return "Côte d'Ivoire";
+		return "Cï¿½te d'Ivoire";
 	}
 
-	//Il n'y a aucun indicateur à mettre à jour, le next ne fait rien non plus
+	//Il n'y a aucun indicateur ï¿½ mettre ï¿½ jour, le next ne fait rien non plus
 	public void next() {
+	}
+
+	@Override
+	public double annonceQuantiteMiseEnVente(ITransformateurP t) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 
