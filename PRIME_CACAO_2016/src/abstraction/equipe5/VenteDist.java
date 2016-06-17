@@ -33,7 +33,9 @@ public class VenteDist {
 		double r = 0;
 		for (int i=0; i<Constante.LISTE_PRODUIT.length; i++) {
 			if (p.equals(Constante.LISTE_PRODUIT[i])) {
-				r= this.getTreso().coutRevient() + Constante.MARGE_PRODUIT[i];
+				double prixTonne = lindt.getHistCommandeDistri().getCommande(Monde.LE_MONDE.getStep()).getPrixTonne(); //à continuer
+				System.out.println(this.getTreso().coutRevient());
+				r= prixTonne + this.getTreso().coutRevient() + Constante.MARGE_PRODUIT[i];
 			}
 		}
 		return r;
