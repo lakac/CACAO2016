@@ -30,6 +30,12 @@ public class Producteur implements Acteur, IProducteur {
 	private List<ITransformateurP> transformateurs;
 	private IntelligenceEconomique intelligenceEconomique;
 	
+	
+	//juste un constructeur pour les test de Nestle
+	public Producteur(String nom) {
+		this.nom = nom;
+	}
+	
 	/**
 	 * Initialise notre producteur a partir d'un stock et d'une tresorerie initiaux.
 	 */

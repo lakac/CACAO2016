@@ -1,17 +1,17 @@
 package abstraction.equipe2;
 import abstraction.commun.*;
 
-import java.util.HashMap;
+//import java.util.HashMap;
 import java.util.List;
 
 import abstraction.commun.Catalogue;
 import abstraction.commun.CommandeDistri;
 import abstraction.commun.CommandeProduc;
-import abstraction.commun.*;
+//import abstraction.commun.*;
 import abstraction.commun.IProducteur;
 import abstraction.fourni.Acteur;
 
-
+public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 	
 	private int etape; //indique l'étape à laquelle on se trouve.
 	
@@ -105,20 +105,25 @@ import abstraction.fourni.Acteur;
 	
 	//Interface ITransformateurP
 	
+	
+	/*public double annonceQuantiteDemandee() {
+		double resultat = 0.0;
+		for (IDistributeur d : this.getCommandesdistri().keySet()) {
+		 	for (CommandeDistri c : this.getCommandesdistri().get(d)) {
+				resultat+=c.getQuantite()*c.getProduit().getRatioCacao()
+						*(Constante.ACHAT_SANS_PERTE+(Constante.PERTE_MINIMALE + Math.random()*(Constante.VARIATION_PERTE)))
+						*Constante.DEMANDE_ACTEURS;
+			}
+		}
+		return resultat;
+	}*/
+	
 	//Méthode annexe qui retourne la quantité totale demandée par une liste de commandedistributeur
 	//On suppose que la liste contient que des cmmandes concernant PRODUIT_50; PRODUIT_60 et PRODUIT_70
 	public static double QuantiteCacaoNecessaire(List<CommandeDistri> l) {
 		double quantite = 0;
 		for (CommandeDistri cd : l) { //Pour les commandesdistri reçues à la step précédentes...
-			if (cd.getProduit() == Constante.PRODUIT_50) { //Pour du chocolat à 50%
-				quantite+=cd.getQuantite()*0.5;
-			}
-			else if (cd.getProduit() == Constante.PRODUIT_60) {
-				quantite+=cd.getQuantite()*0.6;
-			}
-			else  {
-				quantite+=cd.getQuantite()*0.7;
-			}
+			quantite+=cd.getProduit().getRatioCacao()*cd.getQuantite();
 		}
 		return quantite;
 	}
@@ -134,33 +139,34 @@ import abstraction.fourni.Acteur;
 		else { //Si on a reçu des commandesdes distributeurs
 			double quantitenecessaire = QuantiteCacaoNecessaire(this.getCommandeDistri(etape-1));
 			double quantitestockcacao = this.getStockcacao().getStockcacao().get(Constante.CACAO);
-			return (quantitenecessaire - quantitestockcacao)*(1+Constante.MARGE_DE_SECURITE);
+			return (quantitenecessaire - quantitestockcacao)*(1+Constante.MARGE_DE_SECURITE)*Constante.DEMANDE_ACTEURS;
 		}
+	}
+	
+	// Declenche la mise a jour de la tresorerie de du stock de CACAO
+	public void notificationVente(CommandeProduc c) {
+		tresorerie.setTresorerieAchat(c);
+		this.stockcacao.MiseAJourStockLivraison(Constante.CACAO,c.getQuantite());
 	}
 
 	//Celle ci est dépréciée. Il est inutile de la remplir
-	public double annonceQuantiteDemandee(IProducteur p) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public double annoncePrix() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-public class Nestle_new implements ITransformateurP, ITransformateurD {
-	
-	private HashMap<IDistributeur,List<CommandeDistri>> commandesdistri;
-	private StockCacao stockCacao;
-	private StockChocolats stockChocolats;
-	private Tresorerie tresorerie;
-	
-
-	public void next() {
-		// TODO Auto-generated method stub
+	//Methode inutile
+		public double annonceQuantiteDemandee(IProducteur p) {
+			return 0;
+		}
 		
-	}
+	//Méthode dépréciée
+	//méthpde inutile
+		public void notificationVente(IProducteur p) {
+		}
+
+		@Override
+		public String getNom() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+	
 
 	@Override
 	public Catalogue getCatalogue() {
@@ -198,41 +204,7 @@ public class Nestle_new implements ITransformateurP, ITransformateurD {
 		return 0;
 	}
 	
-	public HashMap<IDistributeur, List<CommandeDistri>> getCommandesdistri() {
-		return commandesdistri;
-	}
-
-
-	// Annonce de la quantite de CACAO souhaitée au marche
-	public double annonceQuantiteDemandee() {
-		double resultat = 0.0;
-		for (IDistributeur d : this.getCommandesdistri().keySet()) {
-		 	for (CommandeDistri c : this.getCommandesdistri().get(d)) {
-				resultat+=c.getQuantite()*c.getProduit().getRatioCacao()
-						*(Constante.ACHAT_SANS_PERTE+(Constante.PERTE_MINIMALE + Math.random()*(Constante.VARIATION_PERTE)))
-						*Constante.DEMANDE_ACTEURS;
-			}
-		}
-		return resultat;
-	}
-
-	//Methode inutile
-	public double annonceQuantiteDemandee(IProducteur p) {
+	public void next() {
 		// TODO Auto-generated method stub
-		return 0;
 	}
-
-	// Declenche la mise a jour de la tresorerie de du stock de CACAO
-	public void notificationVente(CommandeProduc c) {
-		tresorerie.setTresorerieAchat(c);
-		this.stockCacao.MiseAJourStockLivraison(Constante.CACAO,c.getQuantite());
-	}
-
-	//Methode inutile
-	public void notificationVente(IProducteur p) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-
 }

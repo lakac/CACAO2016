@@ -117,7 +117,7 @@ public class Tresorerie {
 		
 		//test des méthodes relatives au setter d'achat et test du setter d'achat.
 		//Initialisation de commandeProducs
-		ITransformateur acheteurtest = new Nestle();
+		ITransformateurP acheteurtest = new Nestle_new();
 		IProducteur vendeurtest = new Producteur("vendeurtest");
 		CommandeProduc cp1 = new CommandeProduc(acheteurtest, vendeurtest, 0, 0);
 		CommandeProduc cp2 = new CommandeProduc(acheteurtest, vendeurtest, 500, 6);

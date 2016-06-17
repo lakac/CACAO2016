@@ -15,8 +15,10 @@ public class CommandeDistri extends Commande {
 	private int stepLivraison;
 	
 	//Ajout d'un constructeur simple pour les test (11/06, équipe 2)
-	public CommandeDistri(double quantite, double prixtonne) {
+	public CommandeDistri(Produit produit, double quantite, double prixtonne) {
 		super(quantite, prixtonne);
+		this.produit = produit;
+		
 	}
 
 	public CommandeDistri(IDistributeur acheteur, ITransformateurD vendeur, Produit produit, double quantite, double prixTonne, int stepLivraison, boolean validation) {
