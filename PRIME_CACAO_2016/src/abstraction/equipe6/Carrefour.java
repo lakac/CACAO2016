@@ -13,6 +13,7 @@ import abstraction.commun.MarcheConsommateurs;
 import abstraction.commun.MarcheDistributeur;
 import abstraction.commun.MondeV1;
 import abstraction.commun.Produit;
+import abstraction.equipe3.PrixDeVente;
 import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
@@ -31,6 +32,7 @@ public class Carrefour implements Acteur,IDistributeur {
 	private List<Produit> produits;
 	private HashMap<Produit,Double> besoinStep;
 	private ArrayList<ITransformateur> transformateurs;
+	private ArrayList<IDistributeur> distributeurs;
 	private List<CommandeDistri> histoCommande;
 	private List<CommandeDistri> histoLivraison;
 	private List<Stock> lesStocks;
@@ -172,6 +174,12 @@ public class Carrefour implements Acteur,IDistributeur {
 
 	public void setTransformateurs(ArrayList<ITransformateur> transformateurs) {
 		this.transformateurs = transformateurs;
+	}
+	public ArrayList<IDistributeur> getDistributeurs() {
+		return distributeurs;
+	}
+	public void setDistributeurs(ArrayList<IDistributeur> distributeurs) {
+		this.distributeurs = distributeurs;
 	}
 
 	public List<CommandeDistri> getHistoCommande() {
@@ -365,7 +373,14 @@ public class Carrefour implements Acteur,IDistributeur {
 					}
 				}
 			}
-		}    
+		}
+		for (PrixVente p : this.getPrixvente()){
+			for (IDistributeur d : this.getDistributeurs()){
+				p.setPrix(p.getPrixVente()+d.getPrixVente(p.getProduit()));
+				
+					
+			}
+		}
 	}
 
 	public void next() {
