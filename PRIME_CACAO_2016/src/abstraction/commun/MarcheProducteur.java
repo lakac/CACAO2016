@@ -16,7 +16,8 @@ import abstraction.fourni.Monde;
  * 
  * @author equipe 1
  */
-public class MarcheProducteur implements Acteur {
+@Deprecated
+	public class MarcheProducteur implements Acteur {
 	/** Prix initial avant toute transaction */
 	public static final double PRIX_DE_BASE = 3000.0;
 	
@@ -108,7 +109,7 @@ public class MarcheProducteur implements Acteur {
 		double totalQuantitesEnVenteP = 0.0;
 		for (ITransformateurP t : MarcheProducteur.transformateurs) {
 			for (IProducteur p : MarcheProducteur.producteurs){
-				totalQuantitesEnVenteP+=p.annonceQuantiteMiseEnVente(t);
+				totalQuantitesEnVenteP+=p.annonceQuantiteProposee();
 			}
 		}
 		// Toutes les quantites demandees
@@ -189,6 +190,7 @@ public class MarcheProducteur implements Acteur {
 	 */
 	private void actualiserStocksEtCommandes() {
 		for (IProducteur p : MarcheProducteur.producteurs) {
+
 			for (ITransformateurP t : MarcheProducteur.transformateurs) {
 				this.quantitesDisponibles.get(p).put(t, p.annonceQuantiteMiseEnVente(t));
 				this.commandesPassees.get(t).put(p,0.0);
@@ -260,7 +262,7 @@ public class MarcheProducteur implements Acteur {
 	private void effectuerCommandes() {
 		for (ITransformateurP t : MarcheProducteur.transformateurs) {
 			for (IProducteur p : MarcheProducteur.producteurs) {
-				CommandeProduc c = new CommandeProduc(t,p,this.commandesPassees.get(t).get(p),t.annoncePrix());
+				CommandeProduc c = new CommandeProduc(this.commandesPassees.get(t).get(p),t.annoncePrix());
 				t.notificationVente(c);
 				p.notificationVente(c);
 			}
