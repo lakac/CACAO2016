@@ -4,30 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 import abstraction.commun.CommandeDistri;
-import abstraction.commun.ITransformateur;
+import abstraction.commun.ITransformateurD;
 
 public class Stock {
 	
-	/*classe qui gère les stocks des différents produits */
+	/*classe qui gï¿½re les stocks des diffï¿½rents produits */
 	
 	private ArrayList<Double[]> stock; //on adopte tacitement la convention indice 0 correspond au chocolat 50%, indice 1 au chocolat 60% ...
 	private double fraisDeStock;
-	private ArrayList<ITransformateur> transfos;
+	private ArrayList<ITransformateurD> transfos;
 	
 	public Stock(ArrayList<Double[]> stock, double fraisDeStock){
 		this.stock=stock;
 		this.fraisDeStock=fraisDeStock;
-		this.transfos=new ArrayList<ITransformateur>();
+		this.transfos=new ArrayList<ITransformateurD>();
 	}
 	
-	public ArrayList<ITransformateur> getTransfos(){
+	public ArrayList<ITransformateurD> getTransfos(){
 		return this.transfos;
 	}
 	public void setFraisDeStock(double fraisDeStock){
 		this.fraisDeStock=fraisDeStock;
 	}
 	
-	public double getStock(ITransformateur t, int  indexproduit){
+	public double getStock(ITransformateurD t, int  indexproduit){
 		double stock=0;
 		for (int i=0;i<this.getTransfos().size();i++){
 			if (t.equals(this.getTransfos().get(i))){
@@ -35,7 +35,7 @@ public class Stock {
 			}
 		} return stock;
 	}
-	public Double[] getStock(ITransformateur t){
+	public Double[] getStock(ITransformateurD t){
 		Double[] stock = {0.0, 0.0, 0.0};
 		for (int i=0;i<this.getTransfos().size();i++){
 			if (t.equals(this.getTransfos().get(i))){
@@ -44,19 +44,19 @@ public class Stock {
 		} return stock;
 	}
 	
-	/*méthode qui renvoie les frais du stock total en parcourant chaque stock de chaque produit provenant de tous les 
+	/*mï¿½thode qui renvoie les frais du stock total en parcourant chaque stock de chaque produit provenant de tous les 
 	 *transformateurs*/
 	
 	public double getFraisDeStockTotal(){
 		double fraisDeStockTotal= 0.0;
-		for (ITransformateur t : this.getTransfos()){
+		for (ITransformateurD t : this.getTransfos()){
 			for (int i=0; i<3;i++){
 				fraisDeStockTotal += this.getStock(t,i)*this.fraisDeStock;
 			}
 		} return fraisDeStockTotal;
 	}
 	
-	/*méthode qui initalise le stock*/
+	/*mï¿½thode qui initalise le stock*/
 	
 	public void initialiseStock(Leclercv2 Leclerc){
 		this.fraisDeStock=0.1;
@@ -68,7 +68,7 @@ public class Stock {
 		this.transfos=Leclerc.getTransformateurs();
 	}
 	
-	/*les méthodes suivantes permettent de gérer le stock en ajoutant ou retirant des commandes, ou des listes de commandes*/
+	/*les mï¿½thodes suivantes permettent de gï¿½rer le stock en ajoutant ou retirant des commandes, ou des listes de commandes*/
 	
 	public void ajouterStock (CommandeDistri com) {
 		Double[] x;

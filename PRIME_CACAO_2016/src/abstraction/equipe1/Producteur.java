@@ -6,7 +6,8 @@ import abstraction.fourni.Journal;
 import abstraction.fourni.Monde;
 import abstraction.commun.CommandeProduc;
 import abstraction.commun.IProducteur;
-import abstraction.commun.ITransformateur;
+import abstraction.commun.ITransformateurD;
+import abstraction.commun.ITransformateurP;
 import abstraction.commun.Constantes;
 
 import java.util.ArrayList;
@@ -23,10 +24,10 @@ public class Producteur implements Acteur, IProducteur {
 	private Indicateur tresorerie;
 	private double coutProduction;
 	private double[] productionDeBase;
-	private Map<ITransformateur,Double> quantitesProposees;
+	private Map<ITransformateurP,Double> quantitesProposees;
 	private Indicateur productionCourante;
 	private Journal journal;
-	private List<ITransformateur> transformateurs;
+	private List<ITransformateurP> transformateurs;
 	private IntelligenceEconomique intelligenceEconomique;
 	
 	/**
@@ -50,17 +51,17 @@ public class Producteur implements Acteur, IProducteur {
 		// Afin d'eviter d'avoir une demande effective de la somme des transformateurs superieure a ce que nous pouvons
 		// mettre en vente, nous proposons a chaque transformateur une quantite specifique que nous sommes surs de pouvoir
 		// lui fournir.
-		this.quantitesProposees = new HashMap<ITransformateur,Double>();
+		this.quantitesProposees = new HashMap<ITransformateurP,Double>();
 		
 		this.journal = new Journal("Journal de "+this.nom);
 		Monde.LE_MONDE.ajouterJournal(this.journal);
 		
-		this.transformateurs = new ArrayList<ITransformateur>();
+		this.transformateurs = new ArrayList<ITransformateurP>();
 		
 		this.intelligenceEconomique = new IntelligenceEconomique(this.transformateurs,this.stock);
 	}
 		
-	// Méthodes de l'interface Acteur
+	// Mﾃｩthodes de l'interface Acteur
 	
 	public String getNom() {
 		return this.nom;
@@ -73,9 +74,9 @@ public class Producteur implements Acteur, IProducteur {
 		this.journal.ajouter("Production de "+this.getNom()+" = <font color=\"maroon\">"+this.getProductionCourante()+"</font> au <b>step</b> "+Monde.LE_MONDE.getStep());
 	}
 	
-	// Méthodes de l'interface IProducteur
+	// Mﾃｩthodes de l'interface IProducteur
 	
-	public double annonceQuantiteMiseEnVente(ITransformateur t) {
+	public double annonceQuantiteMiseEnVente(ITransformateurD t) {
 		return this.getQuantiteProposee(t);
 	}
 	
@@ -84,25 +85,25 @@ public class Producteur implements Acteur, IProducteur {
 		this.setTresorerie(this.getTresorerie() + c.getQuantite()*c.getPrixTonne());
 	}
 	
-	// méthode dépréciée
+	// mﾃｩthode dﾃｩprﾃｩciﾃｩe
 	public double annoncePrix() {
 		return 0.0;
 	}
 	
-	// Méthodes publiques
+	// Mﾃｩthodes publiques
 	
-	public void ajouterTransformateur(ITransformateur transformateur) {
+	public void ajouterTransformateur(ITransformateurP transformateur) {
 		this.transformateurs.add(transformateur);
 		this.quantitesProposees.put(transformateur, 0.0);
 		this.intelligenceEconomique.prendreEnCompte(transformateur);
 	}
 	
-	// Méthodes privées
+	// Mﾃｩthodes privﾃｩes
 	
 	/**
 	 * @return l'ensemble des transformateurs.
 	 */
-	private List<ITransformateur> getTransformateurs() {
+	private List<ITransformateurP> getTransformateurs() {
 		return this.transformateurs;
 	}
 	
@@ -119,7 +120,7 @@ public class Producteur implements Acteur, IProducteur {
 	}
 	
 	private void repartirQuantites() {
-		for (ITransformateur t : this.getTransformateurs()) {
+		for (ITransformateurP t : this.getTransformateurs()) {
 			this.quantitesProposees.put(t,this.intelligenceEconomique.donnerQuantiteMiseEnVente(t));
 		}
 	}
@@ -155,7 +156,24 @@ public class Producteur implements Acteur, IProducteur {
 		this.productionCourante.setValeur(this, valeur);
 	}
 	
-	private double getQuantiteProposee(ITransformateur t) {
+	private double getQuantiteProposee(ITransformateurD t) {
 		return this.quantitesProposees.get(t);
 	}
+
+
+
+	public double annonceQuantiteMiseEnVente(ITransformateurP t) {
+		return 0.0;
+	}
+
+
+	@Override
+	public double annonceQuantiteProposee() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+
+
 }

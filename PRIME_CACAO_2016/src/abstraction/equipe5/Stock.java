@@ -1,6 +1,7 @@
 package abstraction.equipe5;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
+import abstraction.commun.Commande;
 import abstraction.commun.CommandeDistri;
 import abstraction.commun.Produit;
 import abstraction.equipe5.Lindt;
@@ -28,7 +29,7 @@ public class Stock {
 	
 	public void ajouterStock(double d) {
 		double perte=(20+10*Math.random())/100;
-		this.setStock(this.getStock()+d*this.getStock()*perte);
+		this.setStock(this.getStock() + d - (this.getStock() + d)*perte);
 	}
 	
 	public String getNom(){
@@ -50,17 +51,17 @@ public class Stock {
 			i++;
 		}}
 	
-	//Variation des stocks de chocolat en fonction des commandes passées au step n-3
+	/**
+	 *fonction qui fait varier les stocks de chocolat en fonction des commandes passées au step n-3
+	 */
 	
 	public void retirerStockChocolat(int step){
-		for (CommandeDistri c: lindt.getHistCommandeDistri().getHist()){
-			if(c.getStepLivraison()==step){
-				if(c.getProduit().getNomProduit()==this.getNom()){
+		for (Commande c: lindt.getHistCommandeDistri().getHist()){
+			if(((CommandeDistri)c).getStepLivraison()==step){
+				if(((CommandeDistri)c).getProduit().getNomProduit()==this.getNom()){
 					this.setStock(this.getStock()-c.getQuantite());	
 				}
 			}
 		}
 	}
-
-
 }

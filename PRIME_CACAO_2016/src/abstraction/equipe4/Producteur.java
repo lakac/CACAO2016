@@ -1,7 +1,6 @@
 package abstraction.equipe4;
 import abstraction.fourni.*;
 import abstraction.commun.*;
-import java.util.ArrayList;
 
 public class Producteur implements Acteur,IProducteur{
 
@@ -11,8 +10,8 @@ public class Producteur implements Acteur,IProducteur{
 	private Tresorerie treso;
 	private ProductionBiannuelle prodBiannu;
 	private MarcheProd marcheProducteur;
-	private double moyenneCoursCacao;
 	private Offre offre;
+
 
 	//Constructeur de l'acteur Producteur 2
 
@@ -22,9 +21,10 @@ public class Producteur implements Acteur,IProducteur{
 		this.stock = new Stock(this);
 		this.journal = new Journal("Journal de "+this.nom);
 		this.prodBiannu=new ProductionBiannuelle(this,1200000);
+
 		Monde.LE_MONDE.ajouterJournal(this.journal);
-		this.moyenneCoursCacao = getMoyenneCoursCacao();
 		this.offre = new Offre(this, Monde.LE_MONDE.getStep(), this.stock);
+
 	}
 
 	// getter
@@ -47,6 +47,7 @@ public class Producteur implements Acteur,IProducteur{
 	}
 
 
+
 	public Tresorerie getTreso() {
 		return this.treso;
 	}
@@ -56,8 +57,14 @@ public class Producteur implements Acteur,IProducteur{
 	}
 
 
+	public Offre getOffre() {
+		return this.offre;
+	}
+	
+
 	public void ajoutMarche(MarcheProd m){
 		this.marcheProducteur=m;
+
 	}
 
 	// le next du producteur 2	
@@ -74,22 +81,12 @@ public class Producteur implements Acteur,IProducteur{
 		this.getStock().gererLesStock();
 	}
 
-	public double getMoyenneCoursCacao() {
-		Historique coursCacao = MarcheProducteur.LE_MARCHE.getHistorique();
-		//longueur du tableau regroupant les cours
-		int l = coursCacao.getTaille();
-		//somme des valeurs du tableau
-		double M = coursCacao.get(0).getValeur();
-		for (int i=1; i<l; i++) {
-			M=M+coursCacao.get(i).getValeur();
-		}
-		return M/l;
-	}
 
 	// retourne un double valant la quantité disponible 
-	// pour chaque transformateur a chaque step
-	public double annonceQuantiteMiseEnVente() {
-		return 0;
+	// pour le marche
+	public double annonceQuantiteProposee() {
+		return this.getOffre().offre();
+
 	}
 
 	//Modification du stock et de la tresorerie suite a une vente
@@ -110,8 +107,14 @@ public class Producteur implements Acteur,IProducteur{
 
 	public void notificationVente(CommandeProduc c) {
 		this.venteRealisee(c);
-
 	}
-	
-	
+
+
+	@Override
+	public double annonceQuantiteMiseEnVente(ITransformateurP t) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
 }

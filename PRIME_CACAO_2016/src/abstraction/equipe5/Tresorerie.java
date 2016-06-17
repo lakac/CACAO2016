@@ -1,26 +1,24 @@
 package abstraction.equipe5;
 
 import abstraction.fourni.Monde;
+import abstraction.commun.Commande;
 import abstraction.commun.CommandeDistri;
-import abstraction.commun.Constantes;
 import abstraction.commun.IProducteur;
 import abstraction.fourni.Indicateur;
 import abstraction.equipe5.Lindt;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import abstraction.commun.MarcheProducteur;
 import abstraction.commun.Tarif;
 
 public class Tresorerie {
-	private HistoriqueCommandeDistri histDistri;
-	private HistoriqueCommandeProduc histProduc;
+	private HistoriqueCommande histDistri;
+	private HistoriqueCommande histProduc;
 	private Indicateur treso;	
 	private ArrayList<IProducteur> listeProducteurs;
 	private Lindt lindt;
 	private Tarif tarif; // Faut-il l'initialiser forcément dans le constructeur pour que la dernière méthode marche ?
 
-	public Tresorerie(HistoriqueCommandeDistri histDistri, HistoriqueCommandeProduc histProduc, Lindt lindt, ArrayList<IProducteur> P){
+	public Tresorerie(HistoriqueCommande histDistri, HistoriqueCommande histProduc, Lindt lindt, ArrayList<IProducteur> P){
 		this.histDistri = histDistri;
 		this.histProduc = histProduc;
 		this.lindt = lindt;
@@ -93,11 +91,16 @@ public class Tresorerie {
 				+ lindt.getStockCacao().getStock())); 
 	}	
 	
+	
+	/**
+	 * 
+	 * fonction qui calcule combien les distributeurs nous payent au step courant
+	 */
 	public double payeParDistrib(){
 		double paye=0;
-		for (CommandeDistri c: lindt.getHistCommandeDistri().getHist()){ //si il s'agit des commandes livrées
-			if(c.getStepLivraison()==Monde.LE_MONDE.getStep()){
-				paye+=this.getTarif().prixDeVente(c.getQuantite());	
+		for (Commande c: lindt.getHistCommandeDistri().getHist()){ //si il s'agit des commandes livrées
+			if(((CommandeDistri)c).getStepLivraison()==Monde.LE_MONDE.getStep()){
+				paye+=c.getQuantite()*c.getPrixTonne();	 //on ne prend pas en compte les rabais pour la V2
 			}
 		}
 		return paye;

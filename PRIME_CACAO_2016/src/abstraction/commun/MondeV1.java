@@ -51,8 +51,7 @@ public class MondeV1 extends Monde {
 		
 		
 		// Marché Producteur
-		MarcheProducteur marcheProducteur = new MarcheProducteur();
-		MarcheProducteur.LE_MARCHE = marcheProducteur;
+		MarcheProd marcheProducteur = new MarcheProd();
 		this.ajouterActeur(marcheProducteur);
 		
 		// Marché Consommateur
@@ -65,8 +64,12 @@ public class MondeV1 extends Monde {
 		this.ajouterActeur(p1);
 		abstraction.equipe4.Producteur p2 = new abstraction.equipe4.Producteur(Monde.LE_MONDE);
 		this.ajouterActeur(p2);
+		//penser a ajouter la cote d'ivoire
 
+		
+		// Ajout des acteurs dans les listes des acteurs
 
+		
 		
 		// Ajout des liens necessaires entre les acteurs
 		Le.ajouterVendeur(nestle);
@@ -85,25 +88,24 @@ public class MondeV1 extends Monde {
 		lindt.ajouterDistributeur(Le);
 		lindt.ajouterProducteur(p1);
 		lindt.ajouterProducteur(p2);
+		//lindt.ajouterProducteur(CotedIvoire);
 		lindt.creer();
 
 		
-		t3.ajouterTransformateur(nestle);
 		t3.ajouterTransformateur(lindt);
 		
-		p1.ajouterTransformateur(nestle);
 		p1.ajouterTransformateur(lindt);
-		p1.ajouterTransformateur(t3);
 		
-		p2.ajoutClient(nestle);
-		p2.ajoutClient(lindt);
-		p2.ajoutClient(t3);		
-		p2.AjoutVariableVente();
+
+		marcheProducteur.AjoutProducteur(p1);;
+		marcheProducteur.AjoutProducteur(p2);
+		marcheProducteur.AjoutTransformateur(nestle);
+		marcheProducteur.AjoutTransformateur(lindt);
+		marcheProducteur.AjoutTransformateur(t3);
+		//penser a ajouter la cote d'ivoire
+
 		
-		marcheProducteur.ajouterProducteur(p1);
-		marcheProducteur.ajouterProducteur(p2);
-		marcheProducteur.ajouterTransformateur(nestle);
-		marcheProducteur.ajouterTransformateur(lindt);
+
 		
 		//maj 31/05 Leclerc
 		Le.getStock().initialiseStock(Le);	
