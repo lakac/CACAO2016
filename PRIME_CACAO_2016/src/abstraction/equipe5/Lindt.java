@@ -125,6 +125,7 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 		this.getHistCommandeDistri().ajouter(commande2);
 		this.getHistCommandeDistri().ajouter(commande3);
 		
+		// test pour voir si les commandes passent bien à chaque step
 		System.out.println("Informations liées à la commande du produit 50% :");
 		System.out.println(commande1.getPrixTonne());
 		System.out.println(commande1.getQuantite());
@@ -141,7 +142,8 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 		
 		venteDist.MiseAJourHistCommandeDistri();
 		treso.retrait(treso.coutStock()+treso.coutLivraison()+Constante.CHARGES_FIXES_STEP);
-		treso.depot(treso.payeParDistrib());	
+		treso.depot(treso.payeParDistrib());
+		System.out.println("paye par distributeur "+treso.payeParDistrib());
 	}
 
 	

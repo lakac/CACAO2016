@@ -31,11 +31,10 @@ public class VenteDist {
 	 */ 
 	public double prixProduit(Produit p) {
 		double r = 0;
+		System.out.println("cout de revient "+this.getTreso().coutRevient());
 		for (int i=0; i<Constante.LISTE_PRODUIT.length; i++) {
 			if (p.equals(Constante.LISTE_PRODUIT[i])) {
-				double prixTonne = lindt.getHistCommandeDistri().getCommande(Monde.LE_MONDE.getStep()).getPrixTonne(); //à continuer
-				System.out.println(this.getTreso().coutRevient());
-				r= prixTonne + this.getTreso().coutRevient() + Constante.MARGE_PRODUIT[i];
+				r= this.getTreso().coutRevient() / (1 - Constante.MARGE_PRODUIT[i]); // formule pour avoir le prix de vente quand on veut une marge spécifique
 			}
 		}
 		return r;

@@ -80,8 +80,7 @@ public class AchatProd {
 				if (c.getProduit().equals(Constante.LISTE_PRODUIT[i]))
 					besoinCacao += c.getQuantite()*Constante.LISTE_PRODUIT[i].getRatioCacao();
 		}}
-		// StockCacao-StockChoco c est pas optimal comme solution
-		double commandeP=0;
+		double commandeP=0; // on prend en compte la quantité de cacao qui va etre livree a ce step
 		for (int i=0; i<lindt.getProducteurs().size() ; i++){
 			commandeP+= this.getHistP().getHist().get(this.getHistP().getHist().size()-i-1).getQuantite();
 		}
@@ -126,6 +125,7 @@ public class AchatProd {
 		System.out.println("avant "+this.getStock().getStock()+" --> "+c.getQuantite());
 		this.getStock().ajouterStock(c.getQuantite());
 		System.out.println("apres "+this.getStock().getStock());
+		System.out.println("prix tonne "+c.getPrixTonne());
 		this.getTreso().retrait(c.getQuantite()*c.getPrixTonne());
 		System.out.println("treso "+ this.treso.toString());
 	}
