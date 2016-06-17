@@ -304,7 +304,7 @@ public class Nestle_old implements Acteur, ITransformateur{
 	
 	public void next() {
 		//initialisation des plages de prix compte tenu des production pr�c�dentes
-		PlageInterne_old plageinterne = this.getProd().plageinterne();
+		PlageInterne plageinterne = this.getProd().plageinterne();
 		//Catalogue
 		this.catalogue.setCatalogueinterne(plageinterne);
 		

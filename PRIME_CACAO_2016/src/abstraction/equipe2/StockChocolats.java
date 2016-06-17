@@ -6,6 +6,10 @@ import abstraction.commun.Produit;
 
 public class StockChocolats extends Stock {
 	
+	//Classe fini et Tests finis
+	
+	//Créer un stock de chocolat, qui est une hashmap contenant trois produits, les trois chocolats
+	//On initialise chaque stock à 0
 	public StockChocolats(){
 		super();
 			super.getStock().put(Constante.PRODUIT_50, 0.);
@@ -13,11 +17,12 @@ public class StockChocolats extends Stock {
 			super.getStock().put(Constante.PRODUIT_70, 0.);
 	}
 	
+	//getter de stockchocolat, retourne une hashmap de produit et de double
 	public HashMap<Produit, Double> getStockchocolats() {
 		return super.getStock();
 	}
 
-	//Il faut encore rajouter le fait qu'on ne peut pas livrer plus que ce que l'on a
+	//Methode utilisee lorsqu'on livre les distributeurs, retire donc au stock de chocolat le produit p, d'une quantite quantite
 	@Override
 	public void MiseAJourStockLivraison(Produit p,double quantite) {
 		if(this.getStockchocolats().get(Constante.PRODUIT_50)-quantite<0){
@@ -28,6 +33,7 @@ public class StockChocolats extends Stock {
 		}
 	}
 	
+	// Somme le chocolat total dont l'on dispose en stock -> Necessaire pour le calcul des couts de stock
 	public double Quantitetotalchoc() {
 		double quantitetot = 0.;
 		for (Produit p : this.getStock().keySet()) {
@@ -36,7 +42,8 @@ public class StockChocolats extends Stock {
 		return quantitetot;
 	}
 
-	
+	// Met a jour le stock de chocolat ( ajout du chocolat qui est transformé )
+	// Ajoute
 	@Override
 	public void MiseAJourStockTransformation(Produit p, double quantite) {
 		this.getStockchocolats().put(p, this.getStockchocolats().get(p)+quantite);		

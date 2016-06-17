@@ -15,9 +15,10 @@ public class CatalogueInterne_old {
 	}
 
 
-	public void setCatalogueinterne(PlageInterne_old plageinterne) {
+	public void setCatalogueinterne(PlageInterne plageinterne) {
 		for (Produit p : plageinterne.getTarifproduit().keySet()) {
 		this.catalogueinterne.add(p, plageinterne.getTarifproduit().get(p));
-		}		
+		}
+		
 	}
 }
