@@ -189,32 +189,46 @@ public class MarcheDistributeur implements Acteur {
 
 			}
 
-			List<CommandeDistri> commandefinale = new ArrayList<CommandeDistri>();
-			for (ITransformateurD t : this.getLesTransfos()) {
-				commandefinale.addAll(NegoTransfo.get(t));
+			System.out.println("NegoDistri boucle num�ro "+i+" apr�s contreDemande -->"+NegoDistri);
+			if (NegoDistri.equals(NegoDistriTemp)) {
+				break;
 			}
-			this.setCommandeFinale(commandefinale);
-
-
-			// Livraisons effectives chez les distributeurs et paiements.
-			
-			List<CommandeDistri> livraisonglobale = new ArrayList<CommandeDistri>();
-			for (ITransformateurD t : this.getLesTransfos()) {
-				for (IDistributeur d4 : this.getLesDitris()) {
-					for (CommandeDistri cd : this.getHistoriqueCommande()) {
-						List<CommandeDistri> temp = new ArrayList<CommandeDistri>();
-						if (cd.getStepLivraison() == MondeV1.LE_MONDE.getStep() && t == cd.getVendeur() && d4 == cd.getAcheteur()) {
-							temp.add(cd);
-						}
-						livraisonglobale.addAll(t.livraisonEffective(temp));
-					}
-				} 
-
-				this.setLivraisonGlobale(livraisonglobale);
-			}	
-
 		}
-	}
+		List<CommandeDistri> commandefinale = new ArrayList<CommandeDistri>();
+		for (ITransformateur t : this.getLesTransfos()) {
+			commandefinale.addAll(NegoTransfo.get(t));
+		}
+		this.setCommandeFinale(commandefinale);
+		this.addCommandeToHistorique(commandefinale);
+		// System.out.println("La commande finale --> "+this.getCommandeFinale());
 
+
+		// Livraisons effectives chez les distributeurs et paiements.
+
+		List<CommandeDistri> livraisonglobale = new ArrayList<CommandeDistri>();
+		for (ITransformateur t : this.getLesTransfos()) {
+			for (IDistributeur d4 : this.getLesDistris()) {
+				for (CommandeDistri cd : this.getHistoriqueCommande()) {
+					List<CommandeDistri> temp = new ArrayList<CommandeDistri>();
+					//System.out.println("Commande consider� --> "+cd);
+					if (cd.getStepLivraison() == MondeV1.LE_MONDE.getStep() && t == cd.getVendeur() && d4 == cd.getAcheteur()) {
+						temp.add(cd);
+						//System.out.println("Temp --> "+temp);
+
+					}
+
+					//System.out.println("Le transfo -->"+t);
+					//System.out.println("Temp -->"+temp);
+					//System.out.println("La livraison effective --> "+t.livraisonEffective(temp));
+					livraisonglobale.addAll(t.livraisonEffective(temp));
+				}
+			} 
+			System.out.println("Livraison globale --> "+livraisonglobale);
+			this.setLivraisonGlobale(livraisonglobale);
+		}	
+
+	}
 	}
 }
+
+

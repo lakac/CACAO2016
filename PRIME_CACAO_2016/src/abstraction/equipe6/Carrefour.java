@@ -20,9 +20,8 @@ import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
 
-public class Carrefour implements Acteur,IDistributeur {
+public class Carrefour implements Acteur,IDistributeur, ITransformateurD {
 
-	private static final Monde LE_MONDE = null;
 	private MarcheDistributeur maDi;
 	private MarcheConsommateurs maCo;
 	private String nom;
@@ -74,7 +73,9 @@ public class Carrefour implements Acteur,IDistributeur {
 		}
 		this.setLesStocks(lesStocks);
 		this.setDemandeAnnuel(demandeAnnuel);
-
+		this.lesAchats = lesAchats;
+		this.lesStocks = lesStocks;
+		this.lesVentes = lesVentes;
 	}
 
 	//Accesseurs
@@ -250,9 +251,6 @@ public class Carrefour implements Acteur,IDistributeur {
 		}
 	}
 
-	public static Monde getLeMonde() {
-		return LE_MONDE;
-	}
 
 	public void ajouterVendeur(ITransformateurD t) {
 		this.transformateurs.add(t);
@@ -326,28 +324,6 @@ public class Carrefour implements Acteur,IDistributeur {
 		return this.besoinStep;
 	}
 
-	public void setBesoinStep(HashMap<Produit,Double> bs, int step,Carrefour carrefour) {
-		this.besoinStep = bs;
-	    double de;
-	    for (int i=0; i<3; i++){	
-	         if (step%26 == 6 ) {
-	        	 
-	           de=(carrefour.getDemandeAnnuel()*0.06)*(1+(Math.random()*0.2 - 0.1));
-			   this.besoinStep.put(produits.get(i),de); 
-			
-			 }else{
-				if (step%26 == 25) {
-					
-					de =( 0.12*carrefour.getDemandeAnnuel())*(1+(Math.random()*0.2 - 0.1));
-					this.besoinStep.put(produits.get(i), de);
-					
-			    }else{
-				    de= (0.03416*carrefour.getDemandeAnnuel())*(1+(Math.random()*0.2 - 0.1));
-				    this.besoinStep.put(produits.get(i),de);
-	}
-	}
-    }		
-    }		
 	
 	
 	public HashMap<ITransformateurD,List<CommandeDistri>> commandeStep(HashMap<Produit,Double> besoinpro) {
@@ -384,7 +360,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		List <CommandeDistri> contreDemande= new ArrayList<CommandeDistri>();
 		boolean verification = false;
 		for (Produit p : this.getProduits()) {
-			List<ITransformateur> enRupture = new ArrayList<ITransformateur>();
+			List<ITransformateurD> enRupture = new ArrayList<ITransformateurD>();
 			double insatisfait = 0.0;
 
 			List<ITransformateurD> avecstock = new ArrayList<ITransformateurD>();
@@ -398,8 +374,19 @@ public class Carrefour implements Acteur,IDistributeur {
 				}
 			}
 
-			for (ITransformateurD t : avecstock) {
-				
+			for (ITransformateurD t : this.getTransformateurs()) {
+				if (enRupture.contains(t) == false && enRupture.size()!=0) {
+					double quantite = insatisfait/enRupture.size();
+					double prixTonne = 0.0;
+					for (CommandeDistri cd3 : nouvelle) {
+						if (cd3.getAcheteur() == this && cd3.getVendeur() == t && cd3.getProduit() == p) {
+							quantite+= cd3.getQuantite();
+							prixTonne = cd3.getPrixTonne();
+						}
+					}
+					System.out.println("Le transfo --> "+t+"\n le produit -->"+p+"\n la quantite --> "+quantite+"\n le prixTonne --> "+prixTonne);
+					contreDemande.add(new CommandeDistri(this, t, p, quantite, prixTonne, Monde.LE_MONDE.getStep(), false ));
+				}
 
 			}
 		}
@@ -445,7 +432,13 @@ public class Carrefour implements Acteur,IDistributeur {
 			for (Produit p : this.getProduits()) {
 				System.out.println("histo livraison --> "+this.getHistoLivraison());
 				for (CommandeDistri d : this.getHistoLivraison()) {
-					if (d.getAcheteur() == this && d.getStepLivraison() == LE_MONDE.getStep() && d.getVendeur() == t && d.getProduit()==p) {
+					boolean a, b, c, e;
+					a = d.getAcheteur() == this;
+					b =d.getStepLivraison() == Monde.LE_MONDE.getStep();
+					c =d.getVendeur().equals(t);
+					e =d.getProduit().equals(p);
+					System.out.println("Acheteur :"+a+" step :"+b+" Vendeur:"+c+" produit :"+e);
+					if (d.getAcheteur() == this && d.getStepLivraison() == Monde.LE_MONDE.getStep() && d.getVendeur().equals(t) && d.getProduit().equals(p)) {
 						this.setStock(p, t, d.getQuantite(), true);
 						System.out.println("Quantite de : "+p+" --> "+d.getQuantite());
 						this.setSolde(this.getSolde().getValeur() - d.getPrix());
