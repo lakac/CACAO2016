@@ -30,7 +30,6 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		this.nom=nom;
 		this.produits=produits;
 		this.solde = new Indicateur("Solde de Leclerc", this, 1000000.0);
-		Monde.LE_MONDE.ajouterIndicateur( this.solde );
     	this.transformateurs = new ArrayList<ITransformateurD>();
 		this.ratio = new ArrayList<Double>();
 		Monde.LE_MONDE.ajouterIndicateur( this.solde );
