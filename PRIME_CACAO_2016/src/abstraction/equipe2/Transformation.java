@@ -122,13 +122,7 @@ public class Transformation {
 		return 0; //A COMPLETER
 	}
 	
-	public double calculPerteCacao(){
-		return 0; //A COMPLETER
-	}
 	
-	public double calculMargedesecurite(){
-		return 0; //A COMPLETER
-	}
 	
 	/**Calcul du cacao a transformer en fonction de 
 	 * la commande , la perte et la marge de securite
