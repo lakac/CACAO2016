@@ -21,10 +21,9 @@ public class Producteur implements Acteur,IProducteur{
 		this.stock = new Stock(this);
 		this.journal = new Journal("Journal de "+this.nom);
 		this.prodBiannu=new ProductionBiannuelle(this,1200000);
-
 		Monde.LE_MONDE.ajouterJournal(this.journal);
-		this.offre = new Offre(this, Monde.LE_MONDE.getStep(), this.stock);
-
+		this.offre = new Offre(this, this.stock);
+		this.marcheProducteur=MarcheProd.LE_MARCHE;
 	}
 
 	// getter
@@ -61,11 +60,6 @@ public class Producteur implements Acteur,IProducteur{
 		return this.offre;
 	}
 	
-
-	public void ajoutMarche(MarcheProd m){
-		this.marcheProducteur=m;
-
-	}
 
 	// le next du producteur 2	
 	public void next(){
@@ -110,7 +104,7 @@ public class Producteur implements Acteur,IProducteur{
 	}
 
 
-	@Override
+	//Methode utile pour la V2, n'est plus d'actualité pour la V3.
 	public double annonceQuantiteMiseEnVente(ITransformateurP t) {
 		// TODO Auto-generated method stub
 		return 0;
