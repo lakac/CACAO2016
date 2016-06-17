@@ -7,7 +7,7 @@ import java.util.List;
 import abstraction.commun.Catalogue;
 import abstraction.commun.CommandeDistri;
 import abstraction.commun.IDistributeur;
-import abstraction.commun.ITransformateur;
+import abstraction.commun.ITransformateurD;
 import abstraction.commun.MarcheConsommateurs;
 import abstraction.commun.MarcheDistributeur;
 import abstraction.commun.Produit;
@@ -23,7 +23,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	private Indicateur solde; //SoldeDeLeclerc
 	private PrixDeVente prixdevente;
 	private ArrayList<Double> ratio;
-	private ArrayList<ITransformateur> transformateurs;
+	private ArrayList<ITransformateurD> transformateurs;
 	private ArrayList<Produit> produits;
 
 	public Leclercv2(String nom, Monde monde, ArrayList<Produit> produits) {
@@ -31,9 +31,10 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		this.produits=produits;
 		this.solde = new Indicateur("Solde de Leclerc", this, 1000000.0);
 		Monde.LE_MONDE.ajouterIndicateur( this.solde );
-    	this.transformateurs = new ArrayList<ITransformateur>();
+    	this.transformateurs = new ArrayList<ITransformateurD>();
 		this.ratio = new ArrayList<Double>();
-		this.transformateurs = new ArrayList<ITransformateur>();
+		Monde.LE_MONDE.ajouterIndicateur( this.solde );
+		this.transformateurs = new ArrayList<ITransformateurD>();
 		this.ventes=new Ventes();
 		this.stock= new Stock(new ArrayList<Double[]>(), 0.0);
 		this.prixdevente=new PrixDeVente();
@@ -54,10 +55,10 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	public String getNom() {
 		return this.nom;
 	}
-	public void ajouterVendeur(ITransformateur t) {
+	public void ajouterVendeur(ITransformateurD t) {
 		this.transformateurs.add(t);
 	}
-	public ArrayList<ITransformateur> getTransformateurs(){
+	public ArrayList<ITransformateurD> getTransformateurs(){
 		return this.transformateurs;
 	}
 	
@@ -68,9 +69,9 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	
 	/*methode qui classe les transfos du moins cher au sens du produit p au plus cher*/
 	
-	public List<ITransformateur> Classerparprix(Produit p){ 
-		List<ITransformateur> liste = new ArrayList<ITransformateur>();
-		List<ITransformateur> transfo=this.getTransformateurs();
+	public List<ITransformateurD> Classerparprix(Produit p){ 
+		List<ITransformateurD> liste = new ArrayList<ITransformateurD>();
+		List<ITransformateurD> transfo=this.getTransformateurs();
 		int i=0;
 		int n;
 		while(transfo!=null){
@@ -91,8 +92,8 @@ public class Leclercv2 implements Acteur,IDistributeur{
 
 	/*methode qui fait appel au distributeur suivant dans la liste renvoyee par la methode precedente*/
 	
-	public ITransformateur TransfoSuivant(CommandeDistri c){
-		List<ITransformateur> liste = Classerparprix(c.getProduit());
+	public ITransformateurD TransfoSuivant(CommandeDistri c){
+		List<ITransformateurD> liste = Classerparprix(c.getProduit());
 		int i;
 		if (c.getVendeur()==liste.get(0)){
 			i=0;
@@ -112,8 +113,8 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	/*methode qui fait la moyenne des ventes de ce step des annees passees pour avoir une idee 
 	 * du nombre de clients a ce step */
 
-	public List<CommandeDistri> Demande(ITransformateur t, Catalogue c) {
-		Double[] x = {0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donné sur toutes les années
+	public List<CommandeDistri> Demande(ITransformateurD t, Catalogue c) {
+		Double[] x = {0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donnï¿½ sur toutes les annï¿½es
 		Double[] sto = {0.0,0.0,0.0};
 		sto[0] = this.stock.getStock(t,0);
 		sto[1] = this.stock.getStock(t,1);
@@ -149,7 +150,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 			if (cd.get(i).equals(c)){
 				double q = cd.get(i).getQuantite()-c.getQuantite();
 				boolean valid = (cd.get(i).getQuantite()-c.getQuantite()==0);
-				ITransformateur vendeur = c.getVendeur();
+				ITransformateurD vendeur = c.getVendeur();
 				if(!valid){
 					vendeur=TransfoSuivant(c);
 				}
@@ -199,16 +200,16 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	public Double getStock(Produit p) {
 		double x = 0;
 		if (p.getNomProduit()=="50%"){
-			for (ITransformateur t : this.transformateurs){
+			for (ITransformateurD t : this.transformateurs){
 				x+=this.stock.getStock(t,0);
 			}
 		} else {
 			if (p.getNomProduit()=="60%"){
-				for (ITransformateur t : this.transformateurs){
+				for (ITransformateurD t : this.transformateurs){
 					x+=this.stock.getStock(t,1);
 				}
 			} else {
-				for (ITransformateur t : this.transformateurs){
+				for (ITransformateurD t : this.transformateurs){
 					x+=this.stock.getStock(t,2);
 				}
 			}
@@ -231,20 +232,20 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	
 	public void next() {
 		/*
-		//récupérer commande finale
+		//rï¿½cupï¿½rer commande finale
 		List<CommandeDistri> commandefinale = MarcheDistributeur.LE_MARCHE_DISTRIBUTEUR.getCommandeFinale();
-		//récupérer livraison effective
+		//rï¿½cupï¿½rer livraison effective
 		List<CommandeDistri> livraisoneffective = MarcheDistributeur.LE_MARCHE_DISTRIBUTEUR.getLivraisonglobale();
 		//recuperer ventes effectives
 		HashMap<Produit, Double> venteeffective = MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.getVenteDistri(this);
-		//gérer le stock
+		//gï¿½rer le stock
 		this.getStock().ajouterStock(livraisoneffective);
 		//this.getStock().retirerStock(venteeffective);
-		//gérer le solde
+		//gï¿½rer le solde
 		this.solde.setValeur(this, this.solde.getValeur()+recette()-depenses(commandefinale));
-		//gérer ventes (rajouter ventes réelles du step)
+		//gï¿½rer ventes (rajouter ventes rï¿½elles du step)
 		//this.getVentes().actualiserVentes(venteeffective);
-		//gérer prixdevente
+		//gï¿½rer prixdevente
 		this.getPrixDeVente().actualisePrixDeVente();
 		// TODO Auto-generated method stub
 		  */

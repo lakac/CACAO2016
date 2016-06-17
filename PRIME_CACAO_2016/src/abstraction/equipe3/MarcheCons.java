@@ -6,7 +6,7 @@ import java.util.List;
 
 import abstraction.commun.CommandeDistri;
 import abstraction.commun.IDistributeur;
-import abstraction.commun.ITransformateur;
+import abstraction.commun.ITransformateurD;
 import abstraction.commun.MarcheConsommateurs;
 import abstraction.commun.Produit;
 import abstraction.fourni.Monde;
@@ -35,7 +35,7 @@ public class MarcheCons {
 	
 	/*liste des transformateurs*/
 	
-	public static ArrayList<ITransformateur> transformateurs;
+	public static ArrayList<ITransformateurD> transformateurs;
 	
 	/*liste des commandes reelles des clients*/
 	
@@ -70,7 +70,7 @@ public class MarcheCons {
 		this.nom=nom;
 		this.produits=produits;
 		MarcheCons.distributeurs=new ArrayList<IDistributeur>();
-		MarcheCons.transformateurs=new ArrayList<ITransformateur>();
+		MarcheCons.transformateurs=new ArrayList<ITransformateurD>();
 		this.ventesEffectuees=new ArrayList<CommandeDistri>();
 		this.calendrierDemande=new ArrayList<Demande>();
 		this.demandeAnnuelle=new HashMap <Produit,Double>();
@@ -90,7 +90,7 @@ public class MarcheCons {
 	public static void ajouterDistributeur(IDistributeur distributeur){
 		MarcheCons.distributeurs.add(distributeur);
 	}
-	public static void ajouterTransformateur(ITransformateur transformateur){
+	public static void ajouterTransformateur(ITransformateurD transformateur){
 		MarcheCons.transformateurs.add(transformateur);
 	}
 	
