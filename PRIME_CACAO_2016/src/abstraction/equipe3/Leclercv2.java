@@ -115,13 +115,10 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	public List<CommandeDistri> Demande(ITransformateur t, Catalogue c) {
 		Double[] x = {0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donné sur toutes les années
 		Double[] sto = {0.0,0.0,0.0};
-		for (int i=0; i<this.transformateurs.size();i++){
-			if (t.equals(this.transformateurs.get(i))){
-				sto[0] = this.stock.getStock(t,0);
-				sto[1] = this.stock.getStock(t,1);
-				sto[2] = this.stock.getStock(t,2);
-			}
-		} int l = 0;
+		sto[0] = this.stock.getStock(t,0);
+		sto[1] = this.stock.getStock(t,1);
+		sto[2] = this.stock.getStock(t,2);
+		int l = 0;
 		for (int j=0; j<Monde.LE_MONDE.getStep()+25;j+=26){
 			x[0]+=this.ventes.getVentes(j)[0];
 			x[1]+=this.ventes.getVentes(j)[1];
@@ -134,10 +131,13 @@ public class Leclercv2 implements Acteur,IDistributeur{
 			CommandeDistri co = new CommandeDistri(this, t, p, 0, c.getTarif(p).getPrixTonne(), Monde.LE_MONDE.getStep()+3, false);
 			list.add(co);
 		}
-		for (int i=0;i<x.length; i++){
-			//probleme ratio a modifier
-			list.get(i).setQuantite(this.ratio.get(i)*x[i]-sto[i]);
-		} 
+		for (int j = 0; j<this.transformateurs.size();j++){
+			if (t.equals(this.transformateurs.get(j))){
+				for (int i=0;i<x.length; i++){
+					list.get(i).setQuantite(this.ratio.get(j)*x[i]-sto[i]);
+				} 
+			}
+		}
 		return list;
 	}
 	
