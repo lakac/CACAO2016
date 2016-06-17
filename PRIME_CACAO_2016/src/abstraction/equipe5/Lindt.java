@@ -21,7 +21,7 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 	private ArrayList<IDistributeur> distributeurs;
 	private ArrayList<Stock> stocksChocolat;
 	private TransformationCacaoChocolat transfo;
-	
+	private ResteDesDistributeurs resteDesDistributeurs;
 
 	public Lindt(){
 		this.histCommandeDistri = new HistoriqueCommande();
@@ -46,6 +46,7 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 		this.treso = new Tresorerie(this.histCommandeDistri, this.histCommandeProduc, this, this.getProducteurs());
 		this.achatProd = new AchatProd(this.histCommandeProduc,this.histCommandeDistri, this, this.stockCacao, this.treso);	
 		this.venteDist = new VenteDist(this, this.getTreso());
+		this.resteDesDistributeurs= new ResteDesDistributeurs(this, venteDist);
 
 	}
 
@@ -112,7 +113,8 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 //				// (public static MarcheDistributeur LE_MARCHE_DISTRIBUTEUR;), on ne pourra pas appeler cette méthode
 //				this.getHistCommandeDistri().ajouter(cd);
 //		}}
-//		System.out.println(getHistCommandeDistri());
+		resteDesDistributeurs.commandesDistributeurRestant(); //calcul les commandes du reste des distributeurs et les ajoute à l'historique CommandeDistri
+		System.out.println(getHistCommandeDistri());
 		stockChocolat50.retirerStockChocolat(Monde.LE_MONDE.getStep());
 		stockChocolat60.retirerStockChocolat(Monde.LE_MONDE.getStep());
 		stockChocolat70.retirerStockChocolat(Monde.LE_MONDE.getStep());

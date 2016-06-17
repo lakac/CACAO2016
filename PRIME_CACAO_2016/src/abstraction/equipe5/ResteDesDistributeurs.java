@@ -11,11 +11,10 @@ import abstraction.commun.MarcheDistributeur;
 import abstraction.commun.Produit;
 import abstraction.fourni.Acteur;
 
-public class distributeur3{
+public class ResteDesDistributeurs{
 	
 	//distributeur 3 en interne, on lui vend 75% de notre stock de chocolat
 	
-	private int quantite;
 	private List<CommandeDistri> commande;
 	private Lindt lindt;
 	private VenteDist venteDist;
@@ -55,8 +54,7 @@ public class distributeur3{
 			return null;
 		}
 	}
-	public distributeur3(int quantite, Lindt lindt, VenteDist venteDist) {
-		this.quantite = quantite;
+	public ResteDesDistributeurs(Lindt lindt, VenteDist venteDist) {
 		this.commande = new ArrayList<CommandeDistri>();
 		this.lindt = lindt;
 		this.venteDist=venteDist;
@@ -76,7 +74,8 @@ public class distributeur3{
 				commandesResteDuMonde.get(i).setAcheteur(distributeurRestant);
 				
 				double qteCommandeResteDuMonde=ratioCommandeResteDuMonde*cd.getQuantite();//quantité que le distributeur restant doit commander
-				commandesResteDuMonde.get(i).setQuantite(qteCommandeResteDuMonde); //mise à jour de la bonne quantité dans la commande
+				commandesResteDuMonde.get(i).setQuantite(qteCommandeResteDuMonde);//mise à jour de la bonne quantité dans la commande
+				lindt.getHistCommandeDistri().ajouter(cd);
 				i++;
 			}
 		}
@@ -86,12 +85,6 @@ public class distributeur3{
 	
 	public Lindt getLindt() {
 		return lindt;
-	}
-	public int getQuantite() {
-		return quantite;
-	}
-	public void setQuantite(int quantite) {
-		this.quantite = quantite;
 	}
 	public List<CommandeDistri>getCommande() {
 		return commande;
