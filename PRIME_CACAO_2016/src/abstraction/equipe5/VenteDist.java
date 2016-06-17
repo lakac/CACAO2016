@@ -110,10 +110,10 @@ public class VenteDist {
 	 *  c'est à dire qu'on livre moins que prévu, et qui va enlever les commandes livrées 
 	 *  de l'historique HistCommandeDistri pour les mettre dans l'historique CommandeDistriLivree
  	 */
-	public void MiseAJourHistCommandeDistri (){
+	public void MiseAJourHistCommandeDistri (){//XXX
 		List<CommandeDistri> Commandeslivrees = new ArrayList<CommandeDistri>();
 		for (Commande c: lindt.getHistCommandeDistri().getHist()){
-			if(((CommandeDistri)c).getStepLivraison()==Monde.LE_MONDE.getStep()){
+			if(((CommandeDistri)c).getStepLivraison()==Monde.LE_MONDE.getStep() && !((CommandeDistri)c).getAcheteur().getNom().equals("Ditributeur restant de Lindt")){
 				Commandeslivrees.add((CommandeDistri)c);
 			}		
 		}
@@ -122,6 +122,12 @@ public class VenteDist {
 			lindt.getCommandeDistriLivree().ajouter(c);
 			lindt.getHistCommandeDistri().supprimer(c); 	
 		}	
+		for (Commande c: lindt.getHistCommandeDistri().getHist()){
+			if(((CommandeDistri)c).getStepLivraison()==Monde.LE_MONDE.getStep()){ //Les commandes restantes dans HistCommandeDistri au step courant sont celles du distributeur restant que l'on doit mettre dans CommandeDistriLivree
+				lindt.getCommandeDistriLivree().ajouter(c);
+				lindt.getHistCommandeDistri().supprimer(c); 	
+			}
+		}
 	}
 	
 	/**

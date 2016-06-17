@@ -41,8 +41,8 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 	}
 
 	public void creer() {
-		this.histCommandeProduc.ajouter(new CommandeProduc(100.0, MarcheProducteur.LE_MARCHE.getCours()));
-		this.histCommandeProduc.ajouter(new CommandeProduc(100.0, MarcheProducteur.LE_MARCHE.getCours()));
+		this.histCommandeProduc.ajouter(new CommandeProduc(100.0, MarcheProd.LE_MARCHE.getCoursCacao().getValeur()));
+		this.histCommandeProduc.ajouter(new CommandeProduc(100.0, MarcheProd.LE_MARCHE.getCoursCacao().getValeur()));
 		this.treso = new Tresorerie(this.histCommandeDistri, this.histCommandeProduc, this, this.getProducteurs());
 		this.achatProd = new AchatProd(this.histCommandeProduc,this.histCommandeDistri, this, this.stockCacao, this.treso);	
 		this.venteDist = new VenteDist(this, this.getTreso());
@@ -112,9 +112,8 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 //				// (public static MarcheDistributeur LE_MARCHE_DISTRIBUTEUR;), on ne pourra pas appeler cette méthode
 //				this.getHistCommandeDistri().ajouter(cd);
 //		}}
-
 //		System.out.println(getHistCommandeDistri());
-		resteDesDistributeurs.commandesDistributeurRestant(); //calcul les commandes du reste des distributeurs et les ajoute à l'historique CommandeDistri
+		//resteDesDistributeurs.commandesDistributeurRestant(); //calcul les commandes du reste des distributeurs et les ajoute à l'historique CommandeDistri
 		System.out.println(getHistCommandeDistri());
 		
 		// commandes fictives du cote distributeur pour voir si notre code fonctionne
@@ -135,7 +134,7 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 		System.out.println("Informations liées à la commande du produit 70% :");
 		System.out.println(commande3.getPrixTonne());
 		System.out.println(commande3.getQuantite());
-		
+
 		stockChocolat50.retirerStockChocolat(Monde.LE_MONDE.getStep());
 		stockChocolat60.retirerStockChocolat(Monde.LE_MONDE.getStep());
 		stockChocolat70.retirerStockChocolat(Monde.LE_MONDE.getStep());
