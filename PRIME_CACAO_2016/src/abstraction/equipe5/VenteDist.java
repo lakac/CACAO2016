@@ -13,9 +13,7 @@ import abstraction.commun.Produit;
 
 public class VenteDist {
 
-
 	private Lindt lindt;
-
 	private Tresorerie treso;
 
 	public VenteDist(Lindt lindt, Tresorerie treso){

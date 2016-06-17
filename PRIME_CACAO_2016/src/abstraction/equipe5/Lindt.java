@@ -47,7 +47,10 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 		this.achatProd = new AchatProd(this.histCommandeProduc,this.histCommandeDistri, this, this.stockCacao, this.treso);	
 		this.venteDist = new VenteDist(this, this.getTreso());
 		this.resteDesDistributeurs= new ResteDesDistributeurs(this, venteDist);
+<<<<<<< HEAD
+=======
 
+>>>>>>> branch 'master' of https://github.com/florianed/CACAO2016.git
 	}
 
 
@@ -113,8 +116,33 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 //				// (public static MarcheDistributeur LE_MARCHE_DISTRIBUTEUR;), on ne pourra pas appeler cette méthode
 //				this.getHistCommandeDistri().ajouter(cd);
 //		}}
+<<<<<<< HEAD
+//		System.out.println(getHistCommandeDistri());
 		resteDesDistributeurs.commandesDistributeurRestant(); //calcul les commandes du reste des distributeurs et les ajoute à l'historique CommandeDistri
 		System.out.println(getHistCommandeDistri());
+		
+		// commandes fictives du cote distributeur pour voir si notre code fonctionne
+		Commande commande1 = new CommandeDistri(this.getDistributeurs().get(0), this, Constante.LISTE_PRODUIT[0], 30, this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[0]), Monde.LE_MONDE.getStep()+3, true);
+		Commande commande2 = new CommandeDistri(this.getDistributeurs().get(0), this, Constante.LISTE_PRODUIT[1], 20, this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[1]), Monde.LE_MONDE.getStep()+3, true);
+		Commande commande3 = new CommandeDistri(this.getDistributeurs().get(0), this, Constante.LISTE_PRODUIT[2], 10, this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[2]), Monde.LE_MONDE.getStep()+3, true);
+		
+		this.getHistCommandeDistri().ajouter(commande1);
+		this.getHistCommandeDistri().ajouter(commande2);
+		this.getHistCommandeDistri().ajouter(commande3);
+		System.out.println("Informations liées à la commande du produit 50% :");
+		System.out.println(commande1.getPrixTonne());
+		System.out.println(commande1.getQuantite());
+		System.out.println("Informations liées à la commande du produit 60% :");
+		System.out.println(commande2.getPrixTonne());
+		System.out.println(commande2.getQuantite());
+		System.out.println("Informations liées à la commande du produit 70% :");
+		System.out.println(commande3.getPrixTonne());
+		System.out.println(commande3.getQuantite());
+		
+=======
+		resteDesDistributeurs.commandesDistributeurRestant(); //calcul les commandes du reste des distributeurs et les ajoute à l'historique CommandeDistri
+		System.out.println(getHistCommandeDistri());
+>>>>>>> branch 'master' of https://github.com/florianed/CACAO2016.git
 		stockChocolat50.retirerStockChocolat(Monde.LE_MONDE.getStep());
 		stockChocolat60.retirerStockChocolat(Monde.LE_MONDE.getStep());
 		stockChocolat70.retirerStockChocolat(Monde.LE_MONDE.getStep());
