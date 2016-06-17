@@ -6,21 +6,24 @@ import java.util.HashMap;
 import abstraction.commun.Produit;
 
 public class StockCacao extends Stock {
-
 	
+	//La classe est fini et les tests aussi
+	
+	
+	// Créer un stock de cacao, qu'on initialise a 0
 	public StockCacao(){
 		super();
 			super.getStock().put(Constante.CACAO, 0.);
 	}
 	
 	
-	
+	//getter du stock de cacao qui retourne une hashmap de cacao et de double 
 	public HashMap<Produit, Double> getStockcacao() {
 		return super.getStock();
 	}
 	
 
-
+	//Ajout du cacao acheté aux  producteurs
 	@Override
 	public void MiseAJourStockLivraison(Produit p,double quantite) {
 		this.getStockcacao().put(p,this.getStockcacao().get(p)+quantite);
@@ -28,6 +31,7 @@ public class StockCacao extends Stock {
 	
 	
 	// Dans MiseAJOurStockTransformation, p est un chocolat et quantite et une quantite de chocolat voulue
+	// Si on appelle MiseAJourStockTransformation(PRODUIT_50, 50), cela enlève le cacao nécessaire pour faire 50 tonnes de chocolat 50, soit 25 tonnes de cacao du stock de cacao
 	public void MiseAJourStockTransformation(Produit p, double quantite) {
 		if (p.equals(Constante.PRODUIT_50)) {
 			if(this.getStockcacao().get(Constante.CACAO)-Constante.RATIO_TRANSFORMATION_50*quantite<0){
