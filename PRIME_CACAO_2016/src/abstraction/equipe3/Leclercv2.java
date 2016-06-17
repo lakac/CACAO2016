@@ -33,7 +33,6 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		Monde.LE_MONDE.ajouterIndicateur( this.solde );
     	this.transformateurs = new ArrayList<ITransformateurD>();
 		this.ratio = new ArrayList<Double>();
-		Monde.LE_MONDE.ajouterIndicateur( this.solde );
 		this.transformateurs = new ArrayList<ITransformateurD>();
 		this.ventes=new Ventes();
 		this.stock= new Stock(new ArrayList<Double[]>(), 0.0);
@@ -61,6 +60,8 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	public ArrayList<ITransformateurD> getTransformateurs(){
 		return this.transformateurs;
 	}
+	
+	/*methode qui initialise le ratio*/
 	
 	public void initialiseRatio(){
 		this.ratio.add(0.13);
@@ -116,14 +117,14 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	public List<CommandeDistri> Demande(ITransformateurD t, Catalogue c) {
 		Double[] x = {0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donn� sur toutes les ann�es
 		Double[] sto = {0.0,0.0,0.0};
-		sto[0] = this.stock.getStock(t,0);
-		sto[1] = this.stock.getStock(t,1);
-		sto[2] = this.stock.getStock(t,2);
+		sto[0] = this.getStock().getStock(t,0);
+		sto[1] = this.getStock().getStock(t,1);
+		sto[2] = this.getStock().getStock(t,2);
 		int l = 0;
 		for (int j=0; j<Monde.LE_MONDE.getStep()+25;j+=26){
-			x[0]+=this.ventes.getVentes(j)[0];
-			x[1]+=this.ventes.getVentes(j)[1];
-			x[2]+=this.ventes.getVentes(j)[2];
+			x[0]+=this.getVentes().getVentes(j)[0];
+			x[1]+=this.getVentes().getVentes(j)[1];
+			x[2]+=this.getVentes().getVentes(j)[2];
 			l++;
 		} for (int m=0; m<x.length;m++){
 			x[m]=x[m]/l;
@@ -132,8 +133,8 @@ public class Leclercv2 implements Acteur,IDistributeur{
 			CommandeDistri co = new CommandeDistri(this, t, p, 0, c.getTarif(p).getPrixTonne(), Monde.LE_MONDE.getStep()+3, false);
 			list.add(co);
 		}
-		for (int j = 0; j<this.transformateurs.size();j++){
-			if (t.equals(this.transformateurs.get(j))){
+		for (int j = 0; j<this.getTransformateurs().size();j++){
+			if (t.equals(this.getTransformateurs().get(j))){
 				for (int i=0;i<x.length; i++){
 					list.get(i).setQuantite(this.ratio.get(j)*x[i]-sto[i]);
 				} 
@@ -188,7 +189,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	
 	public double depenses(List<CommandeDistri> l){
 		double depenses = 0.0;
-		depenses+=this.stock.getFraisDeStockTotal();
+		depenses+=this.getStock().getFraisDeStockTotal();
 		for (CommandeDistri com : l){
 			depenses+=com.getPrixTonne()*com.getQuantite();
 		}
@@ -200,17 +201,17 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	public Double getStock(Produit p) {
 		double x = 0;
 		if (p.getNomProduit()=="50%"){
-			for (ITransformateurD t : this.transformateurs){
-				x+=this.stock.getStock(t,0);
+			for (ITransformateurD t : this.getTransformateurs()){
+				x+=this.getStock().getStock(t,0);
 			}
 		} else {
 			if (p.getNomProduit()=="60%"){
-				for (ITransformateurD t : this.transformateurs){
-					x+=this.stock.getStock(t,1);
+				for (ITransformateurD t : this.getTransformateurs()){
+					x+=this.getStock().getStock(t,1);
 				}
 			} else {
-				for (ITransformateurD t : this.transformateurs){
-					x+=this.stock.getStock(t,2);
+				for (ITransformateurD t : this.getTransformateurs()){
+					x+=this.getStock().getStock(t,2);
 				}
 			}
 		} return x;
@@ -232,20 +233,20 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	
 	public void next() {
 		/*
-		//r�cup�rer commande finale
+		//recuperer commande finale
 		List<CommandeDistri> commandefinale = MarcheDistributeur.LE_MARCHE_DISTRIBUTEUR.getCommandeFinale();
-		//r�cup�rer livraison effective
+		//recuperer livraison effective
 		List<CommandeDistri> livraisoneffective = MarcheDistributeur.LE_MARCHE_DISTRIBUTEUR.getLivraisonglobale();
 		//recuperer ventes effectives
 		HashMap<Produit, Double> venteeffective = MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.getVenteDistri(this);
-		//g�rer le stock
+		//gerer le stock
 		this.getStock().ajouterStock(livraisoneffective);
 		//this.getStock().retirerStock(venteeffective);
-		//g�rer le solde
+		//gerer le solde
 		this.solde.setValeur(this, this.solde.getValeur()+recette()-depenses(commandefinale));
-		//g�rer ventes (rajouter ventes r�elles du step)
+		//gerer ventes (rajouter ventes r�elles du step)
 		//this.getVentes().actualiserVentes(venteeffective);
-		//g�rer prixdevente
+		//gerer prixdevente
 		this.getPrixDeVente().actualisePrixDeVente();
 		// TODO Auto-generated method stub
 		  */

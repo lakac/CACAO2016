@@ -24,7 +24,7 @@ public class MarcheCons {
 	
 	private final static double VARIATION_FIDELITE=0.01;
 	
-	/*parti minimum de clients fidèles a chaque distributeur*/
+	/*part minimum de clients fidèles a chaque distributeur*/
 	
 	private final static double FIDELITE_MIN=0.20;
 	private static final double ALPHA = 0; 
@@ -145,7 +145,6 @@ public class MarcheCons {
 	public void initialiserDemandeAnnuelle(){
 		for (Produit p : this.getProduits()){
 			this.demandeAnnuelle.put(p, (double) 50000); // a faire varier en fonction du produit
-			
 				}
 				
 		}	
