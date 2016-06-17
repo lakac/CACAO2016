@@ -8,6 +8,10 @@ import java.util.List;
 public class Nestle_new implements ITransformateurP, ITransformateurD {
 	
 	private HashMap<IDistributeur,List<CommandeDistri>> commandesdistri;
+	private StockCacao stockCacao;
+	private StockChocolats stockChocolats;
+	private Tresorerie tresorerie;
+	
 
 	public void next() {
 		// TODO Auto-generated method stub
@@ -68,7 +72,7 @@ public class Nestle_new implements ITransformateurP, ITransformateurD {
 		return resultat;
 	}
 
-	@Override
+	//Methode inutile
 	public double annonceQuantiteDemandee(IProducteur p) {
 		// TODO Auto-generated method stub
 		return 0;
@@ -76,11 +80,11 @@ public class Nestle_new implements ITransformateurP, ITransformateurD {
 
 	@Override
 	public void notificationVente(CommandeProduc c) {
-		// TODO Auto-generated method stub
-		
+		tresorerie.setTresorerieAchat(c);
+		this.stockCacao.MiseAJourStockLivraison(Constante.CACAO,c.getQuantite());
 	}
 
-	@Override
+	//Methode inutile
 	public void notificationVente(IProducteur p) {
 		// TODO Auto-generated method stub
 		
