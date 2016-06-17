@@ -19,11 +19,9 @@ public class ResteDesTransformateursMondiaux implements Acteur, ITransformateurP
 
 	private List<ITransformateurP> transformateurs;
 	
-	
 	// constructeur
 	public ResteDesTransformateursMondiaux(){
 		this.transformateurs = new ArrayList<ITransformateurP>();
-		
 	}
 
 
@@ -72,7 +70,7 @@ public class ResteDesTransformateursMondiaux implements Acteur, ITransformateurP
 
 	// methode depreciee
 	public double annoncePrix() {
-		return MarcheProducteur.LE_MARCHE.getCours();
+		return MarcheProd.LE_MARCHE.getCoursCacao().getValeur();
 	}
 
 	

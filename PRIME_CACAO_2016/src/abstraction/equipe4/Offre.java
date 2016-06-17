@@ -1,16 +1,15 @@
 package abstraction.equipe4;
 
+import abstraction.commun.MarcheProd;
 import abstraction.fourni.Historique;
+import abstraction.fourni.Monde;
 
 public class Offre {
 	private Producteur producteur;
-	private int step;
 	private Stock stock;
 
-	
-	public Offre(Producteur producteur, int step, Stock stock) {
+	public Offre(Producteur producteur, Stock stock) {
 		this.producteur = producteur;
-		this.step = step;
 		this.stock = stock;
 	}
 
@@ -19,7 +18,7 @@ public class Offre {
 		return this.producteur;
 	}
 	public int getStep() {
-		return this.step;
+		return Monde.LE_MONDE.getStep();
 	}
 	public Stock getStock() {
 		return this.stock;
@@ -29,7 +28,7 @@ public class Offre {
 	
 	//Retourne la moyenne du cours de cacao sur les precedentes step.
 	public double moyenneCoursCacao() {
-		Historique coursCacao = this.getProducteur().getMarcheProducteur().getHistorique();
+		Historique coursCacao = MarcheProd.LE_MARCHE.getHistorique();
 		//longueur du tableau regroupant les precedents cours
 		int l = coursCacao.getTaille();
 		//somme des valeurs du tableau
