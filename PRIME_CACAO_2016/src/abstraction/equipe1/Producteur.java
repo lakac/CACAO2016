@@ -61,7 +61,7 @@ public class Producteur implements Acteur, IProducteur {
 		this.intelligenceEconomique = new IntelligenceEconomique(this.transformateurs,this.stock);
 	}
 		
-	// Mﾃｩthodes de l'interface Acteur
+	// Méthodes de l'interface Acteur
 	
 	public String getNom() {
 		return this.nom;
@@ -74,7 +74,7 @@ public class Producteur implements Acteur, IProducteur {
 		this.journal.ajouter("Production de "+this.getNom()+" = <font color=\"maroon\">"+this.getProductionCourante()+"</font> au <b>step</b> "+Monde.LE_MONDE.getStep());
 	}
 	
-	// Mﾃｩthodes de l'interface IProducteur
+	// Méthodes de l'interface IProducteur
 	
 	public double annonceQuantiteMiseEnVente(ITransformateurD t) {
 		return this.getQuantiteProposee(t);
@@ -85,12 +85,12 @@ public class Producteur implements Acteur, IProducteur {
 		this.setTresorerie(this.getTresorerie() + c.getQuantite()*c.getPrixTonne());
 	}
 	
-	// mﾃｩthode dﾃｩprﾃｩciﾃｩe
+	// méthode dépréciée
 	public double annoncePrix() {
 		return 0.0;
 	}
 	
-	// Mﾃｩthodes publiques
+	// Méthodes publiques
 	
 	public void ajouterTransformateur(ITransformateurP transformateur) {
 		this.transformateurs.add(transformateur);
@@ -98,7 +98,7 @@ public class Producteur implements Acteur, IProducteur {
 		this.intelligenceEconomique.prendreEnCompte(transformateur);
 	}
 	
-	// Mﾃｩthodes privﾃｩes
+	// Méthodes privées
 	
 	/**
 	 * @return l'ensemble des transformateurs.
@@ -161,19 +161,13 @@ public class Producteur implements Acteur, IProducteur {
 	}
 
 
-
 	public double annonceQuantiteMiseEnVente(ITransformateurP t) {
 		return 0.0;
 	}
 
-
-	@Override
-	public double annonceQuantiteProposee() {
+	//R�union du 03/06 Ajout par l'�quipe 2 le 8/06
+	public double annonceQuantitePropose() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-
-
-
 }
