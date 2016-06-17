@@ -75,10 +75,6 @@ public class MondeV1 extends Monde {
 
 
 		
-		// Ajout des acteurs dans les listes des acteurs
-
-		
-		
 		// Ajout des liens necessaires entre les acteurs
 		Le.ajouterVendeur(nestle);
 		Le.ajouterVendeur(lindt);
@@ -98,21 +94,25 @@ public class MondeV1 extends Monde {
 		lindt.ajouterDistributeur(Le);
 		lindt.ajouterProducteur(p1);
 		lindt.ajouterProducteur(p2);
-		//lindt.ajouterProducteur(CotedIvoire);
 		lindt.creer();
 
 
 		
+		t3.ajouterTransformateur(nestle);
 		t3.ajouterTransformateur(lindt);
 		
+		p1.ajouterTransformateur(nestle);
 		p1.ajouterTransformateur(lindt);
+		p1.ajouterTransformateur(t3);
 		
-		p2.ajoutClient(nestle);
-		p2.ajoutClient(lindt);	
+	/*	p2.ajoutClient(nestle);
+		p2.ajoutClient(lindt);
+		p2.ajoutClient(t3);		
 		p2.AjoutVariableVente();
-		
+		*/
 		marcheProducteur.ajouterProducteur(p1);
 		marcheProducteur.ajouterProducteur(p2);
+		marcheProducteur.ajouterTransformateur(nestle);
 		marcheProducteur.ajouterTransformateur(lindt);
 		MaDi.addDistributeur(Ca);
 		// MaDi.addDistributeur(Le);

@@ -1,4 +1,5 @@
- package abstraction.commun;
+package abstraction.commun;
+
 
 public class CommandeProduc extends Commande{
 
@@ -7,6 +8,7 @@ public class CommandeProduc extends Commande{
 	 * 
 	 * @author equipe 5
 	 */
+
 	
 	private ITransformateurP acheteur;
 	private IProducteur vendeur;
@@ -21,37 +23,39 @@ public class CommandeProduc extends Commande{
 	/**
 	 * @depreciated
 	 */
-	public CommandeProduc(ITransformateurP acheteur, IProducteur vendeur, double quantite, double prixTonne) {
+	@Deprecated public CommandeProduc(ITransformateurP acheteur, IProducteur vendeur, double quantite, double prixTonne) {
 		super(quantite, prixTonne);
 		this.acheteur = acheteur;
 		this.vendeur = vendeur;
 	}
+
 	
 	/**
 	 * @depreciated
 	 */
-	public void setAcheteur(ITransformateurP acheteur) {
+	 @Deprecated public void setAcheteur(ITransformateurP acheteur) {
 		this.acheteur = acheteur;
 	}
 
 	/**
 	 * @depreciated
 	 */
-	public void setVendeur(IProducteur vendeur) {
+	@Deprecated public void setVendeur(IProducteur vendeur) {
 		this.vendeur = vendeur;
 	}
 	
 	/**
 	 * @depreciated
 	 */
-	public ITransformateurP getAcheteur() {
+	@Deprecated public ITransformateurP getAcheteur() {
 		return this.acheteur;
 	}
+
 
 	/**
 	 * @depreciated
 	 */
-	public IProducteur getVendeur() {
+	@Deprecated public IProducteur getVendeur() {
 		return this.vendeur;
 	}
 }
