@@ -204,6 +204,8 @@ public class MarcheDistributeur implements Acteur {
 			NegoDistri.put(d, new ArrayList<CommandeDistri>());
 			for (ITransformateur t : this.getLesTransfos()) {
 				NegoDistri.get(d).addAll(d.demande(t, this.getCatalogues().get(t)));
+				for (CommandeDistri cd : d.demande(t, this.getCatalogues().get(t)) )
+					System.out.println("La quantité après demande --> :"+cd.getQuantite());
 			}
 		}
 		// System.out.println("NegoDistri avant offre --> "+NegoDistri);
@@ -244,6 +246,7 @@ public class MarcheDistributeur implements Acteur {
 		for (ITransformateur t : this.getLesTransfos()) {
 			for (IDistributeur d4 : this.getLesDistris()) {
 				for (CommandeDistri cd : this.getHistoriqueCommande()) {
+					System.out.println("La quantité de la commande --> "+cd.getQuantite());
 					List<CommandeDistri> temp = new ArrayList<CommandeDistri>();
 					//System.out.println("Commande consideré --> "+cd);
 					if (cd.getStepLivraison() == MondeV1.LE_MONDE.getStep() && t == cd.getVendeur() && d4 == cd.getAcheteur()) {
