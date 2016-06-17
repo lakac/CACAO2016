@@ -1,16 +1,15 @@
 package abstraction.equipe4;
 
 import abstraction.fourni.Historique;
+import abstraction.fourni.Monde;
 
 
 public class Offre {
 	private Producteur producteur;
-	private int step;
 	private Stock stock;
 
-	public Offre(Producteur producteur, int step, Stock stock) {
+	public Offre(Producteur producteur, Stock stock) {
 		this.producteur = producteur;
-		this.step = step;
 		this.stock = stock;
 	}
 
@@ -19,7 +18,7 @@ public class Offre {
 		return this.producteur;
 	}
 	public int getStep() {
-		return this.step;
+		return Monde.LE_MONDE.getStep();
 	}
 	public Stock getStock() {
 		return this.stock;
