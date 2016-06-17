@@ -255,7 +255,7 @@ public class Carrefour implements Acteur,IDistributeur {
 				while (temp == 0) {
 					if (hm.get(t2).getTarif(p).getPrixTonne()>hm.get(t).getTarif(p).getPrixTonne() && t!=t2) {
 						transfo.add(transfo.indexOf(t2), t);
-						temp+=1;
+						temp++;
 					}
 				}
 			}
@@ -285,7 +285,8 @@ public class Carrefour implements Acteur,IDistributeur {
 		}		
 	}		
 
-	//??
+
+    //Fonction qui retourne un HahsMap fournissant des informations sur la commande chaque produit entre chaque Transformateur.
 	public HashMap<ITransformateur,List<CommandeDistri>> commandeStep(HashMap<Produit,Double> besoinpro) {
 		HashMap<ITransformateur, Catalogue> cat = new HashMap<ITransformateur,Catalogue>();
 		HashMap<ITransformateur,List<CommandeDistri>> commande = new HashMap<ITransformateur,List<CommandeDistri>>();
@@ -294,8 +295,8 @@ public class Carrefour implements Acteur,IDistributeur {
 			commande.put(t, new ArrayList<CommandeDistri>());
 		}
 		for (Produit p : this.getProduits()) {
-			for (int i=0; i<this.getTransformateurs().size(); i++) {
-				int le = this.getTransformateurs().size();
+			int le = this.getTransformateurs().size();
+			for (int i=0; i<le; i++) {
 				ITransformateur letransfo = this.getTransformateurs().get(i); // Modif pour que �a marche, plus de comparateur de prix
 				double quantite = (6*(le-i)^2)/((le*(le-1)*(2*le-1)));
 				commande.get(letransfo).add(new CommandeDistri(this, letransfo, p, quantite, letransfo.getCatalogue().getTarif(p).getPrixTonne(), MondeV1.LE_MONDE.getStep()+3, false));
@@ -310,7 +311,7 @@ public class Carrefour implements Acteur,IDistributeur {
 	}
 
 
-
+    //Méthode qui en cas de rupture de stock chez le tranformateur choisi, va commander les quantités de CACAO manquantes aux autres transfromateurs.
 	public List<CommandeDistri> contreDemande(List<CommandeDistri> nouvelle,List<CommandeDistri> ancienne) {
 		List <CommandeDistri> contreDemande= new ArrayList<CommandeDistri>();
 		boolean verification = false;
