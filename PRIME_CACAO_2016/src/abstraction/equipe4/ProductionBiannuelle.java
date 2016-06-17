@@ -18,6 +18,8 @@ public class ProductionBiannuelle {
 	}
 	
 	public int getCapaciteMaximale() {
+		
+		
 		return this.capaciteMaximale;
 	}
 	

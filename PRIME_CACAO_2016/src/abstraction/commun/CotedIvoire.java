@@ -6,6 +6,7 @@ package abstraction.commun;
 import abstraction.fourni.Acteur;
 
 
+
 //Ajout conform�ment � la r�union du vendredi 3/06 par l'�quipe 2 d'un troisi�me producteur mondial
 
 public class CotedIvoire implements IProducteur, Acteur {
@@ -14,6 +15,7 @@ public class CotedIvoire implements IProducteur, Acteur {
 	
 	public final static double RATIOCOTEDIVOIRE = 0.4;
 	
+
 	//Constructeur de l'acteur (tr�s simpli, il n'y a qu'une variable d'instance)
 	public CotedIvoire() {
 		this.concurrents = new ArrayList<IProducteur>();
@@ -29,29 +31,33 @@ public class CotedIvoire implements IProducteur, Acteur {
 		return this.concurrents;
 	}
 
+
 	//AnnonceQuantiteMiseEnVente(ITransformateur t) est vou�e � dispara�tre. 
 	//On la laisse vide pour le moment
 	
 	
 	//Il n'y aura jamais de notification de vente pour cet acteur, 
+
 	//mais il doit quand m�me impl�menter cette m�thode (vide)
 	@Override
 	public void notificationVente(CommandeProduc c) {
 	}
 
 
+
 	//renvoie la quantit� totale de cacao que la cote d'ivoire met en vente � la step consid�r� 
 	@Override
-	public double annonceQuantitePropose() {
+	public double annonceQuantiteProposee() {
 		double quantite = 0;
 		for (IProducteur p : this.getConcurrents()) {
-			quantite+=p.annonceQuantitePropose();
+			quantite+=p.annonceQuantiteProposee();
 		}
 		return RATIOCOTEDIVOIRE*quantite;
 	}
 
 	@Override
 	public String getNom() {
+
 		return "C�te d'Ivoire";
 	}
 
@@ -60,6 +66,7 @@ public class CotedIvoire implements IProducteur, Acteur {
 	}
 
 	@Override
+
 	public double annonceQuantiteMiseEnVente(ITransformateurP t) {
 		// TODO Auto-generated method stub
 		return 0;
