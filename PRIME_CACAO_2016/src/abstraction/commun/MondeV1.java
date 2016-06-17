@@ -88,15 +88,13 @@ public class MondeV1 extends Monde {
 		lindt.ajouterDistributeur(Le);
 		lindt.ajouterProducteur(p1);
 		lindt.ajouterProducteur(p2);
+		//lindt.ajouterProducteur(CotedIvoire);
 		lindt.creer();
 
 		
-		t3.ajouterTransformateur(nestle);
 		t3.ajouterTransformateur(lindt);
 		
-		p1.ajouterTransformateur(nestle);
 		p1.ajouterTransformateur(lindt);
-		p1.ajouterTransformateur(t3);
 		
 
 		marcheProducteur.AjoutProducteur(p1);;
@@ -105,7 +103,9 @@ public class MondeV1 extends Monde {
 		marcheProducteur.AjoutTransformateur(lindt);
 		marcheProducteur.AjoutTransformateur(t3);
 		//penser a ajouter la cote d'ivoire
+
 		
+
 		
 		//maj 31/05 Leclerc
 		Le.getStock().initialiseStock(Le);	

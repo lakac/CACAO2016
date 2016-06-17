@@ -1,8 +1,7 @@
 package abstraction.commun;
 
-import abstraction.fourni.Acteur;
 
-public class CommandeProduc {
+public class CommandeProduc extends Commande{
 
 	/**
 	 * Classe modelisant les commandes entre producteur et transformateur
@@ -10,43 +9,53 @@ public class CommandeProduc {
 	 * @author equipe 5
 	 */
 
-	private double quantite;
-	private double prixTonne;
-
+	
+	private ITransformateurP acheteur;
+	private IProducteur vendeur;
+	
 	public CommandeProduc(double quantite, double prixTonne) {
-		this.quantite = quantite;
-		this.prixTonne = prixTonne;
+		super(quantite, prixTonne);
+	}
+	
+	
+	// Toutes les méthodes depraciated
+	
+	/**
+	 * @depreciated
+	 */
+	public CommandeProduc(ITransformateurP acheteur, IProducteur vendeur, double quantite, double prixTonne) {
+		super(quantite, prixTonne);
+		this.acheteur = acheteur;
+		this.vendeur = vendeur;
 	}
 
 	
-	@Deprecated
-	public CommandeProduc(ITransformateur t,IProducteur p, double quantite,double prixTonne ){
-		this(quantite,prixTonne);
+	/**
+	 * @depreciated
+	 */
+	public void setAcheteur(ITransformateurP acheteur) {
+		this.acheteur = acheteur;
 	}
 
-
-	public void setQuantite(double quantite) {
-		this.quantite = quantite;
-	}
-
-	public void setPrixTonne(double prixTonne) {
-		this.prixTonne = prixTonne;
-	}
-
-	public double getQuantite(){
-		return this.quantite;
-	}
-
-	public double getPrixTonne() {
-		return this.prixTonne;
-
-	}
-
-	@Deprecated public ITransformateur getAcheteur(){
-		return null;
+	/**
+	 * @depreciated
+	 */
+	public void setVendeur(IProducteur vendeur) {
+		this.vendeur = vendeur;
 	}
 	
-	@Deprecated public IProducteur getVendeur(){
-		return null;
+	/**
+	 * @depreciated
+	 */
+	public ITransformateurP getAcheteur() {
+		return this.acheteur;
+	}
+
+
+	/**
+	 * @depreciated
+	 */
+	public IProducteur getVendeur() {
+		return this.vendeur;
 	}
 }

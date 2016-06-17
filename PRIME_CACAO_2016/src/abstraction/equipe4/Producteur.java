@@ -1,7 +1,6 @@
 package abstraction.equipe4;
 import abstraction.fourni.*;
 import abstraction.commun.*;
-import java.util.ArrayList;
 
 public class Producteur implements Acteur,IProducteur{
 
@@ -22,6 +21,7 @@ public class Producteur implements Acteur,IProducteur{
 		this.stock = new Stock(this);
 		this.journal = new Journal("Journal de "+this.nom);
 		this.prodBiannu=new ProductionBiannuelle(this,1200000);
+
 		Monde.LE_MONDE.ajouterJournal(this.journal);
 		this.offre = new Offre(this, Monde.LE_MONDE.getStep(), this.stock);
 
@@ -47,6 +47,7 @@ public class Producteur implements Acteur,IProducteur{
 	}
 
 
+
 	public Tresorerie getTreso() {
 		return this.treso;
 	}
@@ -56,8 +57,14 @@ public class Producteur implements Acteur,IProducteur{
 	}
 
 
+	public Offre getOffre() {
+		return this.offre;
+	}
+	
+
 	public void ajoutMarche(MarcheProd m){
 		this.marcheProducteur=m;
+
 	}
 
 	// le next du producteur 2	
@@ -78,7 +85,8 @@ public class Producteur implements Acteur,IProducteur{
 	// retourne un double valant la quantité disponible 
 	// pour le marche
 	public double annonceQuantiteProposee() {
-		return offre.venteAPriori();
+		return this.getOffre().offre();
+
 	}
 
 	//Modification du stock et de la tresorerie suite a une vente
@@ -101,12 +109,12 @@ public class Producteur implements Acteur,IProducteur{
 		this.venteRealisee(c);
 	}
 
+
 	@Override
-	public double annonceQuantiteMiseEnVente(ITransformateur t) {
+	public double annonceQuantiteMiseEnVente(ITransformateurP t) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 
 
 }
