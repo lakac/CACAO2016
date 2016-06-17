@@ -5,7 +5,7 @@ public interface IProducteur {
 	/**
 	 * Indique la quantité disponible à la vente pour le transformateur t.
 	 */
-	public double annonceQuantiteMiseEnVente(ITransformateur t);
+	public double annonceQuantiteMiseEnVente(ITransformateurP t);
 
 	//Conformément à la réunion du 03/06, créé par l'équipe 2 le 8/06.
 	/**
