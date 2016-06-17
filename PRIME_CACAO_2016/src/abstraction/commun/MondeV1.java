@@ -64,7 +64,7 @@ public class MondeV1 extends Monde {
 		
 		// Marché Consommateur
 		//MarcheConsommateurs marcheConsommateurs = new MarcheConsommateurs();
-		//MarcheConsommateurs.LE_MARCHE = marcheConsommateurs;
+		//MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS = marcheConsommateurs;
 		//this.ajouterActeur(marcheConsommateurs);
 		
 		// Producteurs
@@ -81,6 +81,7 @@ public class MondeV1 extends Monde {
 		
 		Ca.ajouterVendeur(nestle);
 		Ca.ajouterVendeur(lindt);
+		Ca.setMaDi(MaDi);
 
 		nestle.AjouterClient(Le);
 		nestle.AjouterClient(Ca);
@@ -114,8 +115,7 @@ public class MondeV1 extends Monde {
 		marcheProducteur.ajouterTransformateur(nestle);
 		marcheProducteur.ajouterTransformateur(lindt);
 		MaDi.addDistributeur(Ca);
-		MaDi.addDistributeur(Le);
-		MaDi.addTransformateur(t3);
+		// MaDi.addDistributeur(Le);
 		MaDi.addTransformateur(lindt);
 		MaDi.addTransformateur(nestle);
 		for (int i=0; i<produits.size(); i++) {
