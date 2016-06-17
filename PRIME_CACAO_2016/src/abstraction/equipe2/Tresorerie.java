@@ -93,7 +93,7 @@ public class Tresorerie {
 	
 	//Calcule le cout de transformation lorsuq'on effectue une transformation t
 	private double CoutTransformation (Transformation t) {
-		double couttransformation = t.getCacaotransforme()*Constante.COUT_DE_TRANSFORMATION;
+		double couttransformation = t.cacaoATransformer()*Constante.COUT_DE_TRANSFORMATION;
 		return couttransformation;
 	}
 	
@@ -117,7 +117,7 @@ public class Tresorerie {
 		
 		//test des méthodes relatives au setter d'achat et test du setter d'achat.
 		//Initialisation de commandeProducs
-		ITransformateur acheteurtest = new Nestle_new();
+		ITransformateur acheteurtest = new Nestle();
 		IProducteur vendeurtest = new Producteur("vendeurtest");
 		CommandeProduc cp1 = new CommandeProduc(acheteurtest, vendeurtest, 0, 0);
 		CommandeProduc cp2 = new CommandeProduc(acheteurtest, vendeurtest, 500, 6);

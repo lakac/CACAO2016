@@ -6,27 +6,24 @@ package abstraction.commun;
  * @author equipe 5
  */
 
-public class CommandeDistri implements Comparable {
+
+public class CommandeDistri extends Commande {
 	private IDistributeur acheteur;
-	private ITransformateur vendeur;
+	private ITransformateurD vendeur;
 	private Produit produit;
-	private double quantite;
-	private double prixTonne;
 	private boolean validation;
 	private int stepLivraison;
 	
 	//Ajout d'un constructeur simple pour les test (11/06, équipe 2)
-	public CommandeDistri(Produit produit, double quantite, double prixtonne) {
-		this.quantite = quantite;
-		this.prixTonne = prixtonne;
+	public CommandeDistri(double quantite, double prixtonne) {
+		super(quantite, prixtonne);
 	}
 
-	public CommandeDistri(IDistributeur acheteur, ITransformateur vendeur, Produit produit, double quantite, double prixTonne, int stepLivraison, boolean validation) {
+	public CommandeDistri(IDistributeur acheteur, ITransformateurD vendeur, Produit produit, double quantite, double prixTonne, int stepLivraison, boolean validation) {
+		super(quantite, prixTonne);
 		this.acheteur = acheteur;
 		this.vendeur = vendeur;
-		this.produit = produit; //Change string en produit 19/05 A.MARTY
-		this.quantite = quantite;
-		this.prixTonne=prixTonne;
+		this.produit = produit;
 		this.stepLivraison = stepLivraison;
 		this.validation = validation;
 	}
@@ -44,7 +41,7 @@ public class CommandeDistri implements Comparable {
 		return this.acheteur;
 	}
 
-	public ITransformateur getVendeur() {
+	public ITransformateurD getVendeur() {
 		return this.vendeur;
 	}
 
@@ -52,16 +49,8 @@ public class CommandeDistri implements Comparable {
 		this.acheteur = acheteur;
 	}
 
-	public void setVendeur(ITransformateur vendeur) {
+	public void setVendeur(ITransformateurD vendeur) {
 		this.vendeur = vendeur;
-	}
-
-	public void setQuantite(double quantite) {
-		this.quantite = quantite;
-	}
-	
-	public void setPrixTonne(double prixTonne) {
-		this.prixTonne = prixTonne;
 	}
 	
 	public void setValidation(boolean b) {
@@ -72,14 +61,6 @@ public class CommandeDistri implements Comparable {
 		this.stepLivraison = i;
 	}
 
-	public double getQuantite(){
-		return this.quantite;
-	}
-
-	public double getPrixTonne() {
-		return this.prixTonne;
-	}
-	
 	public int getStepLivraison() {
 		return this.stepLivraison;
 	}
@@ -93,17 +74,5 @@ public class CommandeDistri implements Comparable {
 		return (o!=null && o instanceof CommandeDistri && ((CommandeDistri)o).getAcheteur()==this.getAcheteur()
 				&& ((CommandeDistri)o).getVendeur()==this.getVendeur() && ((CommandeDistri)o).getProduit()==this.getProduit()
 					&& ((CommandeDistri)o).getStepLivraison()==this.getStepLivraison());
-	}
-
-	///Equipe 2, le 17/06 J'ai besoin de rendre une commande comparable
-	//Un commande est supérieure à une autre si la quantité commandée est plus grande.
-	@Override
-	public int compareTo(Object arg0) {
-		if (arg0 instanceof CommandeDistri) {
-			return ((int) (this.getQuantite()-((CommandeDistri) arg0).getQuantite()));
-		}
-		else {
-			return -1;
-		}
 	}
 }

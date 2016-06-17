@@ -1,5 +1,7 @@
 package abstraction.equipe2;
+import abstraction.commun.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 import abstraction.commun.Catalogue;
@@ -7,10 +9,9 @@ import abstraction.commun.CommandeDistri;
 import abstraction.commun.CommandeProduc;
 import abstraction.commun.*;
 import abstraction.commun.IProducteur;
-import abstraction.commun.ITransformateur;
 import abstraction.fourni.Acteur;
 
-public class Nestle_new implements Acteur, ITransformateur {
+
 	
 	private int etape; //indique l'étape à laquelle on se trouve.
 	
@@ -125,7 +126,6 @@ public class Nestle_new implements Acteur, ITransformateur {
 	//Retourne la quantité de cacao souhaitée par Nestle. Cette méthode est appelée par le marché.
 	//Tels que nous avons implémenté les stocks de cacao, il faut prendre en compte la commande des distributeurs,
 	//Calculer la quantité de cacao necessaire et y ajouter la marge de cacao souhaitée
-	@Override
 	public double annonceQuantiteDemandee() {
 		int etape = this.getEtape();
 		if (etape == 0) { // Si on a pas encore reçu de commande, si rien ne s'est passé...
@@ -139,34 +139,33 @@ public class Nestle_new implements Acteur, ITransformateur {
 	}
 
 	//Celle ci est dépréciée. Il est inutile de la remplir
-	@Override
 	public double annonceQuantiteDemandee(IProducteur p) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
 	public double annoncePrix() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+public class Nestle_new implements ITransformateurP, ITransformateurD {
+	
+	private HashMap<IDistributeur,List<CommandeDistri>> commandesdistri;
+	private StockCacao stockCacao;
+	private StockChocolats stockChocolats;
+	private Tresorerie tresorerie;
+	
+
+	public void next() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public Catalogue getCatalogue() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public void notificationVente(CommandeProduc c) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void notificationVente(IProducteur p) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -182,25 +181,55 @@ public class Nestle_new implements Acteur, ITransformateur {
 	}
 
 	@Override
-	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<CommandeDistri> offre(List<CommandeDistri> list) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String getNom() {
+	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void next() {
+	public double annoncePrix() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	public HashMap<IDistributeur, List<CommandeDistri>> getCommandesdistri() {
+		return commandesdistri;
+	}
+
+
+	// Annonce de la quantite de CACAO souhaitée au marche
+	public double annonceQuantiteDemandee() {
+		double resultat = 0.0;
+		for (IDistributeur d : this.getCommandesdistri().keySet()) {
+		 	for (CommandeDistri c : this.getCommandesdistri().get(d)) {
+				resultat+=c.getQuantite()*c.getProduit().getRatioCacao()
+						*(Constante.ACHAT_SANS_PERTE+(Constante.PERTE_MINIMALE + Math.random()*(Constante.VARIATION_PERTE)))
+						*Constante.DEMANDE_ACTEURS;
+			}
+		}
+		return resultat;
+	}
+
+	//Methode inutile
+	public double annonceQuantiteDemandee(IProducteur p) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	// Declenche la mise a jour de la tresorerie de du stock de CACAO
+	public void notificationVente(CommandeProduc c) {
+		tresorerie.setTresorerieAchat(c);
+		this.stockCacao.MiseAJourStockLivraison(Constante.CACAO,c.getQuantite());
+	}
+
+	//Methode inutile
+	public void notificationVente(IProducteur p) {
 		// TODO Auto-generated method stub
 		
 	}

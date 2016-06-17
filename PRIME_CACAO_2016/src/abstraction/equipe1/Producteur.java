@@ -6,7 +6,8 @@ import abstraction.fourni.Journal;
 import abstraction.fourni.Monde;
 import abstraction.commun.CommandeProduc;
 import abstraction.commun.IProducteur;
-import abstraction.commun.ITransformateur;
+import abstraction.commun.ITransformateurD;
+import abstraction.commun.ITransformateurP;
 import abstraction.commun.Constantes;
 
 import java.util.ArrayList;
@@ -23,18 +24,12 @@ public class Producteur implements Acteur, IProducteur {
 	private Indicateur tresorerie;
 	private double coutProduction;
 	private double[] productionDeBase;
-	private Map<ITransformateur,Double> quantitesProposees;
+	private Map<ITransformateurP,Double> quantitesProposees;
 	private Indicateur productionCourante;
 	private Journal journal;
-	private List<ITransformateur> transformateurs;
-	//mis en commentaire pour pouvoir effectuer des test sur les classe (équipe 2, 11/06)
-	//private IntelligenceEconomique intelligenceEconomique;
+	private List<ITransformateurP> transformateurs;
+	private IntelligenceEconomique intelligenceEconomique;
 	
-	//Constructeur prenant un nom en argument (pour les tests des transformateurs...)
-	//ajout équipe 2 11/06
-	public Producteur(String nom) {
-		this.nom = nom;
-	}
 	/**
 	 * Initialise notre producteur a partir d'un stock et d'une tresorerie initiaux.
 	 */
@@ -56,15 +51,14 @@ public class Producteur implements Acteur, IProducteur {
 		// Afin d'eviter d'avoir une demande effective de la somme des transformateurs superieure a ce que nous pouvons
 		// mettre en vente, nous proposons a chaque transformateur une quantite specifique que nous sommes surs de pouvoir
 		// lui fournir.
-		this.quantitesProposees = new HashMap<ITransformateur,Double>();
+		this.quantitesProposees = new HashMap<ITransformateurP,Double>();
 		
 		this.journal = new Journal("Journal de "+this.nom);
 		Monde.LE_MONDE.ajouterJournal(this.journal);
 		
-		this.transformateurs = new ArrayList<ITransformateur>();
+		this.transformateurs = new ArrayList<ITransformateurP>();
 		
-		//Mise en commentaire de l'intelligence économique pour effectuer des tests (équipe 2 11/06)
-		//this.intelligenceEconomique = new IntelligenceEconomique(this.transformateurs,this.stock);
+		this.intelligenceEconomique = new IntelligenceEconomique(this.transformateurs,this.stock);
 	}
 		
 	// MÃ©thodes de l'interface Acteur
@@ -82,7 +76,7 @@ public class Producteur implements Acteur, IProducteur {
 	
 	// MÃ©thodes de l'interface IProducteur
 	
-	public double annonceQuantiteMiseEnVente(ITransformateur t) {
+	public double annonceQuantiteMiseEnVente(ITransformateurD t) {
 		return this.getQuantiteProposee(t);
 	}
 	
@@ -98,7 +92,7 @@ public class Producteur implements Acteur, IProducteur {
 	
 	// MÃ©thodes publiques
 	
-	public void ajouterTransformateur(ITransformateur transformateur) {
+	public void ajouterTransformateur(ITransformateurP transformateur) {
 		this.transformateurs.add(transformateur);
 		this.quantitesProposees.put(transformateur, 0.0);
 		this.intelligenceEconomique.prendreEnCompte(transformateur);
@@ -109,7 +103,7 @@ public class Producteur implements Acteur, IProducteur {
 	/**
 	 * @return l'ensemble des transformateurs.
 	 */
-	private List<ITransformateur> getTransformateurs() {
+	private List<ITransformateurP> getTransformateurs() {
 		return this.transformateurs;
 	}
 	
@@ -126,7 +120,7 @@ public class Producteur implements Acteur, IProducteur {
 	}
 	
 	private void repartirQuantites() {
-		for (ITransformateur t : this.getTransformateurs()) {
+		for (ITransformateurP t : this.getTransformateurs()) {
 			this.quantitesProposees.put(t,this.intelligenceEconomique.donnerQuantiteMiseEnVente(t));
 		}
 	}
@@ -162,12 +156,16 @@ public class Producteur implements Acteur, IProducteur {
 		this.productionCourante.setValeur(this, valeur);
 	}
 	
-	private double getQuantiteProposee(ITransformateur t) {
+	private double getQuantiteProposee(ITransformateurD t) {
 		return this.quantitesProposees.get(t);
 	}
 
-	//Réunion du 03/06 Ajout par l'équipe 2 le 8/06
-	@Override
+
+	public double annonceQuantiteMiseEnVente(ITransformateurP t) {
+		return 0.0;
+	}
+
+	//Rï¿½union du 03/06 Ajout par l'ï¿½quipe 2 le 8/06
 	public double annonceQuantitePropose() {
 		// TODO Auto-generated method stub
 		return 0;

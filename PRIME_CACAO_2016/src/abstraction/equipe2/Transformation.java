@@ -28,6 +28,11 @@ public class Transformation {
 		this.transformation.put(p, transformation);
 	}
 	
+	
+	
+	//ce constructeur ne sera jamais utilisé, 
+	//il vaudrait mieux garder le constructeur vide et des méthodes de production à mon sens
+	//mais je vais l'utiliser pour les tests de la trésorerie
 	//Constructeurs
 	//Un constructeur général 
 	public Transformation(double chocolat50, double chocolat60, double chocolat70){
@@ -60,6 +65,11 @@ public class Transformation {
 		}
 		return dictionnaire;
 	}
+
+	
+	
+	/**Accesseurs en lecture*/
+	
 	
 	//La méthode qui suit me sert à trier une liste. 
 	//Elle s'avère nécessaire pour classe les Distributeurs
@@ -183,13 +193,7 @@ public class Transformation {
 		return 0; //A COMPLETER
 	}
 	
-	public double calculPerteCacao(){
-		return 0; //A COMPLETER
-	}
 	
-	public double calculMargedesecurite(){
-		return 0; //A COMPLETER
-	}
 	
 	/**Calcul du cacao a transformer en fonction de 
 	 * la commande , la perte et la marge de securite
@@ -198,12 +202,11 @@ public class Transformation {
 	 *  */
 	public double cacaoATransformer(){
 		double cacaoATransformer = 0;
-		
 		double commande = this.quantiteCommandeDistri();
-		double perte = this.calculPerteCacao();
-		double marge =this.calculMargedesecurite();
+		//double perte = this.calculPerteCacao();
+		//double marge =this.calculMargedesecurite();
 		
-		cacaoATransformer = commande + perte + marge;
+		//cacaoATransformer = commande + perte + marge;
 		
 		return cacaoATransformer; 
 	}
@@ -231,9 +234,21 @@ public class Transformation {
 	 * ps: on peut eventuellement completer en rajoutant les autres ingredients 
 	 * */
 	
-	public void transformerCacaoChocolat(){
+	/*public void transformerCacaoChocolat(){
+		double cacaoATransformer = this.cacaoATransformer();
 		
-	}
+		double chocolat50 = 0.5*cacaoATransformer;
+		double chocolat60 = 0.6*cacaoATransformer;
+		double chocolat70 = 0.7*cacaoATransformer;
+		
+		
+		Transformation t = new Transformation();
+		t.setChocolat50(chocolat50);
+		t.setChocolat60(chocolat60);
+		t.setChocolat70(chocolat70);
+		
+		return t;	
+	}*/
 	
 	
 	/**Mise a jour du Stock de chocolats transformes 
