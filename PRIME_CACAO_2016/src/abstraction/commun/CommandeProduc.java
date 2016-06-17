@@ -1,4 +1,5 @@
- package abstraction.commun;
+package abstraction.commun;
+
 
 public class CommandeProduc extends Commande{
 
@@ -7,6 +8,7 @@ public class CommandeProduc extends Commande{
 	 * 
 	 * @author equipe 5
 	 */
+
 	
 	private ITransformateurP acheteur;
 	private IProducteur vendeur;
@@ -26,6 +28,7 @@ public class CommandeProduc extends Commande{
 		this.acheteur = acheteur;
 		this.vendeur = vendeur;
 	}
+
 	
 	/**
 	 * @depreciated
@@ -47,6 +50,7 @@ public class CommandeProduc extends Commande{
 	public ITransformateurP getAcheteur() {
 		return this.acheteur;
 	}
+
 
 	/**
 	 * @depreciated
