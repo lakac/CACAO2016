@@ -6,24 +6,25 @@ package abstraction.commun;
  * @author equipe 5
  */
 
-public class CommandeDistri {
+public class CommandeDistri extends Commande {
 	private IDistributeur acheteur;
-	private ITransformateur vendeur;
+	private ITransformateurD vendeur;
 	private Produit produit;
-	private double quantite;
-	private double prixTonne;
 	private boolean validation;
 	private int stepLivraison;
 	private double prix;
 
-	public CommandeDistri(IDistributeur acheteur, ITransformateur vendeur, Produit produit, double quantite, double prixTonne, int stepLivraison, boolean validation) {
+	public CommandeDistri(IDistributeur acheteur, ITransformateurD vendeur, Produit produit, double quantite, double prixTonne, int stepLivraison, boolean validation) {
+		super(quantite, prixTonne);
 		this.acheteur = acheteur;
 		this.vendeur = vendeur;
+
 		this.produit = produit; //Change string en produit 19/05 A.MARTY
 		this.quantite = quantite;
 
 		this.prixTonne = prixTonne;
 		this.prix = prixTonne*quantite;
+
 		this.stepLivraison = stepLivraison;
 		this.validation = validation;
 	}
@@ -49,7 +50,7 @@ public void setProduit(Produit produit) {
 		return this.acheteur;
 	}
 
-	public ITransformateur getVendeur() {
+	public ITransformateurD getVendeur() {
 		return this.vendeur;
 	}
 
@@ -57,8 +58,9 @@ public void setProduit(Produit produit) {
 		this.acheteur = acheteur;
 	}
 
-	public void setVendeur(ITransformateur vendeur) {
+	public void setVendeur(ITransformateurD vendeur) {
 		this.vendeur = vendeur;
+
 	}
 
 	public void setQuantite(double quantite) {
@@ -67,6 +69,7 @@ public void setProduit(Produit produit) {
 
 	public void setPrixTonne(double prixTonne) {
 		this.prixTonne = prixTonne;
+
 	}
 	
 	public void setValidation(boolean b) {
@@ -77,14 +80,6 @@ public void setProduit(Produit produit) {
 		this.stepLivraison = i;
 	}
 
-	public double getQuantite(){
-		return this.quantite;
-	}
-
-	public double getPrixTonne() {
-		return this.prixTonne;
-	}
-	
 	public int getStepLivraison() {
 		return this.stepLivraison;
 	}
