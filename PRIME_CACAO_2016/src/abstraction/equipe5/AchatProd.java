@@ -127,7 +127,7 @@ public class AchatProd {
 		this.getStock().ajouterStock(c.getQuantite());
 		System.out.println("apres "+this.getStock().getStock());
 		this.getTreso().retrait(c.getQuantite()*c.getPrixTonne());
-		System.out.println("treso "+ this.treso);
+		System.out.println("treso "+ this.treso.toString());
 	}
 	
 //	/**
