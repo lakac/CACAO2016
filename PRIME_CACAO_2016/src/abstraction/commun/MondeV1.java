@@ -138,7 +138,7 @@ public class MondeV1 extends Monde {
 		MarcheCons.LE_MARCHE_CONS.initialiserDemandeAnnuelle();
 		MarcheCons.LE_MARCHE_CONS.initialiserCalendrierDemande();
 		MarcheCons.LE_MARCHE_CONS.initialiserPourcentageIncertitudeVentes();
-		//MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiserFidelite();
+		MarcheCons.LE_MARCHE_CONS.initialiserFidelite();
 
 
 		

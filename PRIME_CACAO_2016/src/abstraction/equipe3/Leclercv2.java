@@ -179,9 +179,15 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	public double recette(){
 		double recette = 0.0;
 		int j =0;
+		List<CommandeDistri> venteeffectuees = MarcheCons.LE_MARCHE_CONS.getVenteDistri(this);
 		for (Produit p : this.getProduits()){ 
-			//recette+=MarcheCons.LE_MARCHE_CONS.getVentesEffectuees().get(this).get(p)*this.prixdevente.getPrixDeVente().get(j);
-			j++;
+			for (CommandeDistri com : venteeffectuees){
+				if (com.getProduit()==p){
+					recette+=com.getQuantite()*this.prixdevente.getPrixDeVente().get(j);
+					
+				}
+			}
+			j++;			
 		}
 		return recette;
 	}
