@@ -59,7 +59,7 @@ public class Producteur implements Acteur,IProducteur{
 	public Offre getOffre() {
 		return this.offre;
 	}
-	
+
 
 	// le next du producteur 2	
 	public void next(){
@@ -100,7 +100,9 @@ public class Producteur implements Acteur,IProducteur{
 	}
 
 	public void notificationVente(CommandeProduc c) {
-		this.venteRealisee(c);
+		if (c.getPrixTonne()>0 && c.getQuantite()>0){
+			this.venteRealisee(c);
+		}
 	}
 
 

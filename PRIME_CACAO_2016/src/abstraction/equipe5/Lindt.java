@@ -41,8 +41,8 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 	}
 
 	public void creer() {
-		this.histCommandeProduc.ajouter(new CommandeProduc(100.0, MarcheProducteur.LE_MARCHE.getCours()));
-		this.histCommandeProduc.ajouter(new CommandeProduc(100.0, MarcheProducteur.LE_MARCHE.getCours()));
+		this.histCommandeProduc.ajouter(new CommandeProduc(100.0, MarcheProd.LE_MARCHE.getCoursCacao().getValeur()));
+		this.histCommandeProduc.ajouter(new CommandeProduc(100.0, MarcheProd.LE_MARCHE.getCoursCacao().getValeur()));
 		this.treso = new Tresorerie(this.histCommandeDistri, this.histCommandeProduc, this, this.getProducteurs());
 		this.achatProd = new AchatProd(this.histCommandeProduc,this.histCommandeDistri, this, this.stockCacao, this.treso);	
 		this.venteDist = new VenteDist(this, this.getTreso());
@@ -103,13 +103,13 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 
 	
 	public void next() {
-		this.getTransformationCacaoChocolat().Transformation(); // transforme le cacao en chocolat et met à jour les stocks (retire pour cacao et ajoute pour chocolat)
+		this.getTransformationCacaoChocolat().Transformation(); // transforme le cacao en chocolat et met ﾃ� jour les stocks (retire pour cacao et ajoute pour chocolat)
 		
-		// si on commente ça, pas de rouge --> il y a surement une erreur dans MarcheDistri obtenirCommandeFinale
-//		for(IDistributeur d: this.getDistributeurs()){ // ajout des commandes finales à notre historique
+		// si on commente ﾃｧa, pas de rouge --> il y a surement une erreur dans MarcheDistri obtenirCommandeFinale
+//		for(IDistributeur d: this.getDistributeurs()){ // ajout des commandes finales ﾃ� notre historique
 //			for (CommandeDistri cd : MarcheDistributeur.LE_MARCHE_DISTRIBUTEUR.obtenirCommandeFinale(this,d)){ 
-//				//tant que les distributeurs ne créent pas dans le marche une variable d'instance static 
-//				// (public static MarcheDistributeur LE_MARCHE_DISTRIBUTEUR;), on ne pourra pas appeler cette méthode
+//				//tant que les distributeurs ne crﾃｩent pas dans le marche une variable d'instance static 
+//				// (public static MarcheDistributeur LE_MARCHE_DISTRIBUTEUR;), on ne pourra pas appeler cette mﾃｩthode
 //				this.getHistCommandeDistri().ajouter(cd);
 //		}}
 //		System.out.println(getHistCommandeDistri());
