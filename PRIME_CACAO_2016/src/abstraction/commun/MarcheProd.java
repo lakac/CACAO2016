@@ -18,12 +18,6 @@ public class MarcheProd implements Acteur{
 
 	private ArrayList<ITransformateurP> transformateurs;
 	private double quantiteTotaleDemandee;
-	
-	/** Reference statique de l'unique instance du marche du cacao   
-	 * Copyright equipe 1*/
-	public static MarcheProd LE_MARCHE;
-
-	
 
 	public MarcheProd() {
 		this.coursCacao = new Indicateur("Cours de cacao du Marche",this,3000.0);

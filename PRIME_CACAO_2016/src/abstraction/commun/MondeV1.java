@@ -17,9 +17,9 @@ public class MondeV1 extends Monde {
 	
 	private static ArrayList<Produit> produits = new ArrayList<Produit>();
 	
-	
 	public void peupler() {
 		// Il faut créer les acteurs et les ajouter au monde ici.
+		
 		
 		//Initialisation de la liste produits
 		produits.add(new Produit("50%",50));
@@ -52,9 +52,7 @@ public class MondeV1 extends Monde {
 		
 		// Marché Producteur
 		MarcheProd marcheProducteur = new MarcheProd();
-		MarcheProd.LE_MARCHE=marcheProducteur;
 		this.ajouterActeur(marcheProducteur);
-		
 		
 		// Marché Consommateur
 		//MarcheConsommateurs marcheConsommateurs = new MarcheConsommateurs();
@@ -95,7 +93,6 @@ public class MondeV1 extends Monde {
 
 		
 		t3.ajouterTransformateur(lindt);
-		t3.ajouterTransformateur(nestle);
 		
 		p1.ajouterTransformateur(lindt);
 		

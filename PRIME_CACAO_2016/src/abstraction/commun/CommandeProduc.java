@@ -23,7 +23,7 @@ public class CommandeProduc extends Commande{
 	/**
 	 * @depreciated
 	 */
-	@Deprecated public CommandeProduc(ITransformateurP acheteur, IProducteur vendeur, double quantite, double prixTonne) {
+	public CommandeProduc(ITransformateurP acheteur, IProducteur vendeur, double quantite, double prixTonne) {
 		super(quantite, prixTonne);
 		this.acheteur = acheteur;
 		this.vendeur = vendeur;
@@ -33,21 +33,21 @@ public class CommandeProduc extends Commande{
 	/**
 	 * @depreciated
 	 */
-	 @Deprecated public void setAcheteur(ITransformateurP acheteur) {
+	public void setAcheteur(ITransformateurP acheteur) {
 		this.acheteur = acheteur;
 	}
 
 	/**
 	 * @depreciated
 	 */
-	@Deprecated public void setVendeur(IProducteur vendeur) {
+	public void setVendeur(IProducteur vendeur) {
 		this.vendeur = vendeur;
 	}
 	
 	/**
 	 * @depreciated
 	 */
-	@Deprecated public ITransformateurP getAcheteur() {
+	public ITransformateurP getAcheteur() {
 		return this.acheteur;
 	}
 
@@ -55,7 +55,7 @@ public class CommandeProduc extends Commande{
 	/**
 	 * @depreciated
 	 */
-	@Deprecated public IProducteur getVendeur() {
+	public IProducteur getVendeur() {
 		return this.vendeur;
 	}
 }
