@@ -11,7 +11,9 @@ import abstraction.fourni.Acteur;
 
 public interface IDistributeur extends Acteur {
 		
-	public List<CommandeDistri> demande (ITransformateur t, Catalogue c);
+
+	public List<CommandeDistri> Demande (ITransformateurD t, Catalogue c);
+
 
 
 	public List<CommandeDistri> contreDemande (List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne);

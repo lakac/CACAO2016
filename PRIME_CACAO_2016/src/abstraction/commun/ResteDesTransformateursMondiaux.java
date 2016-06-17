@@ -12,17 +12,17 @@ import abstraction.fourni.Acteur;
  * Les producteurs vendent du cacao au reste des tansformateurs mondiaux.
  * le reste des tansformateurs mondiaux ont une demande proportionnelle a la demande des transformateurs reelle
  *
- * @author Equipe 4 avec l'aide de l'equipe 1.
+ * @author Equipe 4 avec l'aide de l'equipe 1 (+ Petites modifs de l'equipe 5)
  */
 
-public class ResteDesTransformateursMondiaux implements Acteur, ITransformateur {
+public class ResteDesTransformateursMondiaux implements Acteur, ITransformateurP {
 
-	private List<ITransformateur> transformateurs;
+	private List<ITransformateurP> transformateurs;
 	
 	
 	// constructeur
 	public ResteDesTransformateursMondiaux(){
-		this.transformateurs = new ArrayList<ITransformateur>();
+		this.transformateurs = new ArrayList<ITransformateurP>();
 		
 	}
 
@@ -31,16 +31,15 @@ public class ResteDesTransformateursMondiaux implements Acteur, ITransformateur 
 	 * Ajoute un transformateur reel a la liste des transformateurs
 	 * servant a calculer la quantite mise en vente.
 	 */
-	public void ajouterTransformateur(ITransformateur transformateur) {
+	public void ajouterTransformateur(ITransformateurP transformateur) {
 		if (!this.transformateurs.contains(transformateur) && transformateur != this) {
 			this.transformateurs.add(transformateur);
 		}
 	}
 
-	@Override
 	public double annonceQuantiteDemandee() {
 		double qt =0;
-		for (ITransformateur t : this.transformateurs) {
+		for (ITransformateurP t : this.transformateurs) {
 			qt += t.annonceQuantiteDemandee();
 		}
 
@@ -52,17 +51,16 @@ public class ResteDesTransformateursMondiaux implements Acteur, ITransformateur 
 		return qt / 17.0 * pourcentage;
 	}
 
-	@Override
+	
 	public void notificationVente(CommandeProduc c) {
 		// On ne simule aucun etat concernant le reste du monde
 	}
 
-	@Override
 	public String getNom() {
 		return Constantes.NOM_TRANSFORMATEUR_3;
 	}
 
-	@Override
+	
 	public void next() {
 		// On ne simule aucun etat concernant le reste du monde
 
@@ -72,34 +70,45 @@ public class ResteDesTransformateursMondiaux implements Acteur, ITransformateur 
 	}
 
 
-	@Override
 	public double annoncePrix() {
 		return MarcheProducteur.LE_MARCHE.getCours();
 	}
 
-	@Override
+	
 	public Catalogue getCatalogue() {
 		// On ne simule aucun etat concernant le reste du monde pour les distributeurs
 		return null;
 	}
 
-	@Override
-	public List<CommandeDistri> offre(List<CommandeDistri> o) {
+
+	
+	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
+
 		// On ne simule aucun etat concernant le reste du monde	pour les distributeurs
 		return null;
 	}
 
 
+
+	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
+		return cf;
+		// On ne simule aucun etat concernant le reste du monde	pour les distributeurs
+	}
+
 	
-	@Override
 	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> list) {
 		// On ne simule aucun etat concernant le reste du monde	pour les distributeurs
 		return null;
 	}
 
-	@Override
 	public void notificationVente(IProducteur p) {
 		// méthode dépréciée
+	}
+
+
+	public List<CommandeDistri> offre(List<CommandeDistri> list) {
+		// On ne simule aucun etat concernant le reste du monde	pour les distributeurs
+		return null;
 	}
 
 

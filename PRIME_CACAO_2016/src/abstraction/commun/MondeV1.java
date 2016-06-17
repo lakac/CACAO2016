@@ -106,22 +106,15 @@ public class MondeV1 extends Monde {
 		p1.ajouterTransformateur(t3);
 		
 		p2.ajoutClient(nestle);
-		p2.ajoutClient(lindt);
-		p2.ajoutClient(t3);		
+		p2.ajoutClient(lindt);	
 		p2.AjoutVariableVente();
 		
+
 		marcheProducteur.ajouterProducteur(p1);
 		marcheProducteur.ajouterProducteur(p2);
-		marcheProducteur.ajouterTransformateur(nestle);
 		marcheProducteur.ajouterTransformateur(lindt);
-		MaDi.addDistributeur(Ca);
-		// MaDi.addDistributeur(Le);
-		MaDi.addTransformateur(lindt);
-		// MaDi.addTransformateur(nestle);
-		for (int i=0; i<produits.size(); i++) {
-			MaDi.addProduit(produits.get(i));
-		}
 		
+
 		//maj 31/05 Leclerc
 		Le.getStock().initialiseStock(Le);	
 

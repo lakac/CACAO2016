@@ -1,4 +1,4 @@
-package abstraction.commun;
+ package abstraction.commun;
 
 /**
  * Classe modelisant les plages de valeurs qui permettent d'établir les différents
