@@ -1,14 +1,52 @@
 package abstraction.equipe2;
 import abstraction.commun.*;
+import abstraction.fourni.*;
 
 import java.util.HashMap;
 import java.util.List;
 
 
-public class Nestle_new implements ITransformateurP, ITransformateurD {
+public class Nestle implements ITransformateurP, ITransformateurD {
+	
+	/**Variables d'instance 
+	 * 
+	 * historiqueCommandeDistri utile pour la classe PartDeMarche qui etablit un ordre priorite
+	 * des Commandes a honore suivant les meilleurs clients
+	 * 
+	 * */
 	
 	private HashMap<IDistributeur,List<CommandeDistri>> commandesdistri;
+	private Historique historiqueCommandeDistri = new Historique(); 
+	
+	
+	/**Constructeurs*/
+	public Nestle(HashMap<IDistributeur,List<CommandeDistri>> commandesdistri, Historique historiqueCommandeDistri){
+		this.commandesdistri = commandesdistri;
+		this.historiqueCommandeDistri = historiqueCommandeDistri;
+	}
+	
+	
+	
+	
+	/**Accesseur en lecture*/	//A COMPLETER
+	
+	public Historique getHistoriqueCommandeDistri(){
+		return this.historiqueCommandeDistri;
+	}
+	
+	
+	
+	/**Accesseurs en ecriture*/		//A COMPLETER
+	
+	public void setHistoriqueCommandeDistri(Historique h){
+		this.historiqueCommandeDistri = h;
+	}
 
+	
+	
+	
+	
+	
 	public void next() {
 		// TODO Auto-generated method stub
 		
