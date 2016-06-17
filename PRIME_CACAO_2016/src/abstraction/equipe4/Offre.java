@@ -2,12 +2,12 @@ package abstraction.equipe4;
 
 import abstraction.fourni.Historique;
 
-
 public class Offre {
 	private Producteur producteur;
 	private int step;
 	private Stock stock;
 
+	
 	public Offre(Producteur producteur, int step, Stock stock) {
 		this.producteur = producteur;
 		this.step = step;

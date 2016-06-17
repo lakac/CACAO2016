@@ -1,15 +1,15 @@
 package abstraction.equipe4;
 
 public class ProductionBiannuelle {
-	//Capacité maximale de production mensuelle, sans prendre en compte les aléas
+	//Capacite maximale de production mensuelle, sans prendre en compte les aleas
 	private int capaciteMaximale; 
-	//Quantit� de cacao perdu avant r�colte (due aux al�as)
+	//Quantite de cacao perdu avant recolte (due aux aleas)
 	private double perteProduction; 
 	//Renvoie la production finale (maximale soustraite des pertes)
 	private double productionFinale; 
 	private Producteur prod;
 	
-	//constructeur. Il sera appelé tous les six mois pour déterminer la production bi-annuelle.
+	//constructeur. Il sera appele tous les six mois pour determiner la production bi-annuelle.
 	public ProductionBiannuelle(Producteur p,int capaciteMaximale) { 
 		this.capaciteMaximale = capaciteMaximale;
 		this.perteProduction = 0.0;
@@ -18,8 +18,6 @@ public class ProductionBiannuelle {
 	}
 	
 	public int getCapaciteMaximale() {
-		
-		
 		return this.capaciteMaximale;
 	}
 	
@@ -44,25 +42,25 @@ public class ProductionBiannuelle {
 	this.perteProduction = this.getCapaciteMaximale()*this.perteAleatoire();
 	}
 
-	// calcul la quantit� totale de f�ve de cacao r�colt� � la fin des r�coltes (pour un semestre).
+	// calcul la quantite totale de feve de cacao recolte a la fin des recoltes (pour un semestre).
 	public void setProductionFinale() {
 		this.productionFinale=this.getCapaciteMaximale()-this.getPerteProduction();
 	}	
 	
 	// calcule un pourcentage de perte ici compris entre 0 et 10%,
-	// ces pertes sont al�atoire et repr�sente les effets des al�as m�th�orologiques sur les r�coltes.
+	// ces pertes sont aleatoire et represente les effets des aleas metheorologiques sur les recoltes.
 	public double perteAleatoire() { 
 		double PerteAleatoire = Math.random()*0.1;
 		return PerteAleatoire;	
 	}
 
-	// modification de la tr�so � cause des couts de productions.
+	// modification de la treso a cause des couts de productions.
 	public void coutProd(){
 		this.getProd().getTreso().getFond().setValeur(this.getProd(), this.getProd().getTreso().getFond().getValeur()- Couts.COUTPROD*this.getProductionFinale());
 	}
 	
-	// actualise toute les variables li�es � la production uniquement:
-	// l'augmentation de stock, baisse de la tr�sorerie (cout de prod)
+	// actualise toute les variables liees a la production uniquement:
+	// l'augmentation de stock, baisse de la tresorerie (cout de prod)
 	public void production(){
 		this.setPerteProduction();
 		this.setProductionFinale();
