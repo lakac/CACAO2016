@@ -3,7 +3,7 @@ import abstraction.commun.*;
 
 public class Constante {
 
-	
+public static final double RATIO_TRANSFO = 3/2;	
 public static final double CHARGES_FIXES=13003370;
 public static final double RATIO_TRANSFORMATION_50=0.5;
 public static final double RATIO_TRANSFORMATION_60=0.6;

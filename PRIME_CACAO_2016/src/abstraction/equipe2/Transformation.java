@@ -115,31 +115,80 @@ public class Transformation {
 	//Pour cela il faut d'abord calculer la quantité de cacao nécessaire
 	//prends un IDistributeur en argument, et une Liste de commandesdistri
 	//calcule la quantite de cacao necessaire pour
-	//la réalisation de toutes ces commandes
+	//la réalisation de toutes les commandes de ce distributeur
 
 	public static double CacaoNecessaire(IDistributeur dist, List<CommandeDistri> lcd) {
 		double cacaonecessaire = 0.;
 		for (CommandeDistri cd : lcd) {
 			if (cd.getAcheteur().equals(dist)) {
-				if (cd.getProduit().equals(Constante.PRODUIT_50)) {
-					cacaonecessaire+=cd.getQuantite()*Constante.RATIO_TRANSFORMATION_50;
-				}
-				else if (cd.getProduit().equals(Constante.PRODUIT_60)) {
-					cacaonecessaire+=cd.getQuantite()*Constante.RATIO_TRANSFORMATION_60;
-				}
-				else {
-					cacaonecessaire+=cd.getQuantite()*Constante.RATIO_TRANSFORMATION_70;
+				cacaonecessaire+=cd.getProduit().getRatioCacao()*cd.getQuantite();
 				}
 			}
-		}
 		return cacaonecessaire;
 	}
 	
-	//Enfin, une fois que l'on a la cacao nécessaire, 
+	//Enfin, une fois que l'on a la cacao nécessaire, pour le IDistributeur d 
 	//il faut alors produire en tenant compte des stocks
 	//Cette méthode produit pour un Distributeur particulier
 	public void setTransformation(IDistributeur d, List<CommandeDistri> lcd, StockCacao scac, StockChocolats schoc) {
-		
+		double q = CacaoNecessaire(d, lcd);
+		for (CommandeDistri cd : lcd) {
+			double stockcacao = scac.getStockcacao().get(Constante.CACAO);
+			double limite = Constante.RATIO_TRANSFO;
+			Produit produit = cd.getProduit();
+			double dejaproduit = this.getTransformation().get(produit);
+			double r = produit.getRatioCacao();
+			double stockchoc = schoc.getStock().get(produit);
+			if (cd.getAcheteur().equals(d)) {
+				if (stockcacao>limite*q) { // si on a beaucoup de cacao en stock
+					if (!(stockchoc>limite*q/r)) { // et peu ou moyennement de chocolat
+						double production = limite*q/r - stockchoc;
+						this.transformation.put(produit,dejaproduit+production);
+						stockcacao -= r*production;
+						stockchoc +=production;
+					}
+				}
+				else if (stockcacao<limite*q && stockcacao>q) {//si le stock en cacao est moyen
+					if (stockchoc>q/r && stockchoc<limite*q/r) {// si le stock de chocolat est moyen
+						double production = q/r; // on produit q
+						this.transformation.put(produit, dejaproduit+production);
+						stockcacao -= r*production;
+						stockchoc +=production;
+					}
+					else {//le stock de chocolat est bas
+						double production = q/r-stockchoc; // on produit q-schoc
+						this.transformation.put(produit, dejaproduit+production);
+						stockcacao -= r*production;
+						stockchoc +=production;
+					}	
+				}
+				else {//si le stock de cacao est bas
+					if (stockchoc<q/r) {
+						if (stockcacao>(q-stockchoc)) {
+							double production = (q-stockchoc)/r;
+							this.transformation.put(produit, dejaproduit+production);
+							stockcacao -= r*production;
+							stockchoc +=production;
+						}
+						else {
+							double production = stockcacao/r;
+							this.transformation.put(produit, dejaproduit+production);
+							stockcacao -= r*production;
+							stockchoc +=production;
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	//maintenant que l'on sait attribuer la production en fonction des distributeurs, alors 
+	//il suffit de le faire pour tous les IDIstriuteurs de la liste triée
+	public void setTransformation (List<CommandeDistri> lcd, StockCacao scac, StockChocolats schoc) {
+		List<IDistributeur> priorite = Priorite(lcd);
+		for (IDistributeur d : priorite) {
+			this.setTransformation(d, lcd, scac, schoc);
+		}
 	}
 	
 	//Methode permettant de savoir quel chocolat on privilégie ( on privilégie le chocolat 
