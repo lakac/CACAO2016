@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import abstraction.commun.*;
+import abstraction.equipe6.Carrefour;
 
 
 public class Transformation {
@@ -58,15 +59,15 @@ public class Transformation {
 	}
 	
 	//La méthode qui suit me sert à trier une liste. 
-	//Elle s'avère nécessaire pour classe les Distributeurs
-	private static void TrierDecroissant(List<Double> l) {
+	//Elle s'avère nécessaire pour classer les Distributeurs
+	private static List<Double> TrierDecroissant(List<Double> l) {
 		List<Double> resultat = new ArrayList<Double>();
 		int taille = l.size();
 		Collections.sort(l);
 		for (int i=0; i<taille; i++) {
 			resultat.add(l.get(taille-1-i));
 		}
-		l =  resultat;
+		return resultat;
 	}
 	
 	//Cette méthode prend en argument une liste de CommandeDistri
@@ -81,11 +82,11 @@ public class Transformation {
 			valeurscommandes.add(dictionnaire.get(d));
 		}
 		//on trie cette liste
-		TrierDecroissant(valeurscommandes);
+		List<Double> valeurscommandestriees = TrierDecroissant(valeurscommandes);
 		
 		//ce for permet de remplir la liste des distributeur 
 		//en s'aidant de la liste obtenue precedemment
-		for (double quantite : valeurscommandes) {
+		for (double quantite : valeurscommandestriees) {
 			for (IDistributeur d : dictionnaire.keySet()) {
 				if(dictionnaire.get(d) == quantite && !priorite.contains(d)) {
 					priorite.add(d);
@@ -192,6 +193,109 @@ public class Transformation {
 	
 	//début des tests de la classe transformation
 	public static void main(String[] args) {
-		//à faire
+		//test des constructeurs
+		Transformation trans0 = new Transformation();
+		Transformation trans1 = new Transformation(100, 200, 300);
+		if (trans0.getTransformation().get(Constante.PRODUIT_50) != 0) {
+			System.out.println("Aïe, l constructeur par éfaut n'initialise pas le chocolat 50% à 0");
+		}
+		else if (trans0.getTransformation().get(Constante.PRODUIT_60) != 0) {
+			System.out.println("Aïe, l constructeur par éfaut n'initialise pas le chocolat 60% à 0");
+		}
+		else if (trans0.getTransformation().get(Constante.PRODUIT_70) != 0) {
+			System.out.println("Aïe, l constructeur par éfaut n'initialise pas le chocolat 70% à 0");
+		}
+		else {
+			System.out.println("Ok, le constructeur par défaut passe le test");
+		}
+		if (trans1.getTransformation().get(Constante.PRODUIT_50) != 100) {
+			System.out.println("Aïe, l constructeur par éfaut n'initialise pas le chocolat 50% à 0");
+		}
+		else if (trans1.getTransformation().get(Constante.PRODUIT_60) != 200) {
+			System.out.println("Aïe, l constructeur par éfaut n'initialise pas le chocolat 60% à 0");
+		}
+		else if (trans1.getTransformation().get(Constante.PRODUIT_70) != 300) {
+			System.out.println("Aïe, l constructeur par éfaut n'initialise pas le chocolat 70% à 0");
+		}
+		else {
+			System.out.println("Ok, le constructeur passe le test");
+		}
+		
+		//Test de Commandes Totales
+		//Initialisation des commandes 
+		//création des IDistributeurs
+		Carrefour c1 = new Carrefour();
+		Carrefour c2 = new Carrefour();
+		Carrefour c3 = new Carrefour();
+		//Création des commandes
+		CommandeDistri cd1 = new CommandeDistri(c1, Constante.PRODUIT_50, 500, 6);
+		CommandeDistri cd2 = new CommandeDistri(c1, Constante.PRODUIT_60, 800, 9);
+		CommandeDistri cd3 = new CommandeDistri(c2, Constante.PRODUIT_70, 460, 32);
+		CommandeDistri cd4 = new CommandeDistri(c2, Constante.PRODUIT_70, 540, 6);
+		CommandeDistri cd5 = new CommandeDistri(c3, Constante.PRODUIT_60, 900, 9);
+		CommandeDistri cd6 = new CommandeDistri(c3, Constante.PRODUIT_50, 500, 6);
+		//Initialisation de la liste des commandes
+		List<CommandeDistri> lcd =  new ArrayList<CommandeDistri>();
+		lcd.add(cd1); lcd.add(cd2); lcd.add(cd3);lcd.add(cd4); lcd.add(cd5); lcd.add(cd6);
+		//Initialisation du dictionnaire
+		HashMap<IDistributeur, Double> dico = CommandesTotales(lcd);
+		//début des tests de Commandes totales
+		if (dico.get(c1) != 1300) {
+			if (dico.get(c1) == 800) {
+				System.out.println("Aïe, on dirait que la méthode ne fonctionne pas si plusieurs commandes sont passées par le même distributeur");
+			}
+			else {
+				if (dico.get(c2) == 1300) {
+					System.out.println("La méthode n'attribue pas le con total de commande au bon distributeur");
+				}
+				else {
+					if (dico.get(c3) == 8600) {
+						System.out.println("Aië, la méthode Commandes totale tient compte des prix de ventes");
+					}
+					else {
+						if (dico.get(c1) == cd1.getQuantite()+cd6.getQuantite()) {
+							System.out.println("Aïe, la méthode s'ajuste sur les produits et non sur les distributeurs");
+						}
+						else {
+							System.out.println("Aïe, la méthode est incorrecte");
+						}
+					}
+				}
+			}
+		}
+		else {
+			System.out.println("Ok, CommandesTotales à l'air correcte");
+		}
+		
+		//test de TrierDecroissant
+		//création de la liste de commandes totales
+		List<Double> li = new ArrayList<Double>();
+		for (IDistributeur d : dico.keySet()) {
+			li.add(dico.get(d));
+		}
+		//On trie la liste 
+		int n = li.size();
+		List<Double> li2 = TrierDecroissant(li);
+		System.out.print(""+li2.get(0)+" "+li2.get(1)+" "+li2.get(2));
+		System.out.println(" <-- voici les valeurs de la liste");
+		//Début des tests
+		if (li2.get(n-1)>li2.get(n-2)) {
+			if (li2.get(n-2)>=li2.get(n-3)) {
+				System.out.println("Aïe, La liste est triée dans l'ordre croissant");				}
+			else {
+				System.out.println("Aïe, la liste n'est pas triée");
+			}
+		}
+		else {
+			if (li2.get(n-2)>=li2.get(n-3)) {
+				System.out.println("Aïe, la liste n'est pas triée");
+			}
+			else {
+				System.out.println("Ok, TrierDecroissant semble correcte");
+			}
+		}
+		
+		//Test de priorite (à continuer)
+		
 	}
 }

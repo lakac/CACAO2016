@@ -20,6 +20,13 @@ public class CommandeDistri extends Commande {
 		this.produit = produit;
 		
 	}
+	
+	//Ajout d'un constructeur simple pour les test (18/06, équipe 2)
+		public CommandeDistri(IDistributeur acheteur, Produit produit, double quantite, double prixtonne) {
+			super(quantite, prixtonne);
+			this.produit = produit;
+			this.acheteur = acheteur;	
+		}
 
 	public CommandeDistri(IDistributeur acheteur, ITransformateurD vendeur, Produit produit, double quantite, double prixTonne, int stepLivraison, boolean validation) {
 		super(quantite, prixTonne);
