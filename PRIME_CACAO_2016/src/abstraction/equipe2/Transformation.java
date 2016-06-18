@@ -191,4 +191,7 @@ public class Transformation {
 	
 	
 	//début des tests de la classe transformation
+	public static void main(String[] args) {
+		//à faire
+	}
 }
