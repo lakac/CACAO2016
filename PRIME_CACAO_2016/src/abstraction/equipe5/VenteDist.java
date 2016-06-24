@@ -31,9 +31,10 @@ public class VenteDist {
 	 */ 
 	public double prixProduit(Produit p) {
 		double r = 0;
+		System.out.println("cout de revient "+this.getTreso().coutRevient());
 		for (int i=0; i<Constante.LISTE_PRODUIT.length; i++) {
 			if (p.equals(Constante.LISTE_PRODUIT[i])) {
-				r= this.getTreso().coutRevient() + Constante.MARGE_PRODUIT[i];
+				r= this.getTreso().coutRevient() / (1 - Constante.MARGE_PRODUIT[i]); // formule pour avoir le prix de vente quand on veut une marge spécifique
 			}
 		}
 		return r;
@@ -70,13 +71,10 @@ public class VenteDist {
 		
 		for(int i=0; i<lindt.getDistributeurs().size(); i++){
 			
-
 			double stockChocolatI=0.25*(lindt.getStocksChocolat().get(i).getStock()-Constante.STOCK_MINIMAL_CHOCO); //stock de chocolat i disponible pour Leclerc+Carrefour (25%), on se reserve un stock minimal
 			double QteDemandeeChocolatI=this.QuantiteDemandeeProduit(listeCommandesDist).get(i).doubleValue();// quantite totale de chocolat i demandée par les 3 dist
 			
 			if(QteDemandeeChocolatI <= stockChocolatI){ //ok on peut fournir aux distrib la quantité de chocolats i qu'ils demandent donc on valide les commandes
-					//lindt.getStocksChocolat().get(i).setStock(stockChocolatI-QteDemandeeChocolatI); //mise à jour du stock de chocolat i
-					// a faire varier au step n+3
 				
 				 for(CommandeDistri c : listeCommandesDist){
 					 if(c.getProduit().getNomProduit()==Constante.LISTE_PRODUIT[i].getNomProduit()){ 
@@ -85,20 +83,29 @@ public class VenteDist {
 				double quantiteRepartie=lindt.getStocksChocolat().get(i).getStock()/(lindt.getDistributeurs().size()); //Répartition équitable, donc si 3 dist, on divise la quantité totale par 3)
 				
 				for (CommandeDistri c : listeCommandesDist){
-					if(c.getProduit().getNomProduit()==Constante.LISTE_PRODUIT[i].getNomProduit()){
-						while(stockChocolatI>0.5){// tant qu'il me reste du stock de chocolat i (limite à 0,5 tonne)
-							int j=0; 
-							if(c.getQuantite()<=quantiteRepartie){ //si la quantite demandee dans la commande est inférieure à quantiteRepartie
-								c.setValidation(true); //on valide la commande
-								//lindt.getStocksChocolat().get(i).setStock(stockChocolatI-quantiteRepartie); // on met à jour le stock de chocolat i
-								stockChocolatI -= c.getQuantite();
-								quantiteRepartie=stockChocolatI/(lindt.getDistributeurs().size()-j);
-								j++;	
+					if(c.getProduit().getNomProduit()==Constante.LISTE_PRODUIT[i].getNomProduit()){// si les commandes concernent le chocolat I
+						if(c.getValidation()==true){ // si les commandes avaient déjà été validées on ne les modifie pas et on retire fictivement du chocolat des stocks 
+							stockChocolatI=stockChocolatI-c.getQuantite();
+						}
+						else{
+							while(stockChocolatI>0.5){// tant qu'il me reste du stock de chocolat i (limite à 0,5 tonne)
+								int j=0; 
+								if(c.getQuantite()<=quantiteRepartie){ //si la quantite demandee dans la commande est inférieure à quantiteRepartie
+									c.setValidation(true); //on valide la commande
+									//lindt.getStocksChocolat().get(i).setStock(stockChocolatI-quantiteRepartie); // on met à jour le stock de chocolat i
+									stockChocolatI -= c.getQuantite();
+									quantiteRepartie=stockChocolatI/(lindt.getDistributeurs().size()-j);
+									j++;	
+								}
+								else{
+									c.setQuantite(quantiteRepartie);
+									}
+								}
 							}
-							else{
-								c.setQuantite(quantiteRepartie);
-								}}}}}
-		}return listeCommandesDist; 
+						}
+					}
+				}
+			}return listeCommandesDist; 
 	}
 	
 	

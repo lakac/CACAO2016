@@ -7,7 +7,7 @@ import abstraction.commun.IProducteur;
 import abstraction.fourni.Indicateur;
 import abstraction.equipe5.Lindt;
 import java.util.ArrayList;
-import abstraction.commun.MarcheProd;
+import abstraction.commun.MarcheProducteur;
 import abstraction.commun.Tarif;
 
 public class Tresorerie {
@@ -70,7 +70,7 @@ public class Tresorerie {
 			quantiteCacaoAchetee += quantiteDemandee;
 			coutAchat += this.histProduc.getCommande(this.histProduc.getHist().size()-i-1).getQuantite()*this.histProduc.getCommande(this.histProduc.getHist().size()-i-1).getPrixTonne();}
 		// plus le producteur3 qui represente 40% de la commande totale soit 2/3 de p1+p2
-		coutAchat += MarcheProd.LE_MARCHE.getCoursCacao().getValeur() * quantiteCacaoAchetee * 2/3;
+		coutAchat += MarcheProducteur.LE_MARCHE.getCours() * quantiteCacaoAchetee * 2/3;
 		quantiteCacaoAchetee += quantiteCacaoAchetee * 2/3;
 		coutTransformation = quantiteCacaoAchetee * Constante.COUT_TRANSFORMATION;
 		coutStock = quantiteCacaoAchetee * 18;

@@ -23,7 +23,9 @@ public class Stock {
 	}
 
 	public void setStock(double stock) {
-		this.stock.setValeur(this.lindt, stock); 
+		if (stock >=0) {
+			this.stock.setValeur(this.lindt, stock); 
+		}
 	}
 	
 	

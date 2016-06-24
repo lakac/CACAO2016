@@ -1,6 +1,7 @@
 package abstraction.equipe4;
 import abstraction.fourni.*;
 import abstraction.commun.*;
+import java.util.ArrayList;
 
 public class Producteur implements Acteur,IProducteur{
 
@@ -9,9 +10,8 @@ public class Producteur implements Acteur,IProducteur{
 	private Journal journal;
 	private Tresorerie treso;
 	private ProductionBiannuelle prodBiannu;
-	private MarcheProd marcheProducteur;
-	private Offre offre;
-
+	private ArrayList<ITransformateurP> transformateurs;
+	private Vente vente;
 
 	//Constructeur de l'acteur Producteur 2
 
@@ -21,11 +21,14 @@ public class Producteur implements Acteur,IProducteur{
 		this.stock = new Stock(this);
 		this.journal = new Journal("Journal de "+this.nom);
 		this.prodBiannu=new ProductionBiannuelle(this,1200000);
-
+		this.transformateurs= new ArrayList<ITransformateurP>();
 		Monde.LE_MONDE.ajouterJournal(this.journal);
-		this.offre = new Offre(this, Monde.LE_MONDE.getStep(), this.stock);
-
 	}
+
+	public void AjoutVariableVente(){
+		this.vente = new Vente(this.stock, this);
+	}
+
 
 	// getter
 
@@ -46,26 +49,24 @@ public class Producteur implements Acteur,IProducteur{
 		return this.stock;
 	}
 
-
+	public ArrayList<ITransformateurP> getTransformateurs() {
+		return this.transformateurs;
+	}
 
 	public Tresorerie getTreso() {
 		return this.treso;
 	}
 
-	public MarcheProd getMarcheProducteur() {
-		return this.marcheProducteur;
+	public Vente getVente() {
+		return this.vente;
 	}
 
 
-	public Offre getOffre() {
-		return this.offre;
+	//Ajout des clients à la liste transformateurs
+	public void ajoutClient(ITransformateurP a){
+		this.getTransformateurs().add(a);
 	}
-	
 
-	public void ajoutMarche(MarcheProd m){
-		this.marcheProducteur=m;
-
-	}
 
 	// le next du producteur 2	
 	public void next(){
@@ -81,12 +82,19 @@ public class Producteur implements Acteur,IProducteur{
 		this.getStock().gererLesStock();
 	}
 
-
 	// retourne un double valant la quantité disponible 
-	// pour le marche
-	public double annonceQuantiteProposee() {
-		return this.getOffre().offre();
-
+	// pour chaque transformateur a chaque step
+	public double annonceQuantiteMiseEnVente(ITransformateurD t) {
+		if (((Acteur)t).getNom().equals(((Acteur)this.getTransformateurs().get(0)).getNom())) {
+			return this.getVente().ventesStep()[0];
+		}
+		if (((Acteur)t).getNom().equals(((Acteur)this.getTransformateurs().get(1)).getNom())) {
+			return this.getVente().ventesStep()[1];
+		}
+		if (((Acteur)t).getNom().equals(((Acteur)this.getTransformateurs().get(2)).getNom())) {
+			return this.getVente().ventesStep()[2];
+		}
+		return 0.0;
 	}
 
 	//Modification du stock et de la tresorerie suite a une vente
@@ -96,9 +104,8 @@ public class Producteur implements Acteur,IProducteur{
 		// modife les stocks
 		this.getStock().reductionStock(c.getQuantite());
 		// le note dans le journal
-		this.getJournal().ajouter("Vente de " + c.getQuantite() + " au step numéro "+ Monde.LE_MONDE.getStep());
+		this.getJournal().ajouter("Vente de " + c.getQuantite()+" auprès de " + ((Acteur)c.getAcheteur()).getNom() + " au step numéro "+ Monde.LE_MONDE.getStep());
 	}
-
 
 	// ajout de le somme récolté à la trésorerie après une vente
 	public void vente(double qtVendue, double prix){		
@@ -107,14 +114,19 @@ public class Producteur implements Acteur,IProducteur{
 
 	public void notificationVente(CommandeProduc c) {
 		this.venteRealisee(c);
+
 	}
 
 
 	@Override
 	public double annonceQuantiteMiseEnVente(ITransformateurP t) {
+		return 0.0;
+	}
+	//Réunion du 03/06 Ajout par l'équipe 2 le 8/06
+	@Override
+	public double annonceQuantitePropose() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 
 }
