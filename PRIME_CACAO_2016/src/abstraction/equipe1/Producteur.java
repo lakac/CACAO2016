@@ -161,19 +161,13 @@ public class Producteur implements Acteur, IProducteur {
 	}
 
 
-
 	public double annonceQuantiteMiseEnVente(ITransformateurP t) {
 		return 0.0;
 	}
 
-
-	@Override
+	//R�ｿｽunion du 03/06 Ajout par l'�ｿｽquipe 2 le 8/06
 	public double annonceQuantiteProposee() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-
-
-
 }

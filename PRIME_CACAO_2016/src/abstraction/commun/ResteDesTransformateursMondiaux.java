@@ -19,9 +19,11 @@ public class ResteDesTransformateursMondiaux implements Acteur, ITransformateurP
 
 	private List<ITransformateurP> transformateurs;
 	
+	
 	// constructeur
 	public ResteDesTransformateursMondiaux(){
 		this.transformateurs = new ArrayList<ITransformateurP>();
+		
 	}
 
 
@@ -35,6 +37,7 @@ public class ResteDesTransformateursMondiaux implements Acteur, ITransformateurP
 		}
 	}
 
+	
 	// annonce de la quantite demandee au marche en fonction des autres transformateurs et dans le respect
 	// des proportion (ceux qui ont le plus de part du marchee vendent plus et inverssement).
 	public double annonceQuantiteDemandee() {
