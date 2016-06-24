@@ -8,6 +8,7 @@ public class CatalogueInterne extends Catalogue {
 	
 	private Catalogue catalogueinterne;
 	
+	
 	public CatalogueInterne(Tarif tarifinitial){
 		super();
 		super.add(Constante.PRODUIT_50, tarifinitial);
