@@ -10,6 +10,7 @@ public class Producteur implements Acteur,IProducteur{
 	private Tresorerie treso;
 	private ProductionBiannuelle prodBiannu;
 	private MarcheProd marcheProducteur;
+	// l'offre en feve de cacao que l on propose, exprime en tonne
 	private Offre offre;
 
 
@@ -76,11 +77,9 @@ public class Producteur implements Acteur,IProducteur{
 	}
 
 
-	// retourne un double valant la quantité disponible 
-	// pour le marche
+	// retourne un double valant la quantité que l on propose au marche
 	public double annonceQuantiteProposee() {
 		return this.getOffre().offre();
-
 	}
 
 	//Modification du stock et de la tresorerie suite a une vente
@@ -94,13 +93,16 @@ public class Producteur implements Acteur,IProducteur{
 	}
 
 
-	// ajout de le somme récolté à la trésorerie après une vente
+	// ajout de le somme recolte a la tresorerie apres une vente
 	public void vente(double qtVendue, double prix){		
 		this.getTreso().getFond().setValeur(this, this.getTreso().getFond().getValeur()+ qtVendue*prix);
 	}
-
+	
+	
 	public void notificationVente(CommandeProduc c) {
+		// on verifie que on ajoute pas nimportequoi
 		if (c.getPrixTonne()>0 && c.getQuantite()>0){
+			// on ajuste les quantite apres une vente
 			this.venteRealisee(c);
 		}
 	}
