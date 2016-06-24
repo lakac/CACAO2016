@@ -125,6 +125,7 @@ public class MondeV1 extends Monde {
 		marcheProducteur.ajouterTransformateur(lindt);
 		
 		//maj 31/05 Leclerc
+		Le.initialiseRatio();
 		Le.getStock().initialiseStock(Le);	
 		Le.getPrixDeVente().initialisePrixDeVente(Le, produits);
 		Le.getVentes().initialiseVentes();
@@ -137,6 +138,7 @@ public class MondeV1 extends Monde {
 		MarcheCons.ajouterTransformateur(nestle);
 		
 		//initialiser le MarcheConsommateurs;
+		MarcheCons.LE_MARCHE_CONS.initialiserRatio();
 		MarcheCons.LE_MARCHE_CONS.initialiserDemandeAnnuelle();
 		MarcheCons.LE_MARCHE_CONS.initialiserCalendrierDemande();
 		MarcheCons.LE_MARCHE_CONS.initialiserPourcentageIncertitudeVentes();

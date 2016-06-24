@@ -113,10 +113,10 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	}
 	
 	/*methode qui fait la moyenne des ventes de ce step des annees passees pour avoir une idee 
-	 * du nombre de clients a ce step */
+	  du nombre de clients a ce step */
 
 	public List<CommandeDistri> Demande(ITransformateurD t, Catalogue c) {
-		Double[] x = {0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donnï¿½ sur toutes les annï¿½es
+		Double[] x = {0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donné sur toutes les annees
 		Double[] sto = {0.0,0.0,0.0};
 		sto[0] = this.getStock().getStock(t,0);
 		sto[1] = this.getStock().getStock(t,1);
@@ -151,13 +151,14 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		for (int i=0;i<cd.size();i++){
 			if (cd.get(i).equals(c)){
 				double q = cd.get(i).getQuantite()-c.getQuantite();
-				boolean valid = (cd.get(i).getQuantite()-c.getQuantite()==0);
+				boolean valid = (q==0);
 				ITransformateurD vendeur = c.getVendeur();
 				if(!valid){
 					vendeur=TransfoSuivant(c);
 				}
 				CommandeDistri commande=new CommandeDistri(c.getAcheteur(), vendeur, c.getProduit(), q, c.getPrixTonne(), c.getStepLivraison(), valid);
 				cd.set(i,commande);
+				
 			}
 		
 		}
@@ -251,7 +252,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		//this.getStock().retirerStock(venteeffective);
 		//gerer le solde
 		this.solde.setValeur(this, this.solde.getValeur()+recette()-depenses(commandefinale));
-		//gerer ventes (rajouter ventes rï¿½elles du step)
+		//gerer ventes (rajouter ventes reelles du step)
 		//this.getVentes().actualiserVentes(venteeffective);
 		//gerer prixdevente
 		this.getPrixDeVente().actualisePrixDeVente();

@@ -67,7 +67,11 @@ public class MarcheCons implements Acteur {
 	
 	private List<Fidelite> fidelite ;
 	
-
+	/*static qui détermine le ratio entre les différents distributeurs pour un même produit*/
+	
+	private List<Double> ratio;
+	
+	
 	public MarcheCons(String nom, ArrayList<Produit> produits) {
 		this.nom=nom;
 		this.produits=produits;
@@ -151,11 +155,18 @@ public class MarcheCons implements Acteur {
 				
 		}	
 	
+	/*methode qui initialise le ratio*/
+	
+	public void initialiserRatio(){
+		
+	}
+	
 	/*methode qui initialise calendrierDemande*/
 	
 	public void initialiserCalendrierDemande(){
 		
-		for (Produit p : this.getProduits()){
+		for (Produit p : this
+				.getProduits()){
 			for (int i=1;i<=26;i++){
 				if (i%26==6){ //Pâques
 				this.calendrierDemande.add(new Demande(i,p,0.0735*this.demandeAnnuelle.get(p)));
@@ -234,7 +245,7 @@ public class MarcheCons implements Acteur {
 			double demandeTotale = this.demandeComposanteContinue.get(p)+this.demandeComposanteAleatoire.get(p);
 			for (IDistributeur d : MarcheCons.distributeurs){
 				for (int i=0;i<transformateurs.size();i++){
-					this.ventesEffectuees.add(new CommandeDistri(d, transformateurs.get(i), p, this.getPart(d, p)*demandeTotale, d.getPrixVente(p), Monde.LE_MONDE.getStep(), true));//! au step du prix de vente
+					this.ventesEffectuees.add(new CommandeDistri(d, transformateurs.get(i), p, this.ratio.get(i)*this.getPart(d, p)*demandeTotale, d.getPrixVente(p), Monde.LE_MONDE.getStep(), true));//! au step du prix de vente
 					//rajouter ratio transfo pour la quantité
 				}			
 			}
