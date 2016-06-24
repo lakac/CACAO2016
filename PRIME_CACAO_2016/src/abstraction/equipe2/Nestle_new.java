@@ -216,6 +216,7 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 
 	@Override
 	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> list) {
+		List<CommandeDistri> livraisoneffective=new ArrayList<CommandeDistri>();
 		double commandechoco50totale=0;
 		double commandechoco60totale=0;
 		double commandechoco70totale=0;
@@ -232,7 +233,22 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 				}
 			}
 		}
-		if(commandechoco50totale<=this.stockchocolat.getStockchocolats().get(Constante.PRODUIT_50))
+			for(int i=0;i<list.size();i++){
+				if(commandechoco50totale<=this.stockchocolat.getStockchocolats().get(Constante.PRODUIT_50)){
+					if(list.get(i).getProduit()==Constante.PRODUIT_50){
+					livraisoneffective.add(list.get(i));
+					}
+				}
+				if(commandechoco60totale<=this.stockchocolat.getStockchocolats().get(Constante.PRODUIT_60)){
+					if(list.get(i).getProduit()==Constante.PRODUIT_60)
+					livraisoneffective.add(list.get(i));
+				}
+				if(commandechoco70totale<=this.stockchocolat.getStockchocolats().get(Constante.PRODUIT_70)){
+					if(list.get(i).getProduit()==Constante.PRODUIT_70)
+					livraisoneffective.add(list.get(i));
+				}
+				
+			}
 			
 			// TODO Auto-generated method stub
 		return null;
