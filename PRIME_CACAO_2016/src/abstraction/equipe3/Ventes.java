@@ -8,8 +8,8 @@ import abstraction.commun.CommandeDistri;
 
 public class Ventes {
 	
-	/*classe qui répertorie les ventes de chaque produit pour pouvoir connaître environ le nombre de clients 
-	 * l'année suivante*/
+	/*classe qui rï¿½pertorie les ventes de chaque produit pour pouvoir connaï¿½tre environ le nombre de clients 
+	 * l'annï¿½e suivante*/
 
 	private ArrayList<Double[]> ventes;
 	private static Double[][] VENTES_ANNEE_ZERO = new Double[26][3];
@@ -20,7 +20,7 @@ public class Ventes {
 	
 	public Double[] getVentes(int step){
 		return this.ventes.get(step+25);
-	}
+	}	
 	
 	public void addVentes(Double[] vente){
 		this.ventes.add(vente);
@@ -71,6 +71,9 @@ public class Ventes {
 				}
 			}
 		} this.addVentes(x);
+
+		//a complï¿½ter : prendre le nombre de clients pour chaque produit du marche consommateurs et les rajouter aux ventes
+
 	}
 
 }

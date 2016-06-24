@@ -100,6 +100,15 @@ public class MarcheCons implements Acteur {
 		MarcheCons.transformateurs.add(transformateur);
 	}
 	
+	public int getIndexFidelite(IDistributeur d,Produit p){
+		for (int j=0;j<this.fidelite.size();j++){
+			if (this.fidelite.get(j).getDistri()==d && this.fidelite.get(j).getProduit()==p){
+				return j;
+			}
+		}
+		return 0;
+	}
+	
 	/* Retourne la part de fidélité d'un distributeur d pour un produit p*/
 	
 	public double getPart(IDistributeur d,Produit p){
@@ -151,8 +160,7 @@ public class MarcheCons implements Acteur {
 	public void initialiserDemandeAnnuelle(){
 		for (Produit p : this.getProduits()){
 			this.demandeAnnuelle.put(p, (double) 50000); // a faire varier en fonction du produit
-				}
-				
+				}	
 		}	
 	
 	/*methode qui initialise le ratio*/
@@ -206,25 +214,69 @@ public class MarcheCons implements Acteur {
 			}
 		}
 	
-	/*
+	/* Actualisation de la fidelite a chaque step
+	 * Cette fonction procède de la manière suivante:
+	 * Pour chaque produit en vente, on crée un tableau [distributeur, intervalle([a, a+inverse du prix du produit/somme des prix du produit])]
+	 * Tous ces intervalles sont inclus dans [0,1]
+	 * 
+	 * On répète alors x fois la procédure suivante (x étant proportionnel au nombre de concurrents sur le marché)
+	 * Une variable aleatoire génère un nombre i entre 0 et 1
+	 * Si i appartient à l'intervalle correspondant au distributeur d, d gagne en fidelité, les autres distributeurs perdent en fidelité
+	 * 
+	 * De cette manière, comme chaque distributeur possède un intervalle de longueur proportionnelle à l'inverse de son prix de vente,
+	 * plus celui-ci est faible, plus il a de chance de gagner en fidélité client.
+	 * 
+	 * Après calibrage, on pourra décider de passer les longueurs d'intervalles en carré de l'inverse du prix 
+	 * si les différences de prix sont négligeables devant le prix moyen.
+	 */
 	public void actualiserFidelite(){
-		for (Produit p : this.getProduits()){
-			//if Carrefour et Leclerc sont en concurrence sur ce produit/) (V3)
-				if ((MarcheConsommateurs.distributeurs.get(1).getPrixVente(p)>MarcheConsommateurs.distributeurs.get(0).getPrixVente(p))&&(this.fidelite.get("Carrefour").get(p)>FIDELITE_MIN)){//si prix carrefour superieur
-						this.fidelite.get(MarcheConsommateurs.distributeurs.get(0)).put(p,this.fidelite.get(MarcheConsommateurs.distributeurs.get(0)).get(p)+VARIATION_FIDELITE);
-						this.fidelite.get(MarcheConsommateurs.distributeurs.get(1)).put(p,this.fidelite.get(MarcheConsommateurs.distributeurs.get(1)).get(p)-VARIATION_FIDELITE);
+		
+		HashMap<Produit, HashMap<IDistributeur, ArrayList<Double>>> M = new HashMap <Produit, HashMap<IDistributeur, ArrayList<Double>>>();
+		
+		//Initialisation des variables
+		double sum = 0; //Somme des prix des distributeurs 
+		double a=0; //Fixation des intervalles correspondant a chaque distributeurs
+		double i=0; //Variable aleatoire
+		
+		int nombre_iterations = 20*MarcheCons.distributeurs.size();
+		
+			for (Produit p : this.getProduits()){
+				
+				sum=0;
+				a=0;
+				M.put(p, null);
+				
+				for (IDistributeur d : MarcheCons.distributeurs){
+					if (d.getPrixVente(p)!=0){
+							sum+=1/d.getPrixVente(p);
+							M.get(p).put(d, null);
+						}
 					}
-					if ((MarcheConsommateurs.distributeurs.get(1).getPrixVente(p)<MarcheConsommateurs.distributeurs.get(0).getPrixVente(p))&&(this.fidelite.get("Leclerc").get(p)>FIDELITE_MIN)){//si prix carrefour superieur
-						this.fidelite.get(MarcheConsommateurs.distributeurs.get(0)).put(p,this.fidelite.get(MarcheConsommateurs.distributeurs.get(0)).get(p)-VARIATION_FIDELITE);
-						this.fidelite.get(MarcheConsommateurs.distributeurs.get(1)).put(p,this.fidelite.get(MarcheConsommateurs.distributeurs.get(1)).get(p)+VARIATION_FIDELITE);
+				for (IDistributeur d : MarcheCons.distributeurs){
+					if (d.getPrixVente(p)!=0){
+							M.get(p).get(d).add(a);
+							M.get(p).get(d).add(a+1/d.getPrixVente(p)/sum);
+							a=a+1/d.getPrixVente(p)/sum;
+						}
 					}
-			}	
-			//for (IDistributeur d : MarcheConsommateurs.distributeurs){
-				//Version à n dimensions à déterminer mathematiquement
-			//}
-			
+				
+				
+				for (int j=0;j<nombre_iterations;j++){
+					i=Math.random();
+					for (IDistributeur d : MarcheCons.distributeurs){
+						if (i>=M.get(p).get(d).get(0) && i < M.get(p).get(d).get(1)){ //La variable aléatoire se trouve dans l'intervalle du distri D
+							//Augmente le ratio de fidelite de d
+							this.fidelite.get(getIndexFidelite(d,p)).setPart(this.getPart(d,p)+this.VARIATION_FIDELITE/nombre_iterations);
+						}
+						else{
+							//reduit le ratio de fidelite des autres distributeurs
+							this.fidelite.get(getIndexFidelite(d,p)).setPart(this.getPart(d,p)-this.VARIATION_FIDELITE/nombre_iterations/(MarcheCons.distributeurs.size()-1));
+						}
+					}
+				}	
+			}
 		}
-	*/
+	
 	
 	/*methode qui actualise la demande à chaque step*/
 	
@@ -261,5 +313,4 @@ public class MarcheCons implements Acteur {
 	}
 	
 	}
-	
 
