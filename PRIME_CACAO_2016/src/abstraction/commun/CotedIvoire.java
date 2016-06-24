@@ -6,7 +6,7 @@ package abstraction.commun;
 import abstraction.fourni.Acteur;
 
 
-//Ajout conform�ment � la r�union du vendredi 3/06 par l'�quipe 2 d'un troisi�me producteur mondial
+//Ajout conform�ｿｽment �ｿｽ la r�ｿｽunion du vendredi 3/06 par l'�ｿｽquipe 2 d'un troisi�ｿｽme producteur mondial
 
 public class CotedIvoire implements IProducteur, Acteur {
 	
@@ -14,7 +14,7 @@ public class CotedIvoire implements IProducteur, Acteur {
 	
 	public final static double RATIOCOTEDIVOIRE = 0.4;
 	
-	//Constructeur de l'acteur (tr�s simpli, il n'y a qu'une variable d'instance)
+	//Constructeur de l'acteur (tr�ｿｽs simpli, il n'y a qu'une variable d'instance)
 	public CotedIvoire() {
 		this.concurrents = new ArrayList<IProducteur>();
 	}
@@ -30,21 +30,18 @@ public class CotedIvoire implements IProducteur, Acteur {
 		return this.concurrents;
 	}
 
-	//AnnonceQuantiteMiseEnVente(ITransformateur t) est vou�e � dispara�tre. 
+	//AnnonceQuantiteMiseEnVente(ITransformateur t) est vou�ｿｽe �ｿｽ dispara�ｿｽtre. 
 	//On la laisse vide pour le moment
 	
 	
 	//Il n'y aura jamais de notification de vente pour cet acteur, 
-	//mais il doit quand m�me impl�menter cette m�thode (vide)
+	//mais il doit quand m�ｿｽme impl�ｿｽmenter cette m�ｿｽthode (vide)
 	@Override
 	public void notificationVente(CommandeProduc c) {
 	}
 
-
-
 	
 
-	@Override
 	public String getNom() {
 		return "C�te d'Ivoire";
 	}
@@ -56,19 +53,16 @@ public class CotedIvoire implements IProducteur, Acteur {
 	//renvoie la quantit� totale de cacao que la cote d'ivoire met en vente � la step consid�r� 
 
 	@Override
-	public double annonceQuantitePropose() {
+	public double annonceQuantiteProposee() {
 		double quantite = 0;
 		for (IProducteur p : this.getConcurrents()) {
-			quantite+=p.annonceQuantitePropose();
+			quantite+=p.annonceQuantiteProposee();
 		}
 		return RATIOCOTEDIVOIRE*quantite;
 	}
 
 
-	
-
-
-	//Il n'y a aucun indicateur � mettre � jour, le next ne fait rien non plus
+	//Il n'y a aucun indicateur �ｿｽ mettre �ｿｽ jour, le next ne fait rien non plus
 	public void next() {
 		
 		
