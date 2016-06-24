@@ -262,5 +262,10 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		  */
 
 	}
+	@Override
+	public List<CommandeDistri> demande(ITransformateurD t, Catalogue c) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 

@@ -1,6 +1,6 @@
 package abstraction.equipe6;
 
-import abstraction.commun.ITransformateur;
+import abstraction.commun.ITransformateurD;
 import abstraction.commun.Produit;
 import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
@@ -9,20 +9,20 @@ import abstraction.fourni.Indicateur;
 //dans la classe Carrefour
  
 public class Achats {
-	private ITransformateur marque;
+	private ITransformateurD marque;
 	private Indicateur quantite;
 	private Produit produit;
 	
-	public Achats (ITransformateur marque, Indicateur quantite, Produit produit) {
-		this.marque = marque;
+	public Achats (ITransformateurD t, Indicateur quantite, Produit produit) {
+		this.marque = t;
 		this.quantite = quantite;
 		this.produit = produit;
 	}
 	
-	public ITransformateur getMarque() {
+	public ITransformateurD getMarque() {
 		return marque;
 	}
-	public void setMarque(ITransformateur marque) {
+	public void setMarque(ITransformateurD marque) {
 		this.marque = marque;
 	}
 	public Indicateur getQuantite() {
