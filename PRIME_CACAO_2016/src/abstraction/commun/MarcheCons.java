@@ -15,6 +15,12 @@ import abstraction.fourni.Monde;
 
 public class MarcheCons implements Acteur {
 	
+	/**
+	 * Classe modelisant le marche consommateur
+	 * 
+	 * @author equipe 3
+	 */
+	
 	public String nom;
 	public static MarcheCons LE_MARCHE_CONS;
 	
@@ -26,7 +32,7 @@ public class MarcheCons implements Acteur {
 	
 	private final static double VARIATION_FIDELITE=0.01;
 	
-	/*part minimum de clients fidèles a chaque distributeur*/
+	/*part minimum de clients fidï¿½les a chaque distributeur*/
 	
 	private final static double FIDELITE_MIN=0.20;
 	private static final double ALPHA = 0; 
@@ -55,7 +61,7 @@ public class MarcheCons implements Acteur {
 	
 	private HashMap <Produit,Double> demandeComposanteAleatoire;
 	
-	/*calendrier comportant la demande à chaque step*/
+	/*calendrier comportant la demande ï¿½ chaque step*/
 	
 	private List<Demande> calendrierDemande; 
 	
@@ -96,7 +102,7 @@ public class MarcheCons implements Acteur {
 		MarcheCons.transformateurs.add(transformateur);
 	}
 	
-	/* Retourne la part de fidélité d'un distributeur d pour un produit p*/
+	/* Retourne la part de fidï¿½litï¿½ d'un distributeur d pour un produit p*/
 	
 	public double getPart(IDistributeur d,Produit p){
 		double part=0;
@@ -157,10 +163,10 @@ public class MarcheCons implements Acteur {
 		
 		for (Produit p : this.getProduits()){
 			for (int i=1;i<=26;i++){
-				if (i%26==6){ //Pâques
+				if (i%26==6){ //Pï¿½ques
 				this.calendrierDemande.add(new Demande(i,p,0.0735*this.demandeAnnuelle.get(p)));
 				}
-				if (i%26==25){ //Noël
+				if (i%26==25){ //Noï¿½l
 					this.calendrierDemande.add(new Demande(i,p,0.1235*this.demandeAnnuelle.get(p)));	
 				}
 				else{
@@ -209,13 +215,13 @@ public class MarcheCons implements Acteur {
 					}
 			}	
 			//for (IDistributeur d : MarcheConsommateurs.distributeurs){
-				//Version à n dimensions à déterminer mathematiquement
+				//Version ï¿½ n dimensions ï¿½ dï¿½terminer mathematiquement
 			//}
 			
 		}
 	*/
 	
-	/*methode qui actualise la demande à chaque step*/
+	/*methode qui actualise la demande ï¿½ chaque step*/
 	
 	public void actualiserDemande(){ 
 		for (Produit p : this.getProduits()){ 
@@ -235,7 +241,7 @@ public class MarcheCons implements Acteur {
 			for (IDistributeur d : MarcheCons.distributeurs){
 				for (int i=0;i<transformateurs.size();i++){
 					this.ventesEffectuees.add(new CommandeDistri(d, transformateurs.get(i), p, this.getPart(d, p)*demandeTotale, d.getPrixVente(p), Monde.LE_MONDE.getStep(), true));//! au step du prix de vente
-					//rajouter ratio transfo pour la quantité
+					//rajouter ratio transfo pour la quantitï¿½
 				}			
 			}
 		}	
