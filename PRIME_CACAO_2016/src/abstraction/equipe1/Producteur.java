@@ -63,7 +63,7 @@ public class Producteur implements Acteur, IProducteur {
 		this.intelligenceEconomique = new IntelligenceEconomique(this.transformateurs,this.stock);
 	}
 		
-	// Méthodes de l'interface Acteur
+	// Mﾃｩthodes de l'interface Acteur
 	
 	public String getNom() {
 		return this.nom;
@@ -76,7 +76,7 @@ public class Producteur implements Acteur, IProducteur {
 		this.journal.ajouter("Production = <font color=\"maroon\">"+this.getProductionCourante()+"</font> t; Cout de production = <font color=\"maroon\">"+this.getCoutProduction()+"</font> euros/t au step "+Monde.LE_MONDE.getStep());
 	}
 	
-	// Méthodes de l'interface IProducteur
+	// Mﾃｩthodes de l'interface IProducteur
 	
 	public double annonceQuantiteMiseEnVente(ITransformateurD t) {
 		return this.getQuantiteProposee(t);
@@ -87,12 +87,12 @@ public class Producteur implements Acteur, IProducteur {
 		this.setTresorerie(this.getTresorerie() + c.getQuantite()*c.getPrixTonne());
 	}
 	
-	// méthode dépréciée
+	// mﾃｩthode dﾃｩprﾃｩciﾃｩe
 	public double annoncePrix() {
 		return 0.0;
 	}
 	
-	// Méthodes publiques
+	// Mﾃｩthodes publiques
 	
 	public void ajouterTransformateur(ITransformateurP transformateur) {
 		this.transformateurs.add(transformateur);
@@ -100,7 +100,7 @@ public class Producteur implements Acteur, IProducteur {
 		this.intelligenceEconomique.prendreEnCompte(transformateur);
 	}
 	
-	// Méthodes privées
+	// Mﾃｩthodes privﾃｩes
 	
 	/**
 	 * @return l'ensemble des transformateurs.
@@ -176,8 +176,8 @@ public class Producteur implements Acteur, IProducteur {
 		return 0.0;
 	}
 
-	//R�union du 03/06 Ajout par l'�quipe 2 le 8/06
-	public double annonceQuantitePropose() {
+	//R�ｿｽunion du 03/06 Ajout par l'�ｿｽquipe 2 le 8/06
+	public double annonceQuantiteProposee() {
 		// TODO Auto-generated method stub
 		return 0;
 	}

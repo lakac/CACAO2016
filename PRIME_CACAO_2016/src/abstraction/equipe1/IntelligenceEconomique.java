@@ -5,7 +5,7 @@ import java.util.List;
 
 import abstraction.commun.ITransformateurD;
 import abstraction.commun.ITransformateurP;
-import abstraction.commun.MarcheProducteur;
+import abstraction.commun.MarcheProd;
 
 /**
  * Classe pour calculer la quantite mise en vente pour chaque transformateur
@@ -50,7 +50,7 @@ public class IntelligenceEconomique {
 	}
 	
 	private double calculerEnvieDeVendre() {
-		double rapport = (MarcheProducteur.LE_MARCHE.getCours()-MarcheProducteur.PRIX_MINIMUM)/(MarcheProducteur.PRIX_MAXIMUM-MarcheProducteur.PRIX_MINIMUM);
+		double rapport = (MarcheProd.LE_MARCHE.getCoursCacao().getValeur()-MarcheProd.CoursMinimum)/(MarcheProd.CoursMaximum-MarcheProd.CoursMinimum);
 		return (1.0 + Math.sin((rapport - 0.5) * Math.PI)) / 2.0;
 	}
 	

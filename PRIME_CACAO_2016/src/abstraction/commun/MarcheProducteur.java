@@ -16,6 +16,8 @@ import abstraction.fourni.Monde;
  * 
  * @author equipe 1
  */
+
+@Deprecated
 public class MarcheProducteur implements Acteur {
 	/** Prix initial avant toute transaction */
 	public static final double PRIX_DE_BASE = 3000.0;
