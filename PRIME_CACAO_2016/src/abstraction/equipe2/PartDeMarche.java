@@ -1,5 +1,9 @@
 package abstraction.equipe2;
 
+import java.util.HashMap;
+
+import abstraction.commun.IDistributeur;
+
 /** Fonctionnement de la classe PartDeMarche:
  * 
  * Recuperer l'historique des commandes de chaque distributeur
@@ -16,82 +20,21 @@ package abstraction.equipe2;
 public class PartDeMarche {
 	
 	/**Variables d'instance*/
+	public final PartDeMarche DICO_PARTS;
 	
-	private double partLeclerc;
-	private double partCarrefour;
-	private double partAutresDistri;
-	private Nestle nestle;
-	
-	
-	/**Constructeurs*/
-	
-	public PartDeMarche(double leclerc, double carrefour, double autresDistri){
-		this.partLeclerc = leclerc;
-		this.partCarrefour = carrefour;
-		this.partAutresDistri = autresDistri;
-	}
-	
-	public PartDeMarche(){
-		this(0.0,0.0,0.0);
-	}
-	
-	
-	/**Accesseurs en lecture*/
-	
-	public double getPartLeclerc(){
-		return this.partLeclerc;
-	}
-	
-	public double getPartCarrefour(){
-		return this.partCarrefour;
-	}
-	
-	public double getPartAutresDistri(){
-		return this.partAutresDistri;
-	}
-	
-	
-	/**Accesseurs en ecriture*/
-	
-	public void setPartLeclerc(double part){
-		this.partLeclerc = part;
-	}
-	
-	public void setPartCarrefour(double part){
-		this.partCarrefour = part;
-	}
-	
-	public void setPartAutresDistri(double part){
-		this.partAutresDistri = part;
-	}
-	
-	
-	/**methodes toString() et equals*/
-	
-	public String toString(){
-		return "Part de Marche de Leclerc : "+this.getPartLeclerc()+"\n"+
-				"Part de Marche de Carrefour : "+this.getPartCarrefour()+"\n"+
-				"Part de Marche des Autres Distributeurs : "+this.getPartAutresDistri();
-	}
-	
-	public boolean equals(Object o){
-		return (o instanceof PartDeMarche)
-				&& (this.getPartLeclerc() == ((PartDeMarche)o).getPartLeclerc())
-				&& (this.getPartCarrefour() == ((PartDeMarche)o).getPartCarrefour())
-				&& (this.getPartAutresDistri() == ((PartDeMarche)o).getPartAutresDistri());
-	}
+	private HashMap<IDistributeur, Double> partdemarche;
 	
 	
 	
-	
-	/**methode void qui recupere l'historique des commandes de chaque distributeur 
-	 * a chaque step
-	 *  
-	 * */
-	public void recupererHistoriqueCommande(){
-		int i=0;
-		nestle.getHistoriqueCommandeDistri().get(i);
-		i++;
+	public HashMap<IDistributeur, Double> getPartdemarche() {
+		return partdemarche;
 	}
 
+
+
+	public PartDeMarche() {
+		this.partdemarche = new HashMap<IDistributeur, Double>();
+	}
+		
 }
+

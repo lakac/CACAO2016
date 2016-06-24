@@ -15,12 +15,15 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 	
 	private int etape; //indique l'étape à laquelle on se trouve.
 	
+	private String nom; //le nom de l'acteur
+	
 	private List<IDistributeur> clients; // Liste des clients
 	private List<IProducteur> fournisseurs; //Liste des fournisseurs
 	
 	private List<List<CommandeDistri>> historiquecommandesdistri; // Cet historique garde en mémoire les commandes que les distributeurs nous passent.
 	private List<CommandeProduc> historiquecommandesprod; //Cet historique garde en mémoire les commandes que nous avons passées aux producteurs.
 	
+	private Catalogue catalogueinterne;
 	private StockCacao stockcacao; //Le stock de cacao de Nestle
 	private StockChocolats stockchocolat; //le stock des différents chocolats de Nestle.
 	private Transformation transformation; //La production de Nestle à chaque Step
@@ -119,7 +122,7 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 	}*/
 	
 	//Méthode annexe qui retourne la quantité totale demandée par une liste de commandedistributeur
-	//On suppose que la liste contient que des cmmandes concernant PRODUIT_50; PRODUIT_60 et PRODUIT_70
+	//On suppose que la liste contient que des commandes concernant PRODUIT_50; PRODUIT_60 et PRODUIT_70
 	public static double QuantiteCacaoNecessaire(List<CommandeDistri> l) {
 		double quantite = 0;
 		for (CommandeDistri cd : l) { //Pour les commandesdistri reçues à la step précédentes...
@@ -144,9 +147,11 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 	}
 	
 	// Declenche la mise a jour de la tresorerie de du stock de CACAO
+	//et l'historique des commandes
 	public void notificationVente(CommandeProduc c) {
 		tresorerie.setTresorerieAchat(c);
 		this.stockcacao.MiseAJourStockLivraison(Constante.CACAO,c.getQuantite());
+		this.historiquecommandesprod.add(c);
 	}
 
 	//Celle ci est dépréciée. Il est inutile de la remplir
@@ -156,22 +161,19 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 		}
 		
 	//Méthode dépréciée
-	//méthpde inutile
+	//méthode inutile
 		public void notificationVente(IProducteur p) {
 		}
 
-		@Override
 		public String getNom() {
-			// TODO Auto-generated method stub
-			return null;
+			return this.nom;
 		}
 
 	
 
 	@Override
 	public Catalogue getCatalogue() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.catalogueinterne;
 	}
 
 	@Override
@@ -192,19 +194,32 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 		return null;
 	}
 
-	@Override
+	//Méthode dépréciée
+	//Méthode inutile
 	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	//Annonce le prix auquel on propose d'acheter le cacao
+	//Pour simplifier, on achète eu prix du marché avec de l'aléatoire 
+	//renvoie le prix du marché + ou - 10%
 	public double annoncePrix() {
-		// TODO Auto-generated method stub
-		return 0;
+		double alea = Math.random()*0.2-0.1;
+		return MarcheProducteur.LE_MARCHE.getCours()*alea;
 	}
 	
 	public void next() {
 		// TODO Auto-generated method stub
 	}
+	
+	
+	//Début des tests sur la classe Nestlé
+	//Il ne faudra tester que les méthodes de l'interface, les autres étant évidentes
+	/*public static void main(String[] args) {
+		Nestle_new nestle = new Nestle_new();
+		System.out.println(nestle.annoncePrix());
+		System.out.println(nestle.annoncePrix());
+		System.out.println(nestle.annoncePrix());
+		System.out.println("si les trois fluctuent entre le cours du marché +-10% alors le test est bon");
+	}*/	
 }
