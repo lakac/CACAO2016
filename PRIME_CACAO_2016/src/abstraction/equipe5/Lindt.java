@@ -109,10 +109,10 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 
 	
 	public void next() {
-		this.getJournal().ajouter("\n");
-		this.getJournal().ajouter("---------------");
-		this.getJournal().ajouter("\n");
-		this.getJournal().ajouter("Step : " + Monde.LE_MONDE.getStep());
+//		this.getJournal().ajouter("\n");
+//		this.getJournal().ajouter("---------------");
+//		this.getJournal().ajouter("\n");
+//		this.getJournal().ajouter("Step : " + Monde.LE_MONDE.getStep());
 		
 		this.getTransformationCacaoChocolat().Transformation(); // transforme le cacao en chocolat et met ﾃ� jour les stocks (retire pour cacao et ajoute pour chocolat)
 		
@@ -137,15 +137,15 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 		this.getHistCommandeDistri().ajouter(commande3);
 		
 		// test pour voir si les commandes passent bien à chaque step
-		this.getJournal().ajouter("Informations liées à la commande du produit 50% :");
-		this.getJournal().ajouter("prix : " + commande1.getPrixTonne());
-		this.getJournal().ajouter("quantite : " + commande1.getQuantite());
-		this.getJournal().ajouter("Informations liées à la commande du produit 60% :");
-		this.getJournal().ajouter("prix : " + commande2.getPrixTonne());
-		this.getJournal().ajouter("quantite : " + commande2.getQuantite());
-		this.getJournal().ajouter("Informations liées à la commande du produit 70% :");
-		this.getJournal().ajouter("prix : " + commande3.getPrixTonne());
-		this.getJournal().ajouter("quantite : " + commande3.getQuantite());
+//		this.getJournal().ajouter("Informations liées à la commande du produit 50% :");
+//		this.getJournal().ajouter("prix : " + commande1.getPrixTonne());
+//		this.getJournal().ajouter("quantite : " + commande1.getQuantite());
+//		this.getJournal().ajouter("Informations liées à la commande du produit 60% :");
+//		this.getJournal().ajouter("prix : " + commande2.getPrixTonne());
+//		this.getJournal().ajouter("quantite : " + commande2.getQuantite());
+//		this.getJournal().ajouter("Informations liées à la commande du produit 70% :");
+//		this.getJournal().ajouter("prix : " + commande3.getPrixTonne());
+//		this.getJournal().ajouter("quantite : " + commande3.getQuantite());
 		
 		// variation de stock du aux commandes livrees et mise a jour de l'historique
 		this.getStockChocolat50().retirerStockChocolat(Monde.LE_MONDE.getStep());
@@ -155,12 +155,12 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 		
 		// mise a jour de la tresorerie due aux couts en interne
 		this.getTreso().retrait(this.getTreso().coutStock()+Constante.CHARGES_FIXES_STEP);
-		this.getJournal().ajouter("\n");
-		this.getJournal().ajouter("Cout de stock : " + this.getTreso().coutStock());
-		this.getJournal().ajouter("Tréso avant paie distributeurs : " + this.getTreso());
+//		this.getJournal().ajouter("\n");
+//		this.getJournal().ajouter("Cout de stock : " + this.getTreso().coutStock());
+//		this.getJournal().ajouter("Tréso avant paie distributeurs : " + this.getTreso());
 		this.getTreso().depot(this.getTreso().payeParDistrib());
-		this.getJournal().ajouter("Paye par distributeur " + this.getTreso().payeParDistrib());
-		this.getJournal().ajouter("Tréso apres paie distributeurs : " + this.getTreso());
+//		this.getJournal().ajouter("Paye par distributeur " + this.getTreso().payeParDistrib());
+//		this.getJournal().ajouter("Tréso apres paie distributeurs : " + this.getTreso());
 	}
 	
 	// Fonctions finies

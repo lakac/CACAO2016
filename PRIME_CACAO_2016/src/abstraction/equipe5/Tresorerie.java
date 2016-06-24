@@ -51,13 +51,13 @@ public class Tresorerie {
 
 	public void depot(double d) {
 		if (d > 0) {
-			this.getJournal().ajouter("Depot sur treso de "+d);
+//			this.getJournal().ajouter("Depot sur treso de "+d);
 			this.setTresorerie(this.getTresorerie()+d);}
 	}
 	
 	public void retrait(double d) {
 		if (d > 0) {
-			this.getJournal().ajouter("Retrait sur treso de "+d);
+//			this.getJournal().ajouter("Retrait sur treso de "+d);
 			this.setTresorerie(this.getTresorerie()-d);	
 		}
 	}
@@ -114,7 +114,7 @@ public class Tresorerie {
 		for (Commande c: lindt.getCommandeDistriLivree().getHist()){ //si il s'agit des livrées
 			if(((CommandeDistri)c).getStepLivraison()==Monde.LE_MONDE.getStep()){
 				paye+=c.getQuantite()*c.getPrixTonne();	 //on ne prend pas en compte les rabais pour la V2
-				this.getJournal().ajouter("Prix de vente" + c.getPrixTonne() + "--> a comparer avec prix step " + (Monde.LE_MONDE.getStep()-3));
+//				this.getJournal().ajouter("Prix de vente" + c.getPrixTonne() + "--> a comparer avec prix step " + (Monde.LE_MONDE.getStep()-3));
 			}
 		}
 		return paye;

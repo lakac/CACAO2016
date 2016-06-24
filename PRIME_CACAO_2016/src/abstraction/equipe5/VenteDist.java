@@ -36,7 +36,7 @@ public class VenteDist {
 	 */ 
 	public double prixProduit(Produit p) {
 		double r = 0;
-		this.getJournal().ajouter("cout de revient "+this.getTreso().coutRevient());
+//		this.getJournal().ajouter("cout de revient "+this.getTreso().coutRevient());
 		for (int i=0; i<Constante.LISTE_PRODUIT.length; i++) {
 			if (p.equals(Constante.LISTE_PRODUIT[i])) {
 				r= this.getTreso().coutRevient() / (1 - Constante.MARGE_PRODUIT[i]); // formule pour avoir le prix de vente quand on veut une marge spécifique

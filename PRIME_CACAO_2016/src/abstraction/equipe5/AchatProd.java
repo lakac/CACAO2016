@@ -126,22 +126,22 @@ public class AchatProd {
 		//this.quantiteRecue = c.getQuantite();
 		this.getHistP().ajouter(c);
 		
-		this.getJournal().ajouter("\n");
-		this.getJournal().ajouter("Quantite recue : " + c.getQuantite());
-		this.getJournal().ajouter("Quantite demandee : " + this.annonceQuantiteDemandee());
-		this.getJournal().ajouter("Stock avant ajout quantite recue : " + this.getStock().getStock());
-		this.getJournal().ajouter("Quantite de cacao perdue : " + c.getQuantite()*Constante.perteCacao());
+//		this.getJournal().ajouter("\n");
+//		this.getJournal().ajouter("Quantite recue : " + c.getQuantite());
+//		this.getJournal().ajouter("Quantite demandee : " + this.annonceQuantiteDemandee());
+//		this.getJournal().ajouter("Stock avant ajout quantite recue : " + this.getStock().getStock());
+//		this.getJournal().ajouter("Quantite de cacao perdue : " + c.getQuantite()*Constante.perteCacao());
 		
 		this.getStock().ajouterStock(c.getQuantite());
 		
-		this.getJournal().ajouter("Stock apres : " + this.getStock().getStock());
-		this.getJournal().ajouter("\n");
-		this.getJournal().ajouter("Prix paye aux producteurs : " + c.getQuantite()*c.getPrixTonne());
-		this.getJournal().ajouter("Treso avant de payer : " + this.treso.toString());
+//		this.getJournal().ajouter("Stock apres : " + this.getStock().getStock());
+//		this.getJournal().ajouter("\n");
+//		this.getJournal().ajouter("Prix paye aux producteurs : " + c.getQuantite()*c.getPrixTonne());
+//		this.getJournal().ajouter("Treso avant de payer : " + this.treso.toString());
 		
 		this.getTreso().retrait(c.getQuantite()*c.getPrixTonne());
 		
-		this.getJournal().ajouter("Treso apres : " + this.treso.toString());
+//		this.getJournal().ajouter("Treso apres : " + this.treso.toString());
 	}
 	
 //	/**
