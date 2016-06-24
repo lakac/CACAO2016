@@ -30,6 +30,7 @@ public class Indicateur extends Observable {
 		this.nom = nom;
 		this.createur = createur;
 		this.historique = new Historique();
+		System.out.println("monde "+Monde.LE_MONDE);
 		this.historique.ajouter(createur, Monde.LE_MONDE.getStep(), valInit);
 		this.courbe = new Courbe(this.nom);
 		this.courbe.ajouter(Monde.LE_MONDE.getStep(), valInit);

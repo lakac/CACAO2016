@@ -12,6 +12,8 @@ import abstraction.commun.CommandeProduc;
 import abstraction.commun.IProducteur;
 import abstraction.equipe6.Carrefour;
 import abstraction.fourni.Acteur;
+import abstraction.fourni.Monde;
+import abstraction.fourni.v0.Marche;
 
 public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 	
@@ -31,6 +33,7 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 	private Tresorerie tresorerie; //La trésorerie de Nestle.
 	private List<Tresorerie> historiquetresorerie;
 	private Catalogue catalogue; // Le catalogue qui permet de lancer les commandes des distributeurs
+	
 	
 	//différents getters utiles et setters.
 	//permet d'accéder au catalogue
@@ -247,7 +250,7 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 					offre.add(list.get(i));
 				}else{
 					CommandeDistri offrealternative=new CommandeDistri
-							(list.get(i).getAcheteur(),list.get(i).getProduit(),list.get(i).getQuantite(),list.get(i).getPrixTonne());
+							(list.get(i).getAcheteur(),list.get(i).getProduit(),list.get(i).getQuantite()/2,list.get(i).getPrixTonne());
 					offre.add(offrealternative);
 				}
 			}else{
@@ -256,7 +259,7 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 						offre.add(list.get(i));
 					}else{
 						CommandeDistri offrealternative=new CommandeDistri
-								(list.get(i).getAcheteur(),list.get(i).getProduit(),list.get(i).getQuantite(),list.get(i).getPrixTonne());
+								(list.get(i).getAcheteur(),list.get(i).getProduit(),list.get(i).getQuantite()/2,list.get(i).getPrixTonne());
 						offre.add(offrealternative);
 					}
 				}else{
@@ -265,7 +268,7 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 							offre.add(list.get(i));
 						}else{
 							CommandeDistri offrealternative=new CommandeDistri
-									(list.get(i).getAcheteur(),list.get(i).getProduit(),list.get(i).getQuantite(),list.get(i).getPrixTonne());
+									(list.get(i).getAcheteur(),list.get(i).getProduit(),list.get(i).getQuantite()/2,list.get(i).getPrixTonne());
 							offre.add(offrealternative);
 						}
 					}else{
@@ -288,18 +291,25 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 	//renvoie le prix du marché + ou - 10%
 	public double annoncePrix() {
 		double alea = Math.random()*0.2-0.1;
-		return MarcheProducteur.LE_MARCHE.getCours()*alea;
+		return MarcheProducteur.LE_MARCHE.getCours()*(1+alea);
 	}
 	
 	public void next() {
 		// TODO Auto-generated method stub
 	}
 	
+	//Constructeur nestle
+	public Nestle_new(StockChocolats schoc) {
+		this.stockchocolat = schoc;
+	}
 	
 	//Début des tests sur la classe Nestlé
 	//Il ne faudra tester que les méthodes de l'interface, les autres étant évidentes
 	public static void main(String[] args) {
-		Nestle_new nestle = new Nestle_new();
+		Monde.LE_MONDE = new Monde();
+		MarcheProducteur.LE_MARCHE = new MarcheProducteur();
+		StockChocolats stockchoco=new StockChocolats();
+		Nestle_new nestle = new Nestle_new(stockchoco);
 		System.out.println(nestle.annoncePrix());
 		System.out.println(nestle.annoncePrix());
 		System.out.println(nestle.annoncePrix());
@@ -309,7 +319,6 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 		
 		//Test de la méthode offre :
 		
-		StockChocolats stockchoco=new StockChocolats();
 		List<CommandeDistri> list= new ArrayList<CommandeDistri>();
 		Produit prod=new Produit("Chocolat80",0.8);
 		Carrefour c1=new Carrefour();
@@ -332,7 +341,7 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 			System.out.println("Erreur,on accepte de livrer des produits dont on ne dispose pas");
 		}else{
 			if(nestle.offre(list).get(0).getQuantite()==200){
-				System.out.println("Erreur, on accepte de tout livrer alors que le stock de chocolatn'est pas suffisant");
+				System.out.println("Erreur, on accepte de tout livrer alors que le stock de chocolat n'est pas suffisant");
 			}else{
 				if(nestle.offre(list).get(1).getQuantite()==10){
 					System.out.println("Erreur, la commande des ditributeurs est tout le temps divisée par deux");
@@ -343,7 +352,7 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 						if(nestle.offre(list).get(0).getProduit()!=Constante.PRODUIT_50){
 							System.out.println("On ajoute pas le bon produit dans la commande, problème ajout PRODUIT_50 ");
 						}else{
-							if(nestle.offre(list).get(5).getProduit()!=Constante.PRODUIT_70){
+							if(nestle.offre(list).get(4).getProduit()!=Constante.PRODUIT_70){
 								System.out.println("On ajoute pas le bon produit dans la commande, problème ajout PRODUIT_70");
 							}else{
 								System.out.println("Il semble que la méthode fonctionne");
