@@ -31,8 +31,8 @@ public class Stock {
 	 * 
 	 * Cette quantite initiale est repartie equitablement dans la pile entre les differents steps
 	 */
-	public Stock(Acteur createur, double stockInitial) {
-		this.quantite = new Indicateur("Stock de "+createur.getNom(), createur);
+	public Stock(Acteur createur, double stockInitial, String nomIndicateur) {
+		this.quantite = new Indicateur(nomIndicateur, createur);
 		Monde.LE_MONDE.ajouterIndicateur(this.quantite);
 		this.quantite.setValeur(createur, stockInitial);
 		
