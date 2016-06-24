@@ -62,15 +62,18 @@ public class Carrefour implements Acteur,IDistributeur {
 		List<Ventes> lesVentes = new ArrayList<Ventes>();
 		HashMap<Produit,Double> demandeAnnuel = new HashMap<Produit,Double>();
 		for (Produit p : this.getProduits()) {
-			demandeAnnuel.put(p, 2500.0);
-
+			if (p.getNomProduit()=="60%") {
+				demandeAnnuel.put(p, 20000.0);
+			}
+			else {
+				demandeAnnuel.put(p, 15000.0);
+			}
 			besoinStep.put(p, 0.0);
 			for (ITransformateurD t : this.getTransformateurs()) {
-				lesStocks.add(new Stock(p, 1000, t, new Indicateur("Stock de "+p.getNomProduit()+" de marque "+t.getNom()+" de "+this.getNom(),this , 0.0)));
+				lesStocks.add(new Stock(p, 2000, t, new Indicateur("Stock de "+p.getNomProduit()+" de marque "+t.getNom()+" de "+this.getNom(),this , 0.0)));
 				lesAchats.add(new Achats(t, new Indicateur("Achats de "+p.getNomProduit()+" de marque "+t.getNom()+" de "+this.getNom(), this, 0.0), p));
 				lesVentes.add(new Ventes(t, new Indicateur("Ventes de "+p.getNomProduit()+" de marque "+t.getNom()+" de "+this.getNom(), this, 0.0), p));
 			}
-
 		}
 		this.setLesStocks(lesStocks);
 		this.demandeAnnuel= demandeAnnuel;

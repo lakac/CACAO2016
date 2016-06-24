@@ -118,9 +118,9 @@ public class MondeV1 extends Monde {
 		
 
 
-		marcheProducteur.ajouterProducteur(p1);
-		marcheProducteur.ajouterProducteur(p2);
-		marcheProducteur.ajouterTransformateur(lindt);
+		//marcheProducteur.ajouterProducteur(p1);
+		//marcheProducteur.ajouterProducteur(p2);
+		//marcheProducteur.ajouterTransformateur(lindt);
 
 		
 
