@@ -420,11 +420,13 @@ public class Carrefour implements Acteur,IDistributeur, ITransformateurD {
 			}
 		}
 		for (PrixVente p : this.getPrixvente()){
+			int i=1;
 			for (IDistributeur d : this.getDistributeurs()){
 				p.setPrix(p.getPrixVente()+d.getPrixVente(p.getProduit()));
-				
+				i+=1;
 					
 			}
+			p.setPrix(p.getPrixVente()/i);
 		}
 	}
 
