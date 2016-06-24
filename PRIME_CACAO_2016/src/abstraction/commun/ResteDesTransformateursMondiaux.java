@@ -1,4 +1,4 @@
-package abstraction.commun;
+	package abstraction.commun;
 
 
 import java.util.ArrayList;
@@ -37,16 +37,18 @@ public class ResteDesTransformateursMondiaux implements Acteur, ITransformateurP
 		}
 	}
 
+	
+	// annonce de la quantite demandee au marche en fonction des autres transformateurs et dans le respect
+	// des proportion (ceux qui ont le plus de part du marchee vendent plus et inverssement).
 	public double annonceQuantiteDemandee() {
 		double qt =0;
 		for (ITransformateurP t : this.transformateurs) {
 			qt += t.annonceQuantiteDemandee();
 		}
-
 		// le reste du monde represente 83% du marche
 		// on rajoute un peu d'aleatoire pour mieux coller a la realite.
 		double pourcentage = 82.0+Math.random()*2.0;
-		// 17% correspond aux transformateurs simules� par les autres groupe.
+		// 17% correspond aux transformateurs simules par les autres groupe.
 		// Donc en respectant les ratio on a 
 		return qt / 17.0 * pourcentage;
 	}
@@ -66,10 +68,10 @@ public class ResteDesTransformateursMondiaux implements Acteur, ITransformateurP
 
 	}
 	public double annonceQuantiteDemandee(IProducteur p) {
-		return 0.0; // méthode dépréciée
+		return 0.0; // methode deprecie
 	}
 
-
+	// methode depreciee
 	public double annoncePrix() {
 		return MarcheProd.LE_MARCHE.getCoursCacao().getValeur();
 	}
@@ -98,7 +100,7 @@ public class ResteDesTransformateursMondiaux implements Acteur, ITransformateurP
 	}
 
 	public void notificationVente(IProducteur p) {
-		// méthode dépréciée
+		// methode depreciee
 	}
 
 	public List<CommandeDistri> offre(List<CommandeDistri> list) {
