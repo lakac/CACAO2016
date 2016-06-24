@@ -45,14 +45,14 @@ public class IntelligenceEconomique {
 		double besoin = calculerBesoinDeVendre();
 		double offre = besoin*(1.0-envie) + this.stock.getQuantite()*envie; 
 		
-		this.journal.ajouter("<hr>");
-		this.journal.ajouter("Actualisation step "+Monde.LE_MONDE.getStep());
-		this.journal.ajouter("Envie de vendre : "+envie);
-		this.journal.ajouter("<table>" +
-				"<tr><td>Besoin de vendre</td> <td>"+besoin+"</td></tr>" +
-				"<tr><td>Quantité mise en vente</td> <td>"+offre+"</td></tr>" +
-				"<tr><td>Stock total</td> <td>"+this.stock.getQuantite()+"</td></tr>" +
-				"</table>");
+//		this.journal.ajouter("<hr>");
+//		this.journal.ajouter("Actualisation step "+Monde.LE_MONDE.getStep());
+//		this.journal.ajouter("Envie de vendre : "+envie);
+//		this.journal.ajouter("<table>" +
+//				"<tr><td>Besoin de vendre</td> <td>"+besoin+"</td></tr>" +
+//				"<tr><td>Quantité mise en vente</td> <td>"+offre+"</td></tr>" +
+//				"<tr><td>Stock total</td> <td>"+this.stock.getQuantite()+"</td></tr>" +
+//				"</table>");
 		
 		return offre;
 	}
