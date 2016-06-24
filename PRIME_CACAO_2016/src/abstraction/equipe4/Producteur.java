@@ -19,7 +19,7 @@ public class Producteur implements Acteur,IProducteur{
 		this.nom = Constantes.NOM_PRODUCTEUR_2;
 		this.treso = new Tresorerie(this);
 		this.stock = new Stock(this);
-		this.journal = new Journal("Journal de "+this.nom);
+		this.journal = new Journal("Journal de Asie Amerique");
 		this.prodBiannu=new ProductionBiannuelle(this,1200000);
 		Monde.LE_MONDE.ajouterJournal(this.journal);
 		this.offre = new Offre(this, this.stock);
