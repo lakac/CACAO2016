@@ -71,7 +71,7 @@ public class ResteDesTransformateursMondiaux implements Acteur, ITransformateurP
 
 
 	public double annoncePrix() {
-		return MarcheProducteur.LE_MARCHE.getCours();
+		return MarcheProd.LE_MARCHE.getCoursCacao().getValeur();
 	}
 
 	

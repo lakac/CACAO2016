@@ -24,6 +24,9 @@ public class Entree {
 	}
 
 	public String toString() {
+		System.out.println(this.getAuteur());
+		System.out.println(this.getEtape());
+		System.out.println(this.getValeur());
 		return this.getAuteur().getNom()+" a l'etape "+this.getEtape()+" --> "+this.getValeur();
 	}
 }

@@ -1,6 +1,5 @@
 package abstraction.equipe4;
 import abstraction.fourni.*;
-import abstraction.commun.*;
 
 public class Tresorerie {
 	// argent totale dans la cagnote
@@ -28,4 +27,3 @@ public class Tresorerie {
 	}	
 		
 }
-	
