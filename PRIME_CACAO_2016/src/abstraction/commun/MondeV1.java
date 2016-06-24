@@ -18,9 +18,9 @@ public class MondeV1 extends Monde {
 	
 	private static ArrayList<Produit> produits = new ArrayList<Produit>();
 	
+	
 	public void peupler() {
 		// Il faut créer les acteurs et les ajouter au monde ici.
-		
 		
 		//Initialisation de la liste produits
 		produits.add(new Produit("50%",50));
@@ -58,9 +58,10 @@ public class MondeV1 extends Monde {
 		
 		
 		// Marché Producteur
-		MarcheProducteur marcheProducteur = new MarcheProducteur();
-		MarcheProducteur.LE_MARCHE = marcheProducteur;
+		MarcheProd marcheProducteur = new MarcheProd();
+		MarcheProd.LE_MARCHE=marcheProducteur;
 		this.ajouterActeur(marcheProducteur);
+		
 		
 		// Marché Consommateur
 		//MarcheConsommateurs marcheConsommateurs = new MarcheConsommateurs();
@@ -72,7 +73,7 @@ public class MondeV1 extends Monde {
 		this.ajouterActeur(p1);
 		abstraction.equipe4.Producteur p2 = new abstraction.equipe4.Producteur(Monde.LE_MONDE);
 		this.ajouterActeur(p2);
-
+		
 
 		
 		// Ajout des liens necessaires entre les acteurs
@@ -100,19 +101,27 @@ public class MondeV1 extends Monde {
 		
 		t3.ajouterTransformateur(nestle);
 		t3.ajouterTransformateur(lindt);
+		t3.ajouterTransformateur(nestle);
 		
 		p1.ajouterTransformateur(nestle);
 		p1.ajouterTransformateur(lindt);
 		p1.ajouterTransformateur(t3);
 		
-		p2.ajoutClient(nestle);
-		p2.ajoutClient(lindt);	
-		p2.AjoutVariableVente();
+
+		marcheProducteur.AjoutProducteur(p1);;
+		marcheProducteur.AjoutProducteur(p2);
+		marcheProducteur.AjoutTransformateur(nestle);
+		marcheProducteur.AjoutTransformateur(lindt);
+		marcheProducteur.AjoutTransformateur(t3);
+		//penser a ajouter la cote d'ivoire
+
 		
+
 
 		marcheProducteur.ajouterProducteur(p1);
 		marcheProducteur.ajouterProducteur(p2);
 		marcheProducteur.ajouterTransformateur(lindt);
+
 		
 
 		//maj 31/05 Leclerc

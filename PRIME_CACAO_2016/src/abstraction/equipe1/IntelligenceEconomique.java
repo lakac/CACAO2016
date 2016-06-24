@@ -5,23 +5,24 @@ import java.util.List;
 
 import abstraction.commun.ITransformateurD;
 import abstraction.commun.ITransformateurP;
+import abstraction.commun.MarcheProd;
 import abstraction.commun.MarcheProducteur;
 
 /**
- * Classe pour calculer la quantité mise en vente pour chaque transformateur
+ * Classe pour calculer la quantitﾃｩ mise en vente pour chaque transformateur
  */
 public class IntelligenceEconomique {
 	/** Liste des transformateurs en relation avec notre producteur */
 	private List<ITransformateurP> transformateurs;
-	/** Coefficients de somme unité correspondant à l'importance des ventes réalisées */
+	/** Coefficients de somme unitﾃｩ correspondant ﾃ� l'importance des ventes rﾃｩalisﾃｩes */
 	private HashMap<ITransformateurP,Double> importanceTransformateurs;
 	/** Stock de notre producteur */
 	private Stock stock;
-	/** Quantités mises en vente pour chaque transformateur pour le step en cours */
+	/** Quantitﾃｩs mises en vente pour chaque transformateur pour le step en cours */
 	private HashMap<ITransformateurP,Double> quantitesMisesEnVente;
 	/**
-	 * Coefficients associés au stock produit à différentes dates.
-	 * Le cacao le plus ancien est en tête.
+	 * Coefficients associﾃｩs au stock produit ﾃ� diffﾃｩrentes dates.
+	 * Le cacao le plus ancien est en tﾃｪte.
 	 */
 	private final double[] coeffPerissabilite = {1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1};
 	
@@ -33,19 +34,19 @@ public class IntelligenceEconomique {
 	}
 	
 	/**
-	 * Prend en compte l'existence du transformateur après son ajout
-	 * à la liste des transformateurs pour l'ajouter aux HashMap internes.
+	 * Prend en compte l'existence du transformateur aprﾃｨs son ajout
+	 * ﾃ� la liste des transformateurs pour l'ajouter aux HashMap internes.
 	 */
 	public void prendreEnCompte(ITransformateurP t) {
 		this.quantitesMisesEnVente.put(t, 0.0);
-		// mise à jour des coefficients d'importance pour avoir une somme unité
+		// mise ﾃ� jour des coefficients d'importance pour avoir une somme unitﾃｩ
 		for (ITransformateurP tr : this.transformateurs) {
 			this.importanceTransformateurs.put(tr, 1.0/this.transformateurs.size());
 		}
 	}
 	
 	private double calculerEnvieDeVendre() {
-		double rapport = (MarcheProducteur.LE_MARCHE.getCours()-MarcheProducteur.PRIX_MINIMUM)/(MarcheProducteur.PRIX_MAXIMUM-MarcheProducteur.PRIX_MINIMUM);
+		double rapport = (MarcheProd.LE_MARCHE.getCoursCacao().getValeur()-MarcheProd.CoursMinimum)/(MarcheProd.CoursMaximum-MarcheProd.CoursMinimum);
 		return (1.0 + Math.sin((rapport - 0.5) * Math.PI)) / 2.0;
 	}
 	
