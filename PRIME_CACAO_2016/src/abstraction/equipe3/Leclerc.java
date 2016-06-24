@@ -7,7 +7,7 @@ import java.util.List;
 import abstraction.commun.Catalogue;
 import abstraction.commun.CommandeDistri;
 import abstraction.commun.IDistributeur;
-import abstraction.commun.ITransformateur;
+import abstraction.commun.ITransformateurD;
 import abstraction.commun.Produit;
 import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
@@ -23,7 +23,7 @@ public class Leclerc implements Acteur,IDistributeur{
 	private Indicateur solde;
 	private Indicateur achats;
 	private Stock stock;
-	private ArrayList<ITransformateur> transformateurs;
+	private ArrayList<ITransformateurD> transformateurs;
 	private Ventes ventes;
 	private ArrayList<Double> ratio;
 
@@ -35,20 +35,20 @@ public class Leclerc implements Acteur,IDistributeur{
 		this.stock.initialiseStock(null);
     	Monde.LE_MONDE.ajouterIndicateur( this.achats );
     	Monde.LE_MONDE.ajouterIndicateur( this.solde );
-    	this.transformateurs = new ArrayList<ITransformateur>();
+    	this.transformateurs = new ArrayList<ITransformateurD>();
 		this.ratio = new ArrayList<Double>();
 		Monde.LE_MONDE.ajouterIndicateur( this.achats );
 		Monde.LE_MONDE.ajouterIndicateur( this.solde );
-		this.transformateurs = new ArrayList<ITransformateur>();
+		this.transformateurs = new ArrayList<ITransformateurD>();
 		this.ventes=ventes;
 	}
-	public void ajouterVendeur(ITransformateur t) {
+	public void ajouterVendeur(ITransformateurD t) {
 		this.transformateurs.add(t);
 	}
-	public ArrayList<ITransformateur> getTransformateurs(){
+	public ArrayList<ITransformateurD> getTransformateurs(){
 		return this.transformateurs;
 	}
-	public ITransformateur getTransformateurs(int i){
+	public ITransformateurD getTransformateurs(int i){
 		return this.transformateurs.get(i);
 	}
 	public int nombreTransformateur(){
@@ -57,7 +57,7 @@ public class Leclerc implements Acteur,IDistributeur{
 	public String getNom(){
 		return this.nom;
 	}
-	public double getPrixAchat(int indexproduit, ITransformateur t){
+	public double getPrixAchat(int indexproduit, ITransformateurD t){
 		double x = 0;
 		for (int i=0; i<this.transformateurs.size(); i++){
 			if (t.equals(this.transformateurs.get(i))){
@@ -68,7 +68,7 @@ public class Leclerc implements Acteur,IDistributeur{
 	public double getPrixVente(int indexproduit){
 		return this.prixVente[indexproduit];
 	}
-	public void setPrixAchat(double prixAchat, int indexproduit, ITransformateur t){
+	public void setPrixAchat(double prixAchat, int indexproduit, ITransformateurD t){
 		for (int i=0; i<this.transformateurs.size();i++){
 			if (t.equals(this.transformateurs.get(i))){
 				this.prixAchat[i][indexproduit]=prixAchat;
@@ -139,7 +139,7 @@ public class Leclerc implements Acteur,IDistributeur{
 	}*/
 	
 
-	public List<CommandeDistri> Demande(ITransformateur t, Catalogue c) { //Commande aux diff�rents transformateurs bas� sur les ventes des ann�es pr�c�dentes
+	public List<CommandeDistri> Demande(ITransformateurD t, Catalogue c) { //Commande aux diff�rents transformateurs bas� sur les ventes des ann�es pr�c�dentes
 		Double[] x = {0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donn� sur toutes les ann�es
 
 		Double[] sto = {0.0,0.0,0.0};
@@ -233,7 +233,7 @@ public class Leclerc implements Acteur,IDistributeur{
 
 
 
-	public List<CommandeDistri> demande(ITransformateur t, Catalogue c) {
+	public List<CommandeDistri> demande(ITransformateurD t, Catalogue c) {
 
 		// TODO Auto-generated method stub
 		return null;

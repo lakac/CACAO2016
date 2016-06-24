@@ -27,9 +27,5 @@ public interface ITransformateurD {
 	public List<CommandeDistri> offre(List<CommandeDistri> list);
 	
 	public String getNom();
-	
-	/**
-	 * @deprecated
-	 */
-	public List<CommandeDistri> Offre(List<CommandeDistri> o);
+
 }

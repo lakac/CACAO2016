@@ -7,7 +7,7 @@ import java.util.List;
 import abstraction.commun.Catalogue;
 import abstraction.commun.CommandeDistri;
 import abstraction.commun.IDistributeur;
-import abstraction.commun.ITransformateur;
+import abstraction.commun.ITransformateurD;
 import abstraction.commun.MarcheConsommateurs;
 import abstraction.commun.MarcheDistributeur;
 import abstraction.commun.Produit;
@@ -23,7 +23,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	private Indicateur solde; //SoldeDeLeclerc
 	private PrixDeVente prixdevente;
 	private ArrayList<Double> ratio;
-	private ArrayList<ITransformateur> transformateurs;
+	private ArrayList<ITransformateurD> transformateurs;
 	private ArrayList<Produit> produits;
 
 	public Leclercv2(String nom, Monde monde, ArrayList<Produit> produits) {
@@ -31,10 +31,10 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		this.produits=produits;
 		this.solde = new Indicateur("Solde de Leclerc", this, 1000000.0);
 		Monde.LE_MONDE.ajouterIndicateur( this.solde );
-    	this.transformateurs = new ArrayList<ITransformateur>();
+    	this.transformateurs = new ArrayList<ITransformateurD>();
 		this.ratio = new ArrayList<Double>();
 		Monde.LE_MONDE.ajouterIndicateur( this.solde );
-		this.transformateurs = new ArrayList<ITransformateur>();
+		this.transformateurs = new ArrayList<ITransformateurD>();
 		this.ventes=new Ventes();
 		this.stock= new Stock(new ArrayList<Double[]>(), 0.0);
 		this.prixdevente=new PrixDeVente();
@@ -55,18 +55,18 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	public String getNom() {
 		return this.nom;
 	}
-	public void ajouterVendeur(ITransformateur t) {
+	public void ajouterVendeur(ITransformateurD t) {
 		this.transformateurs.add(t);
 	}
-	public ArrayList<ITransformateur> getTransformateurs(){
+	public ArrayList<ITransformateurD> getTransformateurs(){
 		return this.transformateurs;
 	}
 	
 	/*methode qui classe les transfos du moins cher au sens du produit p au plus cher*/
 	
-	public List<ITransformateur> Classerparprix(Produit p){ 
-		List<ITransformateur> liste = new ArrayList<ITransformateur>();
-		List<ITransformateur> transfo=this.getTransformateurs();
+	public List<ITransformateurD> Classerparprix(Produit p){ 
+		List<ITransformateurD> liste = new ArrayList<ITransformateurD>();
+		List<ITransformateurD> transfo=this.getTransformateurs();
 		int i=0;
 		int n;
 		while(transfo!=null){
@@ -87,8 +87,8 @@ public class Leclercv2 implements Acteur,IDistributeur{
 
 	/*methode qui fait appel au distributeur suivant dans la liste renvoyee par la methode precedente*/
 	
-	public ITransformateur TransfoSuivant(CommandeDistri c){
-		List<ITransformateur> liste = Classerparprix(c.getProduit());
+	public ITransformateurD TransfoSuivant(CommandeDistri c){
+		List<ITransformateurD> liste = Classerparprix(c.getProduit());
 		int i;
 		if (c.getVendeur()==liste.get(0)){
 			i=0;
@@ -110,7 +110,8 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	 * du nombre de clients a ce step */
 
 
-	public List<CommandeDistri> demande(ITransformateur t, Catalogue c) {
+	public List<CommandeDistri> Demande(ITransformateurD t, Catalogue c) {
+
 		Double[] x = {0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donn� sur toutes les ann�es
 		Double[] sto = {0.0,0.0,0.0};
 		for (int i=0; i<this.transformateurs.size();i++){
@@ -145,7 +146,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 			if (cd.get(i).equals(c)){
 				double q = cd.get(i).getQuantite()-c.getQuantite();
 				boolean valid = (cd.get(i).getQuantite()-c.getQuantite()==0);
-				ITransformateur vendeur = c.getVendeur();
+				ITransformateurD vendeur = c.getVendeur();
 				if(!valid){
 					vendeur=TransfoSuivant(c);
 				}
@@ -196,16 +197,16 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	public Double getStock(Produit p) {
 		double x = 0;
 		if (p.getNomProduit()=="50%"){
-			for (ITransformateur t : this.transformateurs){
+			for (ITransformateurD t : this.transformateurs){
 				x+=this.stock.getStock(t,0);
 			}
 		} else {
 			if (p.getNomProduit()=="60%"){
-				for (ITransformateur t : this.transformateurs){
+				for (ITransformateurD t : this.transformateurs){
 					x+=this.stock.getStock(t,1);
 				}
 			} else {
-				for (ITransformateur t : this.transformateurs){
+				for (ITransformateurD t : this.transformateurs){
 					x+=this.stock.getStock(t,2);
 				}
 			}
@@ -260,6 +261,11 @@ public class Leclercv2 implements Acteur,IDistributeur{
 =======
 		  */
 
+	}
+	@Override
+	public List<CommandeDistri> demande(ITransformateurD t, Catalogue c) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
 

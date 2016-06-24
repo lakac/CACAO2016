@@ -21,8 +21,8 @@ public class Vente {
 	public Vente (Stock stock, Producteur producteur) {
 		this.stock = stock;
 		//on importe les prix demandes par les transformateurs
-		this.prixDemandes = new double[3];
-		for (int i=0; i<3; i++) {
+		this.prixDemandes = new double[2];
+		for (int i=0; i<2; i++) {
 			this.prixDemandes[i] = producteur.getTransformateurs().get(i).annoncePrix();
 		}
 		this.producteur = producteur;

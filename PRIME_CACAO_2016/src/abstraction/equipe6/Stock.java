@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import abstraction.commun.ITransformateur;
+import abstraction.commun.ITransformateurD;
 import abstraction.commun.Produit;
 import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
@@ -15,13 +16,13 @@ public class Stock {
 	
 	private Produit produit;
 	private double capacitemax;
-	private ITransformateur marque;
+	private ITransformateurD marque;
 	private Indicateur quantite;
 	
-	public Stock(Produit produit, double capacitemax, ITransformateur marque, Indicateur quantite) {
+	public Stock(Produit produit, double capacitemax, ITransformateurD t, Indicateur quantite) {
 		this.produit = produit;
 		this.capacitemax = capacitemax;
-		this.marque = marque;
+		this.marque = t;
 		this.quantite = quantite;
 	}
 	
@@ -33,11 +34,11 @@ public class Stock {
 		this.produit = produit;
 	}
 
-	public ITransformateur getMarque() {
+	public ITransformateurD getMarque() {
 		return marque;
 	}
 
-	public void setMarque(ITransformateur marque) {
+	public void setMarque(ITransformateurD marque) {
 		this.marque = marque;
 	}
 
