@@ -63,9 +63,11 @@ public class Carrefour implements Acteur,IDistributeur {
 		HashMap<Produit,Double> demandeAnnuel = new HashMap<Produit,Double>();
 		for (Produit p : this.getProduits()) {
 			demandeAnnuel.put(p, 2500.0);
+
 			besoinStep.put(p, 0.0);
 			for (ITransformateurD t : this.getTransformateurs()) {
 				lesStocks.add(new Stock(p, 1000, t, new Indicateur("Stock de "+p.getNomProduit()+" de marque "+t.getNom()+" de "+this.getNom(),this , 0.0)));
+
 				lesAchats.add(new Achats(t, new Indicateur("Achats de "+p.getNomProduit()+" de marque "+t.getNom()+" de "+this.getNom(), this, 0.0), p));
 				lesVentes.add(new Ventes(t, new Indicateur("Ventes de "+p.getNomProduit()+" de marque "+t.getNom()+" de "+this.getNom(), this, 0.0), p));
 			}
@@ -190,6 +192,7 @@ public class Carrefour implements Acteur,IDistributeur {
 	public void setDistributeurs(ArrayList<IDistributeur> distributeurs) {
 		this.distributeurs = distributeurs;
 	}
+
 
 
 	public void setHistoCommande(List<CommandeDistri> histoCommande) {
@@ -414,11 +417,13 @@ public class Carrefour implements Acteur,IDistributeur {
 			}
 		}
 		for (PrixVente p : this.getPrixvente()){
+			int i=1;
 			for (IDistributeur d : this.getDistributeurs()){
 				p.setPrix(p.getPrixVente()+d.getPrixVente(p.getProduit()));
-				
+				i+=1;
 					
 			}
+			p.setPrix(p.getPrixVente()/i);
 		}
 	}
 
