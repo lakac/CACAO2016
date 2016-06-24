@@ -13,7 +13,7 @@ public static final double COUT_DE_TRANSFORMATION=3;
 public static final double RATIO_TRANSFORMATION=0.6;
 public static final double DEMANDE_ACTEURS=0.6;
 public static final double DEMANDE_MONDE=2./3.;
-public static final double DISTANCE_MONDE=5000;
+public static final double DISTANCE_MONDE=4000;
 public static final double PRIX_MINIMUM=0.9;
 public static final double VARIATION_PRIX=0.2;
 

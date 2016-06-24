@@ -19,16 +19,16 @@ public class Tresorerie {
 	
 	//Toutes les méthodes qui suivent calculent les différents couts d'achat et de vente
 	//Méthode qui calcule le cout d'achat d'une commande passée aux producteurs
-	private double CoutdAchat(CommandeProduc cp) {
+	public double CoutdAchat(CommandeProduc cp) {
 		double coutachat = cp.getPrixTonne()*cp.getQuantite();
 		return coutachat;
 	}
 	
 	//Calcule le cout de transport d'une commande en Cacao 
 	//(les livraisons de chocolats étant à la charges des distributeurs) 
-	private double CoutTransport(CommandeProduc cp) {
+	public double CoutTransport(CommandeProduc cp) {
 			IProducteur p = cp.getVendeur();
-			double distance = Distances.DISTANCES.Eloignement(p);
+			double distance = Constante.DISTANCE_MONDE;
 			double couttransport = cp.getQuantite()*distance*Constante.COUT_UNITAIRE_TRANSPORT;
 			return couttransport;
 		}
@@ -51,7 +51,7 @@ public class Tresorerie {
 	
 	
 	//Méthode qui calcule le cout d'une vete d'una commande aux distributeurs
-	private double CoutVente(CommandeDistri cd) {
+	public double CoutVente(CommandeDistri cd) {
 		double coutvente = cd.getPrixTonne()*cd.getQuantite();
 		return coutvente;
 	}
@@ -63,13 +63,13 @@ public class Tresorerie {
 	
 	
 	//Cette méthode calcule les couts de stock de cacao 
-	private double CoutStockcacao (StockCacao scac) {
+	public double CoutStockcacao (StockCacao scac) {
 		double coutstockcac = scac.getStockcacao().get(Constante.CACAO)*Constante.COUT_STOCK_UNITAIRE;
 		return coutstockcac;
 	}
 	
 	//Cette méthode quant à elle calcule les couts de stock de chocolat
-	private double CoutStockchoc(StockChocolats schoc) {
+	public double CoutStockchoc(StockChocolats schoc) {
 		double coutstockchoc = schoc.Quantitetotalchoc()*Constante.COUT_STOCK_UNITAIRE;
 		return coutstockchoc;
 	}
@@ -92,7 +92,7 @@ public class Tresorerie {
 	//nécessité de la remplir avant de pouvoir tester cette partie
 	
 	//Calcule le cout de transformation lorsuq'on effectue une transformation t
-	private double CoutTransformation (Transformation t) {
+	public double CoutTransformation (Transformation t) {
 		double couttransformation = t.CacaoTransforme()*Constante.COUT_DE_TRANSFORMATION;
 		return couttransformation;
 	}
@@ -158,23 +158,19 @@ public class Tresorerie {
 		IProducteur producteurtest1 = new Producteur("producteurtest1");
 		IProducteur producteurtest2 = new Producteur("producteurtest2");
 		IProducteur producteurtest3 = new Producteur("producteurtest3");
-		Distances.DISTANCES = new Distances();
-		Distances.DISTANCES.ajouterproducteur(producteurtest1, 3000);
-		Distances.DISTANCES.ajouterproducteur(producteurtest2, 5000);
-		Distances.DISTANCES.ajouterproducteur(producteurtest3, 7000);
 		//nouvelles commandes 
 		CommandeProduc cp4 = new CommandeProduc(acheteurtest, producteurtest1, 400, 2);
 		CommandeProduc cp5 = new CommandeProduc(acheteurtest, producteurtest2, 9000, 3);
 		CommandeProduc cp6 = new CommandeProduc(acheteurtest, producteurtest3, 60000, 9);
-		if (tres.CoutTransport(cp4) != cp4.getQuantite()*Distances.DISTANCES.getDistances().get(producteurtest1)*Constante.COUT_UNITAIRE_TRANSPORT) {
+		if (tres.CoutTransport(cp4) != cp4.getQuantite()*Constante.COUT_UNITAIRE_TRANSPORT*Constante.DISTANCE_MONDE) {
 			if (tres.CoutTransport(cp4) == cp4.getQuantite()) {
 				System.out.println("Aïe, CoutTransport renvoie juste la quantité d'une commande");
 			}
 			else {
-				if (tres.CoutTransport(cp5) == cp5.getQuantite()*Distances.DISTANCES.getDistances().get(producteurtest2)) {
+				if (tres.CoutTransport(cp5) == cp5.getQuantite()) {
 					System.out.println("Aïe, CoutTransport ne prend pas en compte le cout unitaire");
 				}
-				else if (tres.CoutTransport(cp6) == Distances.DISTANCES.getDistances().get(producteurtest3)*Constante.COUT_UNITAIRE_TRANSPORT) {
+				else if (tres.CoutTransport(cp6) == Constante.DISTANCE_MONDE*Constante.COUT_UNITAIRE_TRANSPORT) {
 					System.out.println("Aïe, CoutTransport ne pred pas en compte la quantité de cacao");
 				}
 				else if (tres.CoutTransport(cp4) == cp5.getQuantite()*Constante.COUT_UNITAIRE_TRANSPORT) {
