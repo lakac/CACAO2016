@@ -1,6 +1,7 @@
 package abstraction.equipe2;
 import abstraction.commun.*;
 
+import java.util.ArrayList;
 //import java.util.HashMap;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import abstraction.commun.CommandeDistri;
 import abstraction.commun.CommandeProduc;
 //import abstraction.commun.*;
 import abstraction.commun.IProducteur;
+import abstraction.equipe6.Carrefour;
 import abstraction.fourni.Acteur;
 
 public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
@@ -184,14 +186,65 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 
 	@Override
 	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> list) {
-		// TODO Auto-generated method stub
+		double commandechoco50totale=0;
+		double commandechoco60totale=0;
+		double commandechoco70totale=0;
+		for(int i=0;i<list.size();i++){
+			if(list.get(i).getProduit()==Constante.PRODUIT_50){
+				commandechoco50totale+=list.get(i).getQuantite();
+			}else{
+				if(list.get(i).getProduit()==Constante.PRODUIT_60){
+					commandechoco60totale+=list.get(i).getQuantite();
+				}else{
+					if(list.get(i).getProduit()==Constante.PRODUIT_70){
+						commandechoco70totale+=list.get(i).getQuantite();						
+					}
+				}
+			}
+		}
+		if(commandechoco50totale<=this.stockchocolat.getStockchocolats().get(Constante.PRODUIT_50))
+			
+			// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<CommandeDistri> offre(List<CommandeDistri> list) {
-		// TODO Auto-generated method stub
-		return null;
+		List<CommandeDistri> offre = new ArrayList<CommandeDistri>();
+		for(int i=0;i<list.size();i++){
+			if(list.get(i).getProduit()==Constante.PRODUIT_50){
+				if(stockchocolat.getStockchocolats().get(Constante.PRODUIT_50)>=0.5*list.get(i).getQuantite()){
+					offre.add(list.get(i));
+				}else{
+					CommandeDistri offrealternative=new CommandeDistri
+							(list.get(i).getAcheteur(),list.get(i).getProduit(),list.get(i).getQuantite(),list.get(i).getPrixTonne());
+					offre.add(offrealternative);
+				}
+			}else{
+				if(list.get(i).getProduit()==Constante.PRODUIT_60){
+					if(stockchocolat.getStockchocolats().get(Constante.PRODUIT_60)>=0.5*list.get(i).getQuantite()){
+						offre.add(list.get(i));
+					}else{
+						CommandeDistri offrealternative=new CommandeDistri
+								(list.get(i).getAcheteur(),list.get(i).getProduit(),list.get(i).getQuantite(),list.get(i).getPrixTonne());
+						offre.add(offrealternative);
+					}
+				}else{
+					if(list.get(i).getProduit()==Constante.PRODUIT_70){
+						if(stockchocolat.getStockchocolats().get(Constante.PRODUIT_70)>=0.5*list.get(i).getQuantite()){
+							offre.add(list.get(i));
+						}else{
+							CommandeDistri offrealternative=new CommandeDistri
+									(list.get(i).getAcheteur(),list.get(i).getProduit(),list.get(i).getQuantite(),list.get(i).getPrixTonne());
+							offre.add(offrealternative);
+						}
+					}else{
+						System.out.println("Le produit que vous demandez n'est pas disponible");
+					}
+				}
+			}
+		}
+		return offre;
 	}
 
 	//Méthode dépréciée
@@ -215,11 +268,60 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 	
 	//Début des tests sur la classe Nestlé
 	//Il ne faudra tester que les méthodes de l'interface, les autres étant évidentes
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		Nestle_new nestle = new Nestle_new();
 		System.out.println(nestle.annoncePrix());
 		System.out.println(nestle.annoncePrix());
 		System.out.println(nestle.annoncePrix());
 		System.out.println("si les trois fluctuent entre le cours du marché +-10% alors le test est bon");
-	}*/	
+		
+		
+		
+		//Test de la méthode offre :
+		
+		StockChocolats stockchoco=new StockChocolats();
+		List<CommandeDistri> list= new ArrayList<CommandeDistri>();
+		Produit prod=new Produit("Chocolat80",0.8);
+		Carrefour c1=new Carrefour();
+		Carrefour c2=new Carrefour();
+		Carrefour c3=new Carrefour();
+		CommandeDistri cd1= new CommandeDistri(c1,Constante.PRODUIT_50,200,3000);
+		CommandeDistri cd2= new CommandeDistri(c2,Constante.PRODUIT_50,20,1100);
+		CommandeDistri cd3= new CommandeDistri(c3,Constante.PRODUIT_50,500,2050);
+		CommandeDistri cd4= new CommandeDistri(c1,Constante.PRODUIT_60,100,1400);
+		CommandeDistri cd5= new CommandeDistri(c2,Constante.PRODUIT_70,70,2000);
+		CommandeDistri cd6= new CommandeDistri(c3,prod,50,1800);
+		list.add(cd1);
+		list.add(cd2);
+		list.add(cd3);
+		list.add(cd4);
+		list.add(cd5);
+		list.add(cd6);
+		stockchoco.MiseAJourStockTransformation(Constante.PRODUIT_50, 30);
+		if(this.offre(list).size()==6){
+			System.out.println("Erreur,on accepte de livrer des produits dont on ne dispose pas");
+		}else{
+			if(this.offre(list).get(0).getQuantite()==200){
+				System.out.println("Erreur, on accepte de tout livrer alors que le stock de chocolatn'est pas suffisant");
+			}else{
+				if(this.offre(list).get(1).getQuantite()==10){
+					System.out.println("Erreur, la commande des ditributeurs est tout le temps divisée par deux");
+				}else{
+					if(this.offre(list).get(3).getProduit()!=Constante.PRODUIT_60){
+						System.out.println("On ajoute pas le bon produit dans le commande, problème ajout PRODUIT_60");
+					}else{
+						if(this.offre(list).get(0).getProduit()!=Constante.PRODUIT_50){
+							System.out.println("On ajoute pas le bon produit dans la commande, problème ajout PRODUIT_50 ");
+						}else{
+							if(this.offre(list).get(5).getProduit()!=Constante.PRODUIT_70){
+								System.out.println("On ajoute pas le bon produit dans la commande, problème ajout PRODUIT_70");
+							}else{
+								System.out.println("Il semble que la méthode fonctionne");
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
