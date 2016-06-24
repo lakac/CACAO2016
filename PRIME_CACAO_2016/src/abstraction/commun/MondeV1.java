@@ -57,7 +57,7 @@ public class MondeV1 extends Monde {
 		this.ajouterActeur(marcheProducteur);
 		
 		// Marché Consommateurs
-		MarcheCons marcheConsommateurs = new MarcheCons("MarcheConsommateurs",this.produits);
+		MarcheCons marcheConsommateurs = new MarcheCons("MarcheConsommateurs", produits);
 		MarcheCons.LE_MARCHE_CONS = marcheConsommateurs;
 		this.ajouterActeur(marcheConsommateurs);
 		/*MarcheConsommateurs marcheConsommateurs = new MarcheConsommateurs("MarcheConsommateurs",this.produits);
@@ -100,16 +100,11 @@ public class MondeV1 extends Monde {
 		t3.ajouterTransformateur(lindt);
 		
 		p1.ajouterTransformateur(lindt);
-		
-		p2.ajoutClient(nestle);
-		p2.ajoutClient(lindt);
-		p2.ajoutClient(t3);
-		p2.ajoutClient(lindt);	
-		p2.AjoutVariableVente();
-		
-		marcheProducteur.ajouterProducteur(p1);
-		marcheProducteur.ajouterProducteur(p2);
-		marcheProducteur.ajouterTransformateur(lindt);
+
+
+
+		//penser a ajouter la cote d'ivoire
+
 		//MaDi.addDistributeur(Ca);
 		MaDi.addDistributeur(Le);
 		//MaDi.addTransformateur(lindt);
@@ -118,21 +113,37 @@ public class MondeV1 extends Monde {
 			MaDi.addProduit(produits.get(i));
 		}
 		//maj 31/05 Groupe 3
+
+
+		
+		p2.ajoutClient(nestle);
+		p2.ajoutClient(lindt);	
+		p2.AjoutVariableVente();
+		
+		marcheProducteur.ajouterProducteur(p1);
+		marcheProducteur.ajouterProducteur(p2);
+		marcheProducteur.ajouterTransformateur(lindt);
+		
+		//maj 31/05 Leclerc
 		Le.getStock().initialiseStock(Le);	
 		Le.getPrixDeVente().initialisePrixDeVente(Le, produits);
 		Le.getVentes().initialiseVentes();
 
-		MarcheCons.LE_MARCHE_CONS.initialiser();
-
-		//MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiser();
-
+		
 		//Ajouter transformateurs et distributeurs au marché
+		MarcheCons.ajouterDistributeur(Ca);
+		MarcheCons.ajouterDistributeur(Le);
+		MarcheCons.ajouterTransformateur(lindt);
+		MarcheCons.ajouterTransformateur(nestle);
+		
+		//initialiser le MarcheConsommateurs;
 		MarcheCons.LE_MARCHE_CONS.initialiserDemandeAnnuelle();
-		//MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiserDemandeAnnuelle();
-		//MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiserCalendrierDemande();
+		MarcheCons.LE_MARCHE_CONS.initialiserCalendrierDemande();
 		MarcheCons.LE_MARCHE_CONS.initialiserPourcentageIncertitudeVentes();
-		//MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiserPourcentageIncertitudeVentes();
-		//MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.initialiserFidelite();
+		MarcheCons.LE_MARCHE_CONS.initialiserFidelite();
+
+
+		
 		
 	}
 }
