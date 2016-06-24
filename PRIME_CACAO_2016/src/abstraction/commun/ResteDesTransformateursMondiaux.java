@@ -19,9 +19,11 @@ public class ResteDesTransformateursMondiaux implements Acteur, ITransformateurP
 
 	private List<ITransformateurP> transformateurs;
 	
+	
 	// constructeur
 	public ResteDesTransformateursMondiaux(){
 		this.transformateurs = new ArrayList<ITransformateurP>();
+		
 	}
 
 
@@ -35,7 +37,6 @@ public class ResteDesTransformateursMondiaux implements Acteur, ITransformateurP
 		}
 	}
 
-	
 	public double annonceQuantiteDemandee() {
 		double qt =0;
 		for (ITransformateurP t : this.transformateurs) {
