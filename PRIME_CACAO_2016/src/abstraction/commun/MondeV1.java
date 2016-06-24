@@ -39,7 +39,7 @@ public class MondeV1 extends Monde {
 		
 		
 		// Transformateurs
-		Nestle_old nestle = new Nestle_old();
+		Nestle_new nestle = new Nestle_new();
 		this.ajouterActeur(nestle);
 		
 		Lindt lindt = new Lindt();
@@ -79,11 +79,11 @@ public class MondeV1 extends Monde {
 		Ca.ajouterVendeur(nestle);
 		Ca.ajouterVendeur(lindt);
 
-		nestle.AjouterClient(Le);
-		nestle.AjouterClient(Ca);
-		nestle.AjouterFournisseur(p1);
-		nestle.AjouterFournisseur(p2);
-		nestle.creer();
+		nestle.ajouterClient(Le);
+		nestle.ajouterClient(Ca);
+		nestle.ajouterFournisseurs(p1);
+		nestle.ajouterFournisseurs(p2);
+		nestle.creer(Monde.LE_MONDE);
 		
 		lindt.ajouterDistributeur(Ca);
 		lindt.ajouterDistributeur(Le);

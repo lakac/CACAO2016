@@ -1,17 +1,14 @@
 package abstraction.equipe2;
+//import abstraction.commun.*;
 import abstraction.commun.*;
 
 import java.util.ArrayList;
 //import java.util.HashMap;
 import java.util.List;
 
-import abstraction.commun.Catalogue;
-import abstraction.commun.CommandeDistri;
-import abstraction.commun.CommandeProduc;
-//import abstraction.commun.*;
-import abstraction.commun.IProducteur;
 import abstraction.equipe6.Carrefour;
 import abstraction.fourni.Acteur;
+import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
 import abstraction.fourni.v0.Marche;
 
@@ -31,10 +28,11 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 	private StockChocolats stockchocolat; //le stock des différents chocolats de Nestle.
 	private Transformation transformation; //La production de Nestle à chaque Step
 	private Tresorerie tresorerie; //La trésorerie de Nestle.
-	private List<Tresorerie> historiquetresorerie;
+	private List<Tresorerie> historiquetresorerie; 
 	private Catalogue catalogue; // Le catalogue qui permet de lancer les commandes des distributeurs
 	
-	
+	private Indicateur iTresorerie;
+	private Indicateur iStockcacao;
 	//différents getters utiles et setters.
 	//permet d'accéder au catalogue
 	public Catalogue getCatalogue() {
@@ -149,18 +147,6 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 	//Interface ITransformateurP
 	
 	
-	/*public double annonceQuantiteDemandee() {
-		double resultat = 0.0;
-		for (IDistributeur d : this.getCommandesdistri().keySet()) {
-		 	for (CommandeDistri c : this.getCommandesdistri().get(d)) {
-				resultat+=c.getQuantite()*c.getProduit().getRatioCacao()
-						*(Constante.ACHAT_SANS_PERTE+(Constante.PERTE_MINIMALE + Math.random()*(Constante.VARIATION_PERTE)))
-						*Constante.DEMANDE_ACTEURS;
-			}
-		}
-		return resultat;
-	}*/
-	
 	//Méthode annexe qui retourne la quantité totale demandée par une liste de commandedistributeur
 	//On suppose que la liste contient que des commandes concernant PRODUIT_50; PRODUIT_60 et PRODUIT_70
 	public static double QuantiteCacaoNecessaire(List<CommandeDistri> l) {
@@ -192,6 +178,7 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 		tresorerie.setTresorerieAchat(c);
 		this.stockcacao.MiseAJourStockLivraison(Constante.CACAO,c.getQuantite());
 		this.historiquecommandesprod.add(c);
+		this.tresorerie.setTresorerieAchat(c);
 	}
 
 	//Celle ci est dépréciée. Il est inutile de la remplir
@@ -213,42 +200,11 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 
 	@Override
 	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> list) {
-		// TODO Auto-generated method stub
-		return null;
+		List<CommandeDistri> l2 = offre(list);
+		this.ajouterCommandeDistri(l2);
+		return l2;
 	}
 
-// Ces trois méthodes sont là pour alléger la commande livraison effective
-	//elles calculent la quantité de chocolat à livrer pour chaque produit tous distributeurs confondus
-	public double CommandeTotaleChoco50(List<CommandeDistri> list){
-	double commandechoco50totale=0;
-	for(int i=0;i<list.size();i++){
-		if(list.get(i).getProduit()==Constante.PRODUIT_50){
-			commandechoco50totale+=list.get(i).getQuantite();
-		}
-	}
-	return commandechoco50totale;
-	}
-	
-	public double CommandeTotaleChoco60(List<CommandeDistri> list){
-		double commandechoco60totale=0;
-		for(int i=0;i<list.size();i++){
-			if(list.get(i).getProduit()==Constante.PRODUIT_60){
-				commandechoco60totale+=list.get(i).getQuantite();
-			}
-		}
-		return commandechoco60totale;
-		}
-	
-	public double CommandeTotaleChoco70(List<CommandeDistri> list){
-		double commandechoco70totale=0;
-		for(int i=0;i<list.size();i++){
-			if(list.get(i).getProduit()==Constante.PRODUIT_70){
-				commandechoco70totale+=list.get(i).getQuantite();
-			}
-		}
-		return commandechoco70totale;
-		}
-	
 	
 	@Override
 	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> list) {
@@ -256,7 +212,9 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 		for (IDistributeur d : liste) {
 			this.livraisoneffective(d, list);
 		}
+		this.historiquecommandesdistri.set(etape-2, list);
 		return list;
+		
 	}
 
 	public void livraisoneffective(IDistributeur d, List<CommandeDistri> lcd) {
@@ -325,8 +283,22 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 		return MarcheProducteur.LE_MARCHE.getCours()*(1+alea);
 	}
 	
+	//méthode annexe qui ajuste les stock de cacao et la trésorerie lors d'une transformation
+	public void MiseAJourCacaoChocEtTreso(Transformation t) {
+		for (Produit p : t.getTransformation().keySet()) {
+			this.stockcacao.MiseAJourStockTransformation(p, t.getTransformation().get(p));
+			this.stockchocolat.MiseAJourStockTransformation(p, t.getTransformation().get(p));
+		}
+		this.tresorerie.CoutTransformation(t);
+	}
 	public void next() {
-		// TODO Auto-generated method stub
+		this.setEtape();
+		
+		this.transformation.setTransformation(this.getCommandeDistri(etape-2),this.getStockcacao(), this.getStockchocolat());
+		this.MiseAJourCacaoChocEtTreso(this.transformation);
+		
+		this.iTresorerie.setValeur(this, this.getTresorerie().getFonds());
+		this.iStockcacao.setValeur(this, this.getStockcacao().getStockcacao().get(Constante.CACAO));
 	}
 	
 	//Constructeur nestle
@@ -334,11 +306,32 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 		this.stockchocolat = schoc;
 	}
 	
-	//Constructeur nestle
+	//Constructeur neste
+	
+	
 	public Nestle_new() {
-		this.nom = "nestle";
+		this.etape = 0;
+		this.nom = "Nestle";
+		this.clients = new ArrayList<IDistributeur>();
+		this.fournisseurs = new ArrayList<IProducteur>();;
+		this.historiquecommandesdistri = new ArrayList<List<CommandeDistri>>();
+		this.historiquecommandesprod = new ArrayList<CommandeProduc>();
+		this.stockcacao = new StockCacao();
+		this.stockchocolat = new StockChocolats();
+		this.transformation = new Transformation();
+		this.tresorerie = new Tresorerie();
+		this.historiquetresorerie = new ArrayList<Tresorerie>();
+		this.catalogue = new Catalogue();
 	}
 	
+	public void creer(Monde monde) {
+		this.iTresorerie = new Indicateur("fonds propres Nestle", this, this.getTresorerie().getFonds());
+		this.iStockcacao = new Indicateur("Stock cacao", this, this.getStockcacao().getStockcacao().get(Constante.CACAO));
+	}
+	
+
+
+
 	//Début des tests sur la classe Nestlé
 	//Il ne faudra tester que les méthodes de l'interface, les autres étant évidentes
 	public static void main(String[] args) {
