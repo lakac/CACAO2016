@@ -83,6 +83,7 @@ public class Transformation {
 		}
 		//on trie cette liste
 		List<Double> valeurscommandestriees = TrierDecroissant(valeurscommandes);
+		//On inclut la part de marché des distributeurs
 		
 		//ce for permet de remplir la liste des distributeur 
 		//en s'aidant de la liste obtenue precedemment
@@ -454,7 +455,9 @@ public class Transformation {
 		
 		//test de CacaoTransforme
 		System.out.println(trans0.CacaoTransforme());
+
 		System.out.println("Si vous obtenez 3330 le test est bon, sinon il y a uen erreur");
+
 		
 		//fin des tests
 	}
