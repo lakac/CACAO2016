@@ -22,6 +22,12 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	private Ventes ventes;
 	private Stock stock;
 	private Indicateur solde; //SoldeDeLeclerc
+	private Indicateur stock1;  //Stock de 50% de Lindt
+	private Indicateur stock2;  //Stock de 60% de Lindt
+	private Indicateur stock3;  //Stock de 70% de Lindt
+	private Indicateur stock4;  //Stock de 50% de Nestle
+	private Indicateur stock5;  //Stock de 60% de Nestle
+	private Indicateur stock6;  //Stock de 70% de Nestle
 	private PrixDeVente prixdevente;
 	private ArrayList<Double> ratio;
 	private ArrayList<ITransformateurD> transformateurs;
@@ -36,7 +42,20 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		this.transformateurs = new ArrayList<ITransformateurD>();
 		this.ventes=new Ventes();
 		this.stock= new Stock(new ArrayList<Double[]>(), 0.0);
+		this.stock1 = new Indicateur("Stock de 50% de Lindt de " + this.nom, this, 0);
+		this.stock2 = new Indicateur("Stock de 60% de Lindt de " + this.nom, this, 0);
+		this.stock3 = new Indicateur("Stock de 70% de Lindt de " + this.nom, this, 0);
+		this.stock4 = new Indicateur("Stock de 50% de Nestle de " + this.nom, this, 0);
+		this.stock5 = new Indicateur("Stock de 60% de Nestle de " + this.nom, this, 0);
+		this.stock6 = new Indicateur("Stock de 70% de Nestle de " + this.nom, this, 0);
 		this.prixdevente=new PrixDeVente();
+		Monde.LE_MONDE.ajouterIndicateur(this.solde);
+		Monde.LE_MONDE.ajouterIndicateur(this.stock1);
+		Monde.LE_MONDE.ajouterIndicateur(this.stock2);
+		Monde.LE_MONDE.ajouterIndicateur(this.stock3);
+		Monde.LE_MONDE.ajouterIndicateur(this.stock4);
+		Monde.LE_MONDE.ajouterIndicateur(this.stock5);
+		Monde.LE_MONDE.ajouterIndicateur(this.stock6);
 		// TODO Auto-generated constructor stub
 	}
 	public Stock getStock(){

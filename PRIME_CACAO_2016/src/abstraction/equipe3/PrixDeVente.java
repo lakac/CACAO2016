@@ -130,8 +130,7 @@ public class PrixDeVente {
 				this.setHistoriques(p,prixVente);
 				return prixVente;
 			}
-		}
-		
+		}	
 	}
 	
 	/*methode qui initialise PrixDeVente en ajoutant les transformateurs, les produits, les marges et les prix de vente */
