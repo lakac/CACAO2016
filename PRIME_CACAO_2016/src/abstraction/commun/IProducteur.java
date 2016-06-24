@@ -7,7 +7,7 @@ public interface IProducteur {
 	@Deprecated
 	public double annonceQuantiteMiseEnVente(ITransformateurP t);
 
-	//Conformément à la réunion du 03/06, créé par l'équipe 2 le 8/06.
+	//Conformement à la reunion du 03/06, cree par l'equipe 2 le 8/06.
 	/**
 	 * Indique la quantité de cacao totale mise en vente par le IProducteur p à la step considéré. 
 	 */
