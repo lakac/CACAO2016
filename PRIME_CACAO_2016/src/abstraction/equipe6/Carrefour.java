@@ -68,7 +68,7 @@ public class Carrefour implements Acteur,IDistributeur, ITransformateurD {
 		for (Produit p : this.getProduits()) {
 			demandeAnnuel.put(p, 2500.0);
 			besoinStep.put(p, 0.0);
-			for (ITransformateur t : this.getTransformateursD()) {
+			for (ITransformateurD t : this.getTransformateurs()) {
 				lesStocks.add(new Stock(p, 1000, t, new Indicateur("Stock de "+p.getNomProduit()+" de marque "+this.getNom(),this , 0.0)));
 				lesAchats.add(new Achats(t, new Indicateur("Achats de "+p.getNomProduit()+" de marque "+t.getNom()+" de "+this.getNom(), this, 0.0), p));
 				lesVentes.add(new Ventes(t, new Indicateur("Ventes de "+p.getNomProduit()+" de marque "+t.getNom()+" de "+this.getNom(), this, 0.0), p));
@@ -186,9 +186,6 @@ public class Carrefour implements Acteur,IDistributeur, ITransformateurD {
 
 
 
-
-	private ArrayList<ITransformateurD> transformateurs;
-	
 	public Carrefour(String nom, Monde monde, double prixachat, int i, double demandeannuel) {
 		this.nom = nom;
 		this.prixachat=prixachat;
