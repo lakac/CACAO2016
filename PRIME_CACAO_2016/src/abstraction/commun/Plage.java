@@ -19,7 +19,7 @@ public class Plage {
 		this.rabais = rabais;
 	}
 	
-	public Plage(double quantiteMin, double rabais){
+	public Plage(double quantiteMin, double  rabais){
 		this.quantiteMin=quantiteMin;
 		this.rabais=rabais;
 	}

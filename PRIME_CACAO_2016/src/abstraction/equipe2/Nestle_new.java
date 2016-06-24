@@ -217,25 +217,60 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 		return null;
 	}
 
-	@Override
-	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> list) {
-		double commandechoco50totale=0;
+	public double CommandeTotaleChoco50(List<CommandeDistri> list){
+	double commandechoco50totale=0;
+	for(int i=0;i<list.size();i++){
+		if(list.get(i).getProduit()==Constante.PRODUIT_50){
+			commandechoco50totale+=list.get(i).getQuantite();
+		}
+	}
+	return commandechoco50totale;
+	}
+	
+	public double CommandeTotaleChoco60(List<CommandeDistri> list){
 		double commandechoco60totale=0;
+		for(int i=0;i<list.size();i++){
+			if(list.get(i).getProduit()==Constante.PRODUIT_50){
+				commandechoco60totale+=list.get(i).getQuantite();
+			}
+		}
+		return commandechoco60totale;
+		}
+	
+	public double CommandeTotaleChoco70(List<CommandeDistri> list){
 		double commandechoco70totale=0;
 		for(int i=0;i<list.size();i++){
 			if(list.get(i).getProduit()==Constante.PRODUIT_50){
-				commandechoco50totale+=list.get(i).getQuantite();
-			}else{
-				if(list.get(i).getProduit()==Constante.PRODUIT_60){
-					commandechoco60totale+=list.get(i).getQuantite();
-				}else{
-					if(list.get(i).getProduit()==Constante.PRODUIT_70){
-						commandechoco70totale+=list.get(i).getQuantite();						
-					}
-				}
+				commandechoco70totale+=list.get(i).getQuantite();
 			}
 		}
-		if(commandechoco50totale<=this.stockchocolat.getStockchocolats().get(Constante.PRODUIT_50))
+		return commandechoco70totale;
+		}
+	
+	
+	@Override
+	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> list) {
+		List<CommandeDistri> livraisoneffective=new ArrayList<CommandeDistri>();
+		
+			for(int i=0;i<list.size();i++){
+				if(this.CommandeTotaleChoco50(list)<=this.stockchocolat.getStockchocolats().get(Constante.PRODUIT_50)){
+					if(list.get(i).getProduit()==Constante.PRODUIT_50){
+						livraisoneffective.add(list.get(i));
+					}else{
+						if()
+					}
+				}
+				if(this.CommandeTotaleChoco60(list)<=this.stockchocolat.getStockchocolats().get(Constante.PRODUIT_60)){
+					if(list.get(i).getProduit()==Constante.PRODUIT_60)
+					livraisoneffective.add(list.get(i));
+				}
+				if(this.CommandeTotaleChoco70(list)<=this.stockchocolat.getStockchocolats().get(Constante.PRODUIT_70)){
+					if(list.get(i).getProduit()==Constante.PRODUIT_70)
+					livraisoneffective.add(list.get(i));
+				}
+				
+				
+			}
 			
 			// TODO Auto-generated method stub
 		return null;
