@@ -328,22 +328,22 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 		list.add(cd5);
 		list.add(cd6);
 		stockchoco.MiseAJourStockTransformation(Constante.PRODUIT_50, 30);
-		if(this.offre(list).size()==6){
+		if(nestle.offre(list).size()==6){
 			System.out.println("Erreur,on accepte de livrer des produits dont on ne dispose pas");
 		}else{
-			if(this.offre(list).get(0).getQuantite()==200){
+			if(nestle.offre(list).get(0).getQuantite()==200){
 				System.out.println("Erreur, on accepte de tout livrer alors que le stock de chocolatn'est pas suffisant");
 			}else{
-				if(this.offre(list).get(1).getQuantite()==10){
+				if(nestle.offre(list).get(1).getQuantite()==10){
 					System.out.println("Erreur, la commande des ditributeurs est tout le temps divisée par deux");
 				}else{
-					if(this.offre(list).get(3).getProduit()!=Constante.PRODUIT_60){
+					if(nestle.offre(list).get(3).getProduit()!=Constante.PRODUIT_60){
 						System.out.println("On ajoute pas le bon produit dans le commande, problème ajout PRODUIT_60");
 					}else{
-						if(this.offre(list).get(0).getProduit()!=Constante.PRODUIT_50){
+						if(nestle.offre(list).get(0).getProduit()!=Constante.PRODUIT_50){
 							System.out.println("On ajoute pas le bon produit dans la commande, problème ajout PRODUIT_50 ");
 						}else{
-							if(this.offre(list).get(5).getProduit()!=Constante.PRODUIT_70){
+							if(nestle.offre(list).get(5).getProduit()!=Constante.PRODUIT_70){
 								System.out.println("On ajoute pas le bon produit dans la commande, problème ajout PRODUIT_70");
 							}else{
 								System.out.println("Il semble que la méthode fonctionne");
