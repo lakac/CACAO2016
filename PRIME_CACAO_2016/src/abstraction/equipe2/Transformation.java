@@ -455,7 +455,9 @@ public class Transformation {
 		
 		//test de CacaoTransforme
 		System.out.println(trans0.CacaoTransforme());
-		System.out.println("Si vous obtenez 3330 le test est bon, sinon il y a une erreur");
+
+		System.out.println("Si vous obtenez 3330 le test est bon, sinon il y a uen erreur");
+
 		
 		//fin des tests
 	}
