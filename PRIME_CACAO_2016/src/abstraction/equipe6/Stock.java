@@ -3,10 +3,8 @@ package abstraction.equipe6;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
-import abstraction.fourni.Monde;
 
 public class Stock {
 	
