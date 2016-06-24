@@ -66,7 +66,7 @@ public class Producteur implements Acteur,IProducteur{
 
 		//production semi annuelle
 		if (Monde.LE_MONDE.getStep()%12==1){
-			// actualisation de toutes les variables du à la récolte semestrielle.
+			// actualisation de toutes les variables du a la recolte semestrielle.
 			this.getProdBiannu().production();
 			this.getJournal().ajouter("Production de semi annuelle de " + this.getProdBiannu().getProductionFinale() + " en comptant les pertes de "+ this.getProdBiannu().getPerteProduction());
 
