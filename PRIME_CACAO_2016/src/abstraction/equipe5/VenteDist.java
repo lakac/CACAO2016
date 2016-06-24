@@ -70,8 +70,8 @@ public class VenteDist {
 	public List<CommandeDistri> offre(List<CommandeDistri> listeCommandesDist){
 		
 		for(int i=0; i<lindt.getDistributeurs().size(); i++){
-			
-			double stockChocolatI=0.25*(lindt.getStocksChocolat().get(i).getStock()-Constante.STOCK_MINIMAL_CHOCO); //stock de chocolat i disponible pour Leclerc+Carrefour (25%), on se reserve un stock minimal
+			double ratioLeclercCarrefour=0.25; //25% de notre stock est destiné à Leclerc et carrefour
+			double stockChocolatI=ratioLeclercCarrefour*(lindt.getStocksChocolat().get(i).getStock()-Constante.STOCK_MINIMAL_CHOCO); //stock de chocolat i disponible pour Leclerc+Carrefour (25%), on se reserve un stock minimal
 			double QteDemandeeChocolatI=this.QuantiteDemandeeProduit(listeCommandesDist).get(i).doubleValue();// quantite totale de chocolat i demandée par les 3 dist
 			
 			if(QteDemandeeChocolatI <= stockChocolatI){ //ok on peut fournir aux distrib la quantité de chocolats i qu'ils demandent donc on valide les commandes
