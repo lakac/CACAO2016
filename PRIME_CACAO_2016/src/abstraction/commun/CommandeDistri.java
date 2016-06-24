@@ -50,6 +50,7 @@ public class CommandeDistri extends Commande {
 		return this.acheteur;
 	}
 
+
 	public ITransformateurD getVendeur() {
 		return this.vendeur;
 	}

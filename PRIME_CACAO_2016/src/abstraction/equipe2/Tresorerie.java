@@ -50,12 +50,12 @@ public class Tresorerie {
 		
 	
 	
-	//Méthode qui calcule le cout d'une vete d'una commande aux distributeurs
+	//Méthode qui calcule le cout d'une vente d'une commande aux distributeurs
 	public double CoutVente(CommandeDistri cd) {
 		double coutvente = cd.getPrixTonne()*cd.getQuantite();
 		return coutvente;
 	}
-	//setter de vente de la trésorerie (méthode appelée par Nestle
+	//setter de vente de la trésorerie (méthode appelée par Nestle)
 	public void setTresorerieVente(CommandeDistri cd) {
 		this.fonds+=CoutVente(cd);
 	}
