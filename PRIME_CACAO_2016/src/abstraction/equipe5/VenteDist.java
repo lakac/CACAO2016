@@ -99,6 +99,7 @@ public class VenteDist {
 								}
 								else{
 									c.setQuantite(quantiteRepartie);
+									c.setValidation(true);
 									}
 								}
 							}
