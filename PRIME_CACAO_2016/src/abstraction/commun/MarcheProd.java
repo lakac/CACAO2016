@@ -6,7 +6,7 @@ import abstraction.fourni.*;
 
 /**Classe MarcheProd, simulant l'action du marche
  * centralisant les ventes entre transformateurs et  producteurs
- * @author Equipe1
+ * @author Equipe4
  *
  */
 public class MarcheProd implements Acteur{
