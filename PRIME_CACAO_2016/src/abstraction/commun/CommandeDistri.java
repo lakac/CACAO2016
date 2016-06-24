@@ -18,7 +18,7 @@ public class CommandeDistri extends Commande {
 		super(quantite, prixTonne);
 		this.acheteur = acheteur;
 		this.vendeur = vendeur;
-
+		this.prix = this.getQuantite()*this.getPrixTonne();
 		this.produit = produit;
 
 		this.stepLivraison = stepLivraison;

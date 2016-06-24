@@ -209,14 +209,14 @@ public class MarcheDistributeur implements Acteur {
 				i+=1;
 				NegoTransfo = this.RenvoiDistri(NegoDistri);
 				HashMap<IDistributeur, List<CommandeDistri>> NegoDistriTemp = copieProfonde(NegoDistri);
-				// System.out.println("NegoTransfo avant offre --> "+NegoTransfo);
+				System.out.println("NegoTransfo avant offre --> "+NegoTransfo);
 				for (ITransformateurD t : this.getLesTransfos()) {
-					//	System.out.println("Liste de commandes pour "+t+" :"+NegoTransfo.get(t));
+					System.out.println("Liste de commandes pour "+t+" :"+NegoTransfo.get(t));
 					NegoTransfo.replace(t, t.offre(NegoTransfo.get(t)));
 				}
-				// System.out.println("NegoTransfo boucle numéro "+i+" après offre -->"+NegoTransfo);
+				System.out.println("NegoTransfo boucle numéro "+i+" après offre -->"+NegoTransfo);
 				NegoDistri = this.RenvoiTransfo(NegoTransfo);
-				// System.out.println("NegoDistri boucle numéro "+i+" après offre -->"+NegoDistri);
+				System.out.println("NegoDistri boucle numéro "+i+" après offre -->"+NegoDistri);
 				for (IDistributeur d1 : this.getLesDistris()) {
 					System.out.println("La contre-demande -->"+d1.contreDemande(NegoDistri.get(d1),NegoDistriTemp.get(d1)));
 					NegoDistri.replace(d1, d1.contreDemande(NegoDistri.get(d1),NegoDistriTemp.get(d1)));
@@ -232,7 +232,7 @@ public class MarcheDistributeur implements Acteur {
 			}
 			this.setCommandeFinale(commandefinale);
 			this.addCommandeToHistorique(commandefinale);
-			// System.out.println("La commande finale --> "+this.getCommandeFinale());
+			System.out.println("La commande finale --> "+this.getCommandeFinale());
 
 
 			// Livraisons effectives chez les distributeurs et paiements.
@@ -248,9 +248,9 @@ public class MarcheDistributeur implements Acteur {
 							temp.add(cd);
 							//System.out.println("Temp --> "+temp);
 						}
-						//System.out.println("Le transfo -->"+t);
-						//System.out.println("Temp -->"+temp);
-						//System.out.println("La livraison effective --> "+t.livraisonEffective(temp));
+						System.out.println("Le transfo -->"+t);
+						System.out.println("Temp -->"+temp);
+						System.out.println("La livraison effective --> "+t.livraisonEffective(temp));
 						livraisonglobale.addAll(t.livraisonEffective(temp));
 					}
 				} 

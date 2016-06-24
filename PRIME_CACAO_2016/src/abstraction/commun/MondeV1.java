@@ -120,7 +120,13 @@ public class MondeV1 extends Monde {
 
 		Le.getPrixDeVente().initialisePrixDeVente(Le, produits);
 		Le.getVentes().initialiseVentes();
-		
+		MaDi.addDistributeur(Ca);
+		// MaDi.addDistributeur(Le);
+		MaDi.addTransformateur(lindt);
+		// MaDi.addTransformateur(nestle);
+		for (Produit p : produits) {
+			MaDi.addProduit(p);
+		}
 		Ca.creer();
 
 	}

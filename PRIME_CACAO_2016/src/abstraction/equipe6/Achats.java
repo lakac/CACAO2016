@@ -1,5 +1,6 @@
 package abstraction.equipe6;
 
+import abstraction.commun.ITransformateur;
 import abstraction.commun.ITransformateurD;
 import abstraction.commun.Produit;
 import abstraction.fourni.Acteur;
