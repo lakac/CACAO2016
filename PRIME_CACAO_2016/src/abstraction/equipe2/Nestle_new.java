@@ -25,14 +25,26 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 	private List<List<CommandeDistri>> historiquecommandesdistri; // Cet historique garde en mémoire les commandes que les distributeurs nous passent.
 	private List<CommandeProduc> historiquecommandesprod; //Cet historique garde en mémoire les commandes que nous avons passées aux producteurs.
 	
-	private Catalogue catalogueinterne;
 	private StockCacao stockcacao; //Le stock de cacao de Nestle
 	private StockChocolats stockchocolat; //le stock des différents chocolats de Nestle.
 	private Transformation transformation; //La production de Nestle à chaque Step
 	private Tresorerie tresorerie; //La trésorerie de Nestle.
+	private List<Tresorerie> historiquetresorerie;
+	private Catalogue catalogue; // Le catalogue qui permet de lancer les commandes des distributeurs
 	
 	//différents getters utiles et setters.
+	//permet d'accéder au catalogue
+	public Catalogue getCatalogue() {
+		return this.catalogue;
+	}
 	
+	
+	
+	//un getter pour l'historique de la trésorerie
+	public List<Tresorerie> getHistoriquetresorerie() {
+		return historiquetresorerie;
+	}
+	 
 	//Permet d'accéder en lecture au numéro d'étape
 	public int getEtape() {
 		return this.etape;
@@ -81,8 +93,8 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 	}
 	
 	//Accède à la liste de commande des distributeurs de l'étape k.
-	public void getCommandeProduc(int k) {
-		this.historiquecommandesprod.get(k);
+	public CommandeProduc getCommandeProduc(int k) {
+		return this.historiquecommandesprod.get(k);
 	}
 	
 	//Accède en lecture au stock de cacao.
@@ -104,8 +116,31 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 	public Tresorerie getTresorerie() {
 		return tresorerie;
 	}
-
 	
+	//permet de construire la catalogue au départ
+	//Permet de construire le catalogue (tous les tarifs sont à zéro)
+		public void Catalogue(double prix50, double prix60, double prix70) {
+			this.catalogue = new Catalogue();
+			Plage plage1 = new Plage(0., 500., 0);
+			Plage plage2 = new Plage(500., 1000., 0.03);
+			Plage plage3 = new Plage(1000., 2000., 0.05);
+			Plage plage4 = new Plage(2000., 1000000000, 0.07);
+			List<Plage> liste = new ArrayList<Plage>();
+			liste.add(plage1); liste.add(plage2); liste.add(plage3); liste.add(plage4);
+			Tarif tarif1 = new Tarif(prix50, liste);
+			Tarif tarif2 = new Tarif(prix60, liste);
+			Tarif tarif3 = new Tarif(prix70, liste);
+			this.catalogue.add(Constante.PRODUIT_50, tarif1);
+			this.catalogue.add(Constante.PRODUIT_60, tarif2);
+			this.catalogue.add(Constante.PRODUIT_70, tarif3);
+		}
+		
+		//initialise le catalogue avec les prix à 0
+		public void CatalogueInitial() {
+			this.Catalogue(8,8,8);
+		}
+		
+
 	//Méthodes des interfaces
 	
 	//Interface ITransformateurP
@@ -171,12 +206,7 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 			return this.nom;
 		}
 
-	
 
-	@Override
-	public Catalogue getCatalogue() {
-		return this.catalogueinterne;
-	}
 
 	@Override
 	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> list) {

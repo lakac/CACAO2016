@@ -19,14 +19,14 @@ public class Tresorerie {
 	
 	//Toutes les méthodes qui suivent calculent les différents couts d'achat et de vente
 	//Méthode qui calcule le cout d'achat d'une commande passée aux producteurs
-	private double CoutdAchat(CommandeProduc cp) {
+	public double CoutdAchat(CommandeProduc cp) {
 		double coutachat = cp.getPrixTonne()*cp.getQuantite();
 		return coutachat;
 	}
 	
 	//Calcule le cout de transport d'une commande en Cacao 
 	//(les livraisons de chocolats étant à la charges des distributeurs) 
-	private double CoutTransport(CommandeProduc cp) {
+	public double CoutTransport(CommandeProduc cp) {
 			IProducteur p = cp.getVendeur();
 			double distance = Distances.DISTANCES.Eloignement(p);
 			double couttransport = cp.getQuantite()*distance*Constante.COUT_UNITAIRE_TRANSPORT;
@@ -51,7 +51,7 @@ public class Tresorerie {
 	
 	
 	//Méthode qui calcule le cout d'une vete d'una commande aux distributeurs
-	private double CoutVente(CommandeDistri cd) {
+	public double CoutVente(CommandeDistri cd) {
 		double coutvente = cd.getPrixTonne()*cd.getQuantite();
 		return coutvente;
 	}
@@ -63,13 +63,13 @@ public class Tresorerie {
 	
 	
 	//Cette méthode calcule les couts de stock de cacao 
-	private double CoutStockcacao (StockCacao scac) {
+	public double CoutStockcacao (StockCacao scac) {
 		double coutstockcac = scac.getStockcacao().get(Constante.CACAO)*Constante.COUT_STOCK_UNITAIRE;
 		return coutstockcac;
 	}
 	
 	//Cette méthode quant à elle calcule les couts de stock de chocolat
-	private double CoutStockchoc(StockChocolats schoc) {
+	public double CoutStockchoc(StockChocolats schoc) {
 		double coutstockchoc = schoc.Quantitetotalchoc()*Constante.COUT_STOCK_UNITAIRE;
 		return coutstockchoc;
 	}
@@ -92,7 +92,7 @@ public class Tresorerie {
 	//nécessité de la remplir avant de pouvoir tester cette partie
 	
 	//Calcule le cout de transformation lorsuq'on effectue une transformation t
-	private double CoutTransformation (Transformation t) {
+	public double CoutTransformation (Transformation t) {
 		double couttransformation = t.CacaoTransforme()*Constante.COUT_DE_TRANSFORMATION;
 		return couttransformation;
 	}

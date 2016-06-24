@@ -20,14 +20,18 @@ import abstraction.commun.IDistributeur;
 public class PartDeMarche {
 	
 	/**Variables d'instance*/
-	public final PartDeMarche DICO_PARTS;
+	public static PartDeMarche DICO_PARTS;
 	
 	private HashMap<IDistributeur, Double> partdemarche;
 	
 	
 	
-	public HashMap<IDistributeur, Double> getPartdemarche() {
-		return partdemarche;
+	public double getPartDeMarche(IDistributeur d) {
+		return partdemarche.get(d);
+	}
+	
+	public void Ajouter(IDistributeur d, double part) {
+		this.partdemarche.put(d, part);
 	}
 
 
