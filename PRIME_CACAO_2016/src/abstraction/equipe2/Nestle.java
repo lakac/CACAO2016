@@ -232,6 +232,7 @@ public class Nestle implements Acteur, ITransformateurD, ITransformateurP {
 
 	public double annoncePrix() {
 			return MarcheProd.LE_MARCHE.getCoursCacao().getValeur()*(Constante.PRIX_MINIMUM+Constante.VARIATION_PRIX*Math.random());
+
 		}
 	
 	//
@@ -330,6 +331,10 @@ public class Nestle implements Acteur, ITransformateurD, ITransformateurP {
 		//On n�gocie avec les distributeurs.
 =======
 		//On n馮ocie avec les distributeurs.
+<<<<<<< HEAD
+>>>>>>> refs/remotes/choose_remote_name/master
+=======
+>>>>>>> refs/remotes/#45/master
 >>>>>>> refs/remotes/choose_remote_name/master
 		for (IDistributeur d : this.getClients()) {
 			// Si les distributeurs demandent un produit que l'on ne vend pas -> erreur du programme
@@ -338,6 +343,10 @@ public class Nestle implements Acteur, ITransformateurD, ITransformateurP {
 			this.Offre(d.Demande(dictionnaire));// null a changer quand l'�quipe aura fait une pull request.
 =======
 			this.Offre(d.Demande(dictionnaire));// null a changer quand l'駲uipe aura fait une pull request.
+<<<<<<< HEAD
+>>>>>>> refs/remotes/choose_remote_name/master
+=======
+>>>>>>> refs/remotes/#45/master
 >>>>>>> refs/remotes/choose_remote_name/master
 			this.setCommandesdistri(d,d.Demande(dictionnaire));
 			this.Offre(d.Demande(dictionnaire));
@@ -403,8 +412,11 @@ public class Nestle implements Acteur, ITransformateurD, ITransformateurP {
 		//et la tr駸orerie (on ach鑼e quelque chose)
 
 
+
 		double achattotal = this.QuantiteAcheteeMonde();
+
 		this.banque.retirer(this.QuantiteAcheteeMonde()*MarcheProd.LE_MARCHE.getCoursCacao().getValeur());
+
 
 		/**for (IProducteur p : this.achats.keySet()) {
 			this.achats.get(p).setCacaoAchete(this, p);
