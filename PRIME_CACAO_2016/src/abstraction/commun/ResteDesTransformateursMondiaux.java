@@ -82,17 +82,21 @@ public class ResteDesTransformateursMondiaux implements Acteur, ITransformateurP
 		return null;
 	}
 
+
 	
 	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
+
 		// On ne simule aucun etat concernant le reste du monde	pour les distributeurs
 		return null;
 	}
+
 
 
 	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
 		return cf;
 		// On ne simule aucun etat concernant le reste du monde	pour les distributeurs
 	}
+
 	
 	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> list) {
 		// On ne simule aucun etat concernant le reste du monde	pour les distributeurs
@@ -103,9 +107,11 @@ public class ResteDesTransformateursMondiaux implements Acteur, ITransformateurP
 		// methode depreciee
 	}
 
+
 	public List<CommandeDistri> offre(List<CommandeDistri> list) {
 		// On ne simule aucun etat concernant le reste du monde	pour les distributeurs
 		return null;
 	}
+
 
 }

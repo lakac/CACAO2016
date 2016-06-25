@@ -4,6 +4,7 @@ package abstraction.commun;
 import abstraction.fourni.Monde;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import abstraction.commun.Constantes;
 import abstraction.equipe5.Lindt;
@@ -26,14 +27,20 @@ public class MondeV1 extends Monde {
 		produits.add(new Produit("60%",60));
 		produits.add(new Produit("70%",70));
 		
+		// Marche distributeur
+		
+		MarcheDistributeur MaDi = new MarcheDistributeur();
+		this.ajouterActeur(MaDi);
 
 		// Distributeurs
 
 
+
 		Leclercv2 Le = new Leclercv2("Leclerc", this,produits);
-		Carrefour Ca = new Carrefour("Carrefour", this, 15, 20, 50000);
+		Carrefour Ca = new Carrefour("Carrefour", MondeV1.produits);
 
 		this.ajouterActeur(Le);
+
 		this.ajouterActeur(Ca);
 		
 		
@@ -58,7 +65,7 @@ public class MondeV1 extends Monde {
 		
 		// Marché Consommateur
 		//MarcheConsommateurs marcheConsommateurs = new MarcheConsommateurs();
-		//MarcheConsommateurs.LE_MARCHE = marcheConsommateurs;
+		//MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS = marcheConsommateurs;
 		//this.ajouterActeur(marcheConsommateurs);
 		
 		// Producteurs
@@ -69,33 +76,38 @@ public class MondeV1 extends Monde {
 		
 
 		
-		// Ajout des acteurs dans les listes des acteurs
-
-		
-		
 		// Ajout des liens necessaires entre les acteurs
 		Le.ajouterVendeur(nestle);
 		Le.ajouterVendeur(lindt);
 		
 		Ca.ajouterVendeur(nestle);
 		Ca.ajouterVendeur(lindt);
+		Ca.setMaDi(MaDi);
 
 		nestle.AjouterClient(Le);
 		nestle.AjouterClient(Ca);
 		nestle.AjouterFournisseur(p1);
 		nestle.AjouterFournisseur(p2);
+
 		nestle.creer();
 		
 		lindt.ajouterDistributeur(Ca);
 		lindt.ajouterDistributeur(Le);
 		lindt.ajouterProducteur(p1);
 		lindt.ajouterProducteur(p2);
-		//lindt.ajouterProducteur(CotedIvoire);
 		lindt.creer();
 
+
 		
+		t3.ajouterTransformateur(nestle);
 		t3.ajouterTransformateur(lindt);
 		t3.ajouterTransformateur(nestle);
+
+		
+		/*p1.ajouterTransformateur(nestle);
+		p1.ajouterTransformateur(lindt);
+		p1.ajouterTransformateur(t3);*/
+
 		
 
 		marcheProducteur.AjoutProducteur(p1);;
@@ -107,11 +119,26 @@ public class MondeV1 extends Monde {
 
 		
 
+
+		//marcheProducteur.ajouterProducteur(p1);
+		//marcheProducteur.ajouterProducteur(p2);
+		//marcheProducteur.ajouterTransformateur(lindt);
+
 		
+
 		//maj 31/05 Leclerc
 		Le.getStock().initialiseStock(Le);	
+
 		Le.getPrixDeVente().initialisePrixDeVente(Le, produits);
 		Le.getVentes().initialiseVentes();
+		MaDi.addDistributeur(Ca);
+		// MaDi.addDistributeur(Le);
+		MaDi.addTransformateur(lindt);
+		// MaDi.addTransformateur(nestle);
+		for (Produit p : produits) {
+			MaDi.addProduit(p);
+		}
+		Ca.creer();
 
 	}
 }

@@ -90,6 +90,10 @@ public class Nestle implements Acteur, ITransformateurD, ITransformateurP {
 		}
 		
 		this.catalogue = new CatalogueInterne();
+		
+		PlageInterne plageinterne = this.getProd().plageinterne();
+		//Catalogue
+		this.catalogue.setCatalogueinterne(plageinterne);
 
 	}
 	//Ajout de clients et de fournisseurs
@@ -274,8 +278,11 @@ public class Nestle implements Acteur, ITransformateurD, ITransformateurP {
 		return this.catalogue.getCatalogueinterne();
 	}
 
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
 	@Override
-	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
+	public List<CommandeDistri> offre(List<CommandeDistri> o) {
 		ArrayList<CommandeDistri> Offre = new ArrayList<CommandeDistri>();
 		for (CommandeDistri C : o) {
 			if (this.getStockchoc().getStockschocolats().get(C.getProduit())
@@ -292,10 +299,10 @@ public class Nestle implements Acteur, ITransformateurD, ITransformateurP {
 	}
 
 
-	@Override
+
 
 	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> cf) {
-		return Offre(cf);
+		return offre(cf);
 	}
 
 	
@@ -324,7 +331,11 @@ public class Nestle implements Acteur, ITransformateurD, ITransformateurP {
 		//On n�gocie avec les distributeurs.
 =======
 		//On n馮ocie avec les distributeurs.
+<<<<<<< HEAD
+>>>>>>> refs/remotes/choose_remote_name/master
+=======
 >>>>>>> refs/remotes/#45/master
+>>>>>>> refs/remotes/choose_remote_name/master
 		for (IDistributeur d : this.getClients()) {
 			// Si les distributeurs demandent un produit que l'on ne vend pas -> erreur du programme
 			this.setCommandesdistri(d,d.Demande(dictionnaire));
@@ -332,7 +343,11 @@ public class Nestle implements Acteur, ITransformateurD, ITransformateurP {
 			this.Offre(d.Demande(dictionnaire));// null a changer quand l'�quipe aura fait une pull request.
 =======
 			this.Offre(d.Demande(dictionnaire));// null a changer quand l'駲uipe aura fait une pull request.
+<<<<<<< HEAD
+>>>>>>> refs/remotes/choose_remote_name/master
+=======
 >>>>>>> refs/remotes/#45/master
+>>>>>>> refs/remotes/choose_remote_name/master
 			this.setCommandesdistri(d,d.Demande(dictionnaire));
 			this.Offre(d.Demande(dictionnaire));
 		}
@@ -395,6 +410,7 @@ public class Nestle implements Acteur, ITransformateurD, ITransformateurP {
 		//chacun des producteurs nous envoie leur offre et on ach鑼e leur cacao
 		//et on met � jour l'historique
 		//et la tr駸orerie (on ach鑼e quelque chose)
+
 
 
 		double achattotal = this.QuantiteAcheteeMonde();
@@ -479,11 +495,7 @@ public class Nestle implements Acteur, ITransformateurD, ITransformateurP {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
-	public List<CommandeDistri> offre(List<CommandeDistri> list) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 }
 
 
