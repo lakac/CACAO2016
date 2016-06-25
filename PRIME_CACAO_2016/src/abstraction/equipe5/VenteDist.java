@@ -92,7 +92,6 @@ public class VenteDist {
 								int j=0; 
 								if(c.getQuantite()<=quantiteRepartie){ //si la quantite demandee dans la commande est inférieure à quantiteRepartie
 									c.setValidation(true); //on valide la commande
-									//lindt.getStocksChocolat().get(i).setStock(stockChocolatI-quantiteRepartie); // on met à jour le stock de chocolat i
 									stockChocolatI -= c.getQuantite();
 									quantiteRepartie=stockChocolatI/(lindt.getDistributeurs().size()-j);
 									j++;	
