@@ -15,6 +15,7 @@ import abstraction.commun.Produit;
 import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
+import abstraction.fourni.v0.ITransformateur;
 
 public class Leclercv2 implements Acteur,IDistributeur{
 	
@@ -162,33 +163,25 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		return list;
 	}
 	
-	/*methode qui change la quantite et passe au transfo suivant de la CommandeDistri c dans la List<CommandeDistri>
-	 * ie on met a jour la commande c dans la liste pour renvoyer la nouvelle demande*/
-
-	public void ActualiserCommande(List<CommandeDistri> cd, CommandeDistri c){
-		for (int i=0;i<cd.size();i++){
-			if (cd.get(i).equals(c)){
-				double q = cd.get(i).getQuantite()-c.getQuantite();
-				boolean valid = (q==0);
-				ITransformateurD vendeur = c.getVendeur();
-				if(!valid){
-					vendeur=TransfoSuivant(c);
-				}
-				CommandeDistri commande=new CommandeDistri(c.getAcheteur(), vendeur, c.getProduit(), q, c.getPrixTonne(), c.getStepLivraison(), valid);
-				cd.set(i,commande);
-				
-			}
-		
-		}
-	}
-	
-	/*utilise la methode precedente avec toutes les commandes de l'ancienne liste pour renvoyer une liste
-	 * actualisee*/
+	/*Contre Demande prend notre demande precedente et la reponse des transformateurs a cette demande, et renvoie cette reponse en rajoutant des 
+	 * des commandes pour combler les quantites que les transformateurs ne peuvent pas livrere*/
 
 	public List<CommandeDistri> ContreDemande(List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne) {
-		List<CommandeDistri> a = ancienne;
+		List<CommandeDistri> a = new ArrayList<CommandeDistri>();
 		for (CommandeDistri c : nouvelle){
-			this.ActualiserCommande(a, c);			
+			a.add(c);
+		}
+		for (int i=0;i<nouvelle.size();i++){
+			double q = ancienne.get(i).getQuantite()-nouvelle.get(i).getQuantite();
+			if (q!=0){
+				ITransformateurD tSuivant = this.TransfoSuivant(ancienne.get(i));
+				Produit p = ancienne.get(i).getProduit();
+				double prixTonne=ancienne.get(i).getPrixTonne();
+				int step = ancienne.get(i).getStepLivraison();
+				CommandeDistri nouvelleCommande = new CommandeDistri(this,tSuivant,p,q,prixTonne,step,false);
+				a.add(nouvelleCommande);
+			}
+			
 		}
 		return a;
 	}
