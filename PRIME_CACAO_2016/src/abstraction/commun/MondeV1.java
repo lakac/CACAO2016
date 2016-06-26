@@ -36,6 +36,11 @@ public class MondeV1 extends Monde {
 		this.ajouterActeur(Le);
 		this.ajouterActeur(Ca);
 		
+		// Marché Distributeur
+		//equipe 2 le 25/06
+				MarcheDistributeur.LE_MARCHE_DISTRIBUTEUR = new MarcheDistributeur();
+				this.ajouterActeur(MarcheDistributeur.LE_MARCHE_DISTRIBUTEUR);
+		
 		
 		
 		// Transformateurs
