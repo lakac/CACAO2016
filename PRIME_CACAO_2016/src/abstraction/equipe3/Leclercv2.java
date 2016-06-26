@@ -146,10 +146,38 @@ public class Leclercv2 implements Acteur,IDistributeur{
 
 
 	public List<CommandeDistri> Demande(ITransformateurD t, Catalogue c) {
-		Double[] x = {0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donnï¿½ sur toutes les annees
-		Double[] sto = {0.0,0.0,0.0};
-		
-		return null;
+		Double[] x = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donnï¿½ sur toutes les annees
+		Double[] sto = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+		for (int i=0; i<9; i++ ) {
+			sto[i] = this.getStock().getStock(t,i);
+		}
+		int l =0;
+		for (int j=0; j<Monde.LE_MONDE.getStep()+25;j+=26) {
+			for (int k=0; k<9; k++) {
+				x[k]+=this.getVentes().getVentes(j)[k];
+			}
+			for (int m=0; m<x.length;m++){
+				System.out.println("Leclerc ventes :"+this.ventes.getVentes(j)[m]);
+				x[m]+=this.ventes.getVentes(j)[m];
+			}
+			l++;
+		}
+		for (int m=0; m<x.length;m++){
+			x[m]=x[m]/l;
+		}
+		List<CommandeDistri> list = new ArrayList<CommandeDistri>();
+		for (Produit p : c.getProduits()){
+			CommandeDistri co = new CommandeDistri(this, t, p, 0, c.getTarif(p).getPrixTonne(), Monde.LE_MONDE.getStep()+3, false);
+			list.add(co);
+		}
+		for (int j = 0; j<this.getTransformateurs().size();j++){
+			if (t.equals(this.getTransformateurs().get(j))){
+				for (int i=0;i<x.length; i++){
+					list.get(i).setQuantite(this.ratio.get(j)*x[i]-sto[i]);
+				}
+			}
+		}
+		return list;
 	}
 
 	public List<CommandeDistri> demande(ITransformateurD t, Catalogue c) {
@@ -280,13 +308,13 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	}
 	@Override
 	public Double getStock(Produit p) {
-		//va etre supprimée
+		//va etre supprimï¿½e
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
 	public Double getPrixVente(Produit p) {
-		//va être supprimee
+		//va ï¿½tre supprimee
 		// TODO Auto-generated method stub
 		return null;
 	}
