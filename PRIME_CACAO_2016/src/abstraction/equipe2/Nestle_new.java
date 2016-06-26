@@ -275,12 +275,6 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 			}
 		}
 		System.out.println("offre : " + offre);
-		System.out.println("quantité offre :" + offre.get(0).getQuantite());
-		System.out.println("quantité offre :" + offre.get(1).getQuantite());
-		System.out.println("quantité offre :" + offre.get(2).getQuantite());
-		System.out.println("quantité offre :" + offre.get(3).getQuantite());
-		System.out.println("quantité offre :" + offre.get(4).getQuantite());
-
 		this.historiquecommandesdistri.add(offre);
 		return offre;
 	}
