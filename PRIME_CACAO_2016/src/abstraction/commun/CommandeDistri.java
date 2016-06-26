@@ -33,16 +33,17 @@ public class CommandeDistri extends Commande {
 		this.acheteur = acheteur;
 		this.vendeur = vendeur;
 		this.produit = produit;
+
 		this.stepLivraison = stepLivraison;
 		this.validation = validation;
 	}
-	
+
 
 	public Produit getProduit() {
 		return this.produit;
 	}
 
-	public void setProduit(Produit produit) {
+public void setProduit(Produit produit) {
 		this.produit = produit;
 	}
 
@@ -61,6 +62,8 @@ public class CommandeDistri extends Commande {
 
 	public void setVendeur(ITransformateurD vendeur) {
 		this.vendeur = vendeur;
+
+
 	}
 	
 	public void setValidation(boolean b) {

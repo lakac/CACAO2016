@@ -104,10 +104,13 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		return liste.get(i);
 	}
 	
+
 	/*methode qui fait la moyenne des ventes de ce step des annees passees pour avoir une idee 
 	 * du nombre de clients a ce step */
 
+
 	public List<CommandeDistri> Demande(ITransformateurD t, Catalogue c) {
+
 		Double[] x = {0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donn� sur toutes les ann�es
 		Double[] sto = {0.0,0.0,0.0};
 		for (int i=0; i<this.transformateurs.size();i++){
@@ -117,6 +120,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		} int l = 0;
 		for (int j=0; j<Monde.LE_MONDE.getStep()+25;j+=26){
 			for (int m=0; m<x.length;m++){
+				System.out.println("Leclerc ventes :"+this.ventes.getVentes(j)[m]);
 				x[m]+=this.ventes.getVentes(j)[m];
 			}
 			l++;
@@ -155,7 +159,8 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	/*utilise la methode precedente avec toutes les commandes de l'ancienne liste pour renvoyer une liste
 	 * actualisee*/
 
-	public List<CommandeDistri> ContreDemande(List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne) {
+
+	public List<CommandeDistri> contreDemande(List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne) {
 		List<CommandeDistri> a = ancienne;
 		for (CommandeDistri c : nouvelle){
 			this.ActualiserCommande(a, c);			
@@ -239,8 +244,27 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		//g�rer prixdevente
 		this.getPrixDeVente().actualisePrixDeVente();
 		// TODO Auto-generated method stub
-		  */
-	}
+<<<<<<< HEAD
 
+		
+	}
+	@Override
+	public List<CommandeDistri> demande(ITransformateur t, Catalogue c) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<CommandeDistri> contreDemande(List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne) {
+		// TODO Auto-generated method stub
+		return null;
+=======
+		  */
+
+	}
+	@Override
+	public List<CommandeDistri> demande(ITransformateurD t, Catalogue c) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 
