@@ -86,6 +86,7 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 	//Accède à la liste de commande des distributeurs de l'étape k.
 	public List<CommandeDistri> getCommandeDistri(int k) {
 		if (k>0 && k<this.getEtape()) {
+			System.out.println(this.historiquecommandesdistri);
 			return this.historiquecommandesdistri.get(k);
 		}
 		else {
@@ -204,9 +205,8 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 
 
 
-	@Override
+//
 	public List<CommandeDistri> CommandeFinale(List<CommandeDistri> list) {
-		System.out.println("test nestle");
 		List<CommandeDistri> l2 = offre(list);
 		this.ajouterCommandeDistri(l2);
 		return l2;
@@ -219,7 +219,7 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 		for (IDistributeur d : liste) {
 			this.livraisoneffective(d, list);
 		}
-		this.historiquecommandesdistri.set(etape-2, list);
+		this.historiquecommandesdistri.set(etape, list);
 		return list;
 		
 	}
@@ -273,6 +273,7 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 				}
 			}
 		}
+		this.historiquecommandesdistri.add(offre);
 		return offre;
 	}
 
@@ -301,7 +302,7 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 	public void next() {
 		this.setEtape();
 		if (this.getEtape()>2) {
-			this.transformation.setTransformation(this.getCommandeDistri(etape-2),this.getStockcacao(), this.getStockchocolat());
+			this.transformation.setTransformation(this.getCommandeDistri(etape-3),this.getStockcacao(), this.getStockchocolat());
 			this.MiseAJourCacaoChocEtTreso(this.transformation);
 			this.iTresorerie.setValeur(this, this.getTresorerie().getFonds());
 			this.iStockcacao.setValeur(this, this.getStockcacao().getStockcacao().get(Constante.CACAO));
@@ -328,7 +329,7 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 		this.transformation = new Transformation();
 		this.tresorerie = new Tresorerie();
 		this.historiquetresorerie = new ArrayList<Tresorerie>();
-		this.catalogue = new Catalogue();
+		this.CatalogueInitial();
 	}
 	
 	public void creer(Monde monde) {

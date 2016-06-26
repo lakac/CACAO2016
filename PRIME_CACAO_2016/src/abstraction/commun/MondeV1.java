@@ -61,7 +61,7 @@ public class MondeV1 extends Monde {
 		this.ajouterActeur(t3);
 		
 		// Marché Consommateur
-		MarcheConsommateurs marcheConsommateurs = new MarcheConsommateurs();
+		MarcheConsommateurs marcheConsommateurs = new MarcheConsommateurs("conso");
 		MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS = marcheConsommateurs;
 		this.ajouterActeur(marcheConsommateurs);
 		
@@ -135,7 +135,7 @@ public class MondeV1 extends Monde {
 		MaDi.addDistributeur(Ca);
 		// MaDi.addDistributeur(Le);
 		MaDi.addTransformateur(lindt);
-		// MaDi.addTransformateur(nestle);
+		MaDi.addTransformateur(nestle);
 		for (Produit p : produits) {
 			MaDi.addProduit(p);
 		}
