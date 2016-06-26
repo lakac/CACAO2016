@@ -11,7 +11,10 @@ import abstraction.commun.Produit;
 
 public class PrixDeVente {
 	
-	private ArrayList<Double[]> prixDeVente;   // prix differents selon le produit
+	private ArrayList<Double[]> prixDeVenteStepPlus3;   // prix differents selon le produit
+	private ArrayList<Double[]> prixDeVenteStepPlus2;
+	private ArrayList<Double[]> prixDeVenteStepPlus1;
+	private ArrayList<Double[]> prixDeVenteStep;	
 	private ArrayList<Catalogue> catalogues;
 	private ArrayList<Double[]> marge; // marge prise sur la vente des tablettes de chocolat qui differe selon le produit (donnee en pourcentage)
 	private ArrayList<ITransformateurD> transfos;
@@ -20,7 +23,10 @@ public class PrixDeVente {
 
 	public PrixDeVente() {
 		// TODO Auto-generated constructor stub
-		this.prixDeVente = new ArrayList<Double[]>();
+		this.prixDeVenteStepPlus3 = new ArrayList<Double[]>();
+		this.prixDeVenteStepPlus2 = new ArrayList<Double[]>();
+		this.prixDeVenteStepPlus1 = new ArrayList<Double[]>();
+		this.prixDeVenteStep = new ArrayList<Double[]>();
 		this.catalogues = new ArrayList<Catalogue>();
 		this.marge = new ArrayList<Double[]>();
 		this.transfos= new ArrayList<ITransformateurD>();
@@ -41,13 +47,20 @@ public class PrixDeVente {
 		for (int i=0; i<this.transfos.size();i++){
 			this.marge.add(l);
 		}
+		Double[] k = {10.0,10.0,10.0};
+		for (int i=0; i<this.transfos.size();i++){
+			this.prixDeVenteStepPlus3.add(k);
+			this.prixDeVenteStepPlus2.add(k);
+			this.prixDeVenteStepPlus1.add(k);
+			this.prixDeVenteStep.add(k);
+		}
 	}
 	
 	public ArrayList<ITransformateurD> getTransfos(){
 		return this.transfos;
 	}
-	public ArrayList<Double[]> getPrixDeVente() {
-		return this.prixDeVente;
+	public ArrayList<Double[]> getPrixDeVenteStepPlus3() {
+		return this.prixDeVenteStepPlus3;
 	}
 	public List<Catalogue> getCatalogues() {
 		return this.catalogues;
@@ -147,14 +160,19 @@ public class PrixDeVente {
 	*/
 	
 	public double getPrixDeVente(Produit p, ITransformateurD t){
-		return this.prixDeVente.get(this.getIndexTransformateur(t))[this.getIndexProduit(p)];
+		return this.prixDeVenteStep.get(this.getIndexTransformateur(t))[this.getIndexProduit(p)];
 		
 	}
 	
 	/*set le prix de vente d'un produit*/
 	
 	public void setPrixDeVente(Produit p, ITransformateurD t){
-		this.prixDeVente.get(this.getIndexTransformateur(t))[this.getIndexProduit(p)]=this.catalogues.get(this.getIndexTransformateur(t)).getTarif(p).getPrixTonne()*(1+this.marge.get(this.getIndexTransformateur(t))[this.getIndexProduit(p)]);
+		int indexp = this.getIndexProduit(p);
+		int indext = this.getIndexTransformateur(t);
+		this.prixDeVenteStep.get(indext)[indexp]=this.prixDeVenteStepPlus1.get(indext)[indexp];
+		this.prixDeVenteStepPlus1.get(indext)[indexp]=this.prixDeVenteStepPlus2.get(indext)[indexp];
+		this.prixDeVenteStepPlus2.get(indext)[indexp]=this.prixDeVenteStepPlus3.get(indext)[indexp];
+		this.prixDeVenteStepPlus3.get(indext)[indexp]=this.catalogues.get(indext).getTarif(p).getPrixTonne()*(1+this.marge.get(indext)[indexp]);
 	}
 	
 	/*utilise methode precedente pour un set de tous les produits*/
