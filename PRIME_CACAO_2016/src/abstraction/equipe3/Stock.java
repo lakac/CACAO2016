@@ -8,7 +8,7 @@ import abstraction.commun.ITransformateurD;
 
 public class Stock {
 	
-	/*classe qui g�re les stocks des diff�rents produits */
+	/*classe qui gere les stocks des differents produits */
 	
 	private ArrayList<Double[]> stock; //on adopte tacitement la convention indice 0 correspond au chocolat 50%, indice 1 au chocolat 60% ...
 	private double fraisDeStock;
@@ -17,6 +17,11 @@ public class Stock {
 	public Stock(ArrayList<Double[]> stock, double fraisDeStock){
 		this.stock=stock;
 		this.fraisDeStock=fraisDeStock;
+		this.transfos=new ArrayList<ITransformateurD>();
+	}
+	public Stock(){
+		this.stock=new ArrayList<Double[]>();
+		this.fraisDeStock=0.0;
 		this.transfos=new ArrayList<ITransformateurD>();
 	}
 	
@@ -44,7 +49,7 @@ public class Stock {
 		} return stock;
 	}
 	
-	/*m�thode qui renvoie les frais du stock total en parcourant chaque stock de chaque produit provenant de tous les 
+	/*methode qui renvoie les frais du stock total en parcourant chaque stock de chaque produit provenant de tous les 
 	 *transformateurs*/
 	
 	public double getFraisDeStockTotal(){
@@ -65,17 +70,18 @@ public class Stock {
 		for (int i=0;i<Leclerc.getTransformateurs().size();i++){
 			this.stock.add(l);
 		}
-		this.transfos=Leclerc.getTransformateurs();
+		for (ITransformateurD t : Leclerc.getTransformateurs()){
+			this.transfos.add(t);
+		}
 	}
 	
-	/*les m�thodes suivantes permettent de g�rer le stock en ajoutant ou retirant des commandes, ou des listes de commandes*/
+	/*les methodes suivantes permettent de gerer le stock en ajoutant ou retirant des commandes, ou des listes de commandes*/
 	
 	public void ajouterStock (CommandeDistri com) {
 		Double[] x;
 		for (int i=0;i<this.getTransfos().size();i++){
 			if (com.getVendeur().equals(this.getTransfos().get(i))){
 				x=this.stock.get(i);
-				this.stock.remove(i);
 				if (com.getProduit().getNomProduit()=="50%"){
 					x[0]+=com.getQuantite();
 				}
@@ -87,7 +93,7 @@ public class Stock {
 						x[2]+=com.getQuantite();
 					}
 				}
-				this.stock.add(i, x);
+				this.stock.set(i, x);
 			}
 		} 
 	}
@@ -96,7 +102,6 @@ public class Stock {
 		for (int i=0;i<this.getTransfos().size();i++){
 			if (com.getVendeur().equals(this.getTransfos().get(i))){
 				x=this.stock.get(i);
-				this.stock.remove(i);
 				if (com.getProduit().getNomProduit()=="50%"){
 					x[0]-=com.getQuantite();
 				}
@@ -108,7 +113,7 @@ public class Stock {
 						x[2]-=com.getQuantite();
 					}
 				}
-				this.stock.add(i, x);
+				this.stock.set(i, x);
 			}
 		} 
 	}

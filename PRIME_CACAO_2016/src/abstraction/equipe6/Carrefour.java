@@ -286,8 +286,8 @@ public class Carrefour implements Acteur,IDistributeur {
 >>>>>>> refs/remotes/choose_remote_name/master
 	}
 	*/
-	@Override
-	public Double getPrixVente(Produit p) {
+
+	public Double getPrixVente(Produit p, ITransformateurD t) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -295,8 +295,7 @@ public class Carrefour implements Acteur,IDistributeur {
 
 
 
-	@Override
-	public Double getStock(Produit p) {
+	public Double getStock(Produit p,ITransformateurD t) {
 		// TODO Auto-generated method stub
 		return null;
 	}

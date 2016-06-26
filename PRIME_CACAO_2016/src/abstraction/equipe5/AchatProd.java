@@ -5,8 +5,7 @@ import java.util.List;
 
 import abstraction.commun.CommandeDistri;
 import abstraction.commun.CommandeProduc;
-//import abstraction.commun.MarcheProducteur;
-//import abstraction.fourni.Monde;
+import abstraction.fourni.Journal;
 
 class CommandeInterne {
 	private double quantite, prix;
@@ -31,16 +30,18 @@ public class AchatProd {
 	private Lindt lindt;
 	private Stock stockCacao;
 	private Tresorerie treso;
+	private Journal journal;
 	//private double quantiteDemandee;
 	//private double quantiteRecue;
 
 	
-	public AchatProd(HistoriqueCommande histP, HistoriqueCommande histD, Lindt lindt, Stock stockCacao, Tresorerie treso) {
+	public AchatProd(HistoriqueCommande histP, HistoriqueCommande histD, Lindt lindt, Stock stockCacao, Tresorerie treso, Journal journal) {
 		this.histP = histP;
 		this.histD = histD;
 		this.lindt = lindt;
 		this.stockCacao = stockCacao;
 		this.treso = treso;
+		this.journal = journal;
 	}
 	
 	public HistoriqueCommande getHistP() {
@@ -57,6 +58,10 @@ public class AchatProd {
 	
 	public Stock getStock() {
 		return this.stockCacao;
+	}
+	
+	public Journal getJournal() {
+		return this.journal;
 	}
 	
 	
@@ -80,8 +85,7 @@ public class AchatProd {
 				if (c.getProduit().equals(Constante.LISTE_PRODUIT[i]))
 					besoinCacao += c.getQuantite()*Constante.LISTE_PRODUIT[i].getRatioCacao();
 		}}
-		// StockCacao-StockChoco c est pas optimal comme solution
-		double commandeP=0;
+		double commandeP=0; // on prend en compte la quantité de cacao qui va etre livree a ce step
 		for (int i=0; i<lindt.getProducteurs().size() ; i++){
 			commandeP+= this.getHistP().getHist().get(this.getHistP().getHist().size()-i-1).getQuantite();
 		}
@@ -120,14 +124,24 @@ public class AchatProd {
 	 */
 	public void notificationVente(CommandeProduc c) {
 		//this.quantiteRecue = c.getQuantite();
-		System.out.println("quantiteRecue "+ c.getQuantite());
-		System.out.println("quantite demandee "+ this.annonceQuantiteDemandee());
 		this.getHistP().ajouter(c);
-		System.out.println("avant "+this.getStock().getStock()+" --> "+c.getQuantite());
+		
+//		this.getJournal().ajouter("\n");
+//		this.getJournal().ajouter("Quantite recue : " + c.getQuantite());
+//		this.getJournal().ajouter("Quantite demandee : " + this.annonceQuantiteDemandee());
+//		this.getJournal().ajouter("Stock avant ajout quantite recue : " + this.getStock().getStock());
+//		this.getJournal().ajouter("Quantite de cacao perdue : " + c.getQuantite()*Constante.perteCacao());
+		
 		this.getStock().ajouterStock(c.getQuantite());
-		System.out.println("apres "+this.getStock().getStock());
+		
+//		this.getJournal().ajouter("Stock apres : " + this.getStock().getStock());
+//		this.getJournal().ajouter("\n");
+//		this.getJournal().ajouter("Prix paye aux producteurs : " + c.getQuantite()*c.getPrixTonne());
+//		this.getJournal().ajouter("Treso avant de payer : " + this.treso.toString());
+		
 		this.getTreso().retrait(c.getQuantite()*c.getPrixTonne());
-		System.out.println("treso "+ this.treso);
+		
+//		this.getJournal().ajouter("Treso apres : " + this.treso.toString());
 	}
 	
 //	/**

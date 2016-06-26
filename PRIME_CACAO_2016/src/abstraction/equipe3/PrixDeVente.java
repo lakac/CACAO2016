@@ -6,42 +6,53 @@ import java.util.List;
 import abstraction.commun.Catalogue;
 import abstraction.commun.ITransformateurD;
 import abstraction.commun.Produit;
-import abstraction.fourni.Monde;
 
 /* Classe qui s'occupe de gerer les prix des differents produits */
 
 public class PrixDeVente {
 	
-	private ArrayList<Double> prixDeVente;   // prix differents selon le produit
+	private ArrayList<Double[]> prixDeVente;   // prix differents selon le produit
 	private ArrayList<Catalogue> catalogues;
-	private ArrayList<Double> marge; // marge prise sur la vente des tablettes de chocolat qui differe selon le produit (donnée en pourcentage)
+	private ArrayList<Double[]> marge; // marge prise sur la vente des tablettes de chocolat qui differe selon le produit (donnee en pourcentage)
 	private ArrayList<ITransformateurD> transfos;
 	private ArrayList<Produit> produits;
-	private Double[] historiques; // historique de la vente du step pr�c�dant pour tous les produits
+	//private ArrayList<Double[]> historiques; // historique de la vente du step precedent pour tous les produits
 
 	public PrixDeVente() {
 		// TODO Auto-generated constructor stub
-		this.prixDeVente = new ArrayList<Double>();
+		this.prixDeVente = new ArrayList<Double[]>();
 		this.catalogues = new ArrayList<Catalogue>();
-		this.marge = new ArrayList<Double>();
+		this.marge = new ArrayList<Double[]>();
 		this.transfos= new ArrayList<ITransformateurD>();
 		this.produits = new ArrayList<Produit>();
-		this.historiques = new Double[3];
+		//this.historiques = new ArrayList<Double[]>();
 	}
 	
-	public void ajouterTransfo(ITransformateurD t) {
-		this.transfos.add(t);
+	/*methode qui initialise PrixDeVente en ajoutant les transformateurs, les produits, les marges et les prix de vente */
+	
+	public void initialisePrixDeVente(Leclercv2 Leclerc, ArrayList<Produit> produits){
+		this.transfos=new ArrayList<ITransformateurD>();
+		for (ITransformateurD t : Leclerc.getTransformateurs()){
+			this.transfos.add(t);
+		}
+		this.produits=produits;
+		this.marge=new ArrayList<Double[]>();
+		Double[] l = {0.1,0.05,0.15};
+		for (int i=0; i<this.transfos.size();i++){
+			this.marge.add(l);
+		}
 	}
+	
 	public ArrayList<ITransformateurD> getTransfos(){
 		return this.transfos;
 	}
-	public ArrayList<Double> getPrixDeVente() {
+	public ArrayList<Double[]> getPrixDeVente() {
 		return this.prixDeVente;
 	}
 	public List<Catalogue> getCatalogues() {
 		return this.catalogues;
 	}
-	public ArrayList<Double> getMarge() {
+	public ArrayList<Double[]> getMarge() {
 		return this.marge;
 	}
 	public ArrayList<Produit> getProduits() {
@@ -50,41 +61,46 @@ public class PrixDeVente {
 	public void setCatalogues(ArrayList<Catalogue> cata) {
 		this.catalogues = cata;
 	}
-	public void setMarge(ArrayList<Double> m) {
+	public void setMarge(ArrayList<Double[]> m) {
 		this.marge = m;	
 	}
-
-	public Double getHistoriques(Produit p){
-		Double his;
+	public int getIndexProduit(Produit p){
 		if (p.getNomProduit()=="50%") {
-			his=this.historiques[0];	
+			return 0;	
 		}
 		else {
 			if (p.getNomProduit()=="60%") {
-				his=this.historiques[1];
+				return 1;
 			}
 			else {
-				his=this.historiques[2];
+				return 2;
 			}
-		} return his;
+		} 
 	}
-	public void setHistoriques(Produit p, Double historique){
-		if (p.getNomProduit()=="50%") {
-			this.historiques[0]=historique;	
+	public int getIndexTransformateur(ITransformateurD t){
+		if (t.getNom()=="Nestle"){
+			return 0;
 		}
-		else {
-			if (p.getNomProduit()=="60%") {
-				this.historiques[1]=historique;	
+		else{
+			if (t.getNom()=="Lindt"){
+				return 1;
 			}
-			else {
-				this.historiques[2]=historique;	
+			else{
+				return 2;
 			}
 		}
 	}
+	/*public Double getHistoriques(Produit p,ITransformateurD t){
+		return this.historiques.get(this.getIndexTransformateur(t))[this.getIndexProduit(p)];
+	}
+	public void setHistoriques(Produit p, ITransformateurD t,Double prix){
+		this.historiques.get(this.getIndexTransformateur(t))[this.getIndexProduit(p)]=prix;
+	}
+	*/
 	
 	/*methode qui renvoie la marge en % de la vente sur le produit p, dans cette version, la marge est constante*/
 	
-	public double getMargeParProduit(Produit p) {
+	/*public double getMargeParProduit(Produit p) {
 		double m;
 		if (p.getNomProduit()=="50%") {
 			m = 0.1;	
@@ -98,17 +114,13 @@ public class PrixDeVente {
 			}
 		} return m;
 	}
-
-
-	/*methode qui renvoie le prix de vente du produit p en faisant la moyenne des differents prix � la tonne des transformateurs,
-	 * ne prend pas encore en compte les paliers*/
-
+	*/
 	
 	/*methode qui renvoie le prix de vente du produit p en faisant la moyenne des differents prix 
 	 *� la tonne des transformateurs,*/
 
 
-	public double getPrixDeVenteParProduit (Produit p) {
+	/*public double getPrixDeVenteParProduit (Produit p) {
 		Double prixVente = 0.0;
 		if (Monde.LE_MONDE.getStep()==1){
 			for (ITransformateurD t : this.getTransfos()) {
@@ -132,37 +144,26 @@ public class PrixDeVente {
 			}
 		}	
 	}
+	*/
 	
-	/*methode qui initialise PrixDeVente en ajoutant les transformateurs, les produits, les marges et les prix de vente */
-	
-	public void initialisePrixDeVente(Leclercv2 Leclerc, ArrayList<Produit> produits){
-		for (ITransformateurD t : Leclerc.getTransformateurs()){
-			this.ajouterTransfo(t);
-		}
-		this.produits=produits;
+	public double getPrixDeVente(Produit p, ITransformateurD t){
+		return this.prixDeVente.get(this.getIndexTransformateur(t))[this.getIndexProduit(p)];
+		
 	}
 	
 	/*set le prix de vente d'un produit*/
 	
-	public void setPrixDeVente(Produit p){
-		if (p.getNomProduit()  == "50%") {
-			this.prixDeVente.set(0, this.getPrixDeVenteParProduit(p));
-		}
-		else {
-			if (p.getNomProduit() == "60%") {
-				this.prixDeVente.set(1, this.getPrixDeVenteParProduit(p));
-			}
-			else {
-				this.prixDeVente.set(2, this.getPrixDeVenteParProduit(p));
-			}
-		}
+	public void setPrixDeVente(Produit p, ITransformateurD t){
+		this.prixDeVente.get(this.getIndexTransformateur(t))[this.getIndexProduit(p)]=this.catalogues.get(this.getIndexTransformateur(t)).getTarif(p).getPrixTonne()*(1+this.marge.get(this.getIndexTransformateur(t))[this.getIndexProduit(p)]);
 	}
 	
 	/*utilise methode precedente pour un set de tous les produits*/
 	
-	public void setPrixDeVente() { 	
-		for (Produit p : this.getProduits()) {
-			this.setPrixDeVente(p);
+	public void setPrixDeVente() {
+		for (ITransformateurD t : this.getTransfos()){		
+			for (Produit p : this.getProduits()) {
+				this.setPrixDeVente(p,t);
+			}
 		}		
 	}
 	
@@ -178,10 +179,11 @@ public class PrixDeVente {
 	}
 	
 	// test
+	/*
 	public static void main(String[] args) {
 		PrixDeVente prix = new PrixDeVente();
 		Produit p = new Produit("50%", 0.5);
-		System.out.print(prix.getMargeParProduit(p));
+		System.out.print(prix.getMarge().get(0)[0]);
 	}
-	
+	*/
 }
