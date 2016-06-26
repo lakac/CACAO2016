@@ -16,4 +16,5 @@ public class Constante {
 	 public static final double COUT_TRANSFORMATION = 5000;
 	 public static final double[] MARGE_PRODUIT = {0.07, 0.1, 0.12};
 	 public static final double COUT_STOCK_TONNE_STEP = 18;
+	 public static double perteCacao() {return (20+10*Math.random())/100;}; // on perd entre 20 et 30% de cacao a chaque livraison de cacao 
 }

@@ -1,5 +1,6 @@
 package abstraction.equipe5;
 import abstraction.equipe5.Lindt;
+import abstraction.fourni.Journal;
 import abstraction.fourni.Monde;
 
 import java.util.ArrayList;
@@ -7,7 +8,6 @@ import java.util.List;
 
 import abstraction.commun.Commande;
 import abstraction.commun.CommandeDistri;
-
 import abstraction.commun.Produit;
 
 
@@ -15,14 +15,19 @@ public class VenteDist {
 
 	private Lindt lindt;
 	private Tresorerie treso;
+	private Journal journal;
 
-	public VenteDist(Lindt lindt, Tresorerie treso){
-		this.lindt=lindt;
-		this.treso=treso;
+	public VenteDist(Lindt lindt, Tresorerie treso, Journal journal){
+		this.lindt = lindt;
+		this.treso = treso;
+		this.journal = journal;
 	}
 
 	public Tresorerie getTreso() {
 		return this.treso;
+	}
+	public Journal getJournal() {
+		return this.journal;
 	}
 
 	/**
@@ -31,7 +36,7 @@ public class VenteDist {
 	 */ 
 	public double prixProduit(Produit p) {
 		double r = 0;
-		System.out.println("cout de revient "+this.getTreso().coutRevient());
+//		this.getJournal().ajouter("cout de revient "+this.getTreso().coutRevient());
 		for (int i=0; i<Constante.LISTE_PRODUIT.length; i++) {
 			if (p.equals(Constante.LISTE_PRODUIT[i])) {
 				r= this.getTreso().coutRevient() / (1 - Constante.MARGE_PRODUIT[i]); // formule pour avoir le prix de vente quand on veut une marge spécifique
