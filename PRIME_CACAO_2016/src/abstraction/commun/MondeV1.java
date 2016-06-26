@@ -26,8 +26,9 @@ public class MondeV1 extends Monde {
 		produits.add(new Produit("50%",50));
 		produits.add(new Produit("60%",60));
 		produits.add(new Produit("70%",70));
-
+		
 		// Marche distributeur
+		
 		MarcheDistributeur MaDi = new MarcheDistributeur();
 		this.ajouterActeur(MaDi);
 
@@ -62,13 +63,10 @@ public class MondeV1 extends Monde {
 		this.ajouterActeur(marcheProducteur);
 		
 		
-
-		// Marché Consommateurs
-		/*MarcheCons marcheConsommateurs = new MarcheCons("MarcheConsommateurs", produits);
-		MarcheCons.LE_MARCHE_CONS = marcheConsommateurs;
-		this.ajouterActeur(marcheConsommateurs);
-		*/
-
+		// Marché Consommateur
+		//MarcheConsommateurs marcheConsommateurs = new MarcheConsommateurs();
+		//MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS = marcheConsommateurs;
+		//this.ajouterActeur(marcheConsommateurs);
 		
 		// Producteurs
 		Producteur p1 = new Producteur(1000.0, 0.0, Monde.LE_MONDE);
@@ -82,7 +80,7 @@ public class MondeV1 extends Monde {
 		Le.ajouterVendeur(nestle);
 		Le.ajouterVendeur(lindt);
 		
-		Ca.ajouterVendeur(nestle);
+		// Ca.ajouterVendeur(nestle);
 		Ca.ajouterVendeur(lindt);
 		Ca.setMaDi(MaDi);
 
@@ -111,22 +109,6 @@ public class MondeV1 extends Monde {
 		p1.ajouterTransformateur(t3);*/
 
 		
-		//p1.ajouterTransformateur(lindt);
-
-
-
-		//penser a ajouter la cote d'ivoire
-
-		//MaDi.addDistributeur(Ca);
-		MaDi.addDistributeur(Le);
-		//MaDi.addTransformateur(lindt);
-		MaDi.addTransformateur(nestle);
-		for (int i =0;i<produits.size();i++){
-			MaDi.addProduit(produits.get(i));
-		}
-		//maj 31/05 Groupe 3
-
-
 
 		marcheProducteur.AjoutProducteur(p1);;
 		marcheProducteur.AjoutProducteur(p2);
@@ -137,38 +119,26 @@ public class MondeV1 extends Monde {
 
 		
 
+
+		//marcheProducteur.ajouterProducteur(p1);
+		//marcheProducteur.ajouterProducteur(p2);
+		//marcheProducteur.ajouterTransformateur(lindt);
+
+		
+
 		//maj 31/05 Leclerc
-		Le.initialiseRatio();
 		Le.getStock().initialiseStock(Le);	
+
 		Le.getPrixDeVente().initialisePrixDeVente(Le, produits);
 		Le.getVentes().initialiseVentes();
-		
-		
 		MaDi.addDistributeur(Ca);
-		MaDi.addDistributeur(Le);
+		// MaDi.addDistributeur(Le);
 		MaDi.addTransformateur(lindt);
-		//MaDi.addTransformateur(nestle);
+		// MaDi.addTransformateur(nestle);
 		for (Produit p : produits) {
 			MaDi.addProduit(p);
 		}
 		Ca.creer();
 
-		
-		//Ajouter transformateurs et distributeurs au marché
-		/*MarcheCons.ajouterDistributeur(Ca);
-		MarcheCons.ajouterDistributeur(Le);
-		MarcheCons.ajouterTransformateur(lindt);
-		MarcheCons.ajouterTransformateur(nestle);
-		
-		//initialiser le MarcheConsommateurs;
-		MarcheCons.LE_MARCHE_CONS.initialiserRatio();
-		MarcheCons.LE_MARCHE_CONS.initialiserDemandeAnnuelle();
-		MarcheCons.LE_MARCHE_CONS.initialiserCalendrierDemande();
-		MarcheCons.LE_MARCHE_CONS.initialiserPourcentageIncertitudeVentes();
-		MarcheCons.LE_MARCHE_CONS.initialiserFidelite();
-		*/
-
-		
-		
 	}
 }

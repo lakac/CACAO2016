@@ -44,12 +44,6 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 	}
 
 	public void creer() {
-		//this.histCommandeProduc.ajouter(new CommandeProduc(100.0, ));
-		//this.histCommandeProduc.ajouter(new CommandeProduc(100.0, ));
-		//this.treso = new Tresorerie(this.histCommandeDistri, this.histCommandeProduc, this, this.getProducteurs());
-		//this.achatProd = new AchatProd(this.histCommandeProduc,this.histCommandeDistri, this, this.stockCacao, this.treso);	
-		//this.venteDist = new VenteDist(this, this.getTreso());
-
 		this.histCommandeProduc.ajouter(new CommandeProduc(100.0, MarcheProd.LE_MARCHE.getCoursCacao().getValeur()));
 		this.histCommandeProduc.ajouter(new CommandeProduc(100.0, MarcheProd.LE_MARCHE.getCoursCacao().getValeur()));
 		this.treso = new Tresorerie(this.histCommandeDistri, this.histCommandeProduc, this, this.getProducteurs(), this.getJournal());

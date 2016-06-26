@@ -42,7 +42,7 @@ public class Nestle implements Acteur, ITransformateurD, ITransformateurP {
 				this.clients = new ArrayList<IDistributeur>();
 				this.fournisseurs = new ArrayList<IProducteur>();
 
-		//les attributs relatifs � la tr駸orerie
+		//les attributs relatifs  la tresorerie
 
 				this.banque =new Banque();
 		//les HashMaps et liste
@@ -97,7 +97,7 @@ public class Nestle implements Acteur, ITransformateurD, ITransformateurP {
 
 	}
 	//Ajout de clients et de fournisseurs
-	//@copyright �ｿｽquipe 3
+	//@copyright quipe 3
 	public void AjouterClient(IDistributeur d) {
 		this.clients.add(d);
 	}
@@ -495,11 +495,7 @@ public class Nestle implements Acteur, ITransformateurD, ITransformateurP {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
-	public List<CommandeDistri> Offre(List<CommandeDistri> o) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 }
 
