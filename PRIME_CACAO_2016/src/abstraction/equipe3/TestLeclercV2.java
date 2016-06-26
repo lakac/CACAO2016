@@ -18,7 +18,7 @@ public class TestLeclercV2 {
 			double a=transfo.get(0).getTarif(p).getPrixTonne();
 			n=0;
 			for (int j=0;j<transfo.size();j++){
-				if (transfo.get(j).getTarif(p).getPrixTonne()<=a){
+				if (transfo.get(j).getTarif(p).getPrixTonne()<a){
 					a=transfo.get(j).getTarif(p).getPrixTonne();
 					n=j;
 					liste.add(transfo.get(j));
@@ -42,20 +42,21 @@ public class TestLeclercV2 {
 		catas.add(new Catalogue());
 		Tarif t3 = new Tarif(17,new ArrayList<Plage>());
 		catas.get(2).add(p,t3);
-		System.out.println(catas.get(0).getTarif(p).getPrixTonne());
+		//System.out.println(catas.get(2).getTarif(p).getPrixTonne());
 		Classerparprix(p, catas);
+
 		
 	}
 	
 	public static void main(String[] args) {
-		//testClasserParPrix();
-		ArrayList<Double[]> stock = new ArrayList<Double[]>();
+		testClasserParPrix();
+		/*ArrayList<Double[]> stock = new ArrayList<Double[]>();
 		Double[] l = {0.0,0.0,0.0};
 		for (int i=0;i<3;i++){
 			stock.add(l);
 		}
 		stock.get(2)[2]=5.0;
-		System.out.println(stock.get(2)[2]);
+		System.out.println(stock.get(2)[2]);*/
 		
 		// TODO Auto-generated method stub
 

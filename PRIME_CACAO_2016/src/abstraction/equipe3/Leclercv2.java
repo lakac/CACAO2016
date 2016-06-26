@@ -102,7 +102,6 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	public List<ITransformateurD> Classerparprix(Produit p){ 
 		List<ITransformateurD> liste = new ArrayList<ITransformateurD>();
 		List<ITransformateurD> transfo=this.getTransformateurs();
-		int i=0;
 		int n;
 		while(transfo!=null){
 			double a=transfo.get(0).getCatalogue().getTarif(p).getPrixTonne();
@@ -111,11 +110,10 @@ public class Leclercv2 implements Acteur,IDistributeur{
 				if (transfo.get(j).getCatalogue().getTarif(p).getPrixTonne()<a){
 					a=transfo.get(j).getCatalogue().getTarif(p).getPrixTonne();
 					n=j;
-					liste.set(i, transfo.get(j));
+					liste.add(transfo.get(j));
 				}	
 			}
-		transfo.remove(n);
-		i++;	
+		transfo.remove(n);	
 		}
 		return liste;
 	}

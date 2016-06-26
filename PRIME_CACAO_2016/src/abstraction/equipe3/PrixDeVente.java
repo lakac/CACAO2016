@@ -38,6 +38,10 @@ public class PrixDeVente {
 	
 	public void initialisePrixDeVente(Leclercv2 Leclerc, ArrayList<Produit> produits){
 		this.transfos=new ArrayList<ITransformateurD>();
+		this.prixDeVenteStepPlus3 = new ArrayList<Double[]>();
+		this.prixDeVenteStepPlus2 = new ArrayList<Double[]>();
+		this.prixDeVenteStepPlus1 = new ArrayList<Double[]>();
+		this.prixDeVenteStep = new ArrayList<Double[]>();
 		for (ITransformateurD t : Leclerc.getTransformateurs()){
 			this.transfos.add(t);
 		}
