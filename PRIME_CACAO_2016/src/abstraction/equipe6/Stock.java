@@ -9,7 +9,6 @@ import abstraction.commun.Produit;
 
 import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
-import abstraction.fourni.Monde;
 
 //Dans cette classe on définit un constructeur (et ses accesseurs) Stock qui correspond au stock de Carrefour
 //dans chaque produit et pour chaque transformateur.

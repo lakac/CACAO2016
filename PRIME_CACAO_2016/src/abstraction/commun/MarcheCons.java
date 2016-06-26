@@ -5,8 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import abstraction.equipe3.*;
 import abstraction.fourni.Acteur;
+import abstraction.fourni.Monde;
 
 public class MarcheCons implements Acteur {
+	
+	/**
+	 * Classe modelisant le marche consommateur
+	 * 
+	 * @author equipe 3
+	 */
 	
 	public String nom;
 	public static MarcheCons LE_MARCHE_CONS;
@@ -19,9 +26,8 @@ public class MarcheCons implements Acteur {
 	
 	private final static double VARIATION_FIDELITE=0.01;
 	
-	/*part minimum de clients fidèles a chaque distributeur*/
+	/*part minimum de clients fidï¿½les a chaque distributeur*/
 	
-	private final static double FIDELITE_MIN=0.20;
 	private static final double ALPHA = 0; 
 	
 	/*liste des distributeurs*/
@@ -48,7 +54,7 @@ public class MarcheCons implements Acteur {
 	
 	private HashMap <Produit,Double> demandeComposanteAleatoire;
 	
-	/*calendrier comportant la demande à chaque step*/
+	/*calendrier comportant la demande ï¿½ chaque step*/
 	
 	private List<Demande> calendrierDemande; 
 	
@@ -60,7 +66,7 @@ public class MarcheCons implements Acteur {
 	
 	private List<Fidelite> fidelite ;
 	
-	/*variable qui détermine le ratio entre les différents distributeurs pour un même produit*/
+	/*variable qui dï¿½termine le ratio entre les diffï¿½rents distributeurs pour un mï¿½me produit*/
 	
 	private List<Double> ratio;
 	
@@ -102,7 +108,7 @@ public class MarcheCons implements Acteur {
 		return 0;
 	}
 	
-	/* Retourne la part de fidélité d'un distributeur d pour un produit p*/
+	/* Retourne la part de fidï¿½litï¿½ d'un distributeur d pour un produit p*/
 	
 	public double getPart(IDistributeur d,Produit p){
 		double part=0;
@@ -148,6 +154,17 @@ public class MarcheCons implements Acteur {
 		return (PrixMoyen/MarcheCons.distributeurs.size());
 	}
 	
+	public double getPrixMoyen(Produit p){
+		double PrixMoyen=0;
+		for (ITransformateurD t : this.transformateurs){
+			for (IDistributeur d : MarcheCons.distributeurs){
+				PrixMoyen+=this.getPart(d,p)*d.getPrixVente(p,t);
+			}
+		}
+		PrixMoyen/=this.transformateurs.size();
+		return PrixMoyen;
+	}
+	
 	/*methode qui initialise demandeAnnuelle*/
 	
 	public void initialiserDemandeAnnuelle(){
@@ -171,10 +188,10 @@ public class MarcheCons implements Acteur {
 		for (Produit p : this
 				.getProduits()){
 			for (int i=1;i<=26;i++){
-				if (i%26==6){ //Pâques
+				if (i%26==6){ //Pï¿½ques
 				this.calendrierDemande.add(new Demande(i,p,0.0735*this.demandeAnnuelle.get(p)));
 				}
-				if (i%26==25){ //Noël
+				if (i%26==25){ //Noï¿½l
 					this.calendrierDemande.add(new Demande(i,p,0.1235*this.demandeAnnuelle.get(p)));	
 				}
 				else{
@@ -210,22 +227,23 @@ public class MarcheCons implements Acteur {
 		}
 	
 	/* Actualisation de la fidelite a chaque step
-	 * Cette fonction procède de la manière suivante:
-	 * Pour chaque produit en vente, on crée un tableau [distributeur, intervalle([a, a+inverse du prix du produit/somme des prix du produit])]
+	 * Cette fonction procï¿½de de la maniï¿½re suivante:
+	 * Pour chaque produit en vente, on crï¿½e un tableau [distributeur, intervalle([a, a+inverse du prix du produit/somme des prix du produit])]
 	 * Tous ces intervalles sont inclus dans [0,1]
 	 * 
-	 * On répète alors x fois la procédure suivante (x étant proportionnel au nombre de concurrents sur le marché)
-	 * Une variable aleatoire génère un nombre i entre 0 et 1
-	 * Si i appartient à l'intervalle correspondant au distributeur d, d gagne en fidelité, les autres distributeurs perdent en fidelité
+	 * On rï¿½pï¿½te alors x fois la procï¿½dure suivante (x ï¿½tant proportionnel au nombre de concurrents sur le marchï¿½)
+	 * Une variable aleatoire gï¿½nï¿½re un nombre i entre 0 et 1
+	 * Si i appartient ï¿½ l'intervalle correspondant au distributeur d, d gagne en fidelitï¿½, les autres distributeurs perdent en fidelitï¿½
 	 * 
-	 * De cette manière, comme chaque distributeur possède un intervalle de longueur proportionnelle à l'inverse de son prix de vente,
-	 * plus celui-ci est faible, plus il a de chance de gagner en fidélité client.
+	 * De cette maniï¿½re, comme chaque distributeur possï¿½de un intervalle de longueur proportionnelle ï¿½ l'inverse de son prix de vente,
+	 * plus celui-ci est faible, plus il a de chance de gagner en fidï¿½litï¿½ client.
 	 * 
-	 * Après calibrage, on pourra décider de passer les longueurs d'intervalles en carré de l'inverse du prix 
-	 * si les différences de prix sont négligeables devant le prix moyen.
+	 * Aprï¿½s calibrage, on pourra dï¿½cider de passer les longueurs d'intervalles en carrï¿½ de l'inverse du prix 
+	 * si les diffï¿½rences de prix sont nï¿½gligeables devant le prix moyen.
 	 */
 	
-	/*
+
+
 	public void actualiserFidelite(){
 		
 		HashMap<Produit, HashMap<IDistributeur, ArrayList<Double>>> M = new HashMap <Produit, HashMap<IDistributeur, ArrayList<Double>>>();
@@ -236,7 +254,7 @@ public class MarcheCons implements Acteur {
 		double i=0; //Variable aleatoire
 		
 		int nombre_iterations = 20*MarcheCons.distributeurs.size();
-		
+		for (ITransformateurD t : this.transformateurs){
 			for (Produit p : this.getProduits()){
 				
 				sum=0;
@@ -244,16 +262,16 @@ public class MarcheCons implements Acteur {
 				M.put(p, null);
 				
 				for (IDistributeur d : MarcheCons.distributeurs){
-					if (d.getPrixVente(p)!=0){
-							sum+=1/d.getPrixVente(p);
+					if (d.getPrixVente(p,t)!=0){
+							sum+=1/d.getPrixVente(p,t);
 							M.get(p).put(d, null);
 						}
 					}
 				for (IDistributeur d : MarcheCons.distributeurs){
-					if (d.getPrixVente(p)!=0){
+					if (d.getPrixVente(p,t)!=0){
 							M.get(p).get(d).add(a);
-							M.get(p).get(d).add(a+1/d.getPrixVente(p)/sum);
-							a=a+1/d.getPrixVente(p)/sum;
+							M.get(p).get(d).add(a+1/d.getPrixVente(p,t)/sum);
+							a=a+1/d.getPrixVente(p,t)/sum;
 						}
 					}
 				
@@ -261,7 +279,7 @@ public class MarcheCons implements Acteur {
 				for (int j=0;j<nombre_iterations;j++){
 					i=Math.random();
 					for (IDistributeur d : MarcheCons.distributeurs){
-						if (i>=M.get(p).get(d).get(0) && i < M.get(p).get(d).get(1)){ //La variable aléatoire se trouve dans l'intervalle du distri D
+						if (i>=M.get(p).get(d).get(0) && i < M.get(p).get(d).get(1)){ //La variable alï¿½atoire se trouve dans l'intervalle du distri D
 							//Augmente le ratio de fidelite de d
 							this.fidelite.get(getIndexFidelite(d,p)).setPart(this.getPart(d,p)+VARIATION_FIDELITE/nombre_iterations);
 						}
@@ -273,19 +291,19 @@ public class MarcheCons implements Acteur {
 				}	
 			}
 		}
-	*/
 	
-	/*methode qui actualise la demande à chaque step*/
+	}
+	/*methode qui actualise la demande ï¿½ chaque step*/
 	
-	/*public void actualiserDemande(){ 
+	public void actualiserDemande(){ 
 		for (Produit p : this.getProduits()){ 
-			double demandeDuStep = this.getDemande(p, Monde.LE_MONDE.getStep())-ALPHA*this.getPrixMoyen(p);
 			
+			double demandeDuStep = this.getDemande(p, Monde.LE_MONDE.getStep())-ALPHA*this.getPrixMoyen(p);
 			this.demandeComposanteContinue.put(p,demandeDuStep);
 			this.demandeComposanteAleatoire.put(p, this.demandeComposanteContinue.get(p)*(1+2*Math.random())*this.pourcentageIncertitudeVentes.get(p));
 		}
 	}
-	*/
+	
 	
 	/*methode qui repartit les ventes du step*/
 	
@@ -295,18 +313,23 @@ public class MarcheCons implements Acteur {
 			double demandeTotale = this.demandeComposanteContinue.get(p)+this.demandeComposanteAleatoire.get(p);
 			for (IDistributeur d : MarcheCons.distributeurs){
 				for (int i=0;i<transformateurs.size();i++){
+
+					this.ventesEffectuees.add(new CommandeDistri(d, transformateurs.get(i), p, this.getPart(d, p)*demandeTotale, d.getPrixVente(p,transformateurs.get(i)), Monde.LE_MONDE.getStep(), true));//! au step du prix de vente
+					//rajouter ratio transfo pour la quantitï¿½
+
 					//this.ventesEffectuees.add(new CommandeDistri(d, transformateurs.get(i), p, this.ratio.get(i)*this.getPart(d, p)*demandeTotale, d.getPrixVente(p), Monde.LE_MONDE.getStep(), true));//! au step du prix de vente
-					//rajouter ratio transfo pour la quantité
+					//rajouter ratio transfo pour la quantitï¿½
 				}			
 			}
 		}	
 	}
 
-	@Override
 	public void next() {
+		this.actualiserFidelite();
+		this.actualiserDemande();
 		this.repartirVentes();
-		//this.actualiserDemande();
-		// TODO Auto-generated method stub
+
+
 		
 	}
 	

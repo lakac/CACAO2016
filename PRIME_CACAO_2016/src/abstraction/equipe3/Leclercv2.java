@@ -29,6 +29,9 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	private Indicateur stock4;  //Stock de 50% de Nestle
 	private Indicateur stock5;  //Stock de 60% de Nestle
 	private Indicateur stock6;  //Stock de 70% de Nestle
+	private Indicateur stock7;	//Stock de 50% du troisième transformateur
+	private Indicateur stock8;	//Stock de 60% du troisième transformateur
+	private Indicateur stock9;	//Stock de 70% du troisième transformateur
 	private PrixDeVente prixdevente;
 	private ArrayList<Double> ratio;
 	private ArrayList<ITransformateurD> transformateurs;
@@ -49,6 +52,9 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		this.stock4 = new Indicateur("Stock de 50% de Nestle de " + this.nom, this, 0);
 		this.stock5 = new Indicateur("Stock de 60% de Nestle de " + this.nom, this, 0);
 		this.stock6 = new Indicateur("Stock de 70% de Nestle de " + this.nom, this, 0);
+		this.stock7 = new Indicateur("Stock de 50% de 3ème transfo de " + this.nom, this, 0);
+		this.stock8 = new Indicateur("Stock de 60% de 3ème transfo de " + this.nom, this, 0);
+		this.stock9 = new Indicateur("Stock de 70% de 3ème transfo de " + this.nom, this, 0);
 		this.prixdevente=new PrixDeVente();
 		Monde.LE_MONDE.ajouterIndicateur(this.solde);
 		Monde.LE_MONDE.ajouterIndicateur(this.stock1);
@@ -57,6 +63,9 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		Monde.LE_MONDE.ajouterIndicateur(this.stock4);
 		Monde.LE_MONDE.ajouterIndicateur(this.stock5);
 		Monde.LE_MONDE.ajouterIndicateur(this.stock6);
+		Monde.LE_MONDE.ajouterIndicateur(this.stock7);
+		Monde.LE_MONDE.ajouterIndicateur(this.stock8);
+		Monde.LE_MONDE.ajouterIndicateur(this.stock9);
 		// TODO Auto-generated constructor stub
 	}
 	public Stock getStock(){
@@ -136,9 +145,20 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	  du nombre de clients a ce step */
 
 
+	public List<CommandeDistri> Demande(ITransformateurD t, Catalogue c) {
+		Double[] x = {0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donn� sur toutes les annees
+		Double[] sto = {0.0,0.0,0.0};
+		
+		return null;
+	}
+
 	public List<CommandeDistri> demande(ITransformateurD t, Catalogue c) {
 
+
 		/*Double[] x = {0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donn� sur toutes les annees
+=======
+		Double[] x = {0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donn� sur toutes les annees
+>>>>>>> branch 'master' of https://github.com/MarcSuteau/CACAO2016.git
 		Double[] sto = {0.0,0.0,0.0};
 		sto[0] = this.getStock().getStock(t,0);
 		sto[1] = this.getStock().getStock(t,1);
@@ -195,8 +215,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 				int step = ancienne.get(i).getStepLivraison();
 				CommandeDistri nouvelleCommande = new CommandeDistri(this,tSuivant,p,q,prixTonne,step,false);
 				a.add(nouvelleCommande);
-			}
-			
+			}	
 		}
 		return a;
 	}
