@@ -200,10 +200,16 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	
 	/*methode qui renvoie les pertes provenant des frais de stockage et de l'achat du chocolat aux tranfos*/
 	
-	public double depenses(List<CommandeDistri> l){
+	public double depenses(){
+		List<CommandeDistri> commandefinale = new ArrayList<CommandeDistri>();
+		for (CommandeDistri c :MarcheDistributeur.LE_MARCHE_DISTRIBUTEUR.getCommandeFinale()){
+			if (c.getAcheteur()==this){
+				commandefinale.add(c);
+			}
+		}
 		double depenses = 0.0;
 		depenses+=this.getStock().getFraisDeStockTotal();
-		for (CommandeDistri com : l){
+		for (CommandeDistri com : commandefinale){
 			depenses+=com.getPrixTonne()*com.getQuantite();
 		}
 		return depenses;
