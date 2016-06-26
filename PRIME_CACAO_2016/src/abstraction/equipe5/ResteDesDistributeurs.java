@@ -41,18 +41,20 @@ public class ResteDesDistributeurs{
 			// TODO Auto-generated method stub
 			return null;
 		}
-
+		
 		@Override
-		public Double getStock(Produit p) {
+		public Double getStock(Produit p, ITransformateurD t) {
 			// TODO Auto-generated method stub
 			return null;
 		}
 
 		@Override
-		public Double getPrixVente(Produit p) {
+		public Double getPrixVente(Produit p, ITransformateurD t) {
 			// TODO Auto-generated method stub
 			return null;
 		}
+
+	
 	}
 	public ResteDesDistributeurs(Lindt lindt, VenteDist venteDist) {
 		this.commande = new ArrayList<CommandeDistri>();

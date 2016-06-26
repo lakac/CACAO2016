@@ -67,7 +67,7 @@ public class MarcheCons implements Acteur {
 	
 	private List<Fidelite> fidelite ;
 	
-	/*static qui détermine le ratio entre les différents distributeurs pour un même produit*/
+	/*variable qui détermine le ratio entre les différents distributeurs pour un même produit*/
 	
 	private List<Double> ratio;
 	
@@ -145,14 +145,14 @@ public class MarcheCons implements Acteur {
 		return demande;
 	}
 	
-	/* retourne le prix moyen de vente d'un produit*/
+	/* retourne le prix moyen de vente d'un produit p de la marque t*/
 	
-	public double getPrixMoyen(Produit p){
+	public double getPrixMoyen(Produit p,ITransformateurD t){
 		double PrixMoyen=0;
 		for (IDistributeur d : MarcheCons.distributeurs){
-			PrixMoyen+=this.getPart(d,p)*d.getPrixVente(p);
+			PrixMoyen+=this.getPart(d,p)*d.getPrixVente(p,t);
 		}
-		return PrixMoyen;
+		return (PrixMoyen/MarcheCons.distributeurs.size());
 	}
 	
 	/*methode qui initialise demandeAnnuelle*/
@@ -166,6 +166,8 @@ public class MarcheCons implements Acteur {
 	/*methode qui initialise le ratio*/
 	
 	public void initialiserRatio(){
+		this.ratio.add(0.13);
+		this.ratio.add(0.04);
 		
 	}
 	
@@ -229,6 +231,8 @@ public class MarcheCons implements Acteur {
 	 * Après calibrage, on pourra décider de passer les longueurs d'intervalles en carré de l'inverse du prix 
 	 * si les différences de prix sont négligeables devant le prix moyen.
 	 */
+	
+	/*
 	public void actualiserFidelite(){
 		
 		HashMap<Produit, HashMap<IDistributeur, ArrayList<Double>>> M = new HashMap <Produit, HashMap<IDistributeur, ArrayList<Double>>>();
@@ -266,21 +270,21 @@ public class MarcheCons implements Acteur {
 					for (IDistributeur d : MarcheCons.distributeurs){
 						if (i>=M.get(p).get(d).get(0) && i < M.get(p).get(d).get(1)){ //La variable aléatoire se trouve dans l'intervalle du distri D
 							//Augmente le ratio de fidelite de d
-							this.fidelite.get(getIndexFidelite(d,p)).setPart(this.getPart(d,p)+this.VARIATION_FIDELITE/nombre_iterations);
+							this.fidelite.get(getIndexFidelite(d,p)).setPart(this.getPart(d,p)+VARIATION_FIDELITE/nombre_iterations);
 						}
 						else{
 							//reduit le ratio de fidelite des autres distributeurs
-							this.fidelite.get(getIndexFidelite(d,p)).setPart(this.getPart(d,p)-this.VARIATION_FIDELITE/nombre_iterations/(MarcheCons.distributeurs.size()-1));
+							this.fidelite.get(getIndexFidelite(d,p)).setPart(this.getPart(d,p)-VARIATION_FIDELITE/nombre_iterations/(MarcheCons.distributeurs.size()-1));
 						}
 					}
 				}	
 			}
 		}
-	
+	*/
 	
 	/*methode qui actualise la demande à chaque step*/
 	
-	public void actualiserDemande(){ 
+	/*public void actualiserDemande(){ 
 		for (Produit p : this.getProduits()){ 
 			double demandeDuStep = this.getDemande(p, Monde.LE_MONDE.getStep())-ALPHA*this.getPrixMoyen(p);
 			
@@ -288,6 +292,7 @@ public class MarcheCons implements Acteur {
 			this.demandeComposanteAleatoire.put(p, this.demandeComposanteContinue.get(p)*(1+2*Math.random())*this.pourcentageIncertitudeVentes.get(p));
 		}
 	}
+	*/
 	
 	/*methode qui repartit les ventes du step*/
 	
@@ -297,7 +302,7 @@ public class MarcheCons implements Acteur {
 			double demandeTotale = this.demandeComposanteContinue.get(p)+this.demandeComposanteAleatoire.get(p);
 			for (IDistributeur d : MarcheCons.distributeurs){
 				for (int i=0;i<transformateurs.size();i++){
-					this.ventesEffectuees.add(new CommandeDistri(d, transformateurs.get(i), p, this.ratio.get(i)*this.getPart(d, p)*demandeTotale, d.getPrixVente(p), Monde.LE_MONDE.getStep(), true));//! au step du prix de vente
+					//this.ventesEffectuees.add(new CommandeDistri(d, transformateurs.get(i), p, this.ratio.get(i)*this.getPart(d, p)*demandeTotale, d.getPrixVente(p), Monde.LE_MONDE.getStep(), true));//! au step du prix de vente
 					//rajouter ratio transfo pour la quantité
 				}			
 			}
@@ -307,7 +312,7 @@ public class MarcheCons implements Acteur {
 	@Override
 	public void next() {
 		this.repartirVentes();
-		this.actualiserDemande();
+		//this.actualiserDemande();
 		// TODO Auto-generated method stub
 		
 	}

@@ -48,7 +48,15 @@ public class TestLeclercV2 {
 	}
 	
 	public static void main(String[] args) {
-		testClasserParPrix();
+		//testClasserParPrix();
+		ArrayList<Double[]> stock = new ArrayList<Double[]>();
+		Double[] l = {0.0,0.0,0.0};
+		for (int i=0;i<3;i++){
+			stock.add(l);
+		}
+		stock.get(2)[2]=5.0;
+		System.out.println(stock.get(2)[2]);
+		
 		// TODO Auto-generated method stub
 
 	}

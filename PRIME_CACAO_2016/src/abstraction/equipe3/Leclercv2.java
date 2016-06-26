@@ -42,7 +42,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		this.ratio = new ArrayList<Double>();
 		this.transformateurs = new ArrayList<ITransformateurD>();
 		this.ventes=new Ventes();
-		this.stock= new Stock(new ArrayList<Double[]>(), 0.0);
+		this.stock= new Stock();
 		this.stock1 = new Indicateur("Stock de 50% de Lindt de " + this.nom, this, 0);
 		this.stock2 = new Indicateur("Stock de 60% de Lindt de " + this.nom, this, 0);
 		this.stock3 = new Indicateur("Stock de 70% de Lindt de " + this.nom, this, 0);
@@ -88,7 +88,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		this.ratio.add(0.04);
 	}
 	
-	/*methode qui classe les transfos du moins cher au sens du produit p au plus cher*/
+	/*methode qui classe les transfos du moins cher au plus cher au sens du produit p*/
 	
 	public List<ITransformateurD> Classerparprix(Produit p){ 
 		List<ITransformateurD> liste = new ArrayList<ITransformateurD>();
@@ -190,17 +190,11 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	
 	public double recette(){
 		double recette = 0.0;
-		int j =0;
 		List<CommandeDistri> venteeffectuees =  MarcheCons.LE_MARCHE_CONS.getVenteDistri(this);
-		for (Produit p : this.getProduits()){ 
 			for (CommandeDistri com : venteeffectuees){
-				if (com.getProduit()==p){
-					recette+=com.getQuantite()*this.prixdevente.getPrixDeVente().get(j);
-					
-				}
-			}
-			j++;			
-		}
+				Produit p = com.getProduit();
+					recette+=com.getQuantite()*this.prixdevente.getPrixDeVente(p,com.getVendeur());
+			}			
 		return recette;
 	}
 	
@@ -215,39 +209,26 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		return depenses;
 	}
 	
-	/*methode qui renvoie le stock du produit p, utilisee par LE_MARCHE_CONSOMMATEURS*/
+	/*methode qui renvoie le stock du produit p de la marque t, utilisee par LE_MARCHE_CONSOMMATEURS*/
 	
-	public Double getStock(Produit p) {
-		double x = 0;
+	public Double getStock(Produit p, ITransformateurD t) {
 		if (p.getNomProduit()=="50%"){
-			for (ITransformateurD t : this.getTransformateurs()){
-				x+=this.getStock().getStock(t,0);
+			return this.getStock().getStock(t,0);
 			}
-		} else {
+		else {
 			if (p.getNomProduit()=="60%"){
-				for (ITransformateurD t : this.getTransformateurs()){
-					x+=this.getStock().getStock(t,1);
+				return this.getStock().getStock(t,1);
 				}
-			} else {
-				for (ITransformateurD t : this.getTransformateurs()){
-					x+=this.getStock().getStock(t,2);
+			else {
+				return this.getStock().getStock(t,2);
 				}
-			}
-		} return x;
+		}
 	}
 	
-	/*methode qui renvoie le prix de vente du produit p, utilisee par LE_MARCHE_CONSOMMATEURS*/
+	/*methode qui renvoie le prix de vente du produit p de la marque t, utilisee par LE_MARCHE_CONSOMMATEURS*/
 	
-	public Double getPrixVente(Produit p) {
-		if (p.getNomProduit()=="50%"){
-			return this.prixdevente.getPrixDeVente().get(0);
-		} else {
-			if (p.getNomProduit()=="60%"){
-				return this.prixdevente.getPrixDeVente().get(1);
-			} else {
-				return this.prixdevente.getPrixDeVente().get(2);
-			}
-		}
+	public Double getPrixVente(Produit p, ITransformateurD t) {
+		return this.prixdevente.getPrixDeVente(p, t);
 	}
 	
 	public void next() {

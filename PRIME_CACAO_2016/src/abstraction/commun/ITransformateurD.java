@@ -30,4 +30,6 @@ public interface ITransformateurD {
 	 * @deprecated
 	 */
 	public List<CommandeDistri> Offre(List<CommandeDistri> o);
+
+	public String getNom();
 }
