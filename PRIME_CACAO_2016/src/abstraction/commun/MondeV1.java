@@ -64,9 +64,9 @@ public class MondeV1 extends Monde {
 		
 		
 		// Marché Consommateur
-		//MarcheConsommateurs marcheConsommateurs = new MarcheConsommateurs();
-		//MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS = marcheConsommateurs;
-		//this.ajouterActeur(marcheConsommateurs);
+		MarcheCons marcheConsommateurs = new MarcheCons("MarcheCons", this.produits);
+		MarcheCons.LE_MARCHE_CONS = marcheConsommateurs;
+		this.ajouterActeur(marcheConsommateurs);
 		
 		// Producteurs
 		Producteur p1 = new Producteur(1000.0, 0.0, Monde.LE_MONDE);
@@ -128,9 +128,21 @@ public class MondeV1 extends Monde {
 
 		//maj 31/05 Leclerc
 		Le.getStock().initialiseStock(Le);	
-
+		Le.initialiseRatio();
 		Le.getPrixDeVente().initialisePrixDeVente(Le, produits);
 		Le.getVentes().initialiseVentes();
+		/*MarcheCons.LE_MARCHE_CONS.ajouterDistributeur(Le);
+		MarcheCons.LE_MARCHE_CONS.ajouterDistributeur(Le);
+		MarcheCons.LE_MARCHE_CONS.ajouterTransformateur(nestle);
+		MarcheCons.LE_MARCHE_CONS.ajouterTransformateur(lindt);
+		*/
+		MarcheCons.LE_MARCHE_CONS.initialiserDemandeAnnuelle();
+		MarcheCons.LE_MARCHE_CONS.initialiserCalendrierDemande();
+		MarcheCons.LE_MARCHE_CONS.initialiserFidelite();
+		MarcheCons.LE_MARCHE_CONS.initialiserPourcentageIncertitudeVentes();
+		MarcheCons.LE_MARCHE_CONS.initialiserRatio();
+		
+		
 		MaDi.addDistributeur(Ca);
 		// MaDi.addDistributeur(Le);
 		MaDi.addTransformateur(lindt);

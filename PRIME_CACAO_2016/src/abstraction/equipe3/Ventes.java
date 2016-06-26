@@ -2,6 +2,7 @@ package abstraction.equipe3;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import abstraction.commun.CommandeDistri;
 
@@ -58,7 +59,7 @@ public class Ventes {
 	
 	/*methode qui rajoute les ventes reelles du step a la variable*/
 	
-	public void actualiserVentes(ArrayList<CommandeDistri> venteEffective){
+	public void actualiserVentes(List<CommandeDistri> venteEffective){
 		Double[] x = {0.0,0.0,0.0};
 		for (CommandeDistri co : venteEffective){
 			if (co.getProduit().getNomProduit()=="50%"){

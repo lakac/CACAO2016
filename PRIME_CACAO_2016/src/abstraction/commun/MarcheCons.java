@@ -176,6 +176,7 @@ public class MarcheCons implements Acteur {
 	/*methode qui initialise le ratio*/
 	
 	public void initialiserRatio(){
+		this.ratio=new ArrayList<Double>();
 		this.ratio.add(0.13);
 		this.ratio.add(0.04);
 		
