@@ -28,7 +28,6 @@ public class MarcheCons implements Acteur {
 	
 	/*part minimum de clients fidèles a chaque distributeur*/
 	
-	private final static double FIDELITE_MIN=0.20;
 	private static final double ALPHA = 0; 
 	
 	/*liste des distributeurs*/
@@ -272,7 +271,6 @@ public class MarcheCons implements Acteur {
 	public void actualiserDemande(){ 
 		for (Produit p : this.getProduits()){ 
 			double demandeDuStep = this.getDemande(p, Monde.LE_MONDE.getStep())-ALPHA*this.getPrixMoyen(p);
-			
 			this.demandeComposanteContinue.put(p,demandeDuStep);
 			this.demandeComposanteAleatoire.put(p, this.demandeComposanteContinue.get(p)*(1+2*Math.random())*this.pourcentageIncertitudeVentes.get(p));
 		}
@@ -293,11 +291,10 @@ public class MarcheCons implements Acteur {
 		}	
 	}
 
-	@Override
 	public void next() {
-		this.repartirVentes();
+		this.actualiserFidelite();
 		this.actualiserDemande();
-		// TODO Auto-generated method stub
+		this.repartirVentes();
 		
 	}
 	
