@@ -103,11 +103,10 @@ public class Monde extends Observable {
 			i++;
 		}
 		if (i<this.acteurs.size()) {
-			System.out.println("getActeur" +nom+" a bien été ajouté au monde");
 			return this.acteurs.get(i);
 		}
 		else {
-			System.out.println("getActeur(\""+nom+"\") retourne null car il n'y a pas d'acteur portant ce nom");
+			//System.out.println("getActeur(\""+nom+"\") retourne null car il n'y a pas d'acteur portant ce nom");
 			return null;
 		}
 	}
