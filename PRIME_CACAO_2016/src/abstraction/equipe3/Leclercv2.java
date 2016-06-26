@@ -179,7 +179,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	}
 
 	public List<CommandeDistri> demande(ITransformateurD t, Catalogue c) {
-		/*
+		
 		Double[] x = {0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donn� sur toutes les annees
 		Double[] sto = {0.0,0.0,0.0};
 		sto[0] = this.getStock().getStock(t,0);
@@ -210,10 +210,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 				}
 			}
 		}
-		return list;*/
-		List<CommandeDistri> liste = new ArrayList<CommandeDistri>();;
-		liste.add(new CommandeDistri(this,this.transformateurs.get(0),this.produits.get(0),13,this.transformateurs.get(0).getCatalogue().getTarif(this.produits.get(0)).getPrixTonne(),Monde.LE_MONDE.getStep()+3,false));
-		return liste;
+		return list;
 	}
 	
 	/*Contre Demande prend notre demande precedente et la reponse des transformateurs a cette demande, et renvoie cette reponse en rajoutant des 
