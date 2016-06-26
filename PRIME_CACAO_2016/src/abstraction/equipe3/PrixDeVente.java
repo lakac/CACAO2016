@@ -103,61 +103,7 @@ public class PrixDeVente {
 			}
 		}
 	}
-	/*public Double getHistoriques(Produit p,ITransformateurD t){
-		return this.historiques.get(this.getIndexTransformateur(t))[this.getIndexProduit(p)];
-	}
-	public void setHistoriques(Produit p, ITransformateurD t,Double prix){
-		this.historiques.get(this.getIndexTransformateur(t))[this.getIndexProduit(p)]=prix;
-	}
-	*/
 	
-	/*methode qui renvoie la marge en % de la vente sur le produit p, dans cette version, la marge est constante*/
-	
-	/*public double getMargeParProduit(Produit p) {
-		double m;
-		if (p.getNomProduit()=="50%") {
-			m = 0.1;	
-		}
-		else {
-			if (p.getNomProduit()=="60%") {
-				m = 0.05;
-			}
-			else {
-				m = 0.15;
-			}
-		} return m;
-	}
-	*/
-	
-	/*methode qui renvoie le prix de vente du produit p en faisant la moyenne des differents prix 
-	 *� la tonne des transformateurs,*/
-
-
-	/*public double getPrixDeVenteParProduit (Produit p) {
-		Double prixVente = 0.0;
-		if (Monde.LE_MONDE.getStep()==1){
-			for (ITransformateurD t : this.getTransfos()) {
-				prixVente += t.getCatalogue().getTarif(p).getPrixTonne();
-			}
-			prixVente = prixVente/this.getTransfos().size();
-			prixVente+=prixVente*(this.getMargeParProduit(p));
-			this.setHistoriques(p,prixVente);
-			return prixVente;
-		}else {
-			for (ITransformateurD t : this.getTransfos()) {
-				prixVente += t.getCatalogue().getTarif(p).getPrixTonne();
-			}
-			prixVente = prixVente/this.getTransfos().size();
-			prixVente+=prixVente*(this.getMargeParProduit(p));
-			if (prixVente<=this.getHistoriques(p)*1.05 && prixVente>=this.getHistoriques(p)*0.95){
-				return this.getHistoriques(p);
-			} else {
-				this.setHistoriques(p,prixVente);
-				return prixVente;
-			}
-		}	
-	}
-	*/
 	
 	public double getPrixDeVente(Produit p, ITransformateurD t){
 		return this.prixDeVenteStep.get(this.getIndexTransformateur(t))[this.getIndexProduit(p)];
@@ -195,13 +141,4 @@ public class PrixDeVente {
 		this.setCatalogues(lis);
 		this.setPrixDeVente();
 	}
-	
-	// test
-	/*
-	public static void main(String[] args) {
-		PrixDeVente prix = new PrixDeVente();
-		Produit p = new Produit("50%", 0.5);
-		System.out.print(prix.getMarge().get(0)[0]);
-	}
-	*/
 }
