@@ -67,6 +67,7 @@ public class MarcheConsommateurs implements Acteur {
 		this.offreTotale=new HashMap <Produit,Double>();
 		this.demandeAnnuelle=new HashMap <Produit,Double>();
 		this.nom=nom;
+
 		//this.initialiser();
 	}
 	
