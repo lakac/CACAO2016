@@ -153,19 +153,14 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	}
 
 	public List<CommandeDistri> demande(ITransformateurD t, Catalogue c) {
-
-
-		/*Double[] x = {0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donné sur toutes les annees
-=======
+		/*
 		Double[] x = {0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donnï¿½ sur toutes les annees
->>>>>>> branch 'master' of https://github.com/MarcSuteau/CACAO2016.git
 		Double[] sto = {0.0,0.0,0.0};
 		sto[0] = this.getStock().getStock(t,0);
 		sto[1] = this.getStock().getStock(t,1);
 		sto[2] = this.getStock().getStock(t,2);
 		int l = 0;
 		for (int j=0; j<Monde.LE_MONDE.getStep()+25;j+=26){
-
 			x[0]+=this.getVentes().getVentes(j)[0];
 			x[1]+=this.getVentes().getVentes(j)[1];
 			x[2]+=this.getVentes().getVentes(j)[2];
@@ -189,8 +184,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 				}
 			}
 		}
-		return list;
-		*/
+		return list;*/
 		List<CommandeDistri> liste = new ArrayList<CommandeDistri>();;
 		liste.add(new CommandeDistri(this,this.transformateurs.get(0),this.produits.get(0),13,this.transformateurs.get(0).getCatalogue().getTarif(this.produits.get(0)).getPrixTonne(),Monde.LE_MONDE.getStep()+3,false));
 		return liste;
