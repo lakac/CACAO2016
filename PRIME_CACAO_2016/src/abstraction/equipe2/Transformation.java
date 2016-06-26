@@ -50,7 +50,7 @@ public class Transformation {
 		HashMap<IDistributeur, Double> dictionnaire = new HashMap<IDistributeur, Double>();
 		if(lcd.size()==0){
 			System.out.println("La liste envoyée par les distributeurs est vide");
-			return null;
+			return dictionnaire;
 		}else{
 		for (CommandeDistri cd : lcd) {
 			System.out.println("Les acheteurs sont : " + cd.getAcheteur());
