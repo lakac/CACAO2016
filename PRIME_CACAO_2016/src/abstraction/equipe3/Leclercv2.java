@@ -131,10 +131,13 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		return liste.get(i);
 	}
 	
+
 	/*methode qui fait la moyenne des ventes de ce step des annees passees pour avoir une idee 
 	  du nombre de clients a ce step */
 
-	public List<CommandeDistri> Demande(ITransformateurD t, Catalogue c) {
+
+	public List<CommandeDistri> demande(ITransformateurD t, Catalogue c) {
+
 		Double[] x = {0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donné sur toutes les annees
 		Double[] sto = {0.0,0.0,0.0};
 		sto[0] = this.getStock().getStock(t,0);
@@ -142,9 +145,15 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		sto[2] = this.getStock().getStock(t,2);
 		int l = 0;
 		for (int j=0; j<Monde.LE_MONDE.getStep()+25;j+=26){
+
 			x[0]+=this.getVentes().getVentes(j)[0];
 			x[1]+=this.getVentes().getVentes(j)[1];
 			x[2]+=this.getVentes().getVentes(j)[2];
+
+			for (int m=0; m<x.length;m++){
+				System.out.println("Leclerc ventes :"+this.ventes.getVentes(j)[m]);
+				x[m]+=this.ventes.getVentes(j)[m];
+			}
 			l++;
 		} for (int m=0; m<x.length;m++){
 			x[m]=x[m]/l;
@@ -166,8 +175,10 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	/*Contre Demande prend notre demande precedente et la reponse des transformateurs a cette demande, et renvoie cette reponse en rajoutant des 
 	 * des commandes pour combler les quantites que les transformateurs ne peuvent pas livrere*/
 
-	public List<CommandeDistri> ContreDemande(List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne) {
-		List<CommandeDistri> a = new ArrayList<CommandeDistri>();
+
+
+	public List<CommandeDistri> contreDemande(List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne) {
+		List<CommandeDistri> a = ancienne;
 		for (CommandeDistri c : nouvelle){
 			a.add(c);
 		}
@@ -255,6 +266,9 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		//gerer prixdevente
 		this.getPrixDeVente().actualisePrixDeVente();
 		// TODO Auto-generated method stub
+		
+	}
+
 		  */
 	}
 

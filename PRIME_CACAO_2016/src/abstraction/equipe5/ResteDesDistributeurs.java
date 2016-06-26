@@ -21,16 +21,17 @@ public class ResteDesDistributeurs{
 	private IDistributeur distributeurRestant;
 		
 	class DistributeurRestant implements Acteur, IDistributeur {
+		
 		public void next() {
 	}
 
-		@Override
+
 		public String getNom() {
 			// TODO Auto-generated method stub
 			return "Ditributeur restant de Lindt";
 		}
 
-		@Override
+	/*	@Override
 		public List<CommandeDistri> Demande(ITransformateurD t, Catalogue c) {
 			// TODO Auto-generated method stub
 			return null;
@@ -41,7 +42,11 @@ public class ResteDesDistributeurs{
 			// TODO Auto-generated method stub
 			return null;
 		}
+<<<<<<< HEAD
 		
+=======
+*/
+
 		@Override
 		public Double getStock(Produit p, ITransformateurD t) {
 			// TODO Auto-generated method stub
@@ -54,7 +59,27 @@ public class ResteDesDistributeurs{
 			return null;
 		}
 
-	
+
+		@Override
+		public List<CommandeDistri> demande(ITransformateurD t, Catalogue c) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public List<CommandeDistri> contreDemande(List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+
+
+
+		
+
+
+		
+
 	}
 	public ResteDesDistributeurs(Lindt lindt, VenteDist venteDist) {
 		this.commande = new ArrayList<CommandeDistri>();
