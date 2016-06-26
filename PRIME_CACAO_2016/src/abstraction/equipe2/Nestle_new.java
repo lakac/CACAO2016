@@ -215,13 +215,17 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 	
 	@Override
 	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> list) {
+		if(list.size()==0){
+			System.out.println("mais qu'est ce qu'ils font chier ces distributeurs a pas envoyer de commandes");
+			return null;
+		}else{
 		List<IDistributeur> liste = Transformation.Priorite(list);
 		for (IDistributeur d : liste) {
 			this.livraisoneffective(d, list);
 		}
 		this.historiquecommandesdistri.set(etape, list);
 		return list;
-		
+		}
 	}
 
 	public void livraisoneffective(IDistributeur d, List<CommandeDistri> lcd) {
@@ -241,31 +245,33 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 	public List<CommandeDistri> offre(List<CommandeDistri> list) {
 		List<CommandeDistri> offre = new ArrayList<CommandeDistri>();
 		for(int i=0;i<list.size();i++){
-			System.out.println(list.get(i).getQuantite());
-			if(list.get(i).getProduit()==Constante.PRODUIT_50){
-				if(stockchocolat.getStockchocolats().get(Constante.PRODUIT_50)>=0.5*list.get(i).getQuantite()){
-					offre.add(list.get(i));
+			CommandeDistri cd=list.get(i);
+			System.out.println(cd.getQuantite());
+			if(cd.getProduit()==Constante.PRODUIT_50){
+				
+				if(stockchocolat.getStockchocolats().get(Constante.PRODUIT_50)>=0.5*cd.getQuantite()){
+					offre.add(cd);
 				}else{
 					CommandeDistri offrealternative=new CommandeDistri
-							(list.get(i).getAcheteur(),list.get(i).getProduit(),list.get(i).getQuantite()/2,list.get(i).getPrixTonne());
+							(cd.getAcheteur(),cd.getProduit(),cd.getQuantite()/2,cd.getPrixTonne());
 					offre.add(offrealternative);
 				}
 			}else{
-				if(list.get(i).getProduit()==Constante.PRODUIT_60){
-					if(stockchocolat.getStockchocolats().get(Constante.PRODUIT_60)>=0.5*list.get(i).getQuantite()){
-						offre.add(list.get(i));
+				if(cd.getProduit()==Constante.PRODUIT_60){
+					if(stockchocolat.getStockchocolats().get(Constante.PRODUIT_60)>=0.5*cd.getQuantite()){
+						offre.add(cd);
 					}else{
 						CommandeDistri offrealternative=new CommandeDistri
-								(list.get(i).getAcheteur(),list.get(i).getProduit(),list.get(i).getQuantite()/2,list.get(i).getPrixTonne());
+								(cd.getAcheteur(),cd.getProduit(),cd.getQuantite()/2,cd.getPrixTonne());
 						offre.add(offrealternative);
 					}
 				}else{
-					if(list.get(i).getProduit()==Constante.PRODUIT_70){
-						if(stockchocolat.getStockchocolats().get(Constante.PRODUIT_70)>=0.5*list.get(i).getQuantite()){
-							offre.add(list.get(i));
+					if(cd.getProduit()==Constante.PRODUIT_70){
+						if(stockchocolat.getStockchocolats().get(Constante.PRODUIT_70)>=0.5*cd.getQuantite()){
+							offre.add(cd);
 						}else{
 							CommandeDistri offrealternative=new CommandeDistri
-									(list.get(i).getAcheteur(),list.get(i).getProduit(),list.get(i).getQuantite()/2,list.get(i).getPrixTonne());
+									(cd.getAcheteur(),cd.getProduit(),cd.getQuantite()/2,cd.getPrixTonne());
 							offre.add(offrealternative);
 						}
 					}else{

@@ -48,14 +48,23 @@ public class Transformation {
 	//indiquant la quantite totale de chocolat demande pour chaque IDistributeur
 	private static HashMap<IDistributeur, Double> CommandesTotales(List<CommandeDistri> lcd) {
 		HashMap<IDistributeur, Double> dictionnaire = new HashMap<IDistributeur, Double>();
+		if(lcd.size()==0){
+			System.out.println("La liste envoyée par les distributeurs est vide");
+			return null;
+		}else{
 		for (CommandeDistri cd : lcd) {
+			System.out.println("Les acheteurs sont : " + cd.getAcheteur());
 			dictionnaire.put(cd.getAcheteur(), 0.);
+			
 		}
 		for (CommandeDistri cd : lcd) {
 			double quantite = dictionnaire.get(cd.getAcheteur());
 			dictionnaire.put(cd.getAcheteur(), quantite+cd.getQuantite());
 		}
+		System.out.println("dictionnaire : "+ dictionnaire);
 		return dictionnaire;
+		}
+		
 	}
 	
 	//La méthode qui suit me sert à trier une liste. 
@@ -78,6 +87,10 @@ public class Transformation {
 		List<Double> valeurscommandes = new ArrayList<Double>();
 		HashMap<IDistributeur, Double> dictionnaire = CommandesTotales(lcd);
 		//Ce for permet de remplir la liste des valeurs de commandes totales.
+		if(lcd.size()==0){
+			System.out.println("Liste de commande vide ...");
+			return null;
+		}else{
 		for (IDistributeur d : dictionnaire.keySet()) {
 			valeurscommandes.add(dictionnaire.get(d));
 		}
@@ -93,7 +106,7 @@ public class Transformation {
 					priorite.add(d);
 				}
 			}
-		}
+		}}
 		return priorite;
 	}
 	
