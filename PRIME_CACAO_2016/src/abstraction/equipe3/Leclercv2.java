@@ -8,6 +8,7 @@ import abstraction.commun.Catalogue;
 import abstraction.commun.CommandeDistri;
 import abstraction.commun.IDistributeur;
 import abstraction.commun.ITransformateurD;
+import abstraction.commun.MarcheConsommateurs;
 import abstraction.commun.MarcheDistributeur;
 import abstraction.commun.Produit;
 import abstraction.fourni.Acteur;
