@@ -30,13 +30,13 @@ public class ResteDesDistributeurs{
 			return "Ditributeur restant de Lindt";
 		}
 
-		@Override
+		
 		public List<CommandeDistri> Demande(ITransformateurD t, Catalogue c) {
 			// TODO Auto-generated method stub
 			return null;
 		}
 
-		@Override
+		
 		public List<CommandeDistri> ContreDemande(List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne) {
 			// TODO Auto-generated method stub
 			return null;
