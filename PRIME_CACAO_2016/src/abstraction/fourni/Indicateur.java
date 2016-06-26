@@ -30,7 +30,6 @@ public class Indicateur extends Observable {
 		this.nom = nom;
 		this.createur = createur;
 		this.historique = new Historique();
-		System.out.println("monde "+Monde.LE_MONDE);
 		this.historique.ajouter(createur, Monde.LE_MONDE.getStep(), valInit);
 		this.courbe = new Courbe(this.nom);
 		this.courbe.ajouter(Monde.LE_MONDE.getStep(), valInit);
@@ -71,7 +70,6 @@ public class Indicateur extends Observable {
 	public double getValeur() {
 		return this.historique.getValeur();
 	}
-	
 	/**
 	 * Affecte la valeur valeur a l'indicateur en precisant
 	 * que c'est auteur qui est a l'origine de ce changement.
@@ -84,5 +82,4 @@ public class Indicateur extends Observable {
 		this.setChanged();
 		this.notifyObservers("setValeur");
 	}
-	
 }
