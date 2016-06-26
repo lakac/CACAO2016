@@ -296,7 +296,7 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 	//renvoie le prix du marché + ou - 10%
 	public double annoncePrix() {
 		double alea = Math.random()*0.2-0.1;
-		return MarcheProducteur.LE_MARCHE.getCours()*(1+alea);
+		return MarcheProd.LE_MARCHE.getCoursCacao().getValeur()*(1+alea);
 	}
 	
 	//méthode annexe qui ajuste les stock de cacao et la trésorerie lors d'une transformation
@@ -366,7 +366,7 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 	//Il ne faudra tester que les méthodes de l'interface, les autres étant évidentes
 	public static void main(String[] args) {
 		Monde.LE_MONDE = new Monde();
-		MarcheProducteur.LE_MARCHE = new MarcheProducteur();
+		MarcheProd.LE_MARCHE = new MarcheProd();
 		StockChocolats stockchoco=new StockChocolats();
 		Nestle_new nestle = new Nestle_new();
 		nestle.stockchocolat=stockchoco;
