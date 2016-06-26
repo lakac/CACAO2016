@@ -88,7 +88,7 @@ public class MondeV1 extends Monde {
 
 		nestle.ajouterClient(Le);
 		nestle.ajouterClient(Ca);
-		//nestle.ajouterFournisseurs(p1);
+		nestle.ajouterFournisseurs(p1);
 		nestle.ajouterFournisseurs(p2);
 		nestle.creer(Monde.LE_MONDE);
 
@@ -102,8 +102,6 @@ public class MondeV1 extends Monde {
 		
 		t3.ajouterTransformateur(nestle);
 		t3.ajouterTransformateur(lindt);
-		t3.ajouterTransformateur(nestle);
-
 		
 		/*p1.ajouterTransformateur(nestle);
 		p1.ajouterTransformateur(lindt);

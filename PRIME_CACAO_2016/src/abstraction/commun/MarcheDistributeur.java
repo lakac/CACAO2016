@@ -208,6 +208,7 @@ public class MarcheDistributeur implements Acteur {
 			while (marcheValide(NegoDistri) == false) {
 				i+=1;
 				NegoTransfo = this.RenvoiDistri(NegoDistri);
+				
 				HashMap<IDistributeur, List<CommandeDistri>> NegoDistriTemp = copieProfonde(NegoDistri);
 				System.out.println("NegoTransfo avant offre --> "+NegoTransfo);
 				for (ITransformateurD t : this.getLesTransfos()) {

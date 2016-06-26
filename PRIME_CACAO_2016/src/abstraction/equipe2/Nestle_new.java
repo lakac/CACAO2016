@@ -240,39 +240,44 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 	@Override
 	public List<CommandeDistri> offre(List<CommandeDistri> list) {
 		List<CommandeDistri> offre = new ArrayList<CommandeDistri>();
-		for(int i=0;i<list.size();i++){
-			if(list.get(i).getProduit()==Constante.PRODUIT_50){
-				if(stockchocolat.getStockchocolats().get(Constante.PRODUIT_50)>=0.5*list.get(i).getQuantite()){
-					offre.add(list.get(i));
-				}else{
-					CommandeDistri offrealternative=new CommandeDistri
-							(list.get(i).getAcheteur(),list.get(i).getProduit(),list.get(i).getQuantite()/2,list.get(i).getPrixTonne());
-					offre.add(offrealternative);
-				}
-			}else{
-				if(list.get(i).getProduit()==Constante.PRODUIT_60){
-					if(stockchocolat.getStockchocolats().get(Constante.PRODUIT_60)>=0.5*list.get(i).getQuantite()){
-						offre.add(list.get(i));
+		
+		 for (CommandeDistri cd: list) {
+			
+			 if(cd.getProduit()==Constante.PRODUIT_50){
+				 System.out.println(stockchocolat.getStockchocolats().get(Constante.PRODUIT_50));
+				 System.out.println(cd.getQuantite());
+					if(stockchocolat.getStockchocolats().get(Constante.PRODUIT_50)>=0.5*cd.getQuantite()){
+						offre.add(cd);
 					}else{
 						CommandeDistri offrealternative=new CommandeDistri
-								(list.get(i).getAcheteur(),list.get(i).getProduit(),list.get(i).getQuantite()/2,list.get(i).getPrixTonne());
+								(cd.getAcheteur(),cd.getProduit(),cd.getQuantite()/2,cd.getPrixTonne());
 						offre.add(offrealternative);
 					}
 				}else{
-					if(list.get(i).getProduit()==Constante.PRODUIT_70){
-						if(stockchocolat.getStockchocolats().get(Constante.PRODUIT_70)>=0.5*list.get(i).getQuantite()){
-							offre.add(list.get(i));
+					if(cd.getProduit()==Constante.PRODUIT_60){
+						if(stockchocolat.getStockchocolats().get(Constante.PRODUIT_60)>=0.5*cd.getQuantite()){
+							offre.add(cd);
 						}else{
 							CommandeDistri offrealternative=new CommandeDistri
-									(list.get(i).getAcheteur(),list.get(i).getProduit(),list.get(i).getQuantite()/2,list.get(i).getPrixTonne());
+									(cd.getAcheteur(),cd.getProduit(),cd.getQuantite()/2,cd.getPrixTonne());
 							offre.add(offrealternative);
 						}
 					}else{
-						System.out.println("Le produit que vous demandez n'est pas disponible");
+						if(cd.getProduit()==Constante.PRODUIT_70){
+							if(stockchocolat.getStockchocolats().get(Constante.PRODUIT_70)>=0.5*cd.getQuantite()){
+								offre.add(cd);
+							}else{
+								CommandeDistri offrealternative=new CommandeDistri
+										(cd.getAcheteur(),cd.getProduit(),cd.getQuantite()/2,cd.getPrixTonne());
+								offre.add(offrealternative);
+							}
+						}else{
+							System.out.println("Le produit que vous demandez n'est pas disponible");
+						}
 					}
 				}
-			}
-		}
+		 }
+		System.out.println(historiquecommandesdistri);
 		this.historiquecommandesdistri.add(offre);
 		return offre;
 	}
@@ -301,12 +306,10 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 	}
 	public void next() {
 		this.setEtape();
-		if (this.getEtape()>2) {
-			this.transformation.setTransformation(this.getCommandeDistri(etape-3),this.getStockcacao(), this.getStockchocolat());
+			this.transformation.setTransformation(this.getCommandeDistri(etape-1),this.getStockcacao(), this.getStockchocolat());
 			this.MiseAJourCacaoChocEtTreso(this.transformation);
 			this.iTresorerie.setValeur(this, this.getTresorerie().getFonds());
 			this.iStockcacao.setValeur(this, this.getStockcacao().getStockcacao().get(Constante.CACAO));
-		}
 	}
 	
 	//Constructeur nestle
@@ -348,7 +351,7 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 		Monde.LE_MONDE = new Monde();
 		MarcheProducteur.LE_MARCHE = new MarcheProducteur();
 		StockChocolats stockchoco=new StockChocolats();
-		Nestle_new nestle = new Nestle_new(stockchoco);
+		Nestle_new nestle = new Nestle_new();
 		System.out.println(nestle.annoncePrix());
 		System.out.println(nestle.annoncePrix());
 		System.out.println(nestle.annoncePrix());
@@ -376,22 +379,23 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 		list.add(cd5);
 		list.add(cd6);
 		stockchoco.MiseAJourStockTransformation(Constante.PRODUIT_50, 30);
-		if(nestle.offre(list).size()==6){
+		List<CommandeDistri> offre = nestle.offre(list);
+		if(offre.size()==6){
 			System.out.println("Erreur,on accepte de livrer des produits dont on ne dispose pas");
 		}else{
-			if(nestle.offre(list).get(0).getQuantite()==200){
+			if(offre.get(0).getQuantite()==200){
 				System.out.println("Erreur, on accepte de tout livrer alors que le stock de chocolat n'est pas suffisant");
 			}else{
-				if(nestle.offre(list).get(1).getQuantite()==10){
+				if(offre.get(1).getQuantite()==10){
 					System.out.println("Erreur, la commande des ditributeurs est tout le temps divisée par deux");
 				}else{
-					if(nestle.offre(list).get(3).getProduit()!=Constante.PRODUIT_60){
+					if(offre.get(3).getProduit()!=Constante.PRODUIT_60){
 						System.out.println("On ajoute pas le bon produit dans le commande, problème ajout PRODUIT_60");
 					}else{
-						if(nestle.offre(list).get(0).getProduit()!=Constante.PRODUIT_50){
+						if(offre.get(0).getProduit()!=Constante.PRODUIT_50){
 							System.out.println("On ajoute pas le bon produit dans la commande, problème ajout PRODUIT_50 ");
 						}else{
-							if(nestle.offre(list).get(4).getProduit()!=Constante.PRODUIT_70){
+							if(offre.get(4).getProduit()!=Constante.PRODUIT_70){
 								System.out.println("On ajoute pas le bon produit dans la commande, problème ajout PRODUIT_70");
 							}else{
 								System.out.println("Il semble que la méthode fonctionne");
