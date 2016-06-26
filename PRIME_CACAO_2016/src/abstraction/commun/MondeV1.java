@@ -131,7 +131,11 @@ public class MondeV1 extends Monde {
 		Le.initialiseRatio();
 		Le.getPrixDeVente().initialisePrixDeVente(Le, produits);
 		Le.getVentes().initialiseVentes();
-		
+		/*MarcheCons.LE_MARCHE_CONS.ajouterDistributeur(Le);
+		MarcheCons.LE_MARCHE_CONS.ajouterDistributeur(Le);
+		MarcheCons.LE_MARCHE_CONS.ajouterTransformateur(nestle);
+		MarcheCons.LE_MARCHE_CONS.ajouterTransformateur(lindt);
+		*/
 		MarcheCons.LE_MARCHE_CONS.initialiserDemandeAnnuelle();
 		MarcheCons.LE_MARCHE_CONS.initialiserCalendrierDemande();
 		MarcheCons.LE_MARCHE_CONS.initialiserFidelite();

@@ -272,15 +272,15 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	}
 	
 	public void next() {
-		//gerer le stock
-		//this.getStock().ajouterStock(MarcheDistributeur.LE_MARCHE_DISTRIBUTEUR.getCommandeFinale());
-		//this.getStock().retirerStock(MarcheCons.LE_MARCHE_CONS.getVenteDistri(this));
+		/*//gerer le stock
+		this.getStock().ajouterStock(MarcheDistributeur.LE_MARCHE_DISTRIBUTEUR.getCommandeFinale());
+		this.getStock().retirerStock(MarcheCons.LE_MARCHE_CONS.getVenteDistri(this));
 		//gerer le solde
-		//this.solde.setValeur(this, this.solde.getValeur()+recette()-depenses());
+		this.solde.setValeur(this, this.solde.getValeur()+recette()-depenses());
 		//gerer ventes (rajouter ventes reelles du step)
-		//this.getVentes().actualiserVentes(MarcheCons.LE_MARCHE_CONS.getVenteDistri(this));
+		this.getVentes().actualiserVentes(MarcheCons.LE_MARCHE_CONS.getVenteDistri(this));
 		//gerer prixdevente
-		//this.getPrixDeVente().actualisePrixDeVente();
+		this.getPrixDeVente().actualisePrixDeVente();*/
 		// TODO Auto-generated method stub
 		
 	}
