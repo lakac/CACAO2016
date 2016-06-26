@@ -9,6 +9,7 @@ import abstraction.commun.IDistributeur;
 import abstraction.commun.MarcheConsommateur;
 import abstraction.commun.MarcheDistributeur;
 import abstraction.commun.ITransformateurD;
+import abstraction.commun.MarcheCons;
 import abstraction.commun.MondeV1;
 import abstraction.commun.Produit;
 import abstraction.fourni.Acteur;
@@ -18,7 +19,7 @@ import abstraction.fourni.Monde;
 public class Carrefour implements Acteur,IDistributeur {
 
 	private MarcheDistributeur maDi;
-	private MarcheConsommateur maCo;
+	private MarcheCons maCo;
 	private String nom;
 	private List<PrixVente> prixvente;
 	private Indicateur solde;
@@ -109,11 +110,11 @@ public class Carrefour implements Acteur,IDistributeur {
 		this.prixvente = prixvente;
 	}
 
-	public MarcheConsommateur getMaCo() {
+	public MarcheCons getMaCo() {
 		return maCo;
 	}
 
-	public void setMaCo(MarcheConsommateur maCo) {
+	public void setMaCo(MarcheCons maCo) {
 		this.maCo = maCo;
 	}
 
