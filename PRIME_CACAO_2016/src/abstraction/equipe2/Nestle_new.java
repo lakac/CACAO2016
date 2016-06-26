@@ -308,10 +308,6 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 		}
 	}
 	
-	//Constructeur nestle
-	public Nestle_new(StockChocolats schoc) {
-		this.stockchocolat = schoc;
-	}
 	
 	//Constructeur neste
 	
@@ -347,7 +343,8 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 		Monde.LE_MONDE = new Monde();
 		MarcheProducteur.LE_MARCHE = new MarcheProducteur();
 		StockChocolats stockchoco=new StockChocolats();
-		Nestle_new nestle = new Nestle_new(stockchoco);
+		Nestle_new nestle = new Nestle_new();
+		nestle.creer(Monde.LE_MONDE);
 		System.out.println(nestle.annoncePrix());
 		System.out.println(nestle.annoncePrix());
 		System.out.println(nestle.annoncePrix());
@@ -401,4 +398,35 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 			}
 		}
 	}
+	
+// Test avec création de distributeurs, qui achètent linéairement
+	public List<CommandeDistri> demande (){
+		Carrefour c1=new Carrefour();
+		Carrefour c2=new Carrefour();
+		Carrefour c3=new Carrefour();
+		CommandeDistri cd3= new CommandeDistri(c3,Constante.PRODUIT_50,500,2050);
+		CommandeDistri cd4= new CommandeDistri(c1,Constante.PRODUIT_60,100,1400);
+		CommandeDistri cd5= new CommandeDistri(c2,Constante.PRODUIT_70,70,2000);
+		List<CommandeDistri> demande=new ArrayList<CommandeDistri>();
+		demande.add(cd3);
+		demande.add(cd4);
+		demande.add(cd5);
+		return demande;
+	}
+	
+	public List<CommandeDistri> contreDemande (){
+		Carrefour c1=new Carrefour();
+		Carrefour c2=new Carrefour();
+		Carrefour c3=new Carrefour();
+		CommandeDistri cd3= new CommandeDistri(c3,Constante.PRODUIT_50,500,2050);
+		CommandeDistri cd4= new CommandeDistri(c1,Constante.PRODUIT_60,100,1400);
+		CommandeDistri cd5= new CommandeDistri(c2,Constante.PRODUIT_70,70,2000);
+		List<CommandeDistri> demande=new ArrayList<CommandeDistri>();
+		demande.add(cd3);
+		demande.add(cd4);
+		demande.add(cd5);
+		return demande;
+	}
+	
+	
 }
