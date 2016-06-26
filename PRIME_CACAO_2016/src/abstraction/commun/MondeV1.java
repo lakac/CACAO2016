@@ -67,6 +67,7 @@ public class MondeV1 extends Monde {
 		
 		// Producteurs
 		Producteur p1 = new Producteur(1000.0, 0.0, Monde.LE_MONDE);
+		System.out.println(p1.getNom());
 		this.ajouterActeur(p1);
 		abstraction.equipe4.Producteur p2 = new abstraction.equipe4.Producteur(Monde.LE_MONDE);
 		this.ajouterActeur(p2);
