@@ -12,7 +12,7 @@ public class Ventes {
 	 * l'ann�e suivante*/
 
 	private ArrayList<Double[]> ventes;
-	private static Double[][] VENTES_ANNEE_ZERO = new Double[26][3];
+	private static Double[][] VENTES_ANNEE_ZERO = new Double[26][9];
 	
 	public Ventes(){
 		this.ventes = new ArrayList<Double[]>();
@@ -31,16 +31,16 @@ public class Ventes {
 	public void initialiseAnneeZero(){
 		for (int i = 0; i<VENTES_ANNEE_ZERO.length;i++){
 			if (i==5){
-				for (int j =0; j<3;j++){
+				for (int j =0; j<9;j++){
 					VENTES_ANNEE_ZERO[i][j]=1469.23;
 				}
 			} else {
 				if (i==25){
-					for (int j=0;j<3;j++){
+					for (int j=0;j<9;j++){
 						VENTES_ANNEE_ZERO[i][j]=2469.23;
 					}
 				} else {
-					for (int j=0;j<3;j++){
+					for (int j=0;j<9;j++){
 						VENTES_ANNEE_ZERO[i][j]=669.24;
 					}
 				}

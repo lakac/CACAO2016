@@ -3,15 +3,8 @@ package abstraction.commun;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import abstraction.commun.CommandeDistri;
-import abstraction.commun.IDistributeur;
-import abstraction.commun.ITransformateurD;
-import abstraction.commun.Produit;
-import abstraction.equipe3.Demande;
-import abstraction.equipe3.Fidelite;
+import abstraction.equipe3.*;
 import abstraction.fourni.Acteur;
-import abstraction.fourni.Monde;
 
 public class MarcheCons implements Acteur {
 	
