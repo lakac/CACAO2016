@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import abstraction.equipe3.*;
 import abstraction.fourni.Acteur;
+import abstraction.fourni.Monde;
 
 public class MarcheCons implements Acteur {
 	

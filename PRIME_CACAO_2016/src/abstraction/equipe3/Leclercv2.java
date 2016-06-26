@@ -147,6 +147,8 @@ public class Leclercv2 implements Acteur,IDistributeur{
 
 	public List<CommandeDistri> Demande(ITransformateurD t, Catalogue c) {
 		Double[] x = {0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donn� sur toutes les annees
+		Double[] sto = {0.0,0.0,0.0};
+		
 		return null;
 	}
 
