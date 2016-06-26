@@ -43,13 +43,6 @@ public class MondeV1 extends Monde {
 
 		this.ajouterActeur(Ca);
 		
-		/*// Marché Distributeur
-		//equipe 2 le 25/06
-				MarcheDistributeur.LE_MARCHE_DISTRIBUTEUR = new MarcheDistributeur();
-				this.ajouterActeur(MarcheDistributeur.LE_MARCHE_DISTRIBUTEUR);*/
-		
-		
-		
 		// Transformateurs
 		Nestle_new nestle = new Nestle_new();
 		this.ajouterActeur(nestle);
@@ -138,6 +131,7 @@ public class MondeV1 extends Monde {
 		for (Produit p : produits) {
 			MaDi.addProduit(p);
 		}
+		MarcheDistributeur.LE_MARCHE_DISTRIBUTEUR = MaDi;
 		Ca.creer();
 
 	}
