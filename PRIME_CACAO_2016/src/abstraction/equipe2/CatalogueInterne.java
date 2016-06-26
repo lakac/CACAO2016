@@ -17,7 +17,7 @@ public class CatalogueInterne {
 
 	public void setCatalogueinterne(PlageInterne plageinterne) {
 		for (Produit p : plageinterne.getTarifproduit().keySet()) {
-		this.catalogueinterne.add(p, plageinterne.getTarifproduit().get(p));
+			this.catalogueinterne.add(p, plageinterne.getTarifproduit().get(p));
 		}		
 	}
 }

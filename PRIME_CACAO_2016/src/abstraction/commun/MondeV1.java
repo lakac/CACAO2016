@@ -4,6 +4,7 @@ package abstraction.commun;
 import abstraction.fourni.Monde;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import abstraction.commun.Constantes;
 import abstraction.equipe5.Lindt;
@@ -17,24 +18,28 @@ public class MondeV1 extends Monde {
 	
 	private static ArrayList<Produit> produits = new ArrayList<Produit>();
 	
+	
 	public void peupler() {
 		// Il faut créer les acteurs et les ajouter au monde ici.
-		
 		
 		//Initialisation de la liste produits
 		produits.add(new Produit("50%",50));
 		produits.add(new Produit("60%",60));
 		produits.add(new Produit("70%",70));
+
 		// Marche distributeur
 		MarcheDistributeur MaDi = new MarcheDistributeur();
 		this.ajouterActeur(MaDi);
+
 		// Distributeurs
 
 
+
 		Leclercv2 Le = new Leclercv2("Leclerc", this,produits);
-		Carrefour Ca = new Carrefour("Carrefour", this, 15, 20, 50000);
+		Carrefour Ca = new Carrefour("Carrefour", MondeV1.produits);
 
 		this.ajouterActeur(Le);
+
 		this.ajouterActeur(Ca);
 		
 		
@@ -52,10 +57,12 @@ public class MondeV1 extends Monde {
 		
 		
 		// Marché Producteur
-		MarcheProducteur marcheProducteur = new MarcheProducteur();
-		MarcheProducteur.LE_MARCHE = marcheProducteur;
+		MarcheProd marcheProducteur = new MarcheProd();
+		MarcheProd.LE_MARCHE=marcheProducteur;
 		this.ajouterActeur(marcheProducteur);
 		
+		
+
 		// Marché Consommateurs
 		MarcheCons marcheConsommateurs = new MarcheCons("MarcheConsommateurs", produits);
 		MarcheCons.LE_MARCHE_CONS = marcheConsommateurs;
@@ -63,18 +70,15 @@ public class MondeV1 extends Monde {
 		/*MarcheConsommateurs marcheConsommateurs = new MarcheConsommateurs("MarcheConsommateurs",this.produits);
 		MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS = marcheConsommateurs;
 		this.ajouterActeur(marcheConsommateurs);*/
+
 		
 		// Producteurs
-		Producteur p1 = new Producteur(Constantes.NOM_PRODUCTEUR_1, 1000.0, 0.0, Monde.LE_MONDE);
+		Producteur p1 = new Producteur(1000.0, 0.0, Monde.LE_MONDE);
 		this.ajouterActeur(p1);
 		abstraction.equipe4.Producteur p2 = new abstraction.equipe4.Producteur(Monde.LE_MONDE);
 		this.ajouterActeur(p2);
-
-
 		
-		// Ajout des acteurs dans les listes des acteurs
 
-		
 		
 		// Ajout des liens necessaires entre les acteurs
 		Le.ajouterVendeur(nestle);
@@ -82,24 +86,34 @@ public class MondeV1 extends Monde {
 		
 		Ca.ajouterVendeur(nestle);
 		Ca.ajouterVendeur(lindt);
+		Ca.setMaDi(MaDi);
 
 		nestle.AjouterClient(Le);
 		nestle.AjouterClient(Ca);
 		nestle.AjouterFournisseur(p1);
 		nestle.AjouterFournisseur(p2);
+
 		nestle.creer();
 		
 		lindt.ajouterDistributeur(Ca);
 		lindt.ajouterDistributeur(Le);
 		lindt.ajouterProducteur(p1);
 		lindt.ajouterProducteur(p2);
-		//lindt.ajouterProducteur(CotedIvoire);
 		lindt.creer();
 
+
 		
+		t3.ajouterTransformateur(nestle);
 		t3.ajouterTransformateur(lindt);
+		t3.ajouterTransformateur(nestle);
+
 		
+		/*p1.ajouterTransformateur(nestle);
 		p1.ajouterTransformateur(lindt);
+		p1.ajouterTransformateur(t3);*/
+
+		
+		//p1.ajouterTransformateur(lindt);
 
 
 
@@ -115,19 +129,38 @@ public class MondeV1 extends Monde {
 		//maj 31/05 Groupe 3
 
 
+
+		marcheProducteur.AjoutProducteur(p1);;
+		marcheProducteur.AjoutProducteur(p2);
+		marcheProducteur.AjoutTransformateur(nestle);
+		marcheProducteur.AjoutTransformateur(lindt);
+		marcheProducteur.AjoutTransformateur(t3);
+		//penser a ajouter la cote d'ivoire
+
+
 		
-		p2.ajoutClient(nestle);
-		p2.ajoutClient(lindt);	
-		p2.AjoutVariableVente();
+
+
+		//marcheProducteur.ajouterProducteur(p1);
+		//marcheProducteur.ajouterProducteur(p2);
+		//marcheProducteur.ajouterTransformateur(lindt);
+
 		
-		marcheProducteur.ajouterProducteur(p1);
-		marcheProducteur.ajouterProducteur(p2);
-		marcheProducteur.ajouterTransformateur(lindt);
-		
+
 		//maj 31/05 Leclerc
+		Le.initialiseRatio();
 		Le.getStock().initialiseStock(Le);	
+
 		Le.getPrixDeVente().initialisePrixDeVente(Le, produits);
 		Le.getVentes().initialiseVentes();
+		MaDi.addDistributeur(Ca);
+		// MaDi.addDistributeur(Le);
+		MaDi.addTransformateur(lindt);
+		// MaDi.addTransformateur(nestle);
+		for (Produit p : produits) {
+			MaDi.addProduit(p);
+		}
+		Ca.creer();
 
 		
 		//Ajouter transformateurs et distributeurs au marché
@@ -137,6 +170,7 @@ public class MondeV1 extends Monde {
 		MarcheCons.ajouterTransformateur(nestle);
 		
 		//initialiser le MarcheConsommateurs;
+		MarcheCons.LE_MARCHE_CONS.initialiserRatio();
 		MarcheCons.LE_MARCHE_CONS.initialiserDemandeAnnuelle();
 		MarcheCons.LE_MARCHE_CONS.initialiserCalendrierDemande();
 		MarcheCons.LE_MARCHE_CONS.initialiserPourcentageIncertitudeVentes();
