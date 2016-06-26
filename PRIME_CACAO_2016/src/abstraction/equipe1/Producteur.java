@@ -38,9 +38,9 @@ public class Producteur implements Acteur, IProducteur {
 	private Indicateur productionCourante;
 	private Indicateur tresorerie;
 	private double coutProduction;
-	private double[] productionDeBase;
-	private HashMap<ITransformateurP,Double> quantitesProposees;
-	private List<ITransformateurP> transformateurs;
+	//private double[] productionDeBase;
+	//private HashMap<ITransformateurP,Double> quantitesProposees;
+	//private List<ITransformateurP> transformateurs;
 	
 	//juste un constructeur pour les test de Nestle
 	public Producteur(String nom) {
