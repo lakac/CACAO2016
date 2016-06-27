@@ -77,7 +77,7 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 		return this.distributeurs;
 	}
 	public String getNom() {
-		return Constantes.NOM_TRANSFORMATEUR_2;
+		return "Lindt";
 		}
 	public Stock getStockCacao() {
 		return this.stockCacao;
@@ -114,17 +114,17 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 //		this.getJournal().ajouter("\n");
 //		this.getJournal().ajouter("Step : " + Monde.LE_MONDE.getStep());
 		
-		this.getTransformationCacaoChocolat().Transformation(); // transforme le cacao en chocolat et met ﾃ� jour les stocks (retire pour cacao et ajoute pour chocolat)
+		this.getTransformationCacaoChocolat().Transformation(); // transforme le cacao en chocolat et met �ｾ�ｿｽ jour les stocks (retire pour cacao et ajoute pour chocolat)
 		
-		// si on commente ﾃｧa, pas de rouge --> il y a surement une erreur dans MarcheDistri obtenirCommandeFinale
-//		for(IDistributeur d: this.getDistributeurs()){ // ajout des commandes finales ﾃ� notre historique
+		// si on commente �ｾ�ｽｧa, pas de rouge --> il y a surement une erreur dans MarcheDistri obtenirCommandeFinale
+//		for(IDistributeur d: this.getDistributeurs()){ // ajout des commandes finales �ｾ�ｿｽ notre historique
 //			for (CommandeDistri cd : MarcheDistributeur.LE_MARCHE_DISTRIBUTEUR.obtenirCommandeFinale(this,d)){ 
-//				//tant que les distributeurs ne crﾃｩent pas dans le marche une variable d'instance static 
-//				// (public static MarcheDistributeur LE_MARCHE_DISTRIBUTEUR;), on ne pourra pas appeler cette mﾃｩthode
+//				//tant que les distributeurs ne cr�ｾ�ｽｩent pas dans le marche une variable d'instance static 
+//				// (public static MarcheDistributeur LE_MARCHE_DISTRIBUTEUR;), on ne pourra pas appeler cette m�ｾ�ｽｩthode
 //				this.getHistCommandeDistri().ajouter(cd);
 //		}}
 //		System.out.println(getHistCommandeDistri());
-		//resteDesDistributeurs.commandesDistributeurRestant(); //calcul les commandes du reste des distributeurs et les ajoute à l'historique CommandeDistri
+		//resteDesDistributeurs.commandesDistributeurRestant(); //calcul les commandes du reste des distributeurs et les ajoute ﾃ� l'historique CommandeDistri
 		//System.out.println(getHistCommandeDistri());
 		
 		// commandes fictives du cote distributeur pour voir si notre code fonctionne
@@ -136,14 +136,14 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 		this.getHistCommandeDistri().ajouter(commande2);
 		this.getHistCommandeDistri().ajouter(commande3);
 		
-		// test pour voir si les commandes passent bien à chaque step
-//		this.getJournal().ajouter("Informations liées à la commande du produit 50% :");
+		// test pour voir si les commandes passent bien ﾃ� chaque step
+//		this.getJournal().ajouter("Informations liﾃｩes ﾃ� la commande du produit 50% :");
 //		this.getJournal().ajouter("prix : " + commande1.getPrixTonne());
 //		this.getJournal().ajouter("quantite : " + commande1.getQuantite());
-//		this.getJournal().ajouter("Informations liées à la commande du produit 60% :");
+//		this.getJournal().ajouter("Informations liﾃｩes ﾃ� la commande du produit 60% :");
 //		this.getJournal().ajouter("prix : " + commande2.getPrixTonne());
 //		this.getJournal().ajouter("quantite : " + commande2.getQuantite());
-//		this.getJournal().ajouter("Informations liées à la commande du produit 70% :");
+//		this.getJournal().ajouter("Informations liﾃｩes ﾃ� la commande du produit 70% :");
 //		this.getJournal().ajouter("prix : " + commande3.getPrixTonne());
 //		this.getJournal().ajouter("quantite : " + commande3.getQuantite());
 		
@@ -157,10 +157,10 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 		this.getTreso().retrait(this.getTreso().coutStock()+Constante.CHARGES_FIXES_STEP);
 //		this.getJournal().ajouter("\n");
 //		this.getJournal().ajouter("Cout de stock : " + this.getTreso().coutStock());
-//		this.getJournal().ajouter("Tréso avant paie distributeurs : " + this.getTreso());
+//		this.getJournal().ajouter("Trﾃｩso avant paie distributeurs : " + this.getTreso());
 		this.getTreso().depot(this.getTreso().payeParDistrib());
 //		this.getJournal().ajouter("Paye par distributeur " + this.getTreso().payeParDistrib());
-//		this.getJournal().ajouter("Tréso apres paie distributeurs : " + this.getTreso());
+//		this.getJournal().ajouter("Trﾃｩso apres paie distributeurs : " + this.getTreso());
 	}
 	
 	// Fonctions finies

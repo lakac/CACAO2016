@@ -131,5 +131,6 @@ public class MondeV1 extends Monde {
 		MarcheDistributeur.LE_MARCHE_DISTRIBUTEUR = MaDi;
 		Ca.creer();
 
+		abstraction.equipe4.RangementIndicateur rangement = new abstraction.equipe4.RangementIndicateur();
 	}
 }

@@ -26,7 +26,7 @@ public class Producteur implements Acteur,IProducteur{
 		Monde.LE_MONDE.ajouterJournal(this.journal);
 		this.offre = new Offre(this, this.stock);
 		this.marcheProducteur=MarcheProd.LE_MARCHE;
-		this.comparaison = new IndicateurDouble("Comparaison entre ventes et apports sur le marche","Apport sur le marche","Quantite vendue", this,0.0,0.0);
+		this.comparaison = new IndicateurDouble("Comparaison ventes /apports sur le marche de Asie Amerique","Apport sur le marche","Quantite vendue", this,0.0,0.0);
 		Monde.LE_MONDE.ajouterIndicateur(((Indicateur)this.comparaison));
 	}
 
@@ -85,6 +85,7 @@ public class Producteur implements Acteur,IProducteur{
 		return this.getOffre().offre();
 	}
 
+	
 	//Modification du stock et de la tresorerie suite a une vente
 	public void venteRealisee(CommandeProduc c) {
 		// modifie la tresorerie

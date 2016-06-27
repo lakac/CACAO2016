@@ -47,11 +47,11 @@ public class ProductionBiannuelle {
 		this.productionFinale=this.getCapaciteMaximale()-this.getPerteProduction();
 	}	
 	
-	// calcule un pourcentage de perte ici compris entre 0 et 10%,
+	// calcule un pourcentage de perte ici compris entre 20 et 40%,
 	// ces pertes sont aleatoire et represente les effets des aleas metheorologiques sur les recoltes.
 	public double perteAleatoire() { 
-		double PerteAleatoire = Math.random()*0.2+0.2;
 
+		double PerteAleatoire = Math.random()*0.2+0.2;
 		return PerteAleatoire;	
 	}
 

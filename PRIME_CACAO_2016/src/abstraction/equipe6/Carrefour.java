@@ -39,7 +39,7 @@ public class Carrefour implements Acteur,IDistributeur {
 	private List<CommandeDistri> histoLivraison;
 	private List<Stock> lesStocks;
 	
-	//Ajout 26/06 par l'�quipe 2 pour les tests
+	//Ajout 26/06 par l'駲uipe 2 pour les tests
 	public Carrefour() {
 	}
 
@@ -47,7 +47,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		super();
 		this.nom = nom;
 		this.prixvente = new ArrayList<PrixVente>();
-		this.solde = new Indicateur(this.getNom(), this, 1000000);
+		this.solde = new Indicateur("Solde de Carrefour", this, 1000000);
 		this.demandeAnnuel = new HashMap<Produit,Double>();
 		this.fraisdedistri = 0.0;
 		this.produits = produits;
@@ -58,8 +58,8 @@ public class Carrefour implements Acteur,IDistributeur {
 		this.lesStocks = new ArrayList<Stock>();
 		this.maDi = new MarcheDistributeur();
 	}
-	//Méthode qui crée et initialise trois listes de taille neuf (pour chaque produit et chaque tranformateur) qui gèrent respectivement nos stocks, nos achats 
-	//au transformateur et nos ventes aux clients. La dernière liste créée (demandeAnnuel) initialise la demande dans chaque produit des client
+	//Mﾃｩthode qui crﾃｩe et initialise trois listes de taille neuf (pour chaque produit et chaque tranformateur) qui gﾃｨrent respectivement nos stocks, nos achats 
+	//au transformateur et nos ventes aux clients. La derniﾃｨre liste crﾃｩﾃｩe (demandeAnnuel) initialise la demande dans chaque produit des client
 
 	public void creer() {
 		List<Stock> lesStocks = new ArrayList<Stock>();
@@ -301,7 +301,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		return transfo;
 	}
 
-	//Affiche le demande par step pour chaque produit (la demande est supposée constante toute l'année, sauf à Pâques et Noël
+	//Affiche le demande par step pour chaque produit (la demande est supposﾃｩe constante toute l'annﾃｩe, sauf ﾃ� Pﾃ｢ques et Noﾃｫl
 	//On rajoute une partie random dans la demande de +/-10% de la demande initiale
 	public void setBesoinStep(int step) {
 		double besoin;
@@ -341,9 +341,9 @@ public class Carrefour implements Acteur,IDistributeur {
 			double dem_min = this.getBesoinStep().get(p)*0.50/this.getTransformateurs().size();
 			int le = this.getTransformateurs().size();
 			for (int i=0; i<le; i++) {
-				ITransformateurD letransfo = this.getTransformateurs().get(i); // Modif pour que �a marche, plus de comparateur de prix
+				ITransformateurD letransfo = this.getTransformateurs().get(i); // Modif pour que �ｿｽa marche, plus de comparateur de prix
 				double quantite = (le-i+1)/((le+1)*(le+1))*0.50*this.getBesoinStep().get(p);
-				System.out.println("La quantit� de la demande --> "+this.getBesoinStep().get(p));
+				System.out.println("La quantit� de la demande --> "+this.getBesoinStep().get(p));
 				commande.get(letransfo).add(new CommandeDistri(this, letransfo, p, dem_min + quantite, letransfo.getCatalogue().getTarif(p).getPrixTonne(), MondeV1.LE_MONDE.getStep()+3, false));
 
 				System.out.println(p);
@@ -361,7 +361,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		return this.commandeStep(this.getBesoinStep()).get(t);
 	}
 
-    //Méthode qui en cas de rupture de stock chez le tranformateur choisi, va commander les quantités de CACAO manquantes aux autres transfromateurs.
+    //Mﾃｩthode qui en cas de rupture de stock chez le tranformateur choisi, va commander les quantitﾃｩs de CACAO manquantes aux autres transfromateurs.
 	public List<CommandeDistri> contreDemande(List<CommandeDistri> nouvelle,List<CommandeDistri> ancienne) {
 		List <CommandeDistri> contreDemande= new ArrayList<CommandeDistri>();
 		boolean verification = false;
@@ -403,7 +403,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		}
 	}
 	
-	//Méthode qui fixe le prix de vente avec bénéfice de 20% par rapport au prix d'achat au transformateur, 
+	//Mﾃｩthode qui fixe le prix de vente avec bﾃｩnﾃｩfice de 20% par rapport au prix d'achat au transformateur, 
 	//pour chaque produit de chaque transformateur
 
 	public void setPrix (HashMap<ITransformateurD,List<CommandeDistri>> CommandeEffective) {
@@ -434,7 +434,7 @@ public class Carrefour implements Acteur,IDistributeur {
 			List<CommandeDistri> temp2 = new ArrayList<CommandeDistri>();
 			temp.addAll(this.getHistoCommande());
 			System.out.println("Les transfo -->"+this.getTransformateurs());
-			System.out.println("commande finale pass� � "+t+" -->"+maDi.obtenirCommandeFinale(t, this));
+			System.out.println("commande finale pass�ｿｽ �ｿｽ "+t+" -->"+maDi.obtenirCommandeFinale(t, this));
 			temp.addAll(maDi.obtenirCommandeFinale(t, this));
 			temp2.addAll(this.getHistoLivraison());
 			temp2.addAll(maDi.obtenirLivraisonEffective(t, this));
@@ -445,7 +445,7 @@ public class Carrefour implements Acteur,IDistributeur {
 			for (Produit p : this.getProduits()) {
 				System.out.println("histo livraison --> "+this.getHistoLivraison());
 				for (CommandeDistri d : this.getHistoLivraison()) {
-					System.out.println("La quantit� -->"+d.getQuantite());
+					System.out.println("La quantit� -->"+d.getQuantite());
 					System.out.println("Le prix -->"+d.getPrixTonne()*d.getQuantite());
 					boolean a, b, c, e;
 					a = d.getAcheteur() == this;
