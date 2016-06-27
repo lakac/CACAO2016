@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 
 
-import abstraction.equipe3.Leclerc;
 import abstraction.equipe3.Leclercv2;
 import abstraction.equipe6.Carrefour;
 import abstraction.fourni.Acteur;

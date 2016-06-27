@@ -167,7 +167,7 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 	
 	//Méthode annexe qui retourne la quantité totale demandée par une liste de commandedistributeur
 	//On suppose que la liste contient que des commandes concernant PRODUIT_50; PRODUIT_60 et PRODUIT_70
-	public static double QuantiteCacaoNecessaire(List<CommandeDistri> l) {
+	public double QuantiteCacaoNecessaire(List<CommandeDistri> l) {
 		double quantite = 0;
 		for (CommandeDistri cd : l) { //Pour les commandesdistri reçues à la step précédentes...
 			quantite+=cd.getProduit().getRatioCacao()*cd.getQuantite();
@@ -183,7 +183,11 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 			System.out.println("Nestle"+this.getCommandeDistri(this.getEtape()-2));
 			double quantitenecessaire = QuantiteCacaoNecessaire(this.getCommandeDistri(etape-1));
 			double quantitestockcacao = this.getStockcacao().getStockcacao().get(Constante.CACAO);
-			return (quantitenecessaire - quantitestockcacao)*(1+Constante.MARGE_DE_SECURITE)*Constante.DEMANDE_ACTEURS;
+			if(quantitenecessaire-quantitestockcacao<0){
+				return 0;
+			}else{
+			return (quantitenecessaire - quantitestockcacao)*(1+Constante.MARGE_DE_SECURITE);
+			}
 		}
 	
 	// Declenche la mise a jour de la tresorerie de du stock de CACAO
@@ -225,14 +229,12 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 	@Override
 	public List<CommandeDistri> livraisonEffective(List<CommandeDistri> list) {
 		if(list.size()==0){
-			System.out.println("mais qu'est ce qu'ils font chier ces distributeurs a pas envoyer de commandes");
 			return list;
 		}else{
 		List<IDistributeur> liste = Transformation.Priorite(list);
 		for (IDistributeur d : liste) {
 			this.livraisoneffective(d, list);
 		}
-		this.historiquecommandesdistri.set(etape-3, list);
 		return list;
 		}
 	}
