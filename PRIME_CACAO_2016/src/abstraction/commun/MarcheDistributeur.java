@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import abstraction.fourni.Acteur;
 
-
 public class MarcheDistributeur implements Acteur {
 
 	private List<ITransformateurD> lestransfos;
@@ -84,12 +83,9 @@ public class MarcheDistributeur implements Acteur {
 		this.livraisonglobale = livraisonglobale;
 	}
 
-
-
 	public String getNom() {
 		return "march� du chocolat";
 	}
-
 
 	public List<CommandeDistri> obtenirCommandeFinale(ITransformateurD t, IDistributeur d) {
 		List<CommandeDistri> temp = new ArrayList<CommandeDistri>();
@@ -148,7 +144,6 @@ public class MarcheDistributeur implements Acteur {
 			}
 		}
 		return NegoTransfo;
-
 	}
 
 	public HashMap<IDistributeur, List<CommandeDistri>> RenvoiTransfo(HashMap<ITransformateurD, List<CommandeDistri> > hm) {
@@ -160,15 +155,14 @@ public class MarcheDistributeur implements Acteur {
 		System.out.println("NegoDistri :"+NegoDistri);
 		for (ITransformateurD t : this.getLesTransfos()) {
 			for (IDistributeur d : this.getLesDistris()) {
-				for (CommandeDistri com : hm.get(t)) {;
-				if (hm.get(t).get(hm.get(t).indexOf(com)).getAcheteur() == d) {
-					NegoDistri.get(d).add(hm.get(t).get(hm.get(t).indexOf(com)));
-				}
+				for (CommandeDistri com : hm.get(t)) {
+					if (hm.get(t).get(hm.get(t).indexOf(com)).getAcheteur() == d) {
+						NegoDistri.get(d).add(hm.get(t).get(hm.get(t).indexOf(com)));
+					}
 				}
 			}
 		}
 		return NegoDistri;
-
 	}
 
 	public HashMap<IDistributeur, List<CommandeDistri>> copieProfonde (HashMap<IDistributeur, List<CommandeDistri>> aCopie) {
@@ -188,7 +182,6 @@ public class MarcheDistributeur implements Acteur {
 
 		HashMap<IDistributeur, List<CommandeDistri> > NegoDistri = new HashMap<IDistributeur, List<CommandeDistri>>();
 		HashMap<ITransformateurD, List<CommandeDistri> > NegoTransfo = new HashMap<ITransformateurD, List<CommandeDistri>>();
-
 		for (ITransformateurD t : this.getLesTransfos()) {
 			if (this.getCatalogues().size() < this.getLesTransfos().size()) {
 				this.cat.put(t, t.getCatalogue());
@@ -236,7 +229,6 @@ public class MarcheDistributeur implements Acteur {
 			this.addCommandeToHistorique(commandefinale);
 			System.out.println("La commande finale --> "+this.getCommandeFinale());
 
-
 			// Livraisons effectives chez les distributeurs et paiements.
 
 			List<CommandeDistri> livraisonglobale = new ArrayList<CommandeDistri>();
@@ -259,8 +251,6 @@ public class MarcheDistributeur implements Acteur {
 				System.out.println("Livraison globale --> "+livraisonglobale);
 				this.setLivraisonGlobale(livraisonglobale);
 			}	
-
 		}
 	}
 }
-
