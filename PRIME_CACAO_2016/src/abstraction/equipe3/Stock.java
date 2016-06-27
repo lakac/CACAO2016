@@ -79,7 +79,7 @@ public class Stock {
 	
 	public void ajouterStock (CommandeDistri com) {
 		Double[] x;
-		for (int i=0;i<this.getTransfos().size();i++){
+		for (int i=0;i<2;i++){
 			if (com.getVendeur().equals(this.getTransfos().get(i))){
 				x=this.stock.get(i);
 				if (com.getProduit().getNomProduit()=="50%"){
@@ -99,7 +99,7 @@ public class Stock {
 	}
 	public void retirerStock (CommandeDistri com) {
 		Double[] x;
-		for (int i=0;i<this.getTransfos().size();i++){
+		for (int i=0;i<2;i++){
 			if (com.getVendeur().equals(this.getTransfos().get(i))){
 				x=this.stock.get(i);
 				if (com.getProduit().getNomProduit()=="50%"){

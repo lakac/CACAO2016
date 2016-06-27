@@ -100,6 +100,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		List<ITransformateurD> liste = new ArrayList<ITransformateurD>();
 		List<ITransformateurD> transfo=this.getTransformateurs();
 		int n;
+		transfo.remove(2);
 		while(transfo!=null){
 			double a=transfo.get(0).getCatalogue().getTarif(p).getPrixTonne();
 			n=0;

@@ -125,21 +125,19 @@ public class PrixDeVente {
 	
 	/*utilise methode precedente pour un set de tous les produits*/
 	
-	public void setPrixDeVente() {
-		for (ITransformateurD t : this.getTransfos()){		
+	public void setPrixDeVente() {	
 			for (Produit p : this.getProduits()) {
-				this.setPrixDeVente(p,t);
+				this.setPrixDeVente(p,this.transfos.get(0));
+				this.setPrixDeVente(p,this.transfos.get(1));
 			}
-		}		
 	}
 	
 	/*methode appelee dans le next de Leclercv2, qui demande les catalogues et set le prix de vente*/
 	
 	public void actualisePrixDeVente(){
 		ArrayList<Catalogue> lis = new ArrayList<Catalogue>();
-		for (ITransformateurD t : this.getTransfos()) {
-			lis.add(t.getCatalogue());
-		}
+		lis.add(this.getTransfos().get(0).getCatalogue());
+		lis.add(this.getTransfos().get(1).getCatalogue());
 		this.setCatalogues(lis);
 		this.setPrixDeVente();
 	}
