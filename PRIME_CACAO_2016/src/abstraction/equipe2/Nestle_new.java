@@ -379,7 +379,7 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 		Monde.LE_MONDE.ajouterIndicateur(iTresorerie);
 		this.iStockcacao = new Indicateur("Stock de cacao de Nestle", this, this.getStockcacao().getStockcacao().get(Constante.CACAO));
 		Monde.LE_MONDE.ajouterIndicateur(iStockcacao);
-		this.iCommandeDistri = new Indicateur("Commandes reçues de Nestle", this, 0);
+		this.iCommandeDistri = new Indicateur("Commandes recues de Nestle", this, 0);
 		Monde.LE_MONDE.ajouterIndicateur(iCommandeDistri);
 		//this.iCommandeProduc = new Indicateur("Commandes passées", this, 0);
 		//Monde.LE_MONDE.ajouterIndicateur(iCommandeProduc);
