@@ -25,6 +25,7 @@ import abstraction.fourni.Indicateur;
 import abstraction.fourni.Journal;
 import abstraction.fourni.Monde;
 import abstraction.commun.MondeV1;
+import abstraction.equipe4.IndicateurDouble;
 
 /**
  * Classe modelisant la fenetre principale de l'interface.
@@ -39,7 +40,7 @@ public class FenetrePrincipale extends JFrame {
 	public FenetrePrincipale() {
 		super("Prime CACAO");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
+
 		Monde.LE_MONDE = new MondeV1();
 		Monde.LE_MONDE.peupler();
 		this.setLayout(new BorderLayout());
@@ -64,21 +65,24 @@ public class FenetrePrincipale extends JFrame {
 			JLabel lIndic = new JLabel( i.getNom());
 			lIndic.setAlignmentX(RIGHT_ALIGNMENT);
 			pIndic.add(lIndic);
-			
+
 			// Case a cocher "Graphique" permettant d'afficher/cacher le graphique de l'indicateur
 			JCheckBox cGraphiqueIndic = new JCheckBox("Graphique"); 
 			FenetreGraphique graphique = new FenetreGraphique(i.getNom(), 800, 600);
-            graphique.ajouter(i.getCourbe());
+			graphique.ajouter(i.getCourbe());
+			if (i instanceof IndicateurDouble){
+				graphique.ajouter(((IndicateurDouble) i).getCourbe2());
+			}
 			// Controleur permettant quand on clique sur la fermeture 
 			// de la fenetre graphique de mettre a jour la case a cocher "graphique"
 			// et quand on clique sur la case a cocher d'afficher/masquer le graphique
 			CtrlCheckBoxGraphique ctg = new CtrlCheckBoxGraphique(graphique, cGraphiqueIndic);
-            i.addObserver(ctg);
+			i.addObserver(ctg);
 			cGraphiqueIndic.addActionListener(ctg);
 			graphique.addWindowListener(ctg);
 			cGraphiqueIndic.setAlignmentX(RIGHT_ALIGNMENT);
 			pIndic.add(cGraphiqueIndic);
-			
+
 			// Case a cocher "Historique" permettant d'afficher/cacher l'historique de l'indicateur
 			JCheckBox cHistorique = new JCheckBox("Historique");
 			FenetreHistorique fenetreHistorique = new FenetreHistorique(i);
@@ -88,7 +92,7 @@ public class FenetrePrincipale extends JFrame {
 			cHistorique.addActionListener(cth);
 			cHistorique.setAlignmentX(RIGHT_ALIGNMENT);
 			pIndic.add(cHistorique);
-			
+
 			// Champ de saisie permettant de modifier la valeur de l'indicateur
 			JTextField tIndic = new JTextField(20);
 			tIndic.setText(i.getValeur()+"");
@@ -110,7 +114,7 @@ public class FenetrePrincipale extends JFrame {
 		pIndicateurs.add(pGauche, BorderLayout.CENTER);
 		this.add(pIndicateurs, BorderLayout.CENTER);
 
-		
+
 		JPanel pDroit = new JPanel();
 		pDroit.setLayout(new BoxLayout(pDroit, BoxLayout.Y_AXIS));
 		pDroit.setBorder(BorderFactory.createTitledBorder("Journaux"));
