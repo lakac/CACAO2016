@@ -50,7 +50,8 @@ public class ProductionBiannuelle {
 	// calcule un pourcentage de perte ici compris entre 20 et 40%,
 	// ces pertes sont aleatoire et represente les effets des aleas metheorologiques sur les recoltes.
 	public double perteAleatoire() { 
-		double PerteAleatoire = 0.2+0.2*Math.random();
+
+		double PerteAleatoire = Math.random()*0.2+0.2;
 		return PerteAleatoire;	
 	}
 

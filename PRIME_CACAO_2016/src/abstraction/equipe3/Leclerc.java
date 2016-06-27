@@ -75,10 +75,14 @@ public class Leclerc implements Acteur,IDistributeur{
 			}
 		}
 	}
+
 	public void setPrixVente(double prixVente, int indexproduit){
 		this.prixVente[indexproduit]=prixVente;
+
 	}
+
 	public void setRatio (Double[] ratio) {  //fonction utilis�e dans la V1, mais plus dans les versions suivantes.
+
 		double x = 1;
 		double l = this.transformateurs.size()-2;
 		this.ratio=new ArrayList<Double>();
@@ -134,8 +138,10 @@ public class Leclerc implements Acteur,IDistributeur{
 		} return x;
 	}*/
 	
+
 	public List<CommandeDistri> Demande(ITransformateurD t, Catalogue c) { //Commande aux diff�rents transformateurs bas� sur les ventes des ann�es pr�c�dentes
 		Double[] x = {0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donn� sur toutes les ann�es
+
 		Double[] sto = {0.0,0.0,0.0};
 		for (int i=0; i<this.transformateurs.size();i++){
 			if (t.equals(this.transformateurs.get(i))){
@@ -171,20 +177,56 @@ public class Leclerc implements Acteur,IDistributeur{
 		this.achats.setValeur(this,this.getQteTotal());
 		this.setPrixVente(20.0);
 		for (ITransformateur t : this.transformateurs) {
+<<<<<<< HEAD
+<<<<<<< HEAD
+			double q = this.getDemande(t);
+			this.solde.setValeur(this, this.solde.getValeur()+q*this.getPrix1()); //on ach�te au transformateur donc il re�oit de l'argent
+=======
 
 			double q = this.getVente(t);
 			this.solde.setValeur(this, this.solde.getValeur()-q*this.getPrixAchat()); 
 
 			
+>>>>>>> refs/remotes/choose_remote_name/master
+=======
+
+			double q = this.getVente(t);
+			this.solde.setValeur(this, this.solde.getValeur()-q*this.getPrixAchat()); 
+
+			
+>>>>>>> refs/remotes/choose_remote_name/master
 		}
+<<<<<<< HEAD
+<<<<<<< HEAD
+		this.achats.setValeur(this,quantite);
+		this.solde.setValeur(this, this.solde.getValeur()-quantite*this.getPrix1()+quantite*this.getPrixvente()); //solde(step n)=solde step(n-1)+quantite(step n)*prixvente - quantite(step n)*prix
+}
+=======
 		this.solde.setValeur(this, this.solde.getValeur()+this.getQteTotal()*this.getPrixVente());
 		//solde(step n)=solde step(n-1)+quantite(step n)*prixvente
 		*/
+		// this.solde.setValeur(this, this.solde.getValeur()+this.getQteTotal()*this.getPrixVente());
+		//solde(step n)=solde step(n-1)+quantite(step n)*prixvente
+		
 	}
 
-	@Override
+
+
+
+	/*public List<CommandeDistri> ContreDemande(List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+*/
+
+
+	
+
+
+
 
 	public List<CommandeDistri> ContreDemande(List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne) {
+
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -205,16 +247,43 @@ public class Leclerc implements Acteur,IDistributeur{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	
 	@Override
 	public Double getStock(Produit p) {
+
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
+
 	public Double getPrixVente(Produit p) {
+
+		// TODO Auto-generated method stub
+		return null;
+	
+}
+	@Override
+	public List<CommandeDistri> contreDemande(List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne) {
+		// TODO Auto-generated method stub
+		return null;
+	
+}
+
+	/*@Override
+
+	public Double getStock(Produit p) {
+
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+
+
+	public Double getPrixVente(Produit p) {
+		// TODO Auto-generated method stub
+		return null;
+
+	}
+}*/
 }

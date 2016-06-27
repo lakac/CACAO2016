@@ -12,28 +12,53 @@ public class CommandeDistri extends Commande {
 	private Produit produit;
 	private boolean validation;
 	private int stepLivraison;
+	private double prix;
+	
+	//Ajout d'un constructeur simple pour les test (11/06, équipe 2)
+	public CommandeDistri(Produit produit, double quantite, double prixtonne) {
+		super(quantite, prixtonne);
+		this.produit = produit;
+		
+	}
+	
+	//Ajout d'un constructeur simple pour les test (18/06, équipe 2)
+		public CommandeDistri(IDistributeur acheteur, Produit produit, double quantite, double prixtonne) {
+			super(quantite, prixtonne);
+			this.produit = produit;
+			this.acheteur = acheteur;	
+		}
 
 	public CommandeDistri(IDistributeur acheteur, ITransformateurD vendeur, Produit produit, double quantite, double prixTonne, int stepLivraison, boolean validation) {
 		super(quantite, prixTonne);
 		this.acheteur = acheteur;
 		this.vendeur = vendeur;
 		this.produit = produit;
+		this.prix = this.getQuantite()*this.getPrixTonne();
 		this.stepLivraison = stepLivraison;
 		this.validation = validation;
 	}
 	
+	public double getPrix() {
+				return prix;
+			}
+		
+			public void setPrix(double prix) {
+				this.prix = prix;
+			}
+
 
 	public Produit getProduit() {
 		return this.produit;
 	}
 
-	public void setProduit(Produit produit) {
+public void setProduit(Produit produit) {
 		this.produit = produit;
 	}
 
 	public IDistributeur getAcheteur() {
 		return this.acheteur;
 	}
+
 
 	public ITransformateurD getVendeur() {
 		return this.vendeur;
@@ -45,6 +70,8 @@ public class CommandeDistri extends Commande {
 
 	public void setVendeur(ITransformateurD vendeur) {
 		this.vendeur = vendeur;
+
+
 	}
 	
 	public void setValidation(boolean b) {
