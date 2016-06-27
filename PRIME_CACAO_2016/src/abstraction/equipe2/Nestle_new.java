@@ -175,7 +175,7 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 			System.out.println("Nestle"+this.getCommandeDistri(this.getEtape()-2));
 			double quantitenecessaire = QuantiteCacaoNecessaire(this.getCommandeDistri(etape-1));
 			double quantitestockcacao = this.getStockcacao().getStockcacao().get(Constante.CACAO);
-			return (quantitenecessaire - quantitestockcacao)*(1+Constante.MARGE_DE_SECURITE)*Constante.DEMANDE_ACTEURS;
+			return (quantitenecessaire - quantitestockcacao)*(1+Constante.MARGE_DE_SECURITE);
 		}
 	}
 	
