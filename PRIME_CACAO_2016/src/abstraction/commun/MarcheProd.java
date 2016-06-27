@@ -93,7 +93,6 @@ public class MarcheProd implements Acteur{
 		this.quantiteTotaleFournie = quantiteTotaleFournise;
 	}
 
-
 	//Methode du producteur Asie Amerique
 
 	/**Ajout d'un producteur a la liste des producteurs */
@@ -175,11 +174,8 @@ public class MarcheProd implements Acteur{
 					}
 				}
 
-
 			}
-
-		}	
-
+		}
 	}
 
 }

@@ -2,12 +2,6 @@
 package abstraction.commun;
 
 public interface IProducteur {
-	/**
-	 * Indique la quantité disponible à la vente pour le transformateur t.
-	 */
-	@Deprecated
-	public double annonceQuantiteMiseEnVente(ITransformateurP t);
-
 	//Conformement à la reunion du 03/06, cree par l'equipe 2 le 8/06.
 	/**
 	 * Indique la quantité de cacao totale mise en vente par le IProducteur p à la step considéré. 

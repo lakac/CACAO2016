@@ -43,12 +43,12 @@ public class CotedIvoire implements IProducteur, Acteur {
 	
 
 	public String getNom() {
-		return "Côte d'Ivoire";
+		return "Cï¿½te d'Ivoire";
 	}
 
 
 
-	//renvoie la quantité totale de cacao que la cote d'ivoire met en vente à la step considéré 
+	//renvoie la quantitï¿½ totale de cacao que la cote d'ivoire met en vente ï¿½ la step considï¿½rï¿½ 
 
 	//renvoie la quantitï¿½ totale de cacao que la cote d'ivoire met en vente ï¿½ la step considï¿½rï¿½ 
 
@@ -67,12 +67,4 @@ public class CotedIvoire implements IProducteur, Acteur {
 		
 		
 	}
-
-	@Override
-	public double annonceQuantiteMiseEnVente(ITransformateurP t) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
-
 }

@@ -4,9 +4,9 @@ public class Couts {
 
 	
 	//Couts de production par tonne de cacao recolte
-	public static final double COUTPROD=0.0005; 
+	public static final double COUTPROD=1200; 
 	//Cout de stock par tonne cree
-	public static final double COUTSTOCK=0.001;
+	public static final double COUTSTOCK=10;
 
 	
 }
