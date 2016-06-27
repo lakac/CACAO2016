@@ -11,15 +11,6 @@ public interface ITransformateurP {
 	 * 
 	 */
 	public double annonceQuantiteDemandee();
-
-	
-	/**
-	 * Indique la quantité demandée au producteur p.
-	 * 
-	 * @deprecated Remplacé par {@link #annonceQuantiteDemandee()}.
-	 */
-	public double annonceQuantiteDemandee(IProducteur p);
-	
 	
 	/**
 	 * Met à jour l'état interne de ce transformateur suite à une vente auprès d'un producteur.
@@ -27,14 +18,4 @@ public interface ITransformateurP {
 	 * Cette méthode est appelée par le marché.
 	 */
 	public void notificationVente(CommandeProduc c);
-	
-	
-	/**
-	 * Met à jour l'état interne de ce transformateur suite à une vente auprès d'un producteur.
-	 * 
-	 * @deprecated Remplacé par {@link #notificationVente(CommandeProduc)}.
-	 */
-	public void notificationVente(IProducteur p);
-
-
 }
