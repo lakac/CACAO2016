@@ -33,6 +33,8 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 	
 	private Indicateur iTresorerie;
 	private Indicateur iStockcacao;
+	private Indicateur iCommandeDistri;
+	private Indicateur iCommandeProduc;
 	//différents getters utiles et setters.
 	//permet d'accéder au catalogue
 	public Catalogue getCatalogue() {
@@ -147,6 +149,16 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 			this.Catalogue(8,8,8);
 		}
 		
+		//Calcule la quantité totale de chocolat demandé au step n
+		public double QuantiteTotaleCommandee(List<CommandeDistri> lcd) {
+			double quantite = 0.;
+			for (CommandeDistri cd : lcd) {
+				quantite +=cd.getQuantite();
+			}
+			return quantite;
+		}
+		
+		
 
 	//Méthodes des interfaces
 	
@@ -168,23 +180,20 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 	//Calculer la quantité de cacao necessaire et y ajouter la marge de cacao souhaitée
 	public double annonceQuantiteDemandee() {
 		int etape = this.getEtape();
-		if (etape == 0 || etape == 1) { // Si on a pas encore reçu de commande, si rien ne s'est passé...
-			return 0;
-		}
-		else { //Si on a reçu des commandesdes distributeurs
 			System.out.println("Nestle"+this.getCommandeDistri(this.getEtape()-2));
 			double quantitenecessaire = QuantiteCacaoNecessaire(this.getCommandeDistri(etape-1));
 			double quantitestockcacao = this.getStockcacao().getStockcacao().get(Constante.CACAO);
 			return (quantitenecessaire - quantitestockcacao)*(1+Constante.MARGE_DE_SECURITE)*Constante.DEMANDE_ACTEURS;
 		}
-	}
 	
 	// Declenche la mise a jour de la tresorerie de du stock de CACAO
 	//et l'historique des commandes
 	public void notificationVente(CommandeProduc c) {
 		tresorerie.setTresorerieAchat(c);
+		System.out.println("notif vente Nestle : "+c.getQuantite());
 		this.stockcacao.MiseAJourStockLivraison(Constante.CACAO,c.getQuantite());
 		this.historiquecommandesprod.add(c);
+		System.out.println("la taille est : "+ historiquecommandesprod.size());
 		this.tresorerie.setTresorerieAchat(c);
 	}
 
@@ -331,6 +340,8 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 		this.MiseAJourCacaoChocEtTreso(this.transformation);
 		this.iTresorerie.setValeur(this, this.getTresorerie().getFonds());
 		this.iStockcacao.setValeur(this, this.getStockcacao().getStockcacao().get(Constante.CACAO));
+		this.iCommandeDistri.setValeur(this, this.QuantiteTotaleCommandee(this.historiquecommandesdistri.get(etape-1)));
+		//this.iCommandeProduc.setValeur(this, this.getCommandeProduc(etape-1).getQuantite());
 	}
 	
 	
@@ -357,6 +368,10 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 		Monde.LE_MONDE.ajouterIndicateur(iTresorerie);
 		this.iStockcacao = new Indicateur("Stock cacao de Nestle", this, this.getStockcacao().getStockcacao().get(Constante.CACAO));
 		Monde.LE_MONDE.ajouterIndicateur(iStockcacao);
+		this.iCommandeDistri = new Indicateur("Commandes reçues", this, 0);
+		Monde.LE_MONDE.ajouterIndicateur(iCommandeDistri);
+		this.iCommandeProduc = new Indicateur("Commandes passées", this, 0);
+		Monde.LE_MONDE.ajouterIndicateur(iCommandeProduc);
 	}
 	
 

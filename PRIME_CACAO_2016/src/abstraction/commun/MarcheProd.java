@@ -159,7 +159,7 @@ public class MarcheProd implements Acteur{
 			}
 			
 		}
-		}	
+	}	
 		
 		
 	}
