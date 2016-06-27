@@ -26,9 +26,9 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	private Indicateur stock4;  //Stock de 50% de Nestle
 	private Indicateur stock5;  //Stock de 60% de Nestle
 	private Indicateur stock6;  //Stock de 70% de Nestle
-	private Indicateur stock7;	//Stock de 50% du troisième transformateur
-	private Indicateur stock8;	//Stock de 60% du troisième transformateur
-	private Indicateur stock9;	//Stock de 70% du troisième transformateur
+	private Indicateur stock7;	//Stock de 50% du troisiﾃｨme transformateur
+	private Indicateur stock8;	//Stock de 60% du troisiﾃｨme transformateur
+	private Indicateur stock9;	//Stock de 70% du troisiﾃｨme transformateur
 	private PrixDeVente prixdevente;
 	private ArrayList<Double> ratio;
 	private ArrayList<ITransformateurD> transformateurs;
@@ -49,9 +49,9 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		this.stock4 = new Indicateur("Stock de 50% de Nestle de " + this.nom, this, 0);
 		this.stock5 = new Indicateur("Stock de 60% de Nestle de " + this.nom, this, 0);
 		this.stock6 = new Indicateur("Stock de 70% de Nestle de " + this.nom, this, 0);
-		this.stock7 = new Indicateur("Stock de 50% de 3ème transfo de " + this.nom, this, 0);
-		this.stock8 = new Indicateur("Stock de 60% de 3ème transfo de " + this.nom, this, 0);
-		this.stock9 = new Indicateur("Stock de 70% de 3ème transfo de " + this.nom, this, 0);
+		this.stock7 = new Indicateur("Stock de 50% de 3eme transfo de " + this.nom, this, 0);
+		this.stock8 = new Indicateur("Stock de 60% de 3eme transfo de " + this.nom, this, 0);
+		this.stock9 = new Indicateur("Stock de 70% de 3eme transfo de " + this.nom, this, 0);
 		this.prixdevente=new PrixDeVente();
 		Monde.LE_MONDE.ajouterIndicateur(this.solde);
 		Monde.LE_MONDE.ajouterIndicateur(this.stock1);
@@ -182,7 +182,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 
 	public List<CommandeDistri> demande(ITransformateurD t, Catalogue c) {
 		
-		Double[] x = {0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donn� sur toutes les annees
+		Double[] x = {0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donn�ｿｽ sur toutes les annees
 		Double[] sto = {0.0,0.0,0.0};
 		sto[0] = this.getStock().getStock(t,0);
 		sto[1] = this.getStock().getStock(t,1);
@@ -305,13 +305,13 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	}
 	@Override
 	public Double getStock(Produit p) {
-		//va etre supprim�e
+		//va etre supprim�ｿｽe
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
 	public Double getPrixVente(Produit p) {
-		//va �tre supprimee
+		//va �ｿｽtre supprimee
 		// TODO Auto-generated method stub
 		return null;
 	}

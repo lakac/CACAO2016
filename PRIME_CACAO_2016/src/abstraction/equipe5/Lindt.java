@@ -77,7 +77,7 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 		return this.distributeurs;
 	}
 	public String getNom() {
-		return Constantes.NOM_TRANSFORMATEUR_2;
+		return "Lindt";
 		}
 	public Stock getStockCacao() {
 		return this.stockCacao;
@@ -123,10 +123,11 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 				this.getHistCommandeDistri().ajouter(cd);
 			}
 		}
-		
+
+
 		//calcul les commandes du reste des distributeurs et les ajoute à l'historique CommandeDistri
 		resteDesDistributeurs.commandesDistributeurRestant(); 
-		
+	
 //		this.getJournal().ajouter("Historique Commande Distributeur : " + this.getHistCommandeDistri().getHist().toString());
 		
 //		// commandes fictives du cote distributeur pour voir si notre code fonctionne
@@ -137,7 +138,6 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 //		this.getHistCommandeDistri().ajouter(commande1);
 //		this.getHistCommandeDistri().ajouter(commande2);
 //		this.getHistCommandeDistri().ajouter(commande3);
-		
 		
 		// variation de stock du aux commandes livrees et mise a jour de l'historique
 		this.getStockChocolat50().retirerStockChocolat(Monde.LE_MONDE.getStep());
@@ -150,12 +150,13 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 		
 //		this.getJournal().ajouter("\n");
 //		this.getJournal().ajouter("Cout de stock : " + this.getTreso().coutStock());
-//		this.getJournal().ajouter("Tréso avant paie distributeurs : " + this.getTreso());
-//		this.getJournal().ajouter("Paye par distributeur " + this.getTreso().payeParDistrib());
+//		this.getJournal().ajouter("Treso avant paie distributeurs : " + this.getTreso());
+//		this.getJournal().ajouter("Paye par distributeur : " + this.getTreso().payeParDistrib());
 		
 		this.getTreso().depot(this.getTreso().payeParDistrib());
-		
-//		this.getJournal().ajouter("Tréso apres paie distributeurs : " + this.getTreso());
+
+		//		this.getJournal().ajouter("Treso apres paie distributeurs : " + this.getTreso());
+
 	}
 	
 	
