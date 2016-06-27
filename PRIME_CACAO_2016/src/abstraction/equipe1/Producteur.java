@@ -85,6 +85,7 @@ public class Producteur implements Acteur, IProducteur {
 	public void notificationVente(CommandeProduc c) {
 		this.stock.retirerVente(this, c.getQuantite());
 		this.setTresorerie(this.getTresorerie() + c.getQuantite()*c.getPrixTonne());
+		this.journal.ajouter("Vente de "+c.getQuantite()+" t à "+c.getPrixTonne()+" euros/t.");
 	}
 
 	// Methodes privees
