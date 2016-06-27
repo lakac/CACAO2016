@@ -25,10 +25,11 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 	private Journal journal;
 
 	public Lindt(){
+		this.journal = new Journal("Journal de Lindt");
 		this.histCommandeDistri = new HistoriqueCommande();
 		this.histCommandeProduc = new HistoriqueCommande();
 		this.commandeDistriLivree = new HistoriqueCommande();
-		this.stockCacao = new Stock("cacao",this,200.0);
+		this.stockCacao = new Stock("cacao",this,2000.0);
 		this.stockChocolat50 = new Stock(Constante.LISTE_PRODUIT[0].getNomProduit(),this,0.0);
 		this.stockChocolat60 = new Stock(Constante.LISTE_PRODUIT[1].getNomProduit(),this,0.0);
 		this.stockChocolat70 = new Stock(Constante.LISTE_PRODUIT[2].getNomProduit(),this,0.0);
@@ -38,14 +39,13 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 		this.stocksChocolat.add(this.stockChocolat50);
 		this.stocksChocolat.add(this.stockChocolat60);
 		this.stocksChocolat.add(this.stockChocolat70);
-		this.transfo = new TransformationCacaoChocolat(this);
-		this.journal = new Journal("Journal de Lindt");
+		this.transfo = new TransformationCacaoChocolat(this, this.journal);
 		Monde.LE_MONDE.ajouterJournal(this.journal);
 	}
 
 	public void creer() {
-		this.histCommandeProduc.ajouter(new CommandeProduc(100.0, MarcheProd.LE_MARCHE.getCoursCacao().getValeur()));
-		this.histCommandeProduc.ajouter(new CommandeProduc(100.0, MarcheProd.LE_MARCHE.getCoursCacao().getValeur()));
+		this.histCommandeProduc.ajouter(new CommandeProduc(1000.0, MarcheProd.LE_MARCHE.getCoursCacao().getValeur()));
+		this.histCommandeProduc.ajouter(new CommandeProduc(1000.0, MarcheProd.LE_MARCHE.getCoursCacao().getValeur()));
 		this.treso = new Tresorerie(this.histCommandeDistri, this.histCommandeProduc, this, this.getProducteurs(), this.getJournal());
 		this.achatProd = new AchatProd(this.histCommandeProduc,this.histCommandeDistri, this, this.stockCacao, this.getTreso(), this.getJournal());	
 		this.venteDist = new VenteDist(this, this.getTreso(), this.getJournal());
@@ -126,16 +126,17 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 		System.out.println(getHistCommandeDistri());
 		resteDesDistributeurs.commandesDistributeurRestant(); //calcul les commandes du reste des distributeurs et les ajoute à l'historique CommandeDistri
 		System.out.println(getHistCommandeDistri());
-
 		
-//		// commandes fictives du cote distributeur pour voir si notre code fonctionne
-//		Commande commande1 = new CommandeDistri(this.getDistributeurs().get(0), this, Constante.LISTE_PRODUIT[0], 30+Monde.LE_MONDE.getStep(), this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[0]), Monde.LE_MONDE.getStep()+3, true);
-//		Commande commande2 = new CommandeDistri(this.getDistributeurs().get(0), this, Constante.LISTE_PRODUIT[1], 20, this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[1]), Monde.LE_MONDE.getStep()+3, true);
-//		Commande commande3 = new CommandeDistri(this.getDistributeurs().get(0), this, Constante.LISTE_PRODUIT[2], 10, this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[2]), Monde.LE_MONDE.getStep()+3, true);
-//		
-//		this.getHistCommandeDistri().ajouter(commande1);
-//		this.getHistCommandeDistri().ajouter(commande2);
-//		this.getHistCommandeDistri().ajouter(commande3);
+		this.getJournal().ajouter("Historique Commande Distributeur : " + this.getHistCommandeDistri().getHist().toString());
+		
+		// commandes fictives du cote distributeur pour voir si notre code fonctionne
+		Commande commande1 = new CommandeDistri(this.getDistributeurs().get(0), this, Constante.LISTE_PRODUIT[0], 1000, this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[0]), Monde.LE_MONDE.getStep()+3, true);
+		Commande commande2 = new CommandeDistri(this.getDistributeurs().get(0), this, Constante.LISTE_PRODUIT[1], 2000, this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[1]), Monde.LE_MONDE.getStep()+3, true);
+		Commande commande3 = new CommandeDistri(this.getDistributeurs().get(0), this, Constante.LISTE_PRODUIT[2], 1000, this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[2]), Monde.LE_MONDE.getStep()+3, true);
+		
+		this.getHistCommandeDistri().ajouter(commande1);
+		this.getHistCommandeDistri().ajouter(commande2);
+		this.getHistCommandeDistri().ajouter(commande3);
 		
 		// test pour voir si les commandes passent bien à chaque step
 //		this.getJournal().ajouter("Informations liées à la commande du produit 50% :");

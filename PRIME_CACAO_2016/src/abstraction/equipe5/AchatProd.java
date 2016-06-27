@@ -96,9 +96,16 @@ public class AchatProd {
 				+ lindt.getStockChocolat60().getStock()*Constante.LISTE_PRODUIT[1].getRatioCacao()
 				+ lindt.getStockChocolat70().getStock()*Constante.LISTE_PRODUIT[2].getRatioCacao();
 		this.getJournal().ajouter("Quantite dans commande distributeur ter : " + besoinCacao);
+		
 		if (stockCacao-Constante.STOCK_MINIMAL_CACAO<besoinCacao){
 			besoinCacao=besoinCacao-stockCacao+Constante.STOCK_MINIMAL_CACAO;
 		}
+		
+		if (lindt.getStockCacao().getStock()+commandeP > 20000) {
+				besoinCacao = 0;
+		}
+		
+		this.getJournal().ajouter("Besoin Cacao Final : " + besoinCacao);
 		
 //		// Calcul du prix d'achat : si au step prece on n'a pas eu ce qu'on veut, on n'achete plus chere
 //		double prixDemande;
@@ -108,7 +115,8 @@ public class AchatProd {
 //		else {
 //			prixDemande=0.95*MarcheProducteur.LE_MARCHE.getCours();
 //		}
-		this.getJournal().ajouter("Quantite dans commande distributeur bis : " + besoinCacao);
+		
+		//this.getJournal().ajouter("Quantite dans commande distributeur bis : " + besoinCacao);
 		return new CommandeInterne(besoinCacao,0);
 	}
 	
@@ -133,7 +141,7 @@ public class AchatProd {
 		this.getJournal().ajouter("\n");
 		this.getJournal().ajouter("Quantite recue : " + c.getQuantite());
 		this.getJournal().ajouter("Prix commande produc :" + c.getPrixTonne());
-		this.getJournal().ajouter("Quantite demandee : " + this.annonceQuantiteDemandee());
+		//this.getJournal().ajouter("Quantite demandee : " + this.annonceQuantiteDemandee());
 		this.getJournal().ajouter("Stock avant ajout quantite recue : " + this.getStock().getStock());
 		this.getJournal().ajouter("Quantite de cacao perdue : " + c.getQuantite()*Constante.perteCacao());
 		

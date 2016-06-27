@@ -24,7 +24,7 @@ public class Tresorerie {
 		this.histProduc = histProduc;
 		this.lindt = lindt;
 		this.listeProducteurs=P;
-		this.treso = new Indicateur("Solde de Lindt", lindt, 1000000);
+		this.treso = new Indicateur("Solde de Lindt", lindt, 1000000000);
 		Monde.LE_MONDE.ajouterIndicateur(this.treso);
 		this.journal = journal;
 	}
@@ -51,13 +51,13 @@ public class Tresorerie {
 
 	public void depot(double d) {
 		if (d > 0) {
-//			this.getJournal().ajouter("Depot sur treso de "+d);
+			this.getJournal().ajouter("Depot sur treso de "+d);
 			this.setTresorerie(this.getTresorerie()+d);}
 	}
 	
 	public void retrait(double d) {
 		if (d > 0) {
-//			this.getJournal().ajouter("Retrait sur treso de "+d);
+			this.getJournal().ajouter("Retrait sur treso de "+d);
 			this.setTresorerie(this.getTresorerie()-d);	
 		}
 	}
@@ -73,16 +73,13 @@ public class Tresorerie {
 		for (int i = 0; i<listeProducteurs.size() ; i++){
 			quantiteDemandee= this.histProduc.getCommande(this.histProduc.getHist().size()-i-1).getQuantite();
 			quantiteCacaoAchetee += quantiteDemandee;
-			coutAchat += this.histProduc.getCommande(this.histProduc.getHist().size()-i-1).getQuantite()*this.histProduc.getCommande(this.histProduc.getHist().size()-i-1).getPrixTonne();}
-		// plus le producteur3 qui represente 40% de la commande totale soit 2/3 de p1+p2
-		coutAchat += MarcheProd.LE_MARCHE.getCoursCacao().getValeur() * quantiteCacaoAchetee * 2/3;
-		quantiteCacaoAchetee += quantiteCacaoAchetee * 2/3;
+			coutAchat += this.histProduc.getCommande(this.histProduc.getHist().size()-i-1).getQuantite()*this.histProduc.getCommande(this.histProduc.getHist().size()-i-1).getPrixTonne();
+		}
 		coutTransformation = quantiteCacaoAchetee * Constante.COUT_TRANSFORMATION;
 		coutStock = quantiteCacaoAchetee * 18;
 		return (coutTransformation + chargesFixes + coutStock + coutAchat)/quantiteCacaoAchetee;
 	} 
 	//cout de revient d'une tonne= charges fixes+ quantite de cacao commandé aux producteurs * cout de transformation d'une tonne.
-	//Cout de transformation d'une tonne= 5000+pourcentage de quantite de cacao demandee a chaque producteur multiplie par leur prix, afin d'avoir un prix de transfo d'environ 8000€/t
 	
 // on ne prend plus en compte les couts de livraison : on considere qu'ils sont inclus dans le prix car on ne sait pas a qui on achete
 	

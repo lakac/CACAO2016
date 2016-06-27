@@ -32,6 +32,6 @@ public abstract class Commande {
 	}
 	
 	public String toString() {
-		return "com " + this.getQuantite();
+		return ("Quantite Commande Distributeur : " + this.getQuantite() + "\n");
 	}
 }
