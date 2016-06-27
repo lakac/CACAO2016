@@ -1,4 +1,6 @@
 package abstraction.equipe2;
+import javax.swing.plaf.synth.SynthScrollBarUI;
+
 import abstraction.commun.*;
 
 public class Constante {
@@ -11,7 +13,6 @@ public static final double RATIO_TRANSFORMATION_70=0.7;
 public static final double TRESORERIE_INITIALE=300000;
 public static final double COUT_DE_TRANSFORMATION=3;
 public static final double RATIO_TRANSFORMATION=0.6;
-public static final double DEMANDE_ACTEURS=0.6;
 public static final double DEMANDE_MONDE=2./3.;
 public static final double DISTANCE_MONDE=4000;
 public static final double PRIX_MINIMUM=0.9;
@@ -21,7 +22,8 @@ public static final double ACHAT_SANS_PERTE=1;
 public static final double PERTE_MINIMALE = 0.2;
 public static final double VARIATION_PERTE =0.1;
 public static final double MARGE_DE_SECURITE = PERTE_MINIMALE+VARIATION_PERTE;
-public static final double MARGE = 0.3;
+public static final double MARGE = 0.03;
+
 
 public static final double COUT_UNITAIRE_TRANSPORT = 0.01;
 

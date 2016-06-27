@@ -63,6 +63,8 @@ public class MondeV1 extends Monde {
 		this.ajouterActeur(p1);
 		abstraction.equipe4.Producteur p2 = new abstraction.equipe4.Producteur(Monde.LE_MONDE);
 		this.ajouterActeur(p2);
+		CotedIvoire CoteDIvoire = new CotedIvoire();
+		this.ajouterActeur(CoteDIvoire);
 		
 		// Marché Producteur
 				MarcheProd marcheProducteur = new MarcheProd();
@@ -102,7 +104,7 @@ public class MondeV1 extends Monde {
 		marcheProducteur.AjoutTransformateur(nestle);
 		marcheProducteur.AjoutTransformateur(lindt);
 		marcheProducteur.AjoutTransformateur(t3);
-		//penser a ajouter la cote d'ivoire
+		marcheProducteur.AjoutProducteur(CoteDIvoire);
 
 		
 
