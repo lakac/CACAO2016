@@ -16,7 +16,7 @@ public class Transformation {
 	//variables d'instance, 
 	//représente à l'étape n la quantité produite de chocolat de chaque espèce
 	private HashMap<Produit,Double> transformation;
-		
+			
 	//accesseur en lecture
 	public HashMap<Produit,Double> getTransformation() {
 		return this.transformation;

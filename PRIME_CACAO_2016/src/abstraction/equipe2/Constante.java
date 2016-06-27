@@ -1,4 +1,6 @@
 package abstraction.equipe2;
+import javax.swing.plaf.synth.SynthScrollBarUI;
+
 import abstraction.commun.*;
 
 public class Constante {
