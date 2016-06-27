@@ -8,8 +8,6 @@ import abstraction.commun.CommandeProduc;
 import abstraction.commun.IProducteur;
 import abstraction.commun.ITransformateurP;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Random;
 
 public class Producteur implements Acteur, IProducteur {
