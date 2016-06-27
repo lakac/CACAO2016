@@ -109,10 +109,10 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 
 	
 	public void next() {
-		this.getJournal().ajouter("\n");
-		this.getJournal().ajouter("---------------");
-		this.getJournal().ajouter("\n");
-		this.getJournal().ajouter("Step : " + Monde.LE_MONDE.getStep());
+//		this.getJournal().ajouter("\n");
+//		this.getJournal().ajouter("---------------");
+//		this.getJournal().ajouter("\n");
+//		this.getJournal().ajouter("Step : " + Monde.LE_MONDE.getStep());
 		
 		// transforme le cacao en chocolat et met à jour les stocks (retire pour cacao et ajoute pour chocolat)
 		this.getTransformationCacaoChocolat().Transformation(); 
@@ -127,7 +127,7 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 		//calcul les commandes du reste des distributeurs et les ajoute à l'historique CommandeDistri
 		resteDesDistributeurs.commandesDistributeurRestant(); 
 		
-		this.getJournal().ajouter("Historique Commande Distributeur : " + this.getHistCommandeDistri().getHist().toString());
+//		this.getJournal().ajouter("Historique Commande Distributeur : " + this.getHistCommandeDistri().getHist().toString());
 		
 //		// commandes fictives du cote distributeur pour voir si notre code fonctionne
 //		Commande commande1 = new CommandeDistri(this.getDistributeurs().get(0), this, Constante.LISTE_PRODUIT[0], 1000, this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[0]), Monde.LE_MONDE.getStep()+3, true);
@@ -148,14 +148,14 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 		// mise a jour de la tresorerie due aux couts en interne
 		this.getTreso().retrait(this.getTreso().coutStock()+Constante.CHARGES_FIXES_STEP);
 		
-		this.getJournal().ajouter("\n");
-		this.getJournal().ajouter("Cout de stock : " + this.getTreso().coutStock());
-		this.getJournal().ajouter("Tréso avant paie distributeurs : " + this.getTreso());
-		this.getJournal().ajouter("Paye par distributeur " + this.getTreso().payeParDistrib());
+//		this.getJournal().ajouter("\n");
+//		this.getJournal().ajouter("Cout de stock : " + this.getTreso().coutStock());
+//		this.getJournal().ajouter("Tréso avant paie distributeurs : " + this.getTreso());
+//		this.getJournal().ajouter("Paye par distributeur " + this.getTreso().payeParDistrib());
 		
 		this.getTreso().depot(this.getTreso().payeParDistrib());
 		
-		this.getJournal().ajouter("Tréso apres paie distributeurs : " + this.getTreso());
+//		this.getJournal().ajouter("Tréso apres paie distributeurs : " + this.getTreso());
 	}
 	
 	

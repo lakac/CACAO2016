@@ -33,6 +33,7 @@ public class VenteDist {
 	/**
 	 *  creation d'une fonction qui renvoie le prix d'un produit
 	 *  elle prend le cout de revient (tout ce que ca nous coute pour produire un produit) auquel on ajoute une marge
+	 *  prix de vente actualise a chaque step grace au cout de revient
 	 *  @param produit
 	 */ 
 	public double prixProduit(Produit p) {

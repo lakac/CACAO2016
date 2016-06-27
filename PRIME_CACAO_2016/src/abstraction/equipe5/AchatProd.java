@@ -96,17 +96,20 @@ public class AchatProd {
 				+ lindt.getStockChocolat60().getStock()*Constante.LISTE_PRODUIT[1].getRatioCacao()
 				+ lindt.getStockChocolat70().getStock()*Constante.LISTE_PRODUIT[2].getRatioCacao();
 		
-		this.getJournal().ajouter("Quantite dans commande distributeur : " + besoinCacao);
+//		this.getJournal().ajouter("Quantite dans commande distributeur : " + besoinCacao);
 		
 		if (stockCacao-Constante.STOCK_MINIMAL_CACAO<besoinCacao){
 			besoinCacao=besoinCacao-stockCacao+Constante.STOCK_MINIMAL_CACAO;
 		}
 		
-		if (lindt.getStockCacao().getStock()+commandeP > Constante.STOCK_MAXIMAL_CACAO) {
-				besoinCacao = 0;
-		}
+//		this.getJournal().ajouter("Besoin Cacao Final : " + besoinCacao);
+
+// 		on a enleve le stock maximal car notre solde arrive trop rapidement a Infinity 
+//		et les couts de stock sont le seul moyen d'avoir des grosses depenses pas entierement couverte par les ventes
+//		if (lindt.getStockCacao().getStock()+commandeP+besoinCacao> Constante.STOCK_MAXIMAL_CACAO) {
+//				besoinCacao = 0;
+//		}
 		
-		this.getJournal().ajouter("Besoin Cacao Final : " + besoinCacao);
 		
 //		// Calcul du prix d'achat : si au step precedent on n'a pas eu ce qu'on veut, on achete plus cher
 //		double prixDemande;
@@ -125,7 +128,7 @@ public class AchatProd {
 	 * Indique la quantite demandee aux producteurs.
 	 */
 	public double annonceQuantiteDemandee(){ 
-		this.getJournal().ajouter("Besoin en Cacao : " + this.calculQuantiteDemandee().getQuantite());
+//		this.getJournal().ajouter("Besoin en Cacao : " + this.calculQuantiteDemandee().getQuantite());
 		return this.calculQuantiteDemandee().getQuantite();
 	}
 	
@@ -138,24 +141,26 @@ public class AchatProd {
 		
 		this.getHistP().ajouter(c);
 		
-		this.getJournal().ajouter("\n");
-		this.getJournal().ajouter("Quantite recue : " + c.getQuantite());
-		this.getJournal().ajouter("Prix commande producteur :" + c.getPrixTonne());
-		this.getJournal().ajouter("Stock avant ajout quantite recue : " + this.getStock().getStock());
-		this.getJournal().ajouter("Quantite de cacao perdue : " + c.getQuantite()*Constante.perteCacao());
+//		this.getJournal().ajouter("\n");
+//		this.getJournal().ajouter("Quantite recue : " + c.getQuantite());
+//		this.getJournal().ajouter("Prix commande producteur :" + c.getPrixTonne());
+//		this.getJournal().ajouter("Stock avant ajout quantite recue : " + this.getStock().getStock());
+//		this.getJournal().ajouter("Quantite de cacao perdue : " + c.getQuantite()*Constante.perteCacao());
 		
 		this.getStock().ajouterStock(c.getQuantite());
 		
-		this.getJournal().ajouter("Stock apres : " + this.getStock().getStock());
-		this.getJournal().ajouter("\n");
-		this.getJournal().ajouter("Prix paye aux producteurs : " + c.getQuantite()*c.getPrixTonne());
-		this.getJournal().ajouter("Treso avant de payer : " + this.treso.toString());
+//		this.getJournal().ajouter("Stock apres : " + this.getStock().getStock());
+//		this.getJournal().ajouter("\n");
+//		this.getJournal().ajouter("Prix paye aux producteurs : " + c.getQuantite()*c.getPrixTonne());
+//		this.getJournal().ajouter("Treso avant de payer : " + this.treso.toString());
 		
 		this.getTreso().retrait(c.getQuantite()*c.getPrixTonne());
 		
-		this.getJournal().ajouter("Treso apres : " + this.treso.toString());
+//		this.getJournal().ajouter("Treso apres : " + this.treso.toString());
 	}
+
 	
+
 //	/**
 //	 * Indique le prix propose au producteur .
 //	 */

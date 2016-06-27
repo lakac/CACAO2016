@@ -14,8 +14,8 @@ public class Constante {
 	 public static final double STOCK_MINIMAL_CACAO = 50;
 	 public static final double STOCK_MINIMAL_CHOCO = 20;
 	 public static final double COUT_TRANSFORMATION = 5000;
-	 public static final double[] MARGE_PRODUIT = {0.15, 0.2, 0.17};
+	 public static final double[] MARGE_PRODUIT = {0.07, 0.12, 0.10};
 	 public static final double COUT_STOCK_TONNE_STEP = 18;
 	 public static double perteCacao() {return (20+10*Math.random())/100;}; // on perd entre 20 et 30% de cacao a chaque livraison de cacao 
-	 public static final double STOCK_MAXIMAL_CACAO = 20000;
+	 public static final double STOCK_MAXIMAL_CACAO = 20000; //enleve car solde trop rapidement a Infinity
 }

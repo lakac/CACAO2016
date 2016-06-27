@@ -22,7 +22,7 @@ public class Tresorerie {
 		this.histProduc = histProduc;
 		this.lindt = lindt;
 		this.listeProducteurs=P;
-		this.treso = new Indicateur("Solde de Lindt", lindt, 1000000000);
+		this.treso = new Indicateur("Solde de Lindt", lindt, 1000000);
 		Monde.LE_MONDE.ajouterIndicateur(this.treso);
 		this.journal = journal;
 	}
@@ -48,13 +48,13 @@ public class Tresorerie {
 
 	public void depot(double d) {
 		if (d > 0) {
-			this.getJournal().ajouter("Depot sur treso de "+d);
+//			this.getJournal().ajouter("Depot sur treso de "+d);
 			this.setTresorerie(this.getTresorerie()+d);}
 	}
 	
 	public void retrait(double d) {
 		if (d > 0) {
-			this.getJournal().ajouter("Retrait sur treso de "+d);
+//			this.getJournal().ajouter("Retrait sur treso de "+d);
 			this.setTresorerie(this.getTresorerie()-d);	
 		}
 	}
@@ -62,6 +62,7 @@ public class Tresorerie {
 	/** methode qui donne les depenses totales pour produire 1t de cacao
 	 * Elle permet de calculer le prix de vente de chaque produit en prenant ces depenses auquelles on ajoute une marge 
 	 * pour chaque produit
+	 * le cout de revient s'actualise a chaque step car il depend des cout d'achat
 	 * @return double : depenses totales pour produire 1t
 	 */
 	public double coutRevient(){
