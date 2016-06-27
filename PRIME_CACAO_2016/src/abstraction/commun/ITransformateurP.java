@@ -6,6 +6,7 @@ public interface ITransformateurP {
 	 */
 	
 	public double annoncePrix();
+	
 	/**
 	 * Indique la quantité demandée au marché du cacao.
 	 * 
