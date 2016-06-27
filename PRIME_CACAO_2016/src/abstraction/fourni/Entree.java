@@ -1,5 +1,6 @@
 package abstraction.fourni;
 
+
 public class Entree {
 	private Acteur auteur; // l'auteur de la modification
 	private double valeur; // la nouvelle valeur
@@ -30,3 +31,4 @@ public class Entree {
 		return this.getAuteur().getNom()+" a l'etape "+this.getEtape()+" --> "+this.getValeur();
 	}
 }
+

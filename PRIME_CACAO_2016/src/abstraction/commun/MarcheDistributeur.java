@@ -208,9 +208,11 @@ public class MarcheDistributeur implements Acteur {
 			while (marcheValide(NegoDistri) == false) {
 				i+=1;
 				NegoTransfo = this.RenvoiDistri(NegoDistri);
+				
 				HashMap<IDistributeur, List<CommandeDistri>> NegoDistriTemp = copieProfonde(NegoDistri);
 				System.out.println("NegoTransfo avant offre --> "+NegoTransfo);
 				for (ITransformateurD t : this.getLesTransfos()) {
+					System.out.println("Le marché connait comme transformateurs " + this.getLesTransfos());
 					System.out.println("Liste de commandes pour "+t+" :"+NegoTransfo.get(t));
 					NegoTransfo.replace(t, t.offre(NegoTransfo.get(t)));
 				}
