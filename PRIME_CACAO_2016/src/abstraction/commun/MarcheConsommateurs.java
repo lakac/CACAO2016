@@ -59,13 +59,15 @@ public class MarcheConsommateurs implements Acteur {
 	
 
 	
-	public MarcheConsommateurs(){
+	public MarcheConsommateurs(String nom){
 		MarcheConsommateurs.distributeurs=new ArrayList<IDistributeur>();
 		this.demandeComposanteContinue=new HashMap <Produit,Double>();
 		this.demandeComposanteAleatoire=new HashMap <Produit,Double>();
 		this.pourcentageIncertitudeVentes=new HashMap <Produit,Double>();
 		this.offreTotale=new HashMap <Produit,Double>();
 		this.demandeAnnuelle=new HashMap <Produit,Double>();
+		this.nom=nom;
+
 		//this.initialiser();
 	}
 	
