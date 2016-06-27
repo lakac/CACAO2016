@@ -20,8 +20,10 @@ public interface IDistributeur extends Acteur {
 
 
 	public Double getStock(Produit p);	
+	public Double getStock(Produit p, ITransformateurD t);
 	
 	public Double getPrixVente(Produit p);
+	public Double getPrixVente(Produit p, ITransformateurD t);
 		
 
 }
