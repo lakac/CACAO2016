@@ -47,7 +47,7 @@ public class VenteDist {
 	}
 	
 	/**
-	  *creation d'une fonction qui calcule la quantité totale demandée 
+	  *creation d'une fonction qui calcule la quantit� totale demand�e 
 	  *par les 3 distrib pour chacun des produits (dans l'ordre 50%,60%,70%)
 	  *@param listeCommandesDist
 	  */
@@ -67,39 +67,38 @@ public class VenteDist {
 	}
 
 	/**
-	 * Creation d'une fonction qui calcule la quantité de chocolat à mettre dans chaque commande
+	 * Creation d'une fonction qui calcule la quantit� de chocolat � mettre dans chaque commande
 	 * @param listeCommandesDist
 	 */
 	
-	//Cette fonction ne prend pas en compte le fait qu'on pourrait avoir un stock plus important au step n+3 grâce à la transformation
+	//Cette fonction ne prend pas en compte le fait qu'on pourrait avoir un stock plus important au step n+3 gr�ce � la transformation
 
 	// On considère que 25% de notre stock de chocolat est pour Leclerc+Carrefour et 75% pour un 3eme distributeur
-	
 	public List<CommandeDistri> offre(List<CommandeDistri> listeCommandesDist){
 		
 
 		for(int i=0; i<lindt.getDistributeurs().size(); i++){
 			double ratioLeclercCarrefour=0.25; //25% de notre stock est destiné à Leclerc et Carrefour
 			double stockChocolatI=ratioLeclercCarrefour*(lindt.getStocksChocolat().get(i).getStock()-Constante.STOCK_MINIMAL_CHOCO); //stock de chocolat i disponible pour Leclerc+Carrefour (25%), on se reserve un stock minimal
-			double QteDemandeeChocolatI=this.QuantiteDemandeeProduit(listeCommandesDist).get(i).doubleValue();// quantite totale de chocolat i demandée par les 3 dist
+			double QteDemandeeChocolatI=this.QuantiteDemandeeProduit(listeCommandesDist).get(i).doubleValue();// quantite totale de chocolat i demand�e par les 3 dist
 			
-			if(QteDemandeeChocolatI <= stockChocolatI){ //ok on peut fournir aux distrib la quantité de chocolats i qu'ils demandent donc on valide les commandes
+			if(QteDemandeeChocolatI <= stockChocolatI){ //ok on peut fournir aux distrib la quantit� de chocolats i qu'ils demandent donc on valide les commandes
 				
 				 for(CommandeDistri c : listeCommandesDist){
 					 if(c.getProduit().getNomProduit()==Constante.LISTE_PRODUIT[i].getNomProduit()){ 
 						 c.setValidation(true);}}} //on valide les commandes de produit i puisqu'on a assez de chocolats i
 			else{
-				double quantiteRepartie=lindt.getStocksChocolat().get(i).getStock()/(lindt.getDistributeurs().size()); //Répartition équitable, donc si 3 dist, on divise la quantité totale par 3)
+				double quantiteRepartie=lindt.getStocksChocolat().get(i).getStock()/(lindt.getDistributeurs().size()); //R�partition �quitable, donc si 3 dist, on divise la quantit� totale par 3)
 				
 				for (CommandeDistri c : listeCommandesDist){
 					if(c.getProduit().getNomProduit()==Constante.LISTE_PRODUIT[i].getNomProduit()){// si les commandes concernent le chocolat I
-						if(c.getValidation()==true){ // si les commandes avaient déjà été validées on ne les modifie pas et on retire fictivement du chocolat des stocks 
+						if(c.getValidation()==true){ // si les commandes avaient d�j� �t� valid�es on ne les modifie pas et on retire fictivement du chocolat des stocks 
 							stockChocolatI=stockChocolatI-c.getQuantite();
 						}
 						else{
-							while(stockChocolatI>0.5){// tant qu'il me reste du stock de chocolat i (limite à 0,5 tonne)
+							while(stockChocolatI>0.5){// tant qu'il me reste du stock de chocolat i (limite � 0,5 tonne)
 								int j=0; 
-								if(c.getQuantite()<=quantiteRepartie){ //si la quantite demandee dans la commande est inférieure à quantiteRepartie
+								if(c.getQuantite()<=quantiteRepartie){ //si la quantite demandee dans la commande est inf�rieure � quantiteRepartie
 									c.setValidation(true); //on valide la commande
 									stockChocolatI -= c.getQuantite();
 									quantiteRepartie=stockChocolatI/(lindt.getDistributeurs().size()-j);
@@ -147,7 +146,7 @@ public class VenteDist {
 	}
 	
 	/**
-	 *fonction que l'intermédiaire va appeler pour savoir les commandes que l'on livre réellement
+	 *fonction que l'interm�diaire va appeler pour savoir les commandes que l'on livre r�ellement
 	 *@param liste des livraisons
 	 */
 	public List<CommandeDistri> LivraisonEffective(List<CommandeDistri> livraison){
@@ -155,6 +154,3 @@ public class VenteDist {
 	}
 	
 }
-			
-
-	
