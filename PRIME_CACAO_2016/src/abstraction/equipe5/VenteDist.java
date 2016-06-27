@@ -71,9 +71,11 @@ public class VenteDist {
 	 */
 	
 	//Cette fonction ne prend pas en compte le fait qu'on pourrait avoir un stock plus important au step n+3 grâce à la transformation
+
 	// On considère que 25% de notre stock de chocolat est pour Leclerc+Carrefour et 75% pour un 3eme distributeur
 	public List<CommandeDistri> offre(List<CommandeDistri> listeCommandesDist){
 		
+
 		for(int i=0; i<lindt.getDistributeurs().size(); i++){
 			double ratioLeclercCarrefour=0.25; //25% de notre stock est destiné à Leclerc et carrefour
 			double stockChocolatI=ratioLeclercCarrefour*(lindt.getStocksChocolat().get(i).getStock()-Constante.STOCK_MINIMAL_CHOCO); //stock de chocolat i disponible pour Leclerc+Carrefour (25%), on se reserve un stock minimal
@@ -107,10 +109,12 @@ public class VenteDist {
 									}
 								}
 							}
+
 						}
 					}
 				}
 			}return listeCommandesDist; 
+
 	}
 	
 	

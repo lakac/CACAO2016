@@ -22,6 +22,7 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 	private ArrayList<Stock> stocksChocolat;
 	private TransformationCacaoChocolat transfo;
 	private ResteDesDistributeurs resteDesDistributeurs;
+	private Journal journal;
 
 	public Lindt(){
 		this.histCommandeDistri = new HistoriqueCommande();
@@ -37,15 +38,17 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 		this.stocksChocolat.add(this.stockChocolat50);
 		this.stocksChocolat.add(this.stockChocolat60);
 		this.stocksChocolat.add(this.stockChocolat70);
-		this.transfo=new TransformationCacaoChocolat(this);
+		this.transfo = new TransformationCacaoChocolat(this);
+		this.journal = new Journal("Journal de Lindt");
+		Monde.LE_MONDE.ajouterJournal(this.journal);
 	}
 
 	public void creer() {
 		this.histCommandeProduc.ajouter(new CommandeProduc(100.0, MarcheProd.LE_MARCHE.getCoursCacao().getValeur()));
 		this.histCommandeProduc.ajouter(new CommandeProduc(100.0, MarcheProd.LE_MARCHE.getCoursCacao().getValeur()));
-		this.treso = new Tresorerie(this.histCommandeDistri, this.histCommandeProduc, this, this.getProducteurs());
-		this.achatProd = new AchatProd(this.histCommandeProduc,this.histCommandeDistri, this, this.stockCacao, this.treso);	
-		this.venteDist = new VenteDist(this, this.getTreso());
+		this.treso = new Tresorerie(this.histCommandeDistri, this.histCommandeProduc, this, this.getProducteurs(), this.getJournal());
+		this.achatProd = new AchatProd(this.histCommandeProduc,this.histCommandeDistri, this, this.stockCacao, this.getTreso(), this.getJournal());	
+		this.venteDist = new VenteDist(this, this.getTreso(), this.getJournal());
 		this.resteDesDistributeurs= new ResteDesDistributeurs(this, venteDist);
 	}
 
@@ -100,13 +103,21 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 	public TransformationCacaoChocolat getTransformationCacaoChocolat(){
 		return this.transfo;
 	}
+	public Journal getJournal() {
+		return this.journal;
+	}
 
 	
 	public void next() {
-		this.getTransformationCacaoChocolat().Transformation(); // transforme le cacao en chocolat et met ﾃ� jour les stocks (retire pour cacao et ajoute pour chocolat)
+		this.getJournal().ajouter("\n");
+		this.getJournal().ajouter("---------------");
+		this.getJournal().ajouter("\n");
+		this.getJournal().ajouter("Step : " + Monde.LE_MONDE.getStep());
 		
-		// si on commente ﾃｧa, pas de rouge --> il y a surement une erreur dans MarcheDistri obtenirCommandeFinale
-		for(IDistributeur d: this.getDistributeurs()){ // ajout des commandes finales ﾃ� notre historique
+		this.getTransformationCacaoChocolat().Transformation(); // transforme le cacao en chocolat et met à jour les stocks (retire pour cacao et ajoute pour chocolat)
+		
+		 //si on commente ﾃｧa, pas de rouge --> il y a surement une erreur dans MarcheDistri obtenirCommandeFinale
+		for(IDistributeur d: this.getDistributeurs()){ // ajout des commandes finales dans notre historique
 			for (CommandeDistri cd : MarcheDistributeur.LE_MARCHE_DISTRIBUTEUR.obtenirCommandeFinale(this,d)){ 
 				//tant que les distributeurs ne crﾃｩent pas dans le marche une variable d'instance static 
 				// (public static MarcheDistributeur LE_MARCHE_DISTRIBUTEUR;), on ne pourra pas appeler cette mﾃｩthode
@@ -117,36 +128,40 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 		System.out.println(getHistCommandeDistri());
 		
 		// commandes fictives du cote distributeur pour voir si notre code fonctionne
-		Commande commande1 = new CommandeDistri(this.getDistributeurs().get(0), this, Constante.LISTE_PRODUIT[0], 30, this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[0]), Monde.LE_MONDE.getStep()+3, true);
-		Commande commande2 = new CommandeDistri(this.getDistributeurs().get(0), this, Constante.LISTE_PRODUIT[1], 20, this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[1]), Monde.LE_MONDE.getStep()+3, true);
-		Commande commande3 = new CommandeDistri(this.getDistributeurs().get(0), this, Constante.LISTE_PRODUIT[2], 10, this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[2]), Monde.LE_MONDE.getStep()+3, true);
-		
-		this.getHistCommandeDistri().ajouter(commande1);
-		this.getHistCommandeDistri().ajouter(commande2);
-		this.getHistCommandeDistri().ajouter(commande3);
+//		Commande commande1 = new CommandeDistri(this.getDistributeurs().get(0), this, Constante.LISTE_PRODUIT[0], 30, this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[0]), Monde.LE_MONDE.getStep()+3, true);
+//		Commande commande2 = new CommandeDistri(this.getDistributeurs().get(0), this, Constante.LISTE_PRODUIT[1], 20, this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[1]), Monde.LE_MONDE.getStep()+3, true);
+//		Commande commande3 = new CommandeDistri(this.getDistributeurs().get(0), this, Constante.LISTE_PRODUIT[2], 10, this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[2]), Monde.LE_MONDE.getStep()+3, true);
+//		
+//		this.getHistCommandeDistri().ajouter(commande1);
+//		this.getHistCommandeDistri().ajouter(commande2);
+//		this.getHistCommandeDistri().ajouter(commande3);
 		
 		// test pour voir si les commandes passent bien à chaque step
-		System.out.println("Informations liées à la commande du produit 50% :");
-		System.out.println(commande1.getPrixTonne());
-		System.out.println(commande1.getQuantite());
-		System.out.println("Informations liées à la commande du produit 60% :");
-		System.out.println(commande2.getPrixTonne());
-		System.out.println(commande2.getQuantite());
-		System.out.println("Informations liées à la commande du produit 70% :");
-		System.out.println(commande3.getPrixTonne());
-		System.out.println(commande3.getQuantite());
-
-		stockChocolat50.retirerStockChocolat(Monde.LE_MONDE.getStep());
-		stockChocolat60.retirerStockChocolat(Monde.LE_MONDE.getStep());
-		stockChocolat70.retirerStockChocolat(Monde.LE_MONDE.getStep());
+//		this.getJournal().ajouter("Informations liées à la commande du produit 50% :");
+//		this.getJournal().ajouter("prix : " + commande1.getPrixTonne());
+//		this.getJournal().ajouter("quantite : " + commande1.getQuantite());
+//		this.getJournal().ajouter("Informations liées à la commande du produit 60% :");
+//		this.getJournal().ajouter("prix : " + commande2.getPrixTonne());
+//		this.getJournal().ajouter("quantite : " + commande2.getQuantite());
+//		this.getJournal().ajouter("Informations liées à la commande du produit 70% :");
+//		this.getJournal().ajouter("prix : " + commande3.getPrixTonne());
+//		this.getJournal().ajouter("quantite : " + commande3.getQuantite());
 		
-		venteDist.MiseAJourHistCommandeDistri();
-		treso.retrait(treso.coutStock()+treso.coutLivraison()+Constante.CHARGES_FIXES_STEP);
-		treso.depot(treso.payeParDistrib());
-		System.out.println("paye par distributeur "+treso.payeParDistrib());
+		// variation de stock du aux commandes livrees et mise a jour de l'historique
+		this.getStockChocolat50().retirerStockChocolat(Monde.LE_MONDE.getStep());
+		this.getStockChocolat60().retirerStockChocolat(Monde.LE_MONDE.getStep());
+		this.getStockChocolat70().retirerStockChocolat(Monde.LE_MONDE.getStep());
+		this.getVenteDist().MiseAJourHistCommandeDistri();
+		
+		// mise a jour de la tresorerie due aux couts en interne
+		this.getTreso().retrait(this.getTreso().coutStock()+Constante.CHARGES_FIXES_STEP);
+		this.getJournal().ajouter("\n");
+		this.getJournal().ajouter("Cout de stock : " + this.getTreso().coutStock());
+		this.getJournal().ajouter("Tréso avant paie distributeurs : " + this.getTreso());
+		this.getTreso().depot(this.getTreso().payeParDistrib());
+		this.getJournal().ajouter("Paye par distributeur " + this.getTreso().payeParDistrib());
+		this.getJournal().ajouter("Tréso apres paie distributeurs : " + this.getTreso());
 	}
-
-	
 	
 	// Fonctions finies
 	public List<CommandeDistri> offre(List<CommandeDistri> o) {
@@ -177,7 +192,7 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 		return catalogue;
 	}
 
-	
+
 	// Ne plus coder celles la, elles vont disparaitre!
 	public double annonceQuantiteDemandee(IProducteur p) {	return 0;}
 	public void notificationVente(IProducteur p){ 	}
