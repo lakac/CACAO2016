@@ -31,7 +31,6 @@ public class ResteDesDistributeurs{
 		}
 
 	/*	@Override
->>>>>>> branch 'master' of https://github.com/lakac/CACAO2016.git
 		public List<CommandeDistri> Demande(ITransformateurD t, Catalogue c) {
 			// TODO Auto-generated method stub
 			return null;
@@ -87,7 +86,7 @@ public class ResteDesDistributeurs{
 	}
 	
 	// prendre les commandes finales de leclerc et carrefour et les multiplier par 3 pour obtenir les commandes du 3eme distributeur.
-	//Ne pas oublier de les rajouter à l'historique de commande distri!
+	//Ne pas oublier de les rajouter ï¿½ l'historique de commande distri!
 	
 	public List<CommandeDistri> commandesDistributeurRestant(){
 		List<CommandeDistri> commandesResteDuMonde= new ArrayList<CommandeDistri>();
@@ -98,8 +97,8 @@ public class ResteDesDistributeurs{
 				commandesResteDuMonde.add(cd);
 				commandesResteDuMonde.get(i).setAcheteur(distributeurRestant);
 				
-				double qteCommandeResteDuMonde=ratioCommandeResteDuMonde*cd.getQuantite();//quantité que le distributeur restant doit commander
-				commandesResteDuMonde.get(i).setQuantite(qteCommandeResteDuMonde);//mise à jour de la bonne quantité dans la commande
+				double qteCommandeResteDuMonde=ratioCommandeResteDuMonde*cd.getQuantite();//quantitï¿½ que le distributeur restant doit commander
+				commandesResteDuMonde.get(i).setQuantite(qteCommandeResteDuMonde);//mise ï¿½ jour de la bonne quantitï¿½ dans la commande
 				lindt.getHistCommandeDistri().ajouter(cd);
 				i++;
 			}
