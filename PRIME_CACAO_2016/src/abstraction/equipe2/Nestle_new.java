@@ -343,7 +343,9 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 		this.iTresorerie.setValeur(this, this.getTresorerie().getFonds());
 		this.iStockcacao.setValeur(this, this.getStockcacao().getStockcacao().get(Constante.CACAO));
 		this.iCommandeDistri.setValeur(this, this.QuantiteTotaleCommandee(this.historiquecommandesdistri.get(etape-1)));
-		//this.iCommandeProduc.setValeur(this, this.getCommandeProduc(etape-1).getQuantite());
+		if (this.getEtape()>2) {
+			this.iCommandeProduc.setValeur(this, this.getCommandeProduc(etape-2).getQuantite());
+		}
 	}
 	
 	
