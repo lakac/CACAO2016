@@ -92,7 +92,7 @@ public class MarcheProd implements Acteur{
 		this.quantiteTotaleFournie = quantiteTotaleFournise;
 	}
 
-	//Méthode du producteur Asie Amerique
+	//Methode du producteur Asie Amerique
 	
 	/**Ajout d'un producteur a la liste des producteurs */
 	public void AjoutProducteur(IProducteur p){
@@ -114,7 +114,7 @@ public class MarcheProd implements Acteur{
 			this.setQuantiteTotaleDemandee(this.getQuantiteTotaleDemandee()+t.annonceQuantiteDemandee());
 		}
 		//On calcule la quantitee totale fournie 
-		//(somme de toutes les demandes transformateurs)
+		//(somme de toutes les offre producteur)
 		for (IProducteur p : this.getProducteurs()){
 			this.setQuantiteTotaleFournie(this.getQuantiteTotaleFournie()+p.annonceQuantiteProposee());		
 		}
@@ -133,34 +133,38 @@ public class MarcheProd implements Acteur{
 		this.getHistorique().ajouter(this, Monde.LE_MONDE.getStep(), this.getCoursCacao().getValeur());
 	}
 
+	
 	public void next() {
-		//on actualise le cours du marchﾃｩ selon les donnﾃｩes de ce step
+		//on actualise le cours du marche selon les donnees de ce step
 		this.ActualisationCours();
-		//on rﾃｩpartit les commandes ﾃｩquitablement
+		//on repartit les commandes equitablement
 		if (this.getQuantiteTotaleDemandee()!=0.0 && this.getQuantiteTotaleFournie()!=0.0){
 		if (this.getQuantiteTotaleDemandee()>this.getQuantiteTotaleFournie()){
 			
-			//si la demande est plus forte, les producteurs vendent tout et on rﾃｩpartit, proportionellement ﾃ� leur demande,le cacao au transformateurs 
+			//si la demande est plus forte, les producteurs vendent tout et on repartit, proportionellement a leur demande,le cacao au transformateurs 
 			for(IProducteur p : this.getProducteurs()){
+				// on notifie la vente
 				p.notificationVente(new CommandeProduc(p.annonceQuantiteProposee(),this.getCoursCacao().getValeur()));
 			}
 			for (ITransformateurP t : this.transformateurs){
 				double quantiteLivree = t.annonceQuantiteDemandee()*(this.getQuantiteTotaleFournie()/this.getQuantiteTotaleDemandee());
+				// on notifie la vente
 				t.notificationVente(new CommandeProduc(quantiteLivree,this.getCoursCacao().getValeur()));
 			}
 		}else{
-			//Cas contraire : les transformateurs sont sﾃｻr d'avoir leur commande et on rﾃｩpartit les ventes des producteurs proportionnelement ﾃ� ce qu'ils ont mis sur le marchﾃｩ
+			//Cas contraire : les transformateurs sont sur d'avoir leur commande et on repartit les ventes des producteurs proportionnelement ﾃ� ce qu'ils ont mis sur le marchﾃｩ
 			for (ITransformateurP t : this.getTransformateurs()){
+				// on notifie la vente
 				t.notificationVente(new CommandeProduc(t.annonceQuantiteDemandee(),this.getCoursCacao().getValeur()));	
 			}
 			for (IProducteur p : this.getProducteurs()){
 				double quantiteVendue = p.annonceQuantiteProposee()*(this.getQuantiteTotaleDemandee()/this.getQuantiteTotaleFournie());
+				// on notifie la vente
 				p.notificationVente(new CommandeProduc(quantiteVendue,this.getCoursCacao().getValeur()));
 			}
 			
 		}
 		}	
-		
 		
 	}
 
