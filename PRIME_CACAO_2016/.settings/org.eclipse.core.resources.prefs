@@ -1,6 +1,3 @@
-=\=\=\=\=\=\=
-<<<<<<<=HEAD
->>>>>>>=refs/remotes/choose_remote_name/master
 eclipse.preferences.version=1
 encoding//src/abstraction/commun/Constantes.java=UTF-8
 encoding//src/abstraction/commun/IDistributeur.java=UTF-8
