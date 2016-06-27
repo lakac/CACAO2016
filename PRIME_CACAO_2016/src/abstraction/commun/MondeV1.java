@@ -1,4 +1,3 @@
-
 package abstraction.commun;
 
 import abstraction.fourni.Monde;
