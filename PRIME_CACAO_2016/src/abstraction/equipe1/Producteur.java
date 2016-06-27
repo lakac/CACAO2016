@@ -36,7 +36,11 @@ public class Producteur implements Acteur, IProducteur {
 	private Indicateur productionCourante;
 	private Indicateur tresorerie;
 	private double coutProduction;
-
+	
+	//juste un constructeur pour les test de Nestle
+	public Producteur(String nom) {
+	}
+	
 	// Variable d'echange
 	private double quantiteProposee;
 

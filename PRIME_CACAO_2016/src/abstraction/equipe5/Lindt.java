@@ -116,7 +116,7 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 		
 		this.getTransformationCacaoChocolat().Transformation(); // transforme le cacao en chocolat et met ﾃ� jour les stocks (retire pour cacao et ajoute pour chocolat)
 		
-		 //si on commente ﾃｧa, pas de rouge --> il y a surement une erreur dans MarcheDistri obtenirCommandeFinale
+		 //si on commentera, pas de rouge --> il y a surement une erreur dans MarcheDistri obtenirCommandeFinale
 		for(IDistributeur d: this.getDistributeurs()){ // ajout des commandes finales ﾃ� notre historique
 			for (CommandeDistri cd : MarcheDistributeur.LE_MARCHE_DISTRIBUTEUR.obtenirCommandeFinale(this,d)){ 
 				//tant que les distributeurs ne crﾃｩent pas dans le marche une variable d'instance static 
