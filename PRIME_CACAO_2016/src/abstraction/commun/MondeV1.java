@@ -1,4 +1,3 @@
-
 package abstraction.commun;
 
 import abstraction.fourni.Monde;
@@ -54,9 +53,8 @@ public class MondeV1 extends Monde {
 		this.ajouterActeur(t3);
 		
 		// Marché Consommateur
-		MarcheCons marcheConsommateurs = new MarcheCons("MarcheCons", this.produits);
-		MarcheCons.LE_MARCHE_CONS = marcheConsommateurs;
-
+		MarcheConsommateurs marcheConsommateurs = new MarcheConsommateurs("conso");
+		MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS = marcheConsommateurs;
 		this.ajouterActeur(marcheConsommateurs);
 		
 		// Producteurs
@@ -81,7 +79,7 @@ public class MondeV1 extends Monde {
 		Ca.setMaDi(MaDi);
 
 
-		//nestle.ajouterClient(Le);
+		nestle.ajouterClient(Le);
 		nestle.ajouterClient(Ca);
 		nestle.ajouterFournisseurs(p1);
 		nestle.ajouterFournisseurs(p2);
@@ -89,7 +87,7 @@ public class MondeV1 extends Monde {
 
 		lindt.ajouterDistributeur(Ca);
 		lindt.ajouterDistributeur(Le);
-		//lindt.ajouterProducteur(p1);
+		lindt.ajouterProducteur(p1);
 		lindt.ajouterProducteur(p2);
 		lindt.creer();
 
@@ -98,13 +96,8 @@ public class MondeV1 extends Monde {
 		t3.ajouterTransformateur(nestle);
 		t3.ajouterTransformateur(lindt);
 		
-		/*p1.ajouterTransformateur(nestle);
-		p1.ajouterTransformateur(lindt);
-		p1.ajouterTransformateur(t3);*/
 
-		
-
-		//marcheProducteur.AjoutProducteur(p1);;
+		marcheProducteur.AjoutProducteur(p1);
 		marcheProducteur.AjoutProducteur(p2);
 		marcheProducteur.AjoutTransformateur(nestle);
 		marcheProducteur.AjoutTransformateur(lindt);
@@ -124,22 +117,10 @@ public class MondeV1 extends Monde {
 		Le.getStock().initialiseStock(Le);	
 		Le.initialiseRatio();
 		Le.getPrixDeVente().initialisePrixDeVente(Le, produits);
+		Le.getVentes().initialiseAnneeZero();
 		Le.getVentes().initialiseVentes();
-		/*
-		MarcheCons.LE_MARCHE_CONS.ajouterDistributeur(Le);
-		MarcheCons.LE_MARCHE_CONS.ajouterDistributeur(Ca);
-		MarcheCons.LE_MARCHE_CONS.ajouterTransformateur(nestle);
-		MarcheCons.LE_MARCHE_CONS.ajouterTransformateur(lindt);
-		*/
-		MarcheCons.LE_MARCHE_CONS.initialiserDemandeAnnuelle();
-		MarcheCons.LE_MARCHE_CONS.initialiserCalendrierDemande();
-		MarcheCons.LE_MARCHE_CONS.initialiserFidelite();
-		MarcheCons.LE_MARCHE_CONS.initialiserPourcentageIncertitudeVentes();
-		MarcheCons.LE_MARCHE_CONS.initialiserRatio();
-		
-		
 		MaDi.addDistributeur(Ca);
-		//MaDi.addDistributeur(Le);
+		MaDi.addDistributeur(Le);
 		MaDi.addTransformateur(lindt);
 		MaDi.addTransformateur(nestle);
 		for (Produit p : produits) {

@@ -98,19 +98,23 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	
 	public List<ITransformateurD> Classerparprix(Produit p){ 
 		List<ITransformateurD> liste = new ArrayList<ITransformateurD>();
-		List<ITransformateurD> transfo=this.getTransformateurs();
+		List<ITransformateurD> transfo=new ArrayList<ITransformateurD>(); 
+		
+		transfo.addAll(this.getTransformateurs());
+		
+		
 		int n;
-		transfo.remove(2);
-		while(transfo!=null){
+		while(transfo!=null && !transfo.isEmpty()){
 			double a=transfo.get(0).getCatalogue().getTarif(p).getPrixTonne();
 			n=0;
 			for (int j=0;j<transfo.size();j++){
 				if (transfo.get(j).getCatalogue().getTarif(p).getPrixTonne()<a){
 					a=transfo.get(j).getCatalogue().getTarif(p).getPrixTonne();
 					n=j;
-					liste.add(transfo.get(j));
+					
 				}	
 			}
+		liste.add(transfo.get(n));
 		transfo.remove(n);	
 		}
 		return liste;
@@ -121,11 +125,11 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	public ITransformateurD TransfoSuivant(CommandeDistri c){
 		List<ITransformateurD> liste = Classerparprix(c.getProduit());
 		int i;
-		if (c.getVendeur()==liste.get(0)){
+		if (c.getVendeur().equals(liste.get(0))){
 			i=0;
 		}
 		else{
-			if (c.getVendeur()==liste.get(1)){
+			if (c.getVendeur().equals(liste.get(1))){
 				i=1;
 			}
 			else{
