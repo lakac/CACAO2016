@@ -88,7 +88,7 @@ public class MondeV1 extends Monde {
 
 		lindt.ajouterDistributeur(Ca);
 		lindt.ajouterDistributeur(Le);
-		//lindt.ajouterProducteur(p1);
+		lindt.ajouterProducteur(p1);
 		lindt.ajouterProducteur(p2);
 		lindt.creer();
 
@@ -97,13 +97,8 @@ public class MondeV1 extends Monde {
 		t3.ajouterTransformateur(nestle);
 		t3.ajouterTransformateur(lindt);
 		
-		/*p1.ajouterTransformateur(nestle);
-		p1.ajouterTransformateur(lindt);
-		p1.ajouterTransformateur(t3);*/
 
-		
-
-		//marcheProducteur.AjoutProducteur(p1);;
+		marcheProducteur.AjoutProducteur(p1);
 		marcheProducteur.AjoutProducteur(p2);
 		marcheProducteur.AjoutTransformateur(nestle);
 		marcheProducteur.AjoutTransformateur(lindt);
