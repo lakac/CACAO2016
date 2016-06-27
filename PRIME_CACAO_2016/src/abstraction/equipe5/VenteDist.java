@@ -1,5 +1,6 @@
 package abstraction.equipe5;
 import abstraction.equipe5.Lindt;
+import abstraction.fourni.Journal;
 import abstraction.fourni.Monde;
 
 import java.util.ArrayList;
@@ -7,24 +8,26 @@ import java.util.List;
 
 import abstraction.commun.Commande;
 import abstraction.commun.CommandeDistri;
-
 import abstraction.commun.Produit;
 
 
 public class VenteDist {
 
-
 	private Lindt lindt;
-
 	private Tresorerie treso;
+	private Journal journal;
 
-	public VenteDist(Lindt lindt, Tresorerie treso){
-		this.lindt=lindt;
-		this.treso=treso;
+	public VenteDist(Lindt lindt, Tresorerie treso, Journal journal){
+		this.lindt = lindt;
+		this.treso = treso;
+		this.journal = journal;
 	}
 
 	public Tresorerie getTreso() {
 		return this.treso;
+	}
+	public Journal getJournal() {
+		return this.journal;
 	}
 
 	/**
@@ -33,9 +36,10 @@ public class VenteDist {
 	 */ 
 	public double prixProduit(Produit p) {
 		double r = 0;
+//		this.getJournal().ajouter("cout de revient "+this.getTreso().coutRevient());
 		for (int i=0; i<Constante.LISTE_PRODUIT.length; i++) {
 			if (p.equals(Constante.LISTE_PRODUIT[i])) {
-				r= this.getTreso().coutRevient() + Constante.MARGE_PRODUIT[i];
+				r= this.getTreso().coutRevient() / (1 - Constante.MARGE_PRODUIT[i]); // formule pour avoir le prix de vente quand on veut une marge spécifique
 			}
 		}
 		return r;
@@ -67,18 +71,17 @@ public class VenteDist {
 	 */
 	
 	//Cette fonction ne prend pas en compte le fait qu'on pourrait avoir un stock plus important au step n+3 grâce à la transformation
+
 	// On considère que 25% de notre stock de chocolat est pour Leclerc+Carrefour et 75% pour un 3eme distributeur
 	public List<CommandeDistri> offre(List<CommandeDistri> listeCommandesDist){
 		
-		for(int i=0; i<lindt.getDistributeurs().size(); i++){
-			
 
-			double stockChocolatI=0.25*(lindt.getStocksChocolat().get(i).getStock()-Constante.STOCK_MINIMAL_CHOCO); //stock de chocolat i disponible pour Leclerc+Carrefour (25%), on se reserve un stock minimal
+		for(int i=0; i<lindt.getDistributeurs().size(); i++){
+			double ratioLeclercCarrefour=0.25; //25% de notre stock est destiné à Leclerc et carrefour
+			double stockChocolatI=ratioLeclercCarrefour*(lindt.getStocksChocolat().get(i).getStock()-Constante.STOCK_MINIMAL_CHOCO); //stock de chocolat i disponible pour Leclerc+Carrefour (25%), on se reserve un stock minimal
 			double QteDemandeeChocolatI=this.QuantiteDemandeeProduit(listeCommandesDist).get(i).doubleValue();// quantite totale de chocolat i demandée par les 3 dist
 			
 			if(QteDemandeeChocolatI <= stockChocolatI){ //ok on peut fournir aux distrib la quantité de chocolats i qu'ils demandent donc on valide les commandes
-					//lindt.getStocksChocolat().get(i).setStock(stockChocolatI-QteDemandeeChocolatI); //mise à jour du stock de chocolat i
-					// a faire varier au step n+3
 				
 				 for(CommandeDistri c : listeCommandesDist){
 					 if(c.getProduit().getNomProduit()==Constante.LISTE_PRODUIT[i].getNomProduit()){ 
@@ -87,20 +90,32 @@ public class VenteDist {
 				double quantiteRepartie=lindt.getStocksChocolat().get(i).getStock()/(lindt.getDistributeurs().size()); //Répartition équitable, donc si 3 dist, on divise la quantité totale par 3)
 				
 				for (CommandeDistri c : listeCommandesDist){
-					if(c.getProduit().getNomProduit()==Constante.LISTE_PRODUIT[i].getNomProduit()){
-						while(stockChocolatI>0.5){// tant qu'il me reste du stock de chocolat i (limite à 0,5 tonne)
-							int j=0; 
-							if(c.getQuantite()<=quantiteRepartie){ //si la quantite demandee dans la commande est inférieure à quantiteRepartie
-								c.setValidation(true); //on valide la commande
-								//lindt.getStocksChocolat().get(i).setStock(stockChocolatI-quantiteRepartie); // on met à jour le stock de chocolat i
-								stockChocolatI -= c.getQuantite();
-								quantiteRepartie=stockChocolatI/(lindt.getDistributeurs().size()-j);
-								j++;	
+					if(c.getProduit().getNomProduit()==Constante.LISTE_PRODUIT[i].getNomProduit()){// si les commandes concernent le chocolat I
+						if(c.getValidation()==true){ // si les commandes avaient déjà été validées on ne les modifie pas et on retire fictivement du chocolat des stocks 
+							stockChocolatI=stockChocolatI-c.getQuantite();
+						}
+						else{
+							while(stockChocolatI>0.5){// tant qu'il me reste du stock de chocolat i (limite à 0,5 tonne)
+								int j=0; 
+								if(c.getQuantite()<=quantiteRepartie){ //si la quantite demandee dans la commande est inférieure à quantiteRepartie
+									c.setValidation(true); //on valide la commande
+									//lindt.getStocksChocolat().get(i).setStock(stockChocolatI-quantiteRepartie); // on met à jour le stock de chocolat i
+									stockChocolatI -= c.getQuantite();
+									quantiteRepartie=stockChocolatI/(lindt.getDistributeurs().size()-j);
+									j++;	
+								}
+								else{
+									c.setQuantite(quantiteRepartie);
+									c.setValidation(true);
+									}
+								}
 							}
-							else{
-								c.setQuantite(quantiteRepartie);
-								}}}}}
-		}return listeCommandesDist; 
+
+						}
+					}
+				}
+			}return listeCommandesDist; 
+
 	}
 	
 	
@@ -112,10 +127,10 @@ public class VenteDist {
 	 *  c'est à dire qu'on livre moins que prévu, et qui va enlever les commandes livrées 
 	 *  de l'historique HistCommandeDistri pour les mettre dans l'historique CommandeDistriLivree
  	 */
-	public void MiseAJourHistCommandeDistri (){
+	public void MiseAJourHistCommandeDistri (){//XXX
 		List<CommandeDistri> Commandeslivrees = new ArrayList<CommandeDistri>();
 		for (Commande c: lindt.getHistCommandeDistri().getHist()){
-			if(((CommandeDistri)c).getStepLivraison()==Monde.LE_MONDE.getStep()){
+			if(((CommandeDistri)c).getStepLivraison()==Monde.LE_MONDE.getStep() && !((CommandeDistri)c).getAcheteur().getNom().equals("Ditributeur restant de Lindt")){
 				Commandeslivrees.add((CommandeDistri)c);
 			}		
 		}
@@ -124,6 +139,12 @@ public class VenteDist {
 			lindt.getCommandeDistriLivree().ajouter(c);
 			lindt.getHistCommandeDistri().supprimer(c); 	
 		}	
+		for (Commande c: lindt.getHistCommandeDistri().getHist()){
+			if(((CommandeDistri)c).getStepLivraison()==Monde.LE_MONDE.getStep()){ //Les commandes restantes dans HistCommandeDistri au step courant sont celles du distributeur restant que l'on doit mettre dans CommandeDistriLivree
+				lindt.getCommandeDistriLivree().ajouter(c);
+				lindt.getHistCommandeDistri().supprimer(c); 	
+			}
+		}
 	}
 	
 	/**
