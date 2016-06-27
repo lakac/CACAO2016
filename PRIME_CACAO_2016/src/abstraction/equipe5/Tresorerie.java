@@ -64,7 +64,6 @@ public class Tresorerie {
 
 	public double coutRevient(){
 		double chargesFixes = Constante.CHARGES_FIXES_STEP;
-		//double coutLivraison = this.coutLivraison();
 		double quantiteCacaoAchetee=0;
 		double coutTransformation = 0;
 		double quantiteDemandee = 0;
@@ -74,15 +73,13 @@ public class Tresorerie {
 			quantiteDemandee= this.histProduc.getCommande(this.histProduc.getHist().size()-i-1).getQuantite();
 			quantiteCacaoAchetee += quantiteDemandee;
 			coutAchat += this.histProduc.getCommande(this.histProduc.getHist().size()-i-1).getQuantite()*this.histProduc.getCommande(this.histProduc.getHist().size()-i-1).getPrixTonne();}
-		// plus le producteur3 qui represente 40% de la commande totale soit 2/3 de p1+p2
 		coutAchat += MarcheProd.LE_MARCHE.getCoursCacao().getValeur() * quantiteCacaoAchetee * 2/3;
 		quantiteCacaoAchetee += quantiteCacaoAchetee * 2/3;
 		coutTransformation = quantiteCacaoAchetee * Constante.COUT_TRANSFORMATION;
 		coutStock = quantiteCacaoAchetee * 18;
 		return (coutTransformation + chargesFixes + coutStock + coutAchat)/quantiteCacaoAchetee;
 	} 
-	//cout de revient d'une tonne= charges fixes+ quantite de cacao commandé aux producteurs * cout de transformation d'une tonne.
-	//Cout de transformation d'une tonne= 5000+pourcentage de quantite de cacao demandee a chaque producteur multiplie par leur prix, afin d'avoir un prix de transfo d'environ 8000€/t
+	//cout de revient d'une tonne= charges fixes+ coût de transformation
 	
 // on ne prend plus en compte les couts de livraison : on considere qu'ils sont inclus dans le prix car on ne sait pas a qui on achete
 	

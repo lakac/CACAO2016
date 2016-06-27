@@ -32,8 +32,6 @@ public class TransformationCacaoChocolat {
 	
 	
 	
-	public static void main(String[] args){
-		//Test
-	}
+		
 }
 

@@ -100,7 +100,7 @@ public class AchatProd {
 			besoinCacao=besoinCacao-stockCacao+Constante.STOCK_MINIMAL_CACAO;
 		}
 		
-//		// Calcul du prix d'achat : si au step prece on n'a pas eu ce qu'on veut, on n'achete plus chere
+//		// Calcul du prix d'achat : si au step precedent on n'a pas eu ce qu'on veut, on achete plus cher
 //		double prixDemande;
 //		if (quantiteDemandee < quantiteRecue) {
 //			prixDemande = MarcheProducteur.LE_MARCHE.getCours()*1.2;
