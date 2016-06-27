@@ -22,18 +22,14 @@ public class Carrefour implements Acteur,IDistributeur {
 	private String nom;
 	private List<PrixVente> prixvente;
 	private Indicateur solde;
-	private List<Ventes> lesVentes;
-	private List<Achats> lesAchats;
+	private List<Flux> lesVentes;
+	private List<Flux> lesAchats;
 	private HashMap<Produit,Double> demandeAnnuel;
 	private double fraisdedistri;
 	private List<Produit> produits;
 	private HashMap<Produit,Double> besoinStep;
-
 	private ArrayList<ITransformateurD> transformateurs;
 	private ArrayList<IDistributeur> distributeurs;
-
-	
-
 	private List<CommandeDistri> histoCommande;
 	private List<CommandeDistri> histoLivraison;
 	private List<Stock> lesStocks;
@@ -58,8 +54,8 @@ public class Carrefour implements Acteur,IDistributeur {
 
 	public void creer() {
 		List<Stock> lesStocks = new ArrayList<Stock>();
-		List<Achats> lesAchats = new ArrayList<Achats>();
-		List<Ventes> lesVentes = new ArrayList<Ventes>();
+		List<Flux> lesAchats = new ArrayList<Flux>();
+		List<Flux> lesVentes = new ArrayList<Flux>();
 		HashMap<Produit,Double> demandeAnnuel = new HashMap<Produit,Double>();
 		for (Produit p : this.getProduits()) {
 			if (p.getNomProduit()=="60%") {
@@ -71,7 +67,7 @@ public class Carrefour implements Acteur,IDistributeur {
 			besoinStep.put(p, 0.0);
 			for (ITransformateurD t : this.getTransformateurs()) {
 				lesStocks.add(new Stock(p, 2000, t, new Indicateur("Stock de "+p.getNomProduit()+" de marque "+t.getNom()+" de "+this.getNom(),this , 300.0)));
-				lesAchats.add(new Achats(t, new Indicateur("Achats de "+p.getNomProduit()+" de marque "+t.getNom()+" de "+this.getNom(), this, 300.0), p));
+				lesAchats.add(new Achats(t, new Indicateur("Achats de "+p.getNomProduit()+" de marque "+t.getNom()+" de "+this.getNom(), this, 0.0), p));
 				lesVentes.add(new Ventes(t, new Indicateur("Ventes de "+p.getNomProduit()+" de marque "+t.getNom()+" de "+this.getNom(), this, 300.0), p));
 			}
 		}
@@ -125,13 +121,21 @@ public class Carrefour implements Acteur,IDistributeur {
 		this.solde.setValeur(this,quantite);
 	}
 
-	public List<Ventes> getLesVentes() {
+	public List<Flux> getLesVentes() {
 		return lesVentes;
 	}
 
-	public void setLesVentes(List<Ventes> lesVentes) {
-		this.lesVentes = lesVentes;
-	}
+/*	public void setLesVentes(List<Ventes> lesVentes) {
+		for (ITransformateurD t : this.getTransformateurs()) {
+			for (Produit p : this.getProduits()) {
+				for (int i=0; i<lesVentes.size(); i++) {
+					if (t.equals(lesVentes.get(i).getMarque()) && p.equals(lesVentes.get(i).getProduit())) {
+						double vente = this.get
+					}
+				}
+			}
+		}
+	} */
 
 	public MarcheDistributeur getMaDi() {
 		return maDi;
@@ -142,11 +146,11 @@ public class Carrefour implements Acteur,IDistributeur {
 	}
 
 
-	public List<Achats> getLesAchats() {
+	public List<Flux> getLesAchats() {
 		return lesAchats;
 	}
 
-	public void setLesAchats(List<Achats> lesAchats) {
+	public void setLesAchats(List<Flux> lesAchats) {
 		this.lesAchats = lesAchats;
 	}
 	
@@ -391,6 +395,7 @@ public class Carrefour implements Acteur,IDistributeur {
 		}
 	}
 	
+	
 	//Méthode qui fixe le prix de vente avec bénéfice de 20% par rapport au prix d'achat au transformateur, 
 	//pour chaque produit de chaque transformateur
 
@@ -446,18 +451,19 @@ public class Carrefour implements Acteur,IDistributeur {
 						System.out.println("Quantite de : "+p+" --> "+d.getQuantite());
 						this.setSolde(this.getSolde().getValeur() - d.getPrix());
 						this.setAchats(p, t, d.getQuantite());
-						/*if (this.getStock(p, t).getQuantite().getValeur() < ventesStep.get(p)/3) {
+						double vente = d.getQuantite()*(1-0.1+0.3*Math.random());
+						/* if (this.getStock(p, t).getQuantite().getValeur() < vente) {
 							this.setVentes(p, t, this.getStock(p, t).getQuantite().getValeur());
 							this.setStock(p, t, this.getStock(p, t).getQuantite().getValeur(), false);
 							this.setSolde(this.getSolde().getValeur() + this.getStock(p, t).getQuantite().getValeur()*this.getPrixVente(p));
 						}
 						else {
-							this.setVentes(p, t, ventesStep.get(p)/3);
-							this.setStock(p, t,ventesStep.get(p)/3, false);
-							this.setSolde(this.getSolde().getValeur() + ventesStep.get(p)/3*this.getPrixVente(p));
-						}*/
-					}
-				}
+							this.setVentes(p, t, vente);
+							this.setStock(p, t,vente, false);
+							this.setSolde(this.getSolde().getValeur() + vente/3*this.getPrixVente(p));
+						} */
+					} 
+				} 
 			}
 			System.out.println("Solde de Carrefour :" +this.getSolde().getValeur());
 			System.out.println("Stock de Carrefour de "+this.getLesStocks().get(1).getMarque()+ "-->" +this.getLesStocks().get(1).getQuantite().getValeur());

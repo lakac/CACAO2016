@@ -138,6 +138,7 @@ public class MondeV1 extends Monde {
 		for (Produit p : produits) {
 			MaDi.addProduit(p);
 		}
+		MarcheDistributeur.LE_MARCHE_DISTRIBUTEUR = MaDi;
 		Ca.creer();
 
 	}
