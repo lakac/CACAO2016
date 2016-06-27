@@ -78,10 +78,6 @@ public class Producteur implements Acteur, IProducteur {
 
 	// Methodes de l'interface IProducteur
 
-	public double annonceQuantiteMiseEnVente(ITransformateurP t) {
-		return 0.0; // ancienne méthode
-	}
-
 	public double annonceQuantiteProposee() {
 		return this.getQuantiteProposee();
 	}
