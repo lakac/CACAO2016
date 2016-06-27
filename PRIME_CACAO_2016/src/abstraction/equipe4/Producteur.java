@@ -10,6 +10,7 @@ public class Producteur implements Acteur,IProducteur{
 	private Tresorerie treso;
 	private ProductionBiannuelle prodBiannu;
 	private MarcheProd marcheProducteur;
+	private IndicateurDouble comparaison;
 	// l'offre en feve de cacao que l on propose, exprime en tonne
 	private Offre offre;
 
@@ -25,6 +26,8 @@ public class Producteur implements Acteur,IProducteur{
 		Monde.LE_MONDE.ajouterJournal(this.journal);
 		this.offre = new Offre(this, this.stock);
 		this.marcheProducteur=MarcheProd.LE_MARCHE;
+		this.comparaison = new IndicateurDouble("Comparaison entre ventes et apports sur le marche","Apport sur le marche","Quantite vendue", this,0.0,0.0);
+		Monde.LE_MONDE.ajouterIndicateur(((Indicateur)this.comparaison));
 	}
 
 	// getter
@@ -100,6 +103,8 @@ public class Producteur implements Acteur,IProducteur{
 	
 	
 	public void notificationVente(CommandeProduc c) {
+		this.comparaison.setValeur(this, this.annonceQuantiteProposee());
+		this.comparaison.setValeur2(this, c.getQuantite());
 		// on verifie que on ajoute pas nimportequoi
 		if (c.getPrixTonne()>0 && c.getQuantite()>0){
 			// on ajuste les quantite apres une vente
