@@ -42,7 +42,7 @@ public class MarcheProd implements Acteur{
 	/**Constructeur du marche centralisant les ventes entre
 	 * producteurs et transformateurs*/
 	public MarcheProd() {
-		this.coursCacao = new Indicateur("Cours de cacao du Marche",this,3000.0);
+		this.coursCacao = new Indicateur("Cours du cacao du Marche",this,3000.0);
 		Monde.LE_MONDE.ajouterIndicateur(this.coursCacao);
 		this.producteurs= new ArrayList<IProducteur>();
 		this.transformateurs= new ArrayList<ITransformateurP>();

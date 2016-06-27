@@ -2,6 +2,14 @@ package abstraction.equipe4;
 
 import abstraction.fourni.*;
 
+/** Classe IndicateurDouble permettant de faire des comparaison entre deux 
+ * indicateurs sous la forme d'un seul comparateur
+ *
+ * (Extension de la classe Indicateur deja fournie avec peu de modifications)
+ *
+ * @author Equipe4
+ *
+ */
 public class IndicateurDouble extends abstraction.fourni.Indicateur{
 
 	private Courbe courbe2;
