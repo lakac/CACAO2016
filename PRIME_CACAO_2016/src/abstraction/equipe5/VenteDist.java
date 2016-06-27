@@ -99,7 +99,6 @@ public class VenteDist {
 								int j=0; 
 								if(c.getQuantite()<=quantiteRepartie){ //si la quantite demandee dans la commande est inférieure à quantiteRepartie
 									c.setValidation(true); //on valide la commande
-									//lindt.getStocksChocolat().get(i).setStock(stockChocolatI-quantiteRepartie); // on met à jour le stock de chocolat i
 									stockChocolatI -= c.getQuantite();
 									quantiteRepartie=stockChocolatI/(lindt.getDistributeurs().size()-j);
 									j++;	
@@ -139,7 +138,8 @@ public class VenteDist {
 			lindt.getCommandeDistriLivree().ajouter(c);
 			lindt.getHistCommandeDistri().supprimer(c); 	
 		}	
-		for (Commande c: lindt.getHistCommandeDistri().getHist()){
+		List<Commande> llll = new ArrayList<Commande>(lindt.getHistCommandeDistri().getHist());
+		for (Commande c: llll) {//lindt.getHistCommandeDistri().getHist()){
 			if(((CommandeDistri)c).getStepLivraison()==Monde.LE_MONDE.getStep()){ //Les commandes restantes dans HistCommandeDistri au step courant sont celles du distributeur restant que l'on doit mettre dans CommandeDistriLivree
 				lindt.getCommandeDistriLivree().ajouter(c);
 				lindt.getHistCommandeDistri().supprimer(c); 	

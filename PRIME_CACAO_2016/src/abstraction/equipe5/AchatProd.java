@@ -86,6 +86,7 @@ public class AchatProd {
 				if (c.getProduit().equals(Constante.LISTE_PRODUIT[i]))
 					besoinCacao += c.getQuantite()*Constante.LISTE_PRODUIT[i].getRatioCacao();
 		}}
+		this.getJournal().ajouter(" size --> "+listeCommandesDist.size()+"   "+besoinCacao+" "+this.getHistD().getHist().size());
 		besoinCacaoDistri = besoinCacao;
 		double commandeP=0; // on prend en compte la quantité de cacao qui va etre livree a ce step
 		for (int i=0; i<lindt.getProducteurs().size() ; i++){

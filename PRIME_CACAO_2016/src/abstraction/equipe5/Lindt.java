@@ -116,25 +116,26 @@ public class Lindt implements Acteur, ITransformateurD, ITransformateurP{
 		
 		this.getTransformationCacaoChocolat().Transformation(); // transforme le cacao en chocolat et met ﾃ� jour les stocks (retire pour cacao et ajoute pour chocolat)
 		
-		 //si on commentera, pas de rouge --> il y a surement une erreur dans MarcheDistri obtenirCommandeFinale
-		for(IDistributeur d: this.getDistributeurs()){ // ajout des commandes finales ﾃ� notre historique
-			for (CommandeDistri cd : MarcheDistributeur.LE_MARCHE_DISTRIBUTEUR.obtenirCommandeFinale(this,d)){ 
-				//tant que les distributeurs ne crﾃｩent pas dans le marche une variable d'instance static 
-				// (public static MarcheDistributeur LE_MARCHE_DISTRIBUTEUR;), on ne pourra pas appeler cette mﾃｩthode
-				this.getHistCommandeDistri().ajouter(cd);
-		}}
-		System.out.println(getHistCommandeDistri());
-		resteDesDistributeurs.commandesDistributeurRestant(); //calcul les commandes du reste des distributeurs et les ajoute à l'historique CommandeDistri
-		System.out.println(getHistCommandeDistri());
+//		 //si on commentera, pas de rouge --> il y a surement une erreur dans MarcheDistri obtenirCommandeFinale
+//		for(IDistributeur d: this.getDistributeurs()){ // ajout des commandes finales ﾃ� notre historique
+//			for (CommandeDistri cd : MarcheDistributeur.LE_MARCHE_DISTRIBUTEUR.obtenirCommandeFinale(this,d)){ 
+//				//tant que les distributeurs ne crﾃｩent pas dans le marche une variable d'instance static 
+//				// (public static MarcheDistributeur LE_MARCHE_DISTRIBUTEUR;), on ne pourra pas appeler cette mﾃｩthode
+//				this.getHistCommandeDistri().ajouter(cd);
+//		}}
+//		System.out.println(getHistCommandeDistri());
+//		resteDesDistributeurs.commandesDistributeurRestant(); //calcul les commandes du reste des distributeurs et les ajoute à l'historique CommandeDistri
+//		System.out.println(getHistCommandeDistri());
 		
 		// commandes fictives du cote distributeur pour voir si notre code fonctionne
-//		Commande commande1 = new CommandeDistri(this.getDistributeurs().get(0), this, Constante.LISTE_PRODUIT[0], 30, this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[0]), Monde.LE_MONDE.getStep()+3, true);
-//		Commande commande2 = new CommandeDistri(this.getDistributeurs().get(0), this, Constante.LISTE_PRODUIT[1], 20, this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[1]), Monde.LE_MONDE.getStep()+3, true);
-//		Commande commande3 = new CommandeDistri(this.getDistributeurs().get(0), this, Constante.LISTE_PRODUIT[2], 10, this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[2]), Monde.LE_MONDE.getStep()+3, true);
-//		
-//		this.getHistCommandeDistri().ajouter(commande1);
-//		this.getHistCommandeDistri().ajouter(commande2);
-//		this.getHistCommandeDistri().ajouter(commande3);
+		Commande commande1 = new CommandeDistri(this.getDistributeurs().get(0), this, Constante.LISTE_PRODUIT[0], 30+Monde.LE_MONDE.getStep(), this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[0]), Monde.LE_MONDE.getStep()+3, true);
+		Commande commande2 = new CommandeDistri(this.getDistributeurs().get(0), this, Constante.LISTE_PRODUIT[1], 20, this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[1]), Monde.LE_MONDE.getStep()+3, true);
+		Commande commande3 = new CommandeDistri(this.getDistributeurs().get(0), this, Constante.LISTE_PRODUIT[2], 10, this.getVenteDist().prixProduit(Constante.LISTE_PRODUIT[2]), Monde.LE_MONDE.getStep()+3, true);
+		
+		this.getHistCommandeDistri().ajouter(commande1);
+		this.getHistCommandeDistri().ajouter(commande2);
+		this.getHistCommandeDistri().ajouter(commande3);
+		this.getJournal().ajouter(this.getHistCommandeDistri().getHist().toString());
 		
 		// test pour voir si les commandes passent bien à chaque step
 //		this.getJournal().ajouter("Informations liées à la commande du produit 50% :");
