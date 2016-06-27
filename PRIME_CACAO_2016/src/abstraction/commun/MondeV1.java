@@ -43,10 +43,8 @@ public class MondeV1 extends Monde {
 
 		this.ajouterActeur(Ca);
 		
-		
-		
 		// Transformateurs
-		Nestle nestle = new Nestle();
+		Nestle_new nestle = new Nestle_new();
 		this.ajouterActeur(nestle);
 		
 		Lindt lindt = new Lindt();
@@ -55,28 +53,26 @@ public class MondeV1 extends Monde {
 		ResteDesTransformateursMondiaux t3 = new ResteDesTransformateursMondiaux();
 		this.ajouterActeur(t3);
 		
-		
-		
-		// Marché Producteur
-		MarcheProd marcheProducteur = new MarcheProd();
-		MarcheProd.LE_MARCHE=marcheProducteur;
-		this.ajouterActeur(marcheProducteur);
-		
-		
 		// Marché Consommateur
 		MarcheCons marcheConsommateurs = new MarcheCons("MarcheCons", this.produits);
 		MarcheCons.LE_MARCHE_CONS = marcheConsommateurs;
+
 		this.ajouterActeur(marcheConsommateurs);
 		
 		// Producteurs
 		Producteur p1 = new Producteur(1000.0, 0.0, Monde.LE_MONDE);
+		System.out.println(p1.getNom());
 		this.ajouterActeur(p1);
 		abstraction.equipe4.Producteur p2 = new abstraction.equipe4.Producteur(Monde.LE_MONDE);
 		this.ajouterActeur(p2);
 		
-
+		// Marché Producteur
+				MarcheProd marcheProducteur = new MarcheProd();
+				MarcheProd.LE_MARCHE=marcheProducteur;
+				this.ajouterActeur(marcheProducteur);
 		
-		// Ajout des liens necessaires entre les acteurs
+		// Ajout des acteurs dans les listes des acteurs
+
 		Le.ajouterVendeur(nestle);
 		Le.ajouterVendeur(lindt);
 		
@@ -84,16 +80,16 @@ public class MondeV1 extends Monde {
 		Ca.ajouterVendeur(lindt);
 		Ca.setMaDi(MaDi);
 
-		nestle.AjouterClient(Le);
-		nestle.AjouterClient(Ca);
-		nestle.AjouterFournisseur(p1);
-		nestle.AjouterFournisseur(p2);
 
-		nestle.creer();
-		
+		nestle.ajouterClient(Le);
+		nestle.ajouterClient(Ca);
+		nestle.ajouterFournisseurs(p1);
+		nestle.ajouterFournisseurs(p2);
+		nestle.creer(Monde.LE_MONDE);
+
 		lindt.ajouterDistributeur(Ca);
 		lindt.ajouterDistributeur(Le);
-		lindt.ajouterProducteur(p1);
+		//lindt.ajouterProducteur(p1);
 		lindt.ajouterProducteur(p2);
 		lindt.creer();
 
@@ -101,8 +97,6 @@ public class MondeV1 extends Monde {
 		
 		t3.ajouterTransformateur(nestle);
 		t3.ajouterTransformateur(lindt);
-		t3.ajouterTransformateur(nestle);
-
 		
 		/*p1.ajouterTransformateur(nestle);
 		p1.ajouterTransformateur(lindt);
@@ -110,7 +104,7 @@ public class MondeV1 extends Monde {
 
 		
 
-		marcheProducteur.AjoutProducteur(p1);;
+		//marcheProducteur.AjoutProducteur(p1);;
 		marcheProducteur.AjoutProducteur(p2);
 		marcheProducteur.AjoutTransformateur(nestle);
 		marcheProducteur.AjoutTransformateur(lindt);
@@ -131,8 +125,9 @@ public class MondeV1 extends Monde {
 		Le.initialiseRatio();
 		Le.getPrixDeVente().initialisePrixDeVente(Le, produits);
 		Le.getVentes().initialiseVentes();
-		/*MarcheCons.LE_MARCHE_CONS.ajouterDistributeur(Le);
+		/*
 		MarcheCons.LE_MARCHE_CONS.ajouterDistributeur(Le);
+		MarcheCons.LE_MARCHE_CONS.ajouterDistributeur(Ca);
 		MarcheCons.LE_MARCHE_CONS.ajouterTransformateur(nestle);
 		MarcheCons.LE_MARCHE_CONS.ajouterTransformateur(lindt);
 		*/
@@ -146,10 +141,11 @@ public class MondeV1 extends Monde {
 		MaDi.addDistributeur(Ca);
 		//MaDi.addDistributeur(Le);
 		MaDi.addTransformateur(lindt);
-		// MaDi.addTransformateur(nestle);
+		MaDi.addTransformateur(nestle);
 		for (Produit p : produits) {
 			MaDi.addProduit(p);
 		}
+		MarcheDistributeur.LE_MARCHE_DISTRIBUTEUR = MaDi;
 		Ca.creer();
 
 	}

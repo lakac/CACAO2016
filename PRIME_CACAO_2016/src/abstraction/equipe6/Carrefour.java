@@ -38,6 +38,10 @@ public class Carrefour implements Acteur,IDistributeur {
 	private List<CommandeDistri> histoCommande;
 	private List<CommandeDistri> histoLivraison;
 	private List<Stock> lesStocks;
+	
+	//Ajout 26/06 par l'équipe 2 pour les tests
+	public Carrefour() {
+	}
 
 	public Carrefour(String nom, List<Produit> produits) {
 		super();
@@ -341,6 +345,13 @@ public class Carrefour implements Acteur,IDistributeur {
 				double quantite = (le-i+1)/((le+1)*(le+1))*0.50*this.getBesoinStep().get(p);
 				System.out.println("La quantité de la demande --> "+this.getBesoinStep().get(p));
 				commande.get(letransfo).add(new CommandeDistri(this, letransfo, p, dem_min + quantite, letransfo.getCatalogue().getTarif(p).getPrixTonne(), MondeV1.LE_MONDE.getStep()+3, false));
+
+				System.out.println(p);
+				System.out.println(this.getBesoinStep().get(p));
+				System.out.println(letransfo.getNom());
+				System.out.println(letransfo.getCatalogue());
+				commande.get(letransfo).add(new CommandeDistri(this, letransfo, p, this.getBesoinStep().get(p), letransfo.getCatalogue().getTarif(p).getPrixTonne(), Monde.LE_MONDE.getStep()+3, false));
+
 			}
 		}
 		return commande;
@@ -435,7 +446,7 @@ public class Carrefour implements Acteur,IDistributeur {
 				System.out.println("histo livraison --> "+this.getHistoLivraison());
 				for (CommandeDistri d : this.getHistoLivraison()) {
 					System.out.println("La quantité -->"+d.getQuantite());
-					System.out.println("Le prix -->"+d.getPrix());
+					System.out.println("Le prix -->"+d.getPrixTonne()*d.getQuantite());
 					boolean a, b, c, e;
 					a = d.getAcheteur() == this;
 					b =d.getStepLivraison() == Monde.LE_MONDE.getStep();
@@ -445,7 +456,7 @@ public class Carrefour implements Acteur,IDistributeur {
 					if (d.getAcheteur() == this && d.getStepLivraison() == Monde.LE_MONDE.getStep() && d.getVendeur().equals(t) && d.getProduit().equals(p)) {
 						this.setStock(p, t, d.getQuantite(), true);
 						System.out.println("Quantite de : "+p+" --> "+d.getQuantite());
-						this.setSolde(this.getSolde().getValeur() - d.getPrix());
+						this.setSolde(this.getSolde().getValeur() - d.getPrixTonne()*d.getQuantite());
 						this.setAchats(p, t, d.getQuantite());
 						/*if (this.getStock(p, t).getQuantite().getValeur() < ventesStep.get(p)/3) {
 							this.setVentes(p, t, this.getStock(p, t).getQuantite().getValeur());

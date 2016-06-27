@@ -19,8 +19,7 @@ public class PrixDeVente {
 	private ArrayList<Double[]> marge; // marge prise sur la vente des tablettes de chocolat qui differe selon le produit (donnee en pourcentage)
 	private ArrayList<ITransformateurD> transfos;
 	private ArrayList<Produit> produits;
-	//private ArrayList<Double[]> historiques; // historique de la vente du step precedent pour tous les produits
-
+	
 	public PrixDeVente() {
 		// TODO Auto-generated constructor stub
 		this.prixDeVenteStepPlus3 = new ArrayList<Double[]>();
@@ -31,7 +30,6 @@ public class PrixDeVente {
 		this.marge = new ArrayList<Double[]>();
 		this.transfos= new ArrayList<ITransformateurD>();
 		this.produits = new ArrayList<Produit>();
-		//this.historiques = new ArrayList<Double[]>();
 	}
 	
 	/*methode qui initialise PrixDeVente en ajoutant les transformateurs, les produits, les marges et les prix de vente */

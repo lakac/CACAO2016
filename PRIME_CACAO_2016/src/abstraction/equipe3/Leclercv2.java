@@ -1,7 +1,6 @@
 package abstraction.equipe3;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import abstraction.commun.Catalogue;
@@ -9,13 +8,11 @@ import abstraction.commun.CommandeDistri;
 import abstraction.commun.IDistributeur;
 import abstraction.commun.ITransformateurD;
 import abstraction.commun.MarcheCons;
-import abstraction.commun.ITransformateurD;
 import abstraction.commun.MarcheDistributeur;
 import abstraction.commun.Produit;
 import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Monde;
-import abstraction.fourni.v0.ITransformateur;
 
 public class Leclercv2 implements Acteur,IDistributeur{
 	
@@ -144,7 +141,7 @@ public class Leclercv2 implements Acteur,IDistributeur{
 
 
 	public List<CommandeDistri> Demande(ITransformateurD t, Catalogue c) {
-		Double[] x = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donn� sur toutes les annees
+		Double[] x = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donne sur toutes les annees
 		Double[] sto = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 		for (int i=0; i<9; i++ ) {
 			sto[i] = this.getStock().getStock(t,i);
