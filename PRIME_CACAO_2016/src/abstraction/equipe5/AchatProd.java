@@ -95,19 +95,20 @@ public class AchatProd {
 				+ lindt.getStockChocolat50().getStock()*Constante.LISTE_PRODUIT[0].getRatioCacao()
 				+ lindt.getStockChocolat60().getStock()*Constante.LISTE_PRODUIT[1].getRatioCacao()
 				+ lindt.getStockChocolat70().getStock()*Constante.LISTE_PRODUIT[2].getRatioCacao();
-		this.getJournal().ajouter("Quantite dans commande distributeur ter : " + besoinCacao);
+		
+		this.getJournal().ajouter("Quantite dans commande distributeur : " + besoinCacao);
 		
 		if (stockCacao-Constante.STOCK_MINIMAL_CACAO<besoinCacao){
 			besoinCacao=besoinCacao-stockCacao+Constante.STOCK_MINIMAL_CACAO;
 		}
 		
-		if (lindt.getStockCacao().getStock()+commandeP > 20000) {
+		if (lindt.getStockCacao().getStock()+commandeP > Constante.STOCK_MAXIMAL_CACAO) {
 				besoinCacao = 0;
 		}
 		
 		this.getJournal().ajouter("Besoin Cacao Final : " + besoinCacao);
 		
-//		// Calcul du prix d'achat : si au step prece on n'a pas eu ce qu'on veut, on n'achete plus chere
+//		// Calcul du prix d'achat : si au step precedent on n'a pas eu ce qu'on veut, on achete plus cher
 //		double prixDemande;
 //		if (quantiteDemandee < quantiteRecue) {
 //			prixDemande = MarcheProducteur.LE_MARCHE.getCours()*1.2;
@@ -116,16 +117,14 @@ public class AchatProd {
 //			prixDemande=0.95*MarcheProducteur.LE_MARCHE.getCours();
 //		}
 		
-		//this.getJournal().ajouter("Quantite dans commande distributeur bis : " + besoinCacao);
 		return new CommandeInterne(besoinCacao,0);
 	}
 	
 	
 	/**
-	 * Indique la quantite demandee au producteur autre que P3.
+	 * Indique la quantite demandee aux producteurs.
 	 */
 	public double annonceQuantiteDemandee(){ 
-		//this.quantiteDemandee = 0.6*this.calculQuantiteDemandee().getQuantite();
 		this.getJournal().ajouter("Besoin en Cacao : " + this.calculQuantiteDemandee().getQuantite());
 		return this.calculQuantiteDemandee().getQuantite();
 	}
@@ -136,12 +135,12 @@ public class AchatProd {
 	 */
 	public void notificationVente(CommandeProduc c) {
 		//this.quantiteRecue = c.getQuantite();
+		
 		this.getHistP().ajouter(c);
 		
 		this.getJournal().ajouter("\n");
 		this.getJournal().ajouter("Quantite recue : " + c.getQuantite());
-		this.getJournal().ajouter("Prix commande produc :" + c.getPrixTonne());
-		//this.getJournal().ajouter("Quantite demandee : " + this.annonceQuantiteDemandee());
+		this.getJournal().ajouter("Prix commande producteur :" + c.getPrixTonne());
 		this.getJournal().ajouter("Stock avant ajout quantite recue : " + this.getStock().getStock());
 		this.getJournal().ajouter("Quantite de cacao perdue : " + c.getQuantite()*Constante.perteCacao());
 		

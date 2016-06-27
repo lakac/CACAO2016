@@ -4,12 +4,10 @@ import abstraction.fourni.Monde;
 import abstraction.commun.Commande;
 import abstraction.commun.CommandeDistri;
 import abstraction.commun.IProducteur;
-import abstraction.commun.MarcheProd;
 import abstraction.fourni.Indicateur;
 import abstraction.fourni.Journal;
 import abstraction.equipe5.Lindt;
 import java.util.ArrayList;
-import abstraction.commun.Tarif;
 
 public class Tresorerie {
 	private HistoriqueCommande histDistri;
@@ -44,8 +42,7 @@ public class Tresorerie {
 	}
 	
 	private void setTresorerie(double treso) { 
-		
-			this.treso.setValeur(this.lindt, treso);
+		this.treso.setValeur(this.lindt, treso);
 	}
 	
 
@@ -62,9 +59,13 @@ public class Tresorerie {
 		}
 	}
 
+	/** methode qui donne les depenses totales pour produire 1t de cacao
+	 * Elle permet de calculer le prix de vente de chaque produit en prenant ces depenses auquelles on ajoute une marge 
+	 * pour chaque produit
+	 * @return double : depenses totales pour produire 1t
+	 */
 	public double coutRevient(){
 		double chargesFixes = Constante.CHARGES_FIXES_STEP;
-		//double coutLivraison = this.coutLivraison();
 		double quantiteCacaoAchetee=0;
 		double coutTransformation = 0;
 		double quantiteDemandee = 0;
@@ -79,7 +80,7 @@ public class Tresorerie {
 		coutStock = quantiteCacaoAchetee * 18;
 		return (coutTransformation + chargesFixes + coutStock + coutAchat)/quantiteCacaoAchetee;
 	} 
-	//cout de revient d'une tonne= charges fixes+ quantite de cacao commandé aux producteurs * cout de transformation d'une tonne.
+
 	
 // on ne prend plus en compte les couts de livraison : on considere qu'ils sont inclus dans le prix car on ne sait pas a qui on achete
 	
@@ -93,6 +94,7 @@ public class Tresorerie {
 //		return coutLivraison;
 //	}
 	
+	
 	//cout de stock (18 euros la tonne/step)
 	public double coutStock(){
 		return(Constante.COUT_STOCK_TONNE_STEP*(lindt.getStockChocolat50().getStock()
@@ -103,15 +105,13 @@ public class Tresorerie {
 	
 	
 	/**
-	 * 
 	 * fonction qui calcule combien les distributeurs nous payent au step courant
 	 */
 	public double payeParDistrib(){
 		double paye=0;
 		for (Commande c: lindt.getCommandeDistriLivree().getHist()){ //si il s'agit des livrées
-			if(((CommandeDistri)c).getStepLivraison()==Monde.LE_MONDE.getStep()){
-	paye+=c.getQuantite()*c.getPrixTonne();	 //on ne prend pas en compte les rabais finalement
-//				this.getJournal().ajouter("Prix de vente" + c.getPrixTonne() + "--> a comparer avec prix step " + (Monde.LE_MONDE.getStep()-3));
+			if (((CommandeDistri)c).getStepLivraison()==Monde.LE_MONDE.getStep()) {
+				paye+=c.getQuantite()*c.getPrixTonne();	 //on ne prend pas en compte les rabais finalement
 			}
 		}
 		return paye;

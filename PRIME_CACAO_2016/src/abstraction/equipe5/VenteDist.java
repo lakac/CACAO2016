@@ -32,14 +32,14 @@ public class VenteDist {
 
 	/**
 	 *  creation d'une fonction qui renvoie le prix d'un produit
+	 *  elle prend le cout de revient (tout ce que ca nous coute pour produire un produit) auquel on ajoute une marge
 	 *  @param produit
 	 */ 
 	public double prixProduit(Produit p) {
 		double r = 0;
-//		this.getJournal().ajouter("cout de revient "+this.getTreso().coutRevient());
 		for (int i=0; i<Constante.LISTE_PRODUIT.length; i++) {
 			if (p.equals(Constante.LISTE_PRODUIT[i])) {
-				r= this.getTreso().coutRevient() / (1 - Constante.MARGE_PRODUIT[i]); // formule pour avoir le prix de vente quand on veut une marge spécifique
+				r= this.getTreso().coutRevient() / (1 - Constante.MARGE_PRODUIT[i]); // formule pour avoir le prix de vente quand on veut une marge spécifique par rapport au cout de revient
 			}
 		}
 		return r;
@@ -73,11 +73,12 @@ public class VenteDist {
 	//Cette fonction ne prend pas en compte le fait qu'on pourrait avoir un stock plus important au step n+3 grâce à la transformation
 
 	// On considère que 25% de notre stock de chocolat est pour Leclerc+Carrefour et 75% pour un 3eme distributeur
+	
 	public List<CommandeDistri> offre(List<CommandeDistri> listeCommandesDist){
 		
 
 		for(int i=0; i<lindt.getDistributeurs().size(); i++){
-			double ratioLeclercCarrefour=0.25; //25% de notre stock est destiné à Leclerc et carrefour
+			double ratioLeclercCarrefour=0.25; //25% de notre stock est destiné à Leclerc et Carrefour
 			double stockChocolatI=ratioLeclercCarrefour*(lindt.getStocksChocolat().get(i).getStock()-Constante.STOCK_MINIMAL_CHOCO); //stock de chocolat i disponible pour Leclerc+Carrefour (25%), on se reserve un stock minimal
 			double QteDemandeeChocolatI=this.QuantiteDemandeeProduit(listeCommandesDist).get(i).doubleValue();// quantite totale de chocolat i demandée par les 3 dist
 			
@@ -116,15 +117,12 @@ public class VenteDist {
 			}return listeCommandesDist; 
 
 	}
-	
-	
 
 
 	/**
-	 * Fonction qui met à jour l'historique ie qui va changer dans l'historique de commande 
-	 * distri la quantité des commandes si ce n'est pas la meme que dans commande finale,
-	 *  c'est à dire qu'on livre moins que prévu, et qui va enlever les commandes livrées 
-	 *  de l'historique HistCommandeDistri pour les mettre dans l'historique CommandeDistriLivree
+	 * Fonction qui met à jour les historiques HistCommandeDistri et CommandeDistrilivree, ie qui va changer dans HistCommandeDistri la quantité des commandes
+	 *  au step de livraison si jamais on doit livrer moins que prévu, et qui les enlève de HistCommandeDistri pour les ajouter dans CommandeDistriLivree.
+	 *  
  	 */
 	public void MiseAJourHistCommandeDistri (){//XXX
 		List<CommandeDistri> Commandeslivrees = new ArrayList<CommandeDistri>();
@@ -138,9 +136,9 @@ public class VenteDist {
 			lindt.getCommandeDistriLivree().ajouter(c);
 			lindt.getHistCommandeDistri().supprimer(c); 	
 		}	
-		List<Commande> llll = new ArrayList<Commande>(lindt.getHistCommandeDistri().getHist());
-		for (Commande c: llll) {//lindt.getHistCommandeDistri().getHist()){
-			if(((CommandeDistri)c).getStepLivraison()==Monde.LE_MONDE.getStep()){ //Les commandes restantes dans HistCommandeDistri au step courant sont celles du distributeur restant que l'on doit mettre dans CommandeDistriLivree
+		List<Commande> liste = new ArrayList<Commande>(lindt.getHistCommandeDistri().getHist());
+		for (Commande c: liste) {
+			if (((CommandeDistri)c).getStepLivraison()==Monde.LE_MONDE.getStep()){ //Les commandes restantes dans HistCommandeDistri au step courant sont celles du distributeur restant que l'on doit mettre dans CommandeDistriLivree
 				lindt.getCommandeDistriLivree().ajouter(c);
 				lindt.getHistCommandeDistri().supprimer(c); 	
 			}
