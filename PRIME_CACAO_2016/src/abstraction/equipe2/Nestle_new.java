@@ -6,6 +6,8 @@ import java.util.ArrayList;
 //import java.util.HashMap;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import abstraction.equipe6.Carrefour;
 import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
@@ -92,13 +94,20 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 			return this.historiquecommandesdistri.get(k);
 		}
 		else {
-			return null;
+			List<CommandeDistri> l = new ArrayList<CommandeDistri>();
+			return l;
 		}
 	}
 	
 	//Permet d'ajouter une liste de commandes de distributeurs à l'hitorique
 	public void ajouterCommandeProduc(CommandeProduc cp) {
-		this.historiquecommandesprod.add(cp);
+		if (cp != null) {
+			this.historiquecommandesprod.add(cp);
+		}
+		else {
+			this.historiquecommandesprod.add(new CommandeProduc(0., 0.));
+		}
+
 	}
 	
 	//Accède à la liste de commande des distributeurs de l'étape k.
@@ -194,10 +203,8 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 	//et l'historique des commandes
 	public void notificationVente(CommandeProduc c) {
 		tresorerie.setTresorerieAchat(c);
-		System.out.println("notif vente Nestle : "+c.getQuantite());
 		this.stockcacao.MiseAJourStockLivraison(Constante.CACAO,c.getQuantite());
 		this.historiquecommandesprod.add(c);
-		System.out.println("la taille est : "+ historiquecommandesprod.size());
 		this.tresorerie.setTresorerieAchat(c);
 	}
 
@@ -336,6 +343,7 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 	public void next() {
 		this.setEtape();
 		//obtention des commandes finales : 
+		System.out.println(this.getEtape()+"   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx");
 		this.MaJ_HCD();
 		this.transformation.setTransformation(this.getCommandeDistri(0),this.getStockcacao(), this.getStockchocolat());
 		System.out.println("la transfo a été faite");
@@ -343,10 +351,9 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 		this.iTresorerie.setValeur(this, this.getTresorerie().getFonds());
 		this.iStockcacao.setValeur(this, this.getStockcacao().getStockcacao().get(Constante.CACAO));
 		this.iCommandeDistri.setValeur(this, this.QuantiteTotaleCommandee(this.historiquecommandesdistri.get(etape-1)));
-		if (this.getEtape()>2) {
-			this.iCommandeProduc.setValeur(this, this.getCommandeProduc(etape-2).getQuantite());
+		//if (this.getEtape()>2) {
+		//	this.iCommandeProduc.setValeur(this, this.getCommandeProduc(etape-3).getQuantite());
 		}
-	}
 	
 	
 	//Constructeur neste
@@ -374,8 +381,8 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 		Monde.LE_MONDE.ajouterIndicateur(iStockcacao);
 		this.iCommandeDistri = new Indicateur("Commandes reçues", this, 0);
 		Monde.LE_MONDE.ajouterIndicateur(iCommandeDistri);
-		this.iCommandeProduc = new Indicateur("Commandes passées", this, 0);
-		Monde.LE_MONDE.ajouterIndicateur(iCommandeProduc);
+		//this.iCommandeProduc = new Indicateur("Commandes passées", this, 0);
+		//Monde.LE_MONDE.ajouterIndicateur(iCommandeProduc);
 	}
 	
 
