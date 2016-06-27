@@ -2,25 +2,26 @@ package abstraction.equipe3;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import abstraction.commun.CommandeDistri;
 
 
 public class Ventes {
 	
-	/*classe qui répertorie les ventes de chaque produit pour pouvoir connaître environ le nombre de clients 
-	 * l'année suivante*/
+	/*classe qui rï¿½pertorie les ventes de chaque produit pour pouvoir connaï¿½tre environ le nombre de clients 
+	 * l'annï¿½e suivante*/
 
 	private ArrayList<Double[]> ventes;
-	private static Double[][] VENTES_ANNEE_ZERO = new Double[26][3];
+	private static Double[][] VENTES_ANNEE_ZERO = new Double[26][9];
 	
 	public Ventes(){
 		this.ventes = new ArrayList<Double[]>();
 	}
 	
 	public Double[] getVentes(int step){
-		return this.ventes.get(step+25);
-	}
+		return this.ventes.get((step+25)%26);
+	}	
 	
 	public void addVentes(Double[] vente){
 		this.ventes.add(vente);
@@ -31,16 +32,16 @@ public class Ventes {
 	public void initialiseAnneeZero(){
 		for (int i = 0; i<VENTES_ANNEE_ZERO.length;i++){
 			if (i==5){
-				for (int j =0; j<3;j++){
+				for (int j =0; j<9;j++){
 					VENTES_ANNEE_ZERO[i][j]=1469.23;
 				}
 			} else {
 				if (i==25){
-					for (int j=0;j<3;j++){
+					for (int j=0;j<9;j++){
 						VENTES_ANNEE_ZERO[i][j]=2469.23;
 					}
 				} else {
-					for (int j=0;j<3;j++){
+					for (int j=0;j<9;j++){
 						VENTES_ANNEE_ZERO[i][j]=669.24;
 					}
 				}
@@ -58,7 +59,7 @@ public class Ventes {
 	
 	/*methode qui rajoute les ventes reelles du step a la variable*/
 	
-	public void actualiserVentes(ArrayList<CommandeDistri> venteEffective){
+	public void actualiserVentes(List<CommandeDistri> venteEffective){
 		Double[] x = {0.0,0.0,0.0};
 		for (CommandeDistri co : venteEffective){
 			if (co.getProduit().getNomProduit()=="50%"){
@@ -71,6 +72,9 @@ public class Ventes {
 				}
 			}
 		} this.addVentes(x);
+
+		//a complï¿½ter : prendre le nombre de clients pour chaque produit du marche consommateurs et les rajouter aux ventes
+
 	}
 
 }

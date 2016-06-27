@@ -66,6 +66,18 @@ public class ResteDesDistributeurs{
 			// TODO Auto-generated method stub
 			return null;
 		}
+
+		@Override
+		public Double getStock(Produit p, ITransformateurD t) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Double getPrixVente(Produit p, ITransformateurD t) {
+			// TODO Auto-generated method stub
+			return null;
+		}
 	}
 	public ResteDesDistributeurs(Lindt lindt, VenteDist venteDist) {
 		this.commande = new ArrayList<CommandeDistri>();
@@ -75,7 +87,7 @@ public class ResteDesDistributeurs{
 	}
 	
 	// prendre les commandes finales de leclerc et carrefour et les multiplier par 3 pour obtenir les commandes du 3eme distributeur.
-	//Ne pas oublier de les rajouter Ã  l'historique de commande distri!
+	//Ne pas oublier de les rajouter à l'historique de commande distri!
 	
 	public List<CommandeDistri> commandesDistributeurRestant(){
 		List<CommandeDistri> commandesResteDuMonde= new ArrayList<CommandeDistri>();
@@ -86,8 +98,8 @@ public class ResteDesDistributeurs{
 				commandesResteDuMonde.add(cd);
 				commandesResteDuMonde.get(i).setAcheteur(distributeurRestant);
 				
-				double qteCommandeResteDuMonde=ratioCommandeResteDuMonde*cd.getQuantite();//quantitÃ© que le distributeur restant doit commander
-				commandesResteDuMonde.get(i).setQuantite(qteCommandeResteDuMonde);//mise Ã  jour de la bonne quantitÃ© dans la commande
+				double qteCommandeResteDuMonde=ratioCommandeResteDuMonde*cd.getQuantite();//quantité que le distributeur restant doit commander
+				commandesResteDuMonde.get(i).setQuantite(qteCommandeResteDuMonde);//mise à jour de la bonne quantité dans la commande
 				lindt.getHistCommandeDistri().ajouter(cd);
 				i++;
 			}
