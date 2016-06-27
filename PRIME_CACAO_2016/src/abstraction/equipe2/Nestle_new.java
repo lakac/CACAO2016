@@ -353,7 +353,7 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 	}
 	
 	public void creer(Monde monde) {
-		this.iTresorerie = new Indicateur("Fonds propres de Nestle", this, this.getTresorerie().getFonds());
+		this.iTresorerie = new Indicateur("Solde de Nestle", this, this.getTresorerie().getFonds());
 		Monde.LE_MONDE.ajouterIndicateur(iTresorerie);
 		this.iStockcacao = new Indicateur("Stock cacao de Nestle", this, this.getStockcacao().getStockcacao().get(Constante.CACAO));
 		Monde.LE_MONDE.ajouterIndicateur(iStockcacao);

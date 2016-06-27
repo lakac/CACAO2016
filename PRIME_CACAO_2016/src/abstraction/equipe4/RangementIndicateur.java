@@ -25,7 +25,7 @@ public class RangementIndicateur {
 		this.indicateurs.add(Monde.LE_MONDE.getIndicateur("Stock de 70% de Lindt"));
 		this.indicateurs.add(Monde.LE_MONDE.getIndicateur("Solde de Lindt"));
 		this.indicateurs.add(Monde.LE_MONDE.getIndicateur("Stock cacao de Nestle"));
-		this.indicateurs.add(Monde.LE_MONDE.getIndicateur("Fonds propres de Nestle"));
+		this.indicateurs.add(Monde.LE_MONDE.getIndicateur("Solde de Nestle"));
 		this.indicateurs.add(Monde.LE_MONDE.getIndicateur("Solde de Leclerc"));
 		this.indicateurs.add(Monde.LE_MONDE.getIndicateur("Stock de 50% de marque Lindt de Carrefour"));
 		this.indicateurs.add(Monde.LE_MONDE.getIndicateur("Stock de 60% de marque Lindt de Carrefour"));
