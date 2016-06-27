@@ -78,10 +78,6 @@ public class Producteur implements Acteur, IProducteur {
 
 	// Methodes de l'interface IProducteur
 
-	public double annonceQuantiteMiseEnVente(ITransformateurP t) {
-		return 0.0; // ancienne méthode
-	}
-
 	public double annonceQuantiteProposee() {
 		return this.getQuantiteProposee();
 	}
@@ -89,6 +85,7 @@ public class Producteur implements Acteur, IProducteur {
 	public void notificationVente(CommandeProduc c) {
 		this.stock.retirerVente(this, c.getQuantite());
 		this.setTresorerie(this.getTresorerie() + c.getQuantite()*c.getPrixTonne());
+		this.journal.ajouter("Vente de "+c.getQuantite()+" t à "+c.getPrixTonne()+" euros/t.");
 	}
 
 	// Methodes privees

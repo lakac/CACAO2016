@@ -96,11 +96,7 @@ public class MondeV1 extends Monde {
 		t3.ajouterTransformateur(nestle);
 		t3.ajouterTransformateur(lindt);
 		
-		/*p1.ajouterTransformateur(nestle);
-		p1.ajouterTransformateur(lindt);
-		p1.ajouterTransformateur(t3);*/
 
-		
 
 		marcheProducteur.AjoutProducteur(p1);;
 		marcheProducteur.AjoutProducteur(p2);
