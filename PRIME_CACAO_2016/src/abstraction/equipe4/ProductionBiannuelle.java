@@ -51,6 +51,7 @@ public class ProductionBiannuelle {
 	// ces pertes sont aleatoire et represente les effets des aleas metheorologiques sur les recoltes.
 	public double perteAleatoire() { 
 		double PerteAleatoire = Math.random()*0.2+0.2;
+
 		return PerteAleatoire;	
 	}
 
