@@ -82,6 +82,7 @@ public class Producteur implements Acteur,IProducteur{
 		return this.getOffre().offre();
 	}
 
+	
 	//Modification du stock et de la tresorerie suite a une vente
 	public void venteRealisee(CommandeProduc c) {
 		// modifie la tresorerie
