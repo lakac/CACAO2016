@@ -30,4 +30,8 @@ public abstract class Commande {
 	public void setPrixTonne(double prixTonne) {
 		this.prixTonne = prixTonne;
 	}
+	
+	public String toString() {
+		return "com " + this.getQuantite();
+	}
 }
