@@ -6,7 +6,6 @@ import abstraction.fourni.Journal;
 import abstraction.fourni.Monde;
 import abstraction.commun.CommandeProduc;
 import abstraction.commun.IProducteur;
-import abstraction.commun.ITransformateurP;
 
 import java.util.Random;
 
@@ -38,7 +37,9 @@ public class Producteur implements Acteur, IProducteur {
 	private double coutProduction;
 	
 	//juste un constructeur pour les test de Nestle
+	// @author : equipe 2
 	public Producteur(String nom) {
+		
 	}
 	
 	// Variable d'echange
