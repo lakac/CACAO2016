@@ -139,7 +139,8 @@ public class MarcheProd implements Acteur{
 		this.ActualisationCours();
 		//on repartit les commandes equitablement
 		if (this.getQuantiteTotaleDemandee()!=0.0 && this.getQuantiteTotaleFournie()!=0.0){
-		if (this.getQuantiteTotaleDemandee()>this.getQuantiteTotaleFournie()){
+		
+			if (this.getQuantiteTotaleDemandee()>this.getQuantiteTotaleFournie()){
 			
 			//si la demande est plus forte, les producteurs vendent tout et on repartit, proportionellement a leur demande,le cacao au transformateurs 
 			for(IProducteur p : this.getProducteurs()){
