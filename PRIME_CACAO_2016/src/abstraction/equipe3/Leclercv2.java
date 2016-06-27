@@ -1,14 +1,13 @@
 package abstraction.equipe3;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import abstraction.commun.Catalogue;
 import abstraction.commun.CommandeDistri;
 import abstraction.commun.IDistributeur;
 import abstraction.commun.ITransformateurD;
-import abstraction.commun.MarcheConsommateurs;
+import abstraction.commun.MarcheCons;
 import abstraction.commun.MarcheDistributeur;
 import abstraction.commun.Produit;
 import abstraction.fourni.Acteur;
@@ -21,6 +20,15 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	private Ventes ventes;
 	private Stock stock;
 	private Indicateur solde; //SoldeDeLeclerc
+	private Indicateur stock1;  //Stock de 50% de Lindt
+	private Indicateur stock2;  //Stock de 60% de Lindt
+	private Indicateur stock3;  //Stock de 70% de Lindt
+	private Indicateur stock4;  //Stock de 50% de Nestle
+	private Indicateur stock5;  //Stock de 60% de Nestle
+	private Indicateur stock6;  //Stock de 70% de Nestle
+	private Indicateur stock7;	//Stock de 50% du troisiﾃｨme transformateur
+	private Indicateur stock8;	//Stock de 60% du troisiﾃｨme transformateur
+	private Indicateur stock9;	//Stock de 70% du troisiﾃｨme transformateur
 	private PrixDeVente prixdevente;
 	private ArrayList<Double> ratio;
 	private ArrayList<ITransformateurD> transformateurs;
@@ -30,14 +38,31 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		this.nom=nom;
 		this.produits=produits;
 		this.solde = new Indicateur("Solde de Leclerc", this, 1000000.0);
-		Monde.LE_MONDE.ajouterIndicateur( this.solde );
     	this.transformateurs = new ArrayList<ITransformateurD>();
 		this.ratio = new ArrayList<Double>();
-		Monde.LE_MONDE.ajouterIndicateur( this.solde );
 		this.transformateurs = new ArrayList<ITransformateurD>();
 		this.ventes=new Ventes();
-		this.stock= new Stock(new ArrayList<Double[]>(), 0.0);
+		this.stock= new Stock();
+		this.stock1 = new Indicateur("Stock de 50% de Lindt de " + this.nom, this, 0);
+		this.stock2 = new Indicateur("Stock de 60% de Lindt de " + this.nom, this, 0);
+		this.stock3 = new Indicateur("Stock de 70% de Lindt de " + this.nom, this, 0);
+		this.stock4 = new Indicateur("Stock de 50% de Nestle de " + this.nom, this, 0);
+		this.stock5 = new Indicateur("Stock de 60% de Nestle de " + this.nom, this, 0);
+		this.stock6 = new Indicateur("Stock de 70% de Nestle de " + this.nom, this, 0);
+		this.stock7 = new Indicateur("Stock de 50% de 3eme transfo de " + this.nom, this, 0);
+		this.stock8 = new Indicateur("Stock de 60% de 3eme transfo de " + this.nom, this, 0);
+		this.stock9 = new Indicateur("Stock de 70% de 3eme transfo de " + this.nom, this, 0);
 		this.prixdevente=new PrixDeVente();
+		Monde.LE_MONDE.ajouterIndicateur(this.solde);
+		Monde.LE_MONDE.ajouterIndicateur(this.stock1);
+		Monde.LE_MONDE.ajouterIndicateur(this.stock2);
+		Monde.LE_MONDE.ajouterIndicateur(this.stock3);
+		Monde.LE_MONDE.ajouterIndicateur(this.stock4);
+		Monde.LE_MONDE.ajouterIndicateur(this.stock5);
+		Monde.LE_MONDE.ajouterIndicateur(this.stock6);
+		Monde.LE_MONDE.ajouterIndicateur(this.stock7);
+		Monde.LE_MONDE.ajouterIndicateur(this.stock8);
+		Monde.LE_MONDE.ajouterIndicateur(this.stock9);
 		// TODO Auto-generated constructor stub
 	}
 	public Stock getStock(){
@@ -62,25 +87,35 @@ public class Leclercv2 implements Acteur,IDistributeur{
 		return this.transformateurs;
 	}
 	
-	/*methode qui classe les transfos du moins cher au sens du produit p au plus cher*/
+	/*methode qui initialise le ratio*/
+	
+	public void initialiseRatio(){
+		this.ratio.add(0.13);
+		this.ratio.add(0.04);
+	}
+	
+	/*methode qui classe les transfos du moins cher au plus cher au sens du produit p*/
 	
 	public List<ITransformateurD> Classerparprix(Produit p){ 
 		List<ITransformateurD> liste = new ArrayList<ITransformateurD>();
-		List<ITransformateurD> transfo=this.getTransformateurs();
-		int i=0;
+		List<ITransformateurD> transfo=new ArrayList<ITransformateurD>(); 
+		
+		transfo.addAll(this.getTransformateurs());
+		
+		
 		int n;
-		while(transfo!=null){
+		while(transfo!=null && !transfo.isEmpty()){
 			double a=transfo.get(0).getCatalogue().getTarif(p).getPrixTonne();
 			n=0;
 			for (int j=0;j<transfo.size();j++){
 				if (transfo.get(j).getCatalogue().getTarif(p).getPrixTonne()<a){
 					a=transfo.get(j).getCatalogue().getTarif(p).getPrixTonne();
 					n=j;
-					liste.set(i, transfo.get(j));
+					
 				}	
 			}
-		transfo.remove(n);
-		i++;	
+		liste.add(transfo.get(n));
+		transfo.remove(n);	
 		}
 		return liste;
 	}
@@ -90,11 +125,11 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	public ITransformateurD TransfoSuivant(CommandeDistri c){
 		List<ITransformateurD> liste = Classerparprix(c.getProduit());
 		int i;
-		if (c.getVendeur()==liste.get(0)){
+		if (c.getVendeur().equals(liste.get(0))){
 			i=0;
 		}
 		else{
-			if (c.getVendeur()==liste.get(1)){
+			if (c.getVendeur().equals(liste.get(1))){
 				i=1;
 			}
 			else{
@@ -107,19 +142,57 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	
 
 	/*methode qui fait la moyenne des ventes de ce step des annees passees pour avoir une idee 
-	 * du nombre de clients a ce step */
+	  du nombre de clients a ce step */
 
 
 	public List<CommandeDistri> Demande(ITransformateurD t, Catalogue c) {
-
-		Double[] x = {0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donn� sur toutes les ann�es
-		Double[] sto = {0.0,0.0,0.0};
-		for (int i=0; i<this.transformateurs.size();i++){
-			if (t.equals(this.transformateurs.get(i))){
-				sto = this.stock.getStock(t);
+		Double[] x = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donne sur toutes les annees
+		Double[] sto = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+		for (int i=0; i<9; i++ ) {
+			sto[i] = this.getStock().getStock(t,i);
+		}
+		int l =0;
+		for (int j=0; j<Monde.LE_MONDE.getStep()+25;j+=26) {
+			for (int k=0; k<9; k++) {
+				x[k]+=this.getVentes().getVentes(j)[k];
 			}
-		} int l = 0;
+			for (int m=0; m<x.length;m++){
+				System.out.println("Leclerc ventes :"+this.ventes.getVentes(j)[m]);
+				x[m]+=this.ventes.getVentes(j)[m];
+			}
+			l++;
+		}
+		for (int m=0; m<x.length;m++){
+			x[m]=x[m]/l;
+		}
+		List<CommandeDistri> list = new ArrayList<CommandeDistri>();
+		for (Produit p : c.getProduits()){
+			CommandeDistri co = new CommandeDistri(this, t, p, 0, c.getTarif(p).getPrixTonne(), Monde.LE_MONDE.getStep()+3, false);
+			list.add(co);
+		}
+		for (int j = 0; j<this.getTransformateurs().size();j++){
+			if (t.equals(this.getTransformateurs().get(j))){
+				for (int i=0;i<x.length; i++){
+					list.get(i).setQuantite(this.ratio.get(j)*x[i]-sto[i]);
+				}
+			}
+		}
+		return list;
+	}
+
+	public List<CommandeDistri> demande(ITransformateurD t, Catalogue c) {
+		
+		Double[] x = {0.0,0.0,0.0}; //moyenne des ventes des produit pour un step donn�ｿｽ sur toutes les annees
+		Double[] sto = {0.0,0.0,0.0};
+		sto[0] = this.getStock().getStock(t,0);
+		sto[1] = this.getStock().getStock(t,1);
+		sto[2] = this.getStock().getStock(t,2);
+		int l = 0;
 		for (int j=0; j<Monde.LE_MONDE.getStep()+25;j+=26){
+			x[0]+=this.getVentes().getVentes(j)[0];
+			x[1]+=this.getVentes().getVentes(j)[1];
+			x[2]+=this.getVentes().getVentes(j)[2];
+
 			for (int m=0; m<x.length;m++){
 				System.out.println("Leclerc ventes :"+this.ventes.getVentes(j)[m]);
 				x[m]+=this.ventes.getVentes(j)[m];
@@ -132,39 +205,36 @@ public class Leclercv2 implements Acteur,IDistributeur{
 			CommandeDistri co = new CommandeDistri(this, t, p, 0, c.getTarif(p).getPrixTonne(), Monde.LE_MONDE.getStep()+3, false);
 			list.add(co);
 		}
-		for (int i=0;i<x.length; i++){
-			list.get(i).setQuantite(this.ratio.get(i)*x[i]-sto[i]);
-		} 
+		for (int j = 0; j<this.getTransformateurs().size();j++){
+			if (t.equals(this.getTransformateurs().get(j))){
+				for (int i=0;i<x.length; i++){
+					list.get(i).setQuantite(this.ratio.get(j)*x[i]-sto[i]);
+				}
+			}
+		}
 		return list;
 	}
 	
-	/*methode qui change la quantite et passe au transfo suivant de la CommandeDistri c dans la List<CommandeDistri>
-	 * ie on met a jour la commande c dans la liste pour renvoyer la nouvelle demande*/
+	/*Contre Demande prend notre demande precedente et la reponse des transformateurs a cette demande, et renvoie cette reponse en rajoutant des 
+	 * des commandes pour combler les quantites que les transformateurs ne peuvent pas livrer*/
 
-	public void ActualiserCommande(List<CommandeDistri> cd, CommandeDistri c){
-		for (int i=0;i<cd.size();i++){
-			if (cd.get(i).equals(c)){
-				double q = cd.get(i).getQuantite()-c.getQuantite();
-				boolean valid = (cd.get(i).getQuantite()-c.getQuantite()==0);
-				ITransformateurD vendeur = c.getVendeur();
-				if(!valid){
-					vendeur=TransfoSuivant(c);
-				}
-				CommandeDistri commande=new CommandeDistri(c.getAcheteur(), vendeur, c.getProduit(), q, c.getPrixTonne(), c.getStepLivraison(), valid);
-				cd.set(i,commande);
-			}
-		
-		}
-	}
-	
-	/*utilise la methode precedente avec toutes les commandes de l'ancienne liste pour renvoyer une liste
-	 * actualisee*/
 
 
 	public List<CommandeDistri> contreDemande(List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne) {
 		List<CommandeDistri> a = ancienne;
 		for (CommandeDistri c : nouvelle){
-			this.ActualiserCommande(a, c);			
+			a.add(c);
+		}
+		for (int i=0;i<nouvelle.size();i++){
+			double q = ancienne.get(i).getQuantite()-nouvelle.get(i).getQuantite();
+			if (q!=0){
+				ITransformateurD tSuivant = this.TransfoSuivant(ancienne.get(i));
+				Produit p = ancienne.get(i).getProduit();
+				double prixTonne=ancienne.get(i).getPrixTonne();
+				int step = ancienne.get(i).getStepLivraison();
+				CommandeDistri nouvelleCommande = new CommandeDistri(this,tSuivant,p,q,prixTonne,step,false);
+				a.add(nouvelleCommande);
+			}	
 		}
 		return a;
 	}
@@ -173,99 +243,78 @@ public class Leclercv2 implements Acteur,IDistributeur{
 	
 	public double recette(){
 		double recette = 0.0;
-		int j =0;
-		for (Produit p : this.getProduits()){ 
-			recette+=MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.getVenteDistri(this).get(p)*this.prixdevente.getPrixDeVente().get(j);
-			j++;
-		}
+		List<CommandeDistri> venteeffectuees =  MarcheCons.LE_MARCHE_CONS.getVenteDistri(this);
+			for (CommandeDistri com : venteeffectuees){
+				Produit p = com.getProduit();
+					recette+=com.getQuantite()*this.prixdevente.getPrixDeVente(p,com.getVendeur());
+			}			
 		return recette;
 	}
 	
 	/*methode qui renvoie les pertes provenant des frais de stockage et de l'achat du chocolat aux tranfos*/
 	
-	public double depenses(List<CommandeDistri> l){
+	public double depenses(){
+		List<CommandeDistri> commandefinale = new ArrayList<CommandeDistri>();
+		for (CommandeDistri c :MarcheDistributeur.LE_MARCHE_DISTRIBUTEUR.getCommandeFinale()){
+			if (c.getAcheteur()==this){
+				commandefinale.add(c);
+			}
+		}
 		double depenses = 0.0;
-		depenses+=this.stock.getFraisDeStockTotal();
-		for (CommandeDistri com : l){
+		depenses+=this.getStock().getFraisDeStockTotal();
+		for (CommandeDistri com : commandefinale){
 			depenses+=com.getPrixTonne()*com.getQuantite();
 		}
 		return depenses;
 	}
 	
-	/*methode qui renvoie le stock du produit p, utilisee par LE_MARCHE_CONSOMMATEURS*/
+	/*methode qui renvoie le stock du produit p de la marque t, utilisee par LE_MARCHE_CONSOMMATEURS*/
 	
-	public Double getStock(Produit p) {
-		double x = 0;
+	public Double getStock(Produit p, ITransformateurD t) {
 		if (p.getNomProduit()=="50%"){
-			for (ITransformateurD t : this.transformateurs){
-				x+=this.stock.getStock(t,0);
+			return this.getStock().getStock(t,0);
 			}
-		} else {
+		else {
 			if (p.getNomProduit()=="60%"){
-				for (ITransformateurD t : this.transformateurs){
-					x+=this.stock.getStock(t,1);
+				return this.getStock().getStock(t,1);
 				}
-			} else {
-				for (ITransformateurD t : this.transformateurs){
-					x+=this.stock.getStock(t,2);
+			else {
+				return this.getStock().getStock(t,2);
 				}
-			}
-		} return x;
-	}
-	
-	/*methode qui renvoie le prix de vente du produit p, utilisee par LE_MARCHE_CONSOMMATEURS*/
-	
-	public Double getPrixVente(Produit p) {
-		if (p.getNomProduit()=="50%"){
-			return this.prixdevente.getPrixDeVente().get(0);
-		} else {
-			if (p.getNomProduit()=="60%"){
-				return this.prixdevente.getPrixDeVente().get(1);
-			} else {
-				return this.prixdevente.getPrixDeVente().get(2);
-			}
 		}
 	}
 	
+	/*methode qui renvoie le prix de vente du produit p de la marque t, utilisee par LE_MARCHE_CONSOMMATEURS*/
+	
+	public Double getPrixVente(Produit p, ITransformateurD t) {
+		return this.prixdevente.getPrixDeVente(p, t);
+	}
+	
 	public void next() {
-		/*
-		//r�cup�rer commande finale
-		List<CommandeDistri> commandefinale = MarcheDistributeur.LE_MARCHE_DISTRIBUTEUR.getCommandeFinale();
-		//r�cup�rer livraison effective
-		List<CommandeDistri> livraisoneffective = MarcheDistributeur.LE_MARCHE_DISTRIBUTEUR.getLivraisonglobale();
-		//recuperer ventes effectives
-		HashMap<Produit, Double> venteeffective = MarcheConsommateurs.LE_MARCHE_CONSOMMATEURS.getVenteDistri(this);
-		//g�rer le stock
-		this.getStock().ajouterStock(livraisoneffective);
-		//this.getStock().retirerStock(venteeffective);
-		//g�rer le solde
-		this.solde.setValeur(this, this.solde.getValeur()+recette()-depenses(commandefinale));
-		//g�rer ventes (rajouter ventes r�elles du step)
-		//this.getVentes().actualiserVentes(venteeffective);
-		//g�rer prixdevente
-		this.getPrixDeVente().actualisePrixDeVente();
+		/*//gerer le stock
+		this.getStock().ajouterStock(MarcheDistributeur.LE_MARCHE_DISTRIBUTEUR.getCommandeFinale());
+		this.getStock().retirerStock(MarcheCons.LE_MARCHE_CONS.getVenteDistri(this));
+		//gerer le solde
+		this.solde.setValeur(this, this.solde.getValeur()+recette()-depenses());
+		//gerer ventes (rajouter ventes reelles du step)
+		this.getVentes().actualiserVentes(MarcheCons.LE_MARCHE_CONS.getVenteDistri(this));
+		//gerer prixdevente
+		this.getPrixDeVente().actualisePrixDeVente();*/
 		// TODO Auto-generated method stub
-<<<<<<< HEAD
-
 		
 	}
 	@Override
-	public List<CommandeDistri> demande(ITransformateur t, Catalogue c) {
+	public Double getStock(Produit p) {
+		//va etre supprim�ｿｽe
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public List<CommandeDistri> contreDemande(List<CommandeDistri> nouvelle, List<CommandeDistri> ancienne) {
+	public Double getPrixVente(Produit p) {
+		//va �ｿｽtre supprimee
 		// TODO Auto-generated method stub
 		return null;
-=======
-		  */
+	}
 
-	}
-	@Override
-	public List<CommandeDistri> demande(ITransformateurD t, Catalogue c) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
 
