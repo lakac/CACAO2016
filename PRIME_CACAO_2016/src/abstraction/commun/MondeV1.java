@@ -1,4 +1,3 @@
-
 package abstraction.commun;
 
 import abstraction.fourni.Monde;
@@ -116,11 +115,12 @@ public class MondeV1 extends Monde {
 
 		//maj 31/05 Leclerc
 		Le.getStock().initialiseStock(Le);	
-
+		Le.initialiseRatio();
 		Le.getPrixDeVente().initialisePrixDeVente(Le, produits);
+		Le.getVentes().initialiseAnneeZero();
 		Le.getVentes().initialiseVentes();
 		MaDi.addDistributeur(Ca);
-		//MaDi.addDistributeur(Le);
+		MaDi.addDistributeur(Le);
 		MaDi.addTransformateur(lindt);
 		MaDi.addTransformateur(nestle);
 		for (Produit p : produits) {

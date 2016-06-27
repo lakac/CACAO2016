@@ -3,8 +3,10 @@ package abstraction.equipe6;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import abstraction.commun.ITransformateurD;
 import abstraction.commun.Produit;
+
 import abstraction.fourni.Acteur;
 import abstraction.fourni.Indicateur;
 
