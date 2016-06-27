@@ -172,12 +172,12 @@ public class Nestle_new implements Acteur, ITransformateurP, ITransformateurD {
 			System.out.println("Nestle"+this.getCommandeDistri(etape-2));
 			double quantitenecessaire = QuantiteCacaoNecessaire(this.getCommandeDistri(etape-1));
 			double quantitestockcacao = this.getStockcacao().getStockcacao().get(Constante.CACAO);
-			double quantitedemande=(quantitenecessaire - quantitestockcacao)*(1+Constante.MARGE_DE_SECURITE)*Constante.DEMANDE_ACTEURS;
-			if(quantitedemande<0){
+			if(quantitenecessaire-quantitestockcacao<0){
 				return 0;
+			}else{
+			return (quantitenecessaire - quantitestockcacao)*(1+Constante.MARGE_DE_SECURITE);
 			}
-			return quantitedemande;
-	}
+		}
 	
 	// Declenche la mise a jour de la tresorerie de du stock de CACAO
 	//et l'historique des commandes

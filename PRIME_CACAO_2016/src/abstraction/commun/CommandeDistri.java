@@ -6,13 +6,13 @@ package abstraction.commun;
  * @author equipe 5
  */
 
-
 public class CommandeDistri extends Commande {
 	private IDistributeur acheteur;
 	private ITransformateurD vendeur;
 	private Produit produit;
 	private boolean validation;
 	private int stepLivraison;
+	private double prix;
 	
 	//Ajout d'un constructeur simple pour les test (11/06, équipe 2)
 	public CommandeDistri(Produit produit, double quantite, double prixtonne) {
@@ -33,10 +33,18 @@ public class CommandeDistri extends Commande {
 		this.acheteur = acheteur;
 		this.vendeur = vendeur;
 		this.produit = produit;
-
+		this.prix = this.getQuantite()*this.getPrixTonne();
 		this.stepLivraison = stepLivraison;
 		this.validation = validation;
 	}
+	
+	public double getPrix() {
+				return prix;
+			}
+		
+			public void setPrix(double prix) {
+				this.prix = prix;
+			}
 
 
 	public Produit getProduit() {
