@@ -73,6 +73,7 @@ public class VenteDist {
 	//Cette fonction ne prend pas en compte le fait qu'on pourrait avoir un stock plus important au step n+3 grâce à la transformation
 
 	// On considère que 25% de notre stock de chocolat est pour Leclerc+Carrefour et 75% pour un 3eme distributeur
+	
 	public List<CommandeDistri> offre(List<CommandeDistri> listeCommandesDist){
 		
 
@@ -121,10 +122,9 @@ public class VenteDist {
 
 
 	/**
-	 * Fonction qui met à jour l'historique ie qui va changer dans l'historique de commande 
-	 * distri la quantité des commandes si ce n'est pas la meme que dans commande finale,
-	 *  c'est à dire qu'on livre moins que prévu, et qui va enlever les commandes livrées 
-	 *  de l'historique HistCommandeDistri pour les mettre dans l'historique CommandeDistriLivree
+	 * Fonction qui met à jour les historiques HistCommandeDistri et CommandeDistrilivree, ie qui va changer dans HistCommandeDistri la quantité des commandes
+	 *  au step de livraison si jamais on doit livrer moins que prévu, et qui les enlève de HistCommandeDistri pour les ajouter dans CommandeDistriLivree.
+	 *  
  	 */
 	public void MiseAJourHistCommandeDistri (){//XXX
 		List<CommandeDistri> Commandeslivrees = new ArrayList<CommandeDistri>();
