@@ -99,7 +99,8 @@ public class MondeV1 extends Monde {
 		t3.ajouterTransformateur(lindt);
 		
 
-		marcheProducteur.AjoutProducteur(p1);
+
+		marcheProducteur.AjoutProducteur(p1);;
 		marcheProducteur.AjoutProducteur(p2);
 		marcheProducteur.AjoutTransformateur(nestle);
 		marcheProducteur.AjoutTransformateur(lindt);

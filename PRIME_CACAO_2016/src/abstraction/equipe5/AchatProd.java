@@ -70,11 +70,11 @@ public class AchatProd {
 	 */
 	public CommandeInterne calculQuantiteDemandee(){
 		double besoinCacao=0;
-		// Creation de la liste des commandes au step n, n-1, n-2 et n-3
+		// Creation de la liste des commandes qui doivent être livré au step n, n+1, n+2 et n+3
 		List<CommandeDistri> listeCommandesDist= new ArrayList<CommandeDistri>();
 		for (int i=0 ; i<this.getHistD().getHist().size(); i++){
 			if (((CommandeDistri)this.getHistD().getCommande(i)).getStepLivraison()==Constante.stepCourant()
-					||((CommandeDistri)this.getHistD().getCommande(i)).getStepLivraison()==Constante.stepPrecedent()
+					||((CommandeDistri)this.getHistD().getCommande(i)).getStepLivraison()==Constante.stepSuivant()
 					||((CommandeDistri)this.getHistD().getCommande(i)).getStepLivraison()==Constante.step2() 
 					||((CommandeDistri)this.getHistD().getCommande(i)).getStepLivraison()==Constante.step3())
 				listeCommandesDist.add(((CommandeDistri)this.getHistD().getCommande(i)));
@@ -85,6 +85,8 @@ public class AchatProd {
 				if (c.getProduit().equals(Constante.LISTE_PRODUIT[i]))
 					besoinCacao += c.getQuantite()*Constante.LISTE_PRODUIT[i].getRatioCacao();
 		}}
+		
+		
 		double commandeP=0; // on prend en compte la quantité de cacao qui va etre livree a ce step
 		for (int i=0; i<lindt.getProducteurs().size() ; i++){
 			commandeP+= this.getHistP().getHist().get(this.getHistP().getHist().size()-i-1).getQuantite();
@@ -93,12 +95,23 @@ public class AchatProd {
 				+ lindt.getStockChocolat50().getStock()*Constante.LISTE_PRODUIT[0].getRatioCacao()
 				+ lindt.getStockChocolat60().getStock()*Constante.LISTE_PRODUIT[1].getRatioCacao()
 				+ lindt.getStockChocolat70().getStock()*Constante.LISTE_PRODUIT[2].getRatioCacao();
-
+		
+//		this.getJournal().ajouter("Quantite dans commande distributeur : " + besoinCacao);
+		
 		if (stockCacao-Constante.STOCK_MINIMAL_CACAO<besoinCacao){
 			besoinCacao=besoinCacao-stockCacao+Constante.STOCK_MINIMAL_CACAO;
 		}
 		
-//		// Calcul du prix d'achat : si au step prece on n'a pas eu ce qu'on veut, on n'achete plus chere
+//		this.getJournal().ajouter("Besoin Cacao Final : " + besoinCacao);
+
+// 		on a enleve le stock maximal car notre solde arrive trop rapidement a Infinity 
+//		et les couts de stock sont le seul moyen d'avoir des grosses depenses pas entierement couverte par les ventes
+//		if (lindt.getStockCacao().getStock()+commandeP+besoinCacao> Constante.STOCK_MAXIMAL_CACAO) {
+//				besoinCacao = 0;
+//		}
+		
+		
+//		// Calcul du prix d'achat : si au step precedent on n'a pas eu ce qu'on veut, on achete plus cher
 //		double prixDemande;
 //		if (quantiteDemandee < quantiteRecue) {
 //			prixDemande = MarcheProducteur.LE_MARCHE.getCours()*1.2;
@@ -106,15 +119,16 @@ public class AchatProd {
 //		else {
 //			prixDemande=0.95*MarcheProducteur.LE_MARCHE.getCours();
 //		}
+		
 		return new CommandeInterne(besoinCacao,0);
 	}
 	
 	
 	/**
-	 * Indique la quantite demandee au producteur autre que P3.
+	 * Indique la quantite demandee aux producteurs.
 	 */
 	public double annonceQuantiteDemandee(){ 
-		//this.quantiteDemandee = 0.6*this.calculQuantiteDemandee().getQuantite();
+//		this.getJournal().ajouter("Besoin en Cacao : " + this.calculQuantiteDemandee().getQuantite());
 		return this.calculQuantiteDemandee().getQuantite();
 	}
 	
@@ -124,11 +138,12 @@ public class AchatProd {
 	 */
 	public void notificationVente(CommandeProduc c) {
 		//this.quantiteRecue = c.getQuantite();
+		
 		this.getHistP().ajouter(c);
 		
 //		this.getJournal().ajouter("\n");
 //		this.getJournal().ajouter("Quantite recue : " + c.getQuantite());
-//		this.getJournal().ajouter("Quantite demandee : " + this.annonceQuantiteDemandee());
+//		this.getJournal().ajouter("Prix commande producteur :" + c.getPrixTonne());
 //		this.getJournal().ajouter("Stock avant ajout quantite recue : " + this.getStock().getStock());
 //		this.getJournal().ajouter("Quantite de cacao perdue : " + c.getQuantite()*Constante.perteCacao());
 		
@@ -143,7 +158,9 @@ public class AchatProd {
 		
 //		this.getJournal().ajouter("Treso apres : " + this.treso.toString());
 	}
+
 	
+
 //	/**
 //	 * Indique le prix propose au producteur .
 //	 */

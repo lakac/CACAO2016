@@ -47,9 +47,12 @@ public class Stock {
 			if (p.equals(h)){
 				if (this.getStock()-quantite*Constante.RATIO_CACAO_CHOCOLAT[i] >= 0) {
 					this.setStock(this.getStock()-quantite*Constante.RATIO_CACAO_CHOCOLAT[i]);
-				}}
+				}
+			}
 			i++;
-		}}
+		}
+	}
+	
 	
 	/**
 	 *fonction qui fait varier les stocks de chocolat en fonction des commandes passées au step n-3
